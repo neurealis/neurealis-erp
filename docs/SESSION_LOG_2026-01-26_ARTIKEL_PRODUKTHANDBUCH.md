@@ -1,13 +1,13 @@
 # Session Log: Artikel-Import aus Produkthandbuch
 
 **Datum:** 2026-01-26
-**Status:** Pausiert - Artikelnummern-Suche läuft noch
+**Status:** ✅ Abgeschlossen
 
 ---
 
 ## Zusammenfassung
 
-Import von ~205 Artikeln aus dem Produkthandbuch (Google Sheets) für die Auftraggeber GWS, covivio und WBG Lünen.
+Import von ~205 Artikeln aus dem Produkthandbuch (Google Sheets) für die Auftraggeber GWS, covivio und WBG Lünen. Anschließend Ergänzung von Artikelnummern und EAN-Codes durch automatisierte Web-Recherche.
 
 ---
 
@@ -59,99 +59,79 @@ Import von ~205 Artikeln aus dem Produkthandbuch (Google Sheets) für die Auftra
 
 ---
 
-## Aktueller Datenstand
+## Artikelnummern/EAN-Recherche (Session 2)
 
-| Metrik | Anzahl | Prozent |
-|--------|--------|---------|
-| Artikel gesamt | 753 | 100% |
-| Mit Artikelnummer | 589 | 78% |
-| Mit EAN | 111 | 15% |
-| Mit Foto | 42 | 6% |
-| Mit Shop-Link | 31 | 4% |
+### Methodik
+
+4 parallele Subagenten für automatisierte Web-Recherche:
+1. **Knauf** - knauf.de, hornbach.de, bauhaus.info
+2. **Ideal Standard** - idealstandard.de, skybad.de, sanitino.de
+3. **PCI + Brillux** - pci-augsburg.de, brillux.de
+4. **Kermi + Rest** - kermi.de, hmheizkoerper.de, keuco.com
+
+### Ergebnisse nach Hersteller
+
+| Hersteller | Aktualisiert | Quellen |
+|------------|--------------|---------|
+| Knauf | 16 Artikel | knauf.de, hornbach.de |
+| Ideal Standard | 14 Artikel | skybad.de, sanitino.de, megabad.com |
+| PCI | 11 Artikel | pci-augsburg.de, bauchemie24.de |
+| Brillux | 10 Artikel | brillux.de, wohntrends-shop.com |
+| Kermi | 8 Artikel | kermi.de |
+| HM Heizkörper | 4 Artikel | hmheizkoerper.de |
+| KEUCO | 4 Artikel | keuco.com |
+| Stiebel Eltron | 2 Artikel | stiebel-eltron.de |
+| Merten | 2 Artikel | merten.de |
+| Vitra | 2 Artikel | vitra.com |
+
+### Beispiele gefundener Daten
+
+| Hersteller | Produkt | Artikelnr | EAN |
+|------------|---------|-----------|-----|
+| Knauf | Sperrgrund 5kg | 89139 | 4006379067695 |
+| Knauf | Tiefengrund 1l | 265700 | 5901793357409 |
+| Knauf | Trenn-Fix 65mm | 57871 | 4003982159212 |
+| Ideal Standard | i.life B Waschtisch 55cm | T461101 | 8014140503736 |
+| Ideal Standard | i.life B WC-Sitz Softclosing | T468301 | 8014140486169 |
+| PCI | Lastogum 8kg | 2441 | 4083200024416 |
+| PCI | Silcofug E | 2981 | 4083200029817 |
+| Brillux | Heizkörperlack 990 | 990.0003.95 | 4006559216127 |
 
 ---
 
-## Online-Suche: Bereits ergänzte Daten
+## Finaler Datenstand
 
-| Hersteller | Artikel | Artikelnr | EAN |
-|------------|---------|-----------|-----|
-| Knauf | Rotband Pro | 10264 | 4003982185440 |
-| Knauf | MP 75 Diamant | 10258 | - |
-| Knauf | MP 75 L | 10257 | - |
-| Brillux | Superlux ELF 3000 | 3000001095 | 4006559359718 |
-| Ideal Standard | i.life B Wand-WC | T461401 | 8014140486008 |
-| Stiebel Eltron | ETS 300 PLUS | 236425 | 4017212364253 |
-| Stiebel Eltron | ETS 400 PLUS | 236426 | 4017212364260 |
-| Stiebel Eltron | ETS 500 PLUS | 236427 | 4017212364277 |
-| Stiebel Eltron | ETS 600 PLUS | 236428 | 4017212364284 |
-| PCI | Nanofug Premium | 3004 | 4083200030042 |
-| Geberit | Renova Comfort | 500694011 | 4025410598950 |
-| Hoppe | Amsterdam Drückergarnitur | 3289719 | 4012789523744 |
-| IMI Heimeier | Eclipse 1/2" Eck | 3931-02.000 | 4024052929412 |
-| IMI Heimeier | Eclipse 3/8" | 3932-01.000 | 4024052929511 |
-| HM Heizkörper | Thetis 600x1500 | 64-15060 | - |
-| Kermi | LIGA Walk-In | KILITWF | - |
+| Metrik | Vorher | Nachher | Änderung |
+|--------|--------|---------|----------|
+| Artikel gesamt | 753 | 753 | - |
+| Mit Artikelnummer | 589 (78%) | **644 (85.5%)** | **+55** |
+| Mit EAN | 111 (15%) | **157 (20.8%)** | **+46** |
+| Mit Foto | 42 (6%) | 42 (6%) | - |
+| Mit Shop-Link | 31 (4%) | 31 (4%) | - |
 
 ---
 
 ## Offene Aufgaben (Nächste Session)
 
-### 1. Artikelnummern/EANs weiter suchen
+### 1. Restliche Artikelnummern (~109 Artikel)
 
-Hersteller mit den meisten fehlenden Artikelnummern:
-
-| Hersteller | Fehlend | Priorität |
-|------------|---------|-----------|
-| Knauf | ~20 | Hoch |
-| Ideal Standard | ~12 | Hoch |
-| Brillux | ~8 | Mittel |
-| Kermi | ~8 | Mittel |
-| PCI | ~10 | Mittel |
-| KEUCO | ~4 | Niedrig |
-| Gerflor | ~4 | Niedrig |
-| diverse | ~8 | Niedrig (generisch) |
+Hersteller mit fehlenden Daten:
+- diverse/generisch (~8)
+- Systemprodukte Knauf (D112.d, W112.de, W623.de - keine Einzelartikel)
+- Steuler Fliesengruppe (regionale Produkte)
 
 ### 2. Fotos ergänzen
 
-Viele Artikel haben bereits Foto-URLs aus dem Import. Fehlende Fotos können über Herstellerseiten oder Zander/GUT-Shops gesucht werden.
+Viele Artikel haben bereits Foto-URLs aus dem Import. Fehlende Fotos können über Herstellerseiten gesucht werden.
 
 ### 3. Shop-Links ergänzen
 
-Primäre Quellen:
-- zander.online (Elektro, Sanitär)
-- knauf.com (Trockenbau)
+Primäre Quellen für Shop-Links:
+- zander.online (Elektro)
+- gut.de (Sanitär, Heizung)
+- knauf-shop.de (Trockenbau)
 - brillux.de (Maler)
-- idealstandard.de (Sanitär)
-
----
-
-## Abfragen für Fortsetzung
-
-```sql
--- Artikel ohne Artikelnummer nach Hersteller
-SELECT hersteller, COUNT(*) as anzahl
-FROM bestellartikel
-WHERE (artikelnummer IS NULL OR artikelnummer = '')
-AND ist_aktiv = true
-AND hersteller IS NOT NULL
-GROUP BY hersteller
-ORDER BY anzahl DESC;
-
--- Artikel ohne EAN
-SELECT bezeichnung, hersteller, artikelnummer
-FROM bestellartikel
-WHERE (ean IS NULL OR ean = '')
-AND artikelnummer IS NOT NULL
-AND ist_aktiv = true
-ORDER BY hersteller, bezeichnung;
-
--- Artikel ohne Foto
-SELECT bezeichnung, hersteller, shop_url
-FROM bestellartikel
-WHERE (bild_url IS NULL OR bild_url = '')
-AND ist_aktiv = true
-ORDER BY hersteller, bezeichnung;
-```
+- keramundo.de (Fliesen)
 
 ---
 
@@ -194,3 +174,4 @@ ORDER BY hersteller, bezeichnung;
 ---
 
 *Erstellt: 2026-01-26*
+*Abgeschlossen: 2026-01-26*
