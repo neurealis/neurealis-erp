@@ -1,13 +1,13 @@
 # Session Status - Bestellsystem
 
-**Stand:** 2026-01-26 (aktualisiert)
+**Stand:** 2026-01-26 (Session 2)
 **Für Chat-Fortsetzung**
 
 ---
 
 ## Zusammenfassung
 
-Bestellmanagement-Backend fertig. Großhändler aus Monday.com importiert (20 aktiv). UI lädt Projekte und Großhändler aus Datenbank. Artikellisten noch offen.
+Bestellmanagement-Backend funktionsfähig. KI-Erkennung via `parse-bestellung` v9 repariert. **225 Artikel mit Embeddings** für semantische Suche. Großhändler aus Monday.com importiert (20 aktiv).
 
 ---
 
@@ -18,18 +18,25 @@ Bestellmanagement-Backend fertig. Großhändler aus Monday.com importiert (20 ak
 | Tabelle | Zeilen | Beschreibung |
 |---------|--------|--------------|
 | `grosshaendler` | 20 | Großhändler mit erweiterten Feldern |
-| `bestellartikel` | 0 | Artikelkatalog mit Embedding |
+| `bestellartikel` | 225 | Artikelkatalog **mit Embeddings** |
 | `bestellungen` | 0 | Bestellkopfdaten |
 | `bestellpositionen` | 0 | Einzelpositionen |
 | `mitarbeiter` | 0 | Auth-Verknüpfung |
 
+**Embeddings:**
+- `embedding` - Vektor für `bezeichnung` (225/225)
+- `embedding_kurz` - Vektor für `kurzbezeichnung` (225/225)
+
 **RPC-Funktion:** `match_bestellartikel` für semantische Artikelsuche
 
-### Edge Function
+### Edge Functions
 
 | Function | Version | Status |
 |----------|---------|--------|
-| `parse-bestellung` | v5 | ✅ JWT deaktiviert, funktioniert |
+| `parse-bestellung` | **v9** | ✅ Fix: `max_completion_tokens` für gpt-5.2 |
+| `generate-embeddings` | v2 | ✅ Batch-Generierung für Artikel |
+
+**Fix in v9:** OpenAI gpt-5.2 erfordert `max_completion_tokens` statt `max_tokens`.
 
 ### SvelteKit UI
 
@@ -37,9 +44,32 @@ Bestellmanagement-Backend fertig. Großhändler aus Monday.com importiert (20 ak
 |---------|--------|
 | Projekt-Dropdown | ✅ `monday_bauprozess` (Phasen 2,3,4) |
 | Großhändler-Dropdown | ✅ `grosshaendler` Tabelle |
-| KI-Erkennung | ✅ Edge Function verbunden |
-| Artikel-Tabelle | ❌ Demo-Daten |
+| KI-Erkennung | ✅ **Funktioniert** (Test: "10 Steckdosen und 5 Schalter") |
+| Artikel-Tabelle | ⚠️ Zeigt KI-Ergebnisse, keine manuelle Bearbeitung |
 | Bestellung speichern | ❌ Noch nicht implementiert |
+
+---
+
+## Getestete KI-Erkennung
+
+```bash
+# Test-Befehl
+curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/parse-bestellung" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "10 Steckdosen und 5 Schalter"}'
+
+# Ergebnis
+{
+  "success": true,
+  "items": [
+    {"bezeichnung": "Steckdosen", "menge": 10, "confidence": 0.66},
+    {"bezeichnung": "Gira Wechselschalter Einsatz 10A 250V", "menge": 5,
+     "confidence": 1.0, "artikel_id": "...", "artikelnummer": "10600"}
+  ]
+}
+```
+
+→ "Schalter" wurde semantisch zum Gira Wechselschalter gematcht!
 
 ---
 
@@ -55,51 +85,23 @@ Bestellmanagement-Backend fertig. Großhändler aus Monday.com importiert (20 ak
 | werkzeug | 1 | Würth |
 | sonstiges | 6 | Amazon, Hellweg, Hornbach, etc. |
 
-**Zander:** Multi-Sortiment (elektro, sanitaer, heizung, klima)
-
 ---
 
-## Was fehlt
+## Was fehlt (Nächste Session)
 
-### Priorität 1 - Großhändler-Daten
+### Priorität 1 - UI vervollständigen
+- [ ] Artikel-Tabelle bearbeitbar machen
+- [ ] Bestellung speichern (INSERT in `bestellungen` + `bestellpositionen`)
+- [ ] Erfolgsmeldung nach Speichern
+
+### Priorität 2 - Großhändler-Daten
 - [ ] Kundennummern eintragen
 - [ ] Konditionen (Rabatt, Skonto, Zahlungsziel)
-- [ ] Lieferbedingungen (Mindestbestellwert, Frei ab)
 - [ ] Bestellschluss-Zeiten
 
-### Priorität 2 - Artikellisten
-- [ ] Excel/CSV importieren
-- [ ] Embeddings generieren
-- [ ] UI auf echte Artikel umstellen
-
 ### Priorität 3 - Workflow
-- [ ] Bestellung speichern
 - [ ] Auth für Mitarbeiter
-- [ ] E-Mail-Versand
-
----
-
-## Tabellenstruktur `grosshaendler`
-
-```sql
--- Stammdaten
-name, kurzname, typ, sortiment[], kundennummer
-
--- Bestellung
-bestellweg, bestell_email, bestell_telefon, bestellung_bis, shop_url
-
--- Konditionen
-rabatt_prozent, skonto_prozent, skonto_tage, zahlungsziel_tage, zahlart
-
--- Lieferung
-lieferzeit_werktage, lieferkosten, mindestbestellwert, versandkostenfrei_ab
-
--- Bewertung
-bewertung_preise, bewertung_kooperation, bewertung_lieferung (1-5)
-
--- Ansprechpartner
-ansprechpartner_name, ansprechpartner_telefon, ansprechpartner_email
-```
+- [ ] E-Mail-Versand an Großhändler
 
 ---
 
@@ -108,11 +110,15 @@ ansprechpartner_name, ansprechpartner_telefon, ansprechpartner_email
 ```bash
 # Dev-Server starten
 cd C:\Users\holge\neurealis-erp\ui && npm run dev
+# Oder mit Unix-Pfad in Git Bash:
+cd /c/Users/holge/neurealis-erp/ui && npm run dev
 
 # Läuft auf http://localhost:5173/bestellung
 
-# Großhändler prüfen
-# Supabase Dashboard oder MCP
+# Embeddings neu generieren (falls neue Artikel)
+curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/generate-embeddings" \
+  -H "Content-Type: application/json" \
+  -d '{"limit": 500}'
 ```
 
 ---
@@ -122,9 +128,19 @@ cd C:\Users\holge\neurealis-erp\ui && npm run dev
 | Pfad | Beschreibung |
 |------|--------------|
 | `docs/NEUREALIS_BESTELLSYSTEM.md` | Hauptdokumentation |
-| `docs/SESSION_LOG_2026-01-26_BESTELLSYSTEM_GROSSHAENDLER.md` | Diese Session |
 | `ui/src/routes/bestellung/+page.svelte` | Bestellformular |
+| `functions/supabase/functions/parse-bestellung/` | KI-Parsing (lokal) |
+| `functions/supabase/functions/generate-embeddings/` | Embedding-Generator |
 
 ---
 
-*Aktualisiert: 2026-01-26*
+## Änderungen dieser Session
+
+1. **parse-bestellung v9**: Fix `max_completion_tokens` für gpt-5.2
+2. **generate-embeddings v2**: Neue Edge Function für Batch-Embeddings
+3. **Migration**: `embedding_kurz` Spalte + Index hinzugefügt
+4. **225 Embeddings generiert**: Für bezeichnung + kurzbezeichnung
+
+---
+
+*Aktualisiert: 2026-01-26 Session 2*
