@@ -45,6 +45,7 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Mängelmanagement** | **Fertig** | v6.1: Trigger-basiert, Approve/Reject-Buttons |
 | **Kontaktmanagement** | **Fertig** | v1.0: 5 Tabellen, 3 Sync-Functions (Hero, Monday, MS365) |
 | **Hero Document Sync** | **Fertig** | v1.0: Cron alle 15 Min, 639 Dokumente, Dokumenttyp-Logik |
+| **Hero LV Sync** | **Fertig** | v7: Kategorie, EK+Listenpreis, 2.028 Positionen |
 | **Bestellsystem** | **In Entwicklung** | SvelteKit UI, mehrsprachige KI-Eingabe |
 | Telegram Bot | Konfiguriert | Separater Bot (nicht @LifeOps2026Bot) |
 
@@ -155,7 +156,8 @@ cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 |------------|--------|---------|
 | **Tabellen** | 25 | + 2 Views |
 | **RPC Functions** | 14 | Supabase Server-Funktionen |
-| **LV-Positionen** | 1.572 | Leistungsverzeichnis |
+| **LV-Positionen** | 2.028 | 6 LV-Typen, 23 Gewerke |
+| **Artikel** | 76 | Einkaufsware (Zander, etc.) |
 | **Monday Items** | 193 | Bauprozess-Board |
 | **Matterport Spaces** | 25 | 3D-Scans |
 | **Nachträge** | 3 | Trigger-basiert |
