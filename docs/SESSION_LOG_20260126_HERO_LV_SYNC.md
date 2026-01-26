@@ -177,12 +177,56 @@ Trockenbau
 
 ---
 
+## Finaler Stand
+
+### LV-Typen (aktiv)
+| LV-Typ | Anzahl |
+|--------|--------|
+| covivio | 1.168 |
+| VBW | 313 |
+| **neurealis** | **234** |
+| Privat | 143 |
+| GWS | 112 |
+| WBG Lünen | 58 |
+| Artikel | 76 |
+
+### Datenbank-Constraint
+```sql
+CHECK (lv_typ IN ('covivio', 'GWS', 'Privat', 'VBW', 'WBG Lünen', 'neurealis', 'Artikel'))
+```
+
+### Edge Function Status
+- **hero-lv-sync v7** deployed (verify_jwt: false)
+- Cron: Noch nicht eingerichtet (manueller Aufruf)
+
+---
+
 ## Nächste Schritte
 
 1. Softr Dropdowns mit neuen Werten konfigurieren
 2. Filter `lv_typ != 'Artikel'` für LV-Ansicht
 3. Optional: Artikel-Tabelle für Bestellsystem nutzen
+4. Optional: Cron-Job für täglichen Hero-Sync einrichten
 
 ---
 
-*Dokumentiert am 2026-01-26*
+## Fortsetzung der Session
+
+Bei Fortsetzung dieser Arbeit:
+1. Edge Function `hero-lv-sync` ist auf v7
+2. Alle Gewerke sind auf generische Namen vereinheitlicht
+3. Artikel sind von LV-Positionen getrennt (lv_typ = 'Artikel')
+4. 234 neurealis-eigene Positionen mit korrekten Gewerken
+
+**Wichtige Tabelle:** `lv_positionen`
+- `artikelnummer` (UNIQUE)
+- `bezeichnung`
+- `preis` (EK)
+- `listenpreis` (VK)
+- `lv_typ`
+- `gewerk`
+- `aktiv` (boolean)
+
+---
+
+*Dokumentiert am 2026-01-26, 23:30 Uhr*
