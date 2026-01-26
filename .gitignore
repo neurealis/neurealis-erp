@@ -31,3 +31,6 @@ nul
 NUL
 con
 CON
+
+# Local Netlify folder
+.netlify
