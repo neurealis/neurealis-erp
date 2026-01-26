@@ -39,7 +39,8 @@ Das Bestellmanagement-Backend ist fertig, die UI nutzt teilweise noch Demo-Daten
 | `ui/src/lib/supabase.ts` | Client + parseArtikelText() |
 
 **UI-Lookups:**
-- ✅ Projekte → `matterport_spaces` (live)
+- ✅ Projekte → `matterport_spaces` (live, mit Vorauswahl)
+- ⚠️ Projekt-Filter → Soll auf Phasen (2) Auftrag, (3) Vorbereitung, (4) Umsetzung filtern (aus `monday_bauprozess`)
 - ❌ Großhändler → Demo-Daten (hardcoded)
 - ❌ Artikel → Demo-Daten (hardcoded)
 
@@ -58,8 +59,11 @@ Das Bestellmanagement-Backend ist fertig, die UI nutzt teilweise noch Demo-Daten
 1. UI auf neue Tabellen umstellen:
    - `grosshaendler` statt Demo-Array
    - `bestellartikel` statt Demo-Array
-2. Bestellung speichern implementieren
-3. Auth für Mitarbeiter-Login
+2. Projekt-Lookup erweitern:
+   - Quelle: `monday_bauprozess` statt nur `matterport_spaces`
+   - Filter: Nur Phasen (2) Auftrag, (3) Vorbereitung, (4) Umsetzung
+3. Bestellung speichern implementieren
+4. Auth für Mitarbeiter-Login
 
 ### Priorität 3 - Workflow
 
