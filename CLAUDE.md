@@ -63,6 +63,13 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Netlify** | neurealis-* Sites | UI Hosting |
 | **Telegram Bot** | Separater Bot | Baustellen-Kommunikation |
 
+### Team-Kontakte (WICHTIG)
+
+| Name | E-Mail | Rolle |
+|------|--------|-------|
+| **Tobias Rangol** | tobias.rangol@neurealis.de | Buchhaltung/Rechnungswesen |
+| Holger Neumann | holger.neumann@neurealis.de | Geschäftsführer |
+
 ### E-Mail Accounts (neurealis)
 
 | Adresse | Verwendung |
