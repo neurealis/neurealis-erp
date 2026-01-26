@@ -1,7 +1,8 @@
 # neurealis ERP - Bestellsystem
 
 **Stand:** 2026-01-26
-**Status:** Phase I - MVP
+**Version:** 1.1
+**Status:** Phase I - MVP (DB-Tabellen fertig, Edge Function deployed)
 **UI:** Netlify (neues Projekt, responsive, iframe-embedbar)
 
 ---
@@ -281,100 +282,141 @@ Bitte ATBS-Nr ATBS-450 auf der Rechnung vermerken!
 
 ---
 
-## Datenbank-Schema
+## Datenbank-Schema (Implementiert)
 
-### Tabelle: `suppliers` (Großhändler)
+> **Status:** ✅ Alle Tabellen angelegt am 2026-01-26
+
+### Tabelle: `grosshaendler`
 
 | Spalte | Typ | Beschreibung |
 |--------|-----|--------------|
 | id | uuid | PK |
-| kontakt_id | uuid | FK → softr_kontakte (für Zuordnung) |
-| name | text | G.U.T. Glaser, MEG, etc. |
+| kontakt_id | uuid | FK → kontakte |
+| name | text | NOT NULL - G.U.T. Glaser, MEG, etc. |
 | kurzname | text | GUT, MEG, ZANDER |
-| sortiment | text[] | ['SHK', 'Elektro'] |
-| email_bestellung | text | bestellung@gut-gruppe.de |
-| email_domains | text[] | ['@gut-gruppe.de', '@gc-gruppe.de'] (für Rechnungserkennung) |
+| typ | text | baustoff, sanitaer, elektro, farbe, werkzeug, sonstiges |
 | kundennummer | text | Unsere Kundennr beim Lieferanten |
-| lieferkosten_frei_ab | numeric | Frei-Haus-Grenze |
-| lieferzeit_tage | int | Standard-Lieferzeit |
-| ansprechpartner | text | Kontaktperson |
-| telefon | text | |
-| standort | text | Bochum, Dortmund, etc. |
-
-### Tabelle: `order_articles` (Bestellartikel)
-
-| Spalte | Typ | Beschreibung |
-|--------|-----|--------------|
-| id | uuid | PK |
-| supplier_id | uuid | FK → suppliers |
-| artikelnummer | text | Artikelnr beim Großhändler |
-| bezeichnung | text | Vollständige Bezeichnung (Backend) |
-| kurzname | text | **Anzeige im Formular** (z.B. "Dreifachrahmen") |
-| einheit | text | Stk, m, m², etc. |
-| ek_preis | numeric | Einkaufspreis netto |
-| aufschlag_prozent | numeric | Materialaufschlag % |
-| vk_preis | numeric | GENERATED: ek_preis * (1 + aufschlag/100) |
-| kunden | text[] | Auftraggeber-Filter (GWS, Covivio, etc.) |
-| kategorie | text | Elektro, Sanitär, Maler, etc. |
-| aktiv | boolean | Artikel bestellbar? |
-
-### Tabelle: `orders` (Bestellungen)
-
-| Spalte | Typ | Beschreibung |
-|--------|-----|--------------|
-| id | uuid | PK |
-| bestellnummer | text | GENERATED: BEST-{ATBS}-001 |
-| projekt_id | uuid | FK → bauprozess (ATBS) |
-| supplier_id | uuid | FK → suppliers |
-| status | int | 0-7 (siehe oben) |
-| bestelltyp | text | 'projekt' (Bauvorhaben) / 'allgemein' (später) |
-| lieferort | text | Projektadresse / Lager |
-| lieferort_typ | text | 'baustelle' / 'lager' |
-| ansprechpartner | text | |
+| bestellweg | text | telefon, email, portal, fax, app |
+| bestell_email | text | Bestellungs-E-Mail |
+| bestell_telefon | text | Bestellhotline |
+| bestell_fax | text | Fax für Bestellungen |
+| shop_url | text | Online-Shop URL |
+| rabatt_prozent | numeric(5,2) | Standard-Rabatt |
+| mindestbestellwert | numeric(10,2) | Mindestbestellwert |
+| versandkostenfrei_ab | numeric(10,2) | Frei-Haus-Grenze |
+| lieferzeit_werktage | int | Default: 2 |
+| ansprechpartner_name | text | Kontaktperson |
 | ansprechpartner_telefon | text | |
-| lieferdatum_gewuenscht | date | |
-| lieferdatum_bestaetigt | date | |
-| lieferkosten | numeric | |
-| summe_netto | numeric | GENERATED aus Positionen |
-| summe_brutto | numeric | GENERATED |
-| erstellt_von | uuid | FK → users |
-| erstellt_am | timestamptz | |
-| freigabe_von | uuid | FK → users (Bauleitung) |
-| freigabe_am | timestamptz | |
-| bestellt_am | timestamptz | E-Mail gesendet |
-| geliefert_am | timestamptz | |
-| teillieferung_geplant | boolean | Großhändler hat Teillieferung angekündigt |
-| bemerkungen | text | |
-| dokument_id | uuid | FK → softr_dokumente (BEST) |
+| ansprechpartner_email | text | |
+| notizen | text | |
+| ist_aktiv | boolean | Default: true |
 
-### Tabelle: `order_items` (Bestellpositionen)
+### Tabelle: `bestellartikel`
 
 | Spalte | Typ | Beschreibung |
 |--------|-----|--------------|
 | id | uuid | PK |
-| order_id | uuid | FK → orders |
-| article_id | uuid | FK → order_articles |
-| menge_bestellt | numeric | |
-| menge_geliefert | numeric | Für Teillieferungen |
-| status | text | 'offen' / 'geliefert' / 'fehlmenge' |
-| einzelpreis | numeric | EK zum Bestellzeitpunkt |
-| gesamtpreis | numeric | GENERATED |
+| artikelnummer | text | NOT NULL - Artikelnr beim Großhändler |
+| bezeichnung | text | NOT NULL - Vollständige Bezeichnung |
+| beschreibung | text | Zusätzliche Infos |
+| kategorie | text | Elektro, Sanitär, Maler, etc. |
+| einheit | text | Default: 'Stück' |
+| listenpreis | numeric(10,2) | Listenpreis |
+| einkaufspreis | numeric(10,2) | Unser EK |
+| waehrung | text | Default: 'EUR' |
+| grosshaendler_id | uuid | FK → grosshaendler |
+| grosshaendler_artikelnr | text | Artikelnr beim Händler |
+| hersteller | text | Hersteller-Name |
+| ean | text | EAN-Code |
+| mindestbestellmenge | numeric(10,2) | Default: 1 |
+| verpackungseinheit | text | z.B. "Karton à 10 Stk" |
+| **embedding** | vector(1536) | **KI-Embedding für semantische Suche** |
+| ist_aktiv | boolean | Default: true |
 
-### Tabelle: `voice_article_mappings` (Sprach-Zuordnungen)
+**Indizes:**
+- `idx_bestellartikel_bezeichnung` (GIN für Volltextsuche)
+- `idx_bestellartikel_artikelnummer`
+- `idx_bestellartikel_grosshaendler`
+- `idx_bestellartikel_embedding` (IVFFlat für Vektorsuche)
+
+### Tabelle: `bestellungen`
 
 | Spalte | Typ | Beschreibung |
 |--------|-----|--------------|
 | id | uuid | PK |
-| user_id | uuid | FK → users |
-| sprache | text | 'de' / 'hu' / 'ru' / 'md' |
-| gesprochener_text | text | "Wechselschalter", "hármas keret" |
-| article_id | uuid | FK → order_articles |
-| confidence | numeric | Ursprünglicher Match-Score |
-| verwendungen | int | Wie oft wurde diese Zuordnung genutzt |
-| erstellt_am | timestamptz | |
-| aktualisiert_am | timestamptz | |
+| bestell_nr | serial | UNIQUE - Auto-incrementierte Bestellnummer |
+| grosshaendler_id | uuid | FK → grosshaendler |
+| projekt_id | uuid | FK → projekte |
+| atbs_nummer | text | ATBS-Nummer für Zuordnung |
+| bestellt_von_user_id | uuid | Supabase Auth User |
+| bestellt_von_name | text | Name des Bestellers |
+| bestellt_von_email | text | E-Mail des Bestellers |
+| status | text | entwurf, bestellt, teilgeliefert, geliefert, storniert |
+| summe_netto | numeric(12,2) | Berechnet aus Positionen |
+| summe_brutto | numeric(12,2) | Mit MwSt |
+| mwst_satz | numeric(4,2) | Default: 19.00 |
+| **original_text** | text | **Freitext-Eingabe für KI-Parsing** |
+| **parsing_confidence** | numeric(3,2) | **KI-Confidence 0-1** |
+| **needs_review** | boolean | **Manuelle Prüfung nötig?** |
+| lieferadresse | text | Lieferort |
+| gewuenschtes_lieferdatum | date | |
+| tatsaechliches_lieferdatum | date | |
+| bestellt_am | timestamptz | Zeitpunkt der Bestellung |
+| bestellt_via | text | telefon, email, portal |
+| bestellbestaetigung_nr | text | Bestätigungs-Nr vom Händler |
+| notizen | text | |
 
-**Unique Constraint:** `(user_id, sprache, gesprochener_text)`
+### Tabelle: `bestellpositionen`
+
+| Spalte | Typ | Beschreibung |
+|--------|-----|--------------|
+| id | uuid | PK |
+| bestellung_id | uuid | FK → bestellungen (CASCADE) |
+| position_nr | int | NOT NULL - Positionsnummer |
+| artikel_id | uuid | FK → bestellartikel (optional) |
+| artikelnummer | text | Kopiert oder Freitext |
+| bezeichnung | text | NOT NULL - Artikelbezeichnung |
+| beschreibung | text | Zusätzliche Infos |
+| menge | numeric(12,3) | NOT NULL - Bestellmenge |
+| einheit | text | Default: 'Stück' |
+| einzelpreis | numeric(10,2) | EK zum Bestellzeitpunkt |
+| gesamtpreis | numeric(12,2) | Berechnet |
+| **original_text** | text | **Freitext für KI-Parsing** |
+| **parsing_confidence** | numeric(3,2) | **KI-Confidence** |
+| **needs_review** | boolean | **Prüfung nötig?** |
+| gelieferte_menge | numeric(12,3) | Default: 0 |
+| lieferstatus | text | offen, teilweise, komplett |
+| notizen | text | |
+
+### Tabelle: `mitarbeiter`
+
+| Spalte | Typ | Beschreibung |
+|--------|-----|--------------|
+| id | uuid | PK |
+| auth_user_id | uuid | UNIQUE - FK → Supabase Auth |
+| kontakt_id | uuid | FK → kontakte |
+| email | text | UNIQUE NOT NULL |
+| vorname | text | NOT NULL |
+| nachname | text | NOT NULL |
+| rolle | text | admin, bauleiter, mitarbeiter, lager |
+| darf_bestellen | boolean | Default: true |
+| darf_freigeben | boolean | Default: false |
+| max_bestellwert | numeric(10,2) | Limit für eigenständige Bestellungen |
+| ist_aktiv | boolean | Default: true |
+| letzter_login | timestamptz | |
+
+### RPC-Funktion: `match_bestellartikel`
+
+Semantische Artikelsuche via Embedding:
+
+```sql
+match_bestellartikel(
+  query_embedding vector(1536),
+  match_threshold float DEFAULT 0.7,
+  match_count int DEFAULT 5,
+  filter_grosshaendler uuid DEFAULT NULL
+) RETURNS TABLE (id, artikelnummer, bezeichnung, einheit, einkaufspreis, grosshaendler_id, similarity)
+```
 
 ---
 
@@ -446,8 +488,19 @@ CONCAT(
 
 ### Phase I - MVP (Jetzt)
 
-- [ ] Supabase: `suppliers`, `order_articles`, `orders`, `order_items` Tabellen
-- [ ] Großhändler aus Monday.com importieren
+- [x] Supabase: DB-Tabellen angelegt (2026-01-26)
+  - `grosshaendler` - Großhändler-Stammdaten
+  - `bestellartikel` - Artikelkatalog mit Embedding
+  - `bestellungen` - Bestellkopfdaten
+  - `bestellpositionen` - Einzelpositionen
+  - `mitarbeiter` - Auth-Verknüpfung
+- [x] Edge Function `parse-bestellung` deployed (v2)
+  - Mehrsprachiges KI-Parsing (DE, HU, RU, RO)
+  - gpt-5.2 für Artikelerkennung
+  - Embedding-basierte Artikelsuche
+- [x] RPC-Funktion `match_bestellartikel` für semantische Suche
+- [ ] Artikellisten aus Excel importieren
+- [ ] Großhändler-Stammdaten anlegen
 - [ ] Netlify: Neues Projekt `neurealis-erp`
 - [ ] Auth: Login mit @neurealis.de
 - [ ] UI: Bestellformular (responsive)
