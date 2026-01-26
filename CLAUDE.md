@@ -1,0 +1,134 @@
+# CLAUDE.md - neurealis ERP
+
+**Letzte Aktualisierung:** 2026-01-26
+**Projekt:** neurealis ERP - Wohnungssanierung
+**Portal:** https://neurealis.softr.app
+
+---
+
+## Projekt-Übersicht
+
+neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis GmbH:
+- Softr.io als No-Code Frontend
+- Monday.com für Projektmanagement
+- Supabase als Backend (DB, Auth, Edge Functions)
+- Telegram Bot für Baustellen-Kommunikation
+- Hero Software für Leistungsverzeichnis
+
+---
+
+## Supabase
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Projekt-ID** | `mfpuijttdgkllnvhvjlu` |
+| **URL** | `https://mfpuijttdgkllnvhvjlu.supabase.co` |
+| **Dashboard** | https://supabase.com/dashboard/project/mfpuijttdgkllnvhvjlu |
+
+**MCP-Integration:** Supabase MCP Server mit Personal Access Token ist konfiguriert.
+- **SQL-Migrationen direkt via MCP ausführen** - kein manuelles UI nötig!
+- Nutze `mcp__supabase__apply_migration` für DDL-Operationen
+- Nutze `mcp__supabase__execute_sql` für Queries
+
+---
+
+## Komponenten-Status
+
+| Komponente | Status | Details |
+|------------|--------|---------|
+| Supabase Backend | Aktiv | 30 Tabellen, Edge Functions, Cron Jobs |
+| Softr.io Frontend | Aktiv | No-Code Portal, 16 Tabellen, 725+ Felder |
+| Monday.com Sync | Aktiv | Bauprozess-Board, 193 Items |
+| File Sync | Aktiv | 910 Dateien (~333 MB) |
+| **Nachtragsmanagement** | **Fertig** | v17: HTML-Template, Graph API, Auto-E-Mails |
+| **Mängelmanagement** | **Fertig** | v6.1: Trigger-basiert, Approve/Reject-Buttons |
+| **Kontaktmanagement** | **Fertig** | v1.0: 5 Tabellen, 3 Sync-Functions (Hero, Monday, MS365) |
+| Telegram Bot | Konfiguriert | Separater Bot (nicht @LifeOps2026Bot) |
+
+---
+
+## Angebundene Services
+
+| Service | Account/Config | Details |
+|---------|----------------|---------|
+| **Supabase** | mfpuijttdgkllnvhvjlu | PostgreSQL, Auth, Storage, Edge Functions |
+| **Softr.io** | neurealis.softr.app | No-Code Portal |
+| **Monday.com** | neurealis.monday.com | Bauprozess-Board |
+| **Microsoft 365** | holger.neumann@neurealis.de | Graph API, Ordner: /neurealis/* |
+| **Google Cloud** | holger.neumann@neurealis.de | Contacts, Calendar |
+| **Hero Software** | GWS Preissync | Leistungsverzeichnis |
+| **Netlify** | neurealis-* Sites | UI Hosting |
+| **Telegram Bot** | Separater Bot | Baustellen-Kommunikation |
+
+### E-Mail Accounts (neurealis)
+
+| Adresse | Verwendung |
+|---------|------------|
+| holger.neumann@neurealis.de | Hauptkonto |
+| kontakt@neurealis.de | Allgemein |
+| rechnungen@neurealis.de | Eingangsrechnungen |
+| bewerbungen@neurealis.de | HR |
+| auftraege@neurealis.de | Aufträge |
+| + weitere freigegebene Postfächer | |
+
+---
+
+## Hero Software (GWS Preissync)
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Endpoint** | `https://login.hero-software.de/api/external/v7/graphql` |
+| **API Key** | `ac_YDjiMpClamttVIZdjLv7uMZ3nhWUDYFz` |
+| **Auth** | `Authorization: Bearer {API_KEY}` |
+
+---
+
+## Wichtige Pfade
+
+| Pfad | Beschreibung |
+|------|--------------|
+| `functions/` | Edge Functions (Supabase) |
+| `functions/supabase/functions/` | Deno Functions |
+| `docs/` | Dokumentation |
+
+---
+
+## Aktuelle Statistiken
+
+| Komponente | Anzahl | Details |
+|------------|--------|---------|
+| **Tabellen** | 25 | + 2 Views |
+| **RPC Functions** | 14 | Supabase Server-Funktionen |
+| **LV-Positionen** | 1.572 | Leistungsverzeichnis |
+| **Monday Items** | 193 | Bauprozess-Board |
+| **Matterport Spaces** | 25 | 3D-Scans |
+| **Nachträge** | 3 | Trigger-basiert |
+| **Mängel (unified)** | 57 | 34 Ausführung + 23 Fertigstellung |
+| **File Sync** | 910 | Synced Files |
+| **Konto-Transaktionen** | 1.051 | 100% mit Softr synced |
+
+---
+
+## Quick Links
+
+- **Softr Portal:** https://neurealis.softr.app
+- **Monday.com:** https://neurealis.monday.com
+- **Supabase Dashboard:** https://supabase.com/dashboard/project/mfpuijttdgkllnvhvjlu
+
+---
+
+## Dokumentation
+
+| Datei | Inhalt |
+|-------|--------|
+| `docs/NEUREALIS_ERP.md` | Hauptdokumentation |
+| `docs/NEUREALIS_SUPABASE_SCHEMA.md` | Detailliertes DB-Schema |
+| `docs/NEUREALIS_KONTAKTE.md` | **Kontaktmanagement-System** |
+| `docs/SOFTR_SCHEMA.md` | Softr.io Tabellen & Felder |
+| `docs/SOFTR_SUPABASE_MIGRATION.md` | Migration & Sync-Status |
+| `docs/NEUREALIS_MAENGELMANAGEMENT.md` | Mängel-System |
+| `docs/NEUREALIS_TRANSAKTIONEN_DOKUMENTE.md` | Zahlungsabgleich |
+
+---
+
+*Erstellt am 2026-01-26*
