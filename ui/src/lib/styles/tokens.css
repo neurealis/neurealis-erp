@@ -19,10 +19,11 @@
   --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
 
-  /* Markenfarben (neurealis Blau) */
-  --color-brand-dark: #1a365d;
-  --color-brand-medium: #2c5282;
-  --color-brand-light: #4299e1;
+  /* Markenfarben (neurealis Rot - wie Softr Portal) */
+  --color-brand-dark: #C62828;
+  --color-brand-medium: #E53935;
+  --color-brand-light: #EF5350;
+  --color-brand-bg: #FFEBEE;
 
   /* Grautöne */
   --color-gray-50: #f9fafb;
@@ -49,9 +50,9 @@
   --color-error: #ef4444;
   --color-error-dark: #dc2626;
 
-  --color-info-light: #dbeafe;
-  --color-info: #3b82f6;
-  --color-info-dark: #2563eb;
+  --color-info-light: #E3F2FD;
+  --color-info: #1E88E5;
+  --color-info-dark: #1565C0;
 
   /* ===== Typografie ===== */
   --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -86,12 +87,12 @@
   --spacing-10: 2.5rem;   /* 40px */
   --spacing-12: 3rem;     /* 48px */
 
-  /* ===== Border Radius ===== */
-  --radius-sm: 0.25rem;   /* 4px */
-  --radius-md: 0.5rem;    /* 8px */
-  --radius-lg: 0.75rem;   /* 12px */
-  --radius-xl: 1rem;      /* 16px */
-  --radius-full: 9999px;
+  /* ===== Border Radius (eckig wie Softr) ===== */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-full: 0;
 
   /* ===== Schatten ===== */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
