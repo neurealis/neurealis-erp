@@ -23,7 +23,7 @@
 	let bestellpositionen = $state<Map<string, number>>(new Map());
 
 	// Berechne Gesamtsumme
-	let gesamtsumme = $derived(() => {
+	let gesamtsumme = $derived.by(() => {
 		let summe = 0;
 		for (const [artikelName, menge] of bestellpositionen) {
 			const artikel = verfuegbareArtikel.find(a => a.name === artikelName);
@@ -234,7 +234,7 @@ Beispiele:
 							<tr class="summe-row">
 								<td colspan="4"></td>
 								<td><strong>Summe netto</strong></td>
-								<td class="font-mono text-right"><strong>{formatPreis(gesamtsumme())}</strong></td>
+								<td class="font-mono text-right"><strong>{formatPreis(gesamtsumme)}</strong></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -247,9 +247,9 @@ Beispiele:
 			<button class="btn btn-secondary">← Zurück</button>
 			<div class="total">
 				<div class="total-label">Bestellsumme (netto)</div>
-				<div class="total-value">{formatPreis(gesamtsumme())}</div>
+				<div class="total-value">{formatPreis(gesamtsumme)}</div>
 			</div>
-			<button class="btn btn-success" disabled={gesamtsumme() === 0}>
+			<button class="btn btn-success" disabled={gesamtsumme === 0}>
 				Weiter zur Bestätigung →
 			</button>
 		</div>
