@@ -1,16 +1,13 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
 
-// Hero Software API
 const HERO_API_URL = 'https://login.hero-software.de/api/external/v7/graphql';
 const HERO_API_KEY = Deno.env.get('HERO_API_KEY')!;
 
-// Supabase
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-// Hero Kontakt-Typen zu unseren Kontaktarten mappen
 const HERO_TYPE_MAPPING: Record<string, string[]> = {
   'customer': ['kunde_privat'],
   'commercial_customer': ['kunde_gewerblich'],
@@ -20,7 +17,6 @@ const HERO_TYPE_MAPPING: Record<string, string[]> = {
   'employee': ['mitarbeiter'],
 };
 
-// Hero Kategorien zu Kontaktarten mappen
 const HERO_CATEGORY_MAPPING: Record<string, string> = {
   'Kunde': 'kunde_privat',
   'Gewerbekunde': 'kunde_gewerblich',
@@ -36,71 +32,62 @@ const HERO_CATEGORY_MAPPING: Record<string, string> = {
 interface HeroContact {
   id: number;
   type: string;
-  salutation: string | null;
   title: string | null;
   first_name: string | null;
   last_name: string | null;
   company_name: string | null;
   email: string | null;
-  phone: string | null;
-  mobile: string | null;
-  fax: string | null;
-  website: string | null;
-  street: string | null;
-  zip: string | null;
-  city: string | null;
-  country: string | null;
-  tax_number: string | null;
-  vat_id: string | null;
-  iban: string | null;
-  bic: string | null;
-  bank_name: string | null;
-  notes: string | null;
+  phone_home: string | null;
+  phone_mobile: string | null;
+  phone_fax: string | null;
+  url: string | null;
+  category: string | null;
   category_name: string | null;
-  created_at: string;
-  updated_at: string;
+  position: string | null;
+  partner_notes: string | null;
+  is_deleted: boolean;
+  created: string;
+  modified: string;
+  address: {
+    street: string | null;
+    zipcode: string | null;
+    city: string | null;
+    country: { name: string } | null;
+  } | null;
 }
 
 async function fetchHeroContacts(): Promise<HeroContact[]> {
   const allContacts: HeroContact[] = [];
-  let page = 1;
-  const perPage = 100;
+  let offset = 0;
+  const limit = 100;
 
   while (true) {
     const query = `
       query {
-        contacts(first: ${perPage}, page: ${page}) {
-          data {
-            id
-            type
-            salutation
-            title
-            first_name
-            last_name
-            company_name
-            email
-            phone
-            mobile
-            fax
-            website
+        contacts(first: ${limit}, offset: ${offset}) {
+          id
+          type
+          title
+          first_name
+          last_name
+          company_name
+          email
+          phone_home
+          phone_mobile
+          phone_fax
+          url
+          category
+          category_name
+          position
+          partner_notes
+          is_deleted
+          created
+          modified
+          address {
             street
-            zip
+            zipcode
             city
-            country
-            tax_number
-            vat_id
-            iban
-            bic
-            bank_name
-            notes
-            category_name
-            created_at
-            updated_at
-          }
-          paginatorInfo {
-            hasMorePages
-            currentPage
-            total
+            country { name }
           }
         }
       }
@@ -125,28 +112,24 @@ async function fetchHeroContacts(): Promise<HeroContact[]> {
       throw new Error(`Hero GraphQL error: ${JSON.stringify(result.errors)}`);
     }
 
-    const contacts = result.data?.contacts?.data || [];
-    const pageInfo = result.data?.contacts?.paginatorInfo;
+    const contacts = result.data?.contacts || [];
+    const activeContacts = contacts.filter((c: HeroContact) => !c.is_deleted);
+    allContacts.push(...activeContacts);
 
-    allContacts.push(...contacts);
-
-    if (!pageInfo?.hasMorePages) break;
-    page++;
+    if (contacts.length < limit) break;
+    offset += limit;
   }
 
   return allContacts;
 }
 
 function mapHeroToKontakt(hero: HeroContact) {
-  // Kontaktarten ermitteln
   const kontaktarten: string[] = [];
 
-  // Aus Hero-Type
   if (hero.type && HERO_TYPE_MAPPING[hero.type]) {
     kontaktarten.push(...HERO_TYPE_MAPPING[hero.type]);
   }
 
-  // Aus Hero-Kategorie (zusätzlich)
   if (hero.category_name && HERO_CATEGORY_MAPPING[hero.category_name]) {
     const art = HERO_CATEGORY_MAPPING[hero.category_name];
     if (!kontaktarten.includes(art)) {
@@ -154,40 +137,34 @@ function mapHeroToKontakt(hero: HeroContact) {
     }
   }
 
-  // Fallback
   if (kontaktarten.length === 0) {
     kontaktarten.push('kunde_privat');
   }
 
-  // Anrede mappen
-  let anrede = hero.salutation;
-  if (anrede === 'mr') anrede = 'Herr';
-  else if (anrede === 'mrs' || anrede === 'ms') anrede = 'Frau';
-  else if (anrede === 'company') anrede = 'Firma';
+  let anrede: string | null = null;
+  if (hero.title === 'Herr' || hero.title === 'Mr') anrede = 'Herr';
+  else if (hero.title === 'Frau' || hero.title === 'Mrs' || hero.title === 'Ms') anrede = 'Frau';
+  else if (hero.company_name && !hero.first_name) anrede = 'Firma';
 
   return {
     hero_id: hero.id,
     kontaktarten,
     anrede,
-    titel: hero.title,
+    titel: hero.title !== 'Herr' && hero.title !== 'Frau' ? hero.title : null,
     vorname: hero.first_name,
     nachname: hero.last_name,
     firma_kurz: hero.company_name,
+    position: hero.position,
     email: hero.email,
-    telefon_festnetz: hero.phone,
-    telefon_mobil: hero.mobile,
-    fax: hero.fax,
-    website: hero.website,
-    strasse: hero.street,
-    plz: hero.zip,
-    ort: hero.city,
-    land: hero.country || 'Deutschland',
-    steuernummer: hero.tax_number,
-    ust_id: hero.vat_id,
-    iban: hero.iban,
-    bic: hero.bic,
-    bank_name: hero.bank_name,
-    notizen: hero.notes,
+    telefon_festnetz: hero.phone_home,
+    telefon_mobil: hero.phone_mobile,
+    fax: hero.phone_fax,
+    website: hero.url,
+    strasse: hero.address?.street,
+    plz: hero.address?.zipcode,
+    ort: hero.address?.city,
+    land: hero.address?.country?.name || 'Deutschland',
+    notizen: hero.partner_notes,
     sync_source: 'hero',
     last_synced_at: new Date().toISOString(),
   };
@@ -201,7 +178,6 @@ async function syncContacts(contacts: HeroContact[]) {
 
   for (const hero of contacts) {
     try {
-      // Prüfen ob Kontakt existiert (nach hero_id)
       const { data: existing } = await supabase
         .from('kontakte')
         .select('id, last_synced_at')
@@ -211,8 +187,7 @@ async function syncContacts(contacts: HeroContact[]) {
       const kontakt = mapHeroToKontakt(hero);
 
       if (existing) {
-        // Update nur wenn Hero-Daten neuer sind
-        const heroUpdated = new Date(hero.updated_at);
+        const heroUpdated = new Date(hero.modified);
         const lastSynced = existing.last_synced_at ? new Date(existing.last_synced_at) : new Date(0);
 
         if (heroUpdated > lastSynced) {
@@ -221,10 +196,9 @@ async function syncContacts(contacts: HeroContact[]) {
             .update(kontakt)
             .eq('id', existing.id);
 
-          if (error) throw error;
+          if (error) throw new Error(`Update: ${error.message}`);
           updated++;
 
-          // Log
           await supabase.from('kontakte_sync_log').insert({
             source: 'hero',
             action: 'updated',
@@ -237,7 +211,6 @@ async function syncContacts(contacts: HeroContact[]) {
           skipped++;
         }
       } else {
-        // Duplikat-Check via Email
         let duplicateId: string | null = null;
 
         if (hero.email) {
@@ -248,13 +221,10 @@ async function syncContacts(contacts: HeroContact[]) {
             .is('hero_id', null)
             .single();
 
-          if (emailMatch) {
-            duplicateId = emailMatch.id;
-          }
+          if (emailMatch) duplicateId = emailMatch.id;
         }
 
         if (duplicateId) {
-          // Existierenden Kontakt mit hero_id verknüpfen
           const { error } = await supabase
             .from('kontakte')
             .update({
@@ -265,7 +235,7 @@ async function syncContacts(contacts: HeroContact[]) {
             })
             .eq('id', duplicateId);
 
-          if (error) throw error;
+          if (error) throw new Error(`Merge: ${error.message}`);
           updated++;
 
           await supabase.from('kontakte_sync_log').insert({
@@ -277,14 +247,13 @@ async function syncContacts(contacts: HeroContact[]) {
             details: { merged_by: 'email_match', email: hero.email },
           });
         } else {
-          // Neuen Kontakt erstellen
           const { data: newKontakt, error } = await supabase
             .from('kontakte')
             .insert(kontakt)
             .select('id')
             .single();
 
-          if (error) throw error;
+          if (error) throw new Error(`Insert: ${error.message}`);
           created++;
 
           await supabase.from('kontakte_sync_log').insert({
@@ -316,14 +285,9 @@ async function syncContacts(contacts: HeroContact[]) {
 Deno.serve(async (req: Request) => {
   try {
     const startTime = Date.now();
-
-    // Hero-Kontakte abrufen
     const contacts = await fetchHeroContacts();
-
-    // Sync durchführen
     const { created, updated, skipped, errors } = await syncContacts(contacts);
 
-    // Statistiken
     const typeStats: Record<string, number> = {};
     for (const c of contacts) {
       const key = c.type || 'unknown';
@@ -345,7 +309,6 @@ Deno.serve(async (req: Request) => {
     });
 
   } catch (error) {
-    // Fehler loggen
     await supabase.from('kontakte_sync_log').insert({
       source: 'hero',
       action: 'error',
