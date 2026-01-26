@@ -9,7 +9,8 @@
 ## Projekt-Übersicht
 
 neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis GmbH:
-- Softr.io als No-Code Frontend
+- **SvelteKit UI** als neues Frontend (ersetzt langfristig Softr.io)
+- Softr.io als No-Code Frontend (Migration geplant)
 - Monday.com für Projektmanagement
 - Supabase als Backend (DB, Auth, Edge Functions)
 - Telegram Bot für Baustellen-Kommunikation
@@ -43,6 +44,7 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Nachtragsmanagement** | **Fertig** | v17: HTML-Template, Graph API, Auto-E-Mails |
 | **Mängelmanagement** | **Fertig** | v6.1: Trigger-basiert, Approve/Reject-Buttons |
 | **Kontaktmanagement** | **Fertig** | v1.0: 5 Tabellen, 3 Sync-Functions (Hero, Monday, MS365) |
+| **Bestellsystem** | **In Entwicklung** | SvelteKit UI, mehrsprachige KI-Eingabe |
 | Telegram Bot | Konfiguriert | Separater Bot (nicht @LifeOps2026Bot) |
 
 ---
@@ -83,10 +85,39 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 
 ---
 
+## SvelteKit UI (neues Frontend)
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **GitHub** | https://github.com/neurealis/neurealis-erp |
+| **Netlify URL** | https://neurealis-erp.netlify.app |
+| **Pfad** | `ui/` |
+| **Framework** | SvelteKit mit TypeScript |
+
+**Entwicklung:**
+```bash
+cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
+```
+
+**Deployment:** Nur auf explizite Anweisung via `netlify deploy --prod`
+
+**Design-System:**
+- `ui/src/lib/styles/tokens.css` - Zentrale Design-Variablen
+- `ui/src/lib/styles/global.css` - Globale Styles
+
+**Bestellformular:**
+- Nur Textbox (keine UI-Spracherkennung)
+- Nutzer verwenden Google-Tastatur-Spracheingabe am Handy
+- Mehrsprachige Texte (DE, HU, RU, RO) werden im Backend geparst
+- Edge Function `parse-bestellung` nutzt gpt-5.2 für KI-Parsing
+
+---
+
 ## Wichtige Pfade
 
 | Pfad | Beschreibung |
 |------|--------------|
+| `ui/` | SvelteKit Frontend (NEU) |
 | `functions/` | Edge Functions (Supabase) |
 | `functions/supabase/functions/` | Deno Functions |
 | `docs/` | Dokumentation |
