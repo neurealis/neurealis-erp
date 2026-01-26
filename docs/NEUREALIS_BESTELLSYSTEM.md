@@ -1,8 +1,8 @@
 # neurealis ERP - Bestellsystem
 
 **Stand:** 2026-01-26
-**Version:** 1.1
-**Status:** Phase I - MVP (DB-Tabellen fertig, Edge Function deployed)
+**Version:** 1.2
+**Status:** Phase I - MVP (DB-Tabellen fertig, 255 Artikel importiert, Softr-Anbindung)
 **UI:** Netlify (neues Projekt, responsive, iframe-embedbar)
 
 ---
@@ -489,7 +489,7 @@ CONCAT(
 ### Phase I - MVP (Jetzt)
 
 - [x] Supabase: DB-Tabellen angelegt (2026-01-26)
-  - `grosshaendler` - Großhändler-Stammdaten
+  - `grosshaendler` - Großhändler-Stammdaten (erweitert um Kreditlimit, SEPA, Skonto)
   - `bestellartikel` - Artikelkatalog mit Embedding
   - `bestellungen` - Bestellkopfdaten
   - `bestellpositionen` - Einzelpositionen
@@ -499,8 +499,10 @@ CONCAT(
   - gpt-5.2 für Artikelerkennung
   - Embedding-basierte Artikelsuche
 - [x] RPC-Funktion `match_bestellartikel` für semantische Suche
-- [ ] Artikellisten aus Excel importieren
-- [ ] Großhändler-Stammdaten anlegen
+- [x] Artikellisten aus Excel importiert (255 Artikel)
+  - Elspermann (19), GUT (40), Zander (54), MEG (61), Keramundo (21), Hornbach/Gira (60)
+- [x] Großhändler-Stammdaten angelegt (14 aktive Händler)
+- [x] Softr.io direkt an Supabase angebunden (kein Monday.com-Sync)
 - [ ] Netlify: Neues Projekt `neurealis-erp`
 - [ ] Auth: Login mit @neurealis.de
 - [ ] UI: Bestellformular (responsive)
