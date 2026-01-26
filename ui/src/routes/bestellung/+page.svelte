@@ -53,15 +53,28 @@
 	async function loadData() {
 		isLoading = true;
 
-		// Projekte aus matterport_spaces laden
+		// Projekte aus monday_bauprozess laden - nur Phasen 2, 3, 4
 		const { data: projekteData } = await supabase
-			.from('matterport_spaces')
-			.select('atbs_nummer, project_name, address, city')
-			.eq('is_active', true)
-			.order('atbs_nummer', { ascending: false });
+			.from('monday_bauprozess')
+			.select('id, name, group_title, column_values')
+			.or('group_title.ilike.(2%,group_title.ilike.(3%,group_title.ilike.(4%')
+			.order('name', { ascending: true });
 
 		if (projekteData) {
-			projekte = projekteData;
+			// Transformiere Monday-Daten zu Projekt-Format
+			// column_values enthält verschachtelte Objekte: { text49__1: { text: "ATBS-xxx", value: ... } }
+			projekte = projekteData
+				.map(p => {
+					const cv = p.column_values || {};
+					return {
+						atbs_nummer: cv.text49__1?.text || p.id,
+						project_name: p.name,
+						address: cv.text51__1?.text || null,
+						city: null
+					};
+				})
+				.filter(p => p.atbs_nummer && p.atbs_nummer.startsWith('ATBS')); // Nur mit gültiger ATBS-Nr
+
 			if (projekte.length > 0) {
 				selectedProjekt = projekte[0].atbs_nummer;
 			}
@@ -195,7 +208,7 @@
 								{/each}
 							</select>
 							{#if selectedProjektDetails?.address}
-								<small class="hint">{selectedProjektDetails.address}, {selectedProjektDetails.city}</small>
+								<small class="hint">{selectedProjektDetails.address}</small>
 							{/if}
 						</div>
 

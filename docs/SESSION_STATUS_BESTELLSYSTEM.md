@@ -1,13 +1,13 @@
 # Session Status - Bestellsystem
 
-**Stand:** 2026-01-26
+**Stand:** 2026-01-26 (aktualisiert)
 **Für Chat-Fortsetzung**
 
 ---
 
 ## Zusammenfassung
 
-Das Bestellmanagement-Backend ist fertig, die UI nutzt teilweise noch Demo-Daten.
+Bestellmanagement-Backend fertig. UI lädt Projekte aus `monday_bauprozess` (Phasen 2,3,4). Großhändler/Artikel noch Demo-Daten.
 
 ---
 
@@ -39,10 +39,16 @@ Das Bestellmanagement-Backend ist fertig, die UI nutzt teilweise noch Demo-Daten
 | `ui/src/lib/supabase.ts` | Client + parseArtikelText() |
 
 **UI-Lookups:**
-- ✅ Projekte → `matterport_spaces` (live, mit Vorauswahl)
-- ⚠️ Projekt-Filter → Soll auf Phasen (2) Auftrag, (3) Vorbereitung, (4) Umsetzung filtern (aus `monday_bauprozess`)
+- ✅ Projekte → `monday_bauprozess` (live aus Supabase)
+- ✅ Projekt-Filter → Phasen (2), (3), (4) aktiv
+- ✅ RLS Policy `anon_read_bauprozess` hinzugefügt
 - ❌ Großhändler → Demo-Daten (hardcoded)
 - ❌ Artikel → Demo-Daten (hardcoded)
+
+**Monday-Sync:**
+- Edge Function `monday-sync` verfügbar
+- Letzter Sync: 2026-01-26
+- 194 Projekte synchronisiert
 
 ---
 
@@ -57,11 +63,11 @@ Das Bestellmanagement-Backend ist fertig, die UI nutzt teilweise noch Demo-Daten
 ### Priorität 2 - UI anpassen
 
 1. UI auf neue Tabellen umstellen:
-   - `grosshaendler` statt Demo-Array
-   - `bestellartikel` statt Demo-Array
-2. Projekt-Lookup erweitern:
-   - Quelle: `monday_bauprozess` statt nur `matterport_spaces`
-   - Filter: Nur Phasen (2) Auftrag, (3) Vorbereitung, (4) Umsetzung
+   - `grosshaendler` statt Demo-Array ← **OFFEN**
+   - `bestellartikel` statt Demo-Array ← **OFFEN**
+2. ~~Projekt-Lookup erweitern~~ ✅ ERLEDIGT
+   - ~~Quelle: `monday_bauprozess`~~
+   - ~~Filter: Nur Phasen (2), (3), (4)~~
 3. Bestellung speichern implementieren
 4. Auth für Mitarbeiter-Login
 
