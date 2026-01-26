@@ -1,6 +1,6 @@
 # neurealis ERP - Vollständige Dokumentation
 
-**Letzte Aktualisierung:** 2026-01-26 (Mängelmanagement v6.1: Trigger-basiert, Approve/Reject-Buttons, Fotos in E-Mail)
+**Letzte Aktualisierung:** 2026-01-26 (Hero Document Sync: Automatischer 15-Min-Sync, Dokumenttyp-Logik)
 
 ---
 
@@ -62,6 +62,8 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **File Sync** | 910 | Synced Files |
 | **Konto-Transaktionen** | 1.051 | **100% mit Softr synced** (seit 25.01.2026) |
 | **ER-Zahl/AR-Zahl Dokumente** | 284 | Aus hist. Transaktionen (<28.05.2025) erstellt |
+| **Hero Document Sync** | Aktiv | Cron alle 15 Min, 639 Dokumente ab 2025 |
+| **Softr Dokumente** | 1.166 | Nach Hero-Sync (inkl. ANG, AB, NUA, RE) |
 
 ### Zahlungsabgleich (ER-Zahl / AR-Zahl)
 
@@ -119,6 +121,7 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | [SOFTR_SUPABASE_MIGRATION.md](./SOFTR_SUPABASE_MIGRATION.md) | Migration & Sync-Status |
 | [NEUREALIS_MAENGELMANAGEMENT.md](./NEUREALIS_MAENGELMANAGEMENT.md) | Mängel-System |
 | [NEUREALIS_TRANSAKTIONEN_DOKUMENTE.md](./NEUREALIS_TRANSAKTIONEN_DOKUMENTE.md) | Zahlungsabgleich |
+| [NEUREALIS_HERO_SYNC.md](./NEUREALIS_HERO_SYNC.md) | **Hero → Softr Document Sync** |
 | [NEUREALIS_GROSSHAENDLER.md](./NEUREALIS_GROSSHAENDLER.md) | Großhändler-Integration |
 | [MATERIALVORGABE_ANLEITUNG.md](./MATERIALVORGABE_ANLEITUNG.md) | Material-Workflow |
 

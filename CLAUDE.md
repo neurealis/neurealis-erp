@@ -44,6 +44,7 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Nachtragsmanagement** | **Fertig** | v17: HTML-Template, Graph API, Auto-E-Mails |
 | **Mängelmanagement** | **Fertig** | v6.1: Trigger-basiert, Approve/Reject-Buttons |
 | **Kontaktmanagement** | **Fertig** | v1.0: 5 Tabellen, 3 Sync-Functions (Hero, Monday, MS365) |
+| **Hero Document Sync** | **Fertig** | v1.0: Cron alle 15 Min, 639 Dokumente, Dokumenttyp-Logik |
 | **Bestellsystem** | **In Entwicklung** | SvelteKit UI, mehrsprachige KI-Eingabe |
 | Telegram Bot | Konfiguriert | Separater Bot (nicht @LifeOps2026Bot) |
 
@@ -82,6 +83,23 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Endpoint** | `https://login.hero-software.de/api/external/v7/graphql` |
 | **API Key** | `ac_YDjiMpClamttVIZdjLv7uMZ3nhWUDYFz` |
 | **Auth** | `Authorization: Bearer {API_KEY}` |
+
+### Hero Document Sync (NEU)
+
+**Edge Function:** `hero-document-sync` (Cron alle 15 Min)
+
+**Dokumenttyp-Logik:**
+- Storno (negativer Betrag) → AR-X / ER-X
+- Rechnung + Phase 5 → AR-S (Schluss)
+- Rechnung + Phase 4 → AR-A (Abschlag)
+- Fallback: Höchste RE-Nr → AR-S, andere → AR-A
+- Angebote → ANG-Ku, AB → AB, NUA → NUA-S
+
+**Duplikat-Prüfung:**
+- Rechnungen: Nicht erneut hochladen
+- Andere (ANG, AB, NUA): Update erlaubt (Revisionen)
+
+> Details: `docs/NEUREALIS_HERO_SYNC.md`
 
 ---
 
@@ -137,6 +155,8 @@ cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 | **Mängel (unified)** | 57 | 34 Ausführung + 23 Fertigstellung |
 | **File Sync** | 910 | Synced Files |
 | **Konto-Transaktionen** | 1.051 | 100% mit Softr synced |
+| **Softr Dokumente** | 1.166 | Hero-Sync aktiv (ANG, AB, NUA, RE) |
+| **Hero Dokumente** | 639 | Ab 2025, alle 15 Min synchronisiert |
 
 ---
 
@@ -159,6 +179,7 @@ cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 | `docs/SOFTR_SUPABASE_MIGRATION.md` | Migration & Sync-Status |
 | `docs/NEUREALIS_MAENGELMANAGEMENT.md` | Mängel-System |
 | `docs/NEUREALIS_TRANSAKTIONEN_DOKUMENTE.md` | Zahlungsabgleich |
+| `docs/NEUREALIS_HERO_SYNC.md` | **Hero → Softr Document Sync** |
 
 ---
 
