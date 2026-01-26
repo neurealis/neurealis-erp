@@ -13,7 +13,9 @@
 	interface Grosshaendler {
 		id: string;
 		name: string;
-		kategorien: string[];
+		kurzname: string;
+		typ: string;
+		bestell_email: string | null;
 	}
 
 	interface Artikel {
@@ -80,14 +82,15 @@
 			}
 		}
 
-		// Großhändler (Demo-Daten bis Tabelle existiert)
-		grosshaendler = [
-			{ id: 'zander', name: 'ZANDER - Elektro, SHK', kategorien: ['Elektro', 'SHK'] },
-			{ id: 'sonepar', name: 'Sonepar - Elektro', kategorien: ['Elektro'] },
-			{ id: 'richter-frenzel', name: 'Richter+Frenzel - SHK', kategorien: ['SHK'] },
-			{ id: 'hornbach', name: 'Hornbach - Baustoffe', kategorien: ['Baustoffe'] },
-		];
-		if (grosshaendler.length > 0) {
+		// Großhändler aus Datenbank laden
+		const { data: ghData } = await supabase
+			.from('grosshaendler')
+			.select('id, name, kurzname, typ, bestell_email')
+			.eq('ist_aktiv', true)
+			.order('name', { ascending: true });
+
+		if (ghData && ghData.length > 0) {
+			grosshaendler = ghData;
 			selectedHaendler = grosshaendler[0].id;
 		}
 
@@ -216,7 +219,9 @@
 							<label for="haendler">Großhändler</label>
 							<select id="haendler" bind:value={selectedHaendler}>
 								{#each grosshaendler as haendler}
-									<option value={haendler.id}>{haendler.name}</option>
+									<option value={haendler.id}>
+										{haendler.kurzname || haendler.name} - {haendler.typ}
+									</option>
 								{/each}
 							</select>
 						</div>

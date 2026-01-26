@@ -7,7 +7,7 @@
 
 ## Zusammenfassung
 
-Bestellmanagement-Backend fertig. UI lädt Projekte aus `monday_bauprozess` (Phasen 2,3,4). Großhändler/Artikel noch Demo-Daten.
+Bestellmanagement-Backend fertig. Großhändler aus Monday.com importiert (20 aktiv). UI lädt Projekte und Großhändler aus Datenbank. Artikellisten noch offen.
 
 ---
 
@@ -17,7 +17,7 @@ Bestellmanagement-Backend fertig. UI lädt Projekte aus `monday_bauprozess` (Pha
 
 | Tabelle | Zeilen | Beschreibung |
 |---------|--------|--------------|
-| `grosshaendler` | 0 | Großhändler-Stammdaten |
+| `grosshaendler` | 20 | Großhändler mit erweiterten Feldern |
 | `bestellartikel` | 0 | Artikelkatalog mit Embedding |
 | `bestellungen` | 0 | Bestellkopfdaten |
 | `bestellpositionen` | 0 | Einzelpositionen |
@@ -27,77 +27,79 @@ Bestellmanagement-Backend fertig. UI lädt Projekte aus `monday_bauprozess` (Pha
 
 ### Edge Function
 
-| Function | Version | Beschreibung |
-|----------|---------|--------------|
-| `parse-bestellung` | v2 | Mehrsprachiges KI-Parsing (DE, HU, RU, RO) mit gpt-5.2 |
+| Function | Version | Status |
+|----------|---------|--------|
+| `parse-bestellung` | v5 | ✅ JWT deaktiviert, funktioniert |
 
 ### SvelteKit UI
 
-| Datei | Status |
-|-------|--------|
-| `ui/src/routes/bestellung/+page.svelte` | Grundgerüst fertig |
-| `ui/src/lib/supabase.ts` | Client + parseArtikelText() |
+| Feature | Status |
+|---------|--------|
+| Projekt-Dropdown | ✅ `monday_bauprozess` (Phasen 2,3,4) |
+| Großhändler-Dropdown | ✅ `grosshaendler` Tabelle |
+| KI-Erkennung | ✅ Edge Function verbunden |
+| Artikel-Tabelle | ❌ Demo-Daten |
+| Bestellung speichern | ❌ Noch nicht implementiert |
 
-**UI-Lookups:**
-- ✅ Projekte → `monday_bauprozess` (live aus Supabase)
-- ✅ Projekt-Filter → Phasen (2), (3), (4) aktiv
-- ✅ RLS Policy `anon_read_bauprozess` hinzugefügt
-- ❌ Großhändler → Demo-Daten (hardcoded)
-- ❌ Artikel → Demo-Daten (hardcoded)
+---
 
-**Monday-Sync:**
-- Edge Function `monday-sync` verfügbar
-- Letzter Sync: 2026-01-26
-- 194 Projekte synchronisiert
+## Großhändler (20 aktiv)
+
+| Typ | Anzahl | Beispiele |
+|-----|--------|-----------|
+| baustoff | 5 | Bauzentrum, BECHER, Keramundo, Linnenbecker, Raab |
+| elektro | 1 | Zander (+ sanitaer, heizung, klima) |
+| farbe | 3 | MEG, Prosol, ZERO |
+| fenster | 1 | B&R |
+| sanitaer | 3 | ABEX, ELSPERMANN, GUT |
+| werkzeug | 1 | Würth |
+| sonstiges | 6 | Amazon, Hellweg, Hornbach, etc. |
+
+**Zander:** Multi-Sortiment (elektro, sanitaer, heizung, klima)
 
 ---
 
 ## Was fehlt
 
-### Priorität 1 - Daten
+### Priorität 1 - Großhändler-Daten
+- [ ] Kundennummern eintragen
+- [ ] Konditionen (Rabatt, Skonto, Zahlungsziel)
+- [ ] Lieferbedingungen (Mindestbestellwert, Frei ab)
+- [ ] Bestellschluss-Zeiten
 
-1. **Artikellisten importieren** (Excel vom User)
-2. **Großhändler-Stammdaten** anlegen
-3. **Embeddings generieren** für Artikel
-
-### Priorität 2 - UI anpassen
-
-1. UI auf neue Tabellen umstellen:
-   - `grosshaendler` statt Demo-Array ← **OFFEN**
-   - `bestellartikel` statt Demo-Array ← **OFFEN**
-2. ~~Projekt-Lookup erweitern~~ ✅ ERLEDIGT
-   - ~~Quelle: `monday_bauprozess`~~
-   - ~~Filter: Nur Phasen (2), (3), (4)~~
-3. Bestellung speichern implementieren
-4. Auth für Mitarbeiter-Login
+### Priorität 2 - Artikellisten
+- [ ] Excel/CSV importieren
+- [ ] Embeddings generieren
+- [ ] UI auf echte Artikel umstellen
 
 ### Priorität 3 - Workflow
-
-1. E-Mail-Versand (Graph API)
-2. Wareneingang-Checklist
-3. Status-Tracking
-
----
-
-## Nächste Schritte
-
-```
-1. Artikellisten bereitstellen (Excel/CSV)
-2. Import-Script schreiben
-3. Embeddings generieren
-4. UI auf echte Daten umstellen
-```
+- [ ] Bestellung speichern
+- [ ] Auth für Mitarbeiter
+- [ ] E-Mail-Versand
 
 ---
 
-## Relevante Dateien
+## Tabellenstruktur `grosshaendler`
 
-| Pfad | Beschreibung |
-|------|--------------|
-| `docs/NEUREALIS_BESTELLSYSTEM.md` | Hauptdokumentation |
-| `docs/SESSION_LOG_2026-01-26_BESTELLMANAGEMENT_DB.md` | DB-Migration Details |
-| `ui/src/routes/bestellung/+page.svelte` | Bestellformular |
-| `ui/src/lib/supabase.ts` | Supabase Client |
+```sql
+-- Stammdaten
+name, kurzname, typ, sortiment[], kundennummer
+
+-- Bestellung
+bestellweg, bestell_email, bestell_telefon, bestellung_bis, shop_url
+
+-- Konditionen
+rabatt_prozent, skonto_prozent, skonto_tage, zahlungsziel_tage, zahlart
+
+-- Lieferung
+lieferzeit_werktage, lieferkosten, mindestbestellwert, versandkostenfrei_ab
+
+-- Bewertung
+bewertung_preise, bewertung_kooperation, bewertung_lieferung (1-5)
+
+-- Ansprechpartner
+ansprechpartner_name, ansprechpartner_telefon, ansprechpartner_email
+```
 
 ---
 
@@ -107,12 +109,22 @@ Bestellmanagement-Backend fertig. UI lädt Projekte aus `monday_bauprozess` (Pha
 # Dev-Server starten
 cd C:\Users\holge\neurealis-erp\ui && npm run dev
 
-# Läuft auf http://localhost:5173
+# Läuft auf http://localhost:5173/bestellung
 
-# Tabellen prüfen
-# → Supabase MCP: list_tables
+# Großhändler prüfen
+# Supabase Dashboard oder MCP
 ```
 
 ---
 
-*Erstellt: 2026-01-26*
+## Relevante Dateien
+
+| Pfad | Beschreibung |
+|------|--------------|
+| `docs/NEUREALIS_BESTELLSYSTEM.md` | Hauptdokumentation |
+| `docs/SESSION_LOG_2026-01-26_BESTELLSYSTEM_GROSSHAENDLER.md` | Diese Session |
+| `ui/src/routes/bestellung/+page.svelte` | Bestellformular |
+
+---
+
+*Aktualisiert: 2026-01-26*
