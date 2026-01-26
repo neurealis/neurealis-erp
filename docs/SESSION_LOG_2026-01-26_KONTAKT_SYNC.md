@@ -130,4 +130,30 @@ SELECT * FROM kontakte_auto_merge(0.8);
 
 ---
 
+---
+
+## Nachtrag: Softr View
+
+### View `v_kontakte_softr` erstellt
+
+**Zweck:** Lesbare Kontaktarten für Softr UI
+
+**Spalten:**
+- `kontaktart_text` → Lesbar: "Privatkunde", "Nachunternehmer", etc.
+- `kontaktarten` → Original-Array für Filter
+- `anzeigename` → Automatisch generiert (Name oder Firma)
+- Alle Stammdaten, Kontaktdaten, Adressen
+
+**Softr Konfiguration:**
+- Schema: `public`
+- View: `v_kontakte_softr`
+- Filter-Spalte: `kontaktart_text`
+
+**Dropdown-Werte für Softr:**
+```
+Privatkunde, Gewerbekunde, Interessent, Mitarbeiter, Baustellen-Mitarbeiter, Bewerber, Nachunternehmer, NU-Mitarbeiter, Partner, Lieferant, Ansprechpartner, Eigentümer, Hausverwaltung, Behörde
+```
+
+---
+
 *Dokumentiert am 2026-01-26*

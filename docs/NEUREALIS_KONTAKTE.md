@@ -354,6 +354,22 @@ SELECT * FROM kontakte_statistiken();
 
 ## Views
 
+### `v_kontakte_softr` (NEU - für Softr.io)
+
+Optimiert für Softr.io mit lesbaren Kontaktarten:
+
+| Spalte | Beschreibung |
+|--------|--------------|
+| `kontaktart_text` | Lesbar: "Privatkunde", "Nachunternehmer", etc. |
+| `kontaktarten` | Original-Array für Filter |
+| `anzeigename` | Automatisch: Name oder Firma |
+| + alle Stammdaten | email, telefon, adresse, etc. |
+
+**Softr Konfiguration:**
+- Schema: `public`
+- View: `v_kontakte_softr`
+- Dropdown-Werte: `Privatkunde, Gewerbekunde, Interessent, Mitarbeiter, Baustellen-Mitarbeiter, Bewerber, Nachunternehmer, NU-Mitarbeiter, Partner, Lieferant, Ansprechpartner, Eigentümer, Hausverwaltung, Behörde`
+
 ### `v_kontakte_aktiv`
 
 Alle aktiven Kontakte mit:
