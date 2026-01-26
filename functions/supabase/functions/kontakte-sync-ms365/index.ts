@@ -15,9 +15,9 @@ const MS365_CLIENT_ID = Deno.env.get('MS365_CLIENT_ID')!;
 const MS365_CLIENT_SECRET = Deno.env.get('MS365_CLIENT_SECRET')!;
 
 // Postfächer für Sync
+// service@ ist das Hauptpostfach (kontakt@ ist nur ein Alias davon)
 const MAILBOXES = [
   { email: 'holger.neumann@neurealis.de', visibility: 'private' as const, owner: 'holger.neumann@neurealis.de' },
-  { email: 'kontakt@neurealis.de', visibility: 'company' as const, owner: null },
   { email: 'service@neurealis.de', visibility: 'company' as const, owner: null },
 ];
 

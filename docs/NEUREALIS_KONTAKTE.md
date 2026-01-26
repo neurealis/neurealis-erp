@@ -1,9 +1,9 @@
 # Kontaktmanagement System
 
-**Version:** 2.0
+**Version:** 2.1
 **Erstellt:** 2026-01-26
 **Aktualisiert:** 2026-01-26
-**Status:** Implementiert (Bidirektionaler Sync)
+**Status:** Implementiert (Bidirektionaler Sync + Duplikat-Bereinigung)
 
 ---
 
@@ -261,11 +261,10 @@ curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/kontakte-sync-monday
 **Trigger:** Cron (täglich 03:00) oder manuell
 **Postfächer:**
 
-| Postfach | Visibility | Owner |
-|----------|------------|-------|
-| holger.neumann@neurealis.de | private | holger.neumann@... |
-| kontakt@neurealis.de | company | - |
-| service@neurealis.de | company | - |
+| Postfach | Visibility | Owner | Hinweis |
+|----------|------------|-------|---------|
+| holger.neumann@neurealis.de | private | holger.neumann@... | Persönliche Kontakte |
+| service@neurealis.de | company | - | Firmen-Kontakte (kontakt@ ist Alias) |
 
 ```bash
 # Alle Postfächer
