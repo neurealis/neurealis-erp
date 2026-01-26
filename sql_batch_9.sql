@@ -1,0 +1,25 @@
+INSERT INTO bestellartikel (grosshaendler_id, artikelnummer, bezeichnung, einkaufspreis, kategorie, einheit, hersteller, ean)
+VALUES
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '86903', 'Gira Abdeckung Koaxial-Antenne Standard 55 reinweiß glänzend', 3.13, 'Elektro', 'Stück', 'Gira', '4010337869034'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '86903', 'Gira Abdeckung Koaxial-Antenne Standard 55 reinweiß glänzend', 3.13, 'Elektro', 'Stück', 'Gira', '4010337869034'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '65003', 'Gira Abdeckung mit Knopf für Dimmer Standard 55 reinweiß glänzend', 3.43, 'Elektro', 'Stück', 'Gira', '4010337650034'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '65003', 'Gira Abdeckung mit Knopf für Dimmer Standard 55 reinweiß glänzend', 3.43, 'Elektro', 'Stück', 'Gira', '4010337650034'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '106103', 'Gira Aufputz-Gehäuse 1-fach mit Abdeckrahmen Standard 55 reinweiß glänzend', 9.94, 'Elektro', 'Stück', 'Gira', '4010337061039'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '106103', 'Gira Aufputz-Gehäuse 1-fach mit Abdeckrahmen Standard 55 reinweiß glänzend', 9.94, 'Elektro', 'Stück', 'Gira', '4010337061039'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '106203', 'Gira Aufputz-Gehäuse 2-fach mit Abdeckrahmen Standard 55 reinweiß glänzend', 17.46, 'Elektro', 'Stück', 'Gira', '4010337062036'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '106203', 'Gira Aufputz-Gehäuse 2-fach mit Abdeckrahmen Standard 55 reinweiß glänzend', 17.46, 'Elektro', 'Stück', 'Gira', '4010337062036'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '537303', 'Gira Bewegungsmelderaufsatz 1,10m Standard Standard 55 reinweiß glänzend', 37.67, 'Elektro', 'Stück', 'Gira', '4010337373032'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '537303', 'Gira Bewegungsmelderaufsatz 1,10m Standard Standard 55 reinweiß glänzend', 37.67, 'Elektro', 'Stück', 'Gira', '4010337373032'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '537327', 'Gira Bewegungsmelderaufsatz 1,10m Standard Standard 55 reinweiß matt', 37.67, 'Elektro', 'Stück', 'Gira', '4010337373278'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '537327', 'Gira Bewegungsmelderaufsatz 1,10m Standard Standard 55 reinweiß matt', 37.67, 'Elektro', 'Stück', 'Gira', '4010337373278'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '537403', 'Gira Bewegungsmelderaufsatz 1,10m Komfort BT Standard 55 reinweiß glänzend', 62.56, 'Elektro', 'Stück', 'Gira', '4010337374039'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '537403', 'Gira Bewegungsmelderaufsatz 1,10m Komfort BT Standard 55 reinweiß glänzend', 62.56, 'Elektro', 'Stück', 'Gira', '4010337374039'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '537427', 'Gira Bewegungsmelderaufsatz 1,10m Komfort BT Standard 55 reinweiß matt', 62.56, 'Elektro', 'Stück', 'Gira', '4010337374275'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '537427', 'Gira Bewegungsmelderaufsatz 1,10m Komfort BT Standard 55 reinweiß matt', 62.56, 'Elektro', 'Stück', 'Gira', '4010337374275'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '536603', 'Gira Jalousie + Schaltuhr Display Standard 55 reinweiß glänzend', 49.84, 'Elektro', 'Stück', 'Gira', '4010337366033'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '536603', 'Gira Jalousie + Schaltuhr Display Standard 55 reinweiß glänzend', 49.84, 'Elektro', 'Stück', 'Gira', '4010337366033'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '536003', 'Gira Bedienaufsatz Kurzhubtaste Standard 55 reinweiß glänzend', 13.66, 'Elektro', 'Stück', 'Gira', '4010337360031'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '536003', 'Gira Bedienaufsatz Kurzhubtaste Standard 55 reinweiß glänzend', 13.66, 'Elektro', 'Stück', 'Gira', '4010337360031'),
+('9e467dc5-51d0-457f-a811-51e1d583d9f5', '25227', 'Gira Dichtungsset IP44 für Steckdose mit Klappdeckel (ALTE Generation)', 2.2, 'Elektro', 'Stück', 'Gira', '4010337252276'),
+('de84b0e8-2f55-4ed2-b164-bb11b68116db', '25227', 'Gira Dichtungsset IP44 für Steckdose mit Klappdeckel (ALTE Generation)', 2.2, 'Elektro', 'Stück', 'Gira', '4010337252276')
+ON CONFLICT DO NOTHING;

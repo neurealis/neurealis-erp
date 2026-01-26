@@ -1,0 +1,1060 @@
+﻿{
+    "data":  {
+                 "__schema":  {
+                                  "mutationType":  {
+                                                       "fields":  [
+                                                                      {
+                                                                          "name":  "add_logbook_entry",
+                                                                          "description":  "Add an entry to the logbook",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "logbook_entry",
+                                                                                           "type":  {
+                                                                                                        "name":  "LogbookEntryInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "add_partner",
+                                                                          "description":  "Add new add app user",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "partner",
+                                                                                           "type":  {
+                                                                                                        "name":  "PartnerInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_partner",
+                                                                          "description":  "Update employee",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "partner",
+                                                                                           "type":  {
+                                                                                                        "name":  "PartnerInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "add_project_match_assignments",
+                                                                          "description":  "Add assigned employees to a project",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "assigned_user_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_project_match_assignments",
+                                                                          "description":  "Delete assigned employees from a project",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "assigned_user_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_project_match_assignments",
+                                                                          "description":  "Updates a list of manual assigned user in project on base of given user ids",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "assigned_user_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "read_notifications",
+                                                                          "description":  "Mark notifications as read",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "rotate_image",
+                                                                          "description":  "Rotates an image",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "direction",
+                                                                                           "type":  {
+                                                                                                        "name":  "String",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "send_mail",
+                                                                          "description":  "Sends an e-mail",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "email",
+                                                                                           "type":  {
+                                                                                                        "name":  "EmailInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "set_user_password",
+                                                                          "description":  "Set the current user\u0027s password",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "old",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "new",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_file_upload",
+                                                                          "description":  "Updates a file upload",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "filename",
+                                                                                           "type":  {
+                                                                                                        "name":  "String",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "image_category",
+                                                                                           "type":  {
+                                                                                                        "name":  "String",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "delete",
+                                                                                           "type":  {
+                                                                                                        "name":  "Boolean",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_project_match",
+                                                                          "description":  "Creates a new project",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match",
+                                                                                           "type":  {
+                                                                                                        "name":  "ProjectMatchInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "manual_assigned_user_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_project_match",
+                                                                          "description":  "Updates a single project",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match",
+                                                                                           "type":  {
+                                                                                                        "name":  "ProjectMatchInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "manual_assigned_user_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_task",
+                                                                          "description":  "Updates task for current user",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "task",
+                                                                                           "type":  {
+                                                                                                        "name":  "TaskInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_tracking_time",
+                                                                          "description":  "Updates tracking times for current user",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "tracking_time",
+                                                                                           "type":  {
+                                                                                                        "name":  "Employees_TrackingTimeInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_user_data",
+                                                                          "description":  "Updates the current user\u0027s contact data",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "user_data",
+                                                                                           "type":  {
+                                                                                                        "name":  "UserDataInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "add_weather_logbook_entry",
+                                                                          "description":  "Creates a weather entry",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_project_export",
+                                                                          "description":  "Requests a project export",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "options",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_contact",
+                                                                          "description":  "Creates a new contact",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "findExisting",
+                                                                                           "type":  {
+                                                                                                        "name":  "Boolean",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "contact",
+                                                                                           "type":  {
+                                                                                                        "name":  "CustomerInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_contact",
+                                                                          "description":  "Updates an existing contact",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "contact",
+                                                                                           "type":  {
+                                                                                                        "name":  "CustomerInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_company",
+                                                                          "description":  "Updates the company data",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "data",
+                                                                                           "type":  {
+                                                                                                        "name":  "CompanyInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "upload_image",
+                                                                          "description":  "Add a previously uploaded image to a final target object. The image must be uploaded beforehand via the REST upload endpoint.",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "file_upload_uuid",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "target",
+                                                                                           "type":  {
+                                                                                                        "name":  "LinkTargetEnum",
+                                                                                                        "kind":  "ENUM"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "target_id",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_absence",
+                                                                          "description":  "Creates an absence",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "absence",
+                                                                                           "type":  {
+                                                                                                        "name":  "Employees_AbsenceInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_absence",
+                                                                          "description":  "Updates an absence",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "absence",
+                                                                                           "type":  {
+                                                                                                        "name":  "Employees_AbsenceInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_company_account",
+                                                                          "description":  "Deletes the company account and all data",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "password",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_project_type",
+                                                                          "description":  "Creates a new project type",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_type",
+                                                                                           "type":  {
+                                                                                                        "name":  "ProjectTypeInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_project_type",
+                                                                          "description":  "Updates an existing project type",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "project_type",
+                                                                                           "type":  {
+                                                                                                        "name":  "ProjectTypeInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_checklist",
+                                                                          "description":  "Delete a checklist",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "checklist_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_email_template",
+                                                                          "description":  "Update single email template",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "email_template",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_email_template",
+                                                                          "description":  "Create single email template",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "email_template",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "copy_from_template_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_calendar_event",
+                                                                          "description":  "Creates calendar event",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "calendar_event",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarEventInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_calendar_event",
+                                                                          "description":  "Updates calendar event",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "calendar_event",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarEventInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_calendar_import",
+                                                                          "description":  "Creates an imported iCal calendar",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "calendar_import",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarImportInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "partner_ids",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_calendar_import",
+                                                                          "description":  "Update a calendar_import",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "calendar_import",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarImportInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_calendar_import",
+                                                                          "description":  "Delete a calendar_import by its UID",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "uid",
+                                                                                           "type":  {
+                                                                                                        "name":  "String",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_calendar_share_link",
+                                                                          "description":  "creates an iCal link",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "categories",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarCategoryEnum",
+                                                                                                        "kind":  "ENUM"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "events",
+                                                                                           "type":  {
+                                                                                                        "name":  "CalendarEventSelection",
+                                                                                                        "kind":  "ENUM"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_calendar_event",
+                                                                          "description":  "Delete calendar_event",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_payment",
+                                                                          "description":  "Creates a new payment for the given document",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "document_id",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "payment",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "submit_document_signature",
+                                                                          "description":  "Sign an existing document",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "document_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "signature_node",
+                                                                                           "type":  {
+                                                                                                        "name":  "Documents_SignatureNodeInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "delete_document",
+                                                                          "description":  "Delete a document",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "document_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "upload_document",
+                                                                          "description":  "Upload a document",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "document",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "file_upload_uuid",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "target",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "target_id",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_document",
+                                                                          "description":  "Create a document",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "input",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "actions",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_field_service_job",
+                                                                          "description":  "Creates job for current user",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "job",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_JobInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_field_service_job",
+                                                                          "description":  "Updates job for current user",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "job",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_JobInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_field_service_checklist",
+                                                                          "description":  "Updates given checklist",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "job_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "project_match_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "checklist",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_ChecklistInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_field_service_checklist",
+                                                                          "description":  "Updates given checklist",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "checklist",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_ChecklistInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_field_service_checklist_template",
+                                                                          "description":  "Creates checklist template",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "checklist_template",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_ChecklistTemplateInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_field_service_checklist_template",
+                                                                          "description":  "Updates given checklist template",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "checklist_template",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_ChecklistTemplateInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "add_field_service_job_assignment",
+                                                                          "description":  "Add assigned employee to a job",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "job_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "partner_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "remove_field_service_job_assignment",
+                                                                          "description":  "Remove assigned employee from a job",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "job_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "partner_id",
+                                                                                           "type":  {
+                                                                                                        "name":  "Int",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_field_service_object",
+                                                                          "description":  "Updates service_object",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "service_object",
+                                                                                           "type":  {
+                                                                                                        "name":  "FieldService_ServiceObjectInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_customer_address",
+                                                                          "description":  "creates a new customer address",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "customer_address",
+                                                                                           "type":  {
+                                                                                                        "name":  "CustomerAddressInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "findExisting",
+                                                                                           "type":  {
+                                                                                                        "name":  "Boolean",
+                                                                                                        "kind":  "SCALAR"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_customer_address",
+                                                                          "description":  "edits a customer address",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "customer_address",
+                                                                                           "type":  {
+                                                                                                        "name":  "CustomerAddressInput",
+                                                                                                        "kind":  "INPUT_OBJECT"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_stock_material",
+                                                                          "description":  "Creates a new stock material entity and sources if provided.",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "stock_material",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_custom_field_schema",
+                                                                          "description":  "create a schema for custom fields",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "relates",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "add_custom_fields_to_schema",
+                                                                          "description":  "Add a custom field to a schema",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "properties",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "schemaId",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "remove_custom_field_from_schema",
+                                                                          "description":  "Remove custom field from schema",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "schemaId",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "propertyUuid",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_custom_fields_in_schema",
+                                                                          "description":  "Update one or more custom fields in schema",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "properties",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "schemaId",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "set_custom_field_value",
+                                                                          "description":  "Set the value of a custom field for a given relation. It can not exceed 10kb in size.",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "schemaId",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "relationId",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "properties",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "LIST"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_supply_product_version",
+                                                                          "description":  "Creates a new supply product",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "supply_product_version",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_supply_product_version",
+                                                                          "description":  "Updates an existing supply product",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "supply_product_version",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "create_supply_service",
+                                                                          "description":  "Creates a new supply service",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "supply_service",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                                      {
+                                                                          "name":  "update_supply_service",
+                                                                          "description":  "Updates an existing service",
+                                                                          "args":  [
+                                                                                       {
+                                                                                           "name":  "supply_service",
+                                                                                           "type":  {
+                                                                                                        "name":  null,
+                                                                                                        "kind":  "NON_NULL"
+                                                                                                    }
+                                                                                       }
+                                                                                   ]
+                                                                      }
+                                                                  ]
+                                                   }
+                              }
+             }
+}

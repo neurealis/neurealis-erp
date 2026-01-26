@@ -1,0 +1,308 @@
+﻿[
+    {
+        "softr_id":  "kYyAzm1EAyB6EU",
+        "beschreibung":  "Test Mangel",
+        "mangel_nr":  "ATBS-200-M1",
+        "projekt":  "ATBS-200"
+    },
+    {
+        "softr_id":  "SXYwmfWyFzYZ8G",
+        "beschreibung":  "HeizkÃ¶rper tropft im Wohnzimmer",
+        "mangel_nr":  "ATBS-299-M1",
+        "projekt":  "ATBS-299"
+    },
+    {
+        "softr_id":  "ew7nWZAHN98J3u",
+        "beschreibung":  "Fenster schlieÃt nicht richtig",
+        "mangel_nr":  "ATBS-299-M2",
+        "projekt":  "ATBS-299"
+    },
+    {
+        "softr_id":  "C1NLxca169jv6H",
+        "beschreibung":  "Duschvorhangstange ist wackelig, falsche Montage, MÃ¼ssen schauen wie wir es beheben",
+        "mangel_nr":  "ATBS-299-M3",
+        "projekt":  "ATBS-299"
+    },
+    {
+        "softr_id":  "59FyXIQiSs9qGp",
+        "beschreibung":  "jhlhlh",
+        "mangel_nr":  "ATBS-299-M4",
+        "projekt":  "ATBS-299"
+    },
+    {
+        "softr_id":  "s8o1FQZhFksakG",
+        "beschreibung":  "Deckentapeten lÃ¶sen sich",
+        "mangel_nr":  "ATBS-308-M1",
+        "projekt":  "ATBS-308"
+    },
+    {
+        "softr_id":  "73VejaTGNr0eJb",
+        "beschreibung":  "Antennenkabel unter der Decke mit Strapsen befestigt ohne Leerrohr - Leerrohr noch nachrÃ¼sten \nFotos von BL Rainer SchrÃ¶der folgen",
+        "mangel_nr":  "ATBS-321-M1",
+        "projekt":  "ATBS-321"
+    },
+    {
+        "softr_id":  "491VBKoinCBrBh",
+        "beschreibung":  "BrandschutzmÃ¶rtel fehlt, Fotos von BL Rainer SchrÃ¶der folgen",
+        "mangel_nr":  "ATBS-321-M2",
+        "projekt":  "ATBS-321"
+    },
+    {
+        "softr_id":  "IAuN3bnHju2m8g",
+        "beschreibung":  "Beim Mieter liegt eine StÃ¶rung des Kabelanschlusses vor. Ein Mitarbeiter von Vodafone war bereits vor Ort und hat die StÃ¶rung bestÃ¤tigt.\nLaut EL-MT betrifft die StÃ¶rung den Internetanschluss Ã¼ber Koaxialkabel, zusÃ¤tzlich ist jedoch auch die Telefonleitung beeintrÃ¤chtigt.",
+        "mangel_nr":  "ATBS-381-M1",
+        "projekt":  "ATBS-381"
+    },
+    {
+        "softr_id":  "L1nXMBUUwu8m1J",
+        "beschreibung":  "Im Bad ist das Eckprofil immer noch sichtbar",
+        "mangel_nr":  "ATBS-382-M1",
+        "projekt":  "ATBS-382"
+    },
+    {
+        "softr_id":  "RTtCVataypJTmc",
+        "beschreibung":  "\"Abdeckung fÃ¼r den HK unten am Ventil\" --\u003e (fehlt?) \nLeider liegen keine Fotos vor.",
+        "mangel_nr":  "ATBS-382-M2",
+        "projekt":  "ATBS-382"
+    },
+    {
+        "softr_id":  "0CwAHIyosUh1Bk",
+        "beschreibung":  "Handtuchhalter locker",
+        "mangel_nr":  "ATBS-382-M3",
+        "projekt":  "ATBS-382"
+    },
+    {
+        "softr_id":  "m1ngPPAcT04UV6",
+        "beschreibung":  "Wasserschaden gemÃ¤Ã Fotos",
+        "mangel_nr":  "ATBS-383-M1",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "1XhtMm9Hh0BgWP",
+        "beschreibung":  "Scharfe Fliesenkante am Heizkoerper",
+        "mangel_nr":  "ATBS-383-M2",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "Hu4jeGQ8q93zTt",
+        "beschreibung":  "Scharfe Fliesenkante am HeizkÃ¶rper",
+        "mangel_nr":  "ATBS-383-M3",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "7bIQS3kdyyo6yE",
+        "beschreibung":  "OP Ventil nicht richtig befestigt, so dass es hin und her wackelt",
+        "mangel_nr":  "ATBS-383-M4",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "yVnp7mw9QrSrj8",
+        "beschreibung":  "Fliese unterm WC gerissen und nach oben geschoben, so dass das WC nicht mehr richtig steht. ",
+        "mangel_nr":  "ATBS-383-M5",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "IxJOmvOdzV7Jmi",
+        "beschreibung":  "-SpÃ¼lkasten zwischenzeitlich seitens der Vonovia getauscht - SpÃ¼lkasten mit zwei FlexschlÃ¤uchen angeschlossen. hier das Eckventile fÃ¼r den SpÃ¼lkasten mit Silikon festgeklebt. WC Unibogen hinten einfach mit Silikon und irgendetwas anderen abgedichtet und Rohr viel zu weit hinten in der Wand da die ist auch nicht befestigt ist. \n. Musste hier den SpÃ¼lkasten tauschen, da dieser aus allen Verbindungen tropfte, so dass man ihn nicht mehr reparieren konnte da hier ein sehr billiger SpÃ¼lkasten verbaut wurde daher zum GroÃhÃ¤ndler gefahren und einen neuen SpÃ¼lkasten geholt und diesen montiert, so dass die Mieterin erst mal wieder die WC SpÃ¼lung benutzen kann\n",
+        "mangel_nr":  "ATBS-383-M6",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "gSkNuVUSz8cxMh",
+        "beschreibung":  "Durchlauferhitzer gar nicht befestigt. Dieser hÃ¤ngt nur an den Wasserleitungen ",
+        "mangel_nr":  "ATBS-383-M7",
+        "projekt":  "ATBS-383"
+    },
+    {
+        "softr_id":  "HcEJoHjyVfepuA",
+        "beschreibung":  "Dach kaputt",
+        "mangel_nr":  "ATBS-400-M1",
+        "projekt":  "ATBS-400"
+    },
+    {
+        "softr_id":  "anp4puhMyk5jng",
+        "beschreibung":  "Dach kaputt",
+        "mangel_nr":  "ATBS-400-M2",
+        "projekt":  "ATBS-400"
+    },
+    {
+        "softr_id":  "a7P0eVtIBOs5mf",
+        "beschreibung":  "SchÃ¤den in Wohnung unter Sanierung, BalkontÃ¼r, Fenster und \"Kinderzimmer\" entstanden, Ausgleichsmasse ist runter gelaufen;\nSchaden wurde aufgenommen und entfernt aber laut Mieterin nicht richtig saubergemacht (schwarze RÃ¤nder, mÃ¼ssen wir laut VBW beseitigen; Kratzer; neue FensterbÃ¤nke sollen eingebaut werden), Teppich und Gardinen sind beschÃ¤digt; war schon Ende August\nMieterin will Kostenvoranschlag einreichen, Reinigung nicht mgl. Perserteppich nicht zu reinigen; hat Putzfrau beauftragt\nmÃ¶chten Gardinen waschen und Teppich reinigen, aber laut Firma nicht mgl.; Mieterin hat angeblich Anwalt eingeschaltet\nmuss laut VBWdurch uns machen lassen, Mieterin zeigt sich aber zeitweise unkooperativ",
+        "mangel_nr":  "ATBS-407-M1",
+        "projekt":  "ATBS-407"
+    },
+    {
+        "softr_id":  "BXMeFFP7AP8zWq",
+        "beschreibung":  "NÃ¤chstes ein Test, dass Du MÃ¤ngel aufnehmen kannst und erstens, Atikableche sind nicht gut auf Gehrung geschnitten. Zweitens, TÃ¼rblatt Wohnzimmer zu stark gekÃ¼rzt. Drittens, Fliese im Badezimmer abgeplatzt? Viertens, Alter Neben TÃ¼ren, KÃ¼che, bitte fertigstellen innerhalb von 2 Tagen.",
+        "mangel_nr":  "ATBS-411-M1",
+        "projekt":  "ATBS-411"
+    },
+    {
+        "softr_id":  "D9jFOrKKX2Ty4g",
+        "beschreibung":  "Tuerblatt zum Schlafzimmer fehlt",
+        "mangel_nr":  "ATBS-412-M1",
+        "projekt":  "ATBS-412"
+    },
+    {
+        "softr_id":  "K3Ky9FVJYOLtdK",
+        "beschreibung":  "Untertisch und Spiegelschrank im Badezimmer fehlt",
+        "mangel_nr":  "ATBS-412-M2",
+        "projekt":  "ATBS-412"
+    },
+    {
+        "softr_id":  "gMTNbb3MfVVya9",
+        "beschreibung":  "TÃ¼rblatt zum Schlafzimmer fehlt ",
+        "mangel_nr":  "ATBS-412-M3",
+        "projekt":  "ATBS-412"
+    },
+    {
+        "softr_id":  "dZyHp1Ix6AbD9p",
+        "beschreibung":  "Untertisch und Spiegelschrank im Badezimmer fehlt, abholung bei Elspermann durch NU am 21.10.",
+        "mangel_nr":  "ATBS-412-M4",
+        "projekt":  "ATBS-412"
+    },
+    {
+        "softr_id":  "CGoN8PK6qBh8oW",
+        "beschreibung":  "Klo Kaputt",
+        "mangel_nr":  "ATBS-413-M1",
+        "projekt":  "ATBS-413"
+    },
+    {
+        "softr_id":  "P9bjdFbhtJamxD",
+        "beschreibung":  "Fenster KÃ¼che kaputt",
+        "mangel_nr":  "ATBS-413-M2",
+        "projekt":  "ATBS-413"
+    },
+    {
+        "softr_id":  "r06w6r17AoPTku",
+        "beschreibung":  "fenster wieder kaputt 3. mal",
+        "mangel_nr":  "ATBS-413-M3",
+        "projekt":  "ATBS-413"
+    },
+    {
+        "softr_id":  "a3wCTneLKqz14b",
+        "beschreibung":  "NachrÃ¼stung Waschtisch",
+        "mangel_nr":  "ATBS-416-M1",
+        "projekt":  "ATBS-416"
+    },
+    {
+        "softr_id":  "6vdR2hNSihuezX",
+        "beschreibung":  null,
+        "mangel_nr":  "ATBS-418-M1",
+        "projekt":  "ATBS-418"
+    },
+    {
+        "softr_id":  "aLVTD9s9eYWIEz",
+        "beschreibung":  "GemÃ¤Ã der beauftragten Kontraktposition lautet der vollstÃ¤ndige Leistungsumfang:â InnentÃ¼relemente, bestehend aus Zargenelement und TÃ¼rblatt beidseitig schleifen \u0026 lackieren - auch raumhoch - FlÃ¤chen anschleifen und sÃ¤ubern - inkl. WE-TÃ¼r innenseitig - Nicht tragfÃ¤higen Altanstrich durch Abschleifen oder Abbeizen restlos entfernen - Fugen und StÃ¶Ãe beispachteln, kleine Risse und LÃ¶cher auskitten - inkl. Grundierung, Vorlackierung und Schlussbeschichtungâ\nNach meiner EinschÃ¤tzung wurde die oben beschriebene Leistung nicht vollstÃ¤ndig erbracht.\n",
+        "mangel_nr":  "ATBS-425-M1",
+        "projekt":  "ATBS-425"
+    },
+    {
+        "softr_id":  "FAB7FW7HBcchvv",
+        "beschreibung":  "Zu viel austretende Tapetenkleister an den WÃ¤nden, Bauschaum Ã¼ber der TÃ¼r entfernen und versiegeln, Balkonaustritt lackieren.\n\nFotos liegen nicht vor",
+        "mangel_nr":  "ATBS-427-M1",
+        "projekt":  "ATBS-427"
+    },
+    {
+        "softr_id":  "jhHIkfRR70BXsJ",
+        "beschreibung":  "Mastercarree fehlt, muss Tim noch einbauen nach Erhalt SchlÃ¼ssel von GWS",
+        "mangel_nr":  "ATBS-430-M1",
+        "projekt":  "ATBS-430"
+    },
+    {
+        "softr_id":  "nWoJe1yGrhhMtG",
+        "beschreibung":  "2x Wasserschaden festgestellt\n\nGesamte RÃ¼ckwand zum Bad (wo Heizung verbaut ist)\n\nAndere Badwand auch feucht - im Flur rechts und links neben badezimmertÃ¼r ebenfalls nass\n\nam DI 16.12. 3 LÃ¶cher gemacht, in KÃ¼che unter WasseranschlÃ¼sse etwas weggenommen\n\nDann ist nichts passiert, per Hand in Wand gefasst - hier ist alles trocken, kein Wasser.\n\nWasser kam unter FuÃleiste durch.\n\nSockelleisten dran gelassen, war aber nass dahinter. obersten Putz von Vitalie entfernt. \n\nFliese unter Dusche entfernt, es war feucht - Bauarbeiter sagt \"alles trocken\".\n\nVon Dienstag an nichts passiert, keine Leckageortung / kein TrocknungsgerÃ¤t - am Freitag unangemeldet vor TÃ¼r.",
+        "mangel_nr":  "ATBS-432-M1",
+        "projekt":  "ATBS-432"
+    },
+    {
+        "softr_id":  "vyQnAnT6UmRteS",
+        "beschreibung":  "Steckdose in WaschkÃ¼che ohne Funktion, bitte prÃ¼fen ob in UV aufgelegt\n\nMieterin Fr. ",
+        "mangel_nr":  "ATBS-432-M2",
+        "projekt":  "ATBS-432"
+    },
+    {
+        "softr_id":  "ThM2Ka3VBvGeBI",
+        "beschreibung":  "Es wird vermutet, dass eine Leckage besteht. \nDurch die Feuchtigkeit ist bereits Schimmel entstanden.",
+        "mangel_nr":  "ATBS-432-M3",
+        "projekt":  "ATBS-432"
+    },
+    {
+        "softr_id":  "LuKpdIrMNv60Pt",
+        "beschreibung":  "Heizkoerper im Bad noch nicht angeschlossen.",
+        "mangel_nr":  "ATBS-437-M1",
+        "projekt":  "ATBS-437"
+    },
+    {
+        "softr_id":  "QUogtyQZX8VDYk",
+        "beschreibung":  "HeizkÃ¶rper im Bad noch nicht angeschlossen.",
+        "mangel_nr":  "ATBS-437-M2",
+        "projekt":  "ATBS-437"
+    },
+    {
+        "softr_id":  "FfsMd2PeEaejZt",
+        "beschreibung":  "Ein FensterflÃ¼gel im Schlafzimmer zum Asselner Hellweg lÃ¤sst sich nicht Ã¶ffnen\n-- geht immer noch nicht auf",
+        "mangel_nr":  "ATBS-438-M1",
+        "projekt":  "ATBS-438"
+    },
+    {
+        "softr_id":  "pFFXDmyv968aJ6",
+        "beschreibung":  "HeizkÃ¶rper erneut Reinigen",
+        "mangel_nr":  "ATBS-438-M2",
+        "projekt":  "ATBS-438"
+    },
+    {
+        "softr_id":  "Zn134KSrcJzk6Z",
+        "beschreibung":  "2x Rauchwarnmelder im neuen SZ zum Garten und Flur noch ncith angebracht - RWM liegen bereits auf Fensterbank",
+        "mangel_nr":  "ATBS-438-M3",
+        "projekt":  "ATBS-438"
+    },
+    {
+        "softr_id":  "1NkxUKLhB7Ghaj",
+        "beschreibung":  "Unterverteilung - Reinigung von innen \u0026 Kabel darunter weiÃen",
+        "mangel_nr":  "ATBS-438-M4",
+        "projekt":  "ATBS-438"
+    },
+    {
+        "softr_id":  "jMFtVdrNl7kYYA",
+        "beschreibung":  "Bad: HZK ist oberhalb etwas locker",
+        "mangel_nr":  "ATBS-438-M5",
+        "projekt":  "ATBS-438"
+    },
+    {
+        "softr_id":  "CfrVjiVVR09PgU",
+        "beschreibung":  "Fehlender Wasserablauf in KÃ¼che, wurde durch NU zugespachtelt.",
+        "mangel_nr":  "ATBS-442-M1",
+        "projekt":  "ATBS-442"
+    },
+    {
+        "softr_id":  "htkIBjQU6AUrhC",
+        "beschreibung":  "Zwei der im letzten Jahr, durch Sie eingebaute HeizkÃ¶rper tropfen",
+        "mangel_nr":  "ATBS-452-M1",
+        "projekt":  "ATBS-452"
+    },
+    {
+        "softr_id":  "Au4LCezWMa8Vzd",
+        "beschreibung":  "fgdfssdg",
+        "mangel_nr":  "ATBS-456-M1",
+        "projekt":  "ATBS-456"
+    },
+    {
+        "softr_id":  "nywQ13AHuBiYkO",
+        "beschreibung":  "An der Duschtasse sind AusblÃ¼hungen entstanden.",
+        "mangel_nr":  "UNKNOWN-M1",
+        "projekt":  "UNKNOWN"
+    },
+    {
+        "softr_id":  "aacsNrr3S2Tma4",
+        "beschreibung":  null,
+        "mangel_nr":  "UNKNOWN-M2",
+        "projekt":  "UNKNOWN"
+    },
+    {
+        "softr_id":  "hPmWLchAL82yAS",
+        "beschreibung":  "Duschabtrennung eines abweichenden Herstellers durch NU eingebaut. Kundin ggf. Nachlass gewÃ¤hren. ",
+        "mangel_nr":  "UNKNOWN-M3",
+        "projekt":  "UNKNOWN"
+    }
+]

@@ -111,32 +111,46 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
 
 async function fetchSoftrDocuments(): Promise<Map<string, any>> {
   const docs = new Map<string, any>();
+  const PAGE_SIZE = 1000;
+  const MAX_PAGES = 10; // Sicherheitslimit: max 10.000 Dokumente
 
-  const response = await fetch(
-    `${SOFTR_API_URL}/databases/${SOFTR_DATABASE_ID}/tables/${SOFTR_DOKUMENTE_TABLE}/records?limit=1000`,
-    {
-      headers: {
-        'Softr-Api-Key': SOFTR_API_KEY,
-        'Content-Type': 'application/json'
+  for (let page = 0; page < MAX_PAGES; page++) {
+    const offset = page * PAGE_SIZE;
+    console.log(`Fetching Softr documents page ${page + 1} (offset: ${offset})...`);
+
+    const response = await fetch(
+      `${SOFTR_API_URL}/databases/${SOFTR_DATABASE_ID}/tables/${SOFTR_DOKUMENTE_TABLE}/records?limit=${PAGE_SIZE}&offset=${offset}`,
+      {
+        headers: {
+          'Softr-Api-Key': SOFTR_API_KEY,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Softr API error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    const records = result.data || [];
+
+    for (const record of records) {
+      const dokNr = record.fields?.[SOFTR_FIELDS.DOKUMENT_NR] || '';
+      const nuaNr = record.fields?.[SOFTR_FIELDS.NUA_NR] || '';
+
+      if (dokNr) {
+        docs.set(dokNr, record);
+      }
+      if (nuaNr && !docs.has(nuaNr)) {
+        docs.set(nuaNr, record);
       }
     }
-  );
 
-  if (!response.ok) {
-    throw new Error(`Softr API error: ${response.status}`);
-  }
-
-  const result = await response.json();
-
-  for (const record of result.data || []) {
-    const dokNr = record.fields?.[SOFTR_FIELDS.DOKUMENT_NR] || '';
-    const nuaNr = record.fields?.[SOFTR_FIELDS.NUA_NR] || '';
-
-    if (dokNr) {
-      docs.set(dokNr, record);
-    }
-    if (nuaNr && !docs.has(nuaNr)) {
-      docs.set(nuaNr, record);
+    // Wenn weniger als PAGE_SIZE zurückkommen, sind wir fertig
+    if (records.length < PAGE_SIZE) {
+      console.log(`Softr pagination complete. Total unique documents: ${docs.size}`);
+      break;
     }
   }
 
@@ -307,37 +321,42 @@ async function syncDocuments(): Promise<SyncResult> {
         // Softr-Felder vorbereiten
         const netto = heroDoc.value || 0;
         const brutto = netto + (heroDoc.vat || 0);
+        const importTimestamp = new Date().toISOString();
 
-        const softrFields: Record<string, any> = {
+        // Basis-Felder (für Updates und Creates)
+        const baseFields: Record<string, any> = {
           [SOFTR_FIELDS.DOKUMENT_NR]: dokNr,
           [SOFTR_FIELDS.ART_DOKUMENT]: artDokument,
           [SOFTR_FIELDS.BETRAG_NETTO]: netto,
           [SOFTR_FIELDS.BETRAG_BRUTTO]: brutto,
-          [SOFTR_FIELDS.DATUM_ERSTELLT]: heroDoc.date,
-          [SOFTR_FIELDS.NOTIZEN]: `Hero-Import: ${new Date().toISOString()}`
+          [SOFTR_FIELDS.DATUM_ERSTELLT]: heroDoc.date
         };
 
         // NUA-Nr setzen für NUAs
         if (dokNr.startsWith('NUA-')) {
-          softrFields[SOFTR_FIELDS.NUA_NR] = dokNr;
+          baseFields[SOFTR_FIELDS.NUA_NR] = dokNr;
         }
 
         if (existsInSoftr) {
-          // Update (für Revisionen von Angeboten, AB, NUA, etc.)
+          // Update: Notizen NICHT überschreiben (manuelle Notizen bleiben erhalten)
           const existingRecord = softrDocs.get(dokNr);
-          const success = await updateSoftrRecord(existingRecord.id, softrFields);
+          const success = await updateSoftrRecord(existingRecord.id, baseFields);
           if (success) {
             result.updated++;
           } else {
             result.errors.push(`Update failed: ${dokNr}`);
           }
         } else {
-          // Create
-          const newId = await createSoftrRecord(softrFields);
+          // Create: Notizen-Feld mit Import-Timestamp setzen
+          const createFields = {
+            ...baseFields,
+            [SOFTR_FIELDS.NOTIZEN]: `Hero-Import: ${importTimestamp}`
+          };
+          const newId = await createSoftrRecord(createFields);
           if (newId) {
             result.created++;
             // Füge zum Cache hinzu für Duplikat-Prüfung
-            softrDocs.set(dokNr, { id: newId, fields: softrFields });
+            softrDocs.set(dokNr, { id: newId, fields: createFields });
           } else {
             result.errors.push(`Create failed: ${dokNr}`);
           }

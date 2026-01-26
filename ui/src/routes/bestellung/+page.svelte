@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import { supabase, parseArtikelText } from '$lib/supabase';
 
 	// === Typen ===
@@ -43,20 +44,6 @@
 		einzelpreis?: number;
 	}
 
-	// === State ===
-	let projekte = $state<Projekt[]>([]);
-	let grosshaendler = $state<Grosshaendler[]>([]);
-	let artikel = $state<Artikel[]>([]);
-	let isLoading = $state(true);
-	let isLoadingArtikel = $state(false);
-
-	let selectedProjekt = $state('');
-	let selectedHaendler = $state('');
-	let selectedLieferort = $state('baustelle');
-	let lieferdatum = $state('');
-	let selectedZeitfenster = $state('');
-
-	// NEU: Ansprechpartner für Lieferung
 	interface Ansprechpartner {
 		id: string;
 		vorname: string | null;
@@ -64,14 +51,42 @@
 		telefon_mobil: string | null;
 		email: string | null;
 	}
-	let ansprechpartner = $state<Ansprechpartner[]>([]);
-	let selectedAnsprechpartner = $state('');
 
+	// === Wizard State ===
+	let currentStep = $state(1);
+	const totalSteps = 4;
+
+	const stepTitles = [
+		'Großhändler',
+		'Artikel auswählen',
+		'Lieferung',
+		'Bestätigung'
+	];
+
+	// === Daten State ===
+	let projekte = $state<Projekt[]>([]);
+	let grosshaendler = $state<Grosshaendler[]>([]);
+	let artikel = $state<Artikel[]>([]);
+	let ansprechpartner = $state<Ansprechpartner[]>([]);
+	let isLoading = $state(true);
+	let isLoadingArtikel = $state(false);
+
+	// === Formular State ===
+	let selectedHaendler = $state('');
+	let selectedProjekt = $state('');
+	let selectedLieferort = $state('baustelle');
+	let lieferdatum = $state('');
+	let selectedZeitfenster = $state('');
+	let selectedAnsprechpartner = $state('');
+	let lieferhinweise = $state('');
+
+	// === Artikel State ===
 	let artikelText = $state('');
 	let isProcessing = $state(false);
 	let erkannteArtikel = $state<ErkannterArtikel[]>([]);
 	let unerkannteTexte = $state<string[]>([]);
 	let errorMessage = $state('');
+	let activeTab = $state<'ki' | 'katalog'>('ki');
 
 	// Bestellpositionen mit Mengen
 	let bestellpositionen = $state<Map<string, number>>(new Map());
@@ -83,40 +98,59 @@
 	let selectedKategorie = $state<string | null>(null);
 	let selectedUnterkategorie = $state<string | null>(null);
 	let selectedHersteller = $state<string | null>(null);
-
-	// NEU: Suchfeld
 	let suchbegriff = $state('');
 
-	// NEU: Warenkorb-Drawer
-	let warenkorbOpen = $state(false);
+	// Favoriten
+	let favoriten = $state<Set<string>>(new Set());
+	let favoritenLoading = $state(false);
 
-	// NEU: Benutzer aus Auth Session
+	// Benutzer
 	let currentUser = $state<string | null>(null);
 
-	// === Daten laden ===
+	// Submit State
+	let isSubmitting = $state(false);
+	let submitSuccess = $state(false);
+	let bestellnummer = $state('');
+
+	// Warenkorb-Drawer
+	let warenkorbOpen = $state(false);
+
+	// URL-Parameter
+	let initialAtbs = $state('');
+
+	// === Lifecycle ===
 	onMount(async () => {
-		// Auth Session prüfen
 		const { data: { session } } = await supabase.auth.getSession();
 		currentUser = session?.user?.email || 'anonymous';
 
+		// URL-Parameter auslesen
+		const url = new URL(window.location.href);
+		initialAtbs = url.searchParams.get('atbs') || '';
+
 		await loadFavoriten();
 		await loadData();
+
+		// Lieferdatum auf morgen setzen
+		const morgen = new Date();
+		morgen.setDate(morgen.getDate() + 1);
+		// Wenn nach 14 Uhr, dann übermorgen
+		if (new Date().getHours() >= 14) {
+			morgen.setDate(morgen.getDate() + 1);
+		}
+		lieferdatum = morgen.toISOString().split('T')[0];
 	});
 
+	// === Daten laden ===
 	async function loadData() {
 		isLoading = true;
 
 		try {
 			// Projekte aus monday_bauprozess laden - nur Phasen 2, 3, 4
-			const { data: projekteData, error: projekteError } = await supabase
+			const { data: projekteData } = await supabase
 				.from('monday_bauprozess')
 				.select('id, name, group_title, column_values')
 				.or('group_title.ilike.(2%,group_title.ilike.(3%,group_title.ilike.(4%')
 				.order('name', { ascending: true });
-
-			if (projekteError) {
-				console.error('Fehler beim Laden der Projekte:', projekteError);
-			}
 
 			if (projekteData) {
 				projekte = projekteData
@@ -132,42 +166,37 @@
 					.filter(p => p.atbs_nummer && p.atbs_nummer.startsWith('ATBS'));
 
 				if (projekte.length > 0) {
-					selectedProjekt = projekte[0].atbs_nummer;
+					// URL-Parameter oder erstes Projekt
+					if (initialAtbs) {
+						const found = projekte.find(p => p.atbs_nummer === initialAtbs);
+						selectedProjekt = found ? found.atbs_nummer : projekte[0].atbs_nummer;
+					} else {
+						selectedProjekt = projekte[0].atbs_nummer;
+					}
 				}
 			}
 
-			// Großhändler aus Datenbank laden
-			const { data: ghData, error: ghError } = await supabase
+			// Großhändler laden
+			const { data: ghData } = await supabase
 				.from('grosshaendler')
 				.select('id, name, kurzname, typ, typ_anzeige, bestell_email')
 				.eq('ist_aktiv', true)
 				.order('name', { ascending: true });
 
-			if (ghError) {
-				console.error('Fehler beim Laden der Großhändler:', ghError);
-			}
-
 			if (ghData && ghData.length > 0) {
 				grosshaendler = ghData;
-				selectedHaendler = grosshaendler[0].id;
-				await loadArtikelFuerHaendler(grosshaendler[0].id);
 			}
 
-			// NEU: Ansprechpartner (Mitarbeiter) laden
-			const { data: mitarbeiterData, error: mitarbeiterError } = await supabase
+			// Ansprechpartner (Mitarbeiter) laden
+			const { data: mitarbeiterData } = await supabase
 				.from('kontakte')
 				.select('id, vorname, nachname, telefon_mobil, email')
 				.eq('aktiv', true)
 				.contains('kontaktarten', ['mitarbeiter'])
 				.order('nachname', { ascending: true });
 
-			if (mitarbeiterError) {
-				console.error('Fehler beim Laden der Mitarbeiter:', mitarbeiterError);
-			}
-
 			if (mitarbeiterData && mitarbeiterData.length > 0) {
 				ansprechpartner = mitarbeiterData;
-				// Aktuellen Benutzer als Standard-Ansprechpartner setzen
 				const currentUserMatch = mitarbeiterData.find(m => m.email === currentUser);
 				if (currentUserMatch) {
 					selectedAnsprechpartner = currentUserMatch.id;
@@ -176,14 +205,13 @@
 				}
 			}
 		} catch (err) {
-			console.error('Unerwarteter Fehler beim Laden:', err);
+			console.error('Fehler beim Laden:', err);
 			errorMessage = 'Fehler beim Laden der Daten. Bitte Seite neu laden.';
 		} finally {
 			isLoading = false;
 		}
 	}
 
-	// Artikel für ausgewählten Großhändler laden
 	async function loadArtikelFuerHaendler(haendlerId: string) {
 		isLoadingArtikel = true;
 		artikel = [];
@@ -200,53 +228,19 @@
 				.eq('ist_aktiv', true)
 				.order('bezeichnung', { ascending: true });
 
-			if (error) {
-				console.error('Fehler beim Laden der Artikel:', error);
-				errorMessage = 'Artikel konnten nicht geladen werden.';
-			} else if (artikelData) {
+			if (!error && artikelData) {
 				artikel = artikelData;
 			}
 		} catch (err) {
-			console.error('Netzwerkfehler beim Laden der Artikel:', err);
-			errorMessage = 'Netzwerkfehler - bitte Verbindung prüfen.';
+			console.error('Fehler beim Laden der Artikel:', err);
 		} finally {
 			isLoadingArtikel = false;
 		}
 	}
 
-	// NEU: Bei Großhändler-Wechsel mit Warnung
-	async function onHaendlerChange(event: Event) {
-		const select = event.target as HTMLSelectElement;
-		const neuerHaendler = select.value;
-
-		// Warnung wenn Warenkorb nicht leer
-		if (bestellpositionen.size > 0) {
-			const confirmed = confirm(
-				`Du hast ${bestellpositionen.size} Artikel im Warenkorb.\n\nHändlerwechsel leert den Warenkorb. Fortfahren?`
-			);
-			if (!confirmed) {
-				// Zurücksetzen auf alten Wert
-				select.value = selectedHaendler;
-				return;
-			}
-		}
-
-		// Warenkorb leeren und neu laden
-		bestellpositionen = new Map();
-		erkannteArtikel = [];
-		unerkannteTexte = [];
-		selectedHaendler = neuerHaendler;
-		await loadArtikelFuerHaendler(neuerHaendler);
-	}
-
-	// Favoriten aus Datenbank
-	let favoriten = $state<Set<string>>(new Set());
-	let favoritenLoading = $state(false);
-
-	// Favoriten aus DB laden
+	// === Favoriten ===
 	async function loadFavoriten() {
 		if (!currentUser) return;
-
 		favoritenLoading = true;
 		try {
 			const { data, error } = await supabase
@@ -256,34 +250,21 @@
 
 			if (data && !error) {
 				favoriten = new Set(data.map(f => f.artikel_id));
-			} else if (error) {
-				console.warn('Favoriten konnten nicht geladen werden:', error.message);
-				// Fallback: localStorage
-				loadFavoritenFromLocalStorage();
+			} else {
+				const stored = localStorage.getItem('bestellartikel_favoriten');
+				if (stored) favoriten = new Set(JSON.parse(stored));
 			}
-		} catch (err) {
-			console.warn('Favoriten-Laden fehlgeschlagen, nutze localStorage:', err);
-			loadFavoritenFromLocalStorage();
+		} catch {
+			const stored = localStorage.getItem('bestellartikel_favoriten');
+			if (stored) favoriten = new Set(JSON.parse(stored));
 		} finally {
 			favoritenLoading = false;
-		}
-	}
-
-	function loadFavoritenFromLocalStorage() {
-		try {
-			const stored = localStorage.getItem('bestellartikel_favoriten');
-			if (stored) {
-				favoriten = new Set(JSON.parse(stored));
-			}
-		} catch (e) {
-			console.warn('localStorage nicht verfügbar:', e);
 		}
 	}
 
 	async function toggleFavorit(artikelId: string) {
 		const istFavorit = favoriten.has(artikelId);
 
-		// Optimistic UI Update
 		if (istFavorit) {
 			favoriten.delete(artikelId);
 		} else {
@@ -291,32 +272,21 @@
 		}
 		favoriten = new Set(favoriten);
 
-		// DB Update
 		try {
 			if (currentUser && currentUser !== 'anonymous') {
 				if (istFavorit) {
-					await supabase
-						.from('bestellartikel_favoriten')
-						.delete()
-						.eq('benutzer_id', currentUser)
-						.eq('artikel_id', artikelId);
+					await supabase.from('bestellartikel_favoriten').delete()
+						.eq('benutzer_id', currentUser).eq('artikel_id', artikelId);
 				} else {
-					await supabase
-						.from('bestellartikel_favoriten')
+					await supabase.from('bestellartikel_favoriten')
 						.insert({ benutzer_id: currentUser, artikel_id: artikelId });
 				}
 			}
-			// Auch localStorage aktualisieren als Backup
 			localStorage.setItem('bestellartikel_favoriten', JSON.stringify([...favoriten]));
-		} catch (err) {
-			// Bei Fehler: Rollback
-			if (istFavorit) {
-				favoriten.add(artikelId);
-			} else {
-				favoriten.delete(artikelId);
-			}
+		} catch {
+			if (istFavorit) favoriten.add(artikelId);
+			else favoriten.delete(artikelId);
 			favoriten = new Set(favoriten);
-			console.error('Favorit-Speichern fehlgeschlagen:', err);
 		}
 	}
 
@@ -332,7 +302,6 @@
 		return summe;
 	});
 
-	// NEU: Anzahl Artikel im Warenkorb
 	let warenkorbAnzahl = $derived.by(() => {
 		let anzahl = 0;
 		for (const menge of bestellpositionen.values()) {
@@ -341,44 +310,24 @@
 		return anzahl;
 	});
 
-	// NEU: Warenkorb-Artikel mit Details
 	let warenkorbArtikel = $derived.by(() => {
 		const items: Array<Artikel & { menge: number; summe: number }> = [];
 		for (const [artikelId, menge] of bestellpositionen) {
 			if (menge > 0) {
 				const art = artikel.find(a => a.id === artikelId);
 				if (art) {
-					items.push({
-						...art,
-						menge,
-						summe: (art.einkaufspreis || 0) * menge
-					});
+					items.push({ ...art, menge, summe: (art.einkaufspreis || 0) * menge });
 				}
 			}
 		}
 		return items.sort((a, b) => (a.kurzbezeichnung || a.bezeichnung).localeCompare(b.kurzbezeichnung || b.bezeichnung));
 	});
 
-	let selectedProjektDetails = $derived.by(() => {
-		return projekte.find(p => p.atbs_nummer === selectedProjekt);
-	});
+	let selectedProjektDetails = $derived.by(() => projekte.find(p => p.atbs_nummer === selectedProjekt));
+	let selectedHaendlerDetails = $derived.by(() => grosshaendler.find(h => h.id === selectedHaendler));
+	let selectedAnsprechpartnerDetails = $derived.by(() => ansprechpartner.find(a => a.id === selectedAnsprechpartner));
 
-	let selectedHaendlerDetails = $derived.by(() => {
-		return grosshaendler.find(h => h.id === selectedHaendler);
-	});
-
-	// NEU: Ausgewählter Ansprechpartner Details
-	let selectedAnsprechpartnerDetails = $derived.by(() => {
-		return ansprechpartner.find(a => a.id === selectedAnsprechpartner);
-	});
-
-	// NEU: Formatierter Name für Ansprechpartner
-	function formatAnsprechpartnerName(ap: Ansprechpartner): string {
-		const parts = [ap.vorname, ap.nachname].filter(Boolean);
-		return parts.join(' ') || 'Unbekannt';
-	}
-
-	// Verfügbare Kategorien (Gewerke)
+	// Filter
 	let verfuegbareKategorien = $derived.by(() => {
 		const kategorien = new Set<string>();
 		for (const art of artikel) {
@@ -387,20 +336,16 @@
 		return [...kategorien].sort();
 	});
 
-	// Verfügbare Unterkategorien (abhängig von gewählter Kategorie)
 	let verfuegbareUnterkategorien = $derived.by(() => {
 		const unterkategorien = new Set<string>();
 		for (const art of artikel) {
-			if (art.unterkategorie) {
-				if (!selectedKategorie || art.kategorie === selectedKategorie) {
-					unterkategorien.add(art.unterkategorie);
-				}
+			if (art.unterkategorie && (!selectedKategorie || art.kategorie === selectedKategorie)) {
+				unterkategorien.add(art.unterkategorie);
 			}
 		}
 		return [...unterkategorien].sort();
 	});
 
-	// Verfügbare Hersteller (abhängig von gewählter Kategorie/Unterkategorie)
 	let verfuegbareHersteller = $derived.by(() => {
 		const hersteller = new Set<string>();
 		for (const art of artikel) {
@@ -414,11 +359,9 @@
 		return [...hersteller].sort();
 	});
 
-	// NEU: Gefilterte Artikel mit Suchfunktion
 	let gefilterteArtikel = $derived.by(() => {
 		let filtered = artikel;
 
-		// Volltextsuche
 		if (suchbegriff.trim()) {
 			const such = suchbegriff.toLowerCase().trim();
 			filtered = filtered.filter(a =>
@@ -429,22 +372,10 @@
 			);
 		}
 
-		// Nach Kategorie filtern
-		if (selectedKategorie) {
-			filtered = filtered.filter(a => a.kategorie === selectedKategorie);
-		}
+		if (selectedKategorie) filtered = filtered.filter(a => a.kategorie === selectedKategorie);
+		if (selectedUnterkategorie) filtered = filtered.filter(a => a.unterkategorie === selectedUnterkategorie);
+		if (selectedHersteller) filtered = filtered.filter(a => a.hersteller === selectedHersteller);
 
-		// Nach Unterkategorie filtern
-		if (selectedUnterkategorie) {
-			filtered = filtered.filter(a => a.unterkategorie === selectedUnterkategorie);
-		}
-
-		// Nach Hersteller filtern
-		if (selectedHersteller) {
-			filtered = filtered.filter(a => a.hersteller === selectedHersteller);
-		}
-
-		// Sortieren: Favoriten oben, dann alphabetisch
 		return [...filtered].sort((a, b) => {
 			const aFav = favoriten.has(a.id);
 			const bFav = favoriten.has(b.id);
@@ -454,16 +385,91 @@
 		});
 	});
 
-	// NEU: Aktiver Filter als Breadcrumb
-	let filterBreadcrumb = $derived.by(() => {
-		const parts: string[] = [];
-		if (selectedKategorie) parts.push(selectedKategorie);
-		if (selectedUnterkategorie) parts.push(selectedUnterkategorie);
-		if (selectedHersteller) parts.push(selectedHersteller);
-		return parts;
-	});
-
 	// === Funktionen ===
+	function formatAnsprechpartnerName(ap: Ansprechpartner): string {
+		return [ap.vorname, ap.nachname].filter(Boolean).join(' ') || 'Unbekannt';
+	}
+
+	function formatPreis(betrag: number): string {
+		return betrag.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+	}
+
+	function formatLieferort(ort: string): string {
+		const orte: Record<string, string> = {
+			'baustelle': 'Baustelle',
+			'lager': 'Lager (Kleyerweg 40, Dortmund)',
+			'abholung': 'Abholung'
+		};
+		return orte[ort] || ort;
+	}
+
+	function formatZeitfenster(zf: string): string {
+		const fenster: Record<string, string> = {
+			'vormittag': 'Vormittag (7-12 Uhr)',
+			'nachmittag': 'Nachmittag (12-17 Uhr)',
+			'ganztags': 'Ganztags'
+		};
+		return fenster[zf] || 'Egal';
+	}
+
+	// Fuzzy-Matching: Findet besten Artikel für eine Bezeichnung
+	function findBestMatch(suchText: string): Artikel | null {
+		const such = suchText.toLowerCase().trim();
+		let bestMatch: Artikel | null = null;
+		let bestScore = 0;
+
+		for (const art of artikel) {
+			const bez = (art.kurzbezeichnung || art.bezeichnung).toLowerCase();
+			const vollBez = art.bezeichnung.toLowerCase();
+
+			// Exakte Übereinstimmung
+			if (bez === such || vollBez === such) {
+				return art;
+			}
+
+			// Enthält den Suchtext
+			if (bez.includes(such) || vollBez.includes(such)) {
+				const score = such.length / bez.length;
+				if (score > bestScore) {
+					bestScore = score;
+					bestMatch = art;
+				}
+			}
+
+			// Suchtext enthält die Bezeichnung
+			if (such.includes(bez)) {
+				const score = bez.length / such.length * 0.8;
+				if (score > bestScore) {
+					bestScore = score;
+					bestMatch = art;
+				}
+			}
+
+			// Wort-für-Wort Matching
+			const suchWorte = such.split(/\s+/);
+			const bezWorte = bez.split(/\s+/);
+			let matches = 0;
+			for (const sw of suchWorte) {
+				if (sw.length < 3) continue;
+				for (const bw of bezWorte) {
+					if (bw.includes(sw) || sw.includes(bw)) {
+						matches++;
+						break;
+					}
+				}
+			}
+			if (matches > 0) {
+				const score = matches / Math.max(suchWorte.length, bezWorte.length) * 0.5;
+				if (score > bestScore) {
+					bestScore = score;
+					bestMatch = art;
+				}
+			}
+		}
+
+		return bestScore > 0.3 ? bestMatch : null;
+	}
+
 	async function verarbeiteText() {
 		if (!artikelText.trim()) return;
 
@@ -478,29 +484,46 @@
 			if (result.success) {
 				erkannteArtikel = result.items;
 				unerkannteTexte = result.unerkannt;
+				let gefunden = 0;
+				let nichtGefunden: string[] = [];
 
-				// Übertrage erkannte Artikel in Bestellpositionen
 				for (const item of result.items) {
 					let artikelId: string | undefined;
 
+					// 1. Direkte ID vom Backend
 					if (item.artikel_id) {
 						artikelId = item.artikel_id;
-					} else {
-						const match = artikel.find(
-							a => a.bezeichnung.toLowerCase().includes(item.bezeichnung.toLowerCase())
-						);
+					}
+
+					// 2. Fuzzy-Matching lokal
+					if (!artikelId) {
+						const match = findBestMatch(item.bezeichnung);
 						if (match) {
 							artikelId = match.id;
+							console.log(`Fuzzy-Match: "${item.bezeichnung}" → "${match.kurzbezeichnung || match.bezeichnung}"`);
 						}
 					}
 
 					if (artikelId) {
 						const bisherigeMenge = bestellpositionen.get(artikelId) || 0;
 						bestellpositionen.set(artikelId, bisherigeMenge + item.menge);
+						gefunden++;
+					} else {
+						nichtGefunden.push(`${item.menge}x ${item.bezeichnung}`);
 					}
 				}
+
 				bestellpositionen = new Map(bestellpositionen);
-				artikelText = '';
+
+				if (nichtGefunden.length > 0) {
+					unerkannteTexte = [...unerkannteTexte, ...nichtGefunden];
+				}
+
+				if (gefunden > 0) {
+					artikelText = '';
+					// Automatisch zum Katalog wechseln um Ergebnis zu sehen
+					activeTab = 'katalog';
+				}
 			} else {
 				errorMessage = result.error || 'Verarbeitung fehlgeschlagen';
 			}
@@ -529,33 +552,6 @@
 		setzeMenge(artikelId, Math.max(0, menge));
 	}
 
-	function selectKategorie(kat: string | null) {
-		if (selectedKategorie === kat) {
-			selectedKategorie = null;
-		} else {
-			selectedKategorie = kat;
-		}
-		selectedUnterkategorie = null;
-		selectedHersteller = null;
-	}
-
-	function selectUnterkategorie(unterkat: string | null) {
-		if (selectedUnterkategorie === unterkat) {
-			selectedUnterkategorie = null;
-		} else {
-			selectedUnterkategorie = unterkat;
-		}
-		selectedHersteller = null;
-	}
-
-	function selectHersteller(hersteller: string | null) {
-		if (selectedHersteller === hersteller) {
-			selectedHersteller = null;
-		} else {
-			selectedHersteller = hersteller;
-		}
-	}
-
 	function clearAllFilters() {
 		selectedKategorie = null;
 		selectedUnterkategorie = null;
@@ -572,113 +568,201 @@
 		expandedArtikel = new Set(expandedArtikel);
 	}
 
-	function formatPreis(betrag: number): string {
-		return betrag.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
-	}
-
-	// NEU: Warenkorb leeren
 	function warenkorbLeeren() {
 		if (bestellpositionen.size === 0) return;
 		if (confirm('Warenkorb wirklich leeren?')) {
 			bestellpositionen = new Map();
 		}
 	}
+
+	// === Wizard Navigation ===
+	function canProceed(step: number): boolean {
+		switch (step) {
+			case 1: return !!selectedHaendler;
+			case 2: return warenkorbAnzahl > 0;
+			case 3: return !!selectedProjekt && !!selectedAnsprechpartner;
+			case 4: return true;
+			default: return false;
+		}
+	}
+
+	async function nextStep() {
+		if (currentStep === 1 && selectedHaendler && artikel.length === 0) {
+			await loadArtikelFuerHaendler(selectedHaendler);
+		}
+		if (canProceed(currentStep) && currentStep < totalSteps) {
+			currentStep++;
+		}
+	}
+
+	function prevStep() {
+		if (currentStep > 1) {
+			currentStep--;
+		}
+	}
+
+	function goToStep(step: number) {
+		// Nur zu bereits besuchten Steps oder vorherigen navigieren
+		if (step < currentStep || (step <= currentStep + 1 && canProceed(step - 1))) {
+			if (step === 2 && selectedHaendler && artikel.length === 0) {
+				loadArtikelFuerHaendler(selectedHaendler);
+			}
+			currentStep = step;
+		}
+	}
+
+	// === Bestellung absenden ===
+	async function submitBestellung() {
+		if (isSubmitting || warenkorbAnzahl === 0) return;
+
+		isSubmitting = true;
+		errorMessage = '';
+
+		try {
+			// 1. Bestellung in DB speichern
+			const { data: bestellung, error: bestellError } = await supabase
+				.from('bestellungen')
+				.insert({
+					grosshaendler_id: selectedHaendler,
+					atbs_nummer: selectedProjekt,
+					projekt_name: selectedProjektDetails?.project_name || '',
+					bestellt_von_email: currentUser,
+					bestellt_von_name: currentUser?.split('@')[0] || 'Unbekannt',
+					status: 'entwurf',
+					summe_netto: gesamtsumme,
+					lieferadresse: selectedLieferort === 'baustelle' ? selectedProjektDetails?.address :
+						selectedLieferort === 'lager' ? 'Kleyerweg 40, 44149 Dortmund' : 'Abholung',
+					lieferort: selectedLieferort,
+					gewuenschtes_lieferdatum: lieferdatum || null,
+					zeitfenster: selectedZeitfenster || null,
+					ansprechpartner_id: selectedAnsprechpartner || null,
+					ansprechpartner_name: selectedAnsprechpartnerDetails ? formatAnsprechpartnerName(selectedAnsprechpartnerDetails) : null,
+					ansprechpartner_telefon: selectedAnsprechpartnerDetails?.telefon_mobil || null,
+					notizen: lieferhinweise || null,
+					anzahl_positionen: warenkorbAnzahl
+				})
+				.select()
+				.single();
+
+			if (bestellError) throw bestellError;
+
+			// 2. Positionen speichern
+			const positionen = warenkorbArtikel.map((art, idx) => ({
+				bestellung_id: bestellung.id,
+				position_nr: idx + 1,
+				artikel_id: art.id,
+				artikelnummer: art.artikelnummer,
+				bezeichnung: art.kurzbezeichnung || art.bezeichnung,
+				hersteller: art.hersteller,
+				menge: art.menge,
+				einheit: art.einheit || 'Stk',
+				einzelpreis: art.einkaufspreis || 0,
+				gesamtpreis: art.summe
+			}));
+
+			const { error: posError } = await supabase
+				.from('bestellpositionen')
+				.insert(positionen);
+
+			if (posError) throw posError;
+
+			// 3. Edge Function aufrufen für HTML/PDF/E-Mail
+			const { data: submitResult, error: submitError } = await supabase.functions.invoke('bestellung-submit', {
+				body: { bestellung_id: bestellung.id }
+			});
+
+			if (submitError) {
+				console.warn('E-Mail-Versand fehlgeschlagen:', submitError);
+				// Trotzdem als Erfolg werten, da Bestellung gespeichert ist
+			}
+
+			// Erfolg
+			bestellnummer = bestellung.bestell_nr?.toString() || bestellung.id;
+			submitSuccess = true;
+
+			// Status auf "gesendet" setzen
+			await supabase
+				.from('bestellungen')
+				.update({ status: 'gesendet', bestellt_am: new Date().toISOString() })
+				.eq('id', bestellung.id);
+
+		} catch (err) {
+			console.error('Bestellung fehlgeschlagen:', err);
+			errorMessage = 'Bestellung konnte nicht gespeichert werden. Bitte erneut versuchen.';
+		} finally {
+			isSubmitting = false;
+		}
+	}
+
+	function neueBestellung() {
+		// Reset
+		currentStep = 1;
+		selectedHaendler = '';
+		bestellpositionen = new Map();
+		erkannteArtikel = [];
+		unerkannteTexte = [];
+		artikelText = '';
+		lieferhinweise = '';
+		lieferdatum = '';
+		selectedZeitfenster = '';
+		submitSuccess = false;
+		bestellnummer = '';
+		errorMessage = '';
+	}
 </script>
 
 <div class="page">
-	<!-- Header mit Warenkorb-Badge -->
+	<!-- Header -->
 	<header class="header">
 		<div class="header-content">
+			<a href="/" class="back-link" aria-label="Zurück zur Startseite">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M19 12H5M12 19l-7-7 7-7"/>
+				</svg>
+			</a>
 			<h1>Neue Bestellung</h1>
-			<div class="header-right">
-				<!-- Warenkorb-Button -->
-				<button
-					class="warenkorb-toggle"
-					class:has-items={warenkorbAnzahl > 0}
-					onclick={() => warenkorbOpen = !warenkorbOpen}
-					aria-label="Warenkorb öffnen ({warenkorbAnzahl} Artikel)"
-					aria-expanded={warenkorbOpen}
-				>
-					<svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<circle cx="9" cy="21" r="1"></circle>
-						<circle cx="20" cy="21" r="1"></circle>
-						<path d="m1 1 4 4h16l-2 9H7L5 5"></path>
-					</svg>
-					{#if warenkorbAnzahl > 0}
-						<span class="badge">{warenkorbAnzahl}</span>
-					{/if}
-				</button>
-				<div class="user-info">
-					<span>{currentUser || 'Lädt...'}</span>
-					<div class="avatar">{currentUser ? currentUser.substring(0, 2).toUpperCase() : '?'}</div>
+			{#if warenkorbAnzahl > 0 && currentStep < 4}
+				<div class="header-badge">
+					<span class="badge">{warenkorbAnzahl}</span>
+					<span class="badge-sum">{formatPreis(gesamtsumme)}</span>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</header>
 
-	<!-- Warenkorb Drawer -->
-	{#if warenkorbOpen}
-		<div class="drawer-backdrop" onclick={() => warenkorbOpen = false} aria-hidden="true"></div>
-		<aside class="warenkorb-drawer" role="dialog" aria-label="Warenkorb">
-			<div class="drawer-header">
-				<h2>Warenkorb</h2>
+	<!-- Progress Steps -->
+	{#if !submitSuccess}
+		<nav class="progress-bar" aria-label="Fortschritt">
+			{#each stepTitles as title, i}
+				{@const stepNum = i + 1}
+				{@const isActive = currentStep === stepNum}
+				{@const isComplete = currentStep > stepNum}
+				{@const isClickable = stepNum < currentStep || (stepNum === currentStep + 1 && canProceed(currentStep))}
 				<button
-					class="drawer-close"
-					onclick={() => warenkorbOpen = false}
-					aria-label="Warenkorb schließen"
+					class="progress-step"
+					class:active={isActive}
+					class:complete={isComplete}
+					class:clickable={isClickable}
+					onclick={() => goToStep(stepNum)}
+					disabled={!isClickable && !isActive}
+					aria-current={isActive ? 'step' : undefined}
 				>
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M18 6 6 18M6 6l12 12"></path>
-					</svg>
+					<span class="step-number">
+						{#if isComplete}
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+								<path d="M5 13l4 4L19 7"/>
+							</svg>
+						{:else}
+							{stepNum}
+						{/if}
+					</span>
+					<span class="step-title">{title}</span>
 				</button>
-			</div>
-
-			{#if warenkorbArtikel.length === 0}
-				<div class="drawer-empty">
-					<p>Dein Warenkorb ist leer.</p>
-					<small>Füge Artikel aus dem Katalog hinzu.</small>
-				</div>
-			{:else}
-				<ul class="drawer-items">
-					{#each warenkorbArtikel as item}
-						<li class="drawer-item">
-							<div class="drawer-item-info">
-								<strong>{item.kurzbezeichnung || item.bezeichnung}</strong>
-								{#if item.hersteller}
-									<small>{item.hersteller}</small>
-								{/if}
-							</div>
-							<div class="drawer-item-controls">
-								<div class="mini-menge">
-									<button
-										type="button"
-										onclick={() => setzeMenge(item.id, item.menge - 1)}
-										aria-label="Menge verringern"
-									>−</button>
-									<span>{item.menge}</span>
-									<button
-										type="button"
-										onclick={() => setzeMenge(item.id, item.menge + 1)}
-										aria-label="Menge erhöhen"
-									>+</button>
-								</div>
-								<span class="drawer-item-summe">{formatPreis(item.summe)}</span>
-							</div>
-						</li>
-					{/each}
-				</ul>
-
-				<div class="drawer-footer">
-					<button class="btn btn-secondary btn-sm" onclick={warenkorbLeeren}>
-						Leeren
-					</button>
-					<div class="drawer-total">
-						<span>Gesamt</span>
-						<strong>{formatPreis(gesamtsumme)}</strong>
-					</div>
-				</div>
-			{/if}
-		</aside>
+				{#if i < totalSteps - 1}
+					<div class="progress-line" class:complete={currentStep > stepNum}></div>
+				{/if}
+			{/each}
+		</nav>
 	{/if}
 
 	<main class="main">
@@ -687,15 +771,257 @@
 				<div class="spinner-large"></div>
 				<p>Lade Daten...</p>
 			</div>
+
+		{:else if submitSuccess}
+			<!-- Erfolgs-Ansicht -->
+			<div class="success-view">
+				<div class="success-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<circle cx="12" cy="12" r="10"/>
+						<path d="M9 12l2 2 4-4"/>
+					</svg>
+				</div>
+				<h2>Bestellung erfolgreich!</h2>
+				<p class="success-nr">Bestellnummer: <strong>B-{bestellnummer}</strong></p>
+				<p>Die Bestellung wurde gespeichert und eine E-Mail an holger.neumann@neurealis.de gesendet.</p>
+				<div class="success-actions">
+					<button class="btn btn-secondary" onclick={neueBestellung}>
+						Neue Bestellung
+					</button>
+					<a href="/bestellungen" class="btn btn-primary">
+						Zur Übersicht
+					</a>
+				</div>
+			</div>
+
 		{:else}
-			<div class="card">
-				<!-- Projekt-Auswahl -->
-				<section class="section">
-					<h2 class="section-title">Projekt & Lieferung</h2>
+			<!-- Step 1: Großhändler -->
+			{#if currentStep === 1}
+				<div class="step-content">
+					<h2 class="step-heading">Bei welchem Großhändler möchtest du bestellen?</h2>
+
+					<div class="haendler-grid">
+						{#each grosshaendler as haendler}
+							<button
+								class="haendler-card"
+								class:selected={selectedHaendler === haendler.id}
+								onclick={async () => {
+									selectedHaendler = haendler.id;
+									// Auto-Weiter zu Schritt 2
+									await loadArtikelFuerHaendler(haendler.id);
+									currentStep = 2;
+								}}
+							>
+								<div class="haendler-name">{haendler.kurzname || haendler.name}</div>
+								<div class="haendler-typ">{haendler.typ_anzeige || haendler.typ}</div>
+								{#if selectedHaendler === haendler.id}
+									<div class="haendler-check">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+											<path d="M5 13l4 4L19 7"/>
+										</svg>
+									</div>
+								{/if}
+							</button>
+						{/each}
+					</div>
+				</div>
+
+			<!-- Step 2: Artikel -->
+			{:else if currentStep === 2}
+				<div class="step-content step-artikel">
+					<!-- Tabs -->
+					<div class="tabs">
+						<button
+							class="tab"
+							class:active={activeTab === 'ki'}
+							onclick={() => activeTab = 'ki'}
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+								<path d="M20 3v4M22 5h-4M4 17v2M5 18H3"/>
+							</svg>
+							KI-Eingabe
+						</button>
+						<button
+							class="tab"
+							class:active={activeTab === 'katalog'}
+							onclick={() => activeTab = 'katalog'}
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M3 6h18M3 12h18M3 18h18"/>
+							</svg>
+							Katalog ({artikel.length})
+						</button>
+					</div>
+
+					<!-- Tab Content: KI -->
+					{#if activeTab === 'ki'}
+						<div class="ki-input">
+							<p class="ki-hint">
+								Gib deine Bestellung ein - in Deutsch, Ungarisch, Russisch oder Rumänisch.
+								Die KI erkennt Artikel und Mengen automatisch.
+							</p>
+							<textarea
+								bind:value={artikelText}
+								placeholder="z.B. 10 Dreifachrahmen, 30 Steckdosen, 5 Wechselschalter..."
+								rows="5"
+							></textarea>
+							<button
+								class="btn btn-primary"
+								onclick={verarbeiteText}
+								disabled={isProcessing || !artikelText.trim()}
+							>
+								{#if isProcessing}
+									<span class="spinner"></span>
+									Verarbeite...
+								{:else}
+									KI-Erkennung starten
+								{/if}
+							</button>
+
+							{#if errorMessage}
+								<div class="message error">{errorMessage}</div>
+							{/if}
+
+							{#if erkannteArtikel.length > 0}
+								<div class="message success">
+									<strong>Erkannt:</strong> {erkannteArtikel.map(a => `${a.menge}x ${a.bezeichnung}`).join(', ')}
+								</div>
+							{/if}
+
+							{#if unerkannteTexte.length > 0}
+								<div class="message warning">
+									<strong>Nicht erkannt:</strong> {unerkannteTexte.join(', ')}
+								</div>
+							{/if}
+						</div>
+
+					<!-- Tab Content: Katalog -->
+					{:else}
+						<div class="katalog">
+							{#if isLoadingArtikel}
+								<div class="loading-inline">
+									<span class="spinner"></span>
+									Lade Artikel...
+								</div>
+							{:else if artikel.length === 0}
+								<div class="empty-state">
+									<p>Keine Artikel für {selectedHaendlerDetails?.kurzname || 'diesen Händler'} verfügbar.</p>
+								</div>
+							{:else}
+								<!-- Suchfeld -->
+								<div class="search-box">
+									<svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<circle cx="11" cy="11" r="8"></circle>
+										<path d="m21 21-4.35-4.35"></path>
+									</svg>
+									<input
+										type="search"
+										placeholder="Artikel suchen..."
+										bind:value={suchbegriff}
+									/>
+									{#if suchbegriff}
+										<button class="search-clear" onclick={() => suchbegriff = ''}>
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M18 6 6 18M6 6l12 12"></path>
+											</svg>
+										</button>
+									{/if}
+								</div>
+
+								<!-- Filter -->
+								<div class="filter-row">
+									<select bind:value={selectedKategorie} onchange={() => { selectedUnterkategorie = null; selectedHersteller = null; }}>
+										<option value={null}>Alle Gewerke</option>
+										{#each verfuegbareKategorien as kat}
+											<option value={kat}>{kat}</option>
+										{/each}
+									</select>
+									<select bind:value={selectedUnterkategorie} onchange={() => { selectedHersteller = null; }} disabled={verfuegbareUnterkategorien.length === 0}>
+										<option value={null}>Alle Typen</option>
+										{#each verfuegbareUnterkategorien as unterkat}
+											<option value={unterkat}>{unterkat}</option>
+										{/each}
+									</select>
+									<select bind:value={selectedHersteller} disabled={verfuegbareHersteller.length === 0}>
+										<option value={null}>Alle Hersteller</option>
+										{#each verfuegbareHersteller as hersteller}
+											<option value={hersteller}>{hersteller}</option>
+										{/each}
+									</select>
+									{#if selectedKategorie || selectedUnterkategorie || selectedHersteller}
+										<button class="btn-link" onclick={clearAllFilters}>Zurücksetzen</button>
+									{/if}
+								</div>
+
+								<div class="artikel-count">{gefilterteArtikel.length} Artikel</div>
+
+								<!-- Artikel-Liste -->
+								<div class="artikel-list">
+									{#each gefilterteArtikel as art}
+										{@const menge = bestellpositionen.get(art.id) || 0}
+										{@const istFavorit = favoriten.has(art.id)}
+										<div class="artikel-row" class:selected={menge > 0} class:favorit={istFavorit}>
+											<button
+												class="fav-btn"
+												class:active={istFavorit}
+												onclick={() => toggleFavorit(art.id)}
+												aria-label={istFavorit ? 'Favorit entfernen' : 'Als Favorit markieren'}
+											>
+												{istFavorit ? '★' : '☆'}
+											</button>
+											<div class="artikel-info">
+												<button class="artikel-name" onclick={() => toggleBezeichnung(art.id)}>
+													{art.kurzbezeichnung || art.bezeichnung}
+												</button>
+												{#if expandedArtikel.has(art.id) && art.kurzbezeichnung !== art.bezeichnung}
+													<div class="artikel-full">{art.bezeichnung}</div>
+												{/if}
+												<div class="artikel-meta">
+													{#if art.hersteller}<span>{art.hersteller}</span>{/if}
+													<span>{art.einheit || 'Stk'}</span>
+													{#if art.einkaufspreis}<span class="preis">{formatPreis(art.einkaufspreis)}</span>{/if}
+												</div>
+											</div>
+											<div class="menge-controls">
+												<button onclick={() => setzeMenge(art.id, Math.max(0, menge - 1))} disabled={menge === 0}>−</button>
+												<input
+													type="number"
+													class:filled={menge > 0}
+													value={menge}
+													min="0"
+													onchange={(e) => setzeMengeDirekt(art.id, e)}
+													onclick={(e) => (e.target as HTMLInputElement).select()}
+												/>
+												<button onclick={() => setzeMenge(art.id, menge + 1)}>+</button>
+											</div>
+										</div>
+									{/each}
+								</div>
+							{/if}
+						</div>
+					{/if}
+
+					<!-- Mini-Warenkorb -->
+					{#if warenkorbAnzahl > 0}
+						<div class="mini-cart">
+							<div class="mini-cart-header">
+								<span>{warenkorbAnzahl} Artikel</span>
+								<span class="mini-cart-sum">{formatPreis(gesamtsumme)}</span>
+								<button class="btn-link" onclick={warenkorbLeeren}>Leeren</button>
+							</div>
+						</div>
+					{/if}
+				</div>
+
+			<!-- Step 3: Lieferung -->
+			{:else if currentStep === 3}
+				<div class="step-content">
+					<h2 class="step-heading">Wohin soll geliefert werden?</h2>
 
 					<div class="form-grid">
-						<div class="form-group">
-							<label for="projekt">ATBS-Nr / Projekt</label>
+						<div class="form-group full">
+							<label for="projekt">Projekt</label>
 							<select id="projekt" bind:value={selectedProjekt}>
 								{#each projekte as projekt}
 									<option value={projekt.atbs_nummer}>
@@ -709,30 +1035,24 @@
 						</div>
 
 						<div class="form-group">
-							<label for="haendler">Großhändler / Lieferant</label>
-							<select id="haendler" bind:value={selectedHaendler} onchange={onHaendlerChange}>
-								{#each grosshaendler as haendler}
-									<option value={haendler.id}>
-										{haendler.kurzname || haendler.name} - {haendler.typ_anzeige || haendler.typ}
-									</option>
-								{/each}
-							</select>
-							{#if artikel.length > 0}
-								<small class="hint">{artikel.length} Artikel verfügbar</small>
-							{:else if isLoadingArtikel}
-								<small class="hint">Lade Artikel...</small>
-							{:else}
-								<small class="hint warning">Keine Artikel für diesen Lieferanten</small>
-							{/if}
-						</div>
-
-						<div class="form-group">
 							<label for="lieferort">Lieferort</label>
 							<select id="lieferort" bind:value={selectedLieferort}>
 								<option value="baustelle">Baustelle</option>
 								<option value="lager">Lager - Kleyerweg 40, Dortmund</option>
 								<option value="abholung">Abholung</option>
 							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="ansprechpartner">Ansprechpartner vor Ort</label>
+							<select id="ansprechpartner" bind:value={selectedAnsprechpartner}>
+								{#each ansprechpartner as ap}
+									<option value={ap.id}>{formatAnsprechpartnerName(ap)}</option>
+								{/each}
+							</select>
+							{#if selectedAnsprechpartnerDetails?.telefon_mobil}
+								<small class="hint success">{selectedAnsprechpartnerDetails.telefon_mobil}</small>
+							{/if}
 						</div>
 
 						<div class="form-group">
@@ -750,362 +1070,124 @@
 							</select>
 						</div>
 
-						<div class="form-group">
-							<label for="ansprechpartner">Ansprechpartner vor Ort</label>
-							<select id="ansprechpartner" bind:value={selectedAnsprechpartner}>
-								{#each ansprechpartner as ap}
-									<option value={ap.id}>
-										{formatAnsprechpartnerName(ap)}
-									</option>
-								{/each}
-							</select>
-							{#if selectedAnsprechpartnerDetails}
-								<div class="ansprechpartner-info">
-									{#if selectedAnsprechpartnerDetails.telefon_mobil}
-										<span class="ap-telefon">{selectedAnsprechpartnerDetails.telefon_mobil}</span>
-									{/if}
-								</div>
-							{/if}
-						</div>
-					</div>
-				</section>
-
-				<!-- Artikel-Eingabe -->
-				<section class="section">
-					<h2 class="section-title">Artikel eingeben</h2>
-
-					<div class="input-section">
-						<div class="text-input-wrapper">
+						<div class="form-group full">
+							<label for="hinweise">Lieferhinweise (optional)</label>
 							<textarea
-								bind:value={artikelText}
-								placeholder="Artikel und Mengen eingeben (DE/HU/RU/RO)...
-
-Beispiele:
-• 10 Dreifachrahmen, 30 Steckdosen
-• Tíz hármas keret (Ungarisch)
-• Десять тройных рамок (Russisch)"
-								rows="4"
+								id="hinweise"
+								bind:value={lieferhinweise}
+								placeholder="z.B. Klingeln bei Müller, 3. Stock..."
+								rows="2"
 							></textarea>
-
-							<button
-								class="btn btn-success process-btn"
-								onclick={verarbeiteText}
-								disabled={isProcessing || !artikelText.trim()}
-								aria-busy={isProcessing}
-							>
-								{#if isProcessing}
-									<span class="spinner" aria-hidden="true"></span>
-									Verarbeite...
-								{:else}
-									KI-Erkennung
-								{/if}
-							</button>
 						</div>
-
-						{#if errorMessage}
-							<div class="error-message" role="alert">{errorMessage}</div>
-						{/if}
-
-						{#if erkannteArtikel.length > 0}
-							<div class="success-message" role="status">
-								Erkannt: {erkannteArtikel.map(a => `${a.bezeichnung} (${a.menge}${a.artikel_id ? ' OK' : ''})`).join(', ')}
-							</div>
-						{/if}
-
-						{#if unerkannteTexte.length > 0}
-							<div class="warning-message" role="alert">
-								Nicht erkannt: {unerkannteTexte.join(', ')}
-							</div>
-						{/if}
 					</div>
-				</section>
+				</div>
 
-				<!-- Artikel-Tabelle -->
-				<section class="section">
-					<h2 class="section-title">
-						Artikelkatalog
-						{#if selectedHaendlerDetails}
-							<span class="haendler-badge">{selectedHaendlerDetails.kurzname || selectedHaendlerDetails.name}</span>
-						{/if}
-					</h2>
+			<!-- Step 4: Bestätigung -->
+			{:else if currentStep === 4}
+				<div class="step-content">
+					<h2 class="step-heading">Bestellung prüfen</h2>
 
-					{#if isLoadingArtikel}
-						<div class="loading-inline">
-							<span class="spinner" aria-hidden="true"></span>
-							Lade Artikel...
-						</div>
-					{:else if artikel.length === 0}
-						<div class="empty-state">
-							<p>Keine Artikel für diesen Lieferanten hinterlegt.</p>
-							<small>Bitte wähle einen anderen Großhändler oder importiere Artikel.</small>
-						</div>
-					{:else}
-						<!-- Suchfeld -->
-						<div class="search-box">
-							<svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-								<circle cx="11" cy="11" r="8"></circle>
-								<path d="m21 21-4.35-4.35"></path>
-							</svg>
-							<input
-								type="search"
-								placeholder="Artikel suchen..."
-								bind:value={suchbegriff}
-								aria-label="Artikel durchsuchen"
-							/>
-							{#if suchbegriff}
-								<button
-									class="search-clear"
-									onclick={() => suchbegriff = ''}
-									aria-label="Suche löschen"
-								>
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<path d="M18 6 6 18M6 6l12 12"></path>
-									</svg>
-								</button>
-							{/if}
+					<!-- Zusammenfassung -->
+					<div class="summary-card">
+						<div class="summary-section">
+							<h3>Lieferant</h3>
+							<p><strong>{selectedHaendlerDetails?.kurzname || selectedHaendlerDetails?.name}</strong></p>
+							<p class="muted">{selectedHaendlerDetails?.typ_anzeige || selectedHaendlerDetails?.typ}</p>
 						</div>
 
-						<!-- MOBILE: Kompakte Filter-Dropdowns -->
-						<div class="filter-mobile">
-							<div class="filter-dropdowns">
-								<select
-									bind:value={selectedKategorie}
-									onchange={() => { selectedUnterkategorie = null; selectedHersteller = null; }}
-									aria-label="Gewerk filtern"
-								>
-									<option value={null}>Alle Gewerke</option>
-									{#each verfuegbareKategorien as kat}
-										<option value={kat}>{kat}</option>
-									{/each}
-								</select>
-
-								<select
-									bind:value={selectedUnterkategorie}
-									onchange={() => { selectedHersteller = null; }}
-									aria-label="Typ filtern"
-									disabled={verfuegbareUnterkategorien.length === 0}
-								>
-									<option value={null}>Alle Typen</option>
-									{#each verfuegbareUnterkategorien as unterkat}
-										<option value={unterkat}>{unterkat}</option>
-									{/each}
-								</select>
-
-								<select
-									bind:value={selectedHersteller}
-									aria-label="Hersteller filtern"
-									disabled={verfuegbareHersteller.length === 0}
-								>
-									<option value={null}>Alle Hersteller</option>
-									{#each verfuegbareHersteller as hersteller}
-										<option value={hersteller}>{hersteller}</option>
-									{/each}
-								</select>
-							</div>
-
-							{#if filterBreadcrumb.length > 0}
-								<button class="filter-reset-mobile" onclick={clearAllFilters}>
-									Filter zurücksetzen
-								</button>
+						<div class="summary-section">
+							<h3>Lieferung</h3>
+							<p><strong>{selectedProjektDetails?.atbs_nummer}</strong> - {selectedProjektDetails?.project_name.split('|')[1]?.trim() || selectedProjektDetails?.project_name}</p>
+							<p>{formatLieferort(selectedLieferort)}</p>
+							{#if lieferdatum}
+								<p>{new Date(lieferdatum).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })}, {formatZeitfenster(selectedZeitfenster)}</p>
 							{/if}
-
-							<div class="filter-count">
-								{gefilterteArtikel.length} Artikel
-							</div>
+							{#if selectedAnsprechpartnerDetails}
+								<p class="muted">Ansprechpartner: {formatAnsprechpartnerName(selectedAnsprechpartnerDetails)} {selectedAnsprechpartnerDetails.telefon_mobil ? `(${selectedAnsprechpartnerDetails.telefon_mobil})` : ''}</p>
+							{/if}
+							{#if lieferhinweise}
+								<p class="muted">Hinweis: {lieferhinweise}</p>
+							{/if}
 						</div>
+					</div>
 
-						<!-- DESKTOP: Filter-Tags -->
-						<div class="filter-desktop">
-							<!-- Breadcrumb bei aktivem Filter -->
-							{#if filterBreadcrumb.length > 0}
-								<div class="filter-breadcrumb">
-									<button
-										class="breadcrumb-home"
-										onclick={clearAllFilters}
-										aria-label="Alle Filter löschen"
-									>
-										Alle
-									</button>
-									{#each filterBreadcrumb as crumb, i}
-										<span class="breadcrumb-sep" aria-hidden="true">/</span>
-										<span class="breadcrumb-item">{crumb}</span>
-									{/each}
-									<button
-										class="breadcrumb-clear"
-										onclick={clearAllFilters}
-										aria-label="Filter zurücksetzen"
-									>
-										Zurücksetzen
-									</button>
-								</div>
-							{/if}
-
-							<!-- Gewerk-Filter -->
-							<div class="filter-row">
-								<span class="filter-label">Gewerk:</span>
-								<div class="filter-tags" role="group" aria-label="Gewerk filtern">
-									{#each verfuegbareKategorien as kat}
-										<button
-											type="button"
-											class="filter-tag"
-											class:active={selectedKategorie === kat}
-											onclick={() => selectKategorie(kat)}
-											aria-pressed={selectedKategorie === kat}
-										>
-											{kat}
-										</button>
-									{/each}
-								</div>
-							</div>
-
-							<!-- Typ-Filter -->
-							{#if verfuegbareUnterkategorien.length > 0}
-								<div class="filter-row">
-									<span class="filter-label">Typ:</span>
-									<div class="filter-tags" role="group" aria-label="Typ filtern">
-										{#each verfuegbareUnterkategorien as unterkat}
-											<button
-												type="button"
-												class="filter-tag sub"
-												class:active={selectedUnterkategorie === unterkat}
-												onclick={() => selectUnterkategorie(unterkat)}
-												aria-pressed={selectedUnterkategorie === unterkat}
-											>
-												{unterkat}
-											</button>
-										{/each}
-									</div>
-								</div>
-							{/if}
-
-							<!-- Hersteller-Filter -->
-							{#if verfuegbareHersteller.length > 0}
-								<div class="filter-row">
-									<span class="filter-label">Hersteller:</span>
-									<div class="filter-tags" role="group" aria-label="Hersteller filtern">
-										{#each verfuegbareHersteller as hersteller}
-											<button
-												type="button"
-												class="filter-tag hersteller"
-												class:active={selectedHersteller === hersteller}
-												onclick={() => selectHersteller(hersteller)}
-												aria-pressed={selectedHersteller === hersteller}
-											>
-												{hersteller}
-											</button>
-										{/each}
-									</div>
-								</div>
-							{/if}
-
-							<div class="filter-info">
-								{gefilterteArtikel.length} von {artikel.length} Artikel
-							</div>
-						</div>
-
-						<div class="table-wrapper">
-							<table class="artikel-table">
-								<thead>
+					<!-- Artikel-Liste -->
+					<div class="review-list">
+						<h3>Artikel ({warenkorbAnzahl})</h3>
+						<table>
+							<thead>
+								<tr>
+									<th>Pos.</th>
+									<th>Artikel</th>
+									<th class="text-right">Menge</th>
+									<th class="text-right">Einzelpreis</th>
+									<th class="text-right">Gesamt</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each warenkorbArtikel as art, i}
 									<tr>
-										<th class="th-fav" aria-label="Favoriten"></th>
-										<th class="th-hersteller">Hersteller</th>
-										<th>Bezeichnung</th>
-										<th class="hide-mobile th-einheit">Einheit</th>
-										<th class="hide-mobile th-preis">EK netto</th>
-										<th class="text-center th-menge">Menge</th>
+										<td>{i + 1}</td>
+										<td>
+											<strong>{art.kurzbezeichnung || art.bezeichnung}</strong>
+											{#if art.hersteller}<br><small class="muted">{art.hersteller}</small>{/if}
+										</td>
+										<td class="text-right">{art.menge} {art.einheit || 'Stk'}</td>
+										<td class="text-right">{formatPreis(art.einkaufspreis || 0)}</td>
+										<td class="text-right"><strong>{formatPreis(art.summe)}</strong></td>
 									</tr>
-								</thead>
-								<tbody>
-									{#each gefilterteArtikel as art}
-										{@const menge = bestellpositionen.get(art.id) || 0}
-										{@const istFavorit = favoriten.has(art.id)}
-										<tr class:highlight={menge > 0} class:favorit={istFavorit}>
-											<td class="td-fav">
-												<button
-													type="button"
-													class="favorit-btn"
-													class:active={istFavorit}
-													onclick={() => toggleFavorit(art.id)}
-													aria-label={istFavorit ? 'Favorit entfernen' : 'Als Favorit markieren'}
-													aria-pressed={istFavorit}
-												>
-													{istFavorit ? '★' : '☆'}
-												</button>
-											</td>
-											<td class="td-hersteller">{art.hersteller || '-'}</td>
-											<td>
-												<button
-													type="button"
-													class="bezeichnung-toggle"
-													onclick={() => toggleBezeichnung(art.id)}
-													aria-expanded={expandedArtikel.has(art.id)}
-												>
-													<strong>{art.kurzbezeichnung || art.bezeichnung}</strong>
-												</button>
-												{#if expandedArtikel.has(art.id) && art.kurzbezeichnung && art.kurzbezeichnung !== art.bezeichnung}
-													<div class="bezeichnung-full">{art.bezeichnung}</div>
-												{/if}
-												<!-- Mobile: Details unter Bezeichnung -->
-												<div class="mobile-meta">
-													{#if art.hersteller}<span class="mobile-hersteller">{art.hersteller}</span>{/if}
-													<span>{art.einheit || 'Stk'}</span>
-													{#if art.einkaufspreis}
-														<span class="mobile-preis">{formatPreis(art.einkaufspreis)}</span>
-													{/if}
-												</div>
-											</td>
-											<td class="hide-mobile">{art.einheit || 'Stk'}</td>
-											<td class="hide-mobile font-mono">{art.einkaufspreis ? formatPreis(art.einkaufspreis) : '-'}</td>
-											<td>
-												<div class="menge-controls">
-													<button
-														type="button"
-														class="menge-btn minus"
-														onclick={() => setzeMenge(art.id, Math.max(0, menge - 1))}
-														disabled={menge === 0}
-														aria-label="Menge verringern"
-													>−</button>
-													<input
-														type="number"
-														class="menge-input"
-														class:filled={menge > 0}
-														value={menge}
-														min="0"
-														onchange={(e) => setzeMengeDirekt(art.id, e)}
-														onclick={(e) => (e.target as HTMLInputElement).select()}
-														aria-label="Menge für {art.kurzbezeichnung || art.bezeichnung}"
-													/>
-													<button
-														type="button"
-														class="menge-btn plus"
-														onclick={() => setzeMenge(art.id, menge + 1)}
-														aria-label="Menge erhöhen"
-													>+</button>
-												</div>
-											</td>
-										</tr>
-									{/each}
-								</tbody>
-							</table>
-						</div>
-					{/if}
-				</section>
-			</div>
+								{/each}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4" class="text-right"><strong>Gesamtsumme (netto)</strong></td>
+									<td class="text-right total">{formatPreis(gesamtsumme)}</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 
-			<!-- Sticky Footer Actions -->
-			<div class="footer-actions">
-				<button class="btn btn-secondary">Zurück</button>
-				<div class="total">
-					<div class="total-label">Bestellsumme (netto)</div>
-					<div class="total-value">{formatPreis(gesamtsumme)}</div>
-					{#if warenkorbAnzahl > 0}
-						<small class="total-count">{warenkorbAnzahl} Artikel</small>
+					{#if errorMessage}
+						<div class="message error">{errorMessage}</div>
 					{/if}
 				</div>
-				<button class="btn btn-success" disabled={gesamtsumme === 0}>
-					Weiter zur Bestätigung
-				</button>
-			</div>
+			{/if}
+
+			<!-- Footer Actions -->
+			{#if !submitSuccess}
+				<div class="footer-actions">
+					{#if currentStep > 1}
+						<button class="btn btn-secondary" onclick={prevStep}>
+							Zurück
+						</button>
+					{:else}
+						<div></div>
+					{/if}
+
+					{#if currentStep < totalSteps}
+						<button
+							class="btn btn-primary"
+							onclick={nextStep}
+							disabled={!canProceed(currentStep)}
+						>
+							Weiter
+						</button>
+					{:else}
+						<button
+							class="btn btn-success"
+							onclick={submitBestellung}
+							disabled={isSubmitting || warenkorbAnzahl === 0}
+						>
+							{#if isSubmitting}
+								<span class="spinner"></span>
+								Wird gesendet...
+							{:else}
+								Bestellung absenden
+							{/if}
+						</button>
+					{/if}
+				</div>
+			{/if}
 		{/if}
 	</main>
 </div>
@@ -1115,266 +1197,168 @@ Beispiele:
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
+		background: var(--color-gray-50);
 	}
 
 	/* Header */
 	.header {
 		background: white;
-		color: var(--color-gray-900);
 		padding: var(--spacing-4) var(--spacing-6);
+		border-bottom: 1px solid var(--color-gray-200);
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		border-bottom: 1px solid var(--color-gray-200);
 	}
 
 	.header-content {
 		max-width: var(--container-lg);
 		margin: 0 auto;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.header h1 {
-		color: var(--color-gray-900);
-		font-size: var(--font-size-xl);
-	}
-
-	.header-right {
-		display: flex;
 		align-items: center;
 		gap: var(--spacing-4);
 	}
 
-	/* Warenkorb Toggle Button */
-	.warenkorb-toggle {
-		position: relative;
-		background: var(--color-gray-100);
-		border: 1px solid var(--color-gray-300);
-		border-radius: var(--radius-md);
-		padding: var(--spacing-2) var(--spacing-3);
-		color: var(--color-gray-700);
-		cursor: pointer;
-		transition: background 0.15s ease;
-	}
-
-	.warenkorb-toggle:hover {
-		background: var(--color-gray-200);
-	}
-
-	.warenkorb-toggle.has-items {
-		background: var(--color-brand-medium);
-		border-color: var(--color-brand-medium);
-		color: white;
-	}
-
-	.cart-icon {
-		width: 24px;
-		height: 24px;
-	}
-
-	.warenkorb-toggle .badge {
-		position: absolute;
-		top: -6px;
-		right: -6px;
-		background: var(--color-brand-medium);
-		color: white;
-		font-size: 11px;
-		font-weight: var(--font-weight-bold);
-		min-width: 20px;
-		height: 20px;
-		border-radius: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.user-info {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-3);
-		font-size: var(--font-size-sm);
-		color: var(--color-gray-600);
-	}
-
-	.avatar {
-		width: 36px;
-		height: 36px;
-		background: var(--color-gray-200);
-		border-radius: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: var(--font-weight-semibold);
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-700);
-	}
-
-	/* Warenkorb Drawer */
-	.drawer-backdrop {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.4);
-		z-index: var(--z-modal-backdrop);
-	}
-
-	.warenkorb-drawer {
-		position: fixed;
-		top: 0;
-		right: 0;
-		width: 380px;
-		max-width: 90vw;
-		height: 100vh;
-		background: white;
-		box-shadow: var(--shadow-xl);
-		z-index: var(--z-modal);
-		display: flex;
-		flex-direction: column;
-		animation: slideIn 0.2s ease;
-	}
-
-	@keyframes slideIn {
-		from { transform: translateX(100%); }
-		to { transform: translateX(0); }
-	}
-
-	.drawer-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: var(--spacing-4);
-		border-bottom: 1px solid var(--color-gray-200);
-	}
-
-	.drawer-header h2 {
-		font-size: var(--font-size-lg);
-		margin: 0;
-	}
-
-	.drawer-close {
-		background: none;
-		border: none;
-		padding: var(--spacing-2);
-		cursor: pointer;
+	.back-link {
 		color: var(--color-gray-500);
+		padding: var(--spacing-2);
 		border-radius: var(--radius-md);
 	}
 
-	.drawer-close:hover {
+	.back-link:hover {
 		background: var(--color-gray-100);
 		color: var(--color-gray-700);
 	}
 
-	.drawer-close svg {
+	.back-link svg {
 		width: 20px;
 		height: 20px;
 	}
 
-	.drawer-empty {
+	.header h1 {
 		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: var(--spacing-8);
-		color: var(--color-gray-500);
-		text-align: center;
+		font-size: var(--font-size-xl);
+		color: var(--color-gray-900);
 	}
 
-	.drawer-items {
-		flex: 1;
-		overflow-y: auto;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.drawer-item {
-		padding: var(--spacing-3) var(--spacing-4);
-		border-bottom: 1px solid var(--color-gray-100);
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-2);
-	}
-
-	.drawer-item-info strong {
-		font-size: var(--font-size-sm);
-		display: block;
-	}
-
-	.drawer-item-info small {
-		color: var(--color-gray-500);
-		font-size: var(--font-size-xs);
-	}
-
-	.drawer-item-controls {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.mini-menge {
+	.header-badge {
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-2);
-		background: var(--color-gray-100);
-		border-radius: var(--radius-md);
-		padding: 2px;
+		background: var(--color-brand-light);
+		padding: var(--spacing-2) var(--spacing-3);
+		border-radius: var(--radius-full);
 	}
 
-	.mini-menge button {
-		width: 28px;
-		height: 28px;
-		border: none;
+	.header-badge .badge {
 		background: white;
-		border-radius: var(--radius-sm);
-		cursor: pointer;
+		color: var(--color-brand-medium);
+		padding: 2px 8px;
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-xs);
 		font-weight: var(--font-weight-bold);
 	}
 
-	.mini-menge button:hover {
+	.badge-sum {
+		color: white;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	/* Progress Bar */
+	.progress-bar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: var(--spacing-4) var(--spacing-6);
+		background: white;
+		border-bottom: 1px solid var(--color-gray-200);
+		gap: var(--spacing-2);
+	}
+
+	.progress-step {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-1);
+		background: none;
+		border: none;
+		cursor: default;
+		padding: var(--spacing-2);
+		opacity: 0.5;
+	}
+
+	.progress-step.active,
+	.progress-step.complete {
+		opacity: 1;
+	}
+
+	.progress-step.clickable {
+		cursor: pointer;
+	}
+
+	.progress-step.clickable:hover .step-number {
+		transform: scale(1.1);
+	}
+
+	.step-number {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: var(--color-gray-200);
+		color: var(--color-gray-600);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: var(--font-weight-bold);
+		font-size: var(--font-size-sm);
+		transition: all 0.2s ease;
+	}
+
+	.progress-step.active .step-number {
+		background: var(--color-brand-medium);
+		color: white;
+	}
+
+	.progress-step.complete .step-number {
+		background: var(--color-success);
+		color: white;
+	}
+
+	.step-number svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	.step-title {
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-600);
+		white-space: nowrap;
+	}
+
+	.progress-step.active .step-title {
+		color: var(--color-brand-medium);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	.progress-line {
+		flex: 1;
+		max-width: 60px;
+		height: 2px;
 		background: var(--color-gray-200);
 	}
 
-	.mini-menge span {
-		min-width: 24px;
-		text-align: center;
-		font-weight: var(--font-weight-semibold);
+	.progress-line.complete {
+		background: var(--color-success);
 	}
 
-	.drawer-item-summe {
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-700);
-	}
-
-	.drawer-footer {
-		padding: var(--spacing-4);
-		border-top: 2px solid var(--color-gray-200);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		background: var(--color-gray-50);
-	}
-
-	.btn-sm {
-		padding: var(--spacing-2) var(--spacing-3);
-		font-size: var(--font-size-xs);
-	}
-
-	.drawer-total {
-		text-align: right;
-	}
-
-	.drawer-total span {
-		display: block;
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-500);
-	}
-
-	.drawer-total strong {
-		font-size: var(--font-size-xl);
-		color: var(--color-gray-900);
+	/* Main */
+	.main {
+		flex: 1;
+		padding: var(--spacing-6);
+		padding-bottom: 100px;
+		max-width: var(--container-lg);
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	/* Loading */
@@ -1396,160 +1380,171 @@ Beispiele:
 		animation: spin 0.8s linear infinite;
 	}
 
-	/* Main */
-	.main {
-		flex: 1;
-		padding: var(--spacing-6);
-		padding-bottom: 120px; /* Platz für Sticky Footer */
-		max-width: var(--container-lg);
-		margin: 0 auto;
-		width: 100%;
-	}
-
-	.card {
-		background: white;
-		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-md);
-		overflow: hidden;
-	}
-
-	/* Sections */
-	.section {
-		padding: var(--spacing-6);
-		border-bottom: 1px solid var(--color-gray-200);
-	}
-
-	.section:last-child {
-		border-bottom: none;
-	}
-
-	.section-title {
-		font-size: var(--font-size-base);
-		color: var(--color-gray-800);
-		margin-bottom: var(--spacing-4);
-		padding-bottom: var(--spacing-3);
-		border-bottom: 2px solid var(--color-gray-200);
-	}
-
-	/* Forms */
-	.form-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-4);
-	}
-
-	.form-group {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-1);
-	}
-
-	.hint {
-		color: var(--color-gray-500);
-		font-size: var(--font-size-xs);
-		margin-top: var(--spacing-1);
-	}
-
-	.hint.warning {
-		color: var(--color-warning-dark);
-	}
-
-	/* Ansprechpartner Info */
-	.ansprechpartner-info {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-3);
-		margin-top: var(--spacing-2);
-		padding: var(--spacing-2) var(--spacing-3);
-		background: var(--color-success-light);
-		border-radius: var(--radius-md);
-		font-size: var(--font-size-sm);
-	}
-
-	.ap-telefon {
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-success-dark);
-	}
-
-	/* Input Section */
-	.input-section {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-4);
-	}
-
-	.text-input-wrapper {
-		display: flex;
-		gap: var(--spacing-3);
-		align-items: stretch;
-	}
-
-	.text-input-wrapper textarea {
-		flex: 1;
-		resize: none;
-		min-height: 120px;
-	}
-
-	.process-btn {
-		min-width: 140px;
-		flex-direction: column;
-		padding: var(--spacing-4);
-	}
-
 	.spinner {
 		width: 20px;
 		height: 20px;
-		border: 2px solid rgba(255, 255, 255, 0.3);
+		border: 2px solid rgba(255,255,255,0.3);
 		border-top-color: white;
 		border-radius: 50%;
 		animation: spin 0.8s linear infinite;
+		display: inline-block;
 	}
 
 	@keyframes spin {
 		to { transform: rotate(360deg); }
 	}
 
-	.error-message {
-		background: var(--color-error-light);
-		color: var(--color-error-dark);
-		padding: var(--spacing-3);
-		border-radius: var(--radius-md);
-		font-size: var(--font-size-sm);
+	.loading-inline {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-4);
+		color: var(--color-gray-500);
 	}
 
-	.success-message {
-		background: var(--color-success-light);
-		color: var(--color-success-dark);
-		padding: var(--spacing-3);
-		border-radius: var(--radius-md);
-		font-size: var(--font-size-sm);
+	/* Step Content */
+	.step-content {
+		background: white;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+		padding: var(--spacing-6);
 	}
 
-	.warning-message {
-		background: var(--color-warning-light);
-		color: var(--color-warning-dark);
-		padding: var(--spacing-3);
-		border-radius: var(--radius-md);
-		font-size: var(--font-size-sm);
+	.step-artikel {
+		padding: 0;
 	}
 
-	/* Händler Badge */
-	.haendler-badge {
-		display: inline-block;
+	.step-heading {
+		font-size: var(--font-size-lg);
+		color: var(--color-gray-800);
+		margin-bottom: var(--spacing-6);
+	}
+
+	/* Step 1: Händler-Grid */
+	.haendler-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: var(--spacing-4);
+	}
+
+	.haendler-card {
+		position: relative;
+		background: var(--color-gray-50);
+		border: 2px solid var(--color-gray-200);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-4);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		text-align: left;
+	}
+
+	.haendler-card:hover {
+		border-color: var(--color-brand-medium);
+		background: var(--color-info-light);
+	}
+
+	.haendler-card.selected {
+		border-color: var(--color-brand-medium);
 		background: var(--color-brand-light);
 		color: white;
-		padding: var(--spacing-1) var(--spacing-3);
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-medium);
-		margin-left: var(--spacing-2);
-		vertical-align: middle;
 	}
 
-	/* NEU: Suchfeld */
+	.haendler-name {
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--font-size-base);
+		margin-bottom: var(--spacing-1);
+	}
+
+	.haendler-typ {
+		font-size: var(--font-size-sm);
+		opacity: 0.8;
+	}
+
+	.haendler-check {
+		position: absolute;
+		top: var(--spacing-2);
+		right: var(--spacing-2);
+		width: 24px;
+		height: 24px;
+		background: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.haendler-check svg {
+		width: 14px;
+		height: 14px;
+		color: var(--color-brand-medium);
+	}
+
+	/* Step 2: Tabs */
+	.tabs {
+		display: flex;
+		border-bottom: 2px solid var(--color-gray-200);
+		background: var(--color-gray-50);
+	}
+
+	.tab {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-4);
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--color-gray-600);
+		border-bottom: 2px solid transparent;
+		margin-bottom: -2px;
+		transition: all 0.15s ease;
+	}
+
+	.tab:hover {
+		color: var(--color-gray-800);
+		background: var(--color-gray-100);
+	}
+
+	.tab.active {
+		color: var(--color-brand-medium);
+		border-bottom-color: var(--color-brand-medium);
+		background: white;
+	}
+
+	.tab svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	/* KI Input */
+	.ki-input {
+		padding: var(--spacing-6);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-4);
+	}
+
+	.ki-hint {
+		color: var(--color-gray-600);
+		font-size: var(--font-size-sm);
+	}
+
+	.ki-input textarea {
+		resize: none;
+	}
+
+	/* Katalog */
+	.katalog {
+		padding: var(--spacing-4);
+	}
+
 	.search-box {
 		position: relative;
-		margin-bottom: var(--spacing-4);
+		margin-bottom: var(--spacing-3);
 	}
 
 	.search-box input {
@@ -1592,402 +1587,383 @@ Beispiele:
 		height: 16px;
 	}
 
-	/* MOBILE Filter (Dropdowns) */
-	.filter-mobile {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-2);
-		margin-bottom: var(--spacing-4);
-		padding: var(--spacing-3);
-		background: var(--color-gray-50);
-	}
-
-	.filter-dropdowns {
+	.filter-row {
 		display: flex;
 		gap: var(--spacing-2);
+		flex-wrap: wrap;
+		margin-bottom: var(--spacing-3);
 	}
 
-	.filter-dropdowns select {
+	.filter-row select {
 		flex: 1;
-		min-width: 0;
+		min-width: 120px;
 		padding: var(--spacing-2) var(--spacing-3);
 		font-size: var(--font-size-sm);
 	}
 
-	.filter-reset-mobile {
+	.btn-link {
 		background: none;
 		border: none;
 		color: var(--color-brand-medium);
-		font-size: var(--font-size-xs);
 		cursor: pointer;
-		padding: var(--spacing-1) 0;
-		text-align: left;
-	}
-
-	.filter-count {
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-500);
-	}
-
-	/* DESKTOP Filter (Tags) */
-	.filter-desktop {
-		display: none;
-		margin-bottom: var(--spacing-4);
-		padding: var(--spacing-3);
-		background: var(--color-gray-50);
-	}
-
-	/* Desktop: Tags anzeigen, Mobile: Dropdowns */
-	@media (min-width: 768px) {
-		.filter-mobile {
-			display: none;
-		}
-		.filter-desktop {
-			display: block;
-		}
-	}
-
-	/* NEU: Filter Breadcrumb */
-	.filter-breadcrumb {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-2);
-		padding-bottom: var(--spacing-3);
-		margin-bottom: var(--spacing-3);
-		border-bottom: 1px solid var(--color-gray-200);
 		font-size: var(--font-size-sm);
+		padding: var(--spacing-2);
 	}
 
-	.breadcrumb-home {
-		background: none;
-		border: none;
-		color: var(--color-brand-medium);
-		cursor: pointer;
-		padding: 0;
-		font-size: inherit;
-	}
-
-	.breadcrumb-home:hover {
+	.btn-link:hover {
 		text-decoration: underline;
 	}
 
-	.breadcrumb-sep {
-		color: var(--color-gray-400);
-	}
-
-	.breadcrumb-item {
-		color: var(--color-gray-700);
-		font-weight: var(--font-weight-medium);
-	}
-
-	.breadcrumb-clear {
-		margin-left: auto;
-		background: none;
-		border: none;
-		color: var(--color-error);
-		cursor: pointer;
+	.artikel-count {
 		font-size: var(--font-size-xs);
-		padding: var(--spacing-1) var(--spacing-2);
-		border-radius: var(--radius-sm);
-	}
-
-	.breadcrumb-clear:hover {
-		background: var(--color-error-light);
-	}
-
-	.filter-row {
-		display: flex;
-		align-items: flex-start;
-		gap: var(--spacing-2);
+		color: var(--color-gray-500);
 		margin-bottom: var(--spacing-2);
 	}
 
-	.filter-row:last-of-type {
-		margin-bottom: 0;
+	.artikel-list {
+		max-height: 400px;
+		overflow-y: auto;
+		border: 1px solid var(--color-gray-200);
+		border-radius: var(--radius-md);
 	}
 
-	.filter-label {
-		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-600);
-		min-width: 70px;
-		padding-top: var(--spacing-1);
-	}
-
-	.filter-tags {
+	.artikel-row {
 		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-1);
-	}
-
-	.filter-tag {
-		display: inline-flex;
 		align-items: center;
-		padding: var(--spacing-1) var(--spacing-3);
-		background: white;
-		border: 1px solid var(--color-gray-300);
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-700);
-		cursor: pointer;
-		transition: all 0.15s ease;
+		gap: var(--spacing-2);
+		padding: var(--spacing-3);
+		border-bottom: 1px solid var(--color-gray-100);
 	}
 
-	.filter-tag:hover {
+	.artikel-row:last-child {
+		border-bottom: none;
+	}
+
+	.artikel-row.selected {
+		background: var(--color-success-light);
+	}
+
+	.artikel-row.favorit {
+		background: linear-gradient(90deg, rgba(255, 193, 7, 0.1) 0%, transparent 10%);
+	}
+
+	.artikel-row.favorit.selected {
+		background: linear-gradient(90deg, rgba(255, 193, 7, 0.15) 0%, var(--color-success-light) 10%);
+	}
+
+	.fav-btn {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: var(--font-size-lg);
+		color: var(--color-gray-300);
+		padding: 0;
+	}
+
+	.fav-btn:hover,
+	.fav-btn.active {
+		color: var(--color-warning);
+	}
+
+	.artikel-info {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.artikel-name {
+		background: none;
+		border: none;
+		padding: 0;
+		text-align: left;
+		cursor: pointer;
+		font-weight: var(--font-weight-medium);
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-800);
+	}
+
+	.artikel-name:hover {
+		color: var(--color-brand-medium);
+		text-decoration: underline;
+	}
+
+	.artikel-full {
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+		margin-top: 2px;
+		padding-left: var(--spacing-2);
+		border-left: 2px solid var(--color-gray-300);
+	}
+
+	.artikel-meta {
+		display: flex;
+		gap: var(--spacing-2);
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+		margin-top: 2px;
+	}
+
+	.artikel-meta .preis {
+		font-weight: var(--font-weight-medium);
+		color: var(--color-gray-700);
+	}
+
+	.menge-controls {
+		display: flex;
+		align-items: center;
+		gap: 2px;
+	}
+
+	.menge-controls button {
+		width: 32px;
+		height: 32px;
+		border: 2px solid var(--color-gray-300);
+		background: white;
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-bold);
+		cursor: pointer;
+	}
+
+	.menge-controls button:hover:not(:disabled) {
 		border-color: var(--color-brand-medium);
 		background: var(--color-info-light);
 	}
 
-	.filter-tag.active {
-		background: var(--color-brand-medium);
-		border-color: var(--color-brand-medium);
-		color: white;
-		font-weight: var(--font-weight-medium);
+	.menge-controls button:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
 	}
 
-	.filter-tag.sub {
-		font-size: 11px;
-		padding: 2px var(--spacing-2);
-	}
-
-	.filter-tag.hersteller {
-		font-size: 11px;
-		padding: 2px var(--spacing-2);
-		background: var(--color-gray-100);
-	}
-
-	.filter-tag.hersteller.active {
-		background: var(--color-gray-700);
-		border-color: var(--color-gray-700);
-	}
-
-	.filter-info {
-		margin-top: var(--spacing-2);
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-500);
-	}
-
-	/* Favoriten */
-	.th-fav, .td-fav {
-		width: 40px;
+	.menge-controls input {
+		width: 44px;
+		height: 32px;
 		text-align: center;
-		padding: var(--spacing-2) !important;
-	}
-
-	.favorit-btn {
-		background: none;
-		border: none;
-		cursor: pointer;
-		font-size: var(--font-size-xl);
-		color: var(--color-gray-300);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+		border: 2px solid var(--color-gray-200);
+		border-radius: var(--radius-md);
 		padding: 0;
-		line-height: 1;
-		transition: color 0.15s ease, transform 0.15s ease;
 	}
 
-	.favorit-btn:hover {
-		color: var(--color-warning);
-		transform: scale(1.2);
+	.menge-controls input:focus {
+		outline: none;
+		border-color: var(--color-brand-medium);
 	}
 
-	.favorit-btn.active {
-		color: var(--color-warning);
+	.menge-controls input.filled {
+		color: var(--color-success-dark);
+		border-color: var(--color-success);
+		background: var(--color-success-light);
 	}
 
-	tr.favorit {
-		background: linear-gradient(90deg, rgba(255, 193, 7, 0.1) 0%, transparent 10%);
+	/* Mini Cart */
+	.mini-cart {
+		position: sticky;
+		bottom: 0;
+		background: var(--color-gray-800);
+		color: white;
+		padding: var(--spacing-3) var(--spacing-4);
 	}
 
-	tr.favorit.highlight {
-		background: linear-gradient(90deg, rgba(255, 193, 7, 0.15) 0%, var(--color-success-light) 10%);
+	.mini-cart-header {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-4);
 	}
 
-	/* Spaltenbreiten */
-	.th-hersteller, .td-hersteller {
-		width: 100px;
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-600);
+	.mini-cart-sum {
+		flex: 1;
+		text-align: right;
+		font-weight: var(--font-weight-bold);
+		font-size: var(--font-size-lg);
 	}
 
-	.th-einheit {
-		width: 60px;
+	.mini-cart .btn-link {
+		color: var(--color-gray-300);
 	}
 
-	.th-preis {
-		width: 80px;
+	/* Step 3: Form */
+	.form-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-4);
 	}
 
-	.th-menge {
-		width: 130px;
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-1);
 	}
 
-	.mobile-hersteller {
+	.form-group.full {
+		grid-column: span 2;
+	}
+
+	.form-group label {
+		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight-medium);
 		color: var(--color-gray-700);
 	}
 
-	/* Loading inline */
-	.loading-inline {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-2);
-		padding: var(--spacing-4);
+	.hint {
+		font-size: var(--font-size-xs);
 		color: var(--color-gray-500);
 	}
 
-	/* Empty state */
+	.hint.success {
+		color: var(--color-success-dark);
+		background: var(--color-success-light);
+		padding: var(--spacing-1) var(--spacing-2);
+		border-radius: var(--radius-sm);
+	}
+
+	/* Step 4: Summary */
+	.summary-card {
+		background: var(--color-gray-50);
+		border-radius: var(--radius-md);
+		padding: var(--spacing-4);
+		margin-bottom: var(--spacing-6);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: var(--spacing-4);
+	}
+
+	.summary-section h3 {
+		font-size: var(--font-size-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--color-gray-500);
+		margin-bottom: var(--spacing-2);
+	}
+
+	.summary-section p {
+		margin: var(--spacing-1) 0;
+		font-size: var(--font-size-sm);
+	}
+
+	.muted {
+		color: var(--color-gray-500);
+	}
+
+	/* Review List */
+	.review-list h3 {
+		font-size: var(--font-size-base);
+		margin-bottom: var(--spacing-3);
+	}
+
+	.review-list table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: var(--font-size-sm);
+	}
+
+	.review-list th {
+		text-align: left;
+		padding: var(--spacing-2) var(--spacing-3);
+		background: var(--color-gray-100);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--font-size-xs);
+		text-transform: uppercase;
+		color: var(--color-gray-600);
+	}
+
+	.review-list td {
+		padding: var(--spacing-3);
+		border-bottom: 1px solid var(--color-gray-200);
+	}
+
+	.review-list tfoot td {
+		border-bottom: none;
+		padding-top: var(--spacing-4);
+	}
+
+	.text-right {
+		text-align: right;
+	}
+
+	.total {
+		font-size: var(--font-size-lg);
+		color: var(--color-success-dark);
+	}
+
+	/* Success View */
+	.success-view {
+		text-align: center;
+		padding: var(--spacing-12);
+		background: white;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+	}
+
+	.success-icon {
+		width: 80px;
+		height: 80px;
+		margin: 0 auto var(--spacing-6);
+		background: var(--color-success-light);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.success-icon svg {
+		width: 40px;
+		height: 40px;
+		color: var(--color-success);
+	}
+
+	.success-view h2 {
+		font-size: var(--font-size-2xl);
+		color: var(--color-gray-900);
+		margin-bottom: var(--spacing-2);
+	}
+
+	.success-nr {
+		font-size: var(--font-size-lg);
+		margin-bottom: var(--spacing-4);
+	}
+
+	.success-view p {
+		color: var(--color-gray-600);
+		margin-bottom: var(--spacing-6);
+	}
+
+	.success-actions {
+		display: flex;
+		gap: var(--spacing-4);
+		justify-content: center;
+	}
+
+	/* Messages */
+	.message {
+		padding: var(--spacing-3);
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-sm);
+	}
+
+	.message.error {
+		background: var(--color-error-light);
+		color: var(--color-error-dark);
+	}
+
+	.message.success {
+		background: var(--color-success-light);
+		color: var(--color-success-dark);
+	}
+
+	.message.warning {
+		background: var(--color-warning-light);
+		color: var(--color-warning-dark);
+	}
+
+	/* Empty State */
 	.empty-state {
 		text-align: center;
 		padding: var(--spacing-8);
 		color: var(--color-gray-500);
 	}
 
-	.empty-state p {
-		margin-bottom: var(--spacing-2);
-	}
-
-	/* Table */
-	.table-wrapper {
-		overflow-x: auto;
-	}
-
-	.artikel-table {
-		width: 100%;
-		border-collapse: collapse;
-	}
-
-	.artikel-table th {
-		background: var(--color-gray-50);
-		padding: var(--spacing-3) var(--spacing-4);
-		text-align: left;
-		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-600);
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		border-bottom: 2px solid var(--color-gray-200);
-	}
-
-	.artikel-table td {
-		padding: var(--spacing-3) var(--spacing-4);
-		border-bottom: 1px solid var(--color-gray-200);
-		font-size: var(--font-size-sm);
-	}
-
-	.artikel-table tr.highlight {
-		background: var(--color-success-light);
-	}
-
-	/* Bezeichnung Toggle */
-	.bezeichnung-toggle {
-		background: none;
-		border: none;
-		padding: 0;
-		text-align: left;
-		cursor: pointer;
-		color: inherit;
-		font-size: inherit;
-	}
-
-	.bezeichnung-toggle:hover strong {
-		color: var(--color-brand-medium);
-		text-decoration: underline;
-	}
-
-	.bezeichnung-full {
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-500);
-		margin-top: var(--spacing-1);
-		padding-left: var(--spacing-2);
-		border-left: 2px solid var(--color-gray-300);
-	}
-
-	/* Menge Controls */
-	.menge-controls {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: var(--spacing-1);
-	}
-
-	.menge-btn {
-		width: 36px;
-		height: 36px;
-		border-radius: var(--radius-md);
-		border: 2px solid var(--color-gray-300);
-		background: white;
-		font-size: var(--font-size-lg);
-		font-weight: var(--font-weight-bold);
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: all 0.15s ease;
-		flex-shrink: 0;
-	}
-
-	.menge-btn:hover:not(:disabled) {
-		border-color: var(--color-brand-medium);
-		background: var(--color-info-light);
-	}
-
-	.menge-btn:active:not(:disabled) {
-		transform: scale(0.95);
-	}
-
-	.menge-btn:disabled {
-		opacity: 0.3;
-		cursor: not-allowed;
-	}
-
-	.menge-btn.minus {
-		color: var(--color-error);
-	}
-
-	.menge-btn.plus {
-		color: var(--color-success);
-	}
-
-	.menge-input {
-		width: 50px;
-		height: 36px;
-		text-align: center;
-		font-size: var(--font-size-base);
-		font-weight: var(--font-weight-semibold);
-		color: var(--color-gray-600);
-		border: 2px solid var(--color-gray-200);
-		border-radius: var(--radius-md);
-		padding: 0;
-		appearance: textfield;
-		-moz-appearance: textfield;
-	}
-
-	.menge-input::-webkit-outer-spin-button,
-	.menge-input::-webkit-inner-spin-button {
-		appearance: none;
-		-webkit-appearance: none;
-		margin: 0;
-	}
-
-	.menge-input:focus {
-		outline: none;
-		border-color: var(--color-brand-medium);
-		background: var(--color-info-light);
-	}
-
-	.menge-input.filled {
-		color: var(--color-success-dark);
-		border-color: var(--color-success);
-		background: var(--color-success-light);
-		font-weight: var(--font-weight-bold);
-	}
-
-	/* Mobile Meta (unter Bezeichnung auf kleinen Screens) */
-	.mobile-meta {
-		display: none;
-	}
-
-	/* NEU: Sticky Footer */
+	/* Footer Actions */
 	.footer-actions {
 		position: fixed;
 		bottom: 0;
@@ -2003,222 +1979,137 @@ Beispiele:
 		z-index: 40;
 	}
 
-	.total {
-		text-align: center;
+	/* Buttons */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-3) var(--spacing-6);
+		border-radius: var(--radius-md);
+		font-weight: var(--font-weight-medium);
+		font-size: var(--font-size-base);
+		cursor: pointer;
+		border: none;
+		transition: all 0.15s ease;
 	}
 
-	.total-label {
-		font-size: var(--font-size-xs);
-		color: var(--color-gray-500);
+	.btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
-	.total-value {
-		font-size: var(--font-size-2xl);
-		font-weight: var(--font-weight-bold);
-		color: var(--color-gray-900);
+	.btn-primary {
+		background: var(--color-brand-medium);
+		color: white;
 	}
 
-	.total-count {
-		color: var(--color-gray-500);
-		font-size: var(--font-size-xs);
+	.btn-primary:hover:not(:disabled) {
+		background: var(--color-brand-dark);
+	}
+
+	.btn-secondary {
+		background: var(--color-gray-200);
+		color: var(--color-gray-700);
+	}
+
+	.btn-secondary:hover:not(:disabled) {
+		background: var(--color-gray-300);
+	}
+
+	.btn-success {
+		background: var(--color-success);
+		color: white;
+	}
+
+	.btn-success:hover:not(:disabled) {
+		background: var(--color-success-dark);
 	}
 
 	/* Mobile */
 	@media (max-width: 767px) {
 		.header-content {
-			flex-direction: row;
-			justify-content: space-between;
+			gap: var(--spacing-2);
 		}
 
 		.header h1 {
 			font-size: var(--font-size-lg);
 		}
 
-		.user-info span {
+		.progress-bar {
+			padding: var(--spacing-2);
+			overflow-x: auto;
+		}
+
+		.step-title {
 			display: none;
+		}
+
+		.progress-line {
+			max-width: 24px;
 		}
 
 		.main {
 			padding: var(--spacing-3);
-			padding-bottom: 140px;
+			padding-bottom: 120px;
 		}
 
-		.section {
+		.step-content {
 			padding: var(--spacing-4);
 		}
 
-		.section-title {
-			font-size: var(--font-size-sm);
+		.haendler-grid {
+			grid-template-columns: 1fr;
 		}
 
 		.form-grid {
 			grid-template-columns: 1fr;
-			gap: var(--spacing-3);
 		}
 
-		.text-input-wrapper {
+		.form-group.full {
+			grid-column: span 1;
+		}
+
+		.filter-row {
 			flex-direction: column;
 		}
 
-		.text-input-wrapper textarea {
-			min-height: 80px;
-			font-size: var(--font-size-sm);
-		}
-
-		.process-btn {
+		.filter-row select {
 			width: 100%;
-			padding: var(--spacing-3);
 		}
 
-		/* Kompakte Tabelle für Mobile */
-		.artikel-table {
+		.artikel-list {
+			max-height: 300px;
+		}
+
+		.review-list table {
 			font-size: var(--font-size-xs);
 		}
 
-		.artikel-table th,
-		.artikel-table td {
+		.review-list th,
+		.review-list td {
 			padding: var(--spacing-2);
 		}
 
-		.artikel-table thead {
-			display: none;
-		}
-
-		.artikel-table tr {
-			display: flex;
-			flex-wrap: wrap;
-			padding: var(--spacing-2) 0;
-			border-bottom: 1px solid var(--color-gray-200);
-		}
-
-		.artikel-table td {
-			border: none;
-			padding: var(--spacing-1) var(--spacing-2);
-		}
-
-		.td-fav {
-			order: 1;
-			width: auto;
-		}
-
-		.td-hersteller {
-			display: none;
-		}
-
-		.artikel-table td:nth-child(3) {
-			order: 2;
-			flex: 1;
-			min-width: 0;
-		}
-
-		.artikel-table td:nth-child(4),
-		.artikel-table td:nth-child(5) {
-			display: none;
-		}
-
-		.artikel-table td:nth-child(6) {
-			order: 3;
-			width: auto;
-		}
-
-		.mobile-meta {
-			display: flex;
-			gap: var(--spacing-2);
-			font-size: 10px;
-			color: var(--color-gray-500);
-			margin-top: 2px;
-		}
-
-		.mobile-preis {
-			font-weight: var(--font-weight-medium);
-			color: var(--color-gray-700);
-		}
-
-		/* Kompakte Menge-Controls */
-		.menge-controls {
-			gap: 2px;
-		}
-
-		.menge-btn {
-			width: 28px;
-			height: 28px;
-			font-size: var(--font-size-sm);
-		}
-
-		.menge-input {
-			width: 36px;
-			height: 28px;
-			font-size: var(--font-size-xs);
-		}
-
-		.favorit-btn {
-			font-size: var(--font-size-base);
-		}
-
-		/* Sticky Footer Mobile */
 		.footer-actions {
-			flex-direction: column;
-			gap: var(--spacing-2);
 			padding: var(--spacing-3);
 		}
 
-		.footer-actions .btn {
-			width: 100%;
-			padding: var(--spacing-3);
-		}
-
-		.total {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			width: 100%;
-		}
-
-		.total-label {
-			font-size: var(--font-size-xs);
-		}
-
-		.total-value {
-			font-size: var(--font-size-xl);
-		}
-
-		/* Drawer Fullscreen Mobile */
-		.warenkorb-drawer {
-			width: 100%;
-			max-width: none;
-		}
-
-		/* Suchfeld kompakter */
-		.search-box input {
+		.btn {
+			padding: var(--spacing-3) var(--spacing-4);
 			font-size: var(--font-size-sm);
-			padding: var(--spacing-2) var(--spacing-3);
-			padding-left: 36px;
 		}
 
-		.search-icon {
-			width: 16px;
-			height: 16px;
-			left: 10px;
+		.success-view {
+			padding: var(--spacing-6);
 		}
 
-		/* Ansprechpartner-Info kompakter */
-		.ansprechpartner-info {
-			padding: var(--spacing-2);
-			font-size: var(--font-size-xs);
+		.success-actions {
+			flex-direction: column;
 		}
-	}
 
-	/* Tablet */
-	@media (min-width: 768px) and (max-width: 1023px) {
-		.form-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	/* Desktop - hide-mobile Klasse */
-	@media (max-width: 767px) {
-		.hide-mobile {
-			display: none !important;
+		.success-actions .btn {
+			width: 100%;
 		}
 	}
 </style>

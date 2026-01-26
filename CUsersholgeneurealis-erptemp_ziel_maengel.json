@@ -1,0 +1,2262 @@
+{
+    "data":  [
+                 {
+                     "id":  "SXYwmfWyFzYZ8G",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-07-17",
+                                    "4qiAo":  null,
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  500,
+                                    "1UqYa":  "ATBS-299-M1",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Mieter Max Mustermann",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  "Kunde informier\n",
+                                    "eKqU2":  "Rohrverbindung undicht",
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  1,
+                                    "8JQ5m":  "Austausch des defekten Heizk«Ùrpers und Rohrdichtung",
+                                    "mEyLK":  null,
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-299",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Firma Mller Sanit«œr",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Heizk«Ùrper tropft im Wohnzimmer",
+                                    "LQPDA":  null,
+                                    "s8fdT":  null,
+                                    "WVchQ":  "Besprechung mit Fachfirma: Austausch notwendig"
+                                },
+                     "createdAt":  "2025-07-17T10:42:43.456Z",
+                     "updatedAt":  "2026-01-25T21:19:26.745Z"
+                 },
+                 {
+                     "id":  "ew7nWZAHN98J3u",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-07-18",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Sabine",
+                                    "jFILZ":  60,
+                                    "1UqYa":  "ATBS-299-M2",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Hausverwaltung Meier",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  "Kunde informiert, keine Gew«œhrleistung",
+                                    "eKqU2":  "Fehler entstand durch unsachgem«œ«?e Nutzung (Mieter)",
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  2,
+                                    "8JQ5m":  "Kostenvoranschlag an Mieter senden",
+                                    "mEyLK":  "2025-07-19T00:00:00.000Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-299",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Hausverwaltung Meier",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Fenster schlie«?t nicht richtig",
+                                    "LQPDA":  null,
+                                    "s8fdT":  null,
+                                    "WVchQ":  "Keine Ma«?nahme durch Bau, Kostenangebot an Mieter"
+                                },
+                     "createdAt":  "2025-07-17T10:42:43.460Z",
+                     "updatedAt":  "2026-01-25T21:19:26.751Z"
+                 },
+                 {
+                     "id":  "C1NLxca169jv6H",
+                     "fields":  {
+                                    "NEaCG":  2,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-07-17",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-299-M3",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Neumann",
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/ef4c7426-79d9-483c-998b-27b16f32be48/neurealisKomplettsanierung-header-email.jpg",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/ef4c7426-79d9-483c-998b-27b16f32be48/neurealisKomplettsanierung-header-email.jpg?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27neurealisKomplettsanierung-header-email.jpg\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=916f0ba0ca1c269f5d63c26b54d0c1776232071a754998174827a241233441ee",
+                                                      "filename":  "neurealisKomplettsanierung-header-email.jpg",
+                                                      "type":  "image/jpeg",
+                                                      "size":  58034
+                                                  }
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  "Kunde mitgeteilt, dass wir es beheben",
+                                    "eKqU2":  "Unser Verschulden, falsch montiert",
+                                    "ZColO":  null,
+                                    "uaDbm":  "Holger - Robertstra«?e 30, Hamm - DG rechts",
+                                    "XUtl4":  3,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-07-17T11:58:21.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1786389237#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-299",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "55239250-f654-4336-a43b-8f1dc437348f",
+                                                  "label":  "(4) Abgenommen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1786389237",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "TOP Handwerker GmbH",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  "holger.neumann@neurealis.de",
+                                    "kgCJK":  "+4915120244442",
+                                    "ozrIj":  "Duschvorhangstange ist wackelig, falsche Montage, M«¨ssen schauen wie wir es beheben",
+                                    "LQPDA":  null,
+                                    "s8fdT":  null,
+                                    "WVchQ":  "NU anrufen und Befestigen lassen"
+                                },
+                     "createdAt":  "2025-07-17T11:58:21.940Z",
+                     "updatedAt":  "2026-01-25T21:19:26.719Z"
+                 },
+                 {
+                     "id":  "59FyXIQiSs9qGp",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-07-21",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-299-M4",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Neumann",
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/92260073-8cdf-4115-b49b-64a618a37124/ChatGPT Image 18. Juli 2025, 19_07_17.png",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/92260073-8cdf-4115-b49b-64a618a37124/ChatGPT%20Image%2018.%20Juli%202025%2C%2019_07_17.png?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27ChatGPT%2520Image%252018.%2520Juli%25202025%252C%252019_07_17.png\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=baf6a9d3b07ab36de9507f7b3b17cb775913c1717389b4639eb7e63c130b03e4",
+                                                      "filename":  "ChatGPT Image 18. Juli 2025, 19_07_17.png",
+                                                      "type":  "image/png",
+                                                      "size":  2400387
+                                                  }
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  4,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-07-21T15:45:24.041Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/abnahmeprotokoll?recordId=F9Pqh2kzSEUpHA#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-299",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/abnahmeprotokoll?recordId=F9Pqh2kzSEUpHA",
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "jhlhlh",
+                                    "LQPDA":  null,
+                                    "s8fdT":  null,
+                                    "WVchQ":  "NU kontaktieren"
+                                },
+                     "createdAt":  "2025-07-21T15:45:24.041Z",
+                     "updatedAt":  "2026-01-25T21:19:26.757Z"
+                 },
+                 {
+                     "id":  "kYyAzm1EAyB6EU",
+                     "fields":  {
+                                    "NEaCG":  1,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-10-08",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-200-M5",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Neumann",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "neurealis residential - Schildstr 7 - GE Ausbau Lager + Fassade",
+                                    "XUtl4":  5,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-10-08T06:45:26.200Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1632843056#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-200",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1632843056",
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  "2025-10-10",
+                                    "Nv4yH":  "holger.neumann@neurealis.de",
+                                    "kgCJK":  "015120244442",
+                                    "ozrIj":  "Test Mangel",
+                                    "LQPDA":  null,
+                                    "s8fdT":  null,
+                                    "WVchQ":  "NU beauftragen"
+                                },
+                     "createdAt":  "2025-10-08T06:45:26.200Z",
+                     "updatedAt":  "2026-01-25T21:19:26.763Z"
+                 },
+                 {
+                     "id":  "s8o1FQZhFksakG",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-11-18",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-308-M6",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "VBW",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+49162-2312061",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW - Matthias Claudius Str. 3 Bochum - 3.OG rechts",
+                                    "XUtl4":  6,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-11-18T11:56:31.006Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1812114151#maengel",
+                                    "v4wjk":  "Frau Yaflah",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-308",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1812114151",
+                                    "9PPnm":  "Termin mit Mieterin vereinbaren",
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-11-21",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Deckentapeten l«Ùsen sich",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "NU anweisen"
+                                },
+                     "createdAt":  "2025-11-18T11:56:31.006Z",
+                     "updatedAt":  "2025-12-08T15:07:37.909Z"
+                 },
+                 {
+                     "id":  "CfrVjiVVR09PgU",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-02",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-442-M7",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Bauleiter",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | In der Delle 6, Bochum | 1.OG links | Frank Nass",
+                                    "XUtl4":  7,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-02T10:05:49.373Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=5037328741#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-442",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=5037328741#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-05",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Fehlender Wasserablauf in K«¨che, wurde durch NU zugespachtelt.",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "Wasserabfluss herstellen"
+                                },
+                     "createdAt":  "2025-12-02T10:05:49.373Z",
+                     "updatedAt":  "2025-12-08T15:07:37.912Z"
+                 },
+                 {
+                     "id":  "nWoJe1yGrhhMtG",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-08",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-432-M8",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Markus Kucharzewski",
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/21705ce0-765a-466f-a737-c1fb6e28c4ae/f3817ffb-df01-4d50-98a1-b087538788f1",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/21705ce0-765a-466f-a737-c1fb6e28c4ae/f3817ffb-df01-4d50-98a1-b087538788f1?response-content-disposition=inline%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27Schulenburgstr%252025%2520-%2520Wasserschaden%2520-%2520D93BF.PDF\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=b60d9a9f7c90ddc439514064acf238387e539b9d6235c605f26760bde6bd66b0",
+                                                      "filename":  "Schulenburgstr 25 - Wasserschaden - D93BF.PDF",
+                                                      "type":  "application/pdf",
+                                                      "size":  1730891
+                                                  }
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+49151-12649042",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | Schulenburgstr. 25, Bochum | EG rechts | Alexander Wasilowski",
+                                    "XUtl4":  8,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-08T10:47:25.787Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel#maengel",
+                                    "v4wjk":  "Stefanie Goedecke",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-432",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "aa89fadd-d2ab-42b3-9243-fcbe5a11fa22",
+                                                  "label":  "(1) In Bearbeitung"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel",
+                                    "9PPnm":  "Mieterin∂ˇFrau Stefanie Goedecke  Fr.: 0151-12649042 Hr.: 0151-65124676\n\n2026-01-06: Ursache beho9benm Wand zu, ab heute 1 Woche Trocknungsger«œt. Vitalie heute um 15 Uhr vor Ort",
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-12",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "2x Wasserschaden festgestellt\n\nGesamte R«¨ckwand zum Bad (wo Heizung verbaut ist)\n\nAndere Badwand auch feucht - im Flur rechts und links neben badezimmert«¨r ebenfalls nass\n\nam DI 16.12. 3 L«Ùcher gemacht, in K«¨che unter Wasseranschl«¨sse etwas weggenommen\n\nDann ist nichts passiert, per Hand in Wand gefasst - hier ist alles trocken, kein Wasser.\n\nWasser kam unter Fu«?leiste durch.\n\nSockelleisten dran gelassen, war aber nass dahinter. obersten Putz von Vitalie entfernt. \n\nFliese unter Dusche entfernt, es war feucht - Bauarbeiter sagt \"alles trocken\".\n\nVon Dienstag an nichts passiert, keine Leckageortung / kein Trocknungsger«œt - am Freitag unangemeldet vor T«¨r.",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "Wand ge«Ùffnet, \nDie Hermann Gruppe wurde beauftragt um das Leck zu finden. Diese stimmen den Termin mit der Mieterin ab.\nDer Termin wurde mit der Mieterin am 19.12. gegen 11:40 telefonisch abgestimmt und ist f«¨r Dienstag den 23.12.2025 zwischen 09:00-11:00 vereinbart.\n\nKupferrohr nicht richtig gepresst."
+                                },
+                     "createdAt":  "2025-12-08T10:47:25.787Z",
+                     "updatedAt":  "2026-01-06T11:28:53.965Z"
+                 },
+                 {
+                     "id":  "a3wCTneLKqz14b",
+                     "fields":  {
+                                    "NEaCG":  0,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-08",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  0,
+                                    "1UqYa":  "ATBS-416-M9",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Bauleiter",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | Gro«?e Weischede Str. 13, Bochum | 3.OG rechts | Bauleiter",
+                                    "XUtl4":  9,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-08T10:52:22.244Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2075134094#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-416",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2075134094#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-09",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Nachr«¨stung Waschtisch",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "\u003cp\u003eZoltan \u0026amp; David vorbeischicken9\u003c/p\u003e"
+                                },
+                     "createdAt":  "2025-12-08T10:52:22.244Z",
+                     "updatedAt":  "2025-12-08T15:07:37.920Z"
+                 },
+                 {
+                     "id":  "vyQnAnT6UmRteS",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-10",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-432-M10",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Bauleiter",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | Schulenburgstr. 25, Bochum | EG rechts | Alexander Wasilowski",
+                                    "XUtl4":  10,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-10T09:00:12.173Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel#maengel",
+                                    "v4wjk":  "Stefanie Goedecke",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-432",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel",
+                                    "9PPnm":  "Mieterin∂ˇFrau Stefanie Goedecke  Fr.: 0151-12649042 Hr.: 0151-65124676",
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-12",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Steckdose in Waschk«¨che ohne Funktion, bitte pr«¨fen ob in UV aufgelegt\n\nMieterin Fr. ",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "Steckdose in Waschk«¨che ohne Funktion, bitte pr«¨fen ob in UV aufgelegt\n\nMieterin Fr. "
+                                },
+                     "createdAt":  "2025-12-10T09:00:12.173Z",
+                     "updatedAt":  "2026-01-25T21:19:26.770Z"
+                 },
+                 {
+                     "id":  "nywQ13AHuBiYkO",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-12",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "-M11",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/75c38c61-f09b-4cd7-a42e-6078a4977034/29c59050-aaa3-472e-9d13-0620d0a47abb",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/75c38c61-f09b-4cd7-a42e-6078a4977034/29c59050-aaa3-472e-9d13-0620d0a47abb?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27WhatsApp%2520Image%25202025-12-12%2520at%252013.05.17%2520%25282%2529.jpeg\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=b761612f5f7cc728c0f8b67e132be894d1cb6e761e95395e8328f37584f3161b",
+                                                      "filename":  "WhatsApp Image 2025-12-12 at 13.05.17 (2).jpeg",
+                                                      "type":  "image/jpeg",
+                                                      "size":  114010
+                                                  },
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/2f50e3d9-27e1-42aa-a1aa-4d20875a39fe/813a38f9-0375-4bf7-a814-16e7f4aaa6c9",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/2f50e3d9-27e1-42aa-a1aa-4d20875a39fe/813a38f9-0375-4bf7-a814-16e7f4aaa6c9?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27WhatsApp%2520Image%25202025-12-12%2520at%252013.05.17%2520%25281%2529.jpeg\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=fc430e5e253b2fd4a216c1f685b333df41f537847785879d413f0948bb02a25f",
+                                                      "filename":  "WhatsApp Image 2025-12-12 at 13.05.17 (1).jpeg",
+                                                      "type":  "image/jpeg",
+                                                      "size":  71571
+                                                  },
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/a94fb9b2-d85e-4982-af95-68cfc3ec71ee/16110595-3fbc-4e62-a526-7673eaad5052",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/a94fb9b2-d85e-4982-af95-68cfc3ec71ee/16110595-3fbc-4e62-a526-7673eaad5052?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27WhatsApp%2520Image%25202025-12-12%2520at%252013.05.17.jpeg\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=75b5ec1c7c5e0444081b9a3df92a578582bbc95b213677b75c3da0e43219c81a",
+                                                      "filename":  "WhatsApp Image 2025-12-12 at 13.05.17.jpeg",
+                                                      "type":  "image/jpeg",
+                                                      "size":  94676
+                                                  }
+                                              ],
+                                    "l18Kt":  "eeke.leifert@web.de",
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+49491744598921",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  11,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-12T12:47:54.615Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2030769900#maengel#maengel",
+                                    "v4wjk":  "Frau Leifert",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  null,
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2030769900#maengel",
+                                    "9PPnm":  "Absprache zwischen Fr. Leifert und DJ bereits erfolgt",
+                                    "4uDJM":  null,
+                                    "aGWIf":  "2025-12-26",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "An der Duschtasse sind Ausbl«¨hungen entstanden.",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2025-12-12T12:47:54.614Z",
+                     "updatedAt":  "2025-12-12T12:47:54.614Z"
+                 },
+                 {
+                     "id":  "jhHIkfRR70BXsJ",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-15",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-430-M12",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Kreutzmann-Regener",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "gws | Langobardenstrasse 33, Dortmund | EG mitte | Kreutzmann-Regener",
+                                    "XUtl4":  12,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-15T15:21:58.903Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2131407812#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-430",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2131407812#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2025-12-19",
+                                    "Nv4yH":  "b.kreutzmann-regener@gws-wohnen.de",
+                                    "kgCJK":  "015780585517",
+                                    "ozrIj":  "Mastercarree fehlt, muss Tim noch einbauen nach Erhalt Schl«¨ssel von GWS",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2025-12-15T15:21:58.903Z",
+                     "updatedAt":  "2025-12-15T15:21:58.903Z"
+                 },
+                 {
+                     "id":  "73VejaTGNr0eJb",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-16",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-321-M13",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "J«¨cker",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "WBG | J«¨cker | Veilchenweg 6, L«¨nen | EG",
+                                    "XUtl4":  13,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-16T13:17:55.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1832994786#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-321",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1832994786#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-19",
+                                    "Nv4yH":  "m.juecker@wbg-luenen.de",
+                                    "kgCJK":  "+49 1515 6321931",
+                                    "ozrIj":  "Antennenkabel unter der Decke mit Strapsen befestigt ohne Leerrohr - Leerrohr noch nachr«¨sten \nFotos von BL Rainer Schr«Ùder folgen",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "Antennenkabel unter der Decke mit Strapsen befestigt ohne Leerrohr - Leerrohr noch nachr«¨sten "
+                                },
+                     "createdAt":  "2025-12-16T13:17:55.262Z",
+                     "updatedAt":  "2025-12-16T13:26:23.804Z"
+                 },
+                 {
+                     "id":  "491VBKoinCBrBh",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-16",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-321-M14",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "J«¨cker",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  "Vergessene Ausf«¨hrung",
+                                    "ZColO":  null,
+                                    "uaDbm":  "WBG | J«¨cker | Veilchenweg 6, L«¨nen | EG",
+                                    "XUtl4":  14,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-16T13:24:49.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1832994786#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-321",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1832994786#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-19",
+                                    "Nv4yH":  "m.juecker@wbg-luenen.de",
+                                    "kgCJK":  "+49 1515 6321931",
+                                    "ozrIj":  "Brandschutzm«Ùrtel fehlt, Fotos von BL Rainer Schr«Ùder folgen",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2025-12-16T13:24:49.092Z",
+                     "updatedAt":  "2025-12-16T13:26:31.381Z"
+                 },
+                 {
+                     "id":  "a7P0eVtIBOs5mf",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-18",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Jansen",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-407-M15",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "VBW | Polowczyk",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+490234358674",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | Gorch-Fock-Str. 4, Bochum | 3. OG rechts | Bauleiter",
+                                    "XUtl4":  15,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-18T10:50:05.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2052341916#maengel#maengel",
+                                    "v4wjk":  "Frau Zander",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-407",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2052341916#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2026-01-14",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  "+491633100053",
+                                    "ozrIj":  "Sch«œden in Wohnung unter Sanierung, Balkont«¨r, Fenster und \"Kinderzimmer\" entstanden, Ausgleichsmasse ist runter gelaufen;\nSchaden wurde aufgenommen und entfernt aber laut Mieterin nicht richtig saubergemacht (schwarze R«œnder, m«¨ssen wir laut VBW beseitigen; Kratzer; neue Fensterb«œnke sollen eingebaut werden), Teppich und Gardinen sind besch«œdigt; war schon Ende August\nMieterin will Kostenvoranschlag einreichen, Reinigung nicht mgl. Perserteppich nicht zu reinigen; hat Putzfrau beauftragt\nm«Ùchten Gardinen waschen und Teppich reinigen, aber laut Firma nicht mgl.; Mieterin hat angeblich Anwalt eingeschaltet\nmuss laut VBWdurch uns machen lassen, Mieterin zeigt sich aber zeitweise unkooperativ",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "eb9c8a39-5fd0-4588-8d86-dc067d839ad1",
+                                                  "label":  "(2) Termin vereinbart"
+                                              },
+                                    "WVchQ":  "Vor-Ort-Begehung am 14.01.26 mit neurealis BL (Dirk), NU (Vitalie) und VBW (durch Hrn. Polowczyk koordiniert)"
+                                },
+                     "createdAt":  "2025-12-18T10:50:05.133Z",
+                     "updatedAt":  "2025-12-18T10:51:32.630Z"
+                 },
+                 {
+                     "id":  "ThM2Ka3VBvGeBI",
+                     "fields":  {
+                                    "NEaCG":  2,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2025-12-19",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-432-M16",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Bauleiter",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+4915112649042",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "VBW | Schulenburgstr. 25, Bochum | EG rechts | Alexander Wasilowski",
+                                    "XUtl4":  16,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2025-12-19T09:31:43.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel#maengel",
+                                    "v4wjk":  "Frau Stefanie Goedecke ",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-432",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "28d6acde-22f7-4864-9dd7-81c614d2f245",
+                                                  "label":  "(3) «?berf«œllig"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2138270815#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  "2025-12-19",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Es wird vermutet, dass eine Leckage besteht. \nDurch die Feuchtigkeit ist bereits Schimmel entstanden.",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "3bd37b5d-0045-4e31-a6b8-4aa8b627e881",
+                                                  "label":  "(4) Erdledigt"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2025-12-19T09:31:43.527Z",
+                     "updatedAt":  "2026-01-25T21:19:26.776Z"
+                 },
+                 {
+                     "id":  "FfsMd2PeEaejZt",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-06",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-438-M17",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Jura",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "Guido Jura | Asselner Hellweg 174, Dortmund | 1. OG rechts",
+                                    "XUtl4":  17,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-06T09:03:33.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-438",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2026-01-09",
+                                    "Nv4yH":  "guido.jura@freenet.de",
+                                    "kgCJK":  "+49 491 5229693942",
+                                    "ozrIj":  "Ein Fensterfl«¨gel im Schlafzimmer zum Asselner Hellweg l«œsst sich nicht «Ùffnen\n-- geht immer noch nicht auf",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-06T09:03:33.974Z",
+                     "updatedAt":  "2026-01-09T08:42:56.434Z"
+                 },
+                 {
+                     "id":  "pFFXDmyv968aJ6",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-06",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-438-M18",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Jura",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "Guido Jura | Asselner Hellweg 174, Dortmund | 1. OG rechts",
+                                    "XUtl4":  18,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-06T09:04:26.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-438",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "55239250-f654-4336-a43b-8f1dc437348f",
+                                                  "label":  "(4) Abgenommen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2026-01-09",
+                                    "Nv4yH":  "guido.jura@freenet.de",
+                                    "kgCJK":  "+49 491 5229693942",
+                                    "ozrIj":  "Heizk«Ùrper erneut Reinigen",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-06T09:04:26.015Z",
+                     "updatedAt":  "2026-01-25T21:19:26.725Z"
+                 },
+                 {
+                     "id":  "Zn134KSrcJzk6Z",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-06",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-438-M19",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Jura",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "Guido Jura | Asselner Hellweg 174, Dortmund | 1. OG rechts",
+                                    "XUtl4":  19,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-06T09:05:05.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-438",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "55239250-f654-4336-a43b-8f1dc437348f",
+                                                  "label":  "(4) Abgenommen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2026-01-09",
+                                    "Nv4yH":  "guido.jura@freenet.de",
+                                    "kgCJK":  "+49 491 5229693942",
+                                    "ozrIj":  "2x Rauchwarnmelder im neuen SZ zum Garten und Flur noch ncith angebracht - RWM liegen bereits auf Fensterbank",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-06T09:05:05.740Z",
+                     "updatedAt":  "2026-01-25T21:19:26.731Z"
+                 },
+                 {
+                     "id":  "1NkxUKLhB7Ghaj",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-06",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-438-M20",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Jura",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "Guido Jura | Asselner Hellweg 174, Dortmund | 1. OG rechts",
+                                    "XUtl4":  20,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-06T09:05:45.000Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-438",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "55239250-f654-4336-a43b-8f1dc437348f",
+                                                  "label":  "(4) Abgenommen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2026-01-09",
+                                    "Nv4yH":  "guido.jura@freenet.de",
+                                    "kgCJK":  "+49 491 5229693942",
+                                    "ozrIj":  "Unterverteilung - Reinigung von innen \u0026 Kabel darunter wei«?en",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-06T09:05:45.318Z",
+                     "updatedAt":  "2026-01-25T21:19:26.736Z"
+                 },
+                 {
+                     "id":  "jMFtVdrNl7kYYA",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-06",
+                                    "4qiAo":  {
+                                                  "id":  "7589004a-0729-4b71-913f-f7b7092aaecf",
+                                                  "label":  "Endabnahme"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-438-M21",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Jura",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "Guido Jura | Asselner Hellweg 174, Dortmund | 1. OG rechts",
+                                    "XUtl4":  21,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-06T09:06:13.714Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-438",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2154209148#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Teambau Sanierung",
+                                    "aGWIf":  "2026-01-09",
+                                    "Nv4yH":  "guido.jura@freenet.de",
+                                    "kgCJK":  "494915229693942",
+                                    "ozrIj":  "Bad: HZK ist oberhalb etwas locker",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-06T09:06:13.714Z",
+                     "updatedAt":  "2026-01-06T09:06:13.714Z"
+                 },
+                 {
+                     "id":  "htkIBjQU6AUrhC",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-19",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-452-M22",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Richter",
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+49176-47526277",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "ISRichter | Hainallee 6, Dortmund | EG | Richter",
+                                    "XUtl4":  22,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-19T15:01:51.375Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2536540763#maengel#maengel",
+                                    "v4wjk":  "Eheleute Gro«?efeld",
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-452",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2536540763#maengel",
+                                    "9PPnm":  "Rechnungsempf«œnger:\nEheleute Gro«?efeld\nc/o Immobilien \u0026 Service Richter e.K.\nStortsweg 14\n44227 Dortmund\n",
+                                    "4uDJM":  null,
+                                    "aGWIf":  "2026-01-26",
+                                    "Nv4yH":  "s.richter@dortmund-immobilienservice.de",
+                                    "kgCJK":  "4923195007300",
+                                    "ozrIj":  "Zwei der im letzten Jahr, durch Sie eingebaute Heizk«Ùrper tropfen",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-19T15:01:51.375Z",
+                     "updatedAt":  "2026-01-19T15:01:51.375Z"
+                 },
+                 {
+                     "id":  "m1ngPPAcT04UV6",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-22",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-383-M23",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  "Br«¨ggerhof",
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/86da4619-fc33-4329-ba66-30a5545e04d0/258dd879-18dc-4a4c-830d-85e22cec1b11",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/86da4619-fc33-4329-ba66-30a5545e04d0/258dd879-18dc-4a4c-830d-85e22cec1b11?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27ALTMP_P60_2.JPG\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=aa44359a22007babb2baeccfee4d56f84b718f10a348f1c55bf22dceae6ab3ed",
+                                                      "filename":  "ALTMP_P60_2.JPG",
+                                                      "type":  "image/jpeg",
+                                                      "size":  85491
+                                                  },
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/bf47cabe-de28-4acb-bab2-8fca8f589022/90b1e289-e636-4078-975d-e493d0d4fdb5",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/bf47cabe-de28-4acb-bab2-8fca8f589022/90b1e289-e636-4078-975d-e493d0d4fdb5?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27ALTMP_P60_3.JPG\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=304df4231ef1f6e08ac4adc74c2097b8e97ae3fa6461e5671a0c4e604b32dee1",
+                                                      "filename":  "ALTMP_P60_3.JPG",
+                                                      "type":  "image/jpeg",
+                                                      "size":  82775
+                                                  },
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/6617dc35-e15e-4953-a471-34fbabaf940e/b8af57fb-928f-44f9-a347-1d2e7b8c694a",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/6617dc35-e15e-4953-a471-34fbabaf940e/b8af57fb-928f-44f9-a347-1d2e7b8c694a?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%27ALTMP_P60_8.JPG\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=c5f48dd93393fcd2d59a47106c458435a05838dcd554b7130686bbbddde69bd3",
+                                                      "filename":  "ALTMP_P60_8.JPG",
+                                                      "type":  "image/jpeg",
+                                                      "size":  62070
+                                                  }
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  "+4915731634083",
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "vonovia | Br«¨ggerhof | Theodor-Fleitmann-Str. 4, Iserlohn | 2.OG mitte ME008",
+                                    "XUtl4":  23,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-22T08:27:39.413Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1987848246#maengel#maengel",
+                                    "v4wjk":  "Leonie Engbers",
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-383",
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=1987848246#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Ghafurov Bau",
+                                    "aGWIf":  "2026-01-30",
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Wasserschaden gem«œ«? Fotos",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  "Eine Leckortung wurde durchgef«¨hrt, der Schaden wurde beseitigt. \nEs stehen noch nacharbeiten aus."
+                                },
+                     "createdAt":  "2026-01-22T08:27:39.413Z",
+                     "updatedAt":  "2026-01-22T08:27:39.413Z"
+                 },
+                 {
+                     "id":  "sjxdf7x5x82UBD",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-200-M24",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  24,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:09.137Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-200",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "6a788e82-5190-4b1b-b688-1882c88638c5",
+                                                  "label":  "(2) Nicht abgenommen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "fdhdfh",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:09.092Z",
+                     "updatedAt":  "2026-01-25T21:19:26.712Z"
+                 },
+                 {
+                     "id":  "ERWk03mORl5t6Y",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-200-M25",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  25,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:09.412Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-200",
+                                    "mhgIW":  null,
+                                    "YUT8c":  null,
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "ddjdfdhdd",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:09.380Z",
+                     "updatedAt":  "2026-01-25T21:19:26.689Z"
+                 },
+                 {
+                     "id":  "RkLSLqEDwRB5It",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "neurealis residential - Schildstr 7 - GE Ausbau Lager + Fassade",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Aki Wege",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-200-M26",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  26,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:09.643Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-200",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Tet infos",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:09.643Z",
+                     "updatedAt":  "2026-01-25T19:26:09.643Z"
+                 },
+                 {
+                     "id":  "D9jFOrKKX2Ty4g",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "Quadrat | Goethestr. 3, Wetter | EG rechts | Elbracht",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Aki Wege",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-412-M27",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  27,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:09.850Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-412",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Tuerblatt zum Schlafzimmer fehlt",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:09.850Z",
+                     "updatedAt":  "2026-01-25T19:26:09.850Z"
+                 },
+                 {
+                     "id":  "K3Ky9FVJYOLtdK",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "Quadrat | Goethestr. 3, Wetter | EG rechts | Elbracht",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Aki Wege",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-412-M28",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  28,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:10.199Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-412",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitazem / Mennza",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Untertisch und Spiegelschrank im Badezimmer fehlt",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:10.198Z",
+                     "updatedAt":  "2026-01-25T19:26:10.198Z"
+                 },
+                 {
+                     "id":  "T9pumbNMLJQpC8",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "Test Projekt | Teststrasse 1, Hamburg",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "test",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-TEST-M29",
+                                    "TFj9o":  null,
+                                    "qxHu4":  "NUA-TEST-001",
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  29,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:33.548Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-TEST",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Test Baufirma GmbH",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Dies ist eine Test-Mangelbeschreibung",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:33.548Z",
+                     "updatedAt":  "2026-01-25T19:26:33.548Z"
+                 },
+                 {
+                     "id":  "HcEJoHjyVfepuA",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "gws | Hoerder Semerteichstr.168 , Dortmund | EG rechts mitte | Fromme",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Dirk Jansen",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-400-M30",
+                                    "TFj9o":  null,
+                                    "qxHu4":  "NUA-316",
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  30,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:33.741Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-400",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Petru Plesca",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Dach kaputt",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:33.741Z",
+                     "updatedAt":  "2026-01-25T21:49:31.002Z"
+                 },
+                 {
+                     "id":  "LuKpdIrMNv60Pt",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "WBG | Veilchenweg 1, Luenen | 3OG links | Juecker",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Holger Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-437-M31",
+                                    "TFj9o":  null,
+                                    "qxHu4":  "NUA-341",
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  31,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:33.913Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-437",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  null,
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Vitali Balan",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Heizkoerper im Bad noch nicht angeschlossen.",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:33.912Z",
+                     "updatedAt":  "2026-01-25T21:49:35.128Z"
+                 },
+                 {
+                     "id":  "aq8VQbm99T1AIO",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "privat | Kleyer Weg 40, Dortmund | Test | Neumann",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Holger Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-456-M32",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  32,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:34.094Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-456",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Holger Neumann",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Zargen schlecht lackiert nachbessern",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:34.093Z",
+                     "updatedAt":  "2026-01-25T19:26:34.093Z"
+                 },
+                 {
+                     "id":  "1XhtMm9Hh0BgWP",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  "vonovia | Brueggerhof | Theodor-Fleitmann-Str. 4, Iserlohn | 2.OG mitte ME008",
+                                    "2la7j":  null,
+                                    "4qiAo":  {
+                                                  "id":  "842ed819-7525-4e07-820b-d1eed8bf4c94",
+                                                  "label":  "Ausfuehrung"
+                                              },
+                                    "ctNAI":  "Aki Wege",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-383-M33",
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  33,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T19:26:34.303Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-383",
+                                    "mhgIW":  {
+                                                  "id":  "Offen",
+                                                  "label":  "Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  "Ghafurov Bau",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  "Scharfe Fliesenkante am Heizkoerper",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T19:26:34.303Z",
+                     "updatedAt":  "2026-01-25T19:26:34.303Z"
+                 },
+                 {
+                     "id":  "Au4LCezWMa8Vzd",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  "2026-01-25",
+                                    "4qiAo":  {
+                                                  "id":  "1d521c6d-4da1-4097-ba0f-eda83ac5bd66",
+                                                  "label":  "Gew«œhrleistung"
+                                              },
+                                    "ctNAI":  "Neumann",
+                                    "jFILZ":  null,
+                                    "1UqYa":  "ATBS-456-M34",
+                                    "TFj9o":  "holger.neumann@neurealis.de",
+                                    "qxHu4":  "NUA-363",
+                                    "bC4R6":  "Neumann",
+                                    "aScwq":  [
+                                                  {
+                                                      "id":  "attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/edfe868c-f559-4c74-ae52-c669820903bb/21813944-66b3-4dd4-a3e3-7eb672ef7e17",
+                                                      "url":  "https://softr-tables-eu-prod-bucket02.s3.eu-central-1.amazonaws.com/attachments/e74de047-f727-4f98-aa2a-7bda298672d3/J563LaZ43bZSQy/edfe868c-f559-4c74-ae52-c669820903bb/21813944-66b3-4dd4-a3e3-7eb672ef7e17?response-content-disposition=attachment%3B%20filename%3D%22download%22%3B%20filename%2A%3DUTF-8%27%271000085962.jpg\u0026X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Date=20260126T114907Z\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Credential=AKIA2Q5PIHELISSCCCBV%2F20260126%2Feu-central-1%2Fs3%2Faws4_request\u0026X-Amz-Expires=604800\u0026X-Amz-Signature=eb3702e69287bc640db6d80acb366dcd6c1f7df51ad7fa22cf5a880a932c47d1",
+                                                      "filename":  "1000085962.jpg",
+                                                      "type":  "image/jpeg",
+                                                      "size":  602041
+                                                  }
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  "privat | Kleyer Weg 40, Dortmund | Test | Neumann",
+                                    "XUtl4":  34,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T20:28:21.526Z",
+                                    "ejH6T":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2564781540#maengel#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  {
+                                                  "id":  "4ba1ea9c-850c-4529-8c0b-0f326f19d8e0",
+                                                  "label":  "(1) Mangel berechtigt"
+                                              },
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  "ATBS-456",
+                                    "mhgIW":  {
+                                                  "id":  "1072f32c-cf05-4435-8097-bccec266e885",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  "https://portal-neurealis.softr.app/bauvorhaben-details?recordId=2564781540#maengel",
+                                    "9PPnm":  null,
+                                    "4uDJM":  "neurealis GmbH",
+                                    "aGWIf":  null,
+                                    "Nv4yH":  "h.neumann@posteo.de",
+                                    "kgCJK":  "494915120244442",
+                                    "ozrIj":  "fgdfssdg",
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T20:28:21.525Z",
+                     "updatedAt":  "2026-01-25T21:51:41.261Z"
+                 },
+                 {
+                     "id":  "aacsNrr3S2Tma4",
+                     "fields":  {
+                                    "NEaCG":  null,
+                                    "FF4FP":  null,
+                                    "2la7j":  null,
+                                    "4qiAo":  null,
+                                    "ctNAI":  null,
+                                    "jFILZ":  null,
+                                    "1UqYa":  null,
+                                    "TFj9o":  null,
+                                    "qxHu4":  null,
+                                    "bC4R6":  null,
+                                    "aScwq":  [
+
+                                              ],
+                                    "l18Kt":  null,
+                                    "zBq5l":  [
+
+                                              ],
+                                    "1erul":  null,
+                                    "3v0hM":  null,
+                                    "wAP8D":  null,
+                                    "eKqU2":  null,
+                                    "ZColO":  null,
+                                    "uaDbm":  null,
+                                    "XUtl4":  35,
+                                    "8JQ5m":  null,
+                                    "mEyLK":  "2026-01-25T21:49:42.503Z",
+                                    "ejH6T":  "#maengel",
+                                    "v4wjk":  null,
+                                    "ajOOV":  null,
+                                    "EQr7h":  [
+
+                                              ],
+                                    "QEcc2":  null,
+                                    "mhgIW":  null,
+                                    "YUT8c":  {
+                                                  "id":  "477c6d32-3027-48ba-b635-d1e49f459b01",
+                                                  "label":  "(0) Offen"
+                                              },
+                                    "Oj9Gp":  null,
+                                    "9PPnm":  null,
+                                    "4uDJM":  null,
+                                    "aGWIf":  null,
+                                    "Nv4yH":  null,
+                                    "kgCJK":  null,
+                                    "ozrIj":  null,
+                                    "LQPDA":  null,
+                                    "s8fdT":  {
+                                                  "id":  "db2b7a96-ffb6-4468-8be8-dfb5f297844f",
+                                                  "label":  "(0) Mieter noch kontaktieren"
+                                              },
+                                    "WVchQ":  null
+                                },
+                     "createdAt":  "2026-01-25T21:49:42.503Z",
+                     "updatedAt":  "2026-01-25T21:49:42.503Z"
+                 }
+             ],
+    "metadata":  {
+                     "offset":  0,
+                     "limit":  100,
+                     "total":  35
+                 }
+}
