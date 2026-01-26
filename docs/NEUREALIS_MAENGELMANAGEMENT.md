@@ -1,6 +1,6 @@
 # Mängelmanagement - neurealis ERP
 
-**Version:** 6.1
+**Version:** 7.2
 **Stand:** 2026-01-26
 **Status:** Live
 **Projekt:** mfpuijttdgkllnvhvjlu
@@ -26,11 +26,39 @@
 
 Das Mängelmanagement verwaltet alle Mängel während und nach der Bauphase.
 
-### Features (v6.0)
+> **WICHTIG (v7.0):** Ab sofort wird nur noch die **einheitliche Tabelle "Mängel nach Fertigstellung"** verwendet.
+> Die alte Tabelle "Ausführungsmängel" wurde migriert und wird **nicht mehr synchronisiert**.
+
+### Softr Tabellen
+
+| Tabelle | Table-ID | Status | Hinweis |
+|---------|----------|--------|---------|
+| **Mängel nach Fertigstellung** | `J563LaZ43bZSQy` | ✅ Aktiv | Einzige Mängeltabelle, wird mit Supabase synchronisiert |
+| ~~Ausführungsmängel~~ | `0xZkAxDadNyOMI` | ⛔ Deprecated | Nicht mehr verwenden! |
+
+### Migration am 2026-01-26
+
+| Aktion | Anzahl | Details |
+|--------|--------|---------|
+| Ausführungsmängel migriert | 34 | Von alter Tabelle in "Mängel nach Fertigstellung" kopiert |
+| BV-Feld nachgefüllt | 25 | Projektname → BV-Feld |
+| Test-Einträge gelöscht (Softr) | 18 | Test-Projekte, ungültige Beschreibungen |
+| Test-Einträge gelöscht (Supabase) | 7 | Synchronisiert |
+| **Mängel (Softr + Supabase)** | **26** | 100% synchron, alle mit `mangel_nr` |
+
+### Mängel-ID Schema
+
+Format: `ATBS-XXX-M1`, `ATBS-XXX-M2`, etc.
+
+- **ATBS-XXX** = Projekt-Nummer
+- **M1, M2, ...** = Fortlaufende Nummer pro Projekt (nach Erstelldatum)
+
+### Features (v7.0)
 
 | Feature | Status | Beschreibung |
 |---------|--------|--------------|
-| **Unified Tabelle** | ✅ | `maengel_fertigstellung` für alle Mängeltypen |
+| **Unified Tabelle** | ✅ | `maengel_fertigstellung` für **alle** Mängeltypen (Ausführung + Fertigstellung) |
+| **Art des Mangels** | ✅ | Unterscheidung über Feld `art_des_mangels`: `Ausführung`, `Endabnahme`, `Gewährleistung` |
 | **mangel_nr (Auto)** | ✅ | Format `ATBS-XXX-M1` via Trigger |
 | **5 Status-Stufen** | ✅ | Offen → In Bearbeitung → Nicht abgenommen/Überfällig → Abgenommen |
 | **Automatische Überfällig-Markierung** | ✅ | Cron Job täglich 0:30 Uhr |
@@ -299,19 +327,36 @@ PERFORM net.http_post(..., 'mangel-rejection-notify');
 
 ## Softr Integration
 
-### Feld-Mapping
+### Einzige aktive Tabelle
 
-| Softr Feld-ID | Supabase Spalte | Typ |
-|---------------|-----------------|-----|
-| `YUT8c` | status_mangel | SELECT |
-| `mhgIW` | status_mangel_nu | SELECT |
-| `QEcc2` | projekt_nr | TEXT |
-| `ozrIj` | beschreibung_mangel | LONG_TEXT |
-| `aScwq` | fotos_mangel | ATTACHMENT |
-| `zBq5l` | fotos_nachweis_nu | ATTACHMENT (Multi) |
-| `aGWIf` | datum_frist | DATETIME |
-| `TFj9o` | nu_email | EMAIL |
-| `LQPDA` | kommentar_nu | LONG_TEXT |
+**Softr Table ID:** `J563LaZ43bZSQy` (Mängel nach Fertigstellung)
+**Supabase Tabelle:** `maengel_fertigstellung`
+
+### Feld-Mapping (vollständig)
+
+| Softr Feld-ID | Supabase Spalte | Typ | Beschreibung |
+|---------------|-----------------|-----|--------------|
+| `1UqYa` | mangel_nr | TEXT | **NEU v7.2:** Mangel-ID (ATBS-XXX-M1), von Supabase gesetzt |
+| `QEcc2` | projekt_nr | TEXT | ATBS-Nummer |
+| `qxHu4` | nua_nr | TEXT | NU-Auftragsnummer |
+| `ctNAI` | bauleiter | TEXT | Name BL |
+| `4uDJM` | nachunternehmer | TEXT | Name NU |
+| `FF4FP` | projektname_komplett | TEXT | Projektname |
+| `4qiAo` | art_des_mangels | SELECT | Ausführung/Endabnahme/Gewährleistung |
+| `YUT8c` | status_mangel | SELECT | Status BL |
+| `mhgIW` | status_mangel_nu | SELECT | Status NU |
+| `ozrIj` | beschreibung_mangel | LONG_TEXT | Beschreibung |
+| `LQPDA` | kommentar_nu | LONG_TEXT | Kommentar NU |
+| `aScwq` | fotos_mangel | ATTACHMENT | Fotos vom Mangel |
+| `zBq5l` | fotos_nachweis_nu | ATTACHMENT | Nachweis-Fotos NU |
+| `2la7j` | datum_meldung | DATETIME | Meldedatum |
+| `aGWIf` | datum_frist | DATETIME | Frist |
+| `3v0hM` | mangel_behoben_datum | DATETIME | Behoben am |
+| `TFj9o` | nu_email | EMAIL | E-Mail NU |
+| `bC4R6` | kunde_name | TEXT | Kundenname |
+| `Nv4yH` | kunde_email | EMAIL | Kunden-E-Mail |
+| `kgCJK` | kunde_telefon | PHONE | Kundentelefon |
+| `jFILZ` | kosten | CURRENCY | Kosten |
 
 ---
 
@@ -368,7 +413,10 @@ AND tgname NOT LIKE 'RI_%';
 
 | Version | Datum | Änderungen |
 |---------|-------|------------|
-| **v6.1** | 2026-01-26 | **Approve/Reject-Buttons**: Bei "Behoben"-Meldung erhält BL E-Mail mit Nachweis-Fotos + Buttons (Abgenommen/Nicht abgenommen). `mangel-action` Edge Function für Button-Klicks. |
+| **v7.2** | 2026-01-26 | **Softr Mangel-ID schreibbar**: Feld `1UqYa` von FORMULA auf TEXT geändert. 26 Mängel mit `mangel_nr` aus Supabase befüllt. Script: `functions/scripts/set-mangel-id.ps1` |
+| v7.1 | 2026-01-26 | **Bereinigung**: 18 Test-Einträge in Softr und 7 in Supabase gelöscht. Mängel-IDs neu generiert (Schema: ATBS-XXX-M1). BV-Feld für alle migrierten Mängel ausgefüllt. |
+| v7.0 | 2026-01-26 | **Unified Mängel-Tabelle**: Alle 34 Ausführungsmängel in "Mängel nach Fertigstellung" migriert. Alte Tabelle "Ausführungsmängel" wird nicht mehr synchronisiert. |
+| v6.1 | 2026-01-26 | **Approve/Reject-Buttons**: Bei "Behoben"-Meldung erhält BL E-Mail mit Nachweis-Fotos + Buttons (Abgenommen/Nicht abgenommen). `mangel-action` Edge Function für Button-Klicks. |
 | v6.0 | 2026-01-26 | **Trigger-basierter E-Mail-Versand**: Alle Trigger rufen jetzt direkt via `pg_net.http_post()` die Edge Functions auf → E-Mails werden SOFORT gesendet (kein Cron-Delay mehr). |
 | v5.0 | 2026-01-25 | Vollständige E-Mail-Abdeckung: new, nu_fixed, accepted, rejection. 4 Trigger, 4 Edge Functions |
 | v4.0 | 2026-01-25 | 5 Status-Stufen, Überfällig-Check, Ablehnungs-Workflow |
@@ -378,4 +426,4 @@ AND tgname NOT LIKE 'RI_%';
 
 ---
 
-*Dokumentation aktualisiert am 2026-01-26 (v6.1 - Approve/Reject-Buttons in E-Mail)*
+*Dokumentation aktualisiert am 2026-01-26 (v7.1 - Bereinigung und Mängel-IDs)*

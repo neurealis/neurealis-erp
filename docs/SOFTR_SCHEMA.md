@@ -181,7 +181,7 @@
 
 | Feld | Typ | ID | Pflicht | Readonly |
 |------|-----|----|---------|----------|
-| Mangel-ID | FORMULA | `1UqYa` | - | Ja |
+| Mangel-ID | SINGLE_LINE_TEXT | `1UqYa` | - | - |
 | Id | AUTONUMBER | `XUtl4` | - | Ja |
 | ProjektNr | SINGLE_LINE_TEXT | `QEcc2` | - | - |
 | Status Mangel | SELECT | `YUT8c` | - | - |
