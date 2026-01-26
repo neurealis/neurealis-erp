@@ -11,19 +11,30 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
  * Parst mehrsprachige Artikeleingabe via Edge Function
+ * @param text - Freitext mit Artikeln und Mengen
+ * @param grosshaendler_id - Optional: Nur Artikel dieses Großhändlers matchen
  */
-export async function parseArtikelText(text: string): Promise<{
+export async function parseArtikelText(
+  text: string,
+  grosshaendler_id?: string
+): Promise<{
   success: boolean;
   items: Array<{
-    artikel: string;
+    bezeichnung: string;
     menge: number;
+    einheit: string;
     confidence: number;
+    originalText: string;
+    artikel_id?: string;
+    artikelnummer?: string;
+    einzelpreis?: number;
   }>;
   unerkannt: string[];
+  grosshaendler_vorschlag?: string;
   error?: string;
 }> {
   const { data, error } = await supabase.functions.invoke('parse-bestellung', {
-    body: { text }
+    body: { text, grosshaendler_id }
   });
 
   if (error) {

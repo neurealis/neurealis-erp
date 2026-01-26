@@ -1,13 +1,13 @@
 # Session Status - Bestellsystem
 
-**Stand:** 2026-01-26 (Session 2)
+**Stand:** 2026-01-26 (Session 3)
 **Für Chat-Fortsetzung**
 
 ---
 
 ## Zusammenfassung
 
-Bestellmanagement-Backend funktionsfähig. KI-Erkennung via `parse-bestellung` v9 repariert. **225 Artikel mit Embeddings** für semantische Suche. Großhändler aus Monday.com importiert (20 aktiv).
+Bestellformular funktionsfähig mit Großhändler-Filter. UI zeigt nur Artikel des ausgewählten Lieferanten. KI-Erkennung matcht semantisch nur innerhalb des Lieferanten-Katalogs. Mobile-optimierte Eingabe mit +/- Buttons.
 
 ---
 
@@ -21,7 +21,6 @@ Bestellmanagement-Backend funktionsfähig. KI-Erkennung via `parse-bestellung` v
 | `bestellartikel` | 225 | Artikelkatalog **mit Embeddings** |
 | `bestellungen` | 0 | Bestellkopfdaten |
 | `bestellpositionen` | 0 | Einzelpositionen |
-| `mitarbeiter` | 0 | Auth-Verknüpfung |
 
 **Embeddings:**
 - `embedding` - Vektor für `bezeichnung` (225/225)
@@ -33,75 +32,118 @@ Bestellmanagement-Backend funktionsfähig. KI-Erkennung via `parse-bestellung` v
 
 | Function | Version | Status |
 |----------|---------|--------|
-| `parse-bestellung` | **v9** | ✅ Fix: `max_completion_tokens` für gpt-5.2 |
+| `parse-bestellung` | **v9** | ✅ Mit `grosshaendler_id` Filter |
 | `generate-embeddings` | v2 | ✅ Batch-Generierung für Artikel |
 
-**Fix in v9:** OpenAI gpt-5.2 erfordert `max_completion_tokens` statt `max_tokens`.
-
-### SvelteKit UI
+### SvelteKit UI (`ui/src/routes/bestellung/+page.svelte`)
 
 | Feature | Status |
 |---------|--------|
 | Projekt-Dropdown | ✅ `monday_bauprozess` (Phasen 2,3,4) |
-| Großhändler-Dropdown | ✅ `grosshaendler` Tabelle |
-| KI-Erkennung | ✅ **Funktioniert** (Test: "10 Steckdosen und 5 Schalter") |
-| Artikel-Tabelle | ⚠️ Zeigt KI-Ergebnisse, keine manuelle Bearbeitung |
+| Großhändler-Dropdown | ✅ Lädt Artikel bei Wechsel neu |
+| Artikel-Filter | ✅ Nur Artikel des ausgewählten Händlers |
+| KI-Erkennung | ✅ Mit `grosshaendler_id` (semantische Suche gefiltert) |
+| +/- Buttons | ✅ Mobile-optimierte Mengeneingabe |
+| Kurzname-Toggle | ✅ Langname bei Klick anzeigen |
 | Bestellung speichern | ❌ Noch nicht implementiert |
 
 ---
 
-## Getestete KI-Erkennung
+## UI-Struktur (aktuell)
 
-```bash
-# Test-Befehl
-curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/parse-bestellung" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "10 Steckdosen und 5 Schalter"}'
-
-# Ergebnis
-{
-  "success": true,
-  "items": [
-    {"bezeichnung": "Steckdosen", "menge": 10, "confidence": 0.66},
-    {"bezeichnung": "Gira Wechselschalter Einsatz 10A 250V", "menge": 5,
-     "confidence": 1.0, "artikel_id": "...", "artikelnummer": "10600"}
-  ]
-}
 ```
-
-→ "Schalter" wurde semantisch zum Gira Wechselschalter gematcht!
+┌─────────────────────────────────────────────────────────┐
+│ Neue Bestellung                          Holger Neumann │
+├─────────────────────────────────────────────────────────┤
+│ Projekt & Lieferung                                     │
+│ ┌──────────────────┐  ┌──────────────────┐              │
+│ │ ATBS-Nr / Projekt│  │ Großhändler ▼    │              │
+│ └──────────────────┘  │ → lädt Artikel   │              │
+│                       └──────────────────┘              │
+│ ┌──────────────────┐  ┌──────────────────┐              │
+│ │ Lieferort ▼      │  │ Lieferdatum      │              │
+│ └──────────────────┘  └──────────────────┘              │
+├─────────────────────────────────────────────────────────┤
+│ Artikel eingeben                                        │
+│ ┌─────────────────────────────────┐ ┌─────────────────┐ │
+│ │ Freitext-Eingabe (mehrsprachig) │ │ ✨ KI-Erkennung │ │
+│ └─────────────────────────────────┘ └─────────────────┘ │
+├─────────────────────────────────────────────────────────┤
+│ Artikelkatalog [ZANDER]                                 │
+│ ┌───────────────────┬────────┬─────────┬──────────────┐ │
+│ │ Bezeichnung       │ Einheit│ EK netto│    Menge     │ │
+│ ├───────────────────┼────────┼─────────┼──────────────┤ │
+│ │ Kurzname ▶        │ Stk    │ 5,87 €  │ [−] 0 [+]   │ │
+│ │ (Klick→Langname)  │        │         │              │ │
+│ └───────────────────┴────────┴─────────┴──────────────┘ │
+├─────────────────────────────────────────────────────────┤
+│ [← Zurück]    Summe: 0,00 €    [Weiter zur Bestätigung]│
+└─────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Großhändler (20 aktiv)
+## Datenfluss
 
-| Typ | Anzahl | Beispiele |
-|-----|--------|-----------|
-| baustoff | 5 | Bauzentrum, BECHER, Keramundo, Linnenbecker, Raab |
-| elektro | 1 | Zander (+ sanitaer, heizung, klima) |
-| farbe | 3 | MEG, Prosol, ZERO |
-| fenster | 1 | B&R |
-| sanitaer | 3 | ABEX, ELSPERMANN, GUT |
-| werkzeug | 1 | Würth |
-| sonstiges | 6 | Amazon, Hellweg, Hornbach, etc. |
+```
+1. Großhändler auswählen
+   ↓
+2. loadArtikelFuerHaendler(haendlerId)
+   → SELECT * FROM bestellartikel WHERE grosshaendler_id = ?
+   ↓
+3. Artikel-Tabelle zeigt nur diese Artikel
+   ↓
+4. KI-Erkennung: parseArtikelText(text, grosshaendler_id)
+   → Edge Function matcht nur Artikel dieses Händlers
+   ↓
+5. Erkannte Artikel werden in bestellpositionen Map gesetzt
+```
+
+---
+
+## Wichtige Code-Stellen
+
+### `ui/src/lib/supabase.ts`
+```typescript
+export async function parseArtikelText(
+  text: string,
+  grosshaendler_id?: string  // NEU: Filter
+): Promise<{...}>
+```
+
+### `ui/src/routes/bestellung/+page.svelte`
+```typescript
+// State
+let expandedArtikel = $state<Set<string>>(new Set());
+
+// Bei Händler-Wechsel
+async function onHaendlerChange(event: Event) {
+  selectedHaendler = select.value;
+  await loadArtikelFuerHaendler(selectedHaendler);
+}
+
+// Kurzname-Toggle
+function toggleBezeichnung(artikelId: string) {...}
+```
 
 ---
 
 ## Was fehlt (Nächste Session)
 
-### Priorität 1 - UI vervollständigen
-- [ ] Artikel-Tabelle bearbeitbar machen
-- [ ] Bestellung speichern (INSERT in `bestellungen` + `bestellpositionen`)
-- [ ] Erfolgsmeldung nach Speichern
+### Priorität 1 - Bestellung speichern
+- [ ] Button "Weiter zur Bestätigung" implementieren
+- [ ] INSERT in `bestellungen` Tabelle
+- [ ] INSERT in `bestellpositionen` für jede Position
+- [ ] Erfolgsmeldung anzeigen
 
-### Priorität 2 - Großhändler-Daten
+### Priorität 2 - UX-Verbesserungen
+- [ ] Suchfeld für Artikel
+- [ ] Kategorien-Filter
+- [ ] Letzte Bestellungen anzeigen
+
+### Priorität 3 - Großhändler-Daten
 - [ ] Kundennummern eintragen
-- [ ] Konditionen (Rabatt, Skonto, Zahlungsziel)
-- [ ] Bestellschluss-Zeiten
-
-### Priorität 3 - Workflow
-- [ ] Auth für Mitarbeiter
-- [ ] E-Mail-Versand an Großhändler
+- [ ] Konditionen (Rabatt, Skonto)
 
 ---
 
@@ -109,11 +151,13 @@ curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/parse-bestel
 
 ```bash
 # Dev-Server starten
-cd C:\Users\holge\neurealis-erp\ui && npm run dev
-# Oder mit Unix-Pfad in Git Bash:
 cd /c/Users/holge/neurealis-erp/ui && npm run dev
+# → http://localhost:5173/bestellung
 
-# Läuft auf http://localhost:5173/bestellung
+# KI-Erkennung testen (mit Großhändler-Filter)
+curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/parse-bestellung" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "10 Schalter", "grosshaendler_id": "UUID-hier"}'
 
 # Embeddings neu generieren (falls neue Artikel)
 curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/generate-embeddings" \
@@ -127,20 +171,29 @@ curl -X POST "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/generate-emb
 
 | Pfad | Beschreibung |
 |------|--------------|
+| `ui/src/routes/bestellung/+page.svelte` | Bestellformular (Haupt-UI) |
+| `ui/src/lib/supabase.ts` | Supabase Client + parseArtikelText |
+| `functions/supabase/functions/parse-bestellung/index.ts` | KI-Parsing Edge Function |
+| `functions/supabase/functions/generate-embeddings/index.ts` | Embedding-Generator |
 | `docs/NEUREALIS_BESTELLSYSTEM.md` | Hauptdokumentation |
-| `ui/src/routes/bestellung/+page.svelte` | Bestellformular |
-| `functions/supabase/functions/parse-bestellung/` | KI-Parsing (lokal) |
-| `functions/supabase/functions/generate-embeddings/` | Embedding-Generator |
 
 ---
 
 ## Änderungen dieser Session
 
-1. **parse-bestellung v9**: Fix `max_completion_tokens` für gpt-5.2
-2. **generate-embeddings v2**: Neue Edge Function für Batch-Embeddings
-3. **Migration**: `embedding_kurz` Spalte + Index hinzugefügt
-4. **225 Embeddings generiert**: Für bezeichnung + kurzbezeichnung
+1. **Großhändler-Filter**: Artikel werden nach Händler gefiltert
+2. **KI mit Filter**: `parseArtikelText` akzeptiert `grosshaendler_id`
+3. **+/- Buttons**: Ersetzt Zahlen-Input für mobile Nutzung
+4. **Kurzname-Toggle**: Langname nur bei Klick sichtbar
+5. **Spalte "Summe" entfernt**: Cleaner UI
+6. **Artikelnummer ausgeblendet**: Nur Bezeichnung sichtbar
 
 ---
 
-*Aktualisiert: 2026-01-26 Session 2*
+## Artikel-Verteilung nach Großhändler
+
+Die meisten Artikel (225) sind **Zander** zugeordnet. Bei anderen Händlern ist die Liste leer, bis Artikel importiert werden.
+
+---
+
+*Aktualisiert: 2026-01-26 Session 3*

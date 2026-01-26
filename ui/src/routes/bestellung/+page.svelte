@@ -22,9 +22,22 @@
 		id: string;
 		artikelnummer: string;
 		bezeichnung: string;
+		kurzbezeichnung: string | null;
 		einheit: string;
-		preis: number;
-		kategorie: string;
+		einkaufspreis: number;
+		kategorie: string | null;
+		grosshaendler_id: string;
+	}
+
+	interface ErkannterArtikel {
+		bezeichnung: string;
+		menge: number;
+		einheit: string;
+		confidence: number;
+		originalText: string;
+		artikel_id?: string;
+		artikelnummer?: string;
+		einzelpreis?: number;
 	}
 
 	// === State ===
@@ -32,6 +45,7 @@
 	let grosshaendler = $state<Grosshaendler[]>([]);
 	let artikel = $state<Artikel[]>([]);
 	let isLoading = $state(true);
+	let isLoadingArtikel = $state(false);
 
 	let selectedProjekt = $state('');
 	let selectedHaendler = $state('');
@@ -40,12 +54,15 @@
 
 	let artikelText = $state('');
 	let isProcessing = $state(false);
-	let erkannteArtikel = $state<Array<{ artikel: string; menge: number; confidence: number }>>([]);
+	let erkannteArtikel = $state<ErkannterArtikel[]>([]);
 	let unerkannteTexte = $state<string[]>([]);
 	let errorMessage = $state('');
 
 	// Bestellpositionen mit Mengen
 	let bestellpositionen = $state<Map<string, number>>(new Map());
+
+	// Expanded Artikel (für Langname-Anzeige)
+	let expandedArtikel = $state<Set<string>>(new Set());
 
 	// === Daten laden ===
 	onMount(async () => {
@@ -92,23 +109,40 @@
 		if (ghData && ghData.length > 0) {
 			grosshaendler = ghData;
 			selectedHaendler = grosshaendler[0].id;
+			// Artikel für ersten Großhändler laden
+			await loadArtikelFuerHaendler(grosshaendler[0].id);
 		}
 
-		// Artikel (Demo-Daten für Elektro-Material)
-		artikel = [
-			{ id: '1', artikelnummer: 'GIRA-3R', bezeichnung: 'Dreifachrahmen Gira Standard 55', einheit: 'Stk', preis: 4.50, kategorie: 'Elektro' },
-			{ id: '2', artikelnummer: 'GIRA-2R', bezeichnung: 'Zweifachrahmen Gira Standard 55', einheit: 'Stk', preis: 3.20, kategorie: 'Elektro' },
-			{ id: '3', artikelnummer: 'GIRA-1R', bezeichnung: 'Einfachrahmen Gira Standard 55', einheit: 'Stk', preis: 2.10, kategorie: 'Elektro' },
-			{ id: '4', artikelnummer: 'GIRA-SD', bezeichnung: 'Steckdose Gira Standard 55', einheit: 'Stk', preis: 2.40, kategorie: 'Elektro' },
-			{ id: '5', artikelnummer: 'GIRA-WS', bezeichnung: 'Wechselschalter Gira Standard 55', einheit: 'Stk', preis: 3.80, kategorie: 'Elektro' },
-			{ id: '6', artikelnummer: 'GIRA-SS', bezeichnung: 'Serienschalter Gira Standard 55', einheit: 'Stk', preis: 4.20, kategorie: 'Elektro' },
-			{ id: '7', artikelnummer: 'GIRA-KS', bezeichnung: 'Kreuzschalter Gira Standard 55', einheit: 'Stk', preis: 5.10, kategorie: 'Elektro' },
-			{ id: '8', artikelnummer: 'NYM-3x1.5', bezeichnung: 'NYM-J 3x1,5mm² (100m Ring)', einheit: 'Ring', preis: 89.00, kategorie: 'Elektro' },
-			{ id: '9', artikelnummer: 'NYM-5x2.5', bezeichnung: 'NYM-J 5x2,5mm² (100m Ring)', einheit: 'Ring', preis: 189.00, kategorie: 'Elektro' },
-			{ id: '10', artikelnummer: 'UP-DOSE', bezeichnung: 'Unterputzdose tief 60mm', einheit: 'Stk', preis: 0.45, kategorie: 'Elektro' },
-		];
-
 		isLoading = false;
+	}
+
+	// Artikel für ausgewählten Großhändler laden
+	async function loadArtikelFuerHaendler(haendlerId: string) {
+		isLoadingArtikel = true;
+		artikel = [];
+		bestellpositionen = new Map(); // Positionen zurücksetzen bei Händlerwechsel
+		erkannteArtikel = [];
+		unerkannteTexte = [];
+
+		const { data: artikelData, error } = await supabase
+			.from('bestellartikel')
+			.select('id, artikelnummer, bezeichnung, kurzbezeichnung, einheit, einkaufspreis, kategorie, grosshaendler_id')
+			.eq('grosshaendler_id', haendlerId)
+			.eq('ist_aktiv', true)
+			.order('bezeichnung', { ascending: true });
+
+		if (artikelData) {
+			artikel = artikelData;
+		}
+
+		isLoadingArtikel = false;
+	}
+
+	// Bei Großhändler-Wechsel Artikel neu laden
+	async function onHaendlerChange(event: Event) {
+		const select = event.target as HTMLSelectElement;
+		selectedHaendler = select.value;
+		await loadArtikelFuerHaendler(selectedHaendler);
 	}
 
 	// === Berechnungen ===
@@ -117,7 +151,7 @@
 		for (const [artikelId, menge] of bestellpositionen) {
 			const art = artikel.find(a => a.id === artikelId);
 			if (art && menge > 0) {
-				summe += art.preis * menge;
+				summe += (art.einkaufspreis || 0) * menge;
 			}
 		}
 		return summe;
@@ -125,6 +159,10 @@
 
 	let selectedProjektDetails = $derived.by(() => {
 		return projekte.find(p => p.atbs_nummer === selectedProjekt);
+	});
+
+	let selectedHaendlerDetails = $derived.by(() => {
+		return grosshaendler.find(h => h.id === selectedHaendler);
 	});
 
 	// === Funktionen ===
@@ -137,7 +175,8 @@
 		unerkannteTexte = [];
 
 		try {
-			const result = await parseArtikelText(artikelText);
+			// KI-Erkennung mit Großhändler-Filter
+			const result = await parseArtikelText(artikelText, selectedHaendler);
 
 			if (result.success) {
 				erkannteArtikel = result.items;
@@ -145,14 +184,20 @@
 
 				// Übertrage erkannte Artikel in Bestellpositionen
 				for (const item of result.items) {
-					const match = artikel.find(
-						a => a.bezeichnung.toLowerCase().includes(item.artikel.toLowerCase())
-					);
-					if (match) {
-						bestellpositionen.set(match.id, item.menge);
-						bestellpositionen = new Map(bestellpositionen);
+					if (item.artikel_id) {
+						// Direkt gematcht via Embedding
+						bestellpositionen.set(item.artikel_id, item.menge);
+					} else {
+						// Fallback: Suche nach Bezeichnung in lokaler Artikelliste
+						const match = artikel.find(
+							a => a.bezeichnung.toLowerCase().includes(item.bezeichnung.toLowerCase())
+						);
+						if (match) {
+							bestellpositionen.set(match.id, item.menge);
+						}
 					}
 				}
+				bestellpositionen = new Map(bestellpositionen);
 			} else {
 				errorMessage = result.error || 'Verarbeitung fehlgeschlagen';
 			}
@@ -169,6 +214,15 @@
 			bestellpositionen.set(artikelId, menge);
 			bestellpositionen = new Map(bestellpositionen);
 		}
+	}
+
+	function toggleBezeichnung(artikelId: string) {
+		if (expandedArtikel.has(artikelId)) {
+			expandedArtikel.delete(artikelId);
+		} else {
+			expandedArtikel.add(artikelId);
+		}
+		expandedArtikel = new Set(expandedArtikel);
 	}
 
 	function formatPreis(betrag: number): string {
@@ -216,14 +270,21 @@
 						</div>
 
 						<div class="form-group">
-							<label for="haendler">Großhändler</label>
-							<select id="haendler" bind:value={selectedHaendler}>
+							<label for="haendler">Großhändler / Lieferant</label>
+							<select id="haendler" bind:value={selectedHaendler} onchange={onHaendlerChange}>
 								{#each grosshaendler as haendler}
 									<option value={haendler.id}>
 										{haendler.kurzname || haendler.name} - {haendler.typ}
 									</option>
 								{/each}
 							</select>
+							{#if artikel.length > 0}
+								<small class="hint">{artikel.length} Artikel verfügbar</small>
+							{:else if isLoadingArtikel}
+								<small class="hint">Lade Artikel...</small>
+							{:else}
+								<small class="hint warning">Keine Artikel für diesen Lieferanten</small>
+							{/if}
 						</div>
 
 						<div class="form-group">
@@ -240,9 +301,11 @@
 						</div>
 					</div>
 
-					<div class="info-box">
-						💡 Lieferzeit bei ZANDER: ca. 2-3 Werktage | Frei Haus ab 500 €
-					</div>
+					{#if selectedHaendlerDetails}
+						<div class="info-box">
+							💡 <strong>{selectedHaendlerDetails.kurzname || selectedHaendlerDetails.name}</strong>: {artikel.length} Artikel im Katalog
+						</div>
+					{/if}
 				</section>
 
 				<!-- Artikel-Eingabe -->
@@ -287,7 +350,7 @@ Beispiele:
 
 						{#if erkannteArtikel.length > 0}
 							<div class="success-message">
-								✅ Erkannt: {erkannteArtikel.map(a => `${a.artikel} (${a.menge})`).join(', ')}
+								✅ Erkannt: {erkannteArtikel.map(a => `${a.bezeichnung} (${a.menge}${a.artikel_id ? ' ✓' : ''})`).join(', ')}
 							</div>
 						{/if}
 
@@ -301,54 +364,74 @@ Beispiele:
 
 				<!-- Artikel-Tabelle -->
 				<section class="section">
-					<h2 class="section-title">Bestellpositionen</h2>
+					<h2 class="section-title">
+						Artikelkatalog
+						{#if selectedHaendlerDetails}
+							<span class="haendler-badge">{selectedHaendlerDetails.kurzname || selectedHaendlerDetails.name}</span>
+						{/if}
+					</h2>
 
+					{#if isLoadingArtikel}
+						<div class="loading-inline">
+							<span class="spinner"></span>
+							Lade Artikel...
+						</div>
+					{:else if artikel.length === 0}
+						<div class="empty-state">
+							<p>Keine Artikel für diesen Lieferanten hinterlegt.</p>
+							<small>Bitte wähle einen anderen Großhändler oder importiere Artikel.</small>
+						</div>
+					{:else}
 					<div class="table-wrapper">
 						<table class="artikel-table">
 							<thead>
 								<tr>
-									<th>Art.-Nr.</th>
 									<th>Bezeichnung</th>
 									<th>Einheit</th>
 									<th>EK netto</th>
-									<th>Menge</th>
-									<th class="text-right">Summe</th>
+									<th class="text-center">Menge</th>
 								</tr>
 							</thead>
 							<tbody>
 								{#each artikel as art}
 									{@const menge = bestellpositionen.get(art.id) || 0}
-									{@const summe = menge * art.preis}
 									<tr class:highlight={menge > 0}>
-										<td class="text-muted text-sm">{art.artikelnummer}</td>
-										<td><strong>{art.bezeichnung}</strong></td>
-										<td>{art.einheit}</td>
-										<td class="font-mono">{formatPreis(art.preis)}</td>
 										<td>
-											<input
-												type="number"
-												class="menge-input"
-												class:filled={menge > 0}
-												value={menge || ''}
-												min="0"
-												oninput={(e) => setzeMenge(art.id, parseInt(e.currentTarget.value) || 0)}
-											/>
+											<button
+												type="button"
+												class="bezeichnung-toggle"
+												onclick={() => toggleBezeichnung(art.id)}
+											>
+												<strong>{art.kurzbezeichnung || art.bezeichnung}</strong>
+											</button>
+											{#if expandedArtikel.has(art.id) && art.kurzbezeichnung && art.kurzbezeichnung !== art.bezeichnung}
+												<div class="bezeichnung-full">{art.bezeichnung}</div>
+											{/if}
 										</td>
-										<td class="font-mono text-right">
-											{menge > 0 ? formatPreis(summe) : '-'}
+										<td>{art.einheit || 'Stk'}</td>
+										<td class="font-mono">{art.einkaufspreis ? formatPreis(art.einkaufspreis) : '-'}</td>
+										<td>
+											<div class="menge-controls">
+												<button
+													type="button"
+													class="menge-btn minus"
+													onclick={() => setzeMenge(art.id, Math.max(0, menge - 1))}
+													disabled={menge === 0}
+												>−</button>
+												<span class="menge-display" class:filled={menge > 0}>{menge}</span>
+												<button
+													type="button"
+													class="menge-btn plus"
+													onclick={() => setzeMenge(art.id, menge + 1)}
+												>+</button>
+											</div>
 										</td>
 									</tr>
 								{/each}
 							</tbody>
-							<tfoot>
-								<tr class="summe-row">
-									<td colspan="4"></td>
-									<td><strong>Summe netto</strong></td>
-									<td class="font-mono text-right"><strong>{formatPreis(gesamtsumme)}</strong></td>
-								</tr>
-							</tfoot>
 						</table>
 					</div>
+					{/if}
 				</section>
 			</div>
 
@@ -565,6 +648,43 @@ Beispiele:
 		font-size: var(--font-size-sm);
 	}
 
+	/* Händler Badge */
+	.haendler-badge {
+		display: inline-block;
+		background: var(--color-brand-light);
+		color: white;
+		padding: var(--spacing-1) var(--spacing-3);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
+		margin-left: var(--spacing-2);
+		vertical-align: middle;
+	}
+
+	.hint.warning {
+		color: var(--color-warning-dark);
+	}
+
+	/* Loading inline */
+	.loading-inline {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-4);
+		color: var(--color-gray-500);
+	}
+
+	/* Empty state */
+	.empty-state {
+		text-align: center;
+		padding: var(--spacing-8);
+		color: var(--color-gray-500);
+	}
+
+	.empty-state p {
+		margin-bottom: var(--spacing-2);
+	}
+
 	/* Table */
 	.table-wrapper {
 		overflow-x: auto;
@@ -597,23 +717,86 @@ Beispiele:
 		background: var(--color-success-light);
 	}
 
-	.menge-input {
-		width: 80px;
+	/* Bezeichnung Toggle */
+	.bezeichnung-toggle {
+		background: none;
+		border: none;
+		padding: 0;
+		text-align: left;
+		cursor: pointer;
+		color: inherit;
+		font-size: inherit;
+	}
+
+	.bezeichnung-toggle:hover strong {
+		color: var(--color-brand-medium);
+		text-decoration: underline;
+	}
+
+	.bezeichnung-full {
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+		margin-top: var(--spacing-1);
+		padding-left: var(--spacing-2);
+		border-left: 2px solid var(--color-gray-300);
+	}
+
+	/* Menge Controls */
+	.menge-controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-2);
+	}
+
+	.menge-btn {
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius-md);
+		border: 2px solid var(--color-gray-300);
+		background: white;
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-bold);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.15s ease;
+	}
+
+	.menge-btn:hover:not(:disabled) {
+		border-color: var(--color-brand-medium);
+		background: var(--color-info-light);
+	}
+
+	.menge-btn:active:not(:disabled) {
+		transform: scale(0.95);
+	}
+
+	.menge-btn:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
+	}
+
+	.menge-btn.minus {
+		color: var(--color-error);
+	}
+
+	.menge-btn.plus {
+		color: var(--color-success);
+	}
+
+	.menge-display {
+		min-width: 40px;
 		text-align: center;
-		padding: var(--spacing-2);
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		color: var(--color-gray-400);
 	}
 
-	.menge-input.filled {
-		border-color: var(--color-success);
-		background: #f0fff4;
-	}
-
-	.summe-row {
-		background: var(--color-gray-50);
-	}
-
-	.summe-row td {
-		border-bottom: none;
+	.menge-display.filled {
+		color: var(--color-success-dark);
+		font-size: var(--font-size-xl);
 	}
 
 	/* Footer */
