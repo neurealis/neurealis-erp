@@ -18,6 +18,7 @@
 		typ: string;
 		typ_anzeige: string | null;
 		bestell_email: string | null;
+		logo_url: string | null;
 	}
 
 	interface Artikel {
@@ -31,6 +32,8 @@
 		kategorie: string | null;
 		unterkategorie: string | null;
 		grosshaendler_id: string;
+		bild_url: string | null;
+		shop_url: string | null;
 	}
 
 	interface ErkannterArtikel {
@@ -93,6 +96,9 @@
 
 	// Expanded Artikel (für Langname-Anzeige)
 	let expandedArtikel = $state<Set<string>>(new Set());
+
+	// Fehlerhafte Logos (werden als Fallback angezeigt)
+	let failedLogos = $state<Set<string>>(new Set());
 
 	// Filter-State
 	let selectedKategorie = $state<string | null>(null);
@@ -176,32 +182,50 @@
 				}
 			}
 
-			// Großhändler laden
+			// Großhändler laden (mit Logo aus verknüpftem Kontakt)
 			const { data: ghData } = await supabase
 				.from('grosshaendler')
-				.select('id, name, kurzname, typ, typ_anzeige, bestell_email')
+				.select('id, name, kurzname, typ, typ_anzeige, bestell_email, kontakt:kontakte(foto_url)')
 				.eq('ist_aktiv', true)
 				.order('name', { ascending: true });
 
 			if (ghData && ghData.length > 0) {
-				grosshaendler = ghData;
+				grosshaendler = ghData.map(h => ({
+					...h,
+					logo_url: h.kontakt?.foto_url || null,
+					kontakt: undefined
+				}));
 			}
 
 			// Ansprechpartner (Mitarbeiter) laden
 			const { data: mitarbeiterData } = await supabase
 				.from('kontakte')
-				.select('id, vorname, nachname, telefon_mobil, email')
+				.select('id, vorname, nachname, telefon_mobil, email, kontaktarten, rolle')
 				.eq('aktiv', true)
-				.contains('kontaktarten', ['mitarbeiter'])
-				.order('nachname', { ascending: true });
+				.contains('kontaktarten', ['mitarbeiter']);
 
 			if (mitarbeiterData && mitarbeiterData.length > 0) {
-				ansprechpartner = mitarbeiterData;
-				const currentUserMatch = mitarbeiterData.find(m => m.email === currentUser);
+				// Sortieren: Handwerker > Bauleiter > Rest
+				const sortiert = [...mitarbeiterData].sort((a, b) => {
+					const getPrio = (k: typeof a) => {
+						const arten = k.kontaktarten || [];
+						const rolle = (k.rolle || '').toLowerCase();
+						if (arten.includes('handwerker') || rolle.includes('handwerk') || rolle.includes('monteur')) return 1;
+						if (rolle.includes('bauleiter') || rolle.includes('polier')) return 2;
+						return 3;
+					};
+					const prioA = getPrio(a);
+					const prioB = getPrio(b);
+					if (prioA !== prioB) return prioA - prioB;
+					return (a.nachname || '').localeCompare(b.nachname || '');
+				});
+
+				ansprechpartner = sortiert;
+				const currentUserMatch = sortiert.find(m => m.email === currentUser);
 				if (currentUserMatch) {
 					selectedAnsprechpartner = currentUserMatch.id;
 				} else {
-					selectedAnsprechpartner = mitarbeiterData[0].id;
+					selectedAnsprechpartner = sortiert[0].id;
 				}
 			}
 		} catch (err) {
@@ -223,7 +247,7 @@
 		try {
 			const { data: artikelData, error } = await supabase
 				.from('bestellartikel')
-				.select('id, artikelnummer, bezeichnung, kurzbezeichnung, hersteller, einheit, einkaufspreis, kategorie, unterkategorie, grosshaendler_id')
+				.select('id, artikelnummer, bezeichnung, kurzbezeichnung, hersteller, einheit, einkaufspreis, kategorie, unterkategorie, grosshaendler_id, bild_url, shop_url')
 				.eq('grosshaendler_id', haendlerId)
 				.eq('ist_aktiv', true)
 				.order('bezeichnung', { ascending: true });
@@ -721,14 +745,77 @@
 				</svg>
 			</a>
 			<h1>Neue Bestellung</h1>
+			<!-- Warenkorb Toggle -->
+			<button
+				class="warenkorb-toggle"
+				class:has-items={warenkorbAnzahl > 0}
+				onclick={() => warenkorbOpen = !warenkorbOpen}
+				aria-label="Warenkorb ({warenkorbAnzahl} Artikel)"
+			>
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="9" cy="21" r="1"/>
+					<circle cx="20" cy="21" r="1"/>
+					<path d="m1 1 4 4h16l-2 9H7L5 5"/>
+				</svg>
+				{#if warenkorbAnzahl > 0}
+					<span class="cart-badge">{warenkorbAnzahl}</span>
+				{/if}
+			</button>
 			{#if warenkorbAnzahl > 0 && currentStep < 4}
 				<div class="header-badge">
-					<span class="badge">{warenkorbAnzahl}</span>
 					<span class="badge-sum">{formatPreis(gesamtsumme)}</span>
 				</div>
 			{/if}
 		</div>
 	</header>
+
+	<!-- Warenkorb Drawer -->
+	{#if warenkorbOpen}
+		<div class="drawer-backdrop" onclick={() => warenkorbOpen = false}></div>
+		<aside class="warenkorb-drawer">
+			<div class="drawer-header">
+				<h2>Warenkorb</h2>
+				<button class="drawer-close" onclick={() => warenkorbOpen = false} aria-label="Schließen">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M18 6 6 18M6 6l12 12"/>
+					</svg>
+				</button>
+			</div>
+
+			{#if warenkorbArtikel.length === 0}
+				<div class="drawer-empty">
+					<p>Dein Warenkorb ist leer.</p>
+				</div>
+			{:else}
+				<ul class="drawer-items">
+					{#each warenkorbArtikel as item}
+						<li class="drawer-item">
+							<div class="drawer-item-info">
+								<strong>{item.kurzbezeichnung || item.bezeichnung}</strong>
+								{#if item.hersteller}<small>{item.hersteller}</small>{/if}
+							</div>
+							<div class="drawer-item-controls">
+								<div class="mini-menge">
+									<button onclick={() => setzeMenge(item.id, item.menge - 1)}>−</button>
+									<span>{item.menge}</span>
+									<button onclick={() => setzeMenge(item.id, item.menge + 1)}>+</button>
+								</div>
+								<span class="drawer-item-summe">{formatPreis(item.summe)}</span>
+							</div>
+						</li>
+					{/each}
+				</ul>
+
+				<div class="drawer-footer">
+					<button class="btn btn-secondary btn-sm" onclick={warenkorbLeeren}>Leeren</button>
+					<div class="drawer-total">
+						<span>Gesamt</span>
+						<strong>{formatPreis(gesamtsumme)}</strong>
+					</div>
+				</div>
+			{/if}
+		</aside>
+	{/if}
 
 	<!-- Progress Steps -->
 	{#if !submitSuccess}
@@ -812,8 +899,17 @@
 									currentStep = 2;
 								}}
 							>
-								<div class="haendler-name">{haendler.kurzname || haendler.name}</div>
-								<div class="haendler-typ">{haendler.typ_anzeige || haendler.typ}</div>
+								<div class="haendler-logo">
+									{#if haendler.logo_url && !failedLogos.has(haendler.id)}
+										<img
+											src={haendler.logo_url}
+											alt={haendler.kurzname || haendler.name}
+											onerror={() => { failedLogos.add(haendler.id); failedLogos = new Set(failedLogos); }}
+										/>
+									{:else}
+										<span class="logo-fallback">{(haendler.kurzname || haendler.name).charAt(0)}</span>
+									{/if}
+								</div>
 								{#if selectedHaendler === haendler.id}
 									<div class="haendler-check">
 										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -884,14 +980,28 @@
 							{/if}
 
 							{#if erkannteArtikel.length > 0}
-								<div class="message success">
-									<strong>Erkannt:</strong> {erkannteArtikel.map(a => `${a.menge}x ${a.bezeichnung}`).join(', ')}
-								</div>
+								{@const imWarenkorb = erkannteArtikel.filter(a => bestellpositionen.has(a.artikel_id || ''))}
+								{@const nichtImKatalog = erkannteArtikel.filter(a => !bestellpositionen.has(a.artikel_id || '') && !a.artikel_id)}
+
+								{#if imWarenkorb.length > 0}
+									<div class="message success">
+										<strong>✓ In Warenkorb:</strong> {imWarenkorb.map(a => `${a.menge}x ${a.bezeichnung}`).join(', ')}
+									</div>
+								{/if}
+
+								{#if nichtImKatalog.length > 0}
+									<div class="message warning">
+										<strong>⚠ Nicht im Katalog:</strong> {nichtImKatalog.map(a => `${a.menge}x ${a.bezeichnung}`).join(', ')}
+										<div style="font-size: 0.85em; margin-top: 4px; opacity: 0.8;">
+											KI hat verstanden, aber kein passender Artikel gefunden. Bitte manuell im Katalog suchen.
+										</div>
+									</div>
+								{/if}
 							{/if}
 
-							{#if unerkannteTexte.length > 0}
-								<div class="message warning">
-									<strong>Nicht erkannt:</strong> {unerkannteTexte.join(', ')}
+							{#if unerkannteTexte.length > 0 && erkannteArtikel.length === 0}
+								<div class="message error">
+									<strong>✗ Nicht verstanden:</strong> {unerkannteTexte.join(', ')}
 								</div>
 							{/if}
 						</div>
@@ -970,6 +1080,11 @@
 											>
 												{istFavorit ? '★' : '☆'}
 											</button>
+											{#if art.bild_url}
+												<a href={art.bild_url} target="_blank" class="artikel-thumb" title="Bild öffnen">
+													<img src={art.bild_url} alt={art.kurzbezeichnung || art.bezeichnung} loading="lazy" />
+												</a>
+											{/if}
 											<div class="artikel-info">
 												<button class="artikel-name" onclick={() => toggleBezeichnung(art.id)}>
 													{art.kurzbezeichnung || art.bezeichnung}
@@ -981,6 +1096,13 @@
 													{#if art.hersteller}<span>{art.hersteller}</span>{/if}
 													<span>{art.einheit || 'Stk'}</span>
 													{#if art.einkaufspreis}<span class="preis">{formatPreis(art.einkaufspreis)}</span>{/if}
+													{#if art.shop_url}
+														<a href={art.shop_url} target="_blank" class="shop-link" title="Im Shop öffnen">
+															<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+																<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>
+															</svg>
+														</a>
+													{/if}
 												</div>
 											</div>
 											<div class="menge-controls">
@@ -1264,6 +1386,209 @@
 		font-weight: var(--font-weight-semibold);
 	}
 
+	/* Warenkorb Toggle */
+	.warenkorb-toggle {
+		position: relative;
+		background: var(--color-gray-100);
+		border: 1px solid var(--color-gray-300);
+		border-radius: var(--radius-md);
+		padding: var(--spacing-2);
+		color: var(--color-gray-600);
+		cursor: pointer;
+	}
+
+	.warenkorb-toggle:hover {
+		background: var(--color-gray-200);
+	}
+
+	.warenkorb-toggle.has-items {
+		background: var(--color-brand-medium);
+		border-color: var(--color-brand-medium);
+		color: white;
+	}
+
+	.warenkorb-toggle svg {
+		width: 22px;
+		height: 22px;
+	}
+
+	.cart-badge {
+		position: absolute;
+		top: -6px;
+		right: -6px;
+		background: var(--color-error);
+		color: white;
+		font-size: 11px;
+		font-weight: var(--font-weight-bold);
+		min-width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* Warenkorb Drawer */
+	.drawer-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.4);
+		z-index: 100;
+	}
+
+	.warenkorb-drawer {
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 360px;
+		max-width: 90vw;
+		height: 100vh;
+		background: white;
+		box-shadow: var(--shadow-xl);
+		z-index: 101;
+		display: flex;
+		flex-direction: column;
+		animation: slideIn 0.2s ease;
+	}
+
+	@keyframes slideIn {
+		from { transform: translateX(100%); }
+		to { transform: translateX(0); }
+	}
+
+	.drawer-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--spacing-4);
+		border-bottom: 1px solid var(--color-gray-200);
+	}
+
+	.drawer-header h2 {
+		font-size: var(--font-size-lg);
+		margin: 0;
+	}
+
+	.drawer-close {
+		background: none;
+		border: none;
+		padding: var(--spacing-2);
+		cursor: pointer;
+		color: var(--color-gray-500);
+		border-radius: var(--radius-md);
+	}
+
+	.drawer-close:hover {
+		background: var(--color-gray-100);
+	}
+
+	.drawer-close svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.drawer-empty {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-gray-500);
+	}
+
+	.drawer-items {
+		flex: 1;
+		overflow-y: auto;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.drawer-item {
+		padding: var(--spacing-3) var(--spacing-4);
+		border-bottom: 1px solid var(--color-gray-100);
+	}
+
+	.drawer-item-info strong {
+		display: block;
+		font-size: var(--font-size-sm);
+	}
+
+	.drawer-item-info small {
+		color: var(--color-gray-500);
+		font-size: var(--font-size-xs);
+	}
+
+	.drawer-item-controls {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: var(--spacing-2);
+	}
+
+	.mini-menge {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-1);
+		background: var(--color-gray-100);
+		border-radius: var(--radius-md);
+		padding: 2px;
+	}
+
+	.mini-menge button {
+		width: 26px;
+		height: 26px;
+		border: none;
+		background: white;
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		font-weight: var(--font-weight-bold);
+	}
+
+	.mini-menge button:hover {
+		background: var(--color-gray-200);
+	}
+
+	.mini-menge span {
+		min-width: 24px;
+		text-align: center;
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--font-size-sm);
+	}
+
+	.drawer-item-summe {
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--font-size-sm);
+	}
+
+	.drawer-footer {
+		padding: var(--spacing-4);
+		border-top: 2px solid var(--color-gray-200);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background: var(--color-gray-50);
+	}
+
+	.btn-sm {
+		padding: var(--spacing-2) var(--spacing-3);
+		font-size: var(--font-size-xs);
+	}
+
+	.drawer-total {
+		text-align: right;
+	}
+
+	.drawer-total span {
+		display: block;
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+	}
+
+	.drawer-total strong {
+		font-size: var(--font-size-xl);
+		color: var(--color-gray-900);
+	}
+
 	/* Progress Bar */
 	.progress-bar {
 		display: flex;
@@ -1449,15 +1774,37 @@
 		color: white;
 	}
 
-	.haendler-name {
-		font-weight: var(--font-weight-semibold);
-		font-size: var(--font-size-base);
-		margin-bottom: var(--spacing-1);
+	.haendler-logo {
+		width: 100%;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
 	}
 
-	.haendler-typ {
-		font-size: var(--font-size-sm);
-		opacity: 0.8;
+	.haendler-logo img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+
+	.logo-fallback {
+		width: 60px;
+		height: 60px;
+		background: var(--color-gray-200);
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: var(--font-weight-bold);
+		font-size: 1.5rem;
+		color: var(--color-gray-500);
+	}
+
+	.haendler-card.selected .logo-fallback {
+		background: rgba(255, 255, 255, 0.3);
+		color: white;
 	}
 
 	.haendler-check {
@@ -1663,6 +2010,39 @@
 	.fav-btn:hover,
 	.fav-btn.active {
 		color: var(--color-warning);
+	}
+
+	.artikel-thumb {
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius-sm);
+		overflow: hidden;
+		flex-shrink: 0;
+		border: 1px solid var(--color-gray-200);
+	}
+
+	.artikel-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.artikel-thumb:hover {
+		border-color: var(--color-brand-medium);
+	}
+
+	.shop-link {
+		display: inline-flex;
+		color: var(--color-gray-400);
+	}
+
+	.shop-link:hover {
+		color: var(--color-brand-medium);
+	}
+
+	.shop-link svg {
+		width: 12px;
+		height: 12px;
 	}
 
 	.artikel-info {
