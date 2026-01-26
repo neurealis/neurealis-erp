@@ -98,4 +98,13 @@ Zwei E-Mails an tobias.ranglo@neurealis.de (CC: holger.neumann@neurealis.de) ges
 
 ---
 
+---
+
+## Korrekturen
+
+**E-Mail-Adresse Tobias:** Die korrekte Adresse ist `tobias.rangol@neurealis.de` (nicht ranglo). In CLAUDE.md unter "Team-Kontakte" gespeichert.
+
+---
+
 *Erstellt: 2026-01-26 14:45*
+*Aktualisiert: 2026-01-26 15:00*
