@@ -11,13 +11,13 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
 }
 
 /**
- * bestellung-submit v3
+ * bestellung-submit v4
  *
- * Verarbeitet eine Bestellung:
- * 1. Generiert HTML für E-Mail-Body
+ * Verarbeitet Bestellungen und Angebotsanfragen:
+ * 1. Generiert HTML für E-Mail-Body (unterschiedlich je nach Typ)
  * 2. Ruft generate-bestellung-pdf auf für PDF-Generierung
  * 3. Holt PDF aus Storage und fügt als Anhang hinzu
- * 4. Sendet E-Mail mit PDF-Anhang via MS Graph
+ * 4. Sendet E-Mail mit PDF-Anhang via MS Graph (mit CC an Bauleitung)
  */
 
 const corsHeaders = {
@@ -31,8 +31,9 @@ const TENANT_ID = Deno.env.get('MS_GRAPH_TENANT_ID') || '';
 const CLIENT_ID = Deno.env.get('MS_GRAPH_CLIENT_ID') || '';
 const CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 
-// Empfänger für Bestellungen (vorerst nur Holger)
-const BESTELLUNG_EMPFAENGER = 'holger.neumann@neurealis.de';
+// Empfänger für Bestellungen
+const BESTELLUNG_EMPFAENGER = 'holger.neumann@neurealis.de'; // TODO: Später Großhändler-E-Mail
+const CC_BAULEITUNG = 'bauleitung@neurealis.de';
 const SENDER_EMAIL = 'kontakt@neurealis.de';
 
 // Corporate Design Farben (HTML)
@@ -59,6 +60,7 @@ interface Bestellung {
   bestellt_von_email: string;
   bestellt_von_name: string;
   bestellt_am: string;
+  bestelltyp: 'bestellung' | 'angebotsanfrage';
   grosshaendler: {
     name: string;
     kurzname: string;
@@ -108,14 +110,15 @@ async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
-// E-Mail senden via Graph API (mit optionalem PDF-Anhang)
+// E-Mail senden via Graph API (mit optionalem PDF-Anhang und CC)
 async function sendEmailWithAttachment(
   accessToken: string,
   to: string,
   subject: string,
   htmlBody: string,
   pdfBytes?: Uint8Array,
-  pdfFileName?: string
+  pdfFileName?: string,
+  ccRecipients?: string[]
 ): Promise<void> {
   const graphUrl = `https://graph.microsoft.com/v1.0/users/${SENDER_EMAIL}/sendMail`;
 
@@ -130,6 +133,13 @@ async function sendEmailWithAttachment(
     },
     saveToSentItems: true,
   };
+
+  // CC-Empfänger hinzufügen
+  if (ccRecipients && ccRecipients.length > 0) {
+    message.message.ccRecipients = ccRecipients.map(email => ({
+      emailAddress: { address: email }
+    }));
+  }
 
   // PDF-Anhang hinzufügen falls vorhanden
   if (pdfBytes && pdfFileName) {
@@ -197,6 +207,8 @@ function formatLieferort(ort: string): string {
 function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
   const bestellNr = formatBestellNr(bestellung);
   const haendler = bestellung.grosshaendler;
+  const istAngebotsanfrage = bestellung.bestelltyp === 'angebotsanfrage';
+  const typLabel = istAngebotsanfrage ? 'Angebotsanfrage' : 'Bestellung';
 
   const positionenHtml = positionen.map(p => `
     <tr>
@@ -207,10 +219,18 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
         ${p.hersteller ? `<br><span style="color: ${GRAY_500}; font-size: 13px;">${p.hersteller}</span>` : ''}
       </td>
       <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; white-space: nowrap; width: 80px;">${p.menge} ${p.einheit}</td>
-      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; width: 100px;">${formatPreis(p.einzelpreis)}</td>
-      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600; width: 100px;">${formatPreis(p.gesamtpreis)}</td>
+      ${istAngebotsanfrage ? '' : `<td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; width: 100px;">${formatPreis(p.einzelpreis)}</td>`}
+      ${istAngebotsanfrage ? '' : `<td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600; width: 100px;">${formatPreis(p.gesamtpreis)}</td>`}
     </tr>
   `).join('');
+
+  // Hinweistext je nach Typ
+  const hinweisText = istAngebotsanfrage
+    ? `Bitte senden Sie uns ein Angebot für die nachfolgenden Positionen. Projektnummer <strong>${bestellung.atbs_nummer}</strong> bitte auf allen Dokumenten angeben.`
+    : `Bitte die Projektnummer <strong>${bestellung.atbs_nummer}</strong> auf allen Dokumenten (Lieferschein, Rechnung) angeben.`;
+
+  // Hintergrundfarbe für Hinweis-Box
+  const hinweisBackground = istAngebotsanfrage ? '#2563eb' : '#4b5563'; // Blau für Anfrage, Grau für Bestellung
 
   return `
 <!DOCTYPE html>
@@ -218,7 +238,7 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bestellung ${bestellNr}</title>
+  <title>${typLabel} ${bestellNr}</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: ${GRAY_800}; line-height: 1.5; background-color: #f5f5f5;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
@@ -232,7 +252,7 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: ${GRAY_800};">Bestellung ${bestellNr}</h1>
+                    <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: ${GRAY_800};">${typLabel} ${bestellNr}</h1>
                     <p style="margin: 4px 0 0 0; color: ${GRAY_600}; font-size: 15px;">${haendler.kurzname || haendler.name} · ${haendler.typ || 'Großhändler'}</p>
                   </td>
                   <td align="right" style="vertical-align: top;">
@@ -245,9 +265,9 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
 
           <!-- Wichtiger Hinweis -->
           <tr>
-            <td style="background: #4b5563; padding: 12px 24px;">
+            <td style="background: ${hinweisBackground}; padding: 12px 24px;">
               <p style="margin: 0; color: #ffffff; font-size: 13px;">
-                <strong>Hinweis:</strong> Bitte die Projektnummer <strong>${bestellung.atbs_nummer}</strong> auf allen Dokumenten (Lieferschein, Rechnung) angeben.
+                <strong>${istAngebotsanfrage ? 'Angebotsanfrage:' : 'Hinweis:'}</strong> ${hinweisText}
               </p>
             </td>
           </tr>
@@ -289,19 +309,21 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
                     <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Art.-Nr.</th>
                     <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Bezeichnung</th>
                     <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Menge</th>
-                    <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">EP</th>
-                    <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Gesamt</th>
+                    ${istAngebotsanfrage ? '' : '<th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ' + GRAY_500 + '; font-weight: 600; border-bottom: 2px solid #e5e7eb;">EP</th>'}
+                    ${istAngebotsanfrage ? '' : '<th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ' + GRAY_500 + '; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Gesamt</th>'}
                   </tr>
                 </thead>
                 <tbody>
                   ${positionenHtml}
                 </tbody>
+                ${istAngebotsanfrage ? '' : `
                 <tfoot>
                   <tr style="background: #f9fafb;">
                     <td colspan="5" style="padding: 14px 12px; text-align: right; font-weight: 600; border-top: 2px solid #e5e7eb;">Summe netto</td>
                     <td style="padding: 14px 12px; text-align: right; font-weight: 700; font-size: 16px; color: ${GRAY_800}; border-top: 2px solid #e5e7eb;">${formatPreis(bestellung.summe_netto)}</td>
                   </tr>
                 </tfoot>
+                `}
               </table>
 
               ${bestellung.notizen ? `
@@ -325,7 +347,7 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="font-size: 12px; color: ${GRAY_500};">
-                    Bestellt von: <strong style="color: ${GRAY_600};">${bestellung.bestellt_von_name}</strong> (${bestellung.bestellt_von_email}) · ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
+                    ${istAngebotsanfrage ? 'Angefragt' : 'Bestellt'} von: <strong style="color: ${GRAY_600};">${bestellung.bestellt_von_name}</strong> (${bestellung.bestellt_von_email}) · ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
                   </td>
                 </tr>
               </table>
@@ -378,7 +400,7 @@ Deno.serve(async (req: Request) => {
         lieferadresse, lieferort, gewuenschtes_lieferdatum, zeitfenster,
         ansprechpartner_name, ansprechpartner_telefon,
         summe_netto, summe_brutto, anzahl_positionen, notizen,
-        bestellt_von_email, bestellt_von_name, bestellt_am, pdf_url,
+        bestellt_von_email, bestellt_von_name, bestellt_am, pdf_url, bestelltyp,
         grosshaendler:grosshaendler_id (name, kurzname, typ, bestell_email)
       `)
       .eq('id', bestellung_id)
@@ -490,21 +512,28 @@ Deno.serve(async (req: Request) => {
     }
 
     const accessToken = await getAccessToken();
-    const subject = `Bestellung ${bestellNr} - ${haendler.kurzname || haendler.name}`;
 
-    // E-Mail mit PDF-Anhang senden
-    await sendEmailWithAttachment(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent, pdfBytes, pdfFileName);
+    // Typ-abhängiger Betreff
+    const istAngebotsanfrage = (bestellung as any).bestelltyp === 'angebotsanfrage';
+    const typLabel = istAngebotsanfrage ? 'Angebotsanfrage' : 'Bestellung';
+    const subject = `${typLabel} ${bestellNr} - ${haendler.kurzname || haendler.name}`;
+
+    // CC an Bauleitung
+    const ccRecipients = [CC_BAULEITUNG];
+
+    // E-Mail mit PDF-Anhang und CC senden
+    await sendEmailWithAttachment(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent, pdfBytes, pdfFileName, ccRecipients);
 
     // E-Mail-Status in DB speichern
     await supabase
       .from('bestellungen')
       .update({
-        email_gesendet_an: BESTELLUNG_EMPFAENGER,
+        email_gesendet_an: `${BESTELLUNG_EMPFAENGER}, CC: ${CC_BAULEITUNG}`,
         email_gesendet_am: new Date().toISOString()
       })
       .eq('id', bestellung_id);
 
-    console.log(`E-Mail mit PDF-Anhang gesendet an ${BESTELLUNG_EMPFAENGER}`);
+    console.log(`E-Mail mit PDF-Anhang gesendet an ${BESTELLUNG_EMPFAENGER} (CC: ${CC_BAULEITUNG})`);
 
     return new Response(
       JSON.stringify({
@@ -514,6 +543,8 @@ Deno.serve(async (req: Request) => {
         pdf_url: pdfUrl,
         email_sent: true,
         email_to: BESTELLUNG_EMPFAENGER,
+        email_cc: CC_BAULEITUNG,
+        bestelltyp: istAngebotsanfrage ? 'angebotsanfrage' : 'bestellung',
         pdf_attached: !!pdfBytes
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

@@ -2,9 +2,11 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * nachtrag-notify v17
+ * nachtrag-notify v18
  *
  * Verarbeitet pending Notifications mit HTML-Templates
+ * - **v18:** NU-Annahme/Ablehnung: nu_accepted_for_bl, nu_accepted_for_nu, nu_rejected_for_bl
+ *            Mit Betrag und Datum Annahme in E-Mails
  * - **v17:** Bauleitung-Kontaktzeile aus allen NU-E-Mails entfernt
  * - **v16:** Bestätigungs-E-Mail für NU bei neuer Einreichung (confirmation_for_nu)
  *            Hinweis: Ausführung nicht empfohlen bis Genehmigung, Wiedervorlage aktiv
@@ -19,7 +21,7 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
  * - Du-Form für NU, Projektname in Betreff
  * - NUA-Nr in NU-E-Mails wenn vorhanden
  *
- * Aktualisiert: 2026-01-25
+ * Aktualisiert: 2026-01-27
  */
 
 const corsHeaders = {
@@ -53,6 +55,9 @@ interface Nachtrag {
   projektname_komplett: string | null;
   projektname_extern: string | null;
   nua_nr: string | null;
+  // NU-Annahme/Ablehnung (v18)
+  status_nu: string | null;
+  datum_annahme_nu: string | null;
 }
 
 interface Notification {
@@ -98,9 +103,29 @@ function generateSubject(n: Nachtrag, notificationType: string, recipientType: s
       return `Nachtrag ${n.nachtrag_nr} genehmigt – ${projektName}`;
     case 'rejected':
       return `Nachtrag ${n.nachtrag_nr} abgelehnt – ${projektName}`;
+    // v18: NU-Annahme/Ablehnung
+    case 'nu_accepted_for_bl':
+      return `NU hat Nachtrag ${n.nachtrag_nr} angenommen – ${projektName}`;
+    case 'nu_accepted_for_nu':
+      return `Annahme bestätigt: ${n.nachtrag_nr} – ${projektName}`;
+    case 'nu_rejected_for_bl':
+      return `NU hat Nachtrag ${n.nachtrag_nr} abgelehnt – ${projektName}`;
     default:
       return `Nachtrag ${n.nachtrag_nr} – ${projektName}`;
   }
+}
+
+// Datum/Uhrzeit formatieren (deutsch)
+function formatDateTime(dateStr: string | null): string {
+  if (!dateStr) return '-';
+  const date = new Date(dateStr);
+  return date.toLocaleString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 }
 
 // Fotos als Inline-Bilder
@@ -372,6 +397,148 @@ function templateForNuConfirmation(n: Nachtrag): string {
   `;
 }
 
+// E-Mail-Template für Bauleiter (NU hat angenommen) - v18
+function templateForBlNuAccepted(n: Nachtrag): string {
+  const uiLink = `${SOFTR_BASE_URL}${NACHTRAG_DETAIL_PATH}?recordId=${n.id}`;
+
+  return `
+    <p>Hallo ${n.bauleiter_name || 'Bauleitung'},</p>
+
+    <p>Der Nachunternehmer <strong>${n.nu_name || 'NU'}</strong> hat den Nachtrag <strong style="color: #28a745;">angenommen</strong>.</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; width: 150px; color: #666;">Projekt:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${formatProjektNameIntern(n)}</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Nachtrag-Nr:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${n.nachtrag_nr}</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Titel:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.titel || '-'}</td>
+      </tr>
+      <tr style="background: #e8f5e9;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Betrag NU (netto):</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; font-size: 18px; color: #28a745;">${formatCurrency(n.betrag_nu_netto)}</td>
+      </tr>
+      <tr style="background: #e8f5e9;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Angenommen am:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">${formatDateTime(n.datum_annahme_nu)}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Nachunternehmer:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.nu_name || '-'} (${n.nu_email || '-'})</td>
+      </tr>
+    </table>
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="${uiLink}" style="background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+        Im Portal öffnen
+      </a>
+    </div>
+  `;
+}
+
+// E-Mail-Template für NU (Annahme-Bestätigung) - v18
+function templateForNuAccepted(n: Nachtrag): string {
+  const nuaRow = n.nua_nr ? `
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">NUA-Nr:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${n.nua_nr}</strong></td>
+      </tr>` : '';
+
+  return `
+    <p>Hallo ${n.nu_name || 'Nachunternehmer'},</p>
+
+    <p>vielen Dank! Du hast den Nachtrag <strong style="color: #28a745;">angenommen</strong>.</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; width: 150px; color: #666;">Projekt:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${formatProjektNameExtern(n)}</strong></td>
+      </tr>${nuaRow}
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Nachtrag-Nr:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${n.nachtrag_nr}</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Titel:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.titel || '-'}</td>
+      </tr>
+      <tr style="background: #e8f5e9;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Dein Betrag (netto):</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; font-size: 18px; color: #28a745;">${formatCurrency(n.betrag_nu_netto)}</td>
+      </tr>
+      <tr style="background: #e8f5e9;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Angenommen am:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">${formatDateTime(n.datum_annahme_nu)}</td>
+      </tr>
+    </table>
+
+    <div style="background: #d4edda; border: 1px solid #28a745; border-radius: 6px; padding: 15px; margin: 20px 0;">
+      <p style="margin: 0; color: #155724;">
+        Die Ausführung kann beginnen. Der Nachtrag ist verbindlich bestätigt.
+      </p>
+    </div>
+  `;
+}
+
+// E-Mail-Template für Bauleiter (NU hat abgelehnt) - v18
+function templateForBlNuRejected(n: Nachtrag): string {
+  const uiLink = `${SOFTR_BASE_URL}${NACHTRAG_DETAIL_PATH}?recordId=${n.id}`;
+
+  return `
+    <p>Hallo ${n.bauleiter_name || 'Bauleitung'},</p>
+
+    <p><strong style="color: #dc3545;">Achtung:</strong> Der Nachunternehmer <strong>${n.nu_name || 'NU'}</strong> hat den Nachtrag <strong style="color: #dc3545;">abgelehnt</strong>.</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; width: 150px; color: #666;">Projekt:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${formatProjektNameIntern(n)}</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Nachtrag-Nr:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${n.nachtrag_nr}</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Titel:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.titel || '-'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Beschreibung:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.beschreibung || '-'}</td>
+      </tr>
+      <tr style="background: #f8d7da;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Betrag NU (netto):</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">${formatCurrency(n.betrag_nu_netto)}</td>
+      </tr>
+      <tr style="background: #f8d7da;">
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Abgelehnt am:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">${formatDateTime(n.datum_annahme_nu)}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; color: #666;">Nachunternehmer:</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee;">${n.nu_name || '-'} (${n.nu_email || '-'})</td>
+      </tr>
+    </table>
+
+    <div style="background: #f8d7da; border: 1px solid #dc3545; border-radius: 6px; padding: 15px; margin: 20px 0;">
+      <p style="margin: 0; color: #721c24;">
+        Bitte klären Sie die Situation mit dem Nachunternehmer oder suchen Sie eine Alternative.
+      </p>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="${uiLink}" style="background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+        Im Portal öffnen
+      </a>
+    </div>
+  `;
+}
+
 // Fallback für alte Notifications ohne notification_type
 function templateFallback(n: Nachtrag, recipientType: string): string {
   const uiLink = `${SOFTR_BASE_URL}${NACHTRAG_DETAIL_PATH}?recordId=${n.id}`;
@@ -419,6 +586,13 @@ function getEmailBody(n: Nachtrag, notificationType: string, recipientType: stri
       return templateForNuApproved(n);
     case 'rejected':
       return templateForNuRejected(n);
+    // v18: NU-Annahme/Ablehnung
+    case 'nu_accepted_for_bl':
+      return templateForBlNuAccepted(n);
+    case 'nu_accepted_for_nu':
+      return templateForNuAccepted(n);
+    case 'nu_rejected_for_bl':
+      return templateForBlNuRejected(n);
     default:
       return templateFallback(n, recipientType);
   }

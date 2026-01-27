@@ -10,11 +10,13 @@
 		atbs_nummer: string;
 		projekt_name: string | null;
 		status: string;
+		bestelltyp: 'bestellung' | 'angebotsanfrage';
 		summe_netto: number;
 		anzahl_positionen: number;
 		created_at: string;
 		bestellt_am: string | null;
 		gewuenschtes_lieferdatum: string | null;
+		tatsaechliches_lieferdatum: string | null;
 		lieferort: string;
 		lieferadresse: string | null;
 		zeitfenster: string | null;
@@ -26,12 +28,24 @@
 		html_content: string | null;
 		email_gesendet_an: string | null;
 		email_gesendet_am: string | null;
+		lieferschein_url: string | null;
+		lieferschein_nr: string | null;
+		lieferschein_datum: string | null;
 		grosshaendler: {
 			name: string;
 			kurzname: string;
 			typ: string;
 			bestell_email: string | null;
 		} | null;
+	}
+
+	interface StatusHistorie {
+		id: string;
+		alter_status: string | null;
+		neuer_status: string;
+		geaendert_von: string | null;
+		geaendert_am: string;
+		kommentar: string | null;
 	}
 
 	interface Position {
@@ -48,8 +62,12 @@
 
 	let bestellung = $state<Bestellung | null>(null);
 	let positionen = $state<Position[]>([]);
+	let statusHistorie = $state<StatusHistorie[]>([]);
 	let isLoading = $state(true);
 	let errorMessage = $state('');
+	let isUploading = $state(false);
+	let lieferscheinNr = $state('');
+	let lieferscheinDatum = $state('');
 
 	const statusLabels: Record<string, { label: string; color: string }> = {
 		'entwurf': { label: 'Entwurf', color: 'gray' },
@@ -96,6 +114,19 @@
 
 			if (posError) throw posError;
 			positionen = posData || [];
+
+			// Status-Historie laden
+			const { data: historieData } = await supabase
+				.from('bestellung_status_history')
+				.select('*')
+				.eq('bestellung_id', bestellungId)
+				.order('geaendert_am', { ascending: false });
+
+			statusHistorie = historieData || [];
+
+			// Lieferschein-Daten vorbelegen
+			if (bestellung.lieferschein_nr) lieferscheinNr = bestellung.lieferschein_nr;
+			if (bestellung.lieferschein_datum) lieferscheinDatum = bestellung.lieferschein_datum;
 
 		} catch (err) {
 			console.error('Fehler:', err);
@@ -169,6 +200,55 @@
 	function drucken() {
 		window.print();
 	}
+
+	async function uploadLieferschein(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file || !bestellung) return;
+
+		isUploading = true;
+
+		try {
+			// Dateiname generieren
+			const ext = file.name.split('.').pop() || 'pdf';
+			const fileName = `${bestellung.atbs_nummer}/lieferschein_${bestellung.projekt_bestell_nr}_${Date.now()}.${ext}`;
+
+			// Upload zu Storage
+			const { error: uploadError } = await supabase.storage
+				.from('bestellungen')
+				.upload(fileName, file);
+
+			if (uploadError) throw uploadError;
+
+			// Public URL holen
+			const { data: { publicUrl } } = supabase.storage
+				.from('bestellungen')
+				.getPublicUrl(fileName);
+
+			// Bestellung aktualisieren
+			const { error: updateError } = await supabase
+				.from('bestellungen')
+				.update({
+					lieferschein_url: publicUrl,
+					lieferschein_nr: lieferscheinNr || null,
+					lieferschein_datum: lieferscheinDatum || null,
+					lieferschein_hochgeladen_am: new Date().toISOString()
+				})
+				.eq('id', bestellung.id);
+
+			if (updateError) throw updateError;
+
+			// Bestellung aktualisieren
+			bestellung.lieferschein_url = publicUrl;
+			alert('Lieferschein erfolgreich hochgeladen!');
+
+		} catch (err) {
+			console.error('Upload fehlgeschlagen:', err);
+			alert('Upload fehlgeschlagen. Bitte erneut versuchen.');
+		} finally {
+			isUploading = false;
+		}
+	}
 </script>
 
 <div class="page">
@@ -180,9 +260,12 @@
 				</svg>
 			</a>
 			{#if bestellung}
-				<h1>Bestellung {bestellung.atbs_nummer}-B{bestellung.projekt_bestell_nr}</h1>
+				<h1>{bestellung.bestelltyp === 'angebotsanfrage' ? 'Anfrage' : 'Bestellung'} {bestellung.atbs_nummer}-B{bestellung.projekt_bestell_nr}</h1>
 				{@const status = statusLabels[bestellung.status] || { label: bestellung.status, color: 'gray' }}
 				<span class="status-badge status-{status.color}">{status.label}</span>
+				{#if bestellung.bestelltyp === 'angebotsanfrage'}
+					<span class="type-badge">Angebotsanfrage</span>
+				{/if}
 			{:else}
 				<h1>Bestellung</h1>
 			{/if}
@@ -327,6 +410,73 @@
 					</div>
 				</div>
 
+				<!-- Lieferschein-Upload -->
+				<div class="lieferschein-section no-print">
+					<h3>Lieferschein</h3>
+					{#if bestellung.lieferschein_url}
+						<div class="lieferschein-info">
+							<a href={bestellung.lieferschein_url} target="_blank" class="btn btn-secondary">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+									<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+									<path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+								</svg>
+								Lieferschein öffnen
+							</a>
+							{#if bestellung.lieferschein_nr}
+								<span class="lieferschein-nr">Nr: {bestellung.lieferschein_nr}</span>
+							{/if}
+							{#if bestellung.lieferschein_datum}
+								<span class="lieferschein-datum">{formatDatum(bestellung.lieferschein_datum)}</span>
+							{/if}
+						</div>
+					{:else}
+						<div class="lieferschein-upload">
+							<div class="upload-fields">
+								<input
+									type="text"
+									placeholder="Lieferschein-Nr. (optional)"
+									bind:value={lieferscheinNr}
+								/>
+								<input
+									type="date"
+									bind:value={lieferscheinDatum}
+								/>
+							</div>
+							<label class="upload-btn">
+								<input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange={uploadLieferschein} hidden />
+								{#if isUploading}
+									<span class="spinner"></span>
+									Hochladen...
+								{:else}
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+									</svg>
+									Lieferschein hochladen
+								{/if}
+							</label>
+						</div>
+					{/if}
+				</div>
+
+				<!-- Status-Historie -->
+				{#if statusHistorie.length > 0}
+					<div class="historie-section no-print">
+						<h3>Status-Verlauf</h3>
+						<ul class="historie-list">
+							{#each statusHistorie as eintrag}
+								{@const status = statusLabels[eintrag.neuer_status] || { label: eintrag.neuer_status, color: 'gray' }}
+								<li>
+									<span class="historie-datum">{formatDatumZeit(eintrag.geaendert_am)}</span>
+									<span class="status-badge status-{status.color} status-sm">{status.label}</span>
+									{#if eintrag.geaendert_von}
+										<span class="historie-von">von {eintrag.geaendert_von}</span>
+									{/if}
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+
 				<!-- Status ändern -->
 				<div class="status-section no-print">
 					<h3>Status ändern</h3>
@@ -410,6 +560,22 @@
 	.status-green { background: var(--color-success-light); color: var(--color-success-dark); }
 	.status-yellow { background: var(--color-warning-light); color: var(--color-warning-dark); }
 	.status-red { background: var(--color-error-light); color: var(--color-error-dark); }
+
+	.type-badge {
+		display: inline-block;
+		padding: 4px 12px;
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
+		background: var(--color-info-light);
+		color: var(--color-info-dark);
+		margin-left: var(--spacing-2);
+	}
+
+	.status-sm {
+		padding: 2px 8px;
+		font-size: var(--font-size-xs);
+	}
 
 	.main {
 		padding: var(--spacing-6);
@@ -568,6 +734,116 @@
 		display: flex;
 		gap: var(--spacing-2);
 		flex-wrap: wrap;
+	}
+
+	/* Lieferschein */
+	.lieferschein-section {
+		padding-top: var(--spacing-4);
+		border-top: 1px solid var(--color-gray-200);
+		margin-bottom: var(--spacing-4);
+	}
+
+	.lieferschein-section h3 {
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-600);
+		margin-bottom: var(--spacing-3);
+	}
+
+	.lieferschein-info {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-3);
+		flex-wrap: wrap;
+	}
+
+	.lieferschein-nr, .lieferschein-datum {
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-600);
+	}
+
+	.lieferschein-upload {
+		display: flex;
+		gap: var(--spacing-3);
+		align-items: flex-end;
+		flex-wrap: wrap;
+	}
+
+	.upload-fields {
+		display: flex;
+		gap: var(--spacing-2);
+	}
+
+	.upload-fields input {
+		padding: var(--spacing-2) var(--spacing-3);
+		font-size: var(--font-size-sm);
+	}
+
+	.upload-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-2) var(--spacing-4);
+		background: var(--color-brand-medium);
+		color: white;
+		border-radius: var(--radius-md);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		cursor: pointer;
+	}
+
+	.upload-btn:hover {
+		background: var(--color-brand-dark);
+	}
+
+	.spinner {
+		width: 16px;
+		height: 16px;
+		border: 2px solid rgba(255,255,255,0.3);
+		border-top-color: white;
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	/* Historie */
+	.historie-section {
+		padding-top: var(--spacing-4);
+		border-top: 1px solid var(--color-gray-200);
+		margin-bottom: var(--spacing-4);
+	}
+
+	.historie-section h3 {
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-600);
+		margin-bottom: var(--spacing-3);
+	}
+
+	.historie-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.historie-list li {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-2) 0;
+		border-bottom: 1px solid var(--color-gray-100);
+		font-size: var(--font-size-sm);
+	}
+
+	.historie-list li:last-child {
+		border-bottom: none;
+	}
+
+	.historie-datum {
+		color: var(--color-gray-500);
+		min-width: 140px;
+	}
+
+	.historie-von {
+		color: var(--color-gray-500);
+		font-size: var(--font-size-xs);
 	}
 
 	.status-btn {

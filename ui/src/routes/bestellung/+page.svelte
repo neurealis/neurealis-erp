@@ -79,6 +79,7 @@
 	let isLoadingArtikel = $state(false);
 
 	// === Formular State ===
+	let bestelltyp = $state<'bestellung' | 'angebotsanfrage'>('bestellung');
 	let selectedHaendler = $state('');
 	let selectedProjekt = $state('');
 	let selectedLieferort = $state('baustelle');
@@ -97,6 +98,15 @@
 
 	// Bestellpositionen mit Mengen
 	let bestellpositionen = $state<Map<string, number>>(new Map());
+
+	// Freitextpositionen (ohne Katalog-Artikel)
+	interface FreitextPosition {
+		id: string;
+		bezeichnung: string;
+		menge: number;
+		einheit: string;
+	}
+	let freitextPositionen = $state<FreitextPosition[]>([]);
 
 	// Expanded Artikel (für Langname-Anzeige)
 	let expandedArtikel = $state<Set<string>>(new Set());
@@ -332,6 +342,8 @@
 		for (const menge of bestellpositionen.values()) {
 			if (menge > 0) anzahl++;
 		}
+		// Freitextpositionen zählen
+		anzahl += freitextPositionen.filter(f => f.menge > 0 && f.bezeichnung.trim()).length;
 		return anzahl;
 	});
 
@@ -594,10 +606,31 @@
 	}
 
 	function warenkorbLeeren() {
-		if (bestellpositionen.size === 0) return;
+		if (bestellpositionen.size === 0 && freitextPositionen.length === 0) return;
 		if (confirm('Warenkorb wirklich leeren?')) {
 			bestellpositionen = new Map();
+			freitextPositionen = [];
 		}
+	}
+
+	// Freitext-Positionen
+	function addFreitextPosition() {
+		freitextPositionen = [...freitextPositionen, {
+			id: crypto.randomUUID(),
+			bezeichnung: '',
+			menge: 1,
+			einheit: 'Stk'
+		}];
+	}
+
+	function removeFreitextPosition(id: string) {
+		freitextPositionen = freitextPositionen.filter(f => f.id !== id);
+	}
+
+	function updateFreitextPosition(id: string, field: keyof FreitextPosition, value: string | number) {
+		freitextPositionen = freitextPositionen.map(f =>
+			f.id === id ? { ...f, [field]: value } : f
+		);
 	}
 
 	// === Wizard Navigation ===
@@ -654,6 +687,7 @@
 					bestellt_von_email: currentUser,
 					bestellt_von_name: currentUser?.split('@')[0] || 'Unbekannt',
 					status: 'entwurf',
+					bestelltyp: bestelltyp,
 					summe_netto: gesamtsumme,
 					lieferadresse: selectedLieferort === 'baustelle' ? selectedProjektDetails?.address :
 						selectedLieferort === 'lager' ? 'Kleyerweg 40, 44149 Dortmund' : 'Abholung',
@@ -671,8 +705,8 @@
 
 			if (bestellError) throw bestellError;
 
-			// 2. Positionen speichern
-			const positionen = warenkorbArtikel.map((art, idx) => ({
+			// 2. Katalog-Positionen speichern
+			const katalogPositionen = warenkorbArtikel.map((art, idx) => ({
 				bestellung_id: bestellung.id,
 				position_nr: idx + 1,
 				artikel_id: art.id,
@@ -682,12 +716,32 @@
 				menge: art.menge,
 				einheit: art.einheit || 'Stk',
 				einzelpreis: art.einkaufspreis || 0,
-				gesamtpreis: art.summe
+				gesamtpreis: art.summe,
+				ist_freitext: false
 			}));
+
+			// 3. Freitext-Positionen hinzufügen
+			const gueltigeFreitext = freitextPositionen.filter(f => f.bezeichnung.trim() && f.menge > 0);
+			const freitextPositionenDb = gueltigeFreitext.map((f, idx) => ({
+				bestellung_id: bestellung.id,
+				position_nr: katalogPositionen.length + idx + 1,
+				artikel_id: null,
+				artikelnummer: null,
+				bezeichnung: f.bezeichnung.trim(),
+				hersteller: null,
+				menge: f.menge,
+				einheit: f.einheit,
+				einzelpreis: 0,
+				gesamtpreis: 0,
+				ist_freitext: true,
+				freitext_beschreibung: f.bezeichnung.trim()
+			}));
+
+			const allePositionen = [...katalogPositionen, ...freitextPositionenDb];
 
 			const { error: posError } = await supabase
 				.from('bestellpositionen')
-				.insert(positionen);
+				.insert(allePositionen);
 
 			if (posError) throw posError;
 
@@ -722,8 +776,10 @@
 	function neueBestellung() {
 		// Reset
 		currentStep = 1;
+		bestelltyp = 'bestellung';
 		selectedHaendler = '';
 		bestellpositionen = new Map();
+		freitextPositionen = [];
 		erkannteArtikel = [];
 		unerkannteTexte = [];
 		artikelText = '';
@@ -745,7 +801,7 @@
 					<path d="M19 12H5M12 19l-7-7 7-7"/>
 				</svg>
 			</a>
-			<h1>Neue Bestellung</h1>
+			<h1>{bestelltyp === 'angebotsanfrage' ? 'Neue Angebotsanfrage' : 'Neue Bestellung'}</h1>
 			<!-- Warenkorb Toggle -->
 			<button
 				class="warenkorb-toggle"
@@ -869,9 +925,9 @@
 						<path d="M9 12l2 2 4-4"/>
 					</svg>
 				</div>
-				<h2>Bestellung erfolgreich!</h2>
-				<p class="success-nr">Bestellnummer: <strong>B-{bestellnummer}</strong></p>
-				<p>Die Bestellung wurde gespeichert und eine E-Mail an holger.neumann@neurealis.de gesendet.</p>
+				<h2>{bestelltyp === 'angebotsanfrage' ? 'Angebotsanfrage' : 'Bestellung'} erfolgreich!</h2>
+				<p class="success-nr">{bestelltyp === 'angebotsanfrage' ? 'Anfrage-Nr.' : 'Bestellnummer'}: <strong>B-{bestellnummer}</strong></p>
+				<p>Die {bestelltyp === 'angebotsanfrage' ? 'Anfrage' : 'Bestellung'} wurde gespeichert und eine E-Mail gesendet (CC: bauleitung@neurealis.de).</p>
 				<div class="success-actions">
 					<button class="btn btn-secondary" onclick={neueBestellung}>
 						Neue Bestellung
@@ -886,7 +942,33 @@
 			<!-- Step 1: Großhändler -->
 			{#if currentStep === 1}
 				<div class="step-content">
-					<h2 class="step-heading">Bei welchem Großhändler möchtest du bestellen?</h2>
+					<!-- Bestelltyp Toggle -->
+					<div class="bestelltyp-toggle">
+						<button
+							class="bestelltyp-btn"
+							class:active={bestelltyp === 'bestellung'}
+							onclick={() => bestelltyp = 'bestellung'}
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<rect x="3" y="3" width="18" height="18" rx="2"/>
+								<path d="M9 12l2 2 4-4"/>
+							</svg>
+							Bestellung
+						</button>
+						<button
+							class="bestelltyp-btn"
+							class:active={bestelltyp === 'angebotsanfrage'}
+							onclick={() => bestelltyp = 'angebotsanfrage'}
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<circle cx="12" cy="12" r="10"/>
+								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
+							</svg>
+							Angebotsanfrage
+						</button>
+					</div>
+
+					<h2 class="step-heading">Bei welchem Großhändler möchtest du {bestelltyp === 'angebotsanfrage' ? 'anfragen' : 'bestellen'}?</h2>
 
 					<div class="haendler-grid">
 						{#each grosshaendler as haendler}
@@ -1115,6 +1197,61 @@
 									{/each}
 								</div>
 							{/if}
+
+							<!-- Freitext-Positionen -->
+							<div class="freitext-section">
+								<div class="freitext-header">
+									<h4>Freitextpositionen</h4>
+									<button class="btn btn-secondary btn-sm" onclick={addFreitextPosition}>
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;">
+											<path d="M12 5v14M5 12h14"/>
+										</svg>
+										Position hinzufügen
+									</button>
+								</div>
+								{#if freitextPositionen.length > 0}
+									<div class="freitext-list">
+										{#each freitextPositionen as pos}
+											<div class="freitext-row">
+												<input
+													type="text"
+													placeholder="Bezeichnung (z.B. 'Sonderartikel XY')"
+													class="freitext-bezeichnung"
+													value={pos.bezeichnung}
+													oninput={(e) => updateFreitextPosition(pos.id, 'bezeichnung', (e.target as HTMLInputElement).value)}
+												/>
+												<input
+													type="number"
+													min="1"
+													class="freitext-menge"
+													value={pos.menge}
+													oninput={(e) => updateFreitextPosition(pos.id, 'menge', parseInt((e.target as HTMLInputElement).value) || 1)}
+												/>
+												<select
+													class="freitext-einheit"
+													value={pos.einheit}
+													onchange={(e) => updateFreitextPosition(pos.id, 'einheit', (e.target as HTMLSelectElement).value)}
+												>
+													<option value="Stk">Stk</option>
+													<option value="m">m</option>
+													<option value="m²">m²</option>
+													<option value="kg">kg</option>
+													<option value="Rolle">Rolle</option>
+													<option value="Paar">Paar</option>
+													<option value="Set">Set</option>
+												</select>
+												<button class="freitext-remove" onclick={() => removeFreitextPosition(pos.id)} aria-label="Entfernen">
+													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<path d="M18 6 6 18M6 6l12 12"/>
+													</svg>
+												</button>
+											</div>
+										{/each}
+									</div>
+								{:else}
+									<p class="freitext-hint">Keine Freitextpositionen. Nutze diese für Artikel, die nicht im Katalog sind.</p>
+								{/if}
+							</div>
 						</div>
 					{/if}
 
@@ -1201,7 +1338,13 @@
 			<!-- Step 4: Bestätigung -->
 			{:else if currentStep === 4}
 				<div class="step-content">
-					<h2 class="step-heading">Bestellung prüfen</h2>
+					<h2 class="step-heading">{bestelltyp === 'angebotsanfrage' ? 'Angebotsanfrage' : 'Bestellung'} prüfen</h2>
+
+					{#if bestelltyp === 'angebotsanfrage'}
+						<div class="message info" style="margin-bottom: var(--spacing-4);">
+							Dies ist eine <strong>Angebotsanfrage</strong>. Der Großhändler wird Ihnen ein Angebot zusenden.
+						</div>
+					{/if}
 
 					<!-- Zusammenfassung -->
 					<div class="summary-card">
@@ -1236,8 +1379,10 @@
 									<th>Pos.</th>
 									<th>Artikel</th>
 									<th class="text-right">Menge</th>
-									<th class="text-right">Einzelpreis</th>
-									<th class="text-right">Gesamt</th>
+									{#if bestelltyp !== 'angebotsanfrage'}
+										<th class="text-right">Einzelpreis</th>
+										<th class="text-right">Gesamt</th>
+									{/if}
 								</tr>
 							</thead>
 							<tbody>
@@ -1249,17 +1394,36 @@
 											{#if art.hersteller}<br><small class="muted">{art.hersteller}</small>{/if}
 										</td>
 										<td class="text-right">{art.menge} {art.einheit || 'Stk'}</td>
-										<td class="text-right">{formatPreis(art.einkaufspreis || 0)}</td>
-										<td class="text-right"><strong>{formatPreis(art.summe)}</strong></td>
+										{#if bestelltyp !== 'angebotsanfrage'}
+											<td class="text-right">{formatPreis(art.einkaufspreis || 0)}</td>
+											<td class="text-right"><strong>{formatPreis(art.summe)}</strong></td>
+										{/if}
+									</tr>
+								{/each}
+								<!-- Freitext-Positionen -->
+								{#each freitextPositionen.filter(f => f.bezeichnung.trim() && f.menge > 0) as fp, i}
+									<tr class="freitext-position-row">
+										<td>{warenkorbArtikel.length + i + 1}</td>
+										<td>
+											<strong>{fp.bezeichnung}</strong>
+											<br><small class="muted freitext-badge">Freitextposition</small>
+										</td>
+										<td class="text-right">{fp.menge} {fp.einheit}</td>
+										{#if bestelltyp !== 'angebotsanfrage'}
+											<td class="text-right">-</td>
+											<td class="text-right">-</td>
+										{/if}
 									</tr>
 								{/each}
 							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="4" class="text-right"><strong>Gesamtsumme (netto)</strong></td>
-									<td class="text-right total">{formatPreis(gesamtsumme)}</td>
-								</tr>
-							</tfoot>
+							{#if bestelltyp !== 'angebotsanfrage'}
+								<tfoot>
+									<tr>
+										<td colspan="4" class="text-right"><strong>Gesamtsumme (netto)</strong></td>
+										<td class="text-right total">{formatPreis(gesamtsumme)}</td>
+									</tr>
+								</tfoot>
+							{/if}
 						</table>
 					</div>
 
@@ -1298,7 +1462,7 @@
 								<span class="spinner"></span>
 								Wird gesendet...
 							{:else}
-								Bestellung absenden
+								{bestelltyp === 'angebotsanfrage' ? 'Anfrage absenden' : 'Bestellung absenden'}
 							{/if}
 						</button>
 					{/if}
@@ -1739,6 +1903,48 @@
 		margin-bottom: var(--spacing-6);
 	}
 
+	/* Bestelltyp Toggle */
+	.bestelltyp-toggle {
+		display: flex;
+		gap: var(--spacing-3);
+		margin-bottom: var(--spacing-6);
+		padding: var(--spacing-1);
+		background: var(--color-gray-100);
+		border-radius: var(--radius-lg);
+	}
+
+	.bestelltyp-btn {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-3) var(--spacing-4);
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-md);
+		font-weight: var(--font-weight-medium);
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-600);
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.bestelltyp-btn:hover {
+		color: var(--color-gray-800);
+	}
+
+	.bestelltyp-btn.active {
+		background: white;
+		color: var(--color-brand-medium);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.bestelltyp-btn svg {
+		width: 20px;
+		height: 20px;
+	}
+
 	/* Step 1: Händler-Grid */
 	.haendler-grid {
 		display: grid;
@@ -2125,6 +2331,77 @@
 		background: var(--color-success-light);
 	}
 
+	/* Freitext-Positionen */
+	.freitext-section {
+		border-top: 2px solid var(--color-gray-200);
+		margin-top: var(--spacing-4);
+		padding-top: var(--spacing-4);
+	}
+
+	.freitext-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: var(--spacing-3);
+	}
+
+	.freitext-header h4 {
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-700);
+		margin: 0;
+	}
+
+	.freitext-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-2);
+	}
+
+	.freitext-row {
+		display: flex;
+		gap: var(--spacing-2);
+		align-items: center;
+	}
+
+	.freitext-bezeichnung {
+		flex: 1;
+		min-width: 200px;
+	}
+
+	.freitext-menge {
+		width: 70px;
+		text-align: center;
+	}
+
+	.freitext-einheit {
+		width: 80px;
+	}
+
+	.freitext-remove {
+		background: none;
+		border: none;
+		color: var(--color-gray-400);
+		padding: var(--spacing-2);
+		cursor: pointer;
+		border-radius: var(--radius-md);
+	}
+
+	.freitext-remove:hover {
+		background: var(--color-error-light);
+		color: var(--color-error);
+	}
+
+	.freitext-remove svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	.freitext-hint {
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+		margin: 0;
+	}
+
 	/* Mini Cart */
 	.mini-cart {
 		position: sticky;
@@ -2323,6 +2600,24 @@
 	.message.warning {
 		background: var(--color-warning-light);
 		color: var(--color-warning-dark);
+	}
+
+	.message.info {
+		background: var(--color-info-light);
+		color: var(--color-info-dark);
+	}
+
+	.freitext-position-row {
+		background: var(--color-gray-50);
+	}
+
+	.freitext-badge {
+		display: inline-block;
+		background: var(--color-gray-200);
+		color: var(--color-gray-600);
+		padding: 2px 6px;
+		border-radius: var(--radius-sm);
+		font-size: var(--font-size-xs);
 	}
 
 	/* Empty State */
