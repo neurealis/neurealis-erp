@@ -11,14 +11,16 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
 }
 
 /**
- * bestellung-submit v5
+ * bestellung-submit v7
  *
  * Verarbeitet Bestellungen und Angebotsanfragen:
  * 1. Generiert HTML für E-Mail-Body (unterschiedlich je nach Typ)
  * 2. Ruft generate-bestellung-pdf auf für PDF-Generierung
  * 3. Holt PDF aus Storage und fügt als Anhang hinzu
  * 4. Sendet E-Mail mit PDF-Anhang via MS Graph (mit CC an Bauleitung)
+ * 5. Erstellt Eintrag in dokumente-Tabelle (Bestellung oder Sonstiges)
  *
+ * Dokumentennummer: ATBS-***-B* (Bestellung) oder ATBS-***-A* (Anfrage)
  * Parameter: { bestellung_id, empfaenger_email? }
  */
 
@@ -82,9 +84,10 @@ interface Position {
   gesamtpreis: number;
 }
 
-// Bestellnummer formatieren: ATBS-463-B1
-function formatBestellNr(bestellung: Bestellung): string {
-  return `${bestellung.atbs_nummer}-B${bestellung.projekt_bestell_nr}`;
+// Dokumentennummer formatieren: ATBS-463-B1 (Bestellung) oder ATBS-463-A1 (Anfrage)
+function formatDokumentNr(bestellung: Bestellung): string {
+  const prefix = bestellung.bestelltyp === 'angebotsanfrage' ? 'A' : 'B';
+  return `${bestellung.atbs_nummer}-${prefix}${bestellung.projekt_bestell_nr}`;
 }
 
 // OAuth2 Token holen
@@ -207,7 +210,7 @@ function formatLieferort(ort: string): string {
 
 // HTML generieren für E-Mail
 function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
-  const bestellNr = formatBestellNr(bestellung);
+  const bestellNr = formatDokumentNr(bestellung);
   const haendler = bestellung.grosshaendler;
   const istAngebotsanfrage = bestellung.bestelltyp === 'angebotsanfrage';
   const typLabel = istAngebotsanfrage ? 'Angebotsanfrage' : 'Bestellung';
@@ -434,7 +437,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const bestellNr = formatBestellNr(bestellung as unknown as Bestellung);
+    const bestellNr = formatDokumentNr(bestellung as unknown as Bestellung);
     const haendler = bestellung.grosshaendler as { kurzname?: string; name: string };
     console.log(`Bestellung ${bestellNr} mit ${positionen?.length || 0} Positionen geladen`);
 
@@ -500,6 +503,58 @@ Deno.serve(async (req: Request) => {
       .update({ html_content: htmlContent })
       .eq('id', bestellung_id);
 
+    // Typ-abhängiger Dokumenttyp
+    const istAngebotsanfrage = (bestellung as any).bestelltyp === 'angebotsanfrage';
+    const dokumentTyp = istAngebotsanfrage ? 'sonstiges' : 'bestellung';
+
+    // Dokument in dokumente-Tabelle einfügen (wenn PDF vorhanden)
+    if (pdfUrl) {
+      const dokId = bestellNr; // z.B. "ATBS-456-B1"
+
+      // Prüfen ob Dokument bereits existiert
+      const { data: existingDoc } = await supabase
+        .from('dokumente')
+        .select('id')
+        .eq('dok_id', dokId)
+        .single();
+
+      if (!existingDoc) {
+        const { error: dokError } = await supabase
+          .from('dokumente')
+          .insert({
+            dok_id: dokId,
+            dok_typ: dokumentTyp,
+            atbs_nummer: bestellung.atbs_nummer,
+            bezeichnung: dokId,
+            beschreibung: istAngebotsanfrage
+              ? `Angebotsanfrage ${dokId} - ${haendler.kurzname || haendler.name}`
+              : `Bestellung ${dokId} - ${haendler.kurzname || haendler.name}`,
+            status: 'aktiv',
+            erstellt_von: bestellung.bestellt_von_email,
+            erstellt_am: new Date().toISOString(),
+            bestellung_id: bestellung_id,
+            datei_url: pdfUrl,
+            datei_name: pdfFileName || `${dokId}.pdf`,
+            datei_groesse: pdfBytes?.length || 0,
+            metadata: {
+              bestelltyp: bestellung.bestelltyp,
+              grosshaendler: haendler.kurzname || haendler.name,
+              summe_netto: bestellung.summe_netto,
+              summe_brutto: bestellung.summe_brutto,
+              anzahl_positionen: bestellung.anzahl_positionen
+            }
+          });
+
+        if (dokError) {
+          console.error('Fehler beim Erstellen des Dokuments:', dokError);
+        } else {
+          console.log(`Dokument ${dokId} in dokumente-Tabelle erstellt (Typ: ${dokumentTyp})`);
+        }
+      } else {
+        console.log(`Dokument ${dokId} existiert bereits`);
+      }
+    }
+
     // E-Mail senden
     if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET) {
       console.warn('Microsoft Graph nicht konfiguriert - E-Mail wird übersprungen');
@@ -510,6 +565,8 @@ Deno.serve(async (req: Request) => {
           bestell_nr: bestellNr,
           pdf_url: pdfUrl,
           email_sent: false,
+          dokument_typ: dokumentTyp,
+          dokument_erstellt: !!pdfUrl,
           message: 'HTML und PDF generiert, E-Mail-Versand nicht konfiguriert'
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -518,8 +575,7 @@ Deno.serve(async (req: Request) => {
 
     const accessToken = await getAccessToken();
 
-    // Typ-abhängiger Betreff
-    const istAngebotsanfrage = (bestellung as any).bestelltyp === 'angebotsanfrage';
+    // Typ-abhängiger Betreff (istAngebotsanfrage bereits oben definiert)
     const typLabel = istAngebotsanfrage ? 'Angebotsanfrage' : 'Bestellung';
     const subject = `${typLabel} ${bestellNr} - ${haendler.kurzname || haendler.name}`;
 
@@ -550,7 +606,9 @@ Deno.serve(async (req: Request) => {
         email_to: emailEmpfaenger,
         email_cc: CC_BAULEITUNG,
         bestelltyp: istAngebotsanfrage ? 'angebotsanfrage' : 'bestellung',
-        pdf_attached: !!pdfBytes
+        pdf_attached: !!pdfBytes,
+        dokument_typ: dokumentTyp,
+        dokument_erstellt: !!pdfUrl
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

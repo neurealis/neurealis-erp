@@ -3,9 +3,10 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 import { PDFDocument, StandardFonts, rgb } from "npm:pdf-lib@1.17.1";
 
 /**
- * generate-bestellung-pdf v1
+ * generate-bestellung-pdf v2
  *
- * Generiert PDF für eine Bestellung und speichert es in Supabase Storage.
+ * Generiert PDF für eine Bestellung/Anfrage und speichert es in Supabase Storage.
+ * Dokumentennummer: ATBS-***-B* (Bestellung) oder ATBS-***-A* (Anfrage)
  * Aktualisiert bestellungen.pdf_url und dokumente.datei_url
  */
 
@@ -42,6 +43,7 @@ interface Bestellung {
   bestellt_von_email: string;
   bestellt_von_name: string;
   bestellt_am: string;
+  bestelltyp: 'bestellung' | 'angebotsanfrage';
   grosshaendler: {
     name: string;
     kurzname: string;
@@ -60,9 +62,10 @@ interface Position {
   gesamtpreis: number;
 }
 
-// Bestellnummer formatieren: ATBS-463-B1
-function formatBestellNr(bestellung: Bestellung): string {
-  return `${bestellung.atbs_nummer}-B${bestellung.projekt_bestell_nr}`;
+// Dokumentennummer formatieren: ATBS-463-B1 (Bestellung) oder ATBS-463-A1 (Anfrage)
+function formatDokumentNr(bestellung: Bestellung): string {
+  const prefix = bestellung.bestelltyp === 'angebotsanfrage' ? 'A' : 'B';
+  return `${bestellung.atbs_nummer}-${prefix}${bestellung.projekt_bestell_nr}`;
 }
 
 // Preis formatieren
@@ -112,8 +115,10 @@ async function generatePdf(bestellung: Bestellung, positionen: Position[]): Prom
   const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  const bestellNr = formatBestellNr(bestellung);
+  const dokumentNr = formatDokumentNr(bestellung);
   const haendler = bestellung.grosshaendler;
+  const istAnfrage = bestellung.bestelltyp === 'angebotsanfrage';
+  const typLabel = istAnfrage ? 'Angebotsanfrage' : 'Bestellung';
 
   // A4 Seite
   const pageWidth = 595.28;
@@ -134,9 +139,9 @@ async function generatePdf(bestellung: Bestellung, positionen: Position[]): Prom
     color: GRAY_400,
   });
 
-  // Bestellnummer als Titel
+  // Dokumentnummer als Titel
   y -= 25;
-  page.drawText(`Bestellung ${bestellNr}`, {
+  page.drawText(`${typLabel} ${dokumentNr}`, {
     x: margin,
     y: y,
     size: 22,
@@ -157,15 +162,20 @@ async function generatePdf(bestellung: Bestellung, positionen: Position[]): Prom
   // === HINWEIS-BOX ===
   y -= 30;
   const hinweisHeight = 35;
+  const hinweisColor = istAnfrage ? rgb(37/255, 99/255, 235/255) : rgb(75/255, 85/255, 99/255);
+  const hinweisText = istAnfrage
+    ? `Angebotsanfrage: Bitte senden Sie uns ein Angebot. Projektnummer ${bestellung.atbs_nummer} auf allen Dokumenten angeben.`
+    : `Hinweis: Bitte die Projektnummer ${bestellung.atbs_nummer} auf allen Dokumenten angeben.`;
+
   page.drawRectangle({
     x: margin,
     y: y - hinweisHeight,
     width: contentWidth,
     height: hinweisHeight,
-    color: rgb(75/255, 85/255, 99/255),
+    color: hinweisColor,
   });
 
-  page.drawText(`Hinweis: Bitte die Projektnummer ${bestellung.atbs_nummer} auf allen Dokumenten angeben.`, {
+  page.drawText(hinweisText, {
     x: margin + 12,
     y: y - 22,
     size: 10,
@@ -358,7 +368,8 @@ async function generatePdf(bestellung: Bestellung, positionen: Position[]): Prom
     ? new Date(bestellung.bestellt_am).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })
     : new Date().toLocaleDateString('de-DE');
 
-  page.drawText(`Bestellt von: ${bestellung.bestellt_von_name} (${bestellung.bestellt_von_email}) · ${bestellDatum}`, {
+  const footerLabel = istAnfrage ? 'Angefragt von' : 'Bestellt von';
+  page.drawText(`${footerLabel}: ${bestellung.bestellt_von_name} (${bestellung.bestellt_von_email}) · ${bestellDatum}`, {
     x: margin,
     y: footerY + 5,
     size: 8,
@@ -406,7 +417,7 @@ Deno.serve(async (req: Request) => {
         lieferadresse, lieferort, gewuenschtes_lieferdatum, zeitfenster,
         ansprechpartner_name, ansprechpartner_telefon,
         summe_netto, summe_brutto, anzahl_positionen, notizen,
-        bestellt_von_email, bestellt_von_name, bestellt_am,
+        bestellt_von_email, bestellt_von_name, bestellt_am, bestelltyp,
         grosshaendler:grosshaendler_id (name, kurzname, typ)
       `)
       .eq('id', bestellung_id)
@@ -435,8 +446,8 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const bestellNr = formatBestellNr(bestellung as unknown as Bestellung);
-    console.log(`Bestellung ${bestellNr} mit ${positionen?.length || 0} Positionen geladen`);
+    const dokumentNr = formatDokumentNr(bestellung as unknown as Bestellung);
+    console.log(`Bestellung ${dokumentNr} mit ${positionen?.length || 0} Positionen geladen`);
 
     // PDF generieren
     const pdfBytes = await generatePdf(bestellung as unknown as Bestellung, positionen || []);
@@ -448,7 +459,7 @@ Deno.serve(async (req: Request) => {
     const haendlerName = (haendler.kurzname || haendler.name)
       .replace(/[\/\\:*?"<>|]/g, '-')  // Ungültige Dateinamen-Zeichen ersetzen
       .replace(/\s+/g, '_');
-    const fileName = `${datum}_${bestellNr}_${haendlerName}.pdf`;
+    const fileName = `${datum}_${dokumentNr}_${haendlerName}.pdf`;
 
     // In Storage hochladen
     const storagePath = `${bestellung.atbs_nummer}/${fileName}`;
@@ -490,13 +501,13 @@ Deno.serve(async (req: Request) => {
       })
       .eq('bestellung_id', bestellung_id);
 
-    console.log(`Datenbank aktualisiert für ${bestellNr}`);
+    console.log(`Datenbank aktualisiert für ${dokumentNr}`);
 
     return new Response(
       JSON.stringify({
         success: true,
         bestellung_id,
-        bestell_nr: bestellNr,
+        bestell_nr: dokumentNr,
         pdf_url: publicUrl,
         file_name: fileName,
         file_size: pdfBytes.length

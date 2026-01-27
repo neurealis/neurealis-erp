@@ -34,3 +34,6 @@ CON
 
 # Local Netlify folder
 .netlify
+.claude/
+*.txt
+softr_docs_mapped.json
