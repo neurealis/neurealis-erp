@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "pdfkit": "^0.17.2"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.93.1"
+  }
+}
