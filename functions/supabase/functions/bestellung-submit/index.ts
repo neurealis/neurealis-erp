@@ -16,9 +16,18 @@ const CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 const BESTELLUNG_EMPFAENGER = 'holger.neumann@neurealis.de';
 const SENDER_EMAIL = 'kontakt@neurealis.de';
 
+// Corporate Design Farben
+const BRAND_RED = '#E53935';
+const BRAND_RED_DARK = '#C62828';
+const GRAY_800 = '#1f2937';
+const GRAY_600 = '#4b5563';
+const GRAY_500 = '#6b7280';
+const SUCCESS_GREEN = '#059669';
+
 interface Bestellung {
   id: string;
   bestell_nr: number;
+  projekt_bestell_nr: number;
   atbs_nummer: string;
   projekt_name: string;
   lieferadresse: string;
@@ -49,6 +58,11 @@ interface Position {
   einheit: string;
   einzelpreis: number;
   gesamtpreis: number;
+}
+
+// Bestellnummer formatieren: ATBS-463-B1
+function formatBestellNr(bestellung: Bestellung): string {
+  return `${bestellung.atbs_nummer}-B${bestellung.projekt_bestell_nr}`;
 }
 
 // OAuth2 Token holen
@@ -148,19 +162,22 @@ function formatLieferort(ort: string): string {
   return orte[ort] || ort;
 }
 
-// HTML generieren
+// HTML generieren - Corporate Design (Rot)
 function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
+  const bestellNr = formatBestellNr(bestellung);
+  const haendler = bestellung.grosshaendler;
+
   const positionenHtml = positionen.map(p => `
     <tr>
-      <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: center;">${p.position_nr}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #e5e7eb;">
-        <strong>${p.bezeichnung}</strong>
-        ${p.hersteller ? `<br><small style="color: #6b7280;">${p.hersteller}</small>` : ''}
-        ${p.artikelnummer ? `<br><small style="color: #9ca3af;">Art.-Nr.: ${p.artikelnummer}</small>` : ''}
+      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: center; color: ${GRAY_500};">${p.position_nr}</td>
+      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">
+        <strong style="color: ${GRAY_800};">${p.bezeichnung}</strong>
+        ${p.hersteller ? `<br><span style="color: ${GRAY_500}; font-size: 13px;">${p.hersteller}</span>` : ''}
+        ${p.artikelnummer ? `<br><span style="color: #9ca3af; font-size: 12px;">Art.-Nr.: ${p.artikelnummer}</span>` : ''}
       </td>
-      <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: right;">${p.menge} ${p.einheit}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: right;">${formatPreis(p.einzelpreis)}</td>
-      <td style="padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600;">${formatPreis(p.gesamtpreis)}</td>
+      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; white-space: nowrap;">${p.menge} ${p.einheit}</td>
+      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;">${formatPreis(p.einzelpreis)}</td>
+      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600;">${formatPreis(p.gesamtpreis)}</td>
     </tr>
   `).join('');
 
@@ -169,102 +186,154 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Bestellung B-${bestellung.bestell_nr}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1f2937; line-height: 1.5; margin: 0; padding: 20px; }
-    .container { max-width: 800px; margin: 0 auto; }
-    .header { background: #2563eb; color: white; padding: 24px; border-radius: 8px 8px 0 0; }
-    .header h1 { margin: 0 0 8px 0; font-size: 24px; }
-    .header p { margin: 0; opacity: 0.9; }
-    .content { background: white; padding: 24px; border: 1px solid #e5e7eb; border-top: none; }
-    .section { margin-bottom: 24px; }
-    .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280; margin-bottom: 8px; font-weight: 600; }
-    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .info-item { background: #f9fafb; padding: 12px; border-radius: 6px; }
-    .info-label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
-    .info-value { font-weight: 500; }
-    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-    th { background: #f3f4f6; padding: 12px 8px; text-align: left; font-size: 12px; text-transform: uppercase; color: #6b7280; font-weight: 600; }
-    th:nth-child(1) { width: 50px; text-align: center; }
-    th:nth-child(3), th:nth-child(4), th:nth-child(5) { text-align: right; }
-    .total-row td { border-top: 2px solid #e5e7eb; padding-top: 12px; font-weight: 600; }
-    .total-value { font-size: 18px; color: #059669; }
-    .footer { background: #f9fafb; padding: 16px 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px; font-size: 14px; color: #6b7280; }
-    .notes { background: #fef3c7; padding: 12px; border-radius: 6px; margin-top: 16px; }
-    .notes-title { font-weight: 600; color: #92400e; margin-bottom: 4px; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestellung ${bestellNr}</title>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Bestellung B-${bestellung.bestell_nr}</h1>
-      <p>${bestellung.grosshaendler.kurzname || bestellung.grosshaendler.name} - ${bestellung.grosshaendler.typ}</p>
-    </div>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: ${GRAY_800}; line-height: 1.5; background-color: #f5f5f7;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f7; padding: 20px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
 
-    <div class="content">
-      <div class="section">
-        <div class="section-title">Lieferinformationen</div>
-        <div class="info-grid">
-          <div class="info-item">
-            <div class="info-label">Projekt</div>
-            <div class="info-value">${bestellung.atbs_nummer}</div>
-            <div style="font-size: 14px; color: #6b7280;">${bestellung.projekt_name?.split('|')[1]?.trim() || bestellung.projekt_name || '-'}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Lieferort</div>
-            <div class="info-value">${formatLieferort(bestellung.lieferort)}</div>
-            <div style="font-size: 14px; color: #6b7280;">${bestellung.lieferadresse || '-'}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Lieferdatum</div>
-            <div class="info-value">${formatDatum(bestellung.gewuenschtes_lieferdatum)}</div>
-            ${bestellung.zeitfenster ? `<div style="font-size: 14px; color: #6b7280;">${formatZeitfenster(bestellung.zeitfenster)}</div>` : ''}
-          </div>
-          <div class="info-item">
-            <div class="info-label">Ansprechpartner vor Ort</div>
-            <div class="info-value">${bestellung.ansprechpartner_name || '-'}</div>
-            ${bestellung.ansprechpartner_telefon ? `<div style="font-size: 14px; color: #6b7280;">${bestellung.ansprechpartner_telefon}</div>` : ''}
-          </div>
-        </div>
-      </div>
+          <!-- Header -->
+          <tr>
+            <td style="background: ${BRAND_RED}; padding: 24px 30px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 600; color: white;">Bestellung ${bestellNr}</h1>
+                    <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 15px;">${haendler.kurzname || haendler.name}</p>
+                  </td>
+                  <td align="right" style="vertical-align: top;">
+                    <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Material</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-      <div class="section">
-        <div class="section-title">Bestellpositionen (${bestellung.anzahl_positionen})</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Pos.</th>
-              <th>Artikel</th>
-              <th>Menge</th>
-              <th>Einzelpreis</th>
-              <th>Gesamt</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${positionenHtml}
-          </tbody>
-          <tfoot>
-            <tr class="total-row">
-              <td colspan="4" style="text-align: right; padding: 12px 8px;">Gesamtsumme (netto)</td>
-              <td style="text-align: right; padding: 12px 8px;" class="total-value">${formatPreis(bestellung.summe_netto)}</td>
-            </tr>
-          </tfoot>
+          <!-- Wichtiger Hinweis -->
+          <tr>
+            <td style="background: ${BRAND_RED_DARK}; padding: 12px 30px;">
+              <p style="margin: 0; color: white; font-size: 13px; font-weight: 500;">
+                <strong>Wichtig:</strong> Bitte die Projektnummer <strong>${bestellung.atbs_nummer}</strong> auf allen Dokumenten (Lieferschein, Rechnung) angeben!
+              </p>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="background: white; padding: 30px;">
+
+              <!-- Lieferinformationen -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+                <tr>
+                  <td colspan="2" style="padding-bottom: 12px;">
+                    <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${GRAY_500}; font-weight: 600;">Lieferinformationen</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%" style="padding: 0 8px 16px 0; vertical-align: top;">
+                    <div style="background: #f9fafb; padding: 14px; border-left: 3px solid ${BRAND_RED};">
+                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Projekt</div>
+                      <div style="font-weight: 600; font-size: 16px; color: ${GRAY_800};">${bestellung.atbs_nummer}</div>
+                    </div>
+                  </td>
+                  <td width="50%" style="padding: 0 0 16px 8px; vertical-align: top;">
+                    <div style="background: #f9fafb; padding: 14px;">
+                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferort</div>
+                      <div style="font-weight: 500;">${formatLieferort(bestellung.lieferort)}</div>
+                      <div style="font-size: 13px; color: ${GRAY_600};">${bestellung.lieferadresse || '-'}</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%" style="padding: 0 8px 0 0; vertical-align: top;">
+                    <div style="background: #f9fafb; padding: 14px;">
+                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferdatum</div>
+                      <div style="font-weight: 500;">${formatDatum(bestellung.gewuenschtes_lieferdatum)}</div>
+                      ${bestellung.zeitfenster ? `<div style="font-size: 13px; color: ${GRAY_600};">${formatZeitfenster(bestellung.zeitfenster)}</div>` : ''}
+                    </div>
+                  </td>
+                  <td width="50%" style="padding: 0 0 0 8px; vertical-align: top;">
+                    <div style="background: #f9fafb; padding: 14px;">
+                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Ansprechpartner vor Ort</div>
+                      <div style="font-weight: 500;">${bestellung.ansprechpartner_name || '-'}</div>
+                      ${bestellung.ansprechpartner_telefon ? `<div style="font-size: 14px; color: ${BRAND_RED}; font-weight: 600;"><a href="tel:${bestellung.ansprechpartner_telefon}" style="color: ${BRAND_RED}; text-decoration: none;">&#9742; ${bestellung.ansprechpartner_telefon}</a></div>` : ''}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Bestellpositionen -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding-bottom: 12px;">
+                    <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${GRAY_500}; font-weight: 600;">Bestellpositionen (${bestellung.anzahl_positionen})</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb;">
+                      <thead>
+                        <tr style="background: #f3f4f6;">
+                          <th style="padding: 12px 8px; text-align: center; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; width: 50px;">Pos.</th>
+                          <th style="padding: 12px 8px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Artikel</th>
+                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Menge</th>
+                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Einzelpreis</th>
+                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Gesamt</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${positionenHtml}
+                      </tbody>
+                      <tfoot>
+                        <tr style="background: #f9fafb;">
+                          <td colspan="4" style="padding: 14px 8px; text-align: right; font-weight: 600; border-top: 2px solid #e5e7eb;">Gesamtsumme (netto)</td>
+                          <td style="padding: 14px 8px; text-align: right; font-weight: 700; font-size: 18px; color: ${SUCCESS_GREEN}; border-top: 2px solid #e5e7eb;">${formatPreis(bestellung.summe_netto)}</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              ${bestellung.notizen ? `
+              <!-- Lieferhinweise -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+                <tr>
+                  <td style="background: #fef3c7; padding: 14px; border-left: 3px solid #f59e0b;">
+                    <div style="font-weight: 600; color: #92400e; margin-bottom: 4px; font-size: 13px;">Lieferhinweise</div>
+                    <div style="color: #78350f; font-size: 14px;">${bestellung.notizen}</div>
+                  </td>
+                </tr>
+              </table>
+              ` : ''}
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background: #f3f4f6; padding: 20px 30px; border-top: 1px solid #e5e7eb;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="font-size: 13px; color: ${GRAY_600};">
+                    Bestellt von: <strong>${bestellung.bestellt_von_name}</strong> (${bestellung.bestellt_von_email})<br>
+                    ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
+                  </td>
+                  <td align="right" style="vertical-align: top;">
+                    <span style="font-size: 12px; color: ${GRAY_500};">neurealis GmbH</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
         </table>
-      </div>
-
-      ${bestellung.notizen ? `
-      <div class="notes">
-        <div class="notes-title">Lieferhinweise</div>
-        <div>${bestellung.notizen}</div>
-      </div>
-      ` : ''}
-    </div>
-
-    <div class="footer">
-      Bestellt von: ${bestellung.bestellt_von_name} (${bestellung.bestellt_von_email})<br>
-      Datum: ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
-    </div>
-  </div>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
   `.trim();
@@ -299,11 +368,11 @@ Deno.serve(async (req: Request) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Bestellung laden
+    // Bestellung laden (mit projekt_bestell_nr)
     const { data: bestellung, error: bestellError } = await supabase
       .from('bestellungen')
       .select(`
-        id, bestell_nr, atbs_nummer, projekt_name,
+        id, bestell_nr, projekt_bestell_nr, atbs_nummer, projekt_name,
         lieferadresse, lieferort, gewuenschtes_lieferdatum, zeitfenster,
         ansprechpartner_name, ansprechpartner_telefon,
         summe_netto, anzahl_positionen, notizen,
@@ -336,7 +405,8 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log(`Bestellung B-${bestellung.bestell_nr} mit ${positionen?.length || 0} Positionen geladen`);
+    const bestellNr = formatBestellNr(bestellung as unknown as Bestellung);
+    console.log(`Bestellung ${bestellNr} mit ${positionen?.length || 0} Positionen geladen`);
 
     // HTML generieren
     const htmlContent = generateHtml(bestellung as unknown as Bestellung, positionen || []);
@@ -354,7 +424,7 @@ Deno.serve(async (req: Request) => {
         JSON.stringify({
           success: true,
           bestellung_id,
-          bestell_nr: bestellung.bestell_nr,
+          bestell_nr: bestellNr,
           email_sent: false,
           message: 'HTML generiert, E-Mail-Versand nicht konfiguriert'
         }),
@@ -363,7 +433,8 @@ Deno.serve(async (req: Request) => {
     }
 
     const accessToken = await getAccessToken();
-    const subject = `Bestellung B-${bestellung.bestell_nr} - ${(bestellung.grosshaendler as { kurzname?: string; name: string }).kurzname || (bestellung.grosshaendler as { name: string }).name} - ${bestellung.atbs_nummer}`;
+    const haendler = bestellung.grosshaendler as { kurzname?: string; name: string };
+    const subject = `Bestellung ${bestellNr} - ${haendler.kurzname || haendler.name}`;
 
     await sendEmail(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent);
 
@@ -382,7 +453,7 @@ Deno.serve(async (req: Request) => {
       JSON.stringify({
         success: true,
         bestellung_id,
-        bestell_nr: bestellung.bestell_nr,
+        bestell_nr: bestellNr,
         email_sent: true,
         email_to: BESTELLUNG_EMPFAENGER
       }),
