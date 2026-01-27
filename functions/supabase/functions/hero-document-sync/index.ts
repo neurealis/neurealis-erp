@@ -89,10 +89,10 @@ interface SyncResult {
 async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[]> {
   const allDocs: HeroDocument[] = [];
 
-  for (let offset = 0; offset < 3000; offset += 100) {
-    // Kleinere Batches (100) mit metadata und file_upload
+  for (let offset = 0; offset < 2000; offset += 500) {
+    // Große Batches (500) - ohne positions für Performance
     const query = `{
-      customer_documents(first: 100, offset: ${offset}) {
+      customer_documents(first: 500, offset: ${offset}) {
         id
         nr
         type
@@ -103,16 +103,9 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
         project_match_id
         metadata {
           invoice_style
-          positions {
-            name
-            net_value
-            vat
-          }
         }
         file_upload {
-          url
           filename
-          temporary_url
         }
       }
     }`;
@@ -138,10 +131,10 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
 
       console.log(`Fetched ${docs.length} docs at offset ${offset}`);
 
-      if (docs.length < 100) break;
+      if (docs.length < 500) break;
 
       // Rate limiting
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 50));
     } catch (err) {
       console.error(`Error fetching at offset ${offset}:`, err);
       break;

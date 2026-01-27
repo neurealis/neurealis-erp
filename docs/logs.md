@@ -12,6 +12,7 @@
 | LOG-002 | 2026-01-27 | Hero API Rechnungssync - invoice_style Entdeckung | Dokumentiert |
 | LOG-003 | 2026-01-27 | VBW LV 2026 - Preisvergleich & Materialvorschläge | Abgeschlossen |
 | LOG-004 | 2026-01-27 | VBW LV 2026 - Entscheidungsgrundlage v1.1 (Final) | Abgeschlossen |
+| LOG-005 | 2026-01-28 | UI CRUD + Netlify Deployment | Abgeschlossen |
 
 ---
 
@@ -291,4 +292,64 @@ Professionelles Entscheidungsdokument für Preisverhandlung mit VBW erstellt. En
 
 ---
 
-*Aktualisiert: 2026-01-27 23:15*
+---
+
+## LOG-005 - UI CRUD + Netlify Deployment
+
+**Datum:** 2026-01-28 ~22:00-23:30
+**Zweck:** Alle UI-Seiten editierbar machen und live deployen
+
+### Zusammenfassung
+
+Vollständiges CRUD (Create, Read, Update, Delete) für alle UI-Seiten implementiert und erfolgreich auf Netlify deployed.
+
+### Implementierte CRUD-Funktionalität
+
+| Seite | Create | Read | Update | Delete | Details |
+|-------|--------|------|--------|--------|---------|
+| **BV-Detail** | - | ✅ | ✅ | - | Kunde, Termine, Kennzahlen, Nachweise editierbar |
+| **Mängel** | ✅ | ✅ | ✅ | ✅ | Modal, Quick-Status-Actions, Fotos-URLs |
+| **Nachträge** | ✅ | ✅ | ✅ | ✅ | Modal, Auto-Marge-Berechnung |
+| **Aufgaben** | ✅ | ✅ | ✅ | ✅ | Slide-over Panel, Checkbox für Erledigt |
+| **Kontakte** | ✅ | ✅ | ✅ | ✅ (Soft) | Modal mit Sektionen, E-Mail-Validierung |
+| **Nachunternehmer** | ✅ | ✅ | ✅ | ✅ (Soft) | 3-Tab-Modal: Stammdaten, Gewerke, Nachweise |
+| **Finanzen** | - | ✅ | - | - | Erweiterte Filter, Überfällig-Tracking |
+
+### Phasen-Visualisierung (BV-Detail)
+
+- Nummern oben in eckigen Boxen
+- Phasen-Namen darunter (Desktop: voll, Tablet: kurz, Mobile: nur Nr)
+- Farbschema: Grün (erledigt), Rot (aktiv), Grau (zukünftig)
+
+### Technische Details
+
+- 6 parallele Subagenten für CRUD-Implementierung
+- Svelte 5 $state für reaktives State-Management
+- Loading/Success/Error States überall
+- Bestätigungs-Dialoge beim Löschen
+- Optimistic UI Updates
+- Soft-Delete für Kontakte und NUs
+
+### Netlify Deployment
+
+**Problem:** Erster Deploy zeigte 404 - nur `build/` Ordner ohne Functions deployed.
+
+**Lösung:** `netlify deploy --prod` ohne `--dir` Flag verwenden, damit Netlify die `.netlify/functions-internal/` mit deployed.
+
+**URL:** https://neurealis-erp.netlify.app
+
+### Git Commits
+
+1. `143c136` - feat: UI-Migration Softr → SvelteKit komplett (50 Dateien, +23k Zeilen)
+2. `9864cfe` - chore: Cleanup + Edge Functions Update
+3. `a172db1` - feat: Vollständiges CRUD für alle UI-Seiten (+7.5k Zeilen)
+4. `262800b` - fix: Svelte @const placement in nachunternehmer
+
+### Behobene Fehler
+
+1. **Svelte @const Placement:** `{@const}` muss innerhalb `{#if}` oder `{#each}` sein, nicht direkt in `<div>`
+2. **Netlify Functions:** adapter-netlify generiert Functions in `.netlify/`, nicht in `build/`
+
+---
+
+*Aktualisiert: 2026-01-28 23:30*

@@ -162,4 +162,40 @@
 
 ---
 
-*Aktualisiert: 2026-01-27 23:45*
+## Deployment
+
+### L020 - Svelte 5 @const Placement
+**Datum:** 2026-01-28
+**Problem:** `{@const}` direkt in `<div>` verursacht Build-Fehler
+**Lösung:** `{@const}` muss innerhalb von `{#if}`, `{#each}`, `{:else}`, etc. sein
+**Beispiel:**
+```svelte
+<!-- FALSCH -->
+<div>
+  {@const wert = berechnung()}
+  {wert}
+</div>
+
+<!-- RICHTIG -->
+{#if true}
+  {@const wert = berechnung()}
+  <div>{wert}</div>
+{/if}
+```
+
+### L021 - Netlify adapter-netlify: Edge Functions bevorzugen
+**Datum:** 2026-01-28
+**Problem:** 404 nach Deploy trotz korrekter Functions
+**Ursache:** Regular Functions (`edge: false`) funktionierten nicht zuverlässig
+**Lösung:** `edge: true` in svelte.config.js verwenden
+```javascript
+adapter: adapter({
+  edge: true,  // <- wichtig!
+  split: false
+})
+```
+**Vorteil:** Edge Functions sind schneller und zuverlässiger
+
+---
+
+*Aktualisiert: 2026-01-28 23:30*

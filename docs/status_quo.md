@@ -28,6 +28,21 @@
 | **Kundenportal** | ⏳ Geplant | - | Gleiche Komponenten, andere Navigation |
 | **Partnerportal** | ⏳ Geplant | - | Gleiche Komponenten, andere Navigation |
 
+### CRUD-Status (NEU)
+
+| Seite | Create | Update | Delete |
+|-------|--------|--------|--------|
+| Mängel | ✅ | ✅ | ✅ |
+| Nachträge | ✅ | ✅ | ✅ |
+| Aufgaben | ✅ | ✅ | ✅ |
+| Kontakte | ✅ | ✅ | ✅ (Soft) |
+| Nachunternehmer | ✅ | ✅ | ✅ (Soft) |
+| BV-Detail | - | ✅ | - |
+
+### Deployment
+
+**Netlify:** https://neurealis-erp.netlify.app (Live)
+
 ### Supabase-Datenquellen (angebunden)
 
 | Tabelle | Seite | Datensätze |

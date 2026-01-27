@@ -252,11 +252,26 @@ curl -s -X POST https://login.hero-software.de/api/external/v7/graphql \
 
 ---
 
-## Nächste Schritte
+## Implementierungsstatus
 
-1. [ ] `hero-document-sync` Edge Function anpassen: `invoice_style` statt Fallback-Logik
-2. [ ] Einmalig alle Hero-Daten durchlaufen und fehlende Netto/Brutto in Supabase ergänzen
-3. [ ] Positionen als Text-Feld in `softr_dokumente` speichern (optional)
+### ✅ Erledigt (2026-01-27)
+
+1. **Edge Function `hero-document-sync` v7 deployed**
+   - `metadata.invoice_style` wird jetzt primär verwendet
+   - Entwürfe (null) werden ignoriert
+   - Dateiname wird aus Hero übernommen
+   - Typ-Korrektur bei Abweichungen
+
+2. **Sync-Ergebnis:**
+   - 642 Hero-Dokumente geprüft
+   - 146 Rechnungen korrekt (keine Änderung nötig)
+   - **0 Typ-Korrekturen** - alle Typen waren bereits korrekt!
+   - Validierung: Die alte Fallback-Logik funktionierte gut
+
+### Offen
+
+- [ ] Neue Dokumente (ANG, NUA, AB) automatisch anlegen (derzeit nur Update)
+- [ ] Positionen als Text-Feld speichern (optional)
 
 ---
 
