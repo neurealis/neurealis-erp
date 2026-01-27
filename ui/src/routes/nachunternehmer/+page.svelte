@@ -1185,8 +1185,8 @@ neurealis GmbH`;
 				<button class="modal-close" onclick={() => selectedNU = null}>X</button>
 			</div>
 			<div class="modal-body">
-				{@const zeitraum = getProjektZeitraum(selectedNU.projekte)}
-				{#if zeitraum}
+				{#if getProjektZeitraum(selectedNU.projekte)}
+					{@const zeitraum = getProjektZeitraum(selectedNU.projekte)}
 					<div class="projekt-zeitraum">
 						<strong>Zusammenarbeit:</strong> {new Date(zeitraum.von).toLocaleDateString('de-DE')} - {new Date(zeitraum.bis).toLocaleDateString('de-DE')}
 					</div>
