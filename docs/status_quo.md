@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-01-27 22:30 (aktualisiert)
+**Stand:** 2026-01-28 01:00 (aktualisiert)
 
 ---
 
@@ -97,14 +97,45 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **VBW Verhandlung (28.01.):** Entscheidungsgrundlage v1.1 finalisiert (PDF/DOCX)
+→ **VBW Verhandlung (28.01.):** Entscheidungsgrundlage PDF fertig
 → **Hero Rechnungssync optimieren:** `invoice_style` statt Fallback-Logik
 → Kundenportal-Seiten: /angebote, /ansprechpartner, /rechnungen
 → Partnerportal-Seiten: /auftraege, /lvs, /nachweise, /vorlagen
 
 ---
 
-## Letzte Session (2026-01-27)
+## Letzte Session (2026-01-28)
+
+**VBW LV 2026 Preisverhandlung & PDF-Generator:**
+- VBW Entscheidungsgrundlage HTML + PDF erstellt
+- Preisvergleich 2023 vs. 2026 mit GWS-Referenzpreisen
+- Tabellarische GWS-Vergleiche mit Artikelnummern
+- Leerstandskosten-Berechnung: 357.000 €/Jahr bei 3 Wochen Verzögerung
+- Prozessoptimierung für direkten Baustart nach Auszug
+
+**PDF-Generator (global nutzbar):**
+- Puppeteer-basierte HTML→PDF Konvertierung
+- Templates für Rechnungen und Angebote
+- neurealis Corporate Design integriert
+- Pfad: `C:\Users\holge\shared\lib\pdf-generator.mjs`
+
+**Verwendung:**
+```javascript
+import { generateInvoice, generateQuote, generatePDFFromHTML } from 'C:/Users/holge/shared/lib/pdf-generator.mjs';
+
+await generateInvoice({ rechnungsnummer: 'RE-2026-001', kunde: {...}, positionen: [...] }, 'rechnung.pdf');
+await generateQuote({ angebotsnummer: 'ANG-2026-001', ... }, 'angebot.pdf');
+await generatePDFFromHTML('<h1>Dokument</h1>', 'output.pdf');
+```
+
+**CLI:**
+```bash
+node C:\Users\holge\shared\lib\pdf-generator.mjs input.html output.pdf
+```
+
+---
+
+## Session davor (2026-01-27)
 
 **Einkauf-Erweiterung & Sidebar-Restructuring:**
 - Sidebar: Einkauf als aufklappbares Untermenü (Übersicht, Bestellung, Bestellungen, LV-Export)
