@@ -107,7 +107,10 @@ SELECT net.http_post(
 
 ## Offene Punkte
 
-1. **nachtrag-notify v18 deployen** - Lokale Datei ist aktualisiert, muss noch zu Supabase deployed werden (via Dashboard oder CLI mit Access Token)
+1. **nachtrag-notify v18 deployen** - Manuell via Supabase Dashboard deployen:
+   - Dashboard: https://supabase.com/dashboard/project/mfpuijttdgkllnvhvjlu/functions
+   - Lokale Datei: `functions/supabase/functions/nachtrag-notify/index.ts`
+   - Inhalt kopieren und im Dashboard einfügen
 
 ---
 
