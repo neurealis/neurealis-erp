@@ -162,22 +162,22 @@ function formatLieferort(ort: string): string {
   return orte[ort] || ort;
 }
 
-// HTML generieren - Corporate Design (Rot)
+// HTML generieren - Clean Design mit einheitlichem Rahmen
 function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
   const bestellNr = formatBestellNr(bestellung);
   const haendler = bestellung.grosshaendler;
 
   const positionenHtml = positionen.map(p => `
     <tr>
-      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: center; color: ${GRAY_500};">${p.position_nr}</td>
-      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: center; color: ${GRAY_500}; width: 50px;">${p.position_nr}</td>
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; width: 120px;">${p.artikelnummer || '-'}</td>
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb;">
         <strong style="color: ${GRAY_800};">${p.bezeichnung}</strong>
         ${p.hersteller ? `<br><span style="color: ${GRAY_500}; font-size: 13px;">${p.hersteller}</span>` : ''}
-        ${p.artikelnummer ? `<br><span style="color: #9ca3af; font-size: 12px;">Art.-Nr.: ${p.artikelnummer}</span>` : ''}
       </td>
-      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; white-space: nowrap;">${p.menge} ${p.einheit}</td>
-      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right;">${formatPreis(p.einzelpreis)}</td>
-      <td style="padding: 10px 8px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600;">${formatPreis(p.gesamtpreis)}</td>
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; white-space: nowrap; width: 80px;">${p.menge} ${p.einheit}</td>
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; width: 100px;">${formatPreis(p.einzelpreis)}</td>
+      <td style="padding: 10px 12px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600; width: 100px;">${formatPreis(p.gesamtpreis)}</td>
     </tr>
   `).join('');
 
@@ -189,23 +189,23 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bestellung ${bestellNr}</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: ${GRAY_800}; line-height: 1.5; background-color: #f5f5f7;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f7; padding: 20px 0;">
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: ${GRAY_800}; line-height: 1.5; background-color: #f5f5f5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
     <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
+      <td align="center" style="padding: 20px;">
+        <table width="800" cellpadding="0" cellspacing="0" style="max-width: 800px; width: 100%; border: 1px solid #d1d5db;">
 
           <!-- Header -->
           <tr>
-            <td style="background: ${BRAND_RED}; padding: 24px 30px;">
+            <td style="background: #f3f4f6; padding: 20px 24px; border-bottom: 1px solid #d1d5db;">
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 600; color: white;">Bestellung ${bestellNr}</h1>
-                    <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 15px;">${haendler.kurzname || haendler.name}</p>
+                    <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: ${GRAY_800};">Bestellung ${bestellNr}</h1>
+                    <p style="margin: 4px 0 0 0; color: ${GRAY_600}; font-size: 15px;">${haendler.kurzname || haendler.name} · ${haendler.typ || 'Großhändler'}</p>
                   </td>
                   <td align="right" style="vertical-align: top;">
-                    <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Material</span>
+                    <span style="font-size: 12px; color: ${GRAY_500};">neurealis GmbH</span>
                   </td>
                 </tr>
               </table>
@@ -214,97 +214,72 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
 
           <!-- Wichtiger Hinweis -->
           <tr>
-            <td style="background: ${BRAND_RED_DARK}; padding: 12px 30px;">
-              <p style="margin: 0; color: white; font-size: 13px; font-weight: 500;">
-                <strong>Wichtig:</strong> Bitte die Projektnummer <strong>${bestellung.atbs_nummer}</strong> auf allen Dokumenten (Lieferschein, Rechnung) angeben!
+            <td style="background: #4b5563; padding: 12px 24px;">
+              <p style="margin: 0; color: #ffffff; font-size: 13px;">
+                <strong>Hinweis:</strong> Bitte die Projektnummer <strong>${bestellung.atbs_nummer}</strong> auf allen Dokumenten (Lieferschein, Rechnung) angeben.
               </p>
             </td>
           </tr>
 
           <!-- Content -->
           <tr>
-            <td style="background: white; padding: 30px;">
+            <td style="background: white; padding: 24px;">
 
-              <!-- Lieferinformationen -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+              <!-- Lieferinformationen - eine Zeile -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; background: #f9fafb; border: 1px solid #e5e7eb;">
                 <tr>
-                  <td colspan="2" style="padding-bottom: 12px;">
-                    <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${GRAY_500}; font-weight: 600;">Lieferinformationen</span>
+                  <td width="25%" style="padding: 14px 16px; border-right: 1px solid #e5e7eb;">
+                    <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Projekt</div>
+                    <div style="font-weight: 700; font-size: 15px; color: ${GRAY_800};">${bestellung.atbs_nummer}</div>
                   </td>
-                </tr>
-                <tr>
-                  <td width="50%" style="padding: 0 8px 16px 0; vertical-align: top;">
-                    <div style="background: #f9fafb; padding: 14px; border-left: 3px solid ${BRAND_RED};">
-                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Projekt</div>
-                      <div style="font-weight: 600; font-size: 16px; color: ${GRAY_800};">${bestellung.atbs_nummer}</div>
-                    </div>
+                  <td width="25%" style="padding: 14px 16px; border-right: 1px solid #e5e7eb;">
+                    <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferort</div>
+                    <div style="font-weight: 600; color: ${GRAY_800};">${formatLieferort(bestellung.lieferort)}</div>
+                    <div style="font-size: 12px; color: ${GRAY_600};">${bestellung.lieferadresse || ''}</div>
                   </td>
-                  <td width="50%" style="padding: 0 0 16px 8px; vertical-align: top;">
-                    <div style="background: #f9fafb; padding: 14px;">
-                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferort</div>
-                      <div style="font-weight: 500;">${formatLieferort(bestellung.lieferort)}</div>
-                      <div style="font-size: 13px; color: ${GRAY_600};">${bestellung.lieferadresse || '-'}</div>
-                    </div>
+                  <td width="25%" style="padding: 14px 16px; border-right: 1px solid #e5e7eb;">
+                    <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferdatum</div>
+                    <div style="font-weight: 600; color: ${GRAY_800};">${formatDatum(bestellung.gewuenschtes_lieferdatum)}</div>
+                    ${bestellung.zeitfenster ? `<div style="font-size: 12px; color: ${GRAY_600};">${formatZeitfenster(bestellung.zeitfenster)}</div>` : ''}
                   </td>
-                </tr>
-                <tr>
-                  <td width="50%" style="padding: 0 8px 0 0; vertical-align: top;">
-                    <div style="background: #f9fafb; padding: 14px;">
-                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Lieferdatum</div>
-                      <div style="font-weight: 500;">${formatDatum(bestellung.gewuenschtes_lieferdatum)}</div>
-                      ${bestellung.zeitfenster ? `<div style="font-size: 13px; color: ${GRAY_600};">${formatZeitfenster(bestellung.zeitfenster)}</div>` : ''}
-                    </div>
-                  </td>
-                  <td width="50%" style="padding: 0 0 0 8px; vertical-align: top;">
-                    <div style="background: #f9fafb; padding: 14px;">
-                      <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Ansprechpartner vor Ort</div>
-                      <div style="font-weight: 500;">${bestellung.ansprechpartner_name || '-'}</div>
-                      ${bestellung.ansprechpartner_telefon ? `<div style="font-size: 14px; color: ${BRAND_RED}; font-weight: 600;"><a href="tel:${bestellung.ansprechpartner_telefon}" style="color: ${BRAND_RED}; text-decoration: none;">&#9742; ${bestellung.ansprechpartner_telefon}</a></div>` : ''}
-                    </div>
+                  <td width="25%" style="padding: 14px 16px;">
+                    <div style="font-size: 11px; color: ${GRAY_500}; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Ansprechpartner</div>
+                    <div style="font-weight: 600; color: ${GRAY_800};">${bestellung.ansprechpartner_name || '-'}</div>
+                    ${bestellung.ansprechpartner_telefon ? `<div style="font-size: 13px; color: ${GRAY_800};"><a href="tel:${bestellung.ansprechpartner_telefon}" style="color: ${GRAY_800}; text-decoration: none;">${bestellung.ansprechpartner_telefon}</a></div>` : ''}
                   </td>
                 </tr>
               </table>
 
               <!-- Bestellpositionen -->
-              <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="padding-bottom: 12px;">
-                    <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${GRAY_500}; font-weight: 600;">Bestellpositionen (${bestellung.anzahl_positionen})</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb;">
-                      <thead>
-                        <tr style="background: #f3f4f6;">
-                          <th style="padding: 12px 8px; text-align: center; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; width: 50px;">Pos.</th>
-                          <th style="padding: 12px 8px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Artikel</th>
-                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Menge</th>
-                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Einzelpreis</th>
-                          <th style="padding: 12px 8px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600;">Gesamt</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        ${positionenHtml}
-                      </tbody>
-                      <tfoot>
-                        <tr style="background: #f9fafb;">
-                          <td colspan="4" style="padding: 14px 8px; text-align: right; font-weight: 600; border-top: 2px solid #e5e7eb;">Gesamtsumme (netto)</td>
-                          <td style="padding: 14px 8px; text-align: right; font-weight: 700; font-size: 18px; color: ${SUCCESS_GREEN}; border-top: 2px solid #e5e7eb;">${formatPreis(bestellung.summe_netto)}</td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </td>
-                </tr>
+              <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb;">
+                <thead>
+                  <tr style="background: #f3f4f6;">
+                    <th style="padding: 12px; text-align: center; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Pos.</th>
+                    <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Art.-Nr.</th>
+                    <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Bezeichnung</th>
+                    <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Menge</th>
+                    <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">EP</th>
+                    <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; color: ${GRAY_500}; font-weight: 600; border-bottom: 2px solid #e5e7eb;">Gesamt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${positionenHtml}
+                </tbody>
+                <tfoot>
+                  <tr style="background: #f9fafb;">
+                    <td colspan="5" style="padding: 14px 12px; text-align: right; font-weight: 600; border-top: 2px solid #e5e7eb;">Summe netto</td>
+                    <td style="padding: 14px 12px; text-align: right; font-weight: 700; font-size: 16px; color: ${GRAY_800}; border-top: 2px solid #e5e7eb;">${formatPreis(bestellung.summe_netto)}</td>
+                  </tr>
+                </tfoot>
               </table>
 
               ${bestellung.notizen ? `
               <!-- Lieferhinweise -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
                 <tr>
-                  <td style="background: #fef3c7; padding: 14px; border-left: 3px solid #f59e0b;">
-                    <div style="font-weight: 600; color: #92400e; margin-bottom: 4px; font-size: 13px;">Lieferhinweise</div>
-                    <div style="color: #78350f; font-size: 14px;">${bestellung.notizen}</div>
+                  <td style="background: #f9fafb; padding: 14px 16px; border: 1px solid #e5e7eb;">
+                    <div style="font-weight: 600; color: ${GRAY_800}; margin-bottom: 4px; font-size: 13px;">Lieferhinweise</div>
+                    <div style="color: ${GRAY_600}; font-size: 14px;">${bestellung.notizen}</div>
                   </td>
                 </tr>
               </table>
@@ -315,15 +290,11 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
 
           <!-- Footer -->
           <tr>
-            <td style="background: #f3f4f6; padding: 20px 30px; border-top: 1px solid #e5e7eb;">
+            <td style="background: #f3f4f6; padding: 16px 24px; border-top: 1px solid #e5e7eb;">
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="font-size: 13px; color: ${GRAY_600};">
-                    Bestellt von: <strong>${bestellung.bestellt_von_name}</strong> (${bestellung.bestellt_von_email})<br>
-                    ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
-                  </td>
-                  <td align="right" style="vertical-align: top;">
-                    <span style="font-size: 12px; color: ${GRAY_500};">neurealis GmbH</span>
+                  <td style="font-size: 12px; color: ${GRAY_500};">
+                    Bestellt von: <strong style="color: ${GRAY_600};">${bestellung.bestellt_von_name}</strong> (${bestellung.bestellt_von_email}) · ${new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })} Uhr
                   </td>
                 </tr>
               </table>

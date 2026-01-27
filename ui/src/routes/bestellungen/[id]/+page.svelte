@@ -6,6 +6,7 @@
 	interface Bestellung {
 		id: string;
 		bestell_nr: number;
+		projekt_bestell_nr: number;
 		atbs_nummer: string;
 		projekt_name: string | null;
 		status: string;
@@ -179,7 +180,7 @@
 				</svg>
 			</a>
 			{#if bestellung}
-				<h1>Bestellung B-{bestellung.bestell_nr}</h1>
+				<h1>Bestellung {bestellung.atbs_nummer}-B{bestellung.projekt_bestell_nr}</h1>
 				{@const status = statusLabels[bestellung.status] || { label: bestellung.status, color: 'gray' }}
 				<span class="status-badge status-{status.color}">{status.label}</span>
 			{:else}

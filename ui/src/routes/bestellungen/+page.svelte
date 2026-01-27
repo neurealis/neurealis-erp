@@ -5,6 +5,7 @@
 	interface Bestellung {
 		id: string;
 		bestell_nr: number;
+		projekt_bestell_nr: number;
 		atbs_nummer: string;
 		projekt_name: string | null;
 		status: string;
@@ -55,7 +56,7 @@
 			const { data, error } = await supabase
 				.from('bestellungen')
 				.select(`
-					id, bestell_nr, atbs_nummer, projekt_name, status,
+					id, bestell_nr, projekt_bestell_nr, atbs_nummer, projekt_name, status,
 					summe_netto, anzahl_positionen, created_at, bestellt_am,
 					gewuenschtes_lieferdatum, lieferort, bestellt_von_name,
 					grosshaendler:grosshaendler_id (name, kurzname, typ)
@@ -293,7 +294,7 @@
 								{@const status = statusLabels[b.status] || { label: b.status, color: 'gray' }}
 								<tr>
 									<td>
-										<span class="bestell-nr">B-{b.bestell_nr}</span>
+										<span class="bestell-nr">{b.atbs_nummer}-B{b.projekt_bestell_nr}</span>
 									</td>
 									<td>
 										<strong>{b.grosshaendler?.kurzname || b.grosshaendler?.name || '-'}</strong>
