@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>neurealis Portal - Status Quo & Migrationsplan</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #3182ce;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        tr:hover {
+            background: var(--bg);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: #c6f6d5; color: #276749; }
+        .badge-warning { background: #fefcbf; color: #975a16; }
+        .badge-danger { background: #fed7d7; color: #c53030; }
+        .badge-info { background: #bee3f8; color: #2c5282; }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .phase-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .phase {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .phase::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            color: var(--text-light);
+        }
+
+        .phase:last-child::after {
+            content: '';
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .rating-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .comparison-col h4 {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .comparison-col.current h4 {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .comparison-col.future h4 {
+            background: #c6f6d5;
+            color: #276749;
+        }
+
+        .comparison ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison li::before {
+            font-size: 1rem;
+        }
+
+        .comparison-col.current li::before {
+            content: '✗';
+            color: var(--danger);
+        }
+
+        .comparison-col.future li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .integration {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .integration-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>neurealis Portal</h1>
+            <p>Technische Dokumentation - Status Quo & Migrationsplan</p>
+            <div class="meta">
+                <span>Stand: 27. Januar 2026</span>
+                <span>Version: 1.0</span>
+                <span>Plattform: Softr.io → SvelteKit</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Statistiken -->
+        <div class="stat-grid">
+            <div class="stat">
+                <div class="stat-value">20+</div>
+                <div class="stat-label">Tabs pro Bauvorhaben</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">100+</div>
+                <div class="stat-label">Felder pro Projekt</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Softr-Tabellen</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Externe Integrationen</div>
+            </div>
+        </div>
+
+        <!-- Status Quo -->
+        <section class="section">
+            <h2>1. Status Quo - Aktuelles Portal (Softr.io)</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Plattform-Stack</h3>
+                    <table>
+                        <tr><td>Frontend</td><td><span class="badge badge-info">Softr.io</span></td></tr>
+                        <tr><td>Datenbank</td><td><span class="badge badge-info">Monday.com</span></td></tr>
+                        <tr><td>Auth</td><td><span class="badge badge-info">Magic Link</span></td></tr>
+                        <tr><td>Storage</td><td><span class="badge badge-info">AWS S3</span></td></tr>
+                        <tr><td>Domain</td><td>portal.neurealis.de</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Hauptnavigation</h3>
+                    <table>
+                        <tr><td>Startseite</td><td>Dashboard + KI-Assistent</td></tr>
+                        <tr><td>Bauvorhaben</td><td>Phasen-Dropdown (0-5)</td></tr>
+                        <tr><td>Kunden</td><td>5 Unterseiten</td></tr>
+                        <tr><td>Nachunternehmer</td><td>4 Unterseiten</td></tr>
+                        <tr><td>Finanzen</td><td>7 Unterseiten</td></tr>
+                        <tr><td>+ 6 weitere</td><td>Einkauf, Personal, etc.</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Bauphasen-Workflow</h3>
+                    <div class="phase-flow">
+                        <span class="phase">(0) Bedarfsanalyse</span>
+                        <span class="phase">(1) Angebot</span>
+                        <span class="phase">(2) Auftrag</span>
+                        <span class="phase">(3) Vorbereitung</span>
+                        <span class="phase">(4) Umsetzung</span>
+                        <span class="phase">(5) Rechnung</span>
+                        <span class="phase">(6) Nachkalk.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bauvorhaben Struktur -->
+        <section class="section">
+            <h2>2. Bauvorhaben-Detail Struktur</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Allgemeine Tabs (10)</h3>
+                    <table>
+                        <tr><td>Übersicht</td><td>Bauleiter, NU, Umsatz, Rohertrag</td></tr>
+                        <tr><td>Kunde</td><td>Kundendaten, Dokumente</td></tr>
+                        <tr><td>NU</td><td>Nachunternehmer, Budget</td></tr>
+                        <tr><td>Dokumente</td><td>Tabelle mit Suche</td></tr>
+                        <tr><td>Aufgaben</td><td>Tasks + KI-Button</td></tr>
+                        <tr><td>Termine</td><td>Projekttermine</td></tr>
+                        <tr><td>Abnahmen</td><td>Protokolle + Formular</td></tr>
+                        <tr><td>Mängel</td><td>Mängelliste</td></tr>
+                        <tr><td>Nachweise</td><td>Zertifikate</td></tr>
+                        <tr><td>Gewerke</td><td>Gewerke-Übersicht</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Bauphasen-Tabs (10)</h3>
+                    <table>
+                        <tr><td>(0) Bedarfsanalyse</td><td>Fotos, Termine, Grundfläche</td></tr>
+                        <tr><td>(1) Angebot</td><td>Angebotsdaten, Umsatz</td></tr>
+                        <tr><td>(2.1) AB</td><td>Auftragsbestätigung</td></tr>
+                        <tr><td>(2.2) NU zuweisen</td><td>Kalkulation, Gewerke</td></tr>
+                        <tr><td>(2.3) Bauvertrag</td><td>Vertragsdaten</td></tr>
+                        <tr><td>(3) Vorbereitung</td><td>Schlüssel, Ausführung</td></tr>
+                        <tr><td>(4) Umsetzung</td><td>Status, Mängel, Nachträge</td></tr>
+                        <tr><td>(5.1) RE Kunde</td><td>Kundenrechnungen</td></tr>
+                        <tr><td>(5.2) RE NU</td><td>NU-Rechnungen, Strafen</td></tr>
+                        <tr><td>(6) Nachkalkulation</td><td>Wasserfalldiagramm</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrationen -->
+        <section class="section">
+            <h2>3. Externe Integrationen</h2>
+
+            <div class="integration-grid">
+                <div class="integration">
+                    <div class="integration-icon">HERO</div>
+                    <div>
+                        <strong>HERO Software</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">Handwerkersoftware, LV-Sync</div>
+                    </div>
+                </div>
+                <div class="integration">
+                    <div class="integration-icon">M</div>
+                    <div>
+                        <strong>Monday.com</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">Datenquelle, 193 Items</div>
+                    </div>
+                </div>
+                <div class="integration">
+                    <div class="integration-icon">MS</div>
+                    <div>
+                        <strong>SharePoint/OneDrive</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">Dokumentenspeicher</div>
+                    </div>
+                </div>
+                <div class="integration">
+                    <div class="integration-icon">3D</div>
+                    <div>
+                        <strong>Matterport</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">25 3D-Scans</div>
+                    </div>
+                </div>
+                <div class="integration">
+                    <div class="integration-icon">S3</div>
+                    <div>
+                        <strong>AWS S3</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">Datei-Storage</div>
+                    </div>
+                </div>
+                <div class="integration">
+                    <div class="integration-icon">ON</div>
+                    <div>
+                        <strong>OneNote</strong>
+                        <div style="color: var(--text-light); font-size: 0.85rem;">Projekt-Notizen</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UI/UX Bewertung -->
+        <section class="section">
+            <h2>4. UI/UX Bewertung</h2>
+
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <h3>Gesamtbewertung: 6,5 / 10</h3>
+                <div class="rating">
+                    <div class="rating-bar">
+                        <div class="rating-fill" style="width: 65%;"></div>
+                    </div>
+                    <span>65%</span>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Stärken</h3>
+                    <table>
+                        <tr><td>Phasen-Workflow</td><td><span class="badge badge-success">Sehr gut</span></td></tr>
+                        <tr><td>Datentiefe</td><td><span class="badge badge-success">Exzellent</span></td></tr>
+                        <tr><td>Integrationen</td><td><span class="badge badge-success">Gut</span></td></tr>
+                        <tr><td>Kalkulationstools</td><td><span class="badge badge-success">Gut</span></td></tr>
+                        <tr><td>KI-Features</td><td><span class="badge badge-warning">Vorhanden</span></td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Kritikpunkte</h3>
+                    <table>
+                        <tr><td>Tab-Überladung (20+)</td><td><span class="badge badge-danger">Kritisch</span></td></tr>
+                        <tr><td>Horizontales Scrollen</td><td><span class="badge badge-danger">Kritisch</span></td></tr>
+                        <tr><td>Keine Batch-Ops</td><td><span class="badge badge-warning">Mittel</span></td></tr>
+                        <tr><td>Redundante Daten</td><td><span class="badge badge-warning">Mittel</span></td></tr>
+                        <tr><td>Lange Formulare</td><td><span class="badge badge-warning">Mittel</span></td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Migration -->
+        <section class="section">
+            <h2>5. Migrationsplan: Softr → SvelteKit</h2>
+
+            <div class="comparison">
+                <div class="comparison-col current">
+                    <h4>Aktuell (Softr.io)</h4>
+                    <ul>
+                        <li>No-Code Limitierungen</li>
+                        <li>Keine Custom Components</li>
+                        <li>Langsam bei vielen Daten</li>
+                        <li>Kein Offline-Support</li>
+                        <li>Starre Tabellenstruktur</li>
+                        <li>Abhängig von Monday.com</li>
+                        <li>Eingeschränkte Mobile-UX</li>
+                    </ul>
+                </div>
+                <div class="comparison-col future">
+                    <h4>Ziel (SvelteKit + Supabase)</h4>
+                    <ul>
+                        <li>Volle Code-Kontrolle</li>
+                        <li>Custom UI-Components</li>
+                        <li>Optimierte Performance</li>
+                        <li>PWA mit Offline-Mode</li>
+                        <li>Flexible Datenstrukturen</li>
+                        <li>Eigene PostgreSQL-DB</li>
+                        <li>Mobile-First Design</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Migrations-Roadmap -->
+        <section class="section">
+            <h2>6. Migrations-Roadmap</h2>
+
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Phase 1: Grundlagen</h4>
+                        <p>SvelteKit-Setup, Supabase-Schema, Auth-System, Design-System</p>
+                        <span class="badge badge-info">Infrastruktur</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 2: Core-Features</h4>
+                        <p>Bauvorhaben-Liste, Detail-Ansicht (Accordion statt Tabs), Bauphasen-Workflow</p>
+                        <span class="badge badge-warning">Hauptfunktionen</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 3: Erweiterungen</h4>
+                        <p>Finanzen, Nachunternehmer, Dokumente, Mängel, Nachweise</p>
+                        <span class="badge badge-warning">Module</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 4: Integrationen</h4>
+                        <p>HERO-Sync, SharePoint, Matterport-Embed, E-Mail-Versand</p>
+                        <span class="badge badge-info">APIs</span>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 5: Go-Live</h4>
+                        <p>Datenmigration, Parallelbetrieb, Schulung, Umstellung</p>
+                        <span class="badge badge-success">Launch</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technische Empfehlungen -->
+        <section class="section">
+            <h2>7. Technische Empfehlungen</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>UI/UX Verbesserungen</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>Accordion statt Tabs</strong> - Progressive Disclosure
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>Inline-Editing</strong> - Direktbearbeitung in Tabellen
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>Smart Defaults</strong> - Auto-Vorbefüllung nach Projekttyp
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>Globale Suche</strong> - Über alle Entitäten
+                        </li>
+                        <li style="padding: 0.5rem 0;">
+                            <strong>Keyboard Shortcuts</strong> - Für Power-User
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Tech-Stack Empfehlung</h3>
+                    <table>
+                        <tr><td>Framework</td><td>SvelteKit</td></tr>
+                        <tr><td>Datenbank</td><td>Supabase (PostgreSQL)</td></tr>
+                        <tr><td>Auth</td><td>Supabase Auth</td></tr>
+                        <tr><td>Storage</td><td>Supabase Storage</td></tr>
+                        <tr><td>Hosting</td><td>Netlify / Vercel</td></tr>
+                        <tr><td>AI</td><td>OpenAI gpt-5.2</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Datenübersicht -->
+        <section class="section">
+            <h2>8. Daten-Statistiken</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Softr-Tabellen</h3>
+                    <table>
+                        <tr><td>Monday Backup Bau</td><td>193 Items</td></tr>
+                        <tr><td>Kontakte</td><td>~500 Einträge</td></tr>
+                        <tr><td>Dokumente</td><td>1.166 Dokumente</td></tr>
+                        <tr><td>Transaktionen</td><td>1.051 Buchungen</td></tr>
+                        <tr><td>LV-Positionen</td><td>2.028 Artikel</td></tr>
+                        <tr><td>Inventar</td><td>~100 Geräte</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>Felder pro Bauvorhaben</h3>
+                    <table>
+                        <tr><td>Basisdaten</td><td>~30 Felder</td></tr>
+                        <tr><td>Bauphasen</td><td>~50 Felder</td></tr>
+                        <tr><td>Gewerke</td><td>~15 Felder</td></tr>
+                        <tr><td>Finanzen</td><td>~20 Felder</td></tr>
+                        <tr><td>Dokumente</td><td>~10 Felder</td></tr>
+                        <tr><td><strong>Gesamt</strong></td><td><strong>~125 Felder</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>neurealis GmbH</strong> - Portal-Dokumentation</p>
+            <p style="opacity: 0.8; margin-top: 0.5rem;">Erstellt mit Claude Code am 27.01.2026</p>
+        </footer>
+    </div>
+</body>
+</html>
