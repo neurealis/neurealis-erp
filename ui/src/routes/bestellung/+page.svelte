@@ -129,6 +129,10 @@
 	let submitSuccess = $state(false);
 	let bestellnummer = $state('');
 
+	// E-Mail Empfänger
+	let emailEmpfaenger = $state<'holger' | 'haendler' | 'custom'>('holger');
+	let customEmail = $state('');
+
 	// Warenkorb-Drawer
 	let warenkorbOpen = $state(false);
 
@@ -363,6 +367,13 @@
 	let selectedProjektDetails = $derived.by(() => projekte.find(p => p.atbs_nummer === selectedProjekt));
 	let selectedHaendlerDetails = $derived.by(() => grosshaendler.find(h => h.id === selectedHaendler));
 	let selectedAnsprechpartnerDetails = $derived.by(() => ansprechpartner.find(a => a.id === selectedAnsprechpartner));
+
+	// Effektive E-Mail-Adresse
+	let effektiveEmail = $derived.by(() => {
+		if (emailEmpfaenger === 'holger') return 'holger.neumann@neurealis.de';
+		if (emailEmpfaenger === 'haendler') return selectedHaendlerDetails?.bestell_email || 'holger.neumann@neurealis.de';
+		return customEmail.trim() || 'holger.neumann@neurealis.de';
+	});
 
 	// Filter
 	let verfuegbareKategorien = $derived.by(() => {
@@ -747,7 +758,10 @@
 
 			// 3. Edge Function aufrufen für HTML/PDF/E-Mail
 			const { data: submitResult, error: submitError } = await supabase.functions.invoke('bestellung-submit', {
-				body: { bestellung_id: bestellung.id }
+				body: {
+					bestellung_id: bestellung.id,
+					empfaenger_email: effektiveEmail
+				}
 			});
 
 			if (submitError) {
@@ -1368,6 +1382,40 @@
 								<p class="muted">Hinweis: {lieferhinweise}</p>
 							{/if}
 						</div>
+					</div>
+
+					<!-- E-Mail Empfänger -->
+					<div class="email-section">
+						<h3>E-Mail senden an</h3>
+						<div class="email-options">
+							<label class="email-option" class:selected={emailEmpfaenger === 'holger'}>
+								<input type="radio" name="email" value="holger" bind:group={emailEmpfaenger} />
+								<span class="email-label">Holger Neumann</span>
+								<span class="email-addr">holger.neumann@neurealis.de</span>
+							</label>
+							{#if selectedHaendlerDetails?.bestell_email}
+								<label class="email-option" class:selected={emailEmpfaenger === 'haendler'}>
+									<input type="radio" name="email" value="haendler" bind:group={emailEmpfaenger} />
+									<span class="email-label">{selectedHaendlerDetails.kurzname || selectedHaendlerDetails.name}</span>
+									<span class="email-addr">{selectedHaendlerDetails.bestell_email}</span>
+								</label>
+							{/if}
+							<label class="email-option" class:selected={emailEmpfaenger === 'custom'}>
+								<input type="radio" name="email" value="custom" bind:group={emailEmpfaenger} />
+								<span class="email-label">Andere Adresse</span>
+							</label>
+						</div>
+						{#if emailEmpfaenger === 'custom'}
+							<input
+								type="email"
+								class="email-input"
+								placeholder="E-Mail-Adresse eingeben..."
+								bind:value={customEmail}
+							/>
+						{/if}
+						<p class="email-info">
+							CC: bauleitung@neurealis.de
+						</p>
 					</div>
 
 					<!-- Artikel-Liste -->
@@ -2488,6 +2536,75 @@
 	}
 
 	.muted {
+		color: var(--color-gray-500);
+	}
+
+	/* E-Mail Auswahl */
+	.email-section {
+		background: var(--color-gray-50);
+		border-radius: var(--radius-md);
+		padding: var(--spacing-4);
+		margin-bottom: var(--spacing-6);
+	}
+
+	.email-section h3 {
+		font-size: var(--font-size-sm);
+		color: var(--color-gray-700);
+		margin-bottom: var(--spacing-3);
+	}
+
+	.email-options {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-2);
+	}
+
+	.email-option {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-3);
+		padding: var(--spacing-3);
+		background: white;
+		border: 2px solid var(--color-gray-200);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.email-option:hover {
+		border-color: var(--color-gray-300);
+	}
+
+	.email-option.selected {
+		border-color: var(--color-brand-medium);
+		background: var(--color-info-light);
+	}
+
+	.email-option input[type="radio"] {
+		width: 18px;
+		height: 18px;
+		accent-color: var(--color-brand-medium);
+	}
+
+	.email-label {
+		font-weight: var(--font-weight-medium);
+		color: var(--color-gray-800);
+	}
+
+	.email-addr {
+		color: var(--color-gray-500);
+		font-size: var(--font-size-sm);
+		margin-left: auto;
+	}
+
+	.email-input {
+		margin-top: var(--spacing-3);
+		width: 100%;
+	}
+
+	.email-info {
+		margin-top: var(--spacing-2);
+		font-size: var(--font-size-xs);
 		color: var(--color-gray-500);
 	}
 

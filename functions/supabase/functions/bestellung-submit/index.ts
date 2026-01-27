@@ -11,13 +11,15 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
 }
 
 /**
- * bestellung-submit v4
+ * bestellung-submit v5
  *
  * Verarbeitet Bestellungen und Angebotsanfragen:
  * 1. Generiert HTML für E-Mail-Body (unterschiedlich je nach Typ)
  * 2. Ruft generate-bestellung-pdf auf für PDF-Generierung
  * 3. Holt PDF aus Storage und fügt als Anhang hinzu
  * 4. Sendet E-Mail mit PDF-Anhang via MS Graph (mit CC an Bauleitung)
+ *
+ * Parameter: { bestellung_id, empfaenger_email? }
  */
 
 const corsHeaders = {
@@ -31,8 +33,8 @@ const TENANT_ID = Deno.env.get('MS_GRAPH_TENANT_ID') || '';
 const CLIENT_ID = Deno.env.get('MS_GRAPH_CLIENT_ID') || '';
 const CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 
-// Empfänger für Bestellungen
-const BESTELLUNG_EMPFAENGER = 'holger.neumann@neurealis.de'; // TODO: Später Großhändler-E-Mail
+// Standard-Empfänger für Bestellungen (Fallback)
+const DEFAULT_EMPFAENGER = 'holger.neumann@neurealis.de';
 const CC_BAULEITUNG = 'bauleitung@neurealis.de';
 const SENDER_EMAIL = 'kontakt@neurealis.de';
 
@@ -376,7 +378,7 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const { bestellung_id } = await req.json();
+    const { bestellung_id, empfaenger_email } = await req.json();
 
     if (!bestellung_id) {
       return new Response(
@@ -385,7 +387,10 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log(`Verarbeite Bestellung: ${bestellung_id}`);
+    // E-Mail-Empfänger: Parameter oder Fallback
+    const emailEmpfaenger = empfaenger_email || DEFAULT_EMPFAENGER;
+
+    console.log(`Verarbeite Bestellung: ${bestellung_id}, Empfänger: ${emailEmpfaenger}`);
 
     // Supabase Client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -522,18 +527,18 @@ Deno.serve(async (req: Request) => {
     const ccRecipients = [CC_BAULEITUNG];
 
     // E-Mail mit PDF-Anhang und CC senden
-    await sendEmailWithAttachment(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent, pdfBytes, pdfFileName, ccRecipients);
+    await sendEmailWithAttachment(accessToken, emailEmpfaenger, subject, htmlContent, pdfBytes, pdfFileName, ccRecipients);
 
     // E-Mail-Status in DB speichern
     await supabase
       .from('bestellungen')
       .update({
-        email_gesendet_an: `${BESTELLUNG_EMPFAENGER}, CC: ${CC_BAULEITUNG}`,
+        email_gesendet_an: `${emailEmpfaenger}, CC: ${CC_BAULEITUNG}`,
         email_gesendet_am: new Date().toISOString()
       })
       .eq('id', bestellung_id);
 
-    console.log(`E-Mail mit PDF-Anhang gesendet an ${BESTELLUNG_EMPFAENGER} (CC: ${CC_BAULEITUNG})`);
+    console.log(`E-Mail mit PDF-Anhang gesendet an ${emailEmpfaenger} (CC: ${CC_BAULEITUNG})`);
 
     return new Response(
       JSON.stringify({
@@ -542,7 +547,7 @@ Deno.serve(async (req: Request) => {
         bestell_nr: bestellNr,
         pdf_url: pdfUrl,
         email_sent: true,
-        email_to: BESTELLUNG_EMPFAENGER,
+        email_to: emailEmpfaenger,
         email_cc: CC_BAULEITUNG,
         bestelltyp: istAngebotsanfrage ? 'angebotsanfrage' : 'bestellung',
         pdf_attached: !!pdfBytes
