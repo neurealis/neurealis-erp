@@ -1,6 +1,25 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
+// Native base64 encoding for Uint8Array
+function uint8ArrayToBase64(bytes: Uint8Array): string {
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+/**
+ * bestellung-submit v3
+ *
+ * Verarbeitet eine Bestellung:
+ * 1. Generiert HTML für E-Mail-Body
+ * 2. Ruft generate-bestellung-pdf auf für PDF-Generierung
+ * 3. Holt PDF aus Storage und fügt als Anhang hinzu
+ * 4. Sendet E-Mail mit PDF-Anhang via MS Graph
+ */
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -16,13 +35,10 @@ const CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 const BESTELLUNG_EMPFAENGER = 'holger.neumann@neurealis.de';
 const SENDER_EMAIL = 'kontakt@neurealis.de';
 
-// Corporate Design Farben
-const BRAND_RED = '#E53935';
-const BRAND_RED_DARK = '#C62828';
+// Corporate Design Farben (HTML)
 const GRAY_800 = '#1f2937';
 const GRAY_600 = '#4b5563';
 const GRAY_500 = '#6b7280';
-const SUCCESS_GREEN = '#059669';
 
 interface Bestellung {
   id: string;
@@ -37,10 +53,12 @@ interface Bestellung {
   ansprechpartner_name: string | null;
   ansprechpartner_telefon: string | null;
   summe_netto: number;
+  summe_brutto: number;
   anzahl_positionen: number;
   notizen: string | null;
   bestellt_von_email: string;
   bestellt_von_name: string;
+  bestellt_am: string;
   grosshaendler: {
     name: string;
     kurzname: string;
@@ -90,16 +108,18 @@ async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
-// E-Mail senden via Graph API
-async function sendEmail(
+// E-Mail senden via Graph API (mit optionalem PDF-Anhang)
+async function sendEmailWithAttachment(
   accessToken: string,
   to: string,
   subject: string,
-  htmlBody: string
+  htmlBody: string,
+  pdfBytes?: Uint8Array,
+  pdfFileName?: string
 ): Promise<void> {
   const graphUrl = `https://graph.microsoft.com/v1.0/users/${SENDER_EMAIL}/sendMail`;
 
-  const message = {
+  const message: any = {
     message: {
       subject: subject,
       body: {
@@ -110,6 +130,17 @@ async function sendEmail(
     },
     saveToSentItems: true,
   };
+
+  // PDF-Anhang hinzufügen falls vorhanden
+  if (pdfBytes && pdfFileName) {
+    const contentBytes = uint8ArrayToBase64(pdfBytes);
+    message.message.attachments = [{
+      '@odata.type': '#microsoft.graph.fileAttachment',
+      'name': pdfFileName,
+      'contentType': 'application/pdf',
+      'contentBytes': contentBytes
+    }];
+  }
 
   const response = await fetch(graphUrl, {
     method: 'POST',
@@ -162,7 +193,7 @@ function formatLieferort(ort: string): string {
   return orte[ort] || ort;
 }
 
-// HTML generieren - Clean Design mit einheitlichem Rahmen
+// HTML generieren für E-Mail
 function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
   const bestellNr = formatBestellNr(bestellung);
   const haendler = bestellung.grosshaendler;
@@ -225,7 +256,7 @@ function generateHtml(bestellung: Bestellung, positionen: Position[]): string {
           <tr>
             <td style="background: white; padding: 24px;">
 
-              <!-- Lieferinformationen - eine Zeile -->
+              <!-- Lieferinformationen -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; background: #f9fafb; border: 1px solid #e5e7eb;">
                 <tr>
                   <td width="25%" style="padding: 14px 16px; border-right: 1px solid #e5e7eb;">
@@ -339,15 +370,15 @@ Deno.serve(async (req: Request) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Bestellung laden (mit projekt_bestell_nr)
+    // Bestellung laden
     const { data: bestellung, error: bestellError } = await supabase
       .from('bestellungen')
       .select(`
         id, bestell_nr, projekt_bestell_nr, atbs_nummer, projekt_name,
         lieferadresse, lieferort, gewuenschtes_lieferdatum, zeitfenster,
         ansprechpartner_name, ansprechpartner_telefon,
-        summe_netto, anzahl_positionen, notizen,
-        bestellt_von_email, bestellt_von_name,
+        summe_netto, summe_brutto, anzahl_positionen, notizen,
+        bestellt_von_email, bestellt_von_name, bestellt_am, pdf_url,
         grosshaendler:grosshaendler_id (name, kurzname, typ, bestell_email)
       `)
       .eq('id', bestellung_id)
@@ -377,10 +408,64 @@ Deno.serve(async (req: Request) => {
     }
 
     const bestellNr = formatBestellNr(bestellung as unknown as Bestellung);
+    const haendler = bestellung.grosshaendler as { kurzname?: string; name: string };
     console.log(`Bestellung ${bestellNr} mit ${positionen?.length || 0} Positionen geladen`);
 
     // HTML generieren
     const htmlContent = generateHtml(bestellung as unknown as Bestellung, positionen || []);
+
+    // PDF generieren via separate Edge Function
+    console.log('Rufe generate-bestellung-pdf auf...');
+    const pdfResponse = await fetch(`${supabaseUrl}/functions/v1/generate-bestellung-pdf`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseKey}`
+      },
+      body: JSON.stringify({ bestellung_id })
+    });
+
+    if (!pdfResponse.ok) {
+      const pdfError = await pdfResponse.text();
+      console.error('PDF-Generierung fehlgeschlagen:', pdfError);
+    } else {
+      const pdfResult = await pdfResponse.json();
+      console.log('PDF generiert:', pdfResult);
+    }
+
+    // Bestellung neu laden um pdf_url zu bekommen
+    const { data: updatedBestellung } = await supabase
+      .from('bestellungen')
+      .select('pdf_url')
+      .eq('id', bestellung_id)
+      .single();
+
+    const pdfUrl = updatedBestellung?.pdf_url;
+
+    // PDF aus Storage laden für E-Mail-Anhang
+    let pdfBytes: Uint8Array | undefined;
+    let pdfFileName: string | undefined;
+
+    if (pdfUrl) {
+      // Extrahiere Storage-Pfad aus URL
+      const storageMatch = pdfUrl.match(/\/storage\/v1\/object\/public\/bestellungen\/(.+)$/);
+      if (storageMatch) {
+        const storagePath = decodeURIComponent(storageMatch[1]);
+        pdfFileName = storagePath.split('/').pop() || `${bestellNr}.pdf`;
+
+        console.log(`Lade PDF aus Storage: ${storagePath}`);
+        const { data: pdfData, error: downloadError } = await supabase.storage
+          .from('bestellungen')
+          .download(storagePath);
+
+        if (downloadError) {
+          console.error('PDF Download fehlgeschlagen:', downloadError);
+        } else if (pdfData) {
+          pdfBytes = new Uint8Array(await pdfData.arrayBuffer());
+          console.log(`PDF geladen: ${pdfBytes.length} bytes`);
+        }
+      }
+    }
 
     // HTML in DB speichern
     await supabase
@@ -396,18 +481,19 @@ Deno.serve(async (req: Request) => {
           success: true,
           bestellung_id,
           bestell_nr: bestellNr,
+          pdf_url: pdfUrl,
           email_sent: false,
-          message: 'HTML generiert, E-Mail-Versand nicht konfiguriert'
+          message: 'HTML und PDF generiert, E-Mail-Versand nicht konfiguriert'
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const accessToken = await getAccessToken();
-    const haendler = bestellung.grosshaendler as { kurzname?: string; name: string };
     const subject = `Bestellung ${bestellNr} - ${haendler.kurzname || haendler.name}`;
 
-    await sendEmail(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent);
+    // E-Mail mit PDF-Anhang senden
+    await sendEmailWithAttachment(accessToken, BESTELLUNG_EMPFAENGER, subject, htmlContent, pdfBytes, pdfFileName);
 
     // E-Mail-Status in DB speichern
     await supabase
@@ -418,15 +504,17 @@ Deno.serve(async (req: Request) => {
       })
       .eq('id', bestellung_id);
 
-    console.log(`E-Mail gesendet an ${BESTELLUNG_EMPFAENGER}`);
+    console.log(`E-Mail mit PDF-Anhang gesendet an ${BESTELLUNG_EMPFAENGER}`);
 
     return new Response(
       JSON.stringify({
         success: true,
         bestellung_id,
         bestell_nr: bestellNr,
+        pdf_url: pdfUrl,
         email_sent: true,
-        email_to: BESTELLUNG_EMPFAENGER
+        email_to: BESTELLUNG_EMPFAENGER,
+        pdf_attached: !!pdfBytes
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
