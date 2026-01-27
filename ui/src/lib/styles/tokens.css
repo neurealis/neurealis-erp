@@ -1,29 +1,40 @@
 /**
  * neurealis ERP - Design Tokens
+ * Softr Portal Design-System 1:1 Kopie
  * Zentrale Stelle für alle Design-Variablen
- * Änderungen hier wirken sich auf die gesamte Anwendung aus
  */
 
 :root {
-  /* ===== Farben ===== */
+  /* ===== Softr Primärfarben (neurealis Rot) ===== */
+  --color-primary: #C41E3A;
+  --color-primary-hover: #A31830;
+  --color-primary-light: #D94A5F;
+  --color-primary-50: #FFF5F5;
+  --color-primary-100: #FFE5E8;
+  --color-primary-200: #FFCCD2;
+  --color-primary-300: #F9A8B0;
+  --color-primary-400: #E5707E;
+  --color-primary-500: #C41E3A;
+  --color-primary-600: #A31830;
+  --color-primary-700: #8B1528;
+  --color-primary-800: #731220;
+  --color-primary-900: #5C0F1A;
 
-  /* Primärfarben (Blau) */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Markenfarben (Softr-kompatibel) */
+  --color-brand-primary: #C41E3A;
+  --color-brand-dark: #A31830;
+  --color-brand-medium: #C41E3A;
+  --color-brand-light: #D94A5F;
+  --color-brand-bg: #FFF5F5;
 
-  /* Markenfarben (neurealis Rot - wie Softr Portal) */
-  --color-brand-dark: #C62828;
-  --color-brand-medium: #E53935;
-  --color-brand-light: #EF5350;
-  --color-brand-bg: #FFEBEE;
+  /* Sidebar (Hellrosa wie Softr) */
+  --color-sidebar-bg: #FFF5F5;
+  --color-sidebar-text: #1f2937;
+  --color-sidebar-text-muted: #6b7280;
+  --color-sidebar-active-bg: rgba(196, 30, 58, 0.12);
+  --color-sidebar-active-text: #C41E3A;
+  --color-sidebar-hover-bg: rgba(196, 30, 58, 0.06);
+  --color-sidebar-border: #FFE5E8;
 
   /* Grautöne */
   --color-gray-50: #f9fafb;
@@ -87,18 +98,19 @@
   --spacing-10: 2.5rem;   /* 40px */
   --spacing-12: 3rem;     /* 48px */
 
-  /* ===== Border Radius (eckig wie Softr) ===== */
-  --radius-sm: 0;
-  --radius-md: 0;
-  --radius-lg: 0;
-  --radius-xl: 0;
-  --radius-full: 0;
+  /* ===== Border Radius (Softr-Style: leicht gerundet) ===== */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
 
-  /* ===== Schatten ===== */
+  /* ===== Schatten (Softr Card Style) ===== */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
 
   /* ===== Übergänge ===== */
   --transition-fast: 150ms ease;
@@ -116,6 +128,65 @@
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
+
+  /* ===== Breakpoints ===== */
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1280px;
+
+  /* ===== Layout ===== */
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 64px;
+  --header-height: 56px;
+  --bottom-nav-height: 64px;
+
+  /* ===== BV-Phasen Status-Badges (Softr-Farben) ===== */
+  /* (0) Bedarfsanalyse - Grau */
+  --status-0-bg: #f3f4f6;
+  --status-0-text: #4b5563;
+  --status-0-border: #d1d5db;
+
+  /* (1) Angebot - Hellblau */
+  --status-1-bg: #E0F2FE;
+  --status-1-text: #0369A1;
+  --status-1-border: #7DD3FC;
+
+  /* (2) Auftrag - Lila */
+  --status-2-bg: #EDE9FE;
+  --status-2-text: #7C3AED;
+  --status-2-border: #C4B5FD;
+
+  /* (3) Vorbereitung - Blau */
+  --status-3-bg: #DBEAFE;
+  --status-3-text: #2563EB;
+  --status-3-border: #93C5FD;
+
+  /* (4) Umsetzung - Orange */
+  --status-4-bg: #FED7AA;
+  --status-4-text: #C2410C;
+  --status-4-border: #FDBA74;
+
+  /* (5) Rechnungen - Gelb/Grün */
+  --status-5-bg: #FEF08A;
+  --status-5-text: #A16207;
+  --status-5-border: #FDE047;
+
+  /* (6) Abgeschlossen - Dunkelgrün */
+  --status-6-bg: #BBF7D0;
+  --status-6-text: #15803D;
+  --status-6-border: #86EFAC;
+
+  /* (7) Projekt abgeschlossen - Extra Dunkelgrün */
+  --status-7-bg: #86EFAC;
+  --status-7-text: #166534;
+  --status-7-border: #4ADE80;
+
+  /* ===== Tabellen (Softr-Style) ===== */
+  --table-header-bg: #f9fafb;
+  --table-header-text: #6b7280;
+  --table-border: #e5e7eb;
+  --table-row-hover: #f9fafb;
+  --table-row-stripe: #fafafa;
 }
 
 /* Dark Mode Vorbereitung (für später) */
@@ -123,4 +194,29 @@
   :root {
     /* Hier können später Dark Mode Farben definiert werden */
   }
+}
+
+/* ===== Softr Utility Variablen ===== */
+:root {
+  /* Buttons */
+  --btn-primary-bg: var(--color-primary);
+  --btn-primary-text: white;
+  --btn-primary-hover-bg: var(--color-primary-hover);
+  --btn-secondary-bg: white;
+  --btn-secondary-text: var(--color-primary);
+  --btn-secondary-border: var(--color-primary);
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--color-primary);
+  --btn-ghost-hover-bg: var(--color-primary-50);
+
+  /* Cards */
+  --card-bg: white;
+  --card-border: var(--color-gray-200);
+  --card-shadow: var(--shadow-card);
+  --card-radius: var(--radius-lg);
+
+  /* Forms */
+  --input-border: var(--color-gray-300);
+  --input-focus-border: var(--color-primary);
+  --input-focus-ring: rgba(196, 30, 58, 0.2);
 }

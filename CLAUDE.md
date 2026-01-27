@@ -1,6 +1,19 @@
 # CLAUDE.md - neurealis ERP
 
-**Letzte Aktualisierung:** 2026-01-26
+```
+╔══════════════════════════════════════════════════════════════════╗
+║  ⚠️ WICHTIG: Globale Regeln beachten!                            ║
+║                                                                  ║
+║  ZUSÄTZLICH zu dieser Datei gilt IMMER:                          ║
+║  → C:\Users\holge\CLAUDE.md (globale Regeln)                     ║
+║  → C:\Users\holge\docs\ (globale Wissens-Dateien)                ║
+║  → C:\Users\holge\wissen\ (globales Wissen)                      ║
+║                                                                  ║
+║  /pre und /post lesen BEIDE: global + projekt                    ║
+╚══════════════════════════════════════════════════════════════════╝
+```
+
+**Letzte Aktualisierung:** 2026-01-27
 **Projekt:** neurealis ERP - Wohnungssanierung
 **Portal:** https://neurealis.softr.app
 

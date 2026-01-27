@@ -21,6 +21,15 @@
 		anzahl: number;
 	}
 
+	// Kunden-LV Konfigurationen (wie Softr)
+	const kundenLvConfig: Record<string, { name: string; beschreibung: string; farbe: string }> = {
+		'GWS': { name: 'GWS', beschreibung: 'GWS Wohnungsgesellschaft', farbe: '#3B82F6' },
+		'VBW': { name: 'VBW', beschreibung: 'VBW Bauen und Wohnen', farbe: '#10B981' },
+		'covivio': { name: 'Covivio', beschreibung: 'Covivio Deutschland', farbe: '#F59E0B' },
+		'neurealis': { name: 'neurealis', beschreibung: 'neurealis Standard-LV', farbe: '#C41E3A' },
+		'Artikel': { name: 'Artikel', beschreibung: 'Artikelstamm / Einkauf', farbe: '#6B7280' },
+	};
+
 	// === State ===
 	let currentStep = $state(1);
 	const totalSteps = 3;
@@ -619,12 +628,17 @@
 
 					<div class="lv-grid">
 						{#each lvTypen as typ}
+							{@const config = kundenLvConfig[typ.lv_typ]}
 							<button
 								class="lv-card"
 								class:selected={selectedLvTyp === typ.lv_typ}
 								onclick={() => selectedLvTyp = typ.lv_typ}
+								style={config ? `--card-accent: ${config.farbe}` : ''}
 							>
-								<div class="lv-name">{typ.lv_typ}</div>
+								<div class="lv-badge" style={config ? `background: ${config.farbe}` : ''}>
+									{config?.name || typ.lv_typ}
+								</div>
+								<div class="lv-name">{config?.beschreibung || typ.lv_typ}</div>
 								<div class="lv-count">{typ.anzahl} Positionen</div>
 								{#if selectedLvTyp === typ.lv_typ}
 									<div class="lv-check">
@@ -889,7 +903,7 @@
 	.step-number {
 		width: 32px;
 		height: 32px;
-		border-radius: var(--radius-sm);
+		border-radius: 0;
 		background: var(--color-gray-200);
 		color: var(--color-gray-600);
 		display: flex;
@@ -988,9 +1002,10 @@
 	/* Step Content */
 	.step-content {
 		background: white;
-		border-radius: var(--radius-lg);
+		border-radius: 0;
 		box-shadow: var(--shadow-md);
 		padding: var(--spacing-6);
+		border: 1px solid var(--color-gray-200);
 	}
 
 	.step-heading {
@@ -1008,62 +1023,79 @@
 
 	.lv-card {
 		position: relative;
-		background: var(--color-gray-50);
+		background: white;
 		border: 2px solid var(--color-gray-200);
-		border-radius: var(--radius-lg);
+		border-radius: 0;
 		padding: var(--spacing-5);
+		padding-top: var(--spacing-8);
 		cursor: pointer;
 		transition: all 0.15s ease;
-		text-align: center;
+		text-align: left;
 	}
 
 	.lv-card:hover {
-		border-color: var(--color-brand-medium);
-		background: var(--color-info-light);
+		border-color: var(--card-accent, var(--color-brand-medium));
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	}
 
 	.lv-card.selected {
-		border-color: var(--color-brand-medium);
-		background: var(--color-brand-light);
+		border-color: var(--card-accent, var(--color-brand-medium));
+		border-width: 3px;
+		background: var(--color-gray-50);
+	}
+
+	.lv-badge {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding: var(--spacing-1) var(--spacing-3);
+		background: var(--color-gray-500);
 		color: white;
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-bold);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
 	.lv-name {
-		font-weight: var(--font-weight-bold);
-		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		font-size: var(--font-size-base);
 		margin-bottom: var(--spacing-2);
+		color: var(--color-gray-800);
 	}
 
 	.lv-card.selected .lv-name {
-		color: white;
+		color: var(--color-gray-900);
 	}
 
 	.lv-count {
 		font-size: var(--font-size-sm);
 		color: var(--color-gray-500);
+		font-family: var(--font-family-mono);
 	}
 
 	.lv-card.selected .lv-count {
-		color: rgba(255, 255, 255, 0.8);
+		color: var(--color-gray-600);
 	}
 
 	.lv-check {
 		position: absolute;
-		top: var(--spacing-2);
-		right: var(--spacing-2);
-		width: 24px;
-		height: 24px;
-		background: white;
-		border-radius: 50%;
+		bottom: var(--spacing-3);
+		right: var(--spacing-3);
+		width: 28px;
+		height: 28px;
+		background: var(--card-accent, var(--color-brand-medium));
+		border-radius: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
 	.lv-check svg {
-		width: 14px;
-		height: 14px;
-		color: var(--color-brand-medium);
+		width: 16px;
+		height: 16px;
+		color: white;
 	}
 
 	/* Options Grid (Step 2) */
@@ -1089,9 +1121,9 @@
 
 	.option-card {
 		flex: 1;
-		background: var(--color-gray-50);
+		background: white;
 		border: 2px solid var(--color-gray-200);
-		border-radius: var(--radius-lg);
+		border-radius: 0;
 		padding: var(--spacing-4);
 		cursor: pointer;
 		transition: all 0.15s ease;
@@ -1104,15 +1136,16 @@
 
 	.option-card.selected {
 		border-color: var(--color-brand-medium);
-		background: var(--color-info-light);
+		border-width: 3px;
+		background: var(--color-primary-50);
 	}
 
 	.option-icon {
 		width: 48px;
 		height: 48px;
 		margin: 0 auto var(--spacing-3);
-		background: white;
-		border-radius: var(--radius-md);
+		background: var(--color-gray-100);
+		border-radius: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -1145,8 +1178,9 @@
 	/* Preview Info */
 	.preview-info {
 		background: var(--color-gray-50);
-		border-radius: var(--radius-md);
+		border-radius: 0;
 		padding: var(--spacing-4);
+		border-left: 4px solid var(--color-brand-medium);
 	}
 
 	.preview-info h4 {
@@ -1183,7 +1217,7 @@
 		width: 80px;
 		height: 80px;
 		background: var(--color-success-light);
-		border-radius: 50%;
+		border-radius: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -1205,7 +1239,7 @@
 		font-size: var(--font-size-sm);
 		background: var(--color-gray-100);
 		padding: var(--spacing-2) var(--spacing-4);
-		border-radius: var(--radius-md);
+		border-radius: 0;
 		color: var(--color-gray-700);
 	}
 
@@ -1253,7 +1287,7 @@
 		justify-content: center;
 		gap: var(--spacing-2);
 		padding: var(--spacing-3) var(--spacing-6);
-		border-radius: var(--radius-md);
+		border-radius: 0;
 		font-weight: var(--font-weight-medium);
 		font-size: var(--font-size-base);
 		cursor: pointer;

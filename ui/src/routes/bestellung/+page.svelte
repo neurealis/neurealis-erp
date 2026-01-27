@@ -700,6 +700,7 @@
 					status: 'entwurf',
 					bestelltyp: bestelltyp,
 					summe_netto: gesamtsumme,
+					summe_brutto: Math.round(gesamtsumme * 1.19 * 100) / 100,
 					lieferadresse: selectedLieferort === 'baustelle' ? selectedProjektDetails?.address :
 						selectedLieferort === 'lager' ? 'Kleyerweg 40, 44149 Dortmund' : 'Abholung',
 					lieferort: selectedLieferort,

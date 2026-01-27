@@ -1,6 +1,6 @@
 /**
  * neurealis ERP - Globale Styles
- * Basiert auf Design Tokens
+ * Softr Portal Design-System 1:1 Kopie
  */
 
 @import './tokens.css';
@@ -23,7 +23,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--color-gray-800);
-  background-color: var(--color-gray-100);
+  background-color: var(--color-gray-50);
   min-height: 100vh;
 }
 
@@ -44,30 +44,31 @@ p {
 
 /* ===== Links ===== */
 a {
-  color: var(--color-brand-light);
+  color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-brand-medium);
+  color: var(--color-primary-hover);
 }
 
-/* ===== Formulare ===== */
+/* ===== Formulare (Softr-Style) ===== */
 input, select, textarea {
   font-family: inherit;
   font-size: var(--font-size-sm);
   padding: var(--spacing-3) var(--spacing-4);
-  border: 2px solid var(--color-gray-200);
+  border: 1px solid var(--input-border);
   border-radius: var(--radius-md);
   background-color: white;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   width: 100%;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-brand-light);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
 }
 
 input::placeholder, textarea::placeholder {
@@ -78,11 +79,11 @@ label {
   display: block;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-gray-600);
+  color: var(--color-gray-700);
   margin-bottom: var(--spacing-1);
 }
 
-/* ===== Buttons ===== */
+/* ===== Buttons (Softr-Style) ===== */
 button, .btn {
   display: inline-flex;
   align-items: center;
@@ -98,40 +99,278 @@ button, .btn {
   transition: all var(--transition-fast);
 }
 
+button:disabled, .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary Button - Rot mit weisser Schrift */
 .btn-primary {
-  background-color: var(--color-brand-medium);
-  color: white;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 2px solid var(--btn-primary-bg);
 }
 
-.btn-primary:hover {
-  background-color: var(--color-brand-dark);
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--btn-primary-hover-bg);
+  border-color: var(--btn-primary-hover-bg);
 }
 
+/* Secondary Button - Weiss mit rotem Rand */
 .btn-secondary {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-700);
-  border: 1px solid var(--color-gray-300);
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 2px solid var(--btn-secondary-border);
 }
 
-.btn-secondary:hover {
-  background-color: var(--color-gray-200);
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
 }
 
+/* Ghost Button - Transparent mit rot */
+.btn-ghost {
+  background-color: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border: 2px solid transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--btn-ghost-hover-bg);
+}
+
+/* Icon Button */
+.btn-icon {
+  padding: var(--spacing-2);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+.btn-lg {
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: var(--font-size-base);
+}
+
+/* Success Button (auch rot wie Softr) */
 .btn-success {
-  background-color: var(--color-brand-medium);
+  background-color: var(--color-primary);
   color: white;
+  border: 2px solid var(--color-primary);
 }
 
-.btn-success:hover {
-  background-color: var(--color-brand-dark);
+.btn-success:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
-/* ===== Cards ===== */
+/* Danger Button */
+.btn-danger {
+  background-color: var(--color-error);
+  color: white;
+  border: 2px solid var(--color-error);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--color-error-dark);
+  border-color: var(--color-error-dark);
+}
+
+/* ===== Cards (Softr-Style) ===== */
 .card {
-  background-color: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
   overflow: hidden;
+}
+
+.card-header {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.card-body {
+  padding: var(--spacing-5);
+}
+
+.card-footer {
+  padding: var(--spacing-4) var(--spacing-5);
+  border-top: 1px solid var(--color-gray-200);
+  background-color: var(--color-gray-50);
+}
+
+/* ===== Status Badges (BV-Phasen Softr-Style) ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* (0) Bedarfsanalyse - Grau */
+.badge-status-0, .badge-gray {
+  background-color: var(--status-0-bg);
+  color: var(--status-0-text);
+  border: 1px solid var(--status-0-border);
+}
+
+/* (1) Angebot - Hellblau */
+.badge-status-1, .badge-lightblue {
+  background-color: var(--status-1-bg);
+  color: var(--status-1-text);
+  border: 1px solid var(--status-1-border);
+}
+
+/* (2) Auftrag - Lila */
+.badge-status-2, .badge-purple {
+  background-color: var(--status-2-bg);
+  color: var(--status-2-text);
+  border: 1px solid var(--status-2-border);
+}
+
+/* (3) Vorbereitung - Blau */
+.badge-status-3, .badge-blue {
+  background-color: var(--status-3-bg);
+  color: var(--status-3-text);
+  border: 1px solid var(--status-3-border);
+}
+
+/* (4) Umsetzung - Orange */
+.badge-status-4, .badge-orange {
+  background-color: var(--status-4-bg);
+  color: var(--status-4-text);
+  border: 1px solid var(--status-4-border);
+}
+
+/* (5) Rechnungen - Gelb/Gruen */
+.badge-status-5, .badge-yellow {
+  background-color: var(--status-5-bg);
+  color: var(--status-5-text);
+  border: 1px solid var(--status-5-border);
+}
+
+/* (6) Abgeschlossen - Dunkelgruen */
+.badge-status-6, .badge-green {
+  background-color: var(--status-6-bg);
+  color: var(--status-6-text);
+  border: 1px solid var(--status-6-border);
+}
+
+/* (7) Projekt abgeschlossen */
+.badge-status-7, .badge-darkgreen {
+  background-color: var(--status-7-bg);
+  color: var(--status-7-text);
+  border: 1px solid var(--status-7-border);
+}
+
+/* Zusaetzliche Badge-Varianten */
+.badge-success {
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
+  border: 1px solid var(--color-success);
+}
+
+.badge-warning {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning-dark);
+  border: 1px solid var(--color-warning);
+}
+
+.badge-error {
+  background-color: var(--color-error-light);
+  color: var(--color-error-dark);
+  border: 1px solid var(--color-error);
+}
+
+.badge-info {
+  background-color: var(--color-info-light);
+  color: var(--color-info-dark);
+  border: 1px solid var(--color-info);
+}
+
+.badge-primary {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-300);
+}
+
+/* ===== Tabellen (Softr-Style) ===== */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--table-border);
+  border-radius: var(--radius-lg);
+  background-color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+thead {
+  background-color: var(--table-header-bg);
+}
+
+thead th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--table-header-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--table-border);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--table-border);
+  transition: background-color var(--transition-fast);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: var(--table-row-hover);
+}
+
+/* Zebra-Striping (optional) */
+.table-striped tbody tr:nth-child(even) {
+  background-color: var(--table-row-stripe);
+}
+
+.table-striped tbody tr:nth-child(even):hover {
+  background-color: var(--table-row-hover);
+}
+
+tbody td {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  vertical-align: middle;
+}
+
+/* Sortable Headers */
+thead th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+thead th.sortable:hover {
+  background-color: var(--color-gray-100);
 }
 
 /* ===== Container ===== */
@@ -142,14 +381,99 @@ button, .btn {
   padding: 0 var(--spacing-4);
 }
 
+/* ===== Page Header (Softr-Style) ===== */
+.page-header {
+  margin-bottom: var(--spacing-6);
+}
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+}
+
+.page-description {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-500);
+  margin-bottom: 0;
+}
+
+/* ===== Search Input (Softr-Style) ===== */
+.search-input {
+  position: relative;
+}
+
+.search-input input {
+  padding-left: 40px;
+}
+
+.search-input::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 /* ===== Utility Klassen ===== */
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-sm { font-size: var(--font-size-sm); }
 .text-xs { font-size: var(--font-size-xs); }
 .text-muted { color: var(--color-gray-500); }
+.text-primary { color: var(--color-primary); }
 .font-mono { font-family: var(--font-family-mono); }
 .font-bold { font-weight: var(--font-weight-bold); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+
+/* Flexbox Helpers */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: var(--spacing-2); }
+.gap-4 { gap: var(--spacing-4); }
+
+/* Spacing Helpers */
+.mb-2 { margin-bottom: var(--spacing-2); }
+.mb-4 { margin-bottom: var(--spacing-4); }
+.mb-6 { margin-bottom: var(--spacing-6); }
+.mt-2 { margin-top: var(--spacing-2); }
+.mt-4 { margin-top: var(--spacing-4); }
+.p-4 { padding: var(--spacing-4); }
+.p-6 { padding: var(--spacing-6); }
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-6);
+  color: var(--color-gray-500);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-4);
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-state-description {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-4);
+}
 
 /* ===== Mobile-First ===== */
 @media (max-width: 640px) {
@@ -159,5 +483,9 @@ button, .btn {
 
   .container {
     padding: 0 var(--spacing-3);
+  }
+
+  .page-title {
+    font-size: var(--font-size-xl);
   }
 }

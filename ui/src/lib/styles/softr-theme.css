@@ -1,0 +1,672 @@
+/**
+ * neurealis ERP - Softr Theme
+ * Zusaetzliche Styles fuer Softr-Portal Kompatibilitaet
+ * Import nach global.css fuer vollstaendiges Softr-Design
+ */
+
+/* ===== Projekt-Karten (Softr BV-Cards) ===== */
+.project-card {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.project-card-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background-color: var(--color-gray-100);
+}
+
+.project-card-body {
+  padding: var(--spacing-4);
+}
+
+.project-card-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+  line-height: var(--line-height-tight);
+}
+
+.project-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.project-card-meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+
+.project-card-meta-label {
+  color: var(--color-gray-500);
+}
+
+.project-card-meta-value {
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== Ansprechpartner-Karten (Softr Contact Cards) ===== */
+.contact-card {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-5);
+  text-align: center;
+}
+
+.contact-card-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  margin: 0 auto var(--spacing-4);
+  border: 3px solid var(--color-primary-100);
+}
+
+.contact-card-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-1);
+}
+
+.contact-card-role {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-2);
+}
+
+.contact-card-area {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-bottom: var(--spacing-4);
+}
+
+.contact-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.contact-card-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  text-decoration: none;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.contact-card-link:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+  color: var(--color-primary);
+}
+
+/* ===== Kalender (Softr-Style) ===== */
+.calendar-container {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.calendar-nav-btn {
+  padding: var(--spacing-2);
+  background: transparent;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calendar-nav-btn:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-300);
+}
+
+.calendar-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekday {
+  padding: var(--spacing-3);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  background: var(--color-gray-50);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.calendar-day {
+  min-height: 80px;
+  padding: var(--spacing-2);
+  border-right: 1px solid var(--color-gray-100);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.calendar-day:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-day-number {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-1);
+}
+
+.calendar-day.today .calendar-day-number {
+  background: var(--color-primary);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-event {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* Kalender Event Farben nach Phase */
+.calendar-event.phase-3 {
+  background: var(--status-3-bg);
+  color: var(--status-3-text);
+}
+
+.calendar-event.phase-4 {
+  background: var(--status-4-bg);
+  color: var(--status-4-text);
+}
+
+.calendar-event.phase-5 {
+  background: var(--status-5-bg);
+  color: var(--status-5-text);
+}
+
+.calendar-event.phase-6 {
+  background: var(--status-6-bg);
+  color: var(--status-6-text);
+}
+
+/* ===== Info-Karten (Softr Metric Cards) ===== */
+.metric-card {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.metric-card-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-bottom: var(--spacing-1);
+}
+
+.metric-card-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.metric-card-subtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+  margin-top: var(--spacing-1);
+}
+
+.metric-card.highlight {
+  border-color: var(--color-primary-200);
+  background: var(--color-primary-50);
+}
+
+.metric-card.highlight .metric-card-value {
+  color: var(--color-primary);
+}
+
+/* ===== Filter-Buttons (Softr Tag Filter) ===== */
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.filter-tag {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background: white;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-tag:hover {
+  border-color: var(--color-primary-300);
+  background: var(--color-primary-50);
+}
+
+.filter-tag.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* ===== Dokument-Liste (Softr Document List) ===== */
+.document-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.document-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-100);
+  transition: background var(--transition-fast);
+}
+
+.document-item:hover {
+  background: var(--color-gray-50);
+}
+
+.document-item:last-child {
+  border-bottom: none;
+}
+
+.document-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.document-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+}
+
+.document-action {
+  flex-shrink: 0;
+}
+
+/* ===== Gewerke-Status Liste (Softr Trade Status) ===== */
+.trade-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.trade-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.trade-item:last-child {
+  border-bottom: none;
+}
+
+.trade-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-800);
+}
+
+.trade-status {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+}
+
+.trade-status.planned {
+  background: var(--status-0-bg);
+  color: var(--status-0-text);
+}
+
+.trade-status.in-progress {
+  background: var(--status-4-bg);
+  color: var(--status-4-text);
+}
+
+.trade-status.completed {
+  background: var(--status-6-bg);
+  color: var(--status-6-text);
+}
+
+/* ===== Nachtrags-/Maengel-Tabelle (Softr Detail Tables) ===== */
+.detail-table {
+  width: 100%;
+}
+
+.detail-table th {
+  background: var(--color-gray-50);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.detail-table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid var(--color-gray-100);
+  vertical-align: middle;
+}
+
+.detail-table tr:hover td {
+  background: var(--color-gray-50);
+}
+
+/* ===== Action Buttons in Tabellen ===== */
+.table-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.table-action-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-gray-200);
+  color: var(--color-gray-500);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.table-action-btn:hover {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-300);
+  color: var(--color-gray-700);
+}
+
+.table-action-btn.primary:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+  color: var(--color-primary);
+}
+
+.table-action-btn.danger:hover {
+  background: var(--color-error-light);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* ===== Anchor-Links / Quick Navigation ===== */
+.anchor-nav {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: var(--spacing-4);
+}
+
+.anchor-link {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.anchor-link:hover,
+.anchor-link.active {
+  color: var(--color-primary);
+}
+
+/* ===== Tabs (Softr-Style) ===== */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-gray-200);
+  margin-bottom: var(--spacing-6);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: var(--spacing-3) var(--spacing-5);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-500);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.tab:hover {
+  color: var(--color-gray-700);
+}
+
+.tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* ===== Responsive Grids ===== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Willkommens-Banner ===== */
+.welcome-banner {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: white;
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-6);
+}
+
+.welcome-banner-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-2);
+}
+
+.welcome-banner-subtitle {
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+}
+
+/* ===== Floating Action Button ===== */
+.fab {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+  z-index: 40;
+}
+
+.fab:hover {
+  background: var(--color-primary-hover);
+  transform: scale(1.1);
+}
+
+/* ===== Loading Spinner ===== */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Toast Notifications ===== */
+.toast {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  padding: var(--spacing-4) var(--spacing-5);
+  background: var(--color-gray-900);
+  color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-toast);
+  animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+  background: var(--color-success-dark);
+}
+
+.toast.error {
+  background: var(--color-error-dark);
+}
+
+.toast.warning {
+  background: var(--color-warning-dark);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
