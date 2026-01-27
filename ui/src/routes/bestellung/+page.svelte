@@ -3,6 +3,9 @@
 	import { page } from '$app/stores';
 	import { supabase, parseArtikelText } from '$lib/supabase';
 
+	// Props vom Layout
+	let { data } = $props();
+
 	// === Typen ===
 	interface Projekt {
 		atbs_nummer: string;
@@ -19,6 +22,7 @@
 		typ_anzeige: string | null;
 		bestell_email: string | null;
 		logo_url: string | null;
+		sortiment: string[] | null;
 	}
 
 	interface Artikel {
@@ -97,9 +101,6 @@
 	// Expanded Artikel (für Langname-Anzeige)
 	let expandedArtikel = $state<Set<string>>(new Set());
 
-	// Fehlerhafte Logos (werden als Fallback angezeigt)
-	let failedLogos = $state<Set<string>>(new Set());
-
 	// Filter-State
 	let selectedKategorie = $state<string | null>(null);
 	let selectedUnterkategorie = $state<string | null>(null);
@@ -126,8 +127,8 @@
 
 	// === Lifecycle ===
 	onMount(async () => {
-		const { data: { session } } = await supabase.auth.getSession();
-		currentUser = session?.user?.email || 'anonymous';
+		// User-Email aus Layout-Daten (Microsoft 365 Login)
+		currentUser = data.user?.email || 'anonymous';
 
 		// URL-Parameter auslesen
 		const url = new URL(window.location.href);
@@ -185,7 +186,7 @@
 			// Großhändler laden (mit Logo aus verknüpftem Kontakt)
 			const { data: ghData } = await supabase
 				.from('grosshaendler')
-				.select('id, name, kurzname, typ, typ_anzeige, bestell_email, kontakt:kontakte(foto_url)')
+				.select('id, name, kurzname, typ, typ_anzeige, bestell_email, sortiment, kontakt:kontakte(foto_url)')
 				.eq('ist_aktiv', true)
 				.order('name', { ascending: true });
 
@@ -193,6 +194,7 @@
 				grosshaendler = ghData.map(h => ({
 					...h,
 					logo_url: h.kontakt?.foto_url || null,
+					sortiment: h.sortiment || null,
 					kontakt: undefined
 				}));
 			}
@@ -200,7 +202,7 @@
 			// Ansprechpartner (Mitarbeiter) laden
 			const { data: mitarbeiterData } = await supabase
 				.from('kontakte')
-				.select('id, vorname, nachname, telefon_mobil, email, kontaktarten, rolle')
+				.select('id, vorname, nachname, telefon_mobil, email, kontaktarten')
 				.eq('aktiv', true)
 				.contains('kontaktarten', ['mitarbeiter']);
 
@@ -209,9 +211,8 @@
 				const sortiert = [...mitarbeiterData].sort((a, b) => {
 					const getPrio = (k: typeof a) => {
 						const arten = k.kontaktarten || [];
-						const rolle = (k.rolle || '').toLowerCase();
-						if (arten.includes('handwerker') || rolle.includes('handwerk') || rolle.includes('monteur')) return 1;
-						if (rolle.includes('bauleiter') || rolle.includes('polier')) return 2;
+						if (arten.includes('handwerker')) return 1;
+						if (arten.includes('bauleiter')) return 2;
 						return 3;
 					};
 					const prioA = getPrio(a);
@@ -899,17 +900,10 @@
 									currentStep = 2;
 								}}
 							>
-								<div class="haendler-logo">
-									{#if haendler.logo_url && !failedLogos.has(haendler.id)}
-										<img
-											src={haendler.logo_url}
-											alt={haendler.kurzname || haendler.name}
-											onerror={() => { failedLogos.add(haendler.id); failedLogos = new Set(failedLogos); }}
-										/>
-									{:else}
-										<span class="logo-fallback">{(haendler.kurzname || haendler.name).charAt(0)}</span>
-									{/if}
-								</div>
+								<div class="haendler-name">{haendler.kurzname || haendler.name}</div>
+								{#if haendler.sortiment && haendler.sortiment.length > 0}
+									<div class="haendler-sortiment">{haendler.sortiment.join(', ')}</div>
+								{/if}
 								{#if selectedHaendler === haendler.id}
 									<div class="haendler-check">
 										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -1592,12 +1586,12 @@
 	/* Progress Bar */
 	.progress-bar {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
 		padding: var(--spacing-4) var(--spacing-6);
 		background: white;
 		border-bottom: 1px solid var(--color-gray-200);
-		gap: var(--spacing-2);
+		gap: 0;
 	}
 
 	.progress-step {
@@ -1608,7 +1602,7 @@
 		background: none;
 		border: none;
 		cursor: default;
-		padding: var(--spacing-2);
+		padding: var(--spacing-2) var(--spacing-1);
 		opacity: 0.5;
 	}
 
@@ -1628,7 +1622,7 @@
 	.step-number {
 		width: 32px;
 		height: 32px;
-		border-radius: 50%;
+		border-radius: var(--radius-sm);
 		background: var(--color-gray-200);
 		color: var(--color-gray-600);
 		display: flex;
@@ -1666,14 +1660,14 @@
 	}
 
 	.progress-line {
-		flex: 1;
-		max-width: 60px;
+		width: 40px;
 		height: 2px;
-		background: var(--color-gray-200);
+		background: var(--color-gray-300);
+		margin-top: 23px; /* padding (8px) + halbe Quadrat-Höhe (15px) */
 	}
 
 	.progress-line.complete {
-		background: var(--color-success);
+		background: var(--color-brand-medium);
 	}
 
 	/* Main */
@@ -1760,7 +1754,11 @@
 		padding: var(--spacing-4);
 		cursor: pointer;
 		transition: all 0.15s ease;
-		text-align: left;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 80px;
 	}
 
 	.haendler-card:hover {
@@ -1774,37 +1772,28 @@
 		color: white;
 	}
 
-	.haendler-logo {
-		width: 100%;
-		height: 60px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-	}
-
-	.haendler-logo img {
-		max-width: 100%;
-		max-height: 100%;
-		object-fit: contain;
-	}
-
-	.logo-fallback {
-		width: 60px;
-		height: 60px;
-		background: var(--color-gray-200);
-		border-radius: var(--radius-md);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.haendler-name {
 		font-weight: var(--font-weight-bold);
-		font-size: 1.5rem;
-		color: var(--color-gray-500);
+		font-size: var(--font-size-base);
+		color: var(--color-gray-800);
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.haendler-card.selected .logo-fallback {
-		background: rgba(255, 255, 255, 0.3);
+	.haendler-card.selected .haendler-name {
 		color: white;
+	}
+
+	.haendler-sortiment {
+		font-size: var(--font-size-xs);
+		color: var(--color-gray-500);
+		margin-top: var(--spacing-2);
+	}
+
+	.haendler-card.selected .haendler-sortiment {
+		color: rgba(255, 255, 255, 0.8);
 	}
 
 	.haendler-check {

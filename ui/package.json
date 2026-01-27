@@ -24,6 +24,9 @@
 	"dependencies": {
 		"@supabase/auth-ui-shared": "^0.1.8",
 		"@supabase/auth-ui-svelte": "^0.2.9",
-		"@supabase/supabase-js": "^2.91.1"
+		"@supabase/ssr": "^0.8.0",
+		"@supabase/supabase-js": "^2.91.1",
+		"jspdf": "^4.0.0",
+		"jspdf-autotable": "^5.0.7"
 	}
 }
