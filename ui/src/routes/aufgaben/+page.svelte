@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Badge } from '$lib/components/ui';
+	import { Card, Badge, Button } from '$lib/components/ui';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 
@@ -17,12 +17,21 @@
 		planner_bucket_name: string | null;
 		percent_complete: number | null;
 		created_at: string | null;
+		projekt_id: string | null;
+	}
+
+	interface BV {
+		id: string;
+		name: string;
+		group_title: string;
 	}
 
 	// State
 	let tasks = $state<Task[]>([]);
+	let bauvorhaben = $state<BV[]>([]);
 	let loading = $state(true);
 	let error = $state<string | null>(null);
+	let saving = $state(false);
 
 	// Filter-State
 	let searchQuery = $state('');
@@ -30,6 +39,53 @@
 	let selectedVerantwortlicher = $state<string | null>(null);
 	let selectedBucket = $state<string | null>(null);
 	let sortierung = $state<'faelligkeit_asc' | 'faelligkeit_desc' | 'erstellt_desc'>('faelligkeit_asc');
+	let filterOverdue = $state(false);
+	let filterToday = $state(false);
+
+	// Panel-State
+	let showPanel = $state(false);
+	let editingTask = $state<Task | null>(null);
+	let showDeleteConfirm = $state(false);
+	let taskToDelete = $state<Task | null>(null);
+
+	// Formular-State
+	let formTitle = $state('');
+	let formDescription = $state('');
+	let formStatus = $state('not_started');
+	let formPriority = $state('normal');
+	let formDueDate = $state('');
+	let formAssignedTo = $state('');
+	let formCategory = $state('');
+	let formProjektId = $state('');
+
+	// Status-Optionen
+	const STATUS_OPTIONS = [
+		{ value: 'not_started', label: 'Offen' },
+		{ value: 'in_progress', label: 'In Arbeit' },
+		{ value: 'completed', label: 'Erledigt' },
+		{ value: 'cancelled', label: 'Abgebrochen' }
+	];
+
+	// Priorität-Optionen
+	const PRIORITY_OPTIONS = [
+		{ value: 'low', label: 'Niedrig' },
+		{ value: 'normal', label: 'Normal' },
+		{ value: 'high', label: 'Hoch' },
+		{ value: 'urgent', label: 'Dringend' }
+	];
+
+	// Kategorie-Optionen
+	const CATEGORY_OPTIONS = [
+		{ value: '', label: 'Keine Kategorie' },
+		{ value: 'Allgemein', label: 'Allgemein' },
+		{ value: 'Baustelle', label: 'Baustelle' },
+		{ value: 'Büro', label: 'Büro' },
+		{ value: 'Einkauf', label: 'Einkauf' },
+		{ value: 'Finanzen', label: 'Finanzen' },
+		{ value: 'Kunden', label: 'Kunden' },
+		{ value: 'Nachunternehmer', label: 'Nachunternehmer' },
+		{ value: 'Development', label: 'Development' }
+	];
 
 	// Status-Mapping (normalisiert verschiedene Formate)
 	const STATUS_OFFEN = 'not_started';
@@ -42,6 +98,7 @@
 		if (s === 'notstarted' || s === 'not_started') return STATUS_OFFEN;
 		if (s === 'inprogress' || s === 'in_progress') return STATUS_IN_BEARBEITUNG;
 		if (s === 'completed') return STATUS_ERLEDIGT;
+		if (s === 'cancelled') return 'cancelled';
 		return STATUS_OFFEN;
 	}
 
@@ -140,6 +197,21 @@
 		return result;
 	});
 
+	// Erweiterte Filter mit überfällig/heute
+	let displayedTasks = $derived(() => {
+		let result = filteredTasks();
+
+		if (filterOverdue) {
+			result = result.filter(t => isOverdue(t));
+		}
+
+		if (filterToday) {
+			result = result.filter(t => isDueToday(t));
+		}
+
+		return result;
+	});
+
 	// Statistiken
 	let stats = $derived(() => {
 		const offen = tasks.filter(t => normalizeStatus(t.status) === STATUS_OFFEN).length;
@@ -165,7 +237,7 @@
 
 		const { data, error: fetchError } = await supabase
 			.from('tasks')
-			.select('id, title, description, status, priority, due_date, completed_at, assigned_to, category, planner_bucket_name, percent_complete, created_at')
+			.select('id, title, description, status, priority, due_date, completed_at, assigned_to, category, planner_bucket_name, percent_complete, created_at, projekt_id')
 			.order('due_date', { ascending: true, nullsFirst: false });
 
 		if (fetchError) {
@@ -178,10 +250,157 @@
 		loading = false;
 	}
 
+	async function loadBauvorhaben() {
+		const { data } = await supabase
+			.from('monday_bauprozess')
+			.select('id, name, group_title')
+			.order('name');
+
+		if (data) {
+			bauvorhaben = data;
+		}
+	}
+
 	onMount(() => {
 		loadTasks();
+		loadBauvorhaben();
 	});
 
+	// CRUD Operations
+	function openCreatePanel() {
+		editingTask = null;
+		formTitle = '';
+		formDescription = '';
+		formStatus = 'not_started';
+		formPriority = 'normal';
+		formDueDate = '';
+		formAssignedTo = '';
+		formCategory = '';
+		formProjektId = '';
+		showPanel = true;
+	}
+
+	function openEditPanel(task: Task) {
+		editingTask = task;
+		formTitle = task.title || '';
+		formDescription = task.description || '';
+		formStatus = normalizeStatus(task.status);
+		formPriority = task.priority || 'normal';
+		formDueDate = task.due_date ? task.due_date.split('T')[0] : '';
+		formAssignedTo = task.assigned_to || '';
+		formCategory = task.category || '';
+		formProjektId = task.projekt_id || '';
+		showPanel = true;
+	}
+
+	function closePanel() {
+		showPanel = false;
+		editingTask = null;
+	}
+
+	async function saveTask() {
+		if (!formTitle.trim()) {
+			alert('Titel ist erforderlich');
+			return;
+		}
+
+		saving = true;
+
+		const taskData = {
+			title: formTitle.trim(),
+			description: formDescription.trim() || null,
+			status: formStatus,
+			priority: formPriority,
+			due_date: formDueDate ? new Date(formDueDate).toISOString() : null,
+			assigned_to: formAssignedTo.trim() || null,
+			category: formCategory || null,
+			projekt_id: formProjektId || null,
+			completed_at: formStatus === 'completed' ? new Date().toISOString() : null,
+			source: 'manual'
+		};
+
+		if (editingTask) {
+			// UPDATE
+			const { error: updateError } = await supabase
+				.from('tasks')
+				.update(taskData)
+				.eq('id', editingTask.id);
+
+			if (updateError) {
+				alert('Fehler beim Speichern: ' + updateError.message);
+				saving = false;
+				return;
+			}
+		} else {
+			// INSERT
+			const { error: insertError } = await supabase
+				.from('tasks')
+				.insert(taskData);
+
+			if (insertError) {
+				alert('Fehler beim Erstellen: ' + insertError.message);
+				saving = false;
+				return;
+			}
+		}
+
+		saving = false;
+		closePanel();
+		await loadTasks();
+	}
+
+	async function toggleTaskComplete(task: Task, event: Event) {
+		event.stopPropagation();
+		const isCompleted = normalizeStatus(task.status) === STATUS_ERLEDIGT;
+		const newStatus = isCompleted ? 'not_started' : 'completed';
+		const completedAt = isCompleted ? null : new Date().toISOString();
+
+		const { error: updateError } = await supabase
+			.from('tasks')
+			.update({
+				status: newStatus,
+				completed_at: completedAt
+			})
+			.eq('id', task.id);
+
+		if (updateError) {
+			alert('Fehler: ' + updateError.message);
+			return;
+		}
+
+		await loadTasks();
+	}
+
+	function confirmDelete(task: Task, event: Event) {
+		event.stopPropagation();
+		taskToDelete = task;
+		showDeleteConfirm = true;
+	}
+
+	async function deleteTask() {
+		if (!taskToDelete) return;
+
+		const { error: deleteError } = await supabase
+			.from('tasks')
+			.delete()
+			.eq('id', taskToDelete.id);
+
+		if (deleteError) {
+			alert('Fehler beim Löschen: ' + deleteError.message);
+			return;
+		}
+
+		showDeleteConfirm = false;
+		taskToDelete = null;
+		await loadTasks();
+	}
+
+	function cancelDelete() {
+		showDeleteConfirm = false;
+		taskToDelete = null;
+	}
+
+	// Hilfsfunktionen
 	function formatDate(dateStr: string | null): string {
 		if (!dateStr) return '-';
 		return new Date(dateStr).toLocaleDateString('de-DE', {
@@ -221,6 +440,7 @@
 		switch (normalized) {
 			case STATUS_ERLEDIGT: return 'success';
 			case STATUS_IN_BEARBEITUNG: return 'warning';
+			case 'cancelled': return 'error';
 			case STATUS_OFFEN: return 'default';
 			default: return 'default';
 		}
@@ -230,7 +450,8 @@
 		const normalized = normalizeStatus(status);
 		switch (normalized) {
 			case STATUS_ERLEDIGT: return 'Erledigt';
-			case STATUS_IN_BEARBEITUNG: return 'In Bearbeitung';
+			case STATUS_IN_BEARBEITUNG: return 'In Arbeit';
+			case 'cancelled': return 'Abgebrochen';
 			case STATUS_OFFEN: return 'Offen';
 			default: return 'Unbekannt';
 		}
@@ -238,10 +459,20 @@
 
 	function getPriorityVariant(priority: string | null): 'error' | 'warning' | 'default' {
 		switch (priority?.toLowerCase()) {
-			case 'high':
+			case 'high': return 'warning';
 			case 'urgent': return 'error';
-			case 'medium': return 'warning';
+			case 'low': return 'default';
 			default: return 'default';
+		}
+	}
+
+	function getPriorityLabel(priority: string | null): string {
+		switch (priority?.toLowerCase()) {
+			case 'urgent': return 'Dringend';
+			case 'high': return 'Hoch';
+			case 'normal': return 'Normal';
+			case 'low': return 'Niedrig';
+			default: return priority || 'Normal';
 		}
 	}
 
@@ -250,9 +481,10 @@
 		selectedStatus = null;
 		selectedVerantwortlicher = null;
 		selectedBucket = null;
+		filterOverdue = false;
+		filterToday = false;
 	}
 
-	// Filter-Funktionen für Stat-Karten
 	function filterByStatus(status: string) {
 		if (selectedStatus === status) {
 			selectedStatus = null;
@@ -260,9 +492,6 @@
 			selectedStatus = status;
 		}
 	}
-
-	let filterOverdue = $state(false);
-	let filterToday = $state(false);
 
 	function toggleOverdueFilter() {
 		filterOverdue = !filterOverdue;
@@ -273,21 +502,6 @@
 		filterToday = !filterToday;
 		filterOverdue = false;
 	}
-
-	// Erweiterte Filter mit überfällig/heute
-	let displayedTasks = $derived(() => {
-		let result = filteredTasks();
-
-		if (filterOverdue) {
-			result = result.filter(t => isOverdue(t));
-		}
-
-		if (filterToday) {
-			result = result.filter(t => isDueToday(t));
-		}
-
-		return result;
-	});
 </script>
 
 <div class="aufgaben-page">
@@ -303,6 +517,9 @@
 			</p>
 		</div>
 		<div class="header-actions">
+			<Button variant="primary" onclick={openCreatePanel}>
+				+ Neue Aufgabe
+			</Button>
 			<button class="refresh-btn" onclick={loadTasks} disabled={loading}>
 				{loading ? 'Lädt...' : 'Aktualisieren'}
 			</button>
@@ -388,7 +605,7 @@
 			</select>
 
 			{#if searchQuery || selectedStatus || selectedVerantwortlicher || selectedBucket || filterOverdue || filterToday}
-				<button class="clear-btn" onclick={() => { clearFilters(); filterOverdue = false; filterToday = false; }}>
+				<button class="clear-btn" onclick={clearFilters}>
 					Filter zurücksetzen
 				</button>
 			{/if}
@@ -404,53 +621,87 @@
 	{:else}
 		<div class="tasks-list">
 			{#each displayedTasks() as task}
-				<div class="task-card" class:overdue={isOverdue(task)} class:completed={normalizeStatus(task.status) === STATUS_ERLEDIGT}>
-					<div class="card-header">
-						<div class="header-left">
-							<Badge variant={getStatusVariant(task.status)} size="sm">
-								{getStatusLabel(task.status)}
-							</Badge>
-							{#if isOverdue(task)}
-								<Badge variant="error" size="sm">Überfällig</Badge>
-							{:else if isDueToday(task)}
-								<Badge variant="warning" size="sm">Heute</Badge>
-							{/if}
-							{#if task.priority && task.priority !== 'normal'}
-								<Badge variant={getPriorityVariant(task.priority)} size="sm">
-									{task.priority === 'high' ? 'Hoch' : task.priority === 'urgent' ? 'Dringend' : task.priority}
-								</Badge>
-							{/if}
-						</div>
-						{#if task.planner_bucket_name}
-							<span class="bucket-name">{task.planner_bucket_name}</span>
-						{/if}
+				<div
+					class="task-card"
+					class:overdue={isOverdue(task)}
+					class:completed={normalizeStatus(task.status) === STATUS_ERLEDIGT}
+					onclick={() => openEditPanel(task)}
+					role="button"
+					tabindex="0"
+					onkeydown={(e) => e.key === 'Enter' && openEditPanel(task)}
+				>
+					<div class="task-checkbox-wrapper">
+						<input
+							type="checkbox"
+							class="task-checkbox"
+							checked={normalizeStatus(task.status) === STATUS_ERLEDIGT}
+							onclick={(e) => toggleTaskComplete(task, e)}
+							title={normalizeStatus(task.status) === STATUS_ERLEDIGT ? 'Als offen markieren' : 'Als erledigt markieren'}
+						/>
 					</div>
-
-					<div class="card-body">
-						<h3 class="task-title">{task.title}</h3>
-						{#if task.description}
-							<p class="task-description">{task.description}</p>
-						{/if}
-
-						<div class="card-meta">
-							<div class="meta-item">
-								<span class="meta-label">Fällig</span>
-								<span class="meta-value" class:overdue={isOverdue(task)}>
-									{getRelativeDate(task.due_date)}
-								</span>
+					<div class="task-content">
+						<div class="card-header">
+							<div class="header-left">
+								<Badge variant={getStatusVariant(task.status)} size="sm">
+									{getStatusLabel(task.status)}
+								</Badge>
+								{#if isOverdue(task)}
+									<Badge variant="error" size="sm">Überfällig</Badge>
+								{:else if isDueToday(task)}
+									<Badge variant="warning" size="sm">Heute</Badge>
+								{/if}
+								{#if task.priority && task.priority !== 'normal'}
+									<Badge variant={getPriorityVariant(task.priority)} size="sm">
+										{getPriorityLabel(task.priority)}
+									</Badge>
+								{/if}
 							</div>
-							{#if task.assigned_to}
-								<div class="meta-item">
-									<span class="meta-label">Verantwortlich</span>
-									<span class="meta-value">{task.assigned_to}</span>
-								</div>
+							<div class="header-right">
+								{#if task.planner_bucket_name}
+									<span class="bucket-name">{task.planner_bucket_name}</span>
+								{/if}
+								<button
+									class="delete-btn"
+									onclick={(e) => confirmDelete(task, e)}
+									title="Aufgabe löschen"
+								>
+									&#10005;
+								</button>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<h3 class="task-title">{task.title}</h3>
+							{#if task.description}
+								<p class="task-description">{task.description}</p>
 							{/if}
-							{#if task.percent_complete !== null && task.percent_complete > 0}
+
+							<div class="card-meta">
 								<div class="meta-item">
-									<span class="meta-label">Fortschritt</span>
-									<span class="meta-value">{task.percent_complete}%</span>
+									<span class="meta-label">Fällig</span>
+									<span class="meta-value" class:overdue={isOverdue(task)}>
+										{getRelativeDate(task.due_date)}
+									</span>
 								</div>
-							{/if}
+								{#if task.assigned_to}
+									<div class="meta-item">
+										<span class="meta-label">Verantwortlich</span>
+										<span class="meta-value">{task.assigned_to}</span>
+									</div>
+								{/if}
+								{#if task.category}
+									<div class="meta-item">
+										<span class="meta-label">Kategorie</span>
+										<span class="meta-value">{task.category}</span>
+									</div>
+								{/if}
+								{#if task.percent_complete !== null && task.percent_complete > 0}
+									<div class="meta-item">
+										<span class="meta-label">Fortschritt</span>
+										<span class="meta-value">{task.percent_complete}%</span>
+									</div>
+								{/if}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -460,15 +711,138 @@
 				<div class="empty-state">
 					{#if tasks.length === 0}
 						<p>Noch keine Aufgaben vorhanden</p>
+						<Button variant="primary" onclick={openCreatePanel}>
+							Erste Aufgabe erstellen
+						</Button>
 					{:else}
 						<p>Keine Aufgaben gefunden</p>
-						<button onclick={() => { clearFilters(); filterOverdue = false; filterToday = false; }}>Filter zurücksetzen</button>
+						<button onclick={clearFilters}>Filter zurücksetzen</button>
 					{/if}
 				</div>
 			{/if}
 		</div>
 	{/if}
 </div>
+
+<!-- Slide-over Panel -->
+{#if showPanel}
+	<div class="panel-overlay" onclick={closePanel} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && closePanel()}></div>
+	<div class="slide-panel">
+		<div class="panel-header">
+			<h2>{editingTask ? 'Aufgabe bearbeiten' : 'Neue Aufgabe'}</h2>
+			<button class="close-btn" onclick={closePanel}>&#10005;</button>
+		</div>
+		<form class="panel-content" onsubmit={(e) => { e.preventDefault(); saveTask(); }}>
+			<div class="form-group">
+				<label for="task-title">Titel *</label>
+				<input
+					type="text"
+					id="task-title"
+					bind:value={formTitle}
+					placeholder="Aufgabentitel eingeben..."
+					required
+				/>
+			</div>
+
+			<div class="form-group">
+				<label for="task-description">Beschreibung</label>
+				<textarea
+					id="task-description"
+					bind:value={formDescription}
+					rows="3"
+					placeholder="Optionale Beschreibung..."
+				></textarea>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label for="task-status">Status</label>
+					<select id="task-status" bind:value={formStatus}>
+						{#each STATUS_OPTIONS as opt}
+							<option value={opt.value}>{opt.label}</option>
+						{/each}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="task-priority">Priorität</label>
+					<select id="task-priority" bind:value={formPriority}>
+						{#each PRIORITY_OPTIONS as opt}
+							<option value={opt.value}>{opt.label}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="task-due-date">Fälligkeitsdatum</label>
+				<input
+					type="date"
+					id="task-due-date"
+					bind:value={formDueDate}
+				/>
+			</div>
+
+			<div class="form-group">
+				<label for="task-assigned">Verantwortlich</label>
+				<input
+					type="text"
+					id="task-assigned"
+					bind:value={formAssignedTo}
+					placeholder="Name eingeben..."
+					list="assigned-suggestions"
+				/>
+				<datalist id="assigned-suggestions">
+					{#each verantwortlicheListe as person}
+						<option value={person}></option>
+					{/each}
+				</datalist>
+			</div>
+
+			<div class="form-group">
+				<label for="task-category">Kategorie</label>
+				<select id="task-category" bind:value={formCategory}>
+					{#each CATEGORY_OPTIONS as opt}
+						<option value={opt.value}>{opt.label}</option>
+					{/each}
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="task-projekt">Bauvorhaben (optional)</label>
+				<select id="task-projekt" bind:value={formProjektId}>
+					<option value="">Kein Bauvorhaben</option>
+					{#each bauvorhaben as bv}
+						<option value={bv.id}>{bv.name}</option>
+					{/each}
+				</select>
+			</div>
+
+			<div class="panel-actions">
+				<Button variant="secondary" type="button" onclick={closePanel}>
+					Abbrechen
+				</Button>
+				<Button variant="primary" type="submit" loading={saving}>
+					{editingTask ? 'Speichern' : 'Erstellen'}
+				</Button>
+			</div>
+		</form>
+	</div>
+{/if}
+
+<!-- Lösch-Bestätigung -->
+{#if showDeleteConfirm}
+	<div class="modal-overlay" onclick={cancelDelete} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Escape' && cancelDelete()}></div>
+	<div class="delete-modal">
+		<h3>Aufgabe löschen?</h3>
+		<p>Möchten Sie die Aufgabe <strong>"{taskToDelete?.title}"</strong> wirklich löschen?</p>
+		<p class="delete-warning">Diese Aktion kann nicht rückgängig gemacht werden.</p>
+		<div class="modal-actions">
+			<Button variant="secondary" onclick={cancelDelete}>Abbrechen</Button>
+			<Button variant="danger" onclick={deleteTask}>Löschen</Button>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.aufgaben-page {
@@ -671,10 +1045,11 @@
 	}
 
 	.task-card {
-		display: block;
+		display: flex;
 		background: white;
 		border: 1px solid var(--color-gray-200);
 		transition: all 0.15s ease;
+		cursor: pointer;
 	}
 
 	.task-card:hover {
@@ -689,6 +1064,29 @@
 	.task-card.completed {
 		opacity: 0.7;
 		background: var(--color-gray-50);
+	}
+
+	.task-card.completed .task-title {
+		text-decoration: line-through;
+	}
+
+	.task-checkbox-wrapper {
+		display: flex;
+		align-items: flex-start;
+		padding: 1rem;
+		padding-right: 0;
+	}
+
+	.task-checkbox {
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+		accent-color: var(--color-brand-medium);
+	}
+
+	.task-content {
+		flex: 1;
+		min-width: 0;
 	}
 
 	.task-card .card-header {
@@ -706,12 +1104,38 @@
 		flex-wrap: wrap;
 	}
 
+	.header-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
 	.bucket-name {
 		font-size: 0.75rem;
 		color: var(--color-gray-500);
 		background: var(--color-gray-100);
 		padding: 0.2rem 0.5rem;
 		border-radius: 2px;
+	}
+
+	.delete-btn {
+		background: none;
+		border: none;
+		color: var(--color-gray-400);
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0.25rem;
+		line-height: 1;
+		opacity: 0;
+		transition: opacity 0.15s ease, color 0.15s ease;
+	}
+
+	.task-card:hover .delete-btn {
+		opacity: 1;
+	}
+
+	.delete-btn:hover {
+		color: var(--color-error);
 	}
 
 	.task-card .card-body {
@@ -778,6 +1202,162 @@
 		cursor: pointer;
 	}
 
+	/* Slide-over Panel */
+	.panel-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.3);
+		z-index: 100;
+	}
+
+	.slide-panel {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		max-width: 480px;
+		background: white;
+		z-index: 101;
+		display: flex;
+		flex-direction: column;
+		box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+		animation: slideIn 0.2s ease;
+	}
+
+	@keyframes slideIn {
+		from {
+			transform: translateX(100%);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+
+	.panel-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1.5rem;
+		border-bottom: 1px solid var(--color-gray-200);
+	}
+
+	.panel-header h2 {
+		font-size: 1.25rem;
+		margin: 0;
+	}
+
+	.close-btn {
+		background: none;
+		border: none;
+		font-size: 1.25rem;
+		cursor: pointer;
+		color: var(--color-gray-500);
+		padding: 0.25rem;
+	}
+
+	.close-btn:hover {
+		color: var(--color-gray-800);
+	}
+
+	.panel-content {
+		flex: 1;
+		overflow-y: auto;
+		padding: 1.5rem;
+	}
+
+	.form-group {
+		margin-bottom: 1.25rem;
+	}
+
+	.form-group label {
+		display: block;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--color-gray-700);
+		margin-bottom: 0.5rem;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		width: 100%;
+		padding: 0.625rem 0.875rem;
+		border: 1px solid var(--color-gray-300);
+		font-size: 0.9rem;
+		font-family: inherit;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: var(--color-brand-medium);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+		min-height: 80px;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.panel-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-gray-200);
+		margin-top: 1rem;
+	}
+
+	/* Delete Modal */
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 200;
+	}
+
+	.delete-modal {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: white;
+		padding: 1.5rem;
+		z-index: 201;
+		max-width: 400px;
+		width: 90%;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	}
+
+	.delete-modal h3 {
+		margin: 0 0 1rem 0;
+		font-size: 1.25rem;
+	}
+
+	.delete-modal p {
+		margin: 0 0 0.5rem 0;
+		color: var(--color-gray-600);
+	}
+
+	.delete-warning {
+		color: var(--color-error) !important;
+		font-size: 0.85rem;
+	}
+
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+
 	@media (max-width: 640px) {
 		.page-header {
 			flex-direction: column;
@@ -801,6 +1381,14 @@
 		.card-meta {
 			flex-direction: column;
 			gap: 0.75rem;
+		}
+
+		.slide-panel {
+			max-width: 100%;
+		}
+
+		.form-row {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

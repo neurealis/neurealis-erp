@@ -86,4 +86,80 @@
 
 ---
 
-*Aktualisiert: 2026-01-27*
+## Business / Wohnungssanierung
+
+### L013 - Leerstandskosten als Verhandlungsargument
+**Datum:** 2026-01-27
+**Kontext:** VBW-Preisverhandlung LV 2026
+**Erkenntnis:** Leerstandskosten sind ein starkes Argument für Prozessoptimierung
+**Formel:** `Wohnungen/Jahr × Verzögerungswochen × Ø-Fläche × €/m²/Monat ÷ 4`
+**Beispiel VBW:** 280 WE × 3 Wochen × 60m² × 8,50€ ÷ 4 = **357.000€/Jahr**
+
+### L014 - Ausreißer-Analyse für LV-Verhandlungen
+**Datum:** 2026-01-27
+**Kontext:** VBW LV 2026 vs. GWS-Marktpreise
+**Methode:**
+1. Altes LV (2023) gegen neues LV (2026) vergleichen
+2. Referenz-BVs als Praxistest (verschiedene Größen)
+3. Markt-LV (z.B. GWS) als externe Benchmark
+4. Ausreißer sortiert nach Abweichung präsentieren
+**Kritische Schwellen:** >25% Abweichung = Gesprächsbedarf
+
+### L015 - Materialvorschläge dokumentieren
+**Datum:** 2026-01-27
+**Erkenntnis:** Bei LV-Verhandlungen immer konkrete Alternativen nennen
+**Wichtige Kriterien:**
+- Verfügbarkeit (Lieferzeiten)
+- EK-Preis
+- Qualität (z.B. DK02 nicht rutschhemmend → Kermos)
+- Markenakzeptanz beim Auftraggeber
+
+### L016 - Prozessoptimierung bei Wohnungssanierung
+**Datum:** 2026-01-27
+**Problem:** 3 Wochen Verzögerung zwischen Auszug und Baustart
+**Ursache:** BL-Zuweisung erst nach Auszug, dann erst Begehung/Budget
+**Lösung:**
+- BL direkt bei Kündigung zuweisen (nach Straßen/Regionen)
+- Erstbegehung 1-2 Wochen nach Kündigung (bewohnte Wohnung)
+- Budget-Freigabe vor Auszug
+- Direkter Baustart nach Auszug
+**Risiko:** Mängel bei Begehung nicht sichtbar → Nachträge einplanen
+
+### L017 - VBW Zahlungsziel-Argumentation
+**Datum:** 2026-01-27
+**Ziel:** 14 Tage netto beibehalten (statt 30 netto / 14-3%)
+**Argumente:**
+- NUs sind kleine Betriebe, brauchen schnelle Zahlung
+- Gute NUs durch pünktliche Zahlung halten
+- Vorleistung bei Material (Lagerware) ermöglicht bessere EK-Konditionen
+- Funktionierendes System nicht ändern
+**Red Line:** Maximal 21 Tage netto ohne Skonto
+
+### L018 - VBW LV 2026 - Kritische Positionen
+**Datum:** 2026-01-27
+**Top-Ausreißer (Unterdeckung):**
+| Pos. | Position | Abweichung | Mindestpreis |
+|------|----------|------------|--------------|
+| 3.3 | Küchenstränge | -72% | 800€ |
+| 1.5 | Elektroschlitze | -54% | - |
+| 2.1 | E-Anlage | -44% | 3.800€ |
+| 6.3 | Vinyl-Boden | -40% | 28€/m² |
+| 7.2 | WE-Tür | -25% | 1.260€ |
+
+### L019 - VBW Material-Freigaben
+**Datum:** 2026-01-27
+**Genehmigte Alternativen:**
+| Position | Aktuell | Vorschlag | Vorteil |
+|----------|---------|-----------|---------|
+| Schalter | Gira E2 | Gira Standard 55 | Günstiger, gleiche Qualität |
+| Badlüfter | Ritzer Limodor | Maico ECA 100 ipro K | Nachlauf, Verfügbarkeit |
+| Sanitär | diverse | Vigour One | Preis-Leistung |
+| Fliesen | DK02 | Kermos 8mm | Rutschhemmend! |
+| Sockelleisten | Holz | KSO Kunststoff | Günstiger |
+| Innentüren | Jeld-Wen | Prüm Röhrenspahn | Kostenoptimiert |
+| WE-Tür | Jeld-Wen | Prüm KK2 RC2 | - |
+| Beschläge | Griffwerk | Becher/Hoppe Amsterdam | Preis |
+
+---
+
+*Aktualisiert: 2026-01-27 23:45*

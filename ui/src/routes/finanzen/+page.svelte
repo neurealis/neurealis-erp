@@ -8,6 +8,9 @@
 	let error = $state<string | null>(null);
 	let activeTab = $state<'offen' | 'alle' | 'abgleich' | 'forecast' | 'phasen'>('offen');
 	let filterTyp = $state<'alle' | 'AR' | 'ER'>('alle');
+	let filterStatus = $state<'alle' | 'offen' | 'bezahlt'>('alle');
+	let sortierung = $state<'datum' | 'faelligkeit' | 'betrag'>('datum');
+	let sortierungAsc = $state(false);
 
 	// KPI-Daten
 	let stats = $state({
@@ -18,8 +21,25 @@
 		erOffenSumme: 0,
 		erOffenAnzahl: 0,
 		erBezahltSumme: 0,
-		erBezahltAnzahl: 0
+		erBezahltAnzahl: 0,
+		ueberfaelligAnzahl: 0,
+		ueberfaelligSumme: 0
 	});
+
+	// Hilfsfunktion: Prüft ob Status als "bezahlt" gilt
+	function istBezahlt(status: string | null): boolean {
+		if (!status) return false;
+		return status.startsWith('(5)') || status === '(7) Ausblenden';
+	}
+
+	// Hilfsfunktion: Prüft ob Rechnung überfällig ist
+	function istUeberfaellig(datum: string | null, status: string | null): boolean {
+		if (!datum || istBezahlt(status)) return false;
+		const faelligkeit = new Date(datum);
+		const heute = new Date();
+		heute.setHours(0, 0, 0, 0);
+		return faelligkeit < heute;
+	}
 
 	// Rechnungen
 	let rechnungen = $state<Array<{
@@ -78,7 +98,7 @@
 
 		// Tab-Filter
 		if (activeTab === 'offen') {
-			filtered = filtered.filter(r => r.status !== '(5) Bezahlt');
+			filtered = filtered.filter(r => !istBezahlt(r.status));
 		}
 
 		// Typ-Filter
@@ -88,14 +108,51 @@
 			filtered = filtered.filter(r => r.art_des_dokuments?.startsWith('ER-'));
 		}
 
+		// Status-Filter (nur bei Tab "Alle")
+		if (activeTab === 'alle') {
+			if (filterStatus === 'offen') {
+				filtered = filtered.filter(r => !istBezahlt(r.status));
+			} else if (filterStatus === 'bezahlt') {
+				filtered = filtered.filter(r => istBezahlt(r.status));
+			}
+		}
+
+		// Sortierung
+		filtered = [...filtered].sort((a, b) => {
+			let vergleich = 0;
+			if (sortierung === 'datum') {
+				vergleich = (new Date(b.datum_erstellt || 0)).getTime() - (new Date(a.datum_erstellt || 0)).getTime();
+			} else if (sortierung === 'faelligkeit') {
+				const aFaelligkeit = a.datum_zahlungsfrist || a.datum_erstellt || '9999-12-31';
+				const bFaelligkeit = b.datum_zahlungsfrist || b.datum_erstellt || '9999-12-31';
+				vergleich = (new Date(aFaelligkeit)).getTime() - (new Date(bFaelligkeit)).getTime();
+			} else if (sortierung === 'betrag') {
+				vergleich = Math.abs(b.betrag_brutto || 0) - Math.abs(a.betrag_brutto || 0);
+			}
+			return sortierungAsc ? -vergleich : vergleich;
+		});
+
 		return filtered;
+	});
+
+	// Derived: Summe der gefilterten Rechnungen
+	let gefilterteSumme = $derived.by(() => {
+		return gefilterteRechnungen.reduce((sum, r) => sum + (r.betrag_brutto || 0), 0);
+	});
+
+	// Derived: Überfällige Rechnungen
+	let ueberfaelligeRechnungen = $derived.by(() => {
+		return rechnungen.filter(r =>
+			!r.art_des_dokuments?.includes('-Zahl') &&
+			istUeberfaellig(r.datum_zahlungsfrist, r.status)
+		);
 	});
 
 	// Derived: Offene Rechnungen für Abgleich
 	let offeneRechnungen = $derived.by(() => {
 		return rechnungen.filter(r =>
 			!r.art_des_dokuments?.includes('-Zahl') &&
-			r.status !== '(5) Bezahlt'
+			!istBezahlt(r.status)
 		);
 	});
 
@@ -131,32 +188,46 @@
 				// Fallback: Direkte Query wenn RPC nicht existiert
 				const { data: rawStats } = await supabase
 					.from('softr_dokumente')
-					.select('art_des_dokuments, betrag_brutto, status')
-					.or('art_des_dokuments.like.AR-A%,art_des_dokuments.like.AR-S%,art_des_dokuments.like.ER-NU-%');
+					.select('art_des_dokuments, betrag_brutto, betrag_offen, status, datum_zahlungsfrist')
+					.or('art_des_dokuments.like.AR-A%,art_des_dokuments.like.AR-S%,art_des_dokuments.like.ER-NU-%,art_des_dokuments.like.ER-M%');
 
 				if (rawStats) {
-					// AR = Ausgangsrechnungen (Schluss + Abschlag)
+					// AR = Ausgangsrechnungen (Schluss + Abschlag, kein Storno)
 					const arDocs = rawStats.filter(d =>
-						d.art_des_dokuments?.includes('AR-A') ||
-						d.art_des_dokuments?.includes('AR-S')
+						(d.art_des_dokuments?.includes('AR-A') ||
+						d.art_des_dokuments?.includes('AR-S')) &&
+						!d.art_des_dokuments?.includes('AR-X')
 					);
-					const arOffen = arDocs.filter(d => d.status !== '(5) Bezahlt');
-					const arBezahlt = arDocs.filter(d => d.status === '(5) Bezahlt');
+					const arOffen = arDocs.filter(d => !istBezahlt(d.status));
+					const arBezahlt = arDocs.filter(d => istBezahlt(d.status));
 
-					// ER = Eingangsrechnungen NU
-					const erDocs = rawStats.filter(d => d.art_des_dokuments?.includes('ER-NU-'));
-					const erOffen = erDocs.filter(d => d.status !== '(5) Bezahlt');
-					const erBezahlt = erDocs.filter(d => d.status === '(5) Bezahlt');
+					// ER = Eingangsrechnungen NU + Material
+					const erDocs = rawStats.filter(d =>
+						d.art_des_dokuments?.includes('ER-NU-') ||
+						d.art_des_dokuments?.includes('ER-M')
+					);
+					const erOffen = erDocs.filter(d => !istBezahlt(d.status));
+					const erBezahlt = erDocs.filter(d => istBezahlt(d.status));
+
+					// Überfällige Rechnungen (AR + ER)
+					const heute = new Date();
+					heute.setHours(0, 0, 0, 0);
+					const ueberfaellig = [...arOffen, ...erOffen].filter(d => {
+						if (!d.datum_zahlungsfrist) return false;
+						return new Date(d.datum_zahlungsfrist) < heute;
+					});
 
 					stats = {
-						arOffenSumme: arOffen.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0),
+						arOffenSumme: arOffen.reduce((sum, d) => sum + (Number(d.betrag_offen) || Number(d.betrag_brutto) || 0), 0),
 						arOffenAnzahl: arOffen.length,
-						arBezahltSumme: arBezahlt.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0),
+						arBezahltSumme: arBezahlt.reduce((sum, d) => sum + (Number(d.betrag_brutto) || 0), 0),
 						arBezahltAnzahl: arBezahlt.length,
-						erOffenSumme: erOffen.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0),
+						erOffenSumme: erOffen.reduce((sum, d) => sum + Math.abs(Number(d.betrag_offen) || Number(d.betrag_brutto) || 0), 0),
 						erOffenAnzahl: erOffen.length,
-						erBezahltSumme: erBezahlt.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0),
-						erBezahltAnzahl: erBezahlt.length
+						erBezahltSumme: erBezahlt.reduce((sum, d) => sum + Math.abs(Number(d.betrag_brutto) || 0), 0),
+						erBezahltAnzahl: erBezahlt.length,
+						ueberfaelligAnzahl: ueberfaellig.length,
+						ueberfaelligSumme: ueberfaellig.reduce((sum, d) => sum + Math.abs(Number(d.betrag_offen) || Number(d.betrag_brutto) || 0), 0)
 					};
 				}
 			} else if (kpiData) {
@@ -236,14 +307,19 @@
 			// Umsatz und Kosten aus Rechnungen berechnen
 			rechnungen.forEach(r => {
 				if (!r.projektname || r.art_des_dokuments?.includes('-Zahl')) return;
+				// Stornos ignorieren
+				if (r.art_des_dokuments?.includes('-X')) return;
 
 				// Finde die Phase für das Projekt
 				const mondayItem = data?.find((m: { name: string }) => m.name === r.projektname);
 				if (mondayItem && phasenMap.has(mondayItem.group_title)) {
 					const phaseData = phasenMap.get(mondayItem.group_title)!;
-					if (r.art_des_dokuments?.startsWith('AR-')) {
+					// AR = Ausgangsrechnungen (kein Storno)
+					if (r.art_des_dokuments?.startsWith('AR-') && !r.art_des_dokuments?.includes('AR-X')) {
 						phaseData.umsatz += Number(r.betrag_brutto) || 0;
-					} else if (r.art_des_dokuments?.startsWith('ER-')) {
+					}
+					// ER = Eingangsrechnungen
+					else if (r.art_des_dokuments?.startsWith('ER-')) {
 						phaseData.kosten += Math.abs(Number(r.betrag_brutto) || 0);
 					}
 				}
@@ -269,27 +345,38 @@
 	// Forecast berechnen
 	function calculateForecast() {
 		const heute = new Date();
+		heute.setHours(0, 0, 0, 0);
+		const monat1Start = new Date(heute.getFullYear(), heute.getMonth(), 1);
 		const monat1Ende = new Date(heute.getFullYear(), heute.getMonth() + 1, 0);
 		const monat2Ende = new Date(heute.getFullYear(), heute.getMonth() + 2, 0);
 		const monat3Ende = new Date(heute.getFullYear(), heute.getMonth() + 3, 0);
 
 		let einnahmenTotal = 0;
 		let ausgabenTotal = 0;
+		let ueberfaelligeEinnahmen = 0;
+		let ueberfaelligeAusgaben = 0;
 		const monat1 = { einnahmen: 0, ausgaben: 0 };
 		const monat2 = { einnahmen: 0, ausgaben: 0 };
 		const monat3 = { einnahmen: 0, ausgaben: 0 };
 
 		// Offene Rechnungen durchgehen
 		rechnungen.forEach(r => {
-			if (r.status === '(5) Bezahlt' || r.art_des_dokuments?.includes('-Zahl')) return;
+			if (istBezahlt(r.status) || r.art_des_dokuments?.includes('-Zahl')) return;
+			// Stornos ignorieren
+			if (r.art_des_dokuments?.includes('-X')) return;
 
 			const betrag = Math.abs(Number(r.betrag_offen) || Number(r.betrag_brutto) || 0);
-			const frist = r.datum_zahlungsfrist ? new Date(r.datum_zahlungsfrist) : new Date(r.datum_erstellt);
+			const frist = r.datum_zahlungsfrist ? new Date(r.datum_zahlungsfrist) : null;
 
-			// AR = Einnahmen
-			if (r.art_des_dokuments?.startsWith('AR-')) {
+			// AR = Einnahmen (Storno ausschließen)
+			if (r.art_des_dokuments?.startsWith('AR-') && !r.art_des_dokuments?.includes('AR-X')) {
 				einnahmenTotal += betrag;
-				if (frist <= monat1Ende) {
+
+				if (!frist || frist < heute) {
+					// Überfällig oder ohne Fälligkeit -> Monat 1 (sofort erwartet)
+					ueberfaelligeEinnahmen += betrag;
+					monat1.einnahmen += betrag;
+				} else if (frist <= monat1Ende) {
 					monat1.einnahmen += betrag;
 				} else if (frist <= monat2Ende) {
 					monat2.einnahmen += betrag;
@@ -300,7 +387,12 @@
 			// ER = Ausgaben
 			else if (r.art_des_dokuments?.startsWith('ER-')) {
 				ausgabenTotal += betrag;
-				if (frist <= monat1Ende) {
+
+				if (!frist || frist < heute) {
+					// Überfällig oder ohne Fälligkeit -> Monat 1 (sofort fällig)
+					ueberfaelligeAusgaben += betrag;
+					monat1.ausgaben += betrag;
+				} else if (frist <= monat1Ende) {
 					monat1.ausgaben += betrag;
 				} else if (frist <= monat2Ende) {
 					monat2.ausgaben += betrag;
@@ -364,9 +456,11 @@
 	// Status-Badge
 	function getStatusVariant(status: string | null): 'success' | 'warning' | 'error' | 'default' {
 		if (!status) return 'default';
-		if (status === '(5) Bezahlt') return 'success';
+		if (status.startsWith('(5)')) return 'success'; // Alle Bezahlt-Varianten
 		if (status === '(2) Teilzahlung') return 'warning';
-		if (status === '(1) Offen') return 'error';
+		if (status === '(3) Überfällig') return 'error';
+		if (status === '(0) Offen' || status === '(1) Zahlung geplant') return 'warning';
+		if (status === '(7) Ausblenden') return 'default';
 		return 'default';
 	}
 
@@ -428,13 +522,6 @@
 			value={loading ? '...' : formatCurrency(stats.arOffenSumme)}
 			subvalue={loading ? '' : `${stats.arOffenAnzahl} Rechnungen`}
 			icon="AR"
-			color="red"
-		/>
-		<KPICard
-			label="Bezahlte AR"
-			value={loading ? '...' : formatCurrency(stats.arBezahltSumme)}
-			subvalue={loading ? '' : `${stats.arBezahltAnzahl} Rechnungen`}
-			icon="OK"
 			color="green"
 		/>
 		<KPICard
@@ -445,11 +532,18 @@
 			color="orange"
 		/>
 		<KPICard
-			label="Bezahlte ER"
-			value={loading ? '...' : formatCurrency(stats.erBezahltSumme)}
-			subvalue={loading ? '' : `${stats.erBezahltAnzahl} Rechnungen`}
-			icon="OK"
-			color="blue"
+			label="Überfällig"
+			value={loading ? '...' : formatCurrency(stats.ueberfaelligSumme)}
+			subvalue={loading ? '' : `${stats.ueberfaelligAnzahl} Rechnungen`}
+			icon="!"
+			color="red"
+		/>
+		<KPICard
+			label="Netto-Position"
+			value={loading ? '...' : formatCurrency(stats.arOffenSumme - stats.erOffenSumme)}
+			subvalue={loading ? '' : (stats.arOffenSumme - stats.erOffenSumme >= 0 ? 'Erwarteter Überschuss' : 'Erwartetes Defizit')}
+			icon="="
+			color={stats.arOffenSumme - stats.erOffenSumme >= 0 ? 'blue' : 'red'}
 		/>
 	</section>
 
@@ -496,17 +590,45 @@
 	{#if activeTab === 'offen' || activeTab === 'alle'}
 		<!-- Filter -->
 		<div class="filter-bar">
-			<label class="filter-group">
-				<span>Typ:</span>
-				<select bind:value={filterTyp}>
-					<option value="alle">Alle</option>
-					<option value="AR">Ausgangsrechnungen (AR)</option>
-					<option value="ER">Eingangsrechnungen (ER)</option>
-				</select>
-			</label>
-			<span class="result-count">
-				{gefilterteRechnungen.length} Dokumente
-			</span>
+			<div class="filter-left">
+				<label class="filter-group">
+					<span>Typ:</span>
+					<select bind:value={filterTyp}>
+						<option value="alle">Alle</option>
+						<option value="AR">Ausgangsrechnungen (AR)</option>
+						<option value="ER">Eingangsrechnungen (ER)</option>
+					</select>
+				</label>
+				{#if activeTab === 'alle'}
+					<label class="filter-group">
+						<span>Status:</span>
+						<select bind:value={filterStatus}>
+							<option value="alle">Alle</option>
+							<option value="offen">Offen</option>
+							<option value="bezahlt">Bezahlt</option>
+						</select>
+					</label>
+				{/if}
+				<label class="filter-group">
+					<span>Sortierung:</span>
+					<select bind:value={sortierung}>
+						<option value="datum">Datum</option>
+						<option value="faelligkeit">Fälligkeit</option>
+						<option value="betrag">Betrag</option>
+					</select>
+					<button class="sort-btn" onclick={() => sortierungAsc = !sortierungAsc} title={sortierungAsc ? 'Aufsteigend' : 'Absteigend'}>
+						{sortierungAsc ? '↑' : '↓'}
+					</button>
+				</label>
+			</div>
+			<div class="filter-right">
+				<span class="result-count">
+					{gefilterteRechnungen.length} Dokumente
+				</span>
+				<span class="result-summe">
+					Summe: {formatCurrency(gefilterteSumme)}
+				</span>
+			</div>
 		</div>
 
 		<!-- Rechnungs-Tabelle -->
@@ -516,40 +638,61 @@
 			{:else if gefilterteRechnungen.length === 0}
 				<div class="empty-state">Keine Dokumente gefunden</div>
 			{:else}
-				<table class="rechnungen-table">
-					<thead>
-						<tr>
-							<th>Dok-Nr.</th>
-							<th>BV</th>
-							<th>Typ</th>
-							<th>Betrag</th>
-							<th>Datum</th>
-							<th>Status</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each gefilterteRechnungen as re (re.id)}
+				<div class="table-wrapper">
+					<table class="rechnungen-table">
+						<thead>
 							<tr>
-								<td class="re-nr">{re.dokument_nr || '-'}</td>
-								<td class="atbs">{re.atbs_nummer || '-'}</td>
-								<td>
-									<Badge variant={getArtVariant(re.art_des_dokuments)} size="sm">
-										{shortArt(re.art_des_dokuments)}
-									</Badge>
-								</td>
-								<td class="betrag" class:negativ={re.betrag_brutto < 0}>
-									{formatCurrency(re.betrag_brutto)}
-								</td>
-								<td>{formatDate(re.datum_erstellt)}</td>
-								<td>
-									<Badge variant={getStatusVariant(re.status)} size="sm">
-										{getStatusLabel(re.status)}
-									</Badge>
-								</td>
+								<th>Dok-Nr.</th>
+								<th>BV / Projekt</th>
+								<th>Rechnungssteller</th>
+								<th>Typ</th>
+								<th class="align-right">Brutto</th>
+								<th class="align-right">Offen</th>
+								<th>Erstellt</th>
+								<th>Fällig</th>
+								<th>Status</th>
 							</tr>
-						{/each}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{#each gefilterteRechnungen as re (re.id)}
+								{@const ueberfaellig = istUeberfaellig(re.datum_zahlungsfrist, re.status)}
+								<tr class:ueberfaellig={ueberfaellig}>
+									<td class="re-nr">{re.dokument_nr || '-'}</td>
+									<td class="atbs" title={re.projektname || ''}>
+										{re.atbs_nummer || '-'}
+										{#if re.projektname}
+											<span class="projekt-name">{re.projektname.substring(0, 25)}{re.projektname.length > 25 ? '...' : ''}</span>
+										{/if}
+									</td>
+									<td class="rechnungssteller">{re.rechnungssteller || '-'}</td>
+									<td>
+										<Badge variant={getArtVariant(re.art_des_dokuments)} size="sm">
+											{shortArt(re.art_des_dokuments)}
+										</Badge>
+									</td>
+									<td class="betrag" class:negativ={re.betrag_brutto < 0}>
+										{formatCurrency(re.betrag_brutto)}
+									</td>
+									<td class="betrag offen" class:hat-offen={re.betrag_offen && re.betrag_offen > 0}>
+										{re.betrag_offen ? formatCurrency(re.betrag_offen) : '-'}
+									</td>
+									<td class="datum">{formatDate(re.datum_erstellt)}</td>
+									<td class="datum" class:ueberfaellig-datum={ueberfaellig}>
+										{formatDate(re.datum_zahlungsfrist)}
+										{#if ueberfaellig}
+											<span class="ueberfaellig-icon" title="Überfällig">!</span>
+										{/if}
+									</td>
+									<td>
+										<Badge variant={getStatusVariant(re.status)} size="sm">
+											{getStatusLabel(re.status)}
+										</Badge>
+									</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
 			{/if}
 		</Card>
 
@@ -866,7 +1009,7 @@
 		padding: 1rem;
 		background: var(--color-red-50);
 		color: var(--color-red-700);
-		border-radius: 0.5rem;
+		border-radius: 0;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -877,7 +1020,7 @@
 		color: white;
 		border: none;
 		padding: 0.5rem 1rem;
-		border-radius: 0.25rem;
+		border-radius: 0;
 		cursor: pointer;
 	}
 
@@ -931,10 +1074,25 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
 		margin-bottom: 1rem;
 		padding: 0.75rem 1rem;
 		background: var(--color-gray-50);
-		border-radius: 0.5rem;
+		border-radius: 0;
+	}
+
+	.filter-left {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.filter-right {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
 	}
 
 	.filter-group {
@@ -951,13 +1109,34 @@
 	.filter-group select {
 		padding: 0.5rem;
 		border: 1px solid var(--color-gray-300);
-		border-radius: 0.25rem;
+		border-radius: 0;
 		font-size: 0.875rem;
+	}
+
+	.sort-btn {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-gray-300);
+		border-radius: 0;
+		background: white;
+		cursor: pointer;
+		font-size: 0.875rem;
+		line-height: 1;
+	}
+
+	.sort-btn:hover {
+		background: var(--color-gray-100);
 	}
 
 	.result-count {
 		font-size: 0.875rem;
 		color: var(--color-gray-500);
+	}
+
+	.result-summe {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-gray-700);
+		font-family: var(--font-family-mono);
 	}
 
 	.loading-state,
@@ -967,58 +1146,118 @@
 		color: var(--color-gray-500);
 	}
 
+	.table-wrapper {
+		overflow-x: auto;
+	}
+
 	.rechnungen-table {
 		width: 100%;
 		border-collapse: collapse;
+		min-width: 900px;
 	}
 
 	.rechnungen-table th {
 		text-align: left;
-		padding: 0.75rem 1rem;
-		font-size: 0.8rem;
+		padding: 0.75rem 0.75rem;
+		font-size: 0.75rem;
 		font-weight: 600;
 		color: var(--color-gray-500);
 		text-transform: uppercase;
 		border-bottom: 1px solid var(--color-gray-200);
 		background: var(--color-gray-50);
+		white-space: nowrap;
 	}
 
 	.rechnungen-table td {
-		padding: 1rem;
+		padding: 0.75rem;
 		border-bottom: 1px solid var(--color-gray-100);
+		font-size: 0.875rem;
 	}
 
 	.rechnungen-table tbody tr:hover {
 		background: var(--color-gray-50);
 	}
 
+	.rechnungen-table tbody tr.ueberfaellig {
+		background: var(--color-red-50);
+	}
+
+	.rechnungen-table tbody tr.ueberfaellig:hover {
+		background: var(--color-red-100);
+	}
+
 	.re-nr {
 		font-family: var(--font-family-mono);
 		font-weight: 600;
-		font-size: 0.875rem;
+		font-size: 0.8rem;
+		white-space: nowrap;
 	}
 
 	.atbs {
-		font-family: var(--font-family-mono);
-		font-size: 0.875rem;
+		font-size: 0.8rem;
+		color: var(--color-gray-700);
+	}
+
+	.projekt-name {
+		display: block;
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+		margin-top: 0.125rem;
+	}
+
+	.rechnungssteller {
+		font-size: 0.8rem;
 		color: var(--color-gray-600);
+		max-width: 150px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.betrag {
 		font-family: var(--font-family-mono);
 		font-weight: 600;
 		text-align: right;
+		white-space: nowrap;
 	}
 
 	.betrag.negativ {
 		color: var(--color-red-600);
 	}
 
+	.betrag.offen {
+		font-weight: 500;
+		color: var(--color-gray-500);
+	}
+
+	.betrag.offen.hat-offen {
+		color: var(--color-orange-600);
+		font-weight: 600;
+	}
+
+	.datum {
+		font-size: 0.8rem;
+		color: var(--color-gray-600);
+		white-space: nowrap;
+	}
+
+	.ueberfaellig-datum {
+		color: var(--color-red-600);
+		font-weight: 600;
+	}
+
+	.ueberfaellig-icon {
+		display: inline-block;
+		margin-left: 0.25rem;
+		color: var(--color-red-600);
+		font-weight: bold;
+	}
+
 	.legende {
 		margin-top: 1.5rem;
 		padding: 1rem;
 		background: var(--color-gray-50);
-		border-radius: 0.5rem;
+		border-radius: 0;
 	}
 
 	.legende h4 {

@@ -21,10 +21,29 @@
 		strasse: string | null;
 		plz: string | null;
 		ort: string | null;
+		notizen: string | null;
 		aktiv: boolean;
 		sync_source: string | null;
 		created_at: string | null;
 		updated_at: string | null;
+	}
+
+	interface KontaktFormData {
+		anrede: string;
+		titel: string;
+		vorname: string;
+		nachname: string;
+		firma_kurz: string;
+		firma_lang: string;
+		position: string;
+		kontaktarten: string[];
+		email: string;
+		telefon_mobil: string;
+		telefon_festnetz: string;
+		strasse: string;
+		plz: string;
+		ort: string;
+		notizen: string;
 	}
 
 	// State
@@ -37,6 +56,19 @@
 	let selectedTyp = $state<string | null>(null);
 	let viewMode = $state<'cards' | 'table'>('cards');
 	let sortierung = $state<'name_asc' | 'name_desc' | 'nr_asc' | 'nr_desc'>('name_asc');
+
+	// Modal-State
+	let showModal = $state(false);
+	let modalMode = $state<'create' | 'edit'>('create');
+	let editingKontakt = $state<Kontakt | null>(null);
+	let formData = $state<KontaktFormData>(getEmptyFormData());
+	let formErrors = $state<Record<string, string>>({});
+	let saving = $state(false);
+
+	// Delete-Bestätigung
+	let showDeleteConfirm = $state(false);
+	let deletingKontakt = $state<Kontakt | null>(null);
+	let deleting = $state(false);
 
 	// Kontaktarten-Mapping
 	const KONTAKTARTEN_LABELS: Record<string, string> = {
@@ -66,6 +98,30 @@
 		lieferant: 'default',
 		ansprechpartner: 'default'
 	};
+
+	// Anrede-Optionen
+	const ANREDE_OPTIONS = ['Herr', 'Frau', 'Firma', 'Dr.', 'Prof.'];
+
+	// Leeres Formular
+	function getEmptyFormData(): KontaktFormData {
+		return {
+			anrede: '',
+			titel: '',
+			vorname: '',
+			nachname: '',
+			firma_kurz: '',
+			firma_lang: '',
+			position: '',
+			kontaktarten: [],
+			email: '',
+			telefon_mobil: '',
+			telefon_festnetz: '',
+			strasse: '',
+			plz: '',
+			ort: '',
+			notizen: ''
+		};
+	}
 
 	// Statistiken
 	let stats = $derived(() => {
@@ -208,6 +264,7 @@
 				strasse,
 				plz,
 				ort,
+				notizen,
 				aktiv,
 				sync_source,
 				created_at,
@@ -245,6 +302,177 @@
 			default: return '';
 		}
 	}
+
+	// ==================== CRUD Funktionen ====================
+
+	// Modal oeffnen fuer Neuen Kontakt
+	function openCreateModal() {
+		modalMode = 'create';
+		editingKontakt = null;
+		formData = getEmptyFormData();
+		formErrors = {};
+		showModal = true;
+	}
+
+	// Modal oeffnen fuer Bearbeiten
+	function openEditModal(kontakt: Kontakt) {
+		modalMode = 'edit';
+		editingKontakt = kontakt;
+		formData = {
+			anrede: kontakt.anrede || '',
+			titel: kontakt.titel || '',
+			vorname: kontakt.vorname || '',
+			nachname: kontakt.nachname || '',
+			firma_kurz: kontakt.firma_kurz || '',
+			firma_lang: kontakt.firma_lang || '',
+			position: kontakt.position || '',
+			kontaktarten: [...(kontakt.kontaktarten || [])],
+			email: kontakt.email || '',
+			telefon_mobil: kontakt.telefon_mobil || '',
+			telefon_festnetz: kontakt.telefon_festnetz || '',
+			strasse: kontakt.strasse || '',
+			plz: kontakt.plz || '',
+			ort: kontakt.ort || '',
+			notizen: kontakt.notizen || ''
+		};
+		formErrors = {};
+		showModal = true;
+	}
+
+	// Modal schliessen
+	function closeModal() {
+		showModal = false;
+		editingKontakt = null;
+		formErrors = {};
+	}
+
+	// E-Mail validieren
+	function isValidEmail(email: string): boolean {
+		if (!email) return true; // Optional
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	}
+
+	// Formular validieren
+	function validateForm(): boolean {
+		const errors: Record<string, string> = {};
+
+		// Mindestens Name oder Firma
+		const hasName = formData.vorname.trim() || formData.nachname.trim();
+		const hasFirma = formData.firma_kurz.trim();
+
+		if (!hasName && !hasFirma) {
+			errors.name = 'Mindestens Name oder Firma ist erforderlich';
+		}
+
+		// E-Mail Format
+		if (formData.email && !isValidEmail(formData.email)) {
+			errors.email = 'Ungültiges E-Mail-Format';
+		}
+
+		formErrors = errors;
+		return Object.keys(errors).length === 0;
+	}
+
+	// Kontakt speichern (Create/Update)
+	async function saveKontakt() {
+		if (!validateForm()) return;
+
+		saving = true;
+		error = null;
+
+		const kontaktData = {
+			anrede: formData.anrede || null,
+			titel: formData.titel || null,
+			vorname: formData.vorname || null,
+			nachname: formData.nachname || null,
+			firma_kurz: formData.firma_kurz || null,
+			firma_lang: formData.firma_lang || null,
+			position: formData.position || null,
+			kontaktarten: formData.kontaktarten.length > 0 ? formData.kontaktarten : [],
+			email: formData.email || null,
+			telefon_mobil: formData.telefon_mobil || null,
+			telefon_festnetz: formData.telefon_festnetz || null,
+			strasse: formData.strasse || null,
+			plz: formData.plz || null,
+			ort: formData.ort || null,
+			notizen: formData.notizen || null,
+			sync_source: 'manual',
+			updated_at: new Date().toISOString()
+		};
+
+		try {
+			if (modalMode === 'create') {
+				const { error: insertError } = await supabase
+					.from('kontakte')
+					.insert([{ ...kontaktData, aktiv: true }]);
+
+				if (insertError) throw insertError;
+			} else if (editingKontakt) {
+				const { error: updateError } = await supabase
+					.from('kontakte')
+					.update(kontaktData)
+					.eq('id', editingKontakt.id);
+
+				if (updateError) throw updateError;
+			}
+
+			closeModal();
+			await loadKontakte();
+		} catch (err: any) {
+			error = err.message || 'Fehler beim Speichern';
+			console.error('Speicherfehler:', err);
+		} finally {
+			saving = false;
+		}
+	}
+
+	// Loeschen-Bestaetigung oeffnen
+	function openDeleteConfirm(kontakt: Kontakt, event: Event) {
+		event.stopPropagation();
+		deletingKontakt = kontakt;
+		showDeleteConfirm = true;
+	}
+
+	// Loeschen-Bestaetigung schliessen
+	function closeDeleteConfirm() {
+		showDeleteConfirm = false;
+		deletingKontakt = null;
+	}
+
+	// Kontakt loeschen (Soft-Delete: aktiv = false)
+	async function deleteKontakt() {
+		if (!deletingKontakt) return;
+
+		deleting = true;
+		error = null;
+
+		try {
+			const { error: deleteError } = await supabase
+				.from('kontakte')
+				.update({ aktiv: false, updated_at: new Date().toISOString() })
+				.eq('id', deletingKontakt.id);
+
+			if (deleteError) throw deleteError;
+
+			closeDeleteConfirm();
+			await loadKontakte();
+		} catch (err: any) {
+			error = err.message || 'Fehler beim Löschen';
+			console.error('Löschfehler:', err);
+		} finally {
+			deleting = false;
+		}
+	}
+
+	// Kontaktart toggle
+	function toggleKontaktart(art: string) {
+		if (formData.kontaktarten.includes(art)) {
+			formData.kontaktarten = formData.kontaktarten.filter(k => k !== art);
+		} else {
+			formData.kontaktarten = [...formData.kontaktarten, art];
+		}
+	}
 </script>
 
 <div class="kontakte-page">
@@ -260,6 +488,9 @@
 			</p>
 		</div>
 		<div class="header-actions">
+			<button class="primary-btn" onclick={openCreateModal}>
+				+ Neuer Kontakt
+			</button>
 			<button class="refresh-btn" onclick={loadKontakte} disabled={loading}>
 				{loading ? 'Laedt...' : 'Aktualisieren'}
 			</button>
@@ -373,7 +604,7 @@
 	{:else if viewMode === 'cards'}
 		<div class="kontakte-grid">
 			{#each filteredKontakte() as kontakt}
-				<div class="kontakt-card">
+				<div class="kontakt-card" onclick={() => openEditModal(kontakt)} role="button" tabindex="0" onkeypress={(e) => e.key === 'Enter' && openEditModal(kontakt)}>
 					<div class="card-header">
 						<div class="header-left">
 							<span class="kontakt-nr">{formatKontaktNr(kontakt.kontakt_nr)}</span>
@@ -405,13 +636,13 @@
 							{#if kontakt.email}
 								<div class="detail-item">
 									<span class="detail-icon">&#9993;</span>
-									<a href="mailto:{kontakt.email}" class="detail-link">{kontakt.email}</a>
+									<a href="mailto:{kontakt.email}" class="detail-link" onclick={(e) => e.stopPropagation()}>{kontakt.email}</a>
 								</div>
 							{/if}
 							{#if getPrimaryPhone(kontakt)}
 								<div class="detail-item">
 									<span class="detail-icon">&#9742;</span>
-									<a href="tel:{getPrimaryPhone(kontakt)}" class="detail-link">{getPrimaryPhone(kontakt)}</a>
+									<a href="tel:{getPrimaryPhone(kontakt)}" class="detail-link" onclick={(e) => e.stopPropagation()}>{getPrimaryPhone(kontakt)}</a>
 								</div>
 							{/if}
 							{#if kontakt.strasse || kontakt.ort}
@@ -422,6 +653,15 @@
 							{/if}
 						</div>
 					</div>
+
+					<div class="card-actions">
+						<button class="action-btn edit-btn" onclick={(e) => { e.stopPropagation(); openEditModal(kontakt); }} title="Bearbeiten">
+							&#9998;
+						</button>
+						<button class="action-btn delete-btn" onclick={(e) => openDeleteConfirm(kontakt, e)} title="Löschen">
+							&#128465;
+						</button>
+					</div>
 				</div>
 			{/each}
 
@@ -429,6 +669,7 @@
 				<div class="empty-state">
 					{#if kontakte.length === 0}
 						<p>Noch keine Kontakte vorhanden</p>
+						<button class="primary-btn" onclick={openCreateModal}>Ersten Kontakt anlegen</button>
 					{:else}
 						<p>Keine Kontakte gefunden</p>
 						<button onclick={clearFilters}>Filter zuruecksetzen</button>
@@ -448,11 +689,12 @@
 						<th>E-Mail</th>
 						<th>Telefon</th>
 						<th>Ort</th>
+						<th>Aktionen</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each filteredKontakte() as kontakt}
-						<tr>
+						<tr onclick={() => openEditModal(kontakt)} class="clickable-row">
 							<td class="td-nr">{formatKontaktNr(kontakt.kontakt_nr)}</td>
 							<td class="td-name">
 								<span class="name-primary">{getAnzeigename(kontakt)}</span>
@@ -469,19 +711,27 @@
 							</td>
 							<td class="td-email">
 								{#if kontakt.email}
-									<a href="mailto:{kontakt.email}">{kontakt.email}</a>
+									<a href="mailto:{kontakt.email}" onclick={(e) => e.stopPropagation()}>{kontakt.email}</a>
 								{:else}
 									-
 								{/if}
 							</td>
 							<td class="td-phone">
 								{#if getPrimaryPhone(kontakt)}
-									<a href="tel:{getPrimaryPhone(kontakt)}">{getPrimaryPhone(kontakt)}</a>
+									<a href="tel:{getPrimaryPhone(kontakt)}" onclick={(e) => e.stopPropagation()}>{getPrimaryPhone(kontakt)}</a>
 								{:else}
 									-
 								{/if}
 							</td>
 							<td class="td-ort">{kontakt.ort || '-'}</td>
+							<td class="td-actions">
+								<button class="action-btn edit-btn" onclick={(e) => { e.stopPropagation(); openEditModal(kontakt); }} title="Bearbeiten">
+									&#9998;
+								</button>
+								<button class="action-btn delete-btn" onclick={(e) => openDeleteConfirm(kontakt, e)} title="Löschen">
+									&#128465;
+								</button>
+							</td>
 						</tr>
 					{/each}
 				</tbody>
@@ -491,6 +741,7 @@
 				<div class="empty-state">
 					{#if kontakte.length === 0}
 						<p>Noch keine Kontakte vorhanden</p>
+						<button class="primary-btn" onclick={openCreateModal}>Ersten Kontakt anlegen</button>
 					{:else}
 						<p>Keine Kontakte gefunden</p>
 						<button onclick={clearFilters}>Filter zuruecksetzen</button>
@@ -500,6 +751,181 @@
 		</div>
 	{/if}
 </div>
+
+<!-- Create/Edit Modal -->
+{#if showModal}
+	<div class="modal-overlay" onclick={closeModal} role="dialog" aria-modal="true">
+		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-header">
+				<h2>{modalMode === 'create' ? 'Neuer Kontakt' : 'Kontakt bearbeiten'}</h2>
+				<button class="close-btn" onclick={closeModal} aria-label="Schliessen">&times;</button>
+			</div>
+
+			<form class="modal-body" onsubmit={(e) => { e.preventDefault(); saveKontakt(); }}>
+				{#if formErrors.name}
+					<div class="form-error global-error">{formErrors.name}</div>
+				{/if}
+
+				<div class="form-section">
+					<h3>Persoenliche Daten</h3>
+
+					<div class="form-row">
+						<div class="form-group">
+							<label for="anrede">Anrede</label>
+							<select id="anrede" bind:value={formData.anrede}>
+								<option value="">-- Bitte waehlen --</option>
+								{#each ANREDE_OPTIONS as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="titel">Titel</label>
+							<input type="text" id="titel" bind:value={formData.titel} placeholder="z.B. Dr., Prof.">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group">
+							<label for="vorname">Vorname</label>
+							<input type="text" id="vorname" bind:value={formData.vorname} placeholder="Vorname">
+						</div>
+						<div class="form-group">
+							<label for="nachname">Nachname</label>
+							<input type="text" id="nachname" bind:value={formData.nachname} placeholder="Nachname">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group">
+							<label for="firma_kurz">Firma (Kurzname)</label>
+							<input type="text" id="firma_kurz" bind:value={formData.firma_kurz} placeholder="Firmenname">
+						</div>
+						<div class="form-group">
+							<label for="position">Position</label>
+							<input type="text" id="position" bind:value={formData.position} placeholder="z.B. Geschaeftsfuehrer">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h3>Kontaktart</h3>
+					<div class="kontaktarten-grid">
+						{#each Object.entries(KONTAKTARTEN_LABELS) as [key, label]}
+							<label class="kontaktart-checkbox" class:checked={formData.kontaktarten.includes(key)}>
+								<input
+									type="checkbox"
+									checked={formData.kontaktarten.includes(key)}
+									onchange={() => toggleKontaktart(key)}
+								>
+								<span class="checkmark"></span>
+								{label}
+							</label>
+						{/each}
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h3>Kontaktdaten</h3>
+
+					<div class="form-group full-width">
+						<label for="email">E-Mail</label>
+						<input
+							type="email"
+							id="email"
+							bind:value={formData.email}
+							placeholder="email@beispiel.de"
+							class:error={formErrors.email}
+						>
+						{#if formErrors.email}
+							<span class="field-error">{formErrors.email}</span>
+						{/if}
+					</div>
+
+					<div class="form-row">
+						<div class="form-group">
+							<label for="telefon_mobil">Mobil</label>
+							<input type="tel" id="telefon_mobil" bind:value={formData.telefon_mobil} placeholder="+49 171 1234567">
+						</div>
+						<div class="form-group">
+							<label for="telefon_festnetz">Festnetz</label>
+							<input type="tel" id="telefon_festnetz" bind:value={formData.telefon_festnetz} placeholder="+49 30 1234567">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h3>Adresse</h3>
+
+					<div class="form-group full-width">
+						<label for="strasse">Strasse / Hausnummer</label>
+						<input type="text" id="strasse" bind:value={formData.strasse} placeholder="Musterstrasse 123">
+					</div>
+
+					<div class="form-row">
+						<div class="form-group small">
+							<label for="plz">PLZ</label>
+							<input type="text" id="plz" bind:value={formData.plz} placeholder="12345">
+						</div>
+						<div class="form-group">
+							<label for="ort">Ort</label>
+							<input type="text" id="ort" bind:value={formData.ort} placeholder="Berlin">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h3>Notizen</h3>
+					<div class="form-group full-width">
+						<textarea
+							id="notizen"
+							bind:value={formData.notizen}
+							placeholder="Zusaetzliche Notizen..."
+							rows="3"
+						></textarea>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="cancel-btn" onclick={closeModal} disabled={saving}>
+						Abbrechen
+					</button>
+					<button type="submit" class="save-btn" disabled={saving}>
+						{#if saving}
+							Speichern...
+						{:else}
+							{modalMode === 'create' ? 'Kontakt anlegen' : 'Speichern'}
+						{/if}
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{/if}
+
+<!-- Delete Confirmation Modal -->
+{#if showDeleteConfirm && deletingKontakt}
+	<div class="modal-overlay" onclick={closeDeleteConfirm} role="dialog" aria-modal="true">
+		<div class="modal-content small" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-header">
+				<h2>Kontakt loeschen?</h2>
+				<button class="close-btn" onclick={closeDeleteConfirm} aria-label="Schliessen">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Moechten Sie den Kontakt <strong>{getAnzeigename(deletingKontakt)}</strong> wirklich loeschen?</p>
+				<p class="delete-info">Der Kontakt wird deaktiviert und kann bei Bedarf wiederhergestellt werden.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="cancel-btn" onclick={closeDeleteConfirm} disabled={deleting}>
+					Abbrechen
+				</button>
+				<button type="button" class="delete-confirm-btn" onclick={deleteKontakt} disabled={deleting}>
+					{deleting ? 'Lösche...' : 'Ja, löschen'}
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.kontakte-page {
@@ -529,6 +955,21 @@
 		display: flex;
 		gap: 0.75rem;
 		align-items: center;
+	}
+
+	.primary-btn {
+		padding: 0.5rem 1rem;
+		background: var(--color-brand-medium);
+		color: white;
+		border: none;
+		cursor: pointer;
+		font-size: 0.85rem;
+		font-weight: 500;
+		transition: background 0.15s ease;
+	}
+
+	.primary-btn:hover {
+		background: var(--color-brand-dark);
 	}
 
 	.refresh-btn {
@@ -729,11 +1170,17 @@
 		background: white;
 		border: 1px solid var(--color-gray-200);
 		transition: all 0.15s ease;
+		cursor: pointer;
+		position: relative;
 	}
 
 	.kontakt-card:hover {
 		border-color: var(--color-gray-300);
 		box-shadow: var(--shadow-md);
+	}
+
+	.kontakt-card:hover .card-actions {
+		opacity: 1;
 	}
 
 	.kontakt-card .card-header {
@@ -826,6 +1273,43 @@
 		color: var(--color-gray-600);
 	}
 
+	.card-actions {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		display: flex;
+		gap: 0.25rem;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+	}
+
+	.action-btn {
+		width: 28px;
+		height: 28px;
+		border: 1px solid var(--color-gray-300);
+		background: white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.85rem;
+		transition: all 0.15s ease;
+	}
+
+	.action-btn:hover {
+		background: var(--color-gray-100);
+	}
+
+	.edit-btn:hover {
+		border-color: var(--color-brand-medium);
+		color: var(--color-brand-medium);
+	}
+
+	.delete-btn:hover {
+		border-color: var(--color-error);
+		color: var(--color-error);
+	}
+
 	/* Tabellenansicht */
 	.table-container {
 		margin-top: 1rem;
@@ -855,6 +1339,10 @@
 		padding: 0.75rem 1rem;
 		border-bottom: 1px solid var(--color-gray-100);
 		vertical-align: top;
+	}
+
+	.kontakte-table tr.clickable-row {
+		cursor: pointer;
 	}
 
 	.kontakte-table tr:hover {
@@ -896,6 +1384,10 @@
 		text-decoration: underline;
 	}
 
+	.td-actions {
+		white-space: nowrap;
+	}
+
 	/* Empty State */
 	.empty-state {
 		text-align: center;
@@ -915,6 +1407,280 @@
 		cursor: pointer;
 	}
 
+	.empty-state .primary-btn {
+		background: var(--color-brand-medium);
+		color: white;
+		border: none;
+	}
+
+	/* Modal Styles */
+	.modal-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		padding: 1rem;
+	}
+
+	.modal-content {
+		background: white;
+		width: 100%;
+		max-width: 700px;
+		max-height: 90vh;
+		overflow-y: auto;
+		border-radius: 4px;
+		box-shadow: var(--shadow-lg);
+	}
+
+	.modal-content.small {
+		max-width: 450px;
+	}
+
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1.5rem;
+		border-bottom: 1px solid var(--color-gray-200);
+		position: sticky;
+		top: 0;
+		background: white;
+		z-index: 1;
+	}
+
+	.modal-header h2 {
+		margin: 0;
+		font-size: 1.25rem;
+	}
+
+	.close-btn {
+		background: none;
+		border: none;
+		font-size: 1.5rem;
+		cursor: pointer;
+		color: var(--color-gray-500);
+		line-height: 1;
+		padding: 0;
+	}
+
+	.close-btn:hover {
+		color: var(--color-gray-800);
+	}
+
+	.modal-body {
+		padding: 1.5rem;
+	}
+
+	.modal-footer {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		padding: 1rem 1.5rem;
+		border-top: 1px solid var(--color-gray-200);
+		background: var(--color-gray-50);
+	}
+
+	.form-section {
+		margin-bottom: 1.5rem;
+	}
+
+	.form-section h3 {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--color-gray-600);
+		margin: 0 0 0.75rem 0;
+		text-transform: uppercase;
+		letter-spacing: 0.025em;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.form-group {
+		margin-bottom: 0.75rem;
+	}
+
+	.form-group.full-width {
+		grid-column: 1 / -1;
+	}
+
+	.form-group.small {
+		max-width: 120px;
+	}
+
+	.form-group label {
+		display: block;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--color-gray-700);
+		margin-bottom: 0.25rem;
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		width: 100%;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-gray-300);
+		font-size: 0.9rem;
+		transition: border-color 0.15s ease;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: var(--color-brand-medium);
+	}
+
+	.form-group input.error {
+		border-color: var(--color-error);
+	}
+
+	.form-group textarea {
+		resize: vertical;
+		min-height: 80px;
+	}
+
+	.field-error {
+		display: block;
+		color: var(--color-error);
+		font-size: 0.8rem;
+		margin-top: 0.25rem;
+	}
+
+	.form-error.global-error {
+		background: var(--color-error-bg, #fee2e2);
+		color: var(--color-error);
+		padding: 0.75rem 1rem;
+		margin-bottom: 1rem;
+		border-radius: 4px;
+		font-size: 0.9rem;
+	}
+
+	.kontaktarten-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 0.5rem;
+	}
+
+	.kontaktart-checkbox {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-gray-200);
+		cursor: pointer;
+		font-size: 0.85rem;
+		transition: all 0.15s ease;
+		user-select: none;
+	}
+
+	.kontaktart-checkbox:hover {
+		border-color: var(--color-gray-300);
+	}
+
+	.kontaktart-checkbox.checked {
+		border-color: var(--color-brand-medium);
+		background: var(--color-brand-bg);
+	}
+
+	.kontaktart-checkbox input {
+		display: none;
+	}
+
+	.kontaktart-checkbox .checkmark {
+		width: 16px;
+		height: 16px;
+		border: 1px solid var(--color-gray-400);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.kontaktart-checkbox.checked .checkmark {
+		background: var(--color-brand-medium);
+		border-color: var(--color-brand-medium);
+	}
+
+	.kontaktart-checkbox.checked .checkmark::after {
+		content: '\2713';
+		color: white;
+		font-size: 0.7rem;
+		font-weight: bold;
+	}
+
+	.cancel-btn {
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--color-gray-300);
+		background: white;
+		cursor: pointer;
+		font-size: 0.9rem;
+	}
+
+	.cancel-btn:hover:not(:disabled) {
+		background: var(--color-gray-50);
+	}
+
+	.cancel-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.save-btn {
+		padding: 0.5rem 1.5rem;
+		background: var(--color-brand-medium);
+		color: white;
+		border: none;
+		cursor: pointer;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.save-btn:hover:not(:disabled) {
+		background: var(--color-brand-dark);
+	}
+
+	.save-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.delete-confirm-btn {
+		padding: 0.5rem 1.5rem;
+		background: var(--color-error);
+		color: white;
+		border: none;
+		cursor: pointer;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.delete-confirm-btn:hover:not(:disabled) {
+		background: #b91c1c;
+	}
+
+	.delete-confirm-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.delete-info {
+		font-size: 0.85rem;
+		color: var(--color-gray-500);
+		margin-top: 0.5rem;
+	}
+
 	@media (max-width: 768px) {
 		.page-header {
 			flex-direction: column;
@@ -924,6 +1690,7 @@
 		.header-actions {
 			width: 100%;
 			justify-content: space-between;
+			flex-wrap: wrap;
 		}
 
 		.filters {
@@ -946,6 +1713,23 @@
 		.kontakte-table th,
 		.kontakte-table td {
 			padding: 0.5rem;
+		}
+
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+
+		.modal-content {
+			max-height: 100vh;
+			border-radius: 0;
+		}
+
+		.kontaktarten-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.card-actions {
+			opacity: 1;
 		}
 	}
 </style>

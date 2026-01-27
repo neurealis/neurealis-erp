@@ -11,6 +11,7 @@
 | LOG-001 | 2026-01-27 | UI-Migration Phase 1-2: Komplettes internes Portal | Abgeschlossen |
 | LOG-002 | 2026-01-27 | Hero API Rechnungssync - invoice_style Entdeckung | Dokumentiert |
 | LOG-003 | 2026-01-27 | VBW LV 2026 - Preisvergleich & Materialvorschläge | Abgeschlossen |
+| LOG-004 | 2026-01-27 | VBW LV 2026 - Entscheidungsgrundlage v1.1 (Final) | Abgeschlossen |
 
 ---
 
@@ -201,4 +202,93 @@ Analyse des neuen VBW-Leistungsverzeichnisses 2026 mit Preisvergleich zu 2023 un
 
 ---
 
-*Aktualisiert: 2026-01-27 22:30*
+---
+
+## LOG-004 - VBW LV 2026 - Entscheidungsgrundlage v1.1 (Final)
+
+**Datum:** 2026-01-27 ~23:00
+**Zweck:** Finales Verhandlungsdokument für VBW-Termin 28.01.2026
+
+### Zusammenfassung
+
+Professionelles Entscheidungsdokument für Preisverhandlung mit VBW erstellt. Enthält Ausreißer-Analyse, Materialvorschläge, Prozessoptimierung und Zahlungsziel-Argumentation.
+
+### Finale Dateien
+
+| Datei | Pfad |
+|-------|------|
+| **PDF (Final)** | `16 VBW - neu/00 LVs/2026 VBW - Neues LV mit 10er Schritten/2026-01-27 VBW - LV 2026 - Entscheidungsgrundlage - neurealis v1.1.pdf` |
+| **DOCX (Final)** | `16 VBW - neu/00 LVs/2026 VBW - Neues LV mit 10er Schritten/2026-01-27 VBW - LV 2026 - Entscheidungsgrundlage - neurealis v1.1.docx` |
+
+**Basispfad:** `C:\Users\holge\neurealis GmbH\Wohnungssanierung - Kunden - Kunden\`
+
+### Dokumentstruktur (8 Seiten)
+
+1. **Titelseite** - Vorher/Nachher Visualisierung
+2. **Inhaltsverzeichnis**
+3. **Zusammenfassung der Analyse**
+   - Vorgehen: LV 2023→2026, 3 Referenz-BVs, GWS-Marktvergleich
+   - Referenz-Wohnungen: In der Delle 6 (37m²), Schulenburgstr. 25 (58m²), Gorch-Fock 31 (76m²)
+4. **Übersicht Positionen mit Gesprächsbedarf** (sortiert nach Abweichung)
+5. **Detailanalyse kritische Positionen**
+6. **Materialvorschläge**
+7. **Zahlungsziel** (14 Tage netto beibehalten)
+8. **Prozessoptimierung** mit Leerstandskosten-Berechnung
+9. **Entscheidungspunkte** (6 Stück)
+
+### Ausreißer-Analyse (Top 5)
+
+| Pos. | Position | VBW 2026 | Markt | Δ |
+|------|----------|----------|-------|---|
+| 3.3 | Küchenstränge erneuern | 350 € | 1.268 € | **-72%** |
+| 1.5 | Elektroschlitze verputzen | 250 € | 543 € | **-54%** |
+| 2.1 | E-Anlage komplett | 2.740 € | 4.929 € | **-44%** |
+| 6.3 | Vinyl-Designboden | 1.565 € | 2.617 € | **-40%** |
+| - | Decken tapezieren | 770 € | 1.077 € | **-29%** |
+
+### Leerstandskosten-Berechnung (NEU)
+
+```
+280 Wohnungen/Jahr × 3 Wochen Verzögerung × 60m² × 8,50 €/m²/Monat ÷ 4 Wochen
+= 357.000 €/Jahr potenzielle Einsparung
+```
+
+### Prozessoptimierung - Zeitachse
+
+| Phase | Aktuell | Vorschlag |
+|-------|---------|-----------|
+| Monat 0 | Kündigung Mieter | Kündigung + BL-Zuweisung (nach Straßen) |
+| Monat 1-2 | - | Erstbegehung (bewohnte Wohnung) |
+| Monat 2-3 | - | Budgetfreigabe & Einplanung |
+| Monat 3 | Auszug → +3 Wochen → Baustart | Auszug → **Direkter Baustart** |
+
+### 6 Entscheidungspunkte
+
+1. Positionen mit Gesprächsbedarf → Preisanpassung/Leistungsumfang
+2. Materialvorgaben → Freigabe Alternativen
+3. Zahlungsziel → 14 Tage netto beibehalten
+4. Prozessoptimierung → Umsetzung neuer Ablauf
+5. BL-Zuordnung → Feste Zuordnung nach Straßen/Regionen
+6. Kapazitätsplanung → (offen)
+
+### Materialvorschläge (genehmigt)
+
+| Pos. | Aktuell | Vorschlag |
+|------|---------|-----------|
+| 2.1, 2.8 | Gira E2 | **Gira Standard 55** |
+| 2.7 | Ritzer Limodor | **Maico ECA 100 ipro K** |
+| 3.1 | diverse | **Vigour One** |
+| 5.9 | DK02 | **Kermos 8mm** (rutschhemmend!) |
+| 6.3 | Holz-Sockelleisten | **KSO Kunststoff** |
+| 7.1 | Jeld-Wen | **Prüm Röhrenspahn** |
+| 7.2 | Jeld-Wen | **Prüm KK2 RC2** |
+| 7.3 | Griffwerk | **Becher/Hoppe Amsterdam** |
+
+### Verknüpfung
+
+- Basiert auf: LOG-003 (Preisvergleich & Materialvorschläge)
+- Excel-Quellen: `2026-01-27 VBW - LV 2026 - Vorschläge neurealis.xlsx`, `2026-01-27 VBW - LV 2026 - Preisvergleich vs 2023 - Beispiel-Berechnungen & Vorschläge Material.xlsx`
+
+---
+
+*Aktualisiert: 2026-01-27 23:15*

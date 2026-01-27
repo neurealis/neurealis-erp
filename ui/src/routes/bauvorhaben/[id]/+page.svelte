@@ -76,10 +76,17 @@
 		art_des_dokuments: string | null;
 		betrag_netto: number | null;
 		betrag_brutto: number | null;
+		betrag_bezahlt: number | null;
+		betrag_offen: number | null;
 		status: string | null;
 		datum_erstellt: string | null;
+		datum_zahlungsfrist: string | null;
 		rechnungssteller: string | null;
+		projektname: string | null;
+		nua_nr: string | null;
 		datei_url: string | null;
+		sharepoint_link: string | null;
+		freigabe_status: string | null;
 	}
 
 	interface Task {
@@ -91,6 +98,16 @@
 		due_date: string | null;
 		assigned_to: string | null;
 		category: string | null;
+		percent_complete: number | null;
+		planner_bucket_name: string | null;
+	}
+
+	interface NachunternehmerInfo {
+		name: string;
+		dokumente: Dokument[];
+		summeNetto: number;
+		summeBrutto: number;
+		anzahlDokumente: number;
 	}
 
 	// SVG Icons (aus Sidebar)
@@ -126,6 +143,260 @@
 	let dokumentFilter = $state('');
 	let dokumentKategorie = $state('alle');
 
+	// Edit States
+	let editingKunde = $state(false);
+	let editingTermine = $state(false);
+	let editingUebersicht = $state(false);
+	let saving = $state(false);
+	let saveMessage = $state<{ type: 'success' | 'error'; text: string } | null>(null);
+
+	// Edit Form Values - Kunde
+	let editKundeAnrede = $state('');
+	let editKundeVorname = $state('');
+	let editKundeNachname = $state('');
+	let editKundeEmail = $state('');
+	let editKundeTelefon = $state('');
+
+	// Edit Form Values - Termine
+	let editBvStart = $state('');
+	let editBvEnde = $state('');
+
+	// Edit Form Values - Uebersicht
+	let editGrundflaeche = $state<number | null>(null);
+	let editUmsatzNetto = $state<number | null>(null);
+	let editBudgetNU = $state<number | null>(null);
+	let editMarge = $state<number | null>(null);
+
+	// Nachweise Edit State
+	let nachweiseEditMode = $state(false);
+	let nachweiseLinks = $state<Record<string, string>>({});
+
+	// Helper: column_values aktualisieren
+	function updateColumnValue(columnValues: Record<string, unknown>, fieldId: string, textValue: string): Record<string, unknown> {
+		const existing = columnValues[fieldId] as { text?: string; value?: string } | undefined;
+		return {
+			...columnValues,
+			[fieldId]: {
+				...existing,
+				text: textValue,
+				value: JSON.stringify(textValue)
+			}
+		};
+	}
+
+	// Helper: Datum im column_values Format aktualisieren
+	function updateDateColumnValue(columnValues: Record<string, unknown>, fieldId: string, dateStr: string): Record<string, unknown> {
+		return {
+			...columnValues,
+			[fieldId]: {
+				text: dateStr,
+				value: JSON.stringify({ date: dateStr })
+			}
+		};
+	}
+
+	// Helper: Zahl im column_values Format aktualisieren
+	function updateNumberColumnValue(columnValues: Record<string, unknown>, fieldId: string, numValue: number | null): Record<string, unknown> {
+		if (numValue === null) {
+			return {
+				...columnValues,
+				[fieldId]: { text: '', value: null }
+			};
+		}
+		return {
+			...columnValues,
+			[fieldId]: {
+				text: String(numValue),
+				value: JSON.stringify(String(numValue))
+			}
+		};
+	}
+
+	// Edit-Modus fuer Kunde starten
+	function startEditKunde() {
+		if (!bv) return;
+		editKundeAnrede = bv.kundeAnrede || '';
+		editKundeVorname = bv.kundeVorname || '';
+		editKundeNachname = bv.kundeNachname || '';
+		editKundeEmail = bv.kundeEmail || '';
+		editKundeTelefon = bv.kundeTelefon || '';
+		editingKunde = true;
+		saveMessage = null;
+	}
+
+	// Edit-Modus fuer Termine starten
+	function startEditTermine() {
+		if (!bv) return;
+		editBvStart = bv.bvStart || '';
+		editBvEnde = bv.bvEnde || '';
+		editingTermine = true;
+		saveMessage = null;
+	}
+
+	// Edit-Modus fuer Uebersicht starten
+	function startEditUebersicht() {
+		if (!bv) return;
+		editGrundflaeche = bv.grundflaeche;
+		editUmsatzNetto = bv.umsatzNetto;
+		editBudgetNU = bv.budgetNU;
+		editMarge = bv.marge;
+		editingUebersicht = true;
+		saveMessage = null;
+	}
+
+	// Speichern: Kunde
+	async function saveKunde() {
+		if (!bv) return;
+		saving = true;
+		saveMessage = null;
+
+		try {
+			let newColumnValues = { ...bv.columnValues };
+			newColumnValues = updateColumnValue(newColumnValues, 'text_1__1', editKundeAnrede);
+			newColumnValues = updateColumnValue(newColumnValues, 'text573__1', editKundeVorname);
+			newColumnValues = updateColumnValue(newColumnValues, 'text57__1', editKundeNachname);
+
+			// E-Mail Feld hat spezielles Format
+			newColumnValues = {
+				...newColumnValues,
+				'e_mail4__1': {
+					text: editKundeEmail,
+					value: JSON.stringify({ text: editKundeEmail, email: editKundeEmail })
+				}
+			};
+
+			// Telefon Feld hat spezielles Format
+			newColumnValues = {
+				...newColumnValues,
+				'telefon___kunde__1': {
+					text: editKundeTelefon,
+					value: JSON.stringify({ phone: editKundeTelefon, countryShortName: 'DE' })
+				}
+			};
+
+			const { error: updateError } = await supabase
+				.from('monday_bauprozess')
+				.update({ column_values: newColumnValues })
+				.eq('id', bv.id);
+
+			if (updateError) throw updateError;
+
+			// Optimistic UI Update
+			bv = {
+				...bv,
+				kundeAnrede: editKundeAnrede,
+				kundeVorname: editKundeVorname,
+				kundeNachname: editKundeNachname,
+				kundeEmail: editKundeEmail,
+				kundeTelefon: editKundeTelefon,
+				columnValues: newColumnValues
+			};
+
+			editingKunde = false;
+			saveMessage = { type: 'success', text: 'Kundendaten gespeichert!' };
+			setTimeout(() => saveMessage = null, 3000);
+		} catch (e) {
+			console.error('Fehler beim Speichern:', e);
+			saveMessage = { type: 'error', text: 'Fehler beim Speichern der Kundendaten' };
+		} finally {
+			saving = false;
+		}
+	}
+
+	// Speichern: Termine
+	async function saveTermine() {
+		if (!bv) return;
+		saving = true;
+		saveMessage = null;
+
+		try {
+			let newColumnValues = { ...bv.columnValues };
+			newColumnValues = updateDateColumnValue(newColumnValues, 'datum2__1', editBvStart);
+			newColumnValues = updateDateColumnValue(newColumnValues, 'datum7__1', editBvEnde);
+
+			const { error: updateError } = await supabase
+				.from('monday_bauprozess')
+				.update({ column_values: newColumnValues })
+				.eq('id', bv.id);
+
+			if (updateError) throw updateError;
+
+			// Optimistic UI Update
+			bv = {
+				...bv,
+				bvStart: editBvStart,
+				bvEnde: editBvEnde,
+				columnValues: newColumnValues
+			};
+
+			editingTermine = false;
+			saveMessage = { type: 'success', text: 'Termine gespeichert!' };
+			setTimeout(() => saveMessage = null, 3000);
+		} catch (e) {
+			console.error('Fehler beim Speichern:', e);
+			saveMessage = { type: 'error', text: 'Fehler beim Speichern der Termine' };
+		} finally {
+			saving = false;
+		}
+	}
+
+	// Speichern: Uebersicht (Kennzahlen)
+	async function saveUebersicht() {
+		if (!bv) return;
+		saving = true;
+		saveMessage = null;
+
+		try {
+			let newColumnValues = { ...bv.columnValues };
+			newColumnValues = updateNumberColumnValue(newColumnValues, 'zahlen_mkm2n68z', editGrundflaeche);
+			newColumnValues = updateNumberColumnValue(newColumnValues, 'zahlen1__1', editUmsatzNetto);
+			newColumnValues = updateNumberColumnValue(newColumnValues, 'numeric_mkp7hv0t', editBudgetNU);
+			newColumnValues = updateNumberColumnValue(newColumnValues, 'numeric_mkpg3ayz', editMarge);
+
+			const { error: updateError } = await supabase
+				.from('monday_bauprozess')
+				.update({ column_values: newColumnValues })
+				.eq('id', bv.id);
+
+			if (updateError) throw updateError;
+
+			// Optimistic UI Update
+			bv = {
+				...bv,
+				grundflaeche: editGrundflaeche,
+				umsatzNetto: editUmsatzNetto,
+				budgetNU: editBudgetNU,
+				marge: editMarge,
+				columnValues: newColumnValues
+			};
+
+			editingUebersicht = false;
+			saveMessage = { type: 'success', text: 'Kennzahlen gespeichert!' };
+			setTimeout(() => saveMessage = null, 3000);
+		} catch (e) {
+			console.error('Fehler beim Speichern:', e);
+			saveMessage = { type: 'error', text: 'Fehler beim Speichern der Kennzahlen' };
+		} finally {
+			saving = false;
+		}
+	}
+
+	// Nachweis-Status umschalten (markieren als vorhanden/fehlend)
+	async function toggleNachweis(key: string, currentlyVorhanden: boolean) {
+		// TODO: Implementierung - Nachweise in separater Tabelle speichern
+		console.log('Toggle Nachweis:', key, !currentlyVorhanden);
+		saveMessage = { type: 'success', text: 'Nachweis-Status aktualisiert (Demo)' };
+		setTimeout(() => saveMessage = null, 3000);
+	}
+
+	// Abbrechen
+	function cancelEdit() {
+		editingKunde = false;
+		editingTermine = false;
+		editingUebersicht = false;
+		saveMessage = null;
+	}
+
 	// Allgemeine Info Tabs (OBEN)
 	const infoTabs = [
 		{ id: 'uebersicht', label: 'Uebersicht', icon: 'chart' },
@@ -152,7 +423,15 @@
 	];
 
 	// Phasen-Labels fuer Status-Bar
-	const phasenLabels = ['0', '1', '2', '3', '4', '5', '6'];
+	const phasenLabels = [
+		{ nr: '0', name: 'Bedarfsanalyse', short: 'Bedarf' },
+		{ nr: '1', name: 'Angebot', short: 'Angebot' },
+		{ nr: '2', name: 'Auftrag/AB', short: 'Auftrag' },
+		{ nr: '3', name: 'Vorbereitung', short: 'Vorber.' },
+		{ nr: '4', name: 'Umsetzung', short: 'Umsetz.' },
+		{ nr: '5', name: 'Rechnungen', short: 'Rechnung' },
+		{ nr: '6', name: 'Nachkalkulation', short: 'Nachkalk.' }
+	];
 
 	// Gewerke (aus Monday column_values extrahiert)
 	const gewerkeDefinition = [
@@ -351,7 +630,7 @@
 						.order('created_at', { ascending: false }),
 					supabase
 						.from('softr_dokumente')
-						.select('id, dokument_nr, art_des_dokuments, betrag_netto, betrag_brutto, status, datum_erstellt, rechnungssteller, datei_url')
+						.select('id, dokument_nr, art_des_dokuments, betrag_netto, betrag_brutto, betrag_bezahlt, betrag_offen, status, datum_erstellt, datum_zahlungsfrist, rechnungssteller, projektname, nua_nr, datei_url, sharepoint_link, freigabe_status')
 						.eq('atbs_nummer', projektNr)
 						.order('datum_erstellt', { ascending: false })
 				]);
@@ -367,16 +646,20 @@
 				}
 			}
 
-			// Lade Tasks (allgemeine Suche nach Projekt im Titel)
-			const { data: tasksData } = await supabase
-				.from('tasks')
-				.select('id, title, description, status, priority, due_date, assigned_to, category')
-				.or(`title.ilike.%${projektNr || bv.adresse}%`)
-				.order('due_date', { ascending: true })
-				.limit(50);
+			// Lade Tasks - suche nach Projekt-Nr oder Adresse
+			const searchTerms = [projektNr, bv.adresse].filter(Boolean);
+			if (searchTerms.length > 0) {
+				const orConditions = searchTerms.map(term => `title.ilike.%${term}%`).join(',');
+				const { data: tasksData } = await supabase
+					.from('tasks')
+					.select('id, title, description, status, priority, due_date, assigned_to, category, percent_complete, planner_bucket_name')
+					.or(orConditions)
+					.order('due_date', { ascending: true })
+					.limit(50);
 
-			if (tasksData) {
-				tasks = tasksData;
+				if (tasksData) {
+					tasks = tasksData;
+				}
 			}
 
 		} catch (e) {
@@ -410,12 +693,88 @@
 		return matchesSearch && matchesKategorie;
 	}));
 
-	// Dokument-Kategorien
-	let dokumentKategorien = $derived([...new Set(dokumente.map(d => d.art_des_dokuments).filter(Boolean))]);
+	// Dokument-Kategorien (sortiert nach Haeufigkeit)
+	let dokumentKategorien = $derived([...new Set(dokumente.map(d => d.art_des_dokuments).filter(Boolean))].sort());
+
+	// Dokumente nach Typ gruppieren
+	let dokumenteAR = $derived(dokumente.filter(d => d.art_des_dokuments?.startsWith('AR')));
+	let dokumenteER = $derived(dokumente.filter(d => d.art_des_dokuments?.startsWith('ER')));
+	let dokumenteANG = $derived(dokumente.filter(d => d.art_des_dokuments?.startsWith('ANG')));
+	let dokumenteAB = $derived(dokumente.filter(d => d.art_des_dokuments?.startsWith('AB')));
+	let dokumenteNUA = $derived(dokumente.filter(d => d.art_des_dokuments?.startsWith('NUA')));
+
+	// Nachunternehmer aus NU-Dokumenten extrahieren (ER-NU, NUA)
+	let nachunternehmerListe = $derived.by(() => {
+		const nuDokumente = dokumente.filter(d =>
+			d.art_des_dokuments?.includes('NU') ||
+			d.art_des_dokuments?.startsWith('NUA')
+		);
+
+		const grouped = new Map<string, Dokument[]>();
+		for (const dok of nuDokumente) {
+			const name = dok.rechnungssteller || 'Unbekannt';
+			if (!grouped.has(name)) {
+				grouped.set(name, []);
+			}
+			grouped.get(name)!.push(dok);
+		}
+
+		return Array.from(grouped.entries()).map(([name, docs]) => ({
+			name,
+			dokumente: docs,
+			summeNetto: docs.reduce((sum, d) => sum + (d.betrag_netto || 0), 0),
+			summeBrutto: docs.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0),
+			anzahlDokumente: docs.length
+		})) as NachunternehmerInfo[];
+	});
+
+	// Summen berechnen
+	let summeARNetto = $derived(dokumenteAR.reduce((sum, d) => sum + (d.betrag_netto || 0), 0));
+	let summeERNetto = $derived(dokumenteER.reduce((sum, d) => sum + (d.betrag_netto || 0), 0));
+	let summeARBrutto = $derived(dokumenteAR.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0));
+	let summeERBrutto = $derived(dokumenteER.reduce((sum, d) => sum + (d.betrag_brutto || 0), 0));
 
 	// Rohertrag berechnen
 	let rohertrag = $derived(bv && bv.umsatzNetto && bv.budgetNU ? bv.umsatzNetto - bv.budgetNU : null);
 	let rohertragsquote = $derived(bv && bv.umsatzNetto && rohertrag ? Math.round((rohertrag / bv.umsatzNetto) * 100) : null);
+
+	// Nachweis-Status (pruefen ob Dokumente vorhanden sind)
+	let nachweiseStatus = $derived(nachweiseDefinition.map(n => {
+		// Suche nach passenden Dokumenten (z.B. E-Check Protokoll in Dokumenten)
+		const found = dokumente.some(d =>
+			d.dokument_nr?.toLowerCase().includes(n.key.replace('_', ' ')) ||
+			d.art_des_dokuments?.toLowerCase().includes(n.key.replace('_', ' '))
+		);
+		return { ...n, vorhanden: found };
+	}));
+
+	// Task-Statistiken
+	let completedTasks = $derived(tasks.filter(t => t.status === 'completed').length);
+	let inProgressTasks = $derived(tasks.filter(t => t.status === 'in_progress' || t.status === 'inProgress').length);
+	let overdueTasks = $derived(tasks.filter(t => t.due_date && new Date(t.due_date) < new Date() && t.status !== 'completed').length);
+
+	// Termin-Berechnungen
+	let heute = $derived(new Date());
+	let startDate = $derived(bv?.bvStart ? new Date(bv.bvStart) : null);
+	let endDate = $derived(bv?.bvEnde ? new Date(bv.bvEnde) : null);
+	let totalDays = $derived(startDate && endDate ? Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) : 0);
+	let elapsedDays = $derived(startDate ? Math.ceil((heute.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) : 0);
+	let progressPercent = $derived(totalDays > 0 ? Math.min(100, Math.max(0, (elapsedDays / totalDays) * 100)) : 0);
+	let remainingDays = $derived(endDate ? Math.ceil((endDate.getTime() - heute.getTime()) / (1000 * 60 * 60 * 24)) : 0);
+
+	// Nachweis-Fortschritt
+	let vorhandeneNachweise = $derived(nachweiseStatus.filter(n => n.vorhanden).length);
+	let pflichtNachweise = $derived(nachweiseStatus.filter(n => n.required).length);
+	let vorhandenePflicht = $derived(nachweiseStatus.filter(n => n.required && n.vorhanden).length);
+
+	// Faellige Aufgaben
+	let upcomingTasks = $derived(tasks.filter(t => t.due_date && t.status !== 'completed').sort((a, b) => new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime()).slice(0, 5));
+
+	// NU-Dokumente
+	let nuDokumente = $derived(dokumente.filter(d => d.art_des_dokuments?.includes('NU') || d.art_des_dokuments?.startsWith('NUA')));
+
+	// Sonstige Dokumente
+	let sonstigeDokumente = $derived(dokumente.filter(d => d.art_des_dokuments === 'S Sonstiges'));
 
 	// Formatierung
 	function formatCurrency(value: number | null): string {
@@ -502,19 +861,19 @@
 				</h1>
 				<p class="hero-subtitle">{bv.lage || ''} {bv.bauleiter ? `| Bauleiter: ${bv.bauleiter}` : ''}</p>
 
-				<!-- Status-Bar mit eckigen Phasen -->
+				<!-- Status-Bar mit eckigen Phasen und Namen -->
 				<div class="phase-status-bar">
-					{#each phasenLabels as label, i}
-						<div class="phase-connector" class:active={i <= bv.phase}>
+					{#each phasenLabels as phase, i}
+						<div class="phase-step" class:active={i === bv.phase} class:completed={i < bv.phase} class:future={i > bv.phase}>
 							{#if i > 0}
-								<div class="phase-line" class:active={i <= bv.phase}></div>
+								<div class="phase-line" class:completed={i <= bv.phase}></div>
 							{/if}
-							<div
-								class="phase-box"
-								class:active={i === bv.phase}
-								class:completed={i < bv.phase}
-							>
-								{label}
+							<div class="phase-item">
+								<div class="phase-box">
+									{phase.nr}
+								</div>
+								<span class="phase-name">{phase.name}</span>
+								<span class="phase-name-short">{phase.short}</span>
 							</div>
 						</div>
 					{/each}
@@ -606,40 +965,117 @@
 			<!-- UEBERSICHT TAB -->
 			{#if activeTab === 'uebersicht'}
 				<div class="tab-panel">
-					<!-- KPI Cards -->
-					<div class="kpi-grid">
-						<div class="kpi-card">
-							<span class="kpi-label">Bauleiter</span>
-							<span class="kpi-value">{bv.bauleiter || '-'}</span>
-							{#if bv.bauleiterEmail}
-								<a href="mailto:{bv.bauleiterEmail}" class="kpi-link">{bv.bauleiterEmail}</a>
-							{/if}
+					<!-- Speicher-Meldung -->
+					{#if saveMessage}
+						<div class="save-message" class:success={saveMessage.type === 'success'} class:error={saveMessage.type === 'error'}>
+							{saveMessage.text}
 						</div>
-						<div class="kpi-card">
-							<span class="kpi-label">Nachunternehmer</span>
-							<span class="kpi-value">{nachtraege.length > 0 ? '1' : '0'}</span>
-							<span class="kpi-sub">zugewiesen</span>
-						</div>
-						<div class="kpi-card">
-							<span class="kpi-label">Grundflaeche</span>
-							<span class="kpi-value">{bv.grundflaeche ? `${bv.grundflaeche} m2` : '-'}</span>
-						</div>
-						<div class="kpi-card">
-							<span class="kpi-label">Umsatz (netto)</span>
-							<span class="kpi-value currency">{formatCurrency(bv.umsatzNetto)}</span>
-						</div>
-						<div class="kpi-card">
-							<span class="kpi-label">Budget NU</span>
-							<span class="kpi-value currency">{formatCurrency(bv.budgetNU)}</span>
-						</div>
-						<div class="kpi-card highlight">
-							<span class="kpi-label">Rohertrag</span>
-							<span class="kpi-value currency">{formatCurrency(rohertrag)}</span>
-							{#if rohertragsquote !== null}
-								<span class="kpi-sub success">{rohertragsquote}% Marge</span>
-							{/if}
-						</div>
+					{/if}
+
+					<!-- Kennzahlen Header mit Edit-Button -->
+					<div class="section-header">
+						<h3 class="section-title">Kennzahlen</h3>
+						{#if !editingUebersicht}
+							<Button variant="secondary" onclick={startEditUebersicht}>
+								Bearbeiten
+							</Button>
+						{/if}
 					</div>
+
+					{#if editingUebersicht}
+						<!-- Edit-Modus fuer Kennzahlen -->
+						<div class="edit-form">
+							<div class="form-grid form-grid-4">
+								<div class="form-group">
+									<label class="form-label" for="editGrundflaeche">Grundflaeche (m2)</label>
+									<input
+										type="number"
+										id="editGrundflaeche"
+										class="form-input"
+										bind:value={editGrundflaeche}
+										placeholder="z.B. 85"
+										step="0.01"
+									/>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="editUmsatzNetto">Umsatz netto (EUR)</label>
+									<input
+										type="number"
+										id="editUmsatzNetto"
+										class="form-input"
+										bind:value={editUmsatzNetto}
+										placeholder="z.B. 45000"
+										step="0.01"
+									/>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="editBudgetNU">Budget NU (EUR)</label>
+									<input
+										type="number"
+										id="editBudgetNU"
+										class="form-input"
+										bind:value={editBudgetNU}
+										placeholder="z.B. 30000"
+										step="0.01"
+									/>
+								</div>
+								<div class="form-group">
+									<label class="form-label" for="editMarge">Marge (%)</label>
+									<input
+										type="number"
+										id="editMarge"
+										class="form-input"
+										bind:value={editMarge}
+										placeholder="z.B. 25"
+										step="0.1"
+									/>
+								</div>
+							</div>
+							<div class="form-actions">
+								<Button variant="primary" onclick={saveUebersicht} disabled={saving}>
+									{saving ? 'Speichern...' : 'Speichern'}
+								</Button>
+								<Button variant="ghost" onclick={cancelEdit} disabled={saving}>
+									Abbrechen
+								</Button>
+							</div>
+						</div>
+					{:else}
+						<!-- KPI Cards -->
+						<div class="kpi-grid">
+							<div class="kpi-card">
+								<span class="kpi-label">Bauleiter</span>
+								<span class="kpi-value">{bv.bauleiter || '-'}</span>
+								{#if bv.bauleiterEmail}
+									<a href="mailto:{bv.bauleiterEmail}" class="kpi-link">{bv.bauleiterEmail}</a>
+								{/if}
+							</div>
+							<div class="kpi-card">
+								<span class="kpi-label">Nachunternehmer</span>
+								<span class="kpi-value">{nachunternehmerListe.length}</span>
+								<span class="kpi-sub">{nachunternehmerListe.length === 1 ? 'zugewiesen' : 'aus Dokumenten'}</span>
+							</div>
+							<div class="kpi-card">
+								<span class="kpi-label">Grundflaeche</span>
+								<span class="kpi-value">{bv.grundflaeche ? `${bv.grundflaeche} m2` : '-'}</span>
+							</div>
+							<div class="kpi-card">
+								<span class="kpi-label">Umsatz (netto)</span>
+								<span class="kpi-value currency">{formatCurrency(bv.umsatzNetto)}</span>
+							</div>
+							<div class="kpi-card">
+								<span class="kpi-label">Budget NU</span>
+								<span class="kpi-value currency">{formatCurrency(bv.budgetNU)}</span>
+							</div>
+							<div class="kpi-card highlight">
+								<span class="kpi-label">Rohertrag</span>
+								<span class="kpi-value currency">{formatCurrency(rohertrag)}</span>
+								{#if rohertragsquote !== null}
+									<span class="kpi-sub success">{rohertragsquote}% Marge</span>
+								{/if}
+							</div>
+						</div>
+					{/if}
 
 					<!-- Bauzeiten -->
 					<div class="section">
@@ -683,36 +1119,127 @@
 			<!-- KUNDE TAB -->
 			{:else if activeTab === 'kunde'}
 				<div class="tab-panel">
+					<!-- Speicher-Meldung -->
+					{#if saveMessage}
+						<div class="save-message" class:success={saveMessage.type === 'success'} class:error={saveMessage.type === 'error'}>
+							{saveMessage.text}
+						</div>
+					{/if}
+
 					<div class="section">
-						<h3 class="section-title">Kundendaten</h3>
-						<div class="data-card">
-							<div class="data-row">
-								<span class="data-label">Kunde</span>
-								<span class="data-value">{bv.kunde}</span>
-							</div>
-							{#if bv.kundeAnrede || bv.kundeVorname || bv.kundeNachname}
-								<div class="data-row">
-									<span class="data-label">Ansprechpartner</span>
-									<span class="data-value">{bv.kundeAnrede || ''} {bv.kundeVorname || ''} {bv.kundeNachname || ''}</span>
-								</div>
+						<div class="section-header">
+							<h3 class="section-title">Kundendaten</h3>
+							{#if !editingKunde}
+								<Button variant="secondary" onclick={startEditKunde}>
+									Bearbeiten
+								</Button>
 							{/if}
-							{#if bv.kundeEmail}
+						</div>
+
+						{#if editingKunde}
+							<!-- Edit-Modus -->
+							<div class="edit-form">
+								<div class="form-grid">
+									<div class="form-group">
+										<label class="form-label" for="kundeAnrede">Anrede</label>
+										<select id="kundeAnrede" class="form-select" bind:value={editKundeAnrede}>
+											<option value="">-- Bitte waehlen --</option>
+											<option value="Herr">Herr</option>
+											<option value="Frau">Frau</option>
+											<option value="Firma">Firma</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label class="form-label" for="kundeVorname">Vorname</label>
+										<input
+											type="text"
+											id="kundeVorname"
+											class="form-input"
+											bind:value={editKundeVorname}
+											placeholder="Vorname"
+										/>
+									</div>
+									<div class="form-group">
+										<label class="form-label" for="kundeNachname">Nachname</label>
+										<input
+											type="text"
+											id="kundeNachname"
+											class="form-input"
+											bind:value={editKundeNachname}
+											placeholder="Nachname"
+										/>
+									</div>
+									<div class="form-group">
+										<label class="form-label" for="kundeEmail">E-Mail</label>
+										<input
+											type="email"
+											id="kundeEmail"
+											class="form-input"
+											bind:value={editKundeEmail}
+											placeholder="kunde@beispiel.de"
+										/>
+									</div>
+									<div class="form-group">
+										<label class="form-label" for="kundeTelefon">Telefon</label>
+										<input
+											type="tel"
+											id="kundeTelefon"
+											class="form-input"
+											bind:value={editKundeTelefon}
+											placeholder="+49..."
+										/>
+									</div>
+								</div>
+								<div class="form-actions">
+									<Button variant="primary" onclick={saveKunde} disabled={saving}>
+										{saving ? 'Speichern...' : 'Speichern'}
+									</Button>
+									<Button variant="ghost" onclick={cancelEdit} disabled={saving}>
+										Abbrechen
+									</Button>
+								</div>
+							</div>
+						{:else}
+							<!-- Anzeige-Modus -->
+							<div class="data-card">
+								<div class="data-row">
+									<span class="data-label">Kunde</span>
+									<span class="data-value">{bv.kunde}</span>
+								</div>
+								<div class="data-row">
+									<span class="data-label">Anrede</span>
+									<span class="data-value">{bv.kundeAnrede || '-'}</span>
+								</div>
+								<div class="data-row">
+									<span class="data-label">Vorname</span>
+									<span class="data-value">{bv.kundeVorname || '-'}</span>
+								</div>
+								<div class="data-row">
+									<span class="data-label">Nachname</span>
+									<span class="data-value">{bv.kundeNachname || '-'}</span>
+								</div>
 								<div class="data-row">
 									<span class="data-label">E-Mail</span>
-									<a href="mailto:{bv.kundeEmail}" class="data-value link">{bv.kundeEmail}</a>
+									{#if bv.kundeEmail}
+										<a href="mailto:{bv.kundeEmail}" class="data-value link">{bv.kundeEmail}</a>
+									{:else}
+										<span class="data-value">-</span>
+									{/if}
 								</div>
-							{/if}
-							{#if bv.kundeTelefon}
 								<div class="data-row">
 									<span class="data-label">Telefon</span>
-									<a href="tel:{bv.kundeTelefon}" class="data-value link">{bv.kundeTelefon}</a>
+									{#if bv.kundeTelefon}
+										<a href="tel:{bv.kundeTelefon}" class="data-value link">{bv.kundeTelefon}</a>
+									{:else}
+										<span class="data-value">-</span>
+									{/if}
 								</div>
-							{/if}
-							<div class="data-row">
-								<span class="data-label">Adresse</span>
-								<span class="data-value">{bv.adresse}</span>
+								<div class="data-row">
+									<span class="data-label">Adresse</span>
+									<span class="data-value">{bv.adresse}</span>
+								</div>
 							</div>
-						</div>
+						{/if}
 					</div>
 
 					<div class="section">
@@ -735,22 +1262,59 @@
 			<!-- NU TAB -->
 			{:else if activeTab === 'nu'}
 				<div class="tab-panel">
+					<!-- Budget-Uebersicht -->
 					<div class="section">
-						<h3 class="section-title">Zugewiesene Nachunternehmer</h3>
-						{#if nachtraege.length > 0}
+						<h3 class="section-title">NU-Budget Uebersicht</h3>
+						<div class="nu-budget-grid">
+							<div class="nu-budget-card">
+								<span class="nu-budget-label">Budget (Plan)</span>
+								<span class="nu-budget-value">{formatCurrency(bv.budgetNU)}</span>
+							</div>
+							<div class="nu-budget-card">
+								<span class="nu-budget-label">NU-Rechnungen (Ist)</span>
+								<span class="nu-budget-value">{formatCurrency(summeERNetto)}</span>
+							</div>
+							<div class="nu-budget-card" class:success={bv.budgetNU && summeERNetto < bv.budgetNU} class:error={bv.budgetNU && summeERNetto > bv.budgetNU}>
+								<span class="nu-budget-label">Differenz</span>
+								<span class="nu-budget-value">{formatCurrency((bv.budgetNU || 0) - summeERNetto)}</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Nachunternehmer aus Dokumenten -->
+					<div class="section">
+						<h3 class="section-title">Nachunternehmer (aus Dokumenten)</h3>
+						{#if nachunternehmerListe.length > 0}
+							<div class="nu-cards-grid">
+								{#each nachunternehmerListe as nu}
+									<div class="nu-card">
+										<div class="nu-header">
+											<span class="nu-name">{nu.name}</span>
+											<Badge variant="info" size="sm">{nu.anzahlDokumente} Dok.</Badge>
+										</div>
+										<div class="nu-details">
+											<div class="nu-row">
+												<span class="nu-label">Summe Netto</span>
+												<span class="nu-value">{formatCurrency(nu.summeNetto)}</span>
+											</div>
+											<div class="nu-row">
+												<span class="nu-label">Summe Brutto</span>
+												<span class="nu-value">{formatCurrency(nu.summeBrutto)}</span>
+											</div>
+										</div>
+									</div>
+								{/each}
+							</div>
+						{:else if bv.budgetNU}
 							<div class="nu-card">
 								<div class="nu-header">
 									<span class="nu-name">Haupt-NU</span>
-									<Badge variant="success">Aktiv</Badge>
+									<Badge variant="warning">Keine Dokumente</Badge>
 								</div>
 								<div class="nu-details">
 									<div class="nu-row">
 										<span class="nu-label">Budget (NUA)</span>
 										<span class="nu-value">{formatCurrency(bv.budgetNU)}</span>
-									</div>
-									<div class="nu-row">
-										<span class="nu-label">Nachtraege</span>
-										<span class="nu-value">{nachtraege.length}</span>
 									</div>
 								</div>
 							</div>
@@ -762,6 +1326,54 @@
 						{/if}
 					</div>
 
+					<!-- NU-Dokumente -->
+					<div class="section">
+						<h3 class="section-title">NU-Dokumente (NUA, ER-NU)</h3>
+						{#if nuDokumente.length > 0}
+							<div class="table-container">
+								<table class="data-table">
+									<thead>
+										<tr>
+											<th>Typ</th>
+											<th>Nr.</th>
+											<th>NU/Steller</th>
+											<th>Netto</th>
+											<th>Brutto</th>
+											<th>Status</th>
+											<th>Datum</th>
+											<th>Aktion</th>
+										</tr>
+									</thead>
+									<tbody>
+										{#each nuDokumente as dok}
+											<tr>
+												<td><Badge variant="default" size="sm">{dok.art_des_dokuments || '-'}</Badge></td>
+												<td class="mono">{dok.dokument_nr || dok.nua_nr || '-'}</td>
+												<td>{dok.rechnungssteller || '-'}</td>
+												<td class="currency">{formatCurrency(dok.betrag_netto)}</td>
+												<td class="currency">{formatCurrency(dok.betrag_brutto)}</td>
+												<td><Badge variant={getStatusVariant(dok.status || '')} size="sm">{dok.status || '-'}</Badge></td>
+												<td>{formatDate(dok.datum_erstellt)}</td>
+												<td>
+													{#if dok.datei_url}
+														<a href={dok.datei_url} target="_blank" class="action-link">PDF</a>
+													{:else if dok.sharepoint_link}
+														<a href={dok.sharepoint_link} target="_blank" class="action-link">Link</a>
+													{:else}
+														-
+													{/if}
+												</td>
+											</tr>
+										{/each}
+									</tbody>
+								</table>
+							</div>
+						{:else}
+							<p class="empty-text">Keine NU-Dokumente vorhanden</p>
+						{/if}
+					</div>
+
+					<!-- Nachtraege -->
 					<div class="section">
 						<h3 class="section-title">Nachtraege</h3>
 						{#if nachtraege.length > 0}
@@ -800,6 +1412,32 @@
 			<!-- DOKUMENTE TAB -->
 			{:else if activeTab === 'dokumente'}
 				<div class="tab-panel">
+					<!-- Dokument-Statistik -->
+					<div class="dok-stats-grid">
+						<div class="dok-stat-card ar">
+							<span class="dok-stat-label">Ausgangsrechnungen (AR)</span>
+							<span class="dok-stat-count">{dokumenteAR.length}</span>
+							<span class="dok-stat-value">{formatCurrency(summeARNetto)}</span>
+						</div>
+						<div class="dok-stat-card er">
+							<span class="dok-stat-label">Eingangsrechnungen (ER)</span>
+							<span class="dok-stat-count">{dokumenteER.length}</span>
+							<span class="dok-stat-value">{formatCurrency(summeERNetto)}</span>
+						</div>
+						<div class="dok-stat-card ang">
+							<span class="dok-stat-label">Angebote (ANG)</span>
+							<span class="dok-stat-count">{dokumenteANG.length}</span>
+						</div>
+						<div class="dok-stat-card ab">
+							<span class="dok-stat-label">Auftragsbestaet. (AB)</span>
+							<span class="dok-stat-count">{dokumenteAB.length}</span>
+						</div>
+						<div class="dok-stat-card nua">
+							<span class="dok-stat-label">NU-Auftraege (NUA)</span>
+							<span class="dok-stat-count">{dokumenteNUA.length}</span>
+						</div>
+					</div>
+
 					<div class="filter-bar">
 						<input
 							type="text"
@@ -808,7 +1446,7 @@
 							bind:value={dokumentFilter}
 						/>
 						<select class="filter-select" bind:value={dokumentKategorie}>
-							<option value="alle">Alle Kategorien</option>
+							<option value="alle">Alle Kategorien ({dokumente.length})</option>
 							{#each dokumentKategorien as kat}
 								<option value={kat}>{kat}</option>
 							{/each}
@@ -826,24 +1464,30 @@
 										<th>Steller</th>
 										<th>Netto</th>
 										<th>Brutto</th>
+										<th>Offen</th>
 										<th>Status</th>
 										<th>Datum</th>
+										<th>Frist</th>
 										<th>Aktion</th>
 									</tr>
 								</thead>
 								<tbody>
 									{#each dokumenteFiltered as dok}
 										<tr>
-											<td><Badge variant="default" size="sm">{dok.art_des_dokuments || '-'}</Badge></td>
+											<td><Badge variant={dok.art_des_dokuments?.startsWith('AR') ? 'success' : dok.art_des_dokuments?.startsWith('ER') ? 'warning' : 'default'} size="sm">{dok.art_des_dokuments || '-'}</Badge></td>
 											<td class="mono">{dok.dokument_nr || '-'}</td>
 											<td>{dok.rechnungssteller || '-'}</td>
 											<td class="currency">{formatCurrency(dok.betrag_netto)}</td>
 											<td class="currency">{formatCurrency(dok.betrag_brutto)}</td>
+											<td class="currency" class:error={dok.betrag_offen && dok.betrag_offen > 0}>{dok.betrag_offen ? formatCurrency(dok.betrag_offen) : '-'}</td>
 											<td><Badge variant={getStatusVariant(dok.status || '')} size="sm">{dok.status || '-'}</Badge></td>
 											<td>{formatDate(dok.datum_erstellt)}</td>
+											<td class:overdue={dok.datum_zahlungsfrist && new Date(dok.datum_zahlungsfrist) < new Date()}>{formatDate(dok.datum_zahlungsfrist)}</td>
 											<td>
 												{#if dok.datei_url}
 													<a href={dok.datei_url} target="_blank" class="action-link">PDF</a>
+												{:else if dok.sharepoint_link}
+													<a href={dok.sharepoint_link} target="_blank" class="action-link">Link</a>
 												{:else}
 													-
 												{/if}
@@ -852,6 +1496,12 @@
 									{/each}
 								</tbody>
 							</table>
+						</div>
+						<!-- Summenzeile -->
+						<div class="table-summary">
+							<span>Gesamt ({dokumenteFiltered.length} Dokumente):</span>
+							<span class="summary-value">Netto: {formatCurrency(dokumenteFiltered.reduce((s, d) => s + (d.betrag_netto || 0), 0))}</span>
+							<span class="summary-value">Brutto: {formatCurrency(dokumenteFiltered.reduce((s, d) => s + (d.betrag_brutto || 0), 0))}</span>
 						</div>
 					{:else}
 						<div class="empty-state">
@@ -863,6 +1513,26 @@
 			<!-- AUFGABEN TAB -->
 			{:else if activeTab === 'aufgaben'}
 				<div class="tab-panel">
+					<!-- Task-Statistik -->
+					<div class="task-stats">
+						<div class="task-stat">
+							<span class="task-stat-count">{tasks.length}</span>
+							<span class="task-stat-label">Gesamt</span>
+						</div>
+						<div class="task-stat success">
+							<span class="task-stat-count">{completedTasks}</span>
+							<span class="task-stat-label">Erledigt</span>
+						</div>
+						<div class="task-stat warning">
+							<span class="task-stat-count">{inProgressTasks}</span>
+							<span class="task-stat-label">In Arbeit</span>
+						</div>
+						<div class="task-stat error">
+							<span class="task-stat-count">{overdueTasks}</span>
+							<span class="task-stat-label">Ueberfaellig</span>
+						</div>
+					</div>
+
 					<div class="section-header">
 						<h3 class="section-title">Projekt-Aufgaben</h3>
 						<div class="header-actions">
@@ -874,12 +1544,17 @@
 					{#if tasks.length > 0}
 						<div class="task-list">
 							{#each tasks as task}
-								<div class="task-item" class:completed={task.status === 'completed'}>
+								{@const isOverdue = task.due_date && new Date(task.due_date) < new Date() && task.status !== 'completed'}
+								<div class="task-item" class:completed={task.status === 'completed'} class:overdue={isOverdue}>
 									<div class="task-checkbox">
 										{#if task.status === 'completed'}
 											<svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
 												{@html icons.check}
 											</svg>
+										{:else if task.percent_complete && task.percent_complete > 0}
+											<div class="task-progress-circle" style="--progress: {task.percent_complete}%">
+												<span>{task.percent_complete}%</span>
+											</div>
 										{:else}
 											<span class="check-empty"></span>
 										{/if}
@@ -891,14 +1566,22 @@
 										{/if}
 										<div class="task-meta">
 											{#if task.due_date}
-												<span class="task-due">{formatDate(task.due_date)}</span>
+												<span class="task-due" class:overdue={isOverdue}>
+													{isOverdue ? 'Ueberfaellig: ' : ''}{formatDate(task.due_date)}
+												</span>
 											{/if}
 											{#if task.assigned_to}
 												<span class="task-assignee">{task.assigned_to}</span>
 											{/if}
+											{#if task.planner_bucket_name}
+												<Badge variant="info" size="sm">{task.planner_bucket_name}</Badge>
+											{/if}
+											{#if task.category}
+												<Badge variant="default" size="sm">{task.category}</Badge>
+											{/if}
 											{#if task.priority}
-												<Badge variant={task.priority === 'high' ? 'error' : task.priority === 'medium' ? 'warning' : 'default'} size="sm">
-													{task.priority}
+												<Badge variant={task.priority === 'high' || task.priority === '1' ? 'error' : task.priority === 'medium' || task.priority === '5' ? 'warning' : 'default'} size="sm">
+													{task.priority === '1' ? 'Hoch' : task.priority === '5' ? 'Mittel' : task.priority === '9' ? 'Niedrig' : task.priority}
 												</Badge>
 											{/if}
 										</div>
@@ -917,37 +1600,142 @@
 			<!-- TERMINE TAB -->
 			{:else if activeTab === 'termine'}
 				<div class="tab-panel">
-					<div class="section">
-						<h3 class="section-title">Projekttermine</h3>
-						<div class="timeline">
-							<div class="timeline-item">
-								<div class="timeline-marker"></div>
-								<div class="timeline-content">
-									<span class="timeline-label">BV Start</span>
-									<span class="timeline-date">{formatDate(bv.bvStart)}</span>
+					<!-- Speicher-Meldung -->
+					{#if saveMessage}
+						<div class="save-message" class:success={saveMessage.type === 'success'} class:error={saveMessage.type === 'error'}>
+							{saveMessage.text}
+						</div>
+					{/if}
+
+					<!-- Zeitbalken -->
+					{#if startDate && endDate}
+						<div class="termin-overview">
+							<div class="termin-progress">
+								<div class="termin-progress-bar">
+									<div class="termin-progress-fill" style="width: {progressPercent}%"></div>
+									<div class="termin-progress-marker" style="left: {progressPercent}%"></div>
+								</div>
+								<div class="termin-progress-labels">
+									<span>{formatDate(bv.bvStart)}</span>
+									<span class="termin-heute">Heute</span>
+									<span>{formatDate(bv.bvEnde)}</span>
 								</div>
 							</div>
-							<div class="timeline-item">
-								<div class="timeline-marker"></div>
-								<div class="timeline-content">
-									<span class="timeline-label">BV Ende (geplant)</span>
-									<span class="timeline-date">{formatDate(bv.bvEnde)}</span>
+							<div class="termin-stats">
+								<div class="termin-stat">
+									<span class="termin-stat-value">{totalDays}</span>
+									<span class="termin-stat-label">Tage gesamt</span>
+								</div>
+								<div class="termin-stat">
+									<span class="termin-stat-value">{Math.max(0, elapsedDays)}</span>
+									<span class="termin-stat-label">Tage vergangen</span>
+								</div>
+								<div class="termin-stat" class:warning={remainingDays < 14 && remainingDays > 0} class:error={remainingDays <= 0}>
+									<span class="termin-stat-value">{remainingDays}</span>
+									<span class="termin-stat-label">{remainingDays >= 0 ? 'Tage verbleibend' : 'Tage ueberfaellig'}</span>
 								</div>
 							</div>
 						</div>
+					{/if}
+
+					<div class="section">
+						<div class="section-header">
+							<h3 class="section-title">Projekttermine</h3>
+							{#if !editingTermine}
+								<Button variant="secondary" onclick={startEditTermine}>
+									Bearbeiten
+								</Button>
+							{/if}
+						</div>
+
+						{#if editingTermine}
+							<!-- Edit-Modus -->
+							<div class="edit-form">
+								<div class="form-grid form-grid-2">
+									<div class="form-group">
+										<label class="form-label" for="bvStart">BV Start</label>
+										<input
+											type="date"
+											id="bvStart"
+											class="form-input"
+											bind:value={editBvStart}
+										/>
+									</div>
+									<div class="form-group">
+										<label class="form-label" for="bvEnde">BV Ende</label>
+										<input
+											type="date"
+											id="bvEnde"
+											class="form-input"
+											bind:value={editBvEnde}
+										/>
+									</div>
+								</div>
+								<div class="form-actions">
+									<Button variant="primary" onclick={saveTermine} disabled={saving}>
+										{saving ? 'Speichern...' : 'Speichern'}
+									</Button>
+									<Button variant="ghost" onclick={cancelEdit} disabled={saving}>
+										Abbrechen
+									</Button>
+								</div>
+							</div>
+						{:else}
+							<div class="timeline">
+								{#if extractField(bv.columnValues, 'datum__bedarfsanalyse__1')}
+									<div class="timeline-item" class:past={true}>
+										<div class="timeline-marker past"></div>
+										<div class="timeline-content">
+											<span class="timeline-label">Bedarfsanalyse</span>
+											<span class="timeline-date">{extractField(bv.columnValues, 'datum__bedarfsanalyse__1')}</span>
+										</div>
+									</div>
+								{/if}
+								<div class="timeline-item" class:past={startDate && startDate < heute}>
+									<div class="timeline-marker" class:past={startDate && startDate < heute}></div>
+									<div class="timeline-content">
+										<span class="timeline-label">BV Start</span>
+										<span class="timeline-date">{formatDate(bv.bvStart)}</span>
+									</div>
+								</div>
+								<div class="timeline-item" class:future={endDate && endDate > heute} class:past={endDate && endDate <= heute}>
+									<div class="timeline-marker" class:future={endDate && endDate > heute} class:past={endDate && endDate <= heute}></div>
+									<div class="timeline-content">
+										<span class="timeline-label">BV Ende (geplant)</span>
+										<span class="timeline-date">{formatDate(bv.bvEnde)}</span>
+									</div>
+								</div>
+							</div>
+						{/if}
 					</div>
 
 					<div class="section">
-						<h3 class="section-title">Meilensteine</h3>
+						<h3 class="section-title">Gewerke-Meilensteine</h3>
 						<div class="milestone-grid">
-							{#each gewerke.slice(0, 6) as gewerk}
-								<div class="milestone-item">
+							{#each gewerke as gewerk}
+								<div class="milestone-item" class:erledigt={gewerk.status === 'Erledigt' || gewerk.status === 'Abgeschlossen'}>
 									<span class="milestone-name">{gewerk.name}</span>
 									<Badge variant={getStatusVariant(gewerk.status)} size="sm">{gewerk.status}</Badge>
 								</div>
 							{/each}
 						</div>
 					</div>
+
+					<!-- Faellige Aufgaben -->
+					{#if upcomingTasks.length > 0}
+						<div class="section">
+							<h3 class="section-title">Naechste Faelligkeiten</h3>
+							<div class="upcoming-tasks">
+								{#each upcomingTasks as task}
+									{@const isOverdue = new Date(task.due_date!) < heute}
+									<div class="upcoming-task" class:overdue={isOverdue}>
+										<span class="upcoming-date" class:overdue={isOverdue}>{formatDate(task.due_date)}</span>
+										<span class="upcoming-title">{task.title}</span>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
 				</div>
 
 			<!-- ABNAHMEN TAB -->
@@ -1027,32 +1815,100 @@
 			<!-- NACHWEISE TAB -->
 			{:else if activeTab === 'nachweise'}
 				<div class="tab-panel">
+					<!-- Speicher-Meldung -->
+					{#if saveMessage}
+						<div class="save-message" class:success={saveMessage.type === 'success'} class:error={saveMessage.type === 'error'}>
+							{saveMessage.text}
+						</div>
+					{/if}
+
+					<!-- Nachweis-Fortschritt -->
+					<div class="nachweis-progress">
+						<div class="nachweis-progress-bar">
+							<div class="nachweis-progress-fill" style="width: {Math.round((vorhandenePflicht / pflichtNachweise) * 100)}%"></div>
+						</div>
+						<span class="nachweis-progress-text">{vorhandenePflicht}/{pflichtNachweise} Pflicht-Nachweise vorhanden</span>
+					</div>
+
 					<div class="section">
 						<h3 class="section-title">Erforderliche Nachweise im BV</h3>
+						<p class="section-hint">Klicken Sie auf die Checkbox um den Status zu aendern. Nutzen Sie "Link hinzufuegen" um eine Datei-URL zu verknuepfen.</p>
 						<div class="nachweise-list">
-							{#each nachweiseDefinition as nachweis}
-								<div class="nachweis-item">
-									<div class="nachweis-checkbox">
-										<span class="check-empty"></span>
-									</div>
+							{#each nachweiseStatus as nachweis}
+								<div class="nachweis-item" class:vorhanden={nachweis.vorhanden}>
+									<button
+										type="button"
+										class="nachweis-checkbox-btn"
+										onclick={() => toggleNachweis(nachweis.key, nachweis.vorhanden)}
+										title={nachweis.vorhanden ? 'Als fehlend markieren' : 'Als vorhanden markieren'}
+									>
+										{#if nachweis.vorhanden}
+											<svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
+												{@html icons.check}
+											</svg>
+										{:else}
+											<span class="check-empty"></span>
+										{/if}
+									</button>
 									<div class="nachweis-content">
 										<span class="nachweis-name">{nachweis.name}</span>
-										{#if nachweis.required}
-											<span class="nachweis-required">Pflicht</span>
+										{#if nachweis.required && !nachweis.vorhanden}
+											<span class="nachweis-required">Pflicht - fehlt!</span>
+										{:else if nachweis.required && nachweis.vorhanden}
+											<span class="nachweis-ok">Pflicht - OK</span>
+										{:else if nachweis.vorhanden}
+											<span class="nachweis-ok">Vorhanden</span>
 										{/if}
 									</div>
-									<Button variant="ghost" size="sm">Hochladen</Button>
+									<div class="nachweis-actions">
+										{#if !nachweis.vorhanden}
+											<Button variant="ghost" size="sm">Link hinzufuegen</Button>
+										{:else}
+											<Button variant="ghost" size="sm">Ansehen</Button>
+										{/if}
+									</div>
 								</div>
 							{/each}
 						</div>
 					</div>
 
 					<div class="section">
-						<h3 class="section-title">Hochgeladene Nachweise</h3>
-						<div class="empty-state">
-							<p>Noch keine Nachweise hochgeladen</p>
-							<Button variant="primary">Nachweis hochladen</Button>
-						</div>
+						<h3 class="section-title">Sonstige Dokumente als Nachweise</h3>
+						{#if sonstigeDokumente.length > 0}
+							<div class="table-container">
+								<table class="data-table">
+									<thead>
+										<tr>
+											<th>Nr.</th>
+											<th>Bezeichnung</th>
+											<th>Datum</th>
+											<th>Aktion</th>
+										</tr>
+									</thead>
+									<tbody>
+										{#each sonstigeDokumente as dok}
+											<tr>
+												<td class="mono">{dok.dokument_nr || '-'}</td>
+												<td>{dok.projektname || dok.rechnungssteller || '-'}</td>
+												<td>{formatDate(dok.datum_erstellt)}</td>
+												<td>
+													{#if dok.datei_url}
+														<a href={dok.datei_url} target="_blank" class="action-link">PDF</a>
+													{:else}
+														-
+													{/if}
+												</td>
+											</tr>
+										{/each}
+									</tbody>
+								</table>
+							</div>
+						{:else}
+							<div class="empty-state">
+								<p>Noch keine sonstigen Nachweise hochgeladen</p>
+								<Button variant="primary">Nachweis hochladen</Button>
+							</div>
+						{/if}
 					</div>
 				</div>
 
@@ -1341,49 +2197,142 @@
 	/* Phase Status Bar */
 	.phase-status-bar {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		margin: 1rem 0;
+		gap: 0;
 	}
 
-	.phase-connector {
+	.phase-step {
 		display: flex;
 		align-items: center;
+		position: relative;
 	}
 
 	.phase-line {
-		width: 24px;
-		height: 2px;
+		width: 20px;
+		height: 3px;
 		background: var(--color-gray-300);
+		flex-shrink: 0;
 	}
 
-	.phase-line.active {
-		background: var(--color-primary);
+	.phase-line.completed {
+		background: var(--color-success);
+	}
+
+	.phase-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35rem;
 	}
 
 	.phase-box {
-		width: 32px;
-		height: 32px;
+		width: 36px;
+		height: 36px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background: var(--color-gray-100);
 		border: 2px solid var(--color-gray-300);
 		color: var(--color-gray-500);
-		font-weight: 600;
-		font-size: 0.85rem;
+		font-weight: 700;
+		font-size: 0.9rem;
+		border-radius: 0;
 	}
 
-	.phase-box.completed {
-		background: var(--color-primary);
-		border-color: var(--color-primary);
+	/* Zukuenftige Phasen: Grau */
+	.phase-step.future .phase-box {
+		background: var(--color-gray-100);
+		border-color: var(--color-gray-300);
+		color: var(--color-gray-400);
+	}
+
+	/* Erledigte Phasen: Gruen */
+	.phase-step.completed .phase-box {
+		background: var(--color-success);
+		border-color: var(--color-success);
 		color: white;
 	}
 
-	.phase-box.active {
-		background: white;
-		border-color: var(--color-primary);
-		border-width: 3px;
-		color: var(--color-primary);
+	/* Aktive Phase: Rot (Markenfarbe) */
+	.phase-step.active .phase-box {
+		background: var(--color-error);
+		border-color: var(--color-error);
+		color: white;
+		box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+	}
+
+	.phase-name {
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+		text-align: center;
+		max-width: 70px;
+		line-height: 1.2;
+		white-space: nowrap;
+	}
+
+	.phase-name-short {
+		display: none;
+		font-size: 0.65rem;
+		color: var(--color-gray-500);
+		text-align: center;
+	}
+
+	.phase-step.completed .phase-name,
+	.phase-step.completed .phase-name-short {
+		color: var(--color-success-dark);
+		font-weight: 500;
+	}
+
+	.phase-step.active .phase-name,
+	.phase-step.active .phase-name-short {
+		color: var(--color-error);
+		font-weight: 600;
+	}
+
+	/* Responsive: Mobile zeigt Kurzform */
+	@media (max-width: 900px) {
+		.phase-line {
+			width: 12px;
+		}
+
+		.phase-box {
+			width: 32px;
+			height: 32px;
+			font-size: 0.85rem;
+		}
+
+		.phase-name {
+			display: none;
+		}
+
+		.phase-name-short {
+			display: block;
+			font-size: 0.6rem;
+			max-width: 50px;
+		}
+	}
+
+	/* Sehr kleine Bildschirme: Nur Nummern */
+	@media (max-width: 480px) {
+		.phase-status-bar {
+			flex-wrap: wrap;
+			gap: 0.25rem;
+		}
+
+		.phase-line {
+			width: 8px;
+		}
+
+		.phase-box {
+			width: 28px;
+			height: 28px;
+			font-size: 0.75rem;
+		}
+
+		.phase-name-short {
+			display: none;
+		}
 	}
 
 	/* Hero Links */
@@ -2035,13 +2984,7 @@
 		border: 1px solid var(--color-gray-200);
 	}
 
-	.nachweis-checkbox {
-		width: 20px;
-		height: 20px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+	/* nachweis-checkbox entfernt - jetzt nachweis-checkbox-btn */
 
 	.nachweis-content {
 		flex: 1;
@@ -2220,9 +3163,547 @@
 			width: 100%;
 			height: 180px;
 		}
+	}
 
-		.phase-status-bar {
+	/* NU Budget Grid */
+	.nu-budget-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.nu-budget-card {
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		padding: 1rem;
+		text-align: center;
+	}
+
+	.nu-budget-card.success {
+		background: var(--color-success-light);
+		border-color: var(--color-success);
+	}
+
+	.nu-budget-card.error {
+		background: var(--color-error-light);
+		border-color: var(--color-error);
+	}
+
+	.nu-budget-label {
+		display: block;
+		font-size: 0.75rem;
+		color: var(--color-gray-500);
+		text-transform: uppercase;
+		margin-bottom: 0.25rem;
+	}
+
+	.nu-budget-value {
+		font-size: 1.25rem;
+		font-weight: 600;
+		font-family: var(--font-family-mono);
+	}
+
+	.nu-cards-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1rem;
+	}
+
+	/* Dokument Statistik Grid */
+	.dok-stats-grid {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.75rem;
+		margin-bottom: 1.5rem;
+	}
+
+	@media (max-width: 900px) {
+		.dok-stats-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.dok-stats-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.dok-stat-card {
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		padding: 0.75rem;
+		text-align: center;
+	}
+
+	.dok-stat-card.ar {
+		border-left: 3px solid var(--color-success);
+	}
+
+	.dok-stat-card.er {
+		border-left: 3px solid var(--color-warning);
+	}
+
+	.dok-stat-card.ang {
+		border-left: 3px solid var(--color-info);
+	}
+
+	.dok-stat-card.ab {
+		border-left: 3px solid var(--color-primary);
+	}
+
+	.dok-stat-card.nua {
+		border-left: 3px solid var(--color-gray-500);
+	}
+
+	.dok-stat-label {
+		display: block;
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+		margin-bottom: 0.25rem;
+	}
+
+	.dok-stat-count {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--color-gray-800);
+	}
+
+	.dok-stat-value {
+		display: block;
+		font-size: 0.8rem;
+		font-family: var(--font-family-mono);
+		color: var(--color-gray-600);
+	}
+
+	/* Table Summary */
+	.table-summary {
+		display: flex;
+		gap: 2rem;
+		padding: 0.75rem 1rem;
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		border-top: none;
+		font-size: 0.85rem;
+	}
+
+	.summary-value {
+		font-family: var(--font-family-mono);
+		font-weight: 500;
+	}
+
+	/* Task Stats */
+	.task-stats {
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.task-stat {
+		flex: 1;
+		text-align: center;
+		padding: 0.75rem;
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+	}
+
+	.task-stat.success {
+		background: var(--color-success-light);
+		border-color: var(--color-success);
+	}
+
+	.task-stat.warning {
+		background: var(--color-warning-light);
+		border-color: var(--color-warning);
+	}
+
+	.task-stat.error {
+		background: var(--color-error-light);
+		border-color: var(--color-error);
+	}
+
+	.task-stat-count {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	.task-stat-label {
+		font-size: 0.75rem;
+		color: var(--color-gray-600);
+	}
+
+	.task-item.overdue {
+		border-left: 3px solid var(--color-error);
+	}
+
+	.task-due.overdue {
+		color: var(--color-error);
+		font-weight: 600;
+	}
+
+	.task-progress-circle {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: conic-gradient(var(--color-primary) var(--progress), var(--color-gray-200) var(--progress));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.5rem;
+		font-weight: 600;
+	}
+
+	/* Nachweis Progress */
+	.nachweis-progress {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1rem;
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		margin-bottom: 1.5rem;
+	}
+
+	.nachweis-progress-bar {
+		flex: 1;
+		height: 8px;
+		background: var(--color-gray-200);
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.nachweis-progress-fill {
+		height: 100%;
+		background: var(--color-success);
+		transition: width 0.3s ease;
+	}
+
+	.nachweis-progress-text {
+		font-size: 0.85rem;
+		color: var(--color-gray-600);
+		white-space: nowrap;
+	}
+
+	.nachweis-item.vorhanden {
+		background: var(--color-success-light);
+		border-color: var(--color-success);
+	}
+
+	.nachweis-ok {
+		font-size: 0.7rem;
+		padding: 0.15rem 0.4rem;
+		background: var(--color-success-light);
+		color: var(--color-success-dark);
+		font-weight: 600;
+	}
+
+	/* Termin Overview */
+	.termin-overview {
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.termin-progress {
+		margin-bottom: 1rem;
+	}
+
+	.termin-progress-bar {
+		position: relative;
+		height: 12px;
+		background: var(--color-gray-200);
+		border-radius: 6px;
+		overflow: visible;
+	}
+
+	.termin-progress-fill {
+		height: 100%;
+		background: linear-gradient(90deg, var(--color-success), var(--color-warning));
+		border-radius: 6px 0 0 6px;
+	}
+
+	.termin-progress-marker {
+		position: absolute;
+		top: -4px;
+		width: 4px;
+		height: 20px;
+		background: var(--color-error);
+		transform: translateX(-50%);
+	}
+
+	.termin-progress-labels {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+	}
+
+	.termin-heute {
+		color: var(--color-error);
+		font-weight: 600;
+	}
+
+	.termin-stats {
+		display: flex;
+		gap: 2rem;
+		justify-content: center;
+	}
+
+	.termin-stat {
+		text-align: center;
+	}
+
+	.termin-stat.warning .termin-stat-value {
+		color: var(--color-warning-dark);
+	}
+
+	.termin-stat.error .termin-stat-value {
+		color: var(--color-error);
+	}
+
+	.termin-stat-value {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--color-gray-800);
+	}
+
+	.termin-stat-label {
+		font-size: 0.75rem;
+		color: var(--color-gray-500);
+	}
+
+	.timeline-marker.past {
+		background: var(--color-success);
+		box-shadow: 0 0 0 2px var(--color-success);
+	}
+
+	.timeline-marker.future {
+		background: var(--color-gray-300);
+		box-shadow: 0 0 0 2px var(--color-gray-300);
+	}
+
+	.milestone-item.erledigt {
+		background: var(--color-success-light);
+		border-color: var(--color-success);
+	}
+
+	/* Upcoming Tasks */
+	.upcoming-tasks {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.upcoming-task {
+		display: flex;
+		gap: 1rem;
+		padding: 0.75rem;
+		background: white;
+		border: 1px solid var(--color-gray-200);
+	}
+
+	.upcoming-task.overdue {
+		border-left: 3px solid var(--color-error);
+		background: var(--color-error-light);
+	}
+
+	.upcoming-date {
+		font-family: var(--font-family-mono);
+		font-size: 0.85rem;
+		color: var(--color-gray-500);
+		min-width: 90px;
+	}
+
+	.upcoming-date.overdue {
+		color: var(--color-error);
+		font-weight: 600;
+	}
+
+	.upcoming-title {
+		color: var(--color-gray-800);
+	}
+
+	/* Error styling for currency cells */
+	.data-table .currency.error {
+		color: var(--color-error);
+	}
+
+	.overdue {
+		color: var(--color-error);
+	}
+
+	@media (max-width: 768px) {
+		.nu-budget-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.task-stats {
 			flex-wrap: wrap;
 		}
+
+		.task-stat {
+			flex: 1 1 45%;
+		}
+
+		.termin-stats {
+			flex-direction: column;
+			gap: 1rem;
+		}
+	}
+
+	/* Edit Form Styles */
+	.edit-form {
+		background: var(--color-gray-50);
+		border: 1px solid var(--color-gray-200);
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-grid-2 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.form-grid-4 {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	@media (max-width: 900px) {
+		.form-grid-4 {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.form-grid,
+		.form-grid-2,
+		.form-grid-4 {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.form-label {
+		font-size: 0.8rem;
+		font-weight: 500;
+		color: var(--color-gray-600);
+	}
+
+	.form-input,
+	.form-select {
+		padding: 0.6rem 0.75rem;
+		border: 1px solid var(--color-gray-300);
+		font-size: 0.9rem;
+		background: white;
+		transition: border-color 0.15s ease;
+	}
+
+	.form-input:focus,
+	.form-select:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+	}
+
+	.form-input::placeholder {
+		color: var(--color-gray-400);
+	}
+
+	.form-actions {
+		display: flex;
+		gap: 0.75rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--color-gray-200);
+		margin-top: 0.5rem;
+	}
+
+	/* Save Message */
+	.save-message {
+		padding: 0.75rem 1rem;
+		margin-bottom: 1rem;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.save-message.success {
+		background: var(--color-success-light);
+		border: 1px solid var(--color-success);
+		color: var(--color-success-dark);
+	}
+
+	.save-message.error {
+		background: var(--color-error-light);
+		border: 1px solid var(--color-error);
+		color: var(--color-error-dark);
+	}
+
+	/* Section Hint */
+	.section-hint {
+		font-size: 0.85rem;
+		color: var(--color-gray-500);
+		margin: -0.5rem 0 1rem 0;
+	}
+
+	/* Nachweis Checkbox Button (klickbar) */
+	.nachweis-checkbox-btn {
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		background: white;
+		border: 2px solid var(--color-gray-300);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.15s ease;
+	}
+
+	.nachweis-checkbox-btn:hover {
+		border-color: var(--color-primary);
+		background: var(--color-gray-50);
+	}
+
+	.nachweis-item.vorhanden .nachweis-checkbox-btn {
+		background: var(--color-success);
+		border-color: var(--color-success);
+	}
+
+	.nachweis-item.vorhanden .nachweis-checkbox-btn:hover {
+		background: var(--color-success-dark);
+		border-color: var(--color-success-dark);
+	}
+
+	.nachweis-item.vorhanden .nachweis-checkbox-btn .check-icon {
+		color: white;
+	}
+
+	.nachweis-actions {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	/* Disabled Button State */
+	button:disabled,
+	.form-input:disabled,
+	.form-select:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
 	}
 </style>

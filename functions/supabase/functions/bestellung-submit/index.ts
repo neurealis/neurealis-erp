@@ -11,7 +11,7 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
 }
 
 /**
- * bestellung-submit v7
+ * bestellung-submit v8
  *
  * Verarbeitet Bestellungen und Angebotsanfragen:
  * 1. Generiert HTML für E-Mail-Body (unterschiedlich je nach Typ)
@@ -526,9 +526,7 @@ Deno.serve(async (req: Request) => {
             dok_typ: dokumentTyp,
             atbs_nummer: bestellung.atbs_nummer,
             bezeichnung: dokId,
-            beschreibung: istAngebotsanfrage
-              ? `Angebotsanfrage ${dokId} - ${haendler.kurzname || haendler.name}`
-              : `Bestellung ${dokId} - ${haendler.kurzname || haendler.name}`,
+            beschreibung: `${istAngebotsanfrage ? 'Angebotsanfrage' : 'Bestellung'} ${dokId} - ${haendler.kurzname || haendler.name}`,
             status: 'aktiv',
             erstellt_von: bestellung.bestellt_von_email,
             erstellt_am: new Date().toISOString(),
@@ -540,7 +538,6 @@ Deno.serve(async (req: Request) => {
               bestelltyp: bestellung.bestelltyp,
               grosshaendler: haendler.kurzname || haendler.name,
               summe_netto: bestellung.summe_netto,
-              summe_brutto: bestellung.summe_brutto,
               anzahl_positionen: bestellung.anzahl_positionen
             }
           });

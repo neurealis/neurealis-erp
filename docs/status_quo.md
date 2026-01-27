@@ -97,7 +97,7 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **VBW Verhandlung (28.01.):** Excel mit Preisvorschlägen vorbereitet
+→ **VBW Verhandlung (28.01.):** Entscheidungsgrundlage v1.1 finalisiert (PDF/DOCX)
 → **Hero Rechnungssync optimieren:** `invoice_style` statt Fallback-Logik
 → Kundenportal-Seiten: /angebote, /ansprechpartner, /rechnungen
 → Partnerportal-Seiten: /auftraege, /lvs, /nachweise, /vorlagen
@@ -135,4 +135,4 @@ search_lv_positions(query_embedding, match_count, filter_lv_typ, filter_gewerk)
 
 ---
 
-*Aktualisiert: 2026-01-27*
+*Aktualisiert: 2026-01-27 23:30*

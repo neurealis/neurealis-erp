@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Badge, KPICard } from '$lib/components/ui';
+	import { Card, Badge, KPICard, Button } from '$lib/components/ui';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
 
@@ -9,6 +9,9 @@
 		kontakt_nr: number;
 		firma_kurz: string;
 		firma_lang: string | null;
+		anrede: string | null;
+		vorname: string | null;
+		nachname: string | null;
 		email: string | null;
 		telefon_mobil: string | null;
 		telefon_festnetz: string | null;
@@ -17,14 +20,18 @@
 		ort: string | null;
 		aktiv: boolean;
 		compliance_docs: Record<string, NachweisDokument> | null;
+		notizen: string | null;
 		created_at: string;
 		// NU-spezifische Felder (aus kontakte_nachunternehmer)
+		nu_id: string | null;
 		gewerke: string[] | null;
 		hauptgewerk: string | null;
 		compliance_status: string | null;
 		bewertung_qualitaet: number | null;
 		bewertung_termintreue: number | null;
 		bewertung_kommunikation: number | null;
+		stundensatz_geselle: number | null;
+		stundensatz_meister: number | null;
 		// Berechnete Felder
 		projekte: NUProjekt[];
 		gesamtvolumen: number;
@@ -60,6 +67,49 @@
 		{ key: 'unbedenklichkeit_bg', label: 'BG', pflicht: false, beschreibung: 'Unbedenklichkeit Berufsgenossenschaft' }
 	];
 
+	// Gewerke-Liste
+	const GEWERKE_LISTE = [
+		'Abbruch',
+		'Aufzüge',
+		'Baumeister',
+		'Baureinigung',
+		'Böden/Parkett',
+		'Dach',
+		'Elektrik',
+		'Estrich',
+		'Fassade',
+		'Fensterbau',
+		'Fliesen',
+		'Garten/Landschaft',
+		'Gerüstbau',
+		'Glaserei',
+		'Heizung',
+		'Innenausbau',
+		'Klempner',
+		'Klimatechnik',
+		'Maler',
+		'Maurer',
+		'Metallbau',
+		'Putz/Stuck',
+		'Rohbau',
+		'Sanitär',
+		'Schlosser',
+		'Schreiner/Tischler',
+		'Sicherheitstechnik',
+		'Sonnenschutz',
+		'Spengler',
+		'Tiefbau',
+		'Trockenbau',
+		'Zimmerei'
+	];
+
+	// Status-Optionen
+	const STATUS_OPTIONEN = [
+		{ value: 'aktiv', label: 'Aktiv' },
+		{ value: 'inaktiv', label: 'Inaktiv' },
+		{ value: 'gesperrt', label: 'Gesperrt' }
+	];
+
 	// State
 	let loading = $state(true);
 	let error = $state<string | null>(null);
@@ -67,6 +117,48 @@
 	let searchQuery = $state('');
 	let filterGewerk = $state<string>('alle');
 	let selectedNU = $state<Nachunternehmer | null>(null);
+
+	// CRUD Modal State
+	let showEditModal = $state(false);
+	let editingNU = $state<Nachunternehmer | null>(null);
+	let isCreating = $state(false);
+	let modalTab = $state<'stammdaten' | 'gewerke' | 'nachweise'>('stammdaten');
+	let saving = $state(false);
+	let saveError = $state<string | null>(null);
+
+	// Form Data
+	let formData = $state({
+		// Kontakt-Felder
+		firma_kurz: '',
+		firma_lang: '',
+		anrede: '',
+		vorname: '',
+		nachname: '',
+		email: '',
+		telefon_mobil: '',
+		telefon_festnetz: '',
+		strasse: '',
+		plz: '',
+		ort: '',
+		aktiv: true,
+		notizen: '',
+		// NU-spezifische Felder
+		hauptgewerk: '',
+		gewerke: [] as string[],
+		stundensatz_geselle: null as number | null,
+		stundensatz_meister: null as number | null,
+		bewertung_qualitaet: null as number | null,
+		bewertung_termintreue: null as number | null,
+		bewertung_kommunikation: null as number | null,
+		status: 'aktiv',
+		// Nachweise
+		compliance_docs: {} as Record<string, NachweisDokument>
+	});
+
+	// Delete Modal State
+	let showDeleteModal = $state(false);
+	let deletingNU = $state<Nachunternehmer | null>(null);
+	let deleting = $state(false);
 
 	// Data
 	let nachunternehmer = $state<Nachunternehmer[]>([]);
@@ -148,6 +240,9 @@
 					kontakt_nr,
 					firma_kurz,
 					firma_lang,
+					anrede,
+					vorname,
+					nachname,
 					email,
 					telefon_mobil,
 					telefon_festnetz,
@@ -156,14 +251,18 @@
 					ort,
 					aktiv,
 					compliance_docs,
+					notizen,
 					created_at,
 					kontakte_nachunternehmer (
+						id,
 						gewerke,
 						hauptgewerk,
 						compliance_status,
 						bewertung_qualitaet,
 						bewertung_termintreue,
-						bewertung_kommunikation
+						bewertung_kommunikation,
+						stundensatz_geselle,
+						stundensatz_meister
 					)
 				`)
 				.contains('kontaktarten', ['nachunternehmer'])
@@ -211,6 +310,9 @@
 					kontakt_nr: k.kontakt_nr,
 					firma_kurz: k.firma_kurz,
 					firma_lang: k.firma_lang,
+					anrede: k.anrede,
+					vorname: k.vorname,
+					nachname: k.nachname,
 					email: k.email,
 					telefon_mobil: k.telefon_mobil,
 					telefon_festnetz: k.telefon_festnetz,
@@ -219,14 +321,18 @@
 					ort: k.ort,
 					aktiv: k.aktiv ?? true,
 					compliance_docs: k.compliance_docs,
+					notizen: k.notizen,
 					created_at: k.created_at,
 					// NU-Details aus Join
+					nu_id: k.kontakte_nachunternehmer?.[0]?.id || null,
 					gewerke: k.kontakte_nachunternehmer?.[0]?.gewerke || null,
 					hauptgewerk: k.kontakte_nachunternehmer?.[0]?.hauptgewerk || null,
 					compliance_status: k.kontakte_nachunternehmer?.[0]?.compliance_status || null,
 					bewertung_qualitaet: k.kontakte_nachunternehmer?.[0]?.bewertung_qualitaet || null,
 					bewertung_termintreue: k.kontakte_nachunternehmer?.[0]?.bewertung_termintreue || null,
 					bewertung_kommunikation: k.kontakte_nachunternehmer?.[0]?.bewertung_kommunikation || null,
+					stundensatz_geselle: k.kontakte_nachunternehmer?.[0]?.stundensatz_geselle || null,
+					stundensatz_meister: k.kontakte_nachunternehmer?.[0]?.stundensatz_meister || null,
 					// Berechnete Felder
 					projekte,
 					gesamtvolumen,
@@ -253,6 +359,278 @@
 	onMount(() => {
 		loadData();
 	});
+
+	// === CRUD Functions ===
+
+	function openCreateModal() {
+		isCreating = true;
+		editingNU = null;
+		modalTab = 'stammdaten';
+		saveError = null;
+		formData = {
+			firma_kurz: '',
+			firma_lang: '',
+			anrede: '',
+			vorname: '',
+			nachname: '',
+			email: '',
+			telefon_mobil: '',
+			telefon_festnetz: '',
+			strasse: '',
+			plz: '',
+			ort: '',
+			aktiv: true,
+			notizen: '',
+			hauptgewerk: '',
+			gewerke: [],
+			stundensatz_geselle: null,
+			stundensatz_meister: null,
+			bewertung_qualitaet: null,
+			bewertung_termintreue: null,
+			bewertung_kommunikation: null,
+			status: 'aktiv',
+			compliance_docs: {}
+		};
+		showEditModal = true;
+	}
+
+	function openEditModal(nu: Nachunternehmer) {
+		isCreating = false;
+		editingNU = nu;
+		modalTab = 'stammdaten';
+		saveError = null;
+		formData = {
+			firma_kurz: nu.firma_kurz || '',
+			firma_lang: nu.firma_lang || '',
+			anrede: nu.anrede || '',
+			vorname: nu.vorname || '',
+			nachname: nu.nachname || '',
+			email: nu.email || '',
+			telefon_mobil: nu.telefon_mobil || '',
+			telefon_festnetz: nu.telefon_festnetz || '',
+			strasse: nu.strasse || '',
+			plz: nu.plz || '',
+			ort: nu.ort || '',
+			aktiv: nu.aktiv,
+			notizen: nu.notizen || '',
+			hauptgewerk: nu.hauptgewerk || '',
+			gewerke: nu.gewerke || [],
+			stundensatz_geselle: nu.stundensatz_geselle,
+			stundensatz_meister: nu.stundensatz_meister,
+			bewertung_qualitaet: nu.bewertung_qualitaet,
+			bewertung_termintreue: nu.bewertung_termintreue,
+			bewertung_kommunikation: nu.bewertung_kommunikation,
+			status: nu.aktiv ? 'aktiv' : (nu.compliance_status === 'gesperrt' ? 'gesperrt' : 'inaktiv'),
+			compliance_docs: nu.compliance_docs || {}
+		};
+		showEditModal = true;
+	}
+
+	function closeEditModal() {
+		showEditModal = false;
+		editingNU = null;
+		isCreating = false;
+		saveError = null;
+	}
+
+	async function saveNU() {
+		saving = true;
+		saveError = null;
+
+		try {
+			// Validierung
+			if (!formData.firma_kurz.trim()) {
+				throw new Error('Firma (Kurzname) ist erforderlich');
+			}
+
+			// Status zu aktiv-Flag konvertieren
+			const aktiv = formData.status === 'aktiv';
+
+			if (isCreating) {
+				// 1. Kontakt anlegen
+				const { data: kontakt, error: kontaktError } = await supabase
+					.from('kontakte')
+					.insert({
+						firma_kurz: formData.firma_kurz.trim(),
+						firma_lang: formData.firma_lang.trim() || null,
+						anrede: formData.anrede || null,
+						vorname: formData.vorname.trim() || null,
+						nachname: formData.nachname.trim() || null,
+						email: formData.email.trim() || null,
+						telefon_mobil: formData.telefon_mobil.trim() || null,
+						telefon_festnetz: formData.telefon_festnetz.trim() || null,
+						strasse: formData.strasse.trim() || null,
+						plz: formData.plz.trim() || null,
+						ort: formData.ort.trim() || null,
+						aktiv: aktiv,
+						notizen: formData.notizen.trim() || null,
+						kontaktarten: ['nachunternehmer'],
+						compliance_docs: formData.compliance_docs
+					})
+					.select('id')
+					.single();
+
+				if (kontaktError) throw kontaktError;
+
+				// 2. NU-Erweiterung anlegen
+				const { error: nuError } = await supabase
+					.from('kontakte_nachunternehmer')
+					.insert({
+						kontakt_id: kontakt.id,
+						hauptgewerk: formData.hauptgewerk || null,
+						gewerke: formData.gewerke.length > 0 ? formData.gewerke : null,
+						stundensatz_geselle: formData.stundensatz_geselle,
+						stundensatz_meister: formData.stundensatz_meister,
+						bewertung_qualitaet: formData.bewertung_qualitaet,
+						bewertung_termintreue: formData.bewertung_termintreue,
+						bewertung_kommunikation: formData.bewertung_kommunikation,
+						compliance_status: formData.status === 'gesperrt' ? 'gesperrt' : (aktiv ? 'aktiv' : 'inaktiv')
+					});
+
+				if (nuError) throw nuError;
+			} else if (editingNU) {
+				// 1. Kontakt aktualisieren
+				const { error: kontaktError } = await supabase
+					.from('kontakte')
+					.update({
+						firma_kurz: formData.firma_kurz.trim(),
+						firma_lang: formData.firma_lang.trim() || null,
+						anrede: formData.anrede || null,
+						vorname: formData.vorname.trim() || null,
+						nachname: formData.nachname.trim() || null,
+						email: formData.email.trim() || null,
+						telefon_mobil: formData.telefon_mobil.trim() || null,
+						telefon_festnetz: formData.telefon_festnetz.trim() || null,
+						strasse: formData.strasse.trim() || null,
+						plz: formData.plz.trim() || null,
+						ort: formData.ort.trim() || null,
+						aktiv: aktiv,
+						notizen: formData.notizen.trim() || null,
+						compliance_docs: formData.compliance_docs,
+						updated_at: new Date().toISOString()
+					})
+					.eq('id', editingNU.id);
+
+				if (kontaktError) throw kontaktError;
+
+				// 2. NU-Erweiterung aktualisieren oder anlegen
+				if (editingNU.nu_id) {
+					const { error: nuError } = await supabase
+						.from('kontakte_nachunternehmer')
+						.update({
+							hauptgewerk: formData.hauptgewerk || null,
+							gewerke: formData.gewerke.length > 0 ? formData.gewerke : null,
+							stundensatz_geselle: formData.stundensatz_geselle,
+							stundensatz_meister: formData.stundensatz_meister,
+							bewertung_qualitaet: formData.bewertung_qualitaet,
+							bewertung_termintreue: formData.bewertung_termintreue,
+							bewertung_kommunikation: formData.bewertung_kommunikation,
+							compliance_status: formData.status === 'gesperrt' ? 'gesperrt' : (aktiv ? 'aktiv' : 'inaktiv'),
+							updated_at: new Date().toISOString()
+						})
+						.eq('id', editingNU.nu_id);
+
+					if (nuError) throw nuError;
+				} else {
+					// NU-Erweiterung existiert noch nicht -> anlegen
+					const { error: nuError } = await supabase
+						.from('kontakte_nachunternehmer')
+						.insert({
+							kontakt_id: editingNU.id,
+							hauptgewerk: formData.hauptgewerk || null,
+							gewerke: formData.gewerke.length > 0 ? formData.gewerke : null,
+							stundensatz_geselle: formData.stundensatz_geselle,
+							stundensatz_meister: formData.stundensatz_meister,
+							bewertung_qualitaet: formData.bewertung_qualitaet,
+							bewertung_termintreue: formData.bewertung_termintreue,
+							bewertung_kommunikation: formData.bewertung_kommunikation,
+							compliance_status: formData.status === 'gesperrt' ? 'gesperrt' : (aktiv ? 'aktiv' : 'inaktiv')
+						});
+
+					if (nuError) throw nuError;
+				}
+			}
+
+			// Erfolgreich - Modal schließen und Daten neu laden
+			closeEditModal();
+			await loadData();
+		} catch (err) {
+			saveError = err instanceof Error ? err.message : 'Fehler beim Speichern';
+			console.error('Speichern fehlgeschlagen:', err);
+		} finally {
+			saving = false;
+		}
+	}
+
+	function openDeleteModal(nu: Nachunternehmer) {
+		deletingNU = nu;
+		showDeleteModal = true;
+	}
+
+	function closeDeleteModal() {
+		showDeleteModal = false;
+		deletingNU = null;
+	}
+
+	async function deleteNU() {
+		if (!deletingNU) return;
+
+		deleting = true;
+
+		try {
+			// Soft-Delete: Setze aktiv = false und compliance_status = 'geloescht'
+			const { error: kontaktError } = await supabase
+				.from('kontakte')
+				.update({
+					aktiv: false,
+					updated_at: new Date().toISOString()
+				})
+				.eq('id', deletingNU.id);
+
+			if (kontaktError) throw kontaktError;
+
+			if (deletingNU.nu_id) {
+				const { error: nuError } = await supabase
+					.from('kontakte_nachunternehmer')
+					.update({
+						compliance_status: 'geloescht',
+						updated_at: new Date().toISOString()
+					})
+					.eq('id', deletingNU.nu_id);
+
+				if (nuError) throw nuError;
+			}
+
+			closeDeleteModal();
+			await loadData();
+		} catch (err) {
+			console.error('Löschen fehlgeschlagen:', err);
+			alert('Fehler beim Löschen: ' + (err instanceof Error ? err.message : 'Unbekannter Fehler'));
+		} finally {
+			deleting = false;
+		}
+	}
+
+	// Gewerk Toggle für Multi-Select
+	function toggleGewerk(gewerk: string) {
+		if (formData.gewerke.includes(gewerk)) {
+			formData.gewerke = formData.gewerke.filter(g => g !== gewerk);
+		} else {
+			formData.gewerke = [...formData.gewerke, gewerk];
+		}
+	}
+
+	// Nachweis aktualisieren
+	function updateNachweis(key: string, field: 'vorhanden' | 'gueltig_bis' | 'datei_url', value: boolean | string) {
+		const current = formData.compliance_docs[key] || { vorhanden: false };
+		formData.compliance_docs = {
+			...formData.compliance_docs,
+			[key]: {
+				...current,
+				[field]: value
+			}
+		};
+	}
 
 	// === Nachweis-Status Funktionen ===
 
@@ -346,6 +724,14 @@
 		return new Date(doc.gueltig_bis).toLocaleDateString('de-DE');
 	}
 
+	// Nachweis-Warnung berechnen (Tage bis Ablauf)
+	function getNachweisWarningDays(gueltigBis: string | undefined): number | null {
+		if (!gueltigBis) return null;
+		const date = new Date(gueltigBis);
+		const diff = date.getTime() - heute.getTime();
+		return Math.ceil(diff / (1000 * 60 * 60 * 24));
+	}
+
 	// === Helper Functions ===
 
 	function formatPhone(phone: string | null): string {
@@ -372,53 +758,7 @@
 		return '★'.repeat(full) + (half ? '☆' : '') + '☆'.repeat(empty);
 	}
 
-	// === Erinnerungs-Logik (vorbereitet) ===
-
-	interface NachweisErinnerung {
-		nu: Nachunternehmer;
-		nachweisTyp: string;
-		nachweisLabel: string;
-		status: NachweisStatus;
-		gueltigBis: string | null;
-		tageVerbleibend: number | null;
-	}
-
-	function getErinnerungen(): NachweisErinnerung[] {
-		const erinnerungen: NachweisErinnerung[] = [];
-
-		nachunternehmer.forEach(nu => {
-			NACHWEIS_TYPEN.filter(n => n.pflicht).forEach(nachweis => {
-				const status = getNachweisStatus(nu, nachweis.key);
-				if (status === 'ungueltig' || status === 'bald_ungueltig' || status === 'fehlend') {
-					const doc = nu.compliance_docs?.[nachweis.key];
-					let tageVerbleibend: number | null = null;
-
-					if (doc?.gueltig_bis) {
-						const gueltigBis = new Date(doc.gueltig_bis);
-						tageVerbleibend = Math.ceil((gueltigBis.getTime() - heute.getTime()) / (1000 * 60 * 60 * 24));
-					}
-
-					erinnerungen.push({
-						nu,
-						nachweisTyp: nachweis.key,
-						nachweisLabel: nachweis.label,
-						status,
-						gueltigBis: doc?.gueltig_bis || null,
-						tageVerbleibend
-					});
-				}
-			});
-		});
-
-		// Sortieren: Ungültig zuerst, dann nach verbleibenden Tagen
-		return erinnerungen.sort((a, b) => {
-			if (a.status === 'ungueltig' && b.status !== 'ungueltig') return -1;
-			if (b.status === 'ungueltig' && a.status !== 'ungueltig') return 1;
-			if (a.tageVerbleibend === null) return 1;
-			if (b.tageVerbleibend === null) return -1;
-			return a.tageVerbleibend - b.tageVerbleibend;
-		});
-	}
+	// === Erinnerungs-Logik ===
 
 	function generateReminderEmail(nu: Nachunternehmer, fehlende: string[]): string {
 		const betreff = `Nachweise erforderlich - ${nu.firma_kurz}`;
@@ -478,8 +818,15 @@ neurealis GmbH`;
 
 <div class="nu-page">
 	<header class="page-header">
-		<h1>Nachunternehmer</h1>
-		<p class="subtitle">Verwaltung und Qualifizierung</p>
+		<div class="header-left">
+			<h1>Nachunternehmer</h1>
+			<p class="subtitle">Verwaltung und Qualifizierung</p>
+		</div>
+		<div class="header-right">
+			<Button variant="primary" onclick={openCreateModal}>
+				+ Neuer Nachunternehmer
+			</Button>
+		</div>
 	</header>
 
 	{#if error}
@@ -593,7 +940,12 @@ neurealis GmbH`;
 		</Card>
 	{:else if gefilterteNUs.length === 0}
 		<Card>
-			<div class="empty-state">Keine Nachunternehmer gefunden</div>
+			<div class="empty-state">
+				<p>Keine Nachunternehmer gefunden</p>
+				<Button variant="primary" onclick={openCreateModal}>
+					Ersten Nachunternehmer anlegen
+				</Button>
+			</div>
 		</Card>
 	{:else if activeTab === 'nachweise'}
 		<!-- Nachweise-Tabelle -->
@@ -609,7 +961,7 @@ neurealis GmbH`;
 									{nachweis.label}
 								</th>
 							{/each}
-							<th class="th-action">Aktion</th>
+							<th class="th-action">Aktionen</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -637,10 +989,13 @@ neurealis GmbH`;
 										</span>
 									</td>
 								{/each}
-								<td>
+								<td class="action-cell">
+									<button class="btn-icon" title="Bearbeiten" onclick={() => openEditModal(nu)}>
+										Edit
+									</button>
 									{#if fehlende.length > 0 && nu.email}
 										<a href={generateReminderEmail(nu, fehlende)} class="btn-remind" title="Erinnerung senden">
-											Erinnern
+											Mail
 										</a>
 									{/if}
 								</td>
@@ -783,12 +1138,20 @@ neurealis GmbH`;
 							{/each}
 						</div>
 
-						<!-- Gemeinsame Projekte Button -->
-						{#if nu.projekte.length > 0}
-							<button class="btn-projekte" onclick={() => selectedNU = nu}>
-								Projekte anzeigen ({nu.projekte.length})
+						<!-- Action Buttons -->
+						<div class="nu-actions">
+							<button class="btn-action btn-edit" onclick={() => openEditModal(nu)}>
+								Bearbeiten
 							</button>
-						{/if}
+							{#if nu.projekte.length > 0}
+								<button class="btn-action btn-projekte" onclick={() => selectedNU = nu}>
+									Projekte ({nu.projekte.length})
+								</button>
+							{/if}
+							<button class="btn-action btn-delete" onclick={() => openDeleteModal(nu)}>
+								Löschen
+							</button>
+						</div>
 					</div>
 				</Card>
 			{/each}
@@ -867,6 +1230,332 @@ neurealis GmbH`;
 	</div>
 {/if}
 
+<!-- Edit/Create Modal -->
+{#if showEditModal}
+	<div class="modal-overlay" onclick={closeEditModal}>
+		<div class="modal-content modal-large" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-header">
+				<h2>{isCreating ? 'Neuer Nachunternehmer' : `${editingNU?.firma_kurz} bearbeiten`}</h2>
+				<button class="modal-close" onclick={closeEditModal}>X</button>
+			</div>
+
+			<!-- Modal Tabs -->
+			<div class="modal-tabs">
+				<button
+					class="modal-tab"
+					class:active={modalTab === 'stammdaten'}
+					onclick={() => modalTab = 'stammdaten'}
+				>
+					Stammdaten
+				</button>
+				<button
+					class="modal-tab"
+					class:active={modalTab === 'gewerke'}
+					onclick={() => modalTab = 'gewerke'}
+				>
+					Gewerke & Bewertung
+				</button>
+				<button
+					class="modal-tab"
+					class:active={modalTab === 'nachweise'}
+					onclick={() => modalTab = 'nachweise'}
+				>
+					Nachweise
+				</button>
+			</div>
+
+			<div class="modal-body">
+				{#if saveError}
+					<div class="form-error">{saveError}</div>
+				{/if}
+
+				{#if modalTab === 'stammdaten'}
+					<!-- Stammdaten Tab -->
+					<div class="form-grid">
+						<div class="form-group span-2">
+							<label for="firma_kurz">Firma (Kurzname) *</label>
+							<input
+								type="text"
+								id="firma_kurz"
+								bind:value={formData.firma_kurz}
+								placeholder="z.B. Müller Elektro"
+								required
+							/>
+						</div>
+						<div class="form-group span-2">
+							<label for="firma_lang">Firma (Vollständig)</label>
+							<input
+								type="text"
+								id="firma_lang"
+								bind:value={formData.firma_lang}
+								placeholder="z.B. Müller Elektrotechnik GmbH"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="anrede">Anrede</label>
+							<select id="anrede" bind:value={formData.anrede}>
+								<option value="">-- Auswählen --</option>
+								<option value="Herr">Herr</option>
+								<option value="Frau">Frau</option>
+								<option value="Firma">Firma</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="vorname">Vorname</label>
+							<input type="text" id="vorname" bind:value={formData.vorname} />
+						</div>
+						<div class="form-group">
+							<label for="nachname">Nachname</label>
+							<input type="text" id="nachname" bind:value={formData.nachname} />
+						</div>
+						<div class="form-group">
+							<label for="status">Status</label>
+							<select id="status" bind:value={formData.status}>
+								{#each STATUS_OPTIONEN as option}
+									<option value={option.value}>{option.label}</option>
+								{/each}
+							</select>
+						</div>
+						<div class="form-group span-2">
+							<label for="email">E-Mail</label>
+							<input type="email" id="email" bind:value={formData.email} placeholder="email@beispiel.de" />
+						</div>
+						<div class="form-group">
+							<label for="telefon_mobil">Mobil</label>
+							<input type="tel" id="telefon_mobil" bind:value={formData.telefon_mobil} placeholder="+49 170 1234567" />
+						</div>
+						<div class="form-group">
+							<label for="telefon_festnetz">Festnetz</label>
+							<input type="tel" id="telefon_festnetz" bind:value={formData.telefon_festnetz} placeholder="+49 30 1234567" />
+						</div>
+						<div class="form-group span-2">
+							<label for="strasse">Straße</label>
+							<input type="text" id="strasse" bind:value={formData.strasse} />
+						</div>
+						<div class="form-group">
+							<label for="plz">PLZ</label>
+							<input type="text" id="plz" bind:value={formData.plz} maxlength="5" />
+						</div>
+						<div class="form-group">
+							<label for="ort">Ort</label>
+							<input type="text" id="ort" bind:value={formData.ort} />
+						</div>
+						<div class="form-group span-4">
+							<label for="notizen">Notizen</label>
+							<textarea id="notizen" bind:value={formData.notizen} rows="3"></textarea>
+						</div>
+					</div>
+				{:else if modalTab === 'gewerke'}
+					<!-- Gewerke & Bewertung Tab -->
+					<div class="form-section">
+						<h3>Hauptgewerk</h3>
+						<div class="form-group">
+							<label for="hauptgewerk">Hauptgewerk</label>
+							<select id="hauptgewerk" bind:value={formData.hauptgewerk}>
+								<option value="">-- Kein Hauptgewerk --</option>
+								{#each GEWERKE_LISTE as gewerk}
+									<option value={gewerk}>{gewerk}</option>
+								{/each}
+							</select>
+						</div>
+					</div>
+
+					<div class="form-section">
+						<h3>Weitere Gewerke</h3>
+						<div class="gewerke-grid">
+							{#each GEWERKE_LISTE as gewerk}
+								<label class="gewerk-checkbox" class:selected={formData.gewerke.includes(gewerk)}>
+									<input
+										type="checkbox"
+										checked={formData.gewerke.includes(gewerk)}
+										onchange={() => toggleGewerk(gewerk)}
+									/>
+									<span>{gewerk}</span>
+								</label>
+							{/each}
+						</div>
+					</div>
+
+					<div class="form-section">
+						<h3>Stundensätze</h3>
+						<div class="form-grid">
+							<div class="form-group">
+								<label for="stundensatz_geselle">Stundensatz Geselle (EUR)</label>
+								<input
+									type="number"
+									id="stundensatz_geselle"
+									bind:value={formData.stundensatz_geselle}
+									min="0"
+									step="0.50"
+								/>
+							</div>
+							<div class="form-group">
+								<label for="stundensatz_meister">Stundensatz Meister (EUR)</label>
+								<input
+									type="number"
+									id="stundensatz_meister"
+									bind:value={formData.stundensatz_meister}
+									min="0"
+									step="0.50"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-section">
+						<h3>Bewertung (1-5 Sterne)</h3>
+						<div class="form-grid">
+							<div class="form-group">
+								<label for="bewertung_qualitaet">Qualität</label>
+								<div class="rating-input">
+									{#each [1, 2, 3, 4, 5] as star}
+										<button
+											type="button"
+											class="star-btn"
+											class:active={(formData.bewertung_qualitaet || 0) >= star}
+											onclick={() => formData.bewertung_qualitaet = formData.bewertung_qualitaet === star ? null : star}
+										>
+											★
+										</button>
+									{/each}
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="bewertung_termintreue">Termintreue</label>
+								<div class="rating-input">
+									{#each [1, 2, 3, 4, 5] as star}
+										<button
+											type="button"
+											class="star-btn"
+											class:active={(formData.bewertung_termintreue || 0) >= star}
+											onclick={() => formData.bewertung_termintreue = formData.bewertung_termintreue === star ? null : star}
+										>
+											★
+										</button>
+									{/each}
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="bewertung_kommunikation">Kommunikation</label>
+								<div class="rating-input">
+									{#each [1, 2, 3, 4, 5] as star}
+										<button
+											type="button"
+											class="star-btn"
+											class:active={(formData.bewertung_kommunikation || 0) >= star}
+											onclick={() => formData.bewertung_kommunikation = formData.bewertung_kommunikation === star ? null : star}
+										>
+											★
+										</button>
+									{/each}
+								</div>
+							</div>
+						</div>
+					</div>
+				{:else if modalTab === 'nachweise'}
+					<!-- Nachweise Tab -->
+					<div class="nachweise-form">
+						{#each NACHWEIS_TYPEN as nachweis}
+							{@const doc = formData.compliance_docs[nachweis.key] || { vorhanden: false }}
+							{@const days = getNachweisWarningDays(doc.gueltig_bis)}
+							<div class="nachweis-row" class:pflicht={nachweis.pflicht} class:warning={days !== null && days < 30 && days >= 0} class:expired={days !== null && days < 0}>
+								<div class="nachweis-info">
+									<span class="nachweis-label">
+										{nachweis.beschreibung}
+										{#if nachweis.pflicht}
+											<span class="pflicht-marker">*</span>
+										{/if}
+									</span>
+									<span class="nachweis-key">{nachweis.label}</span>
+								</div>
+								<div class="nachweis-controls">
+									<label class="checkbox-label">
+										<input
+											type="checkbox"
+											checked={doc.vorhanden}
+											onchange={(e) => updateNachweis(nachweis.key, 'vorhanden', e.currentTarget.checked)}
+										/>
+										Vorhanden
+									</label>
+									<div class="date-input">
+										<label>Gültig bis:</label>
+										<input
+											type="date"
+											value={doc.gueltig_bis || ''}
+											onchange={(e) => updateNachweis(nachweis.key, 'gueltig_bis', e.currentTarget.value)}
+											disabled={!doc.vorhanden}
+										/>
+									</div>
+									<div class="url-input">
+										<label>Datei-URL:</label>
+										<input
+											type="url"
+											value={doc.datei_url || ''}
+											placeholder="https://..."
+											onchange={(e) => updateNachweis(nachweis.key, 'datei_url', e.currentTarget.value)}
+											disabled={!doc.vorhanden}
+										/>
+									</div>
+								</div>
+								{#if days !== null}
+									<div class="days-indicator" class:warning={days < 30 && days >= 0} class:expired={days < 0}>
+										{#if days < 0}
+											Abgelaufen vor {Math.abs(days)} Tagen
+										{:else if days === 0}
+											Läuft heute ab
+										{:else if days < 30}
+											Noch {days} Tage gültig
+										{:else}
+											Noch {days} Tage gültig
+										{/if}
+									</div>
+								{/if}
+							</div>
+						{/each}
+					</div>
+				{/if}
+			</div>
+
+			<div class="modal-footer">
+				<Button variant="ghost" onclick={closeEditModal} disabled={saving}>
+					Abbrechen
+				</Button>
+				<Button variant="primary" onclick={saveNU} loading={saving}>
+					{isCreating ? 'Anlegen' : 'Speichern'}
+				</Button>
+			</div>
+		</div>
+	</div>
+{/if}
+
+<!-- Delete Confirmation Modal -->
+{#if showDeleteModal && deletingNU}
+	<div class="modal-overlay" onclick={closeDeleteModal}>
+		<div class="modal-content modal-small" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-header">
+				<h2>Nachunternehmer löschen</h2>
+				<button class="modal-close" onclick={closeDeleteModal}>X</button>
+			</div>
+			<div class="modal-body">
+				<p class="delete-warning">
+					Möchten Sie den Nachunternehmer <strong>{deletingNU.firma_kurz}</strong> wirklich deaktivieren?
+				</p>
+				<p class="delete-info">
+					Der Nachunternehmer wird auf "Inaktiv" gesetzt und kann bei Bedarf wieder aktiviert werden.
+				</p>
+			</div>
+			<div class="modal-footer">
+				<Button variant="ghost" onclick={closeDeleteModal} disabled={deleting}>
+					Abbrechen
+				</Button>
+				<Button variant="danger" onclick={deleteNU} loading={deleting}>
+					Deaktivieren
+				</Button>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <style>
 	.nu-page {
 		max-width: 1400px;
@@ -874,10 +1563,15 @@ neurealis GmbH`;
 	}
 
 	.page-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
 		margin-bottom: 1.5rem;
+		flex-wrap: wrap;
+		gap: 1rem;
 	}
 
-	.page-header h1 {
+	.header-left h1 {
 		font-size: 1.75rem;
 		margin-bottom: 0.25rem;
 	}
@@ -1018,6 +1712,10 @@ neurealis GmbH`;
 		padding: 3rem;
 		text-align: center;
 		color: var(--color-gray-500);
+	}
+
+	.empty-state p {
+		margin-bottom: 1rem;
 	}
 
 	/* NU Grid */
@@ -1255,20 +1953,50 @@ neurealis GmbH`;
 		font-weight: bold;
 	}
 
-	/* Projekte Button */
-	.btn-projekte {
-		margin-top: 0.5rem;
-		padding: 0.5rem 1rem;
-		background: var(--color-gray-100);
-		border: 1px solid var(--color-gray-200);
-		border-radius: 0.25rem;
-		cursor: pointer;
-		font-size: 0.8rem;
-		transition: all 0.15s;
+	/* NU Actions */
+	.nu-actions {
+		display: flex;
+		gap: 0.5rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--color-gray-100);
 	}
 
-	.btn-projekte:hover {
-		background: var(--color-gray-200);
+	.btn-action {
+		flex: 1;
+		padding: 0.4rem 0.75rem;
+		font-size: 0.8rem;
+		border-radius: 0.25rem;
+		cursor: pointer;
+		transition: all 0.15s;
+		border: 1px solid var(--color-gray-200);
+		background: var(--color-gray-50);
+		color: var(--color-gray-700);
+	}
+
+	.btn-action:hover {
+		background: var(--color-gray-100);
+	}
+
+	.btn-edit {
+		background: var(--color-brand-light);
+		color: var(--color-brand-dark);
+		border-color: var(--color-brand-medium);
+	}
+
+	.btn-edit:hover {
+		background: var(--color-brand-medium);
+		color: white;
+	}
+
+	.btn-delete {
+		background: var(--color-error-light);
+		color: var(--color-error-dark);
+		border-color: var(--color-error);
+	}
+
+	.btn-delete:hover {
+		background: var(--color-error);
+		color: white;
 	}
 
 	/* Nachweise Tabelle */
@@ -1312,7 +2040,7 @@ neurealis GmbH`;
 	}
 
 	.th-action {
-		min-width: 80px;
+		min-width: 100px;
 	}
 
 	.nachweise-table td {
@@ -1383,6 +2111,24 @@ neurealis GmbH`;
 	.nachweis-icon.bald_ungueltig {
 		background: var(--color-warning-light);
 		color: var(--color-warning-dark);
+	}
+
+	.action-cell {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.btn-icon {
+		font-size: 0.75rem;
+		padding: 0.25rem 0.5rem;
+		background: var(--color-gray-100);
+		border: 1px solid var(--color-gray-200);
+		border-radius: 0.25rem;
+		cursor: pointer;
+	}
+
+	.btn-icon:hover {
+		background: var(--color-gray-200);
 	}
 
 	.btn-remind {
@@ -1482,6 +2228,15 @@ neurealis GmbH`;
 		flex-direction: column;
 	}
 
+	.modal-large {
+		max-width: 900px;
+		max-height: 90vh;
+	}
+
+	.modal-small {
+		max-width: 500px;
+	}
+
 	.modal-header {
 		display: flex;
 		justify-content: space-between;
@@ -1508,11 +2263,288 @@ neurealis GmbH`;
 		color: var(--color-gray-800);
 	}
 
+	.modal-tabs {
+		display: flex;
+		border-bottom: 1px solid var(--color-gray-200);
+		background: var(--color-gray-50);
+	}
+
+	.modal-tab {
+		padding: 0.75rem 1.5rem;
+		background: none;
+		border: none;
+		border-bottom: 2px solid transparent;
+		cursor: pointer;
+		font-size: 0.9rem;
+		color: var(--color-gray-500);
+		transition: all 0.15s ease;
+	}
+
+	.modal-tab:hover {
+		color: var(--color-gray-700);
+	}
+
+	.modal-tab.active {
+		color: var(--color-brand-medium);
+		border-bottom-color: var(--color-brand-medium);
+		background: white;
+	}
+
 	.modal-body {
 		padding: 1.5rem;
 		overflow-y: auto;
+		flex: 1;
 	}
 
+	.modal-footer {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		padding: 1rem 1.5rem;
+		border-top: 1px solid var(--color-gray-200);
+		background: var(--color-gray-50);
+	}
+
+	/* Form Styles */
+	.form-error {
+		padding: 0.75rem 1rem;
+		background: var(--color-error-light);
+		color: var(--color-error-dark);
+		border-radius: 0.25rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.form-group.span-2 {
+		grid-column: span 2;
+	}
+
+	.form-group.span-4 {
+		grid-column: span 4;
+	}
+
+	.form-group label {
+		font-size: 0.8rem;
+		font-weight: 500;
+		color: var(--color-gray-600);
+	}
+
+	.form-group input,
+	.form-group select,
+	.form-group textarea {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-gray-300);
+		border-radius: 0.25rem;
+		font-size: 0.9rem;
+	}
+
+	.form-group input:focus,
+	.form-group select:focus,
+	.form-group textarea:focus {
+		outline: none;
+		border-color: var(--color-brand-medium);
+	}
+
+	.form-group input:disabled,
+	.form-group select:disabled {
+		background: var(--color-gray-100);
+		cursor: not-allowed;
+	}
+
+	.form-section {
+		margin-bottom: 1.5rem;
+	}
+
+	.form-section h3 {
+		font-size: 1rem;
+		margin: 0 0 1rem 0;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--color-gray-200);
+	}
+
+	/* Gewerke Grid */
+	.gewerke-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: 0.5rem;
+	}
+
+	.gewerk-checkbox {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--color-gray-200);
+		border-radius: 0.25rem;
+		cursor: pointer;
+		font-size: 0.85rem;
+		transition: all 0.15s;
+	}
+
+	.gewerk-checkbox:hover {
+		background: var(--color-gray-50);
+	}
+
+	.gewerk-checkbox.selected {
+		background: var(--color-brand-light);
+		border-color: var(--color-brand-medium);
+	}
+
+	.gewerk-checkbox input {
+		margin: 0;
+	}
+
+	/* Rating Input */
+	.rating-input {
+		display: flex;
+		gap: 0.25rem;
+	}
+
+	.star-btn {
+		background: none;
+		border: none;
+		font-size: 1.5rem;
+		color: var(--color-gray-300);
+		cursor: pointer;
+		padding: 0;
+		transition: color 0.15s;
+	}
+
+	.star-btn:hover,
+	.star-btn.active {
+		color: var(--color-warning-dark);
+	}
+
+	/* Nachweise Form */
+	.nachweise-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.nachweis-row {
+		padding: 1rem;
+		border: 1px solid var(--color-gray-200);
+		border-radius: 0.5rem;
+		background: white;
+	}
+
+	.nachweis-row.pflicht {
+		border-left: 3px solid var(--color-warning-medium);
+	}
+
+	.nachweis-row.warning {
+		background: var(--color-warning-light);
+	}
+
+	.nachweis-row.expired {
+		background: var(--color-error-light);
+	}
+
+	.nachweis-info {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.75rem;
+	}
+
+	.nachweis-label {
+		font-weight: 600;
+		font-size: 0.9rem;
+	}
+
+	.pflicht-marker {
+		color: var(--color-error);
+		margin-left: 0.25rem;
+	}
+
+	.nachweis-key {
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+		background: var(--color-gray-100);
+		padding: 0.15rem 0.5rem;
+		border-radius: 0.25rem;
+	}
+
+	.nachweis-controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		align-items: flex-end;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+		cursor: pointer;
+	}
+
+	.date-input,
+	.url-input {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.date-input label,
+	.url-input label {
+		font-size: 0.75rem;
+		color: var(--color-gray-500);
+	}
+
+	.date-input input,
+	.url-input input {
+		padding: 0.4rem 0.5rem;
+		border: 1px solid var(--color-gray-300);
+		border-radius: 0.25rem;
+		font-size: 0.85rem;
+	}
+
+	.url-input input {
+		min-width: 200px;
+	}
+
+	.days-indicator {
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+		color: var(--color-gray-600);
+	}
+
+	.days-indicator.warning {
+		color: var(--color-warning-dark);
+		font-weight: 500;
+	}
+
+	.days-indicator.expired {
+		color: var(--color-error-dark);
+		font-weight: 500;
+	}
+
+	/* Delete Modal */
+	.delete-warning {
+		font-size: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.delete-info {
+		font-size: 0.9rem;
+		color: var(--color-gray-600);
+	}
+
+	/* Projekte Modal */
 	.projekt-zeitraum {
 		margin-bottom: 1rem;
 		font-size: 0.9rem;
@@ -1602,6 +2634,24 @@ neurealis GmbH`;
 
 		.modal-content {
 			max-height: 90vh;
+		}
+
+		.form-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.form-group.span-2,
+		.form-group.span-4 {
+			grid-column: span 1;
+		}
+
+		.nachweis-controls {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.page-header {
+			flex-direction: column;
 		}
 	}
 </style>
