@@ -54,8 +54,8 @@
 ### Edge Functions
 | Function | Version | Status |
 |----------|---------|--------|
-| `softr-push` | v2 | Deployed |
-| `nachtrag-notify` | v18 | Lokal aktualisiert |
+| `softr-push` | v2 | ✅ Deployed |
+| `nachtrag-notify` | v18 | ✅ Deployed (Version 25) |
 
 ### Lokale Dateien
 - `functions/supabase/functions/softr-push/index.ts` - v2
@@ -107,10 +107,7 @@ SELECT net.http_post(
 
 ## Offene Punkte
 
-1. **nachtrag-notify v18 deployen** - Manuell via Supabase Dashboard deployen:
-   - Dashboard: https://supabase.com/dashboard/project/mfpuijttdgkllnvhvjlu/functions
-   - Lokale Datei: `functions/supabase/functions/nachtrag-notify/index.ts`
-   - Inhalt kopieren und im Dashboard einfügen
+Keine - alle Features deployed und verifiziert.
 
 ---
 
