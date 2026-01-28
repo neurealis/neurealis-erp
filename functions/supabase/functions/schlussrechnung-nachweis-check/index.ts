@@ -7,17 +7,61 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
-const NACHWEIS_FELDER = {
+// Alle möglichen Nachweise
+const NACHWEIS_FELDER: Record<string, string> = {
   'color_mkt2e02p': 'Nachweis Rohinstallation Elektrik',
   'color_mkt2hpg0': 'Nachweis Rohinstallation Sanitär',
   'color_mkt2t435': 'Nachweis Abdichtung Bad',
   'color_mkt2t62x': 'E-Check Protokoll',
 };
 
+// Ausführungsart-Spalten in Monday
+const AUSFUEHRUNGSART_FELDER = {
+  elektrik: 'color590__1',
+  bad: 'status23__1',
+};
+
 const ERLEDIGT_STATUS = ['Fertig', 'Erledigt', 'Komplett', 'OK', 'Ja', 'Erstellt'];
 
+// Mapping: Ausführungsart → erforderliche Nachweise (basierend auf L051)
+function ermittleErforderlicheNachweise(columnValues: Record<string, unknown>): string[] {
+  const erforderlich: string[] = [];
+
+  // Elektrik-Ausführungsart auslesen
+  const elektrikRaw = extractText(columnValues[AUSFUEHRUNGSART_FELDER.elektrik]);
+  const elektrik = elektrikRaw.toLowerCase();
+
+  // Bad-Ausführungsart auslesen
+  const badRaw = extractText(columnValues[AUSFUEHRUNGSART_FELDER.bad]);
+  const bad = badRaw.toLowerCase();
+
+  // Elektrik-Nachweise gemäß L051
+  if (elektrik.includes('komplett')) {
+    // Komplett → Rohinstallation + E-Check
+    erforderlich.push('color_mkt2e02p', 'color_mkt2t62x');
+  } else if (elektrik.includes('teil') || elektrik.includes('feininstall') || elektrik.includes('e-check')) {
+    // Teil-Mod, Feininstallation (auch mit Typo "Feininstallaiton"), Nur E-Check → nur E-Check
+    erforderlich.push('color_mkt2t62x');
+  }
+  // "Ohne" → keine Elektrik-Nachweise
+
+  // Bad-Nachweise gemäß L051
+  if (bad.includes('komplett')) {
+    // Komplett → Rohinstallation Sanitär + Abdichtung
+    erforderlich.push('color_mkt2hpg0', 'color_mkt2t435');
+  } else if (bad.includes('fliese auf fliese') || bad.includes('fliese-auf-fliese')) {
+    // Fliese auf Fliese → nur Abdichtung
+    erforderlich.push('color_mkt2t435');
+  }
+  // "Nur Austausch Sanitärartikel" oder "Ohne Bad" → keine Bad-Nachweise
+
+  // Duplikate entfernen
+  return [...new Set(erforderlich)];
+}
+
 interface NachweisStatus { feld: string; name: string; status: string; istOffen: boolean; }
-interface CheckResult { atbs_nr: string; nua_nr: string; nu_name: string; nu_anrede: string; nu_email: string; dokument_nr: string; offene_nachweise: NachweisStatus[]; alle_erledigt: boolean; }
+interface Ausfuehrungsart { elektrik: string; bad: string; }
+interface CheckResult { atbs_nr: string; nua_nr: string; nu_name: string; nu_anrede: string; nu_email: string; dokument_nr: string; ausfuehrungsart: Ausfuehrungsart; erforderliche_nachweise: number; offene_nachweise: NachweisStatus[]; alle_erledigt: boolean; }
 
 function extractText(jsonValue: unknown): string {
   if (!jsonValue) return '';
@@ -56,23 +100,39 @@ function berechneDeadline(): string {
   return deadline.toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
-function pruefeNachweise(columnValues: Record<string, unknown>): NachweisStatus[] {
-  return Object.entries(NACHWEIS_FELDER).map(([feld, name]) => {
-    const status = extractText(columnValues[feld]);
-    return { feld, name, status: status || 'Nicht gesetzt', istOffen: !istErledigt(status) };
-  });
+function pruefeNachweise(columnValues: Record<string, unknown>, erforderlicheNachweise: string[]): NachweisStatus[] {
+  // Nur die erforderlichen Nachweise prüfen (basierend auf Ausführungsart)
+  return erforderlicheNachweise
+    .filter(feld => NACHWEIS_FELDER[feld]) // Sicherstellen dass Feld existiert
+    .map(feld => {
+      const name = NACHWEIS_FELDER[feld];
+      const status = extractText(columnValues[feld]);
+      return { feld, name, status: status || 'Nicht gesetzt', istOffen: !istErledigt(status) };
+    });
 }
 
 function generiereEmailBody(result: CheckResult): string {
   const deadline = berechneDeadline();
-  const nachweisListe = result.offene_nachweise.filter(n => n.istOffen).map(n => `<tr><td style="padding:8px 15px 8px 0;border-bottom:1px solid #eee">${n.name}</td><td style="padding:8px 0;border-bottom:1px solid #eee;color:#dc3545;font-weight:bold">${n.status}</td></tr>`).join('');
+  const offeneNachweise = result.offene_nachweise.filter(n => n.istOffen);
+
+  // Falls keine offenen Nachweise → sollte nicht aufgerufen werden, aber Fallback
+  if (offeneNachweise.length === 0) {
+    return `<p>${result.nu_anrede},</p>
+<p>danke für deine Schlussrechnung <strong>${result.dokument_nr}</strong>. Alle erforderlichen Nachweise sind vorhanden.</p>
+<p>Viele Grüße<br><strong>neurealis GmbH</strong></p>`;
+  }
+
+  const nachweisListe = offeneNachweise.map(n => `<tr><td style="padding:8px 15px 8px 0;border-bottom:1px solid #eee">${n.name}</td><td style="padding:8px 0;border-bottom:1px solid #eee;color:#dc3545;font-weight:bold">${n.status}</td></tr>`).join('');
+
   return `<p>${result.nu_anrede},</p>
 <p>danke für deine Schlussrechnung <strong>${result.dokument_nr}</strong>.</p>
 <table style="margin:20px 0;border-collapse:collapse;background:#f8f9fa;padding:15px">
   <tr><td style="padding:8px 20px 8px 15px;font-weight:bold">ATBS-Nr:</td><td>${result.atbs_nr}</td></tr>
   <tr><td style="padding:8px 20px 8px 15px;font-weight:bold">NUA-Nr:</td><td>${result.nua_nr}</td></tr>
+  <tr><td style="padding:8px 20px 8px 15px;font-weight:bold">Elektrik:</td><td>${result.ausfuehrungsart.elektrik}</td></tr>
+  <tr><td style="padding:8px 20px 8px 15px;font-weight:bold">Bad:</td><td>${result.ausfuehrungsart.bad}</td></tr>
 </table>
-<p>Uns fehlen noch folgende <strong>Nachweise</strong>:</p>
+<p>Basierend auf der Ausführungsart fehlen uns noch folgende <strong>Nachweise</strong>:</p>
 <table style="margin:20px 0;border-collapse:collapse;width:100%">
   <thead><tr style="background:#f1f1f1"><th style="padding:10px 15px 10px 0;text-align:left;border-bottom:2px solid #dee2e6">Nachweis</th><th style="padding:10px 0;text-align:left;border-bottom:2px solid #dee2e6">Status</th></tr></thead>
   <tbody>${nachweisListe}</tbody>
@@ -131,19 +191,23 @@ Deno.serve(async (req: Request) => {
     const results: CheckResult[] = [];
     const emailsSent: string[] = [];
 
+    // Monday-Daten EINMAL laden (Performance-Optimierung)
+    const allMondayUrl = `${supabaseUrl}/rest/v1/monday_bauprozess?select=name,column_values`;
+    const allMondayResp = await fetch(allMondayUrl, {
+      headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` },
+    });
+
+    if (!allMondayResp.ok) {
+      throw new Error(`Monday API Fehler: ${allMondayResp.status}`);
+    }
+
+    const allMondayData = await allMondayResp.json();
+
     for (const sr of schlussrechnungen) {
       const atbsNr = sr.atbs_nummer;
       if (!atbsNr) continue;
 
-      // Monday-Projekt suchen via REST API - Fallback: alle laden und filtern
-      const allMondayUrl = `${supabaseUrl}/rest/v1/monday_bauprozess?select=name,column_values`;
-      const allMondayResp = await fetch(allMondayUrl, {
-        headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` },
-      });
-
-      if (!allMondayResp.ok) continue;
-
-      const allMondayData = await allMondayResp.json();
+      // Match im bereits geladenen Monday-Array finden
       const match = allMondayData.find((p: { column_values: Record<string, unknown> }) => {
         const atbsFeld = p.column_values?.['text49__1'];
         return extractText(atbsFeld) === atbsNr;
@@ -162,10 +226,31 @@ Deno.serve(async (req: Request) => {
         if (!nuEmail && emailObj.value) try { nuEmail = JSON.parse(emailObj.value).email || ''; } catch {}
       }
 
-      const nachweisStatus = pruefeNachweise(columnValues);
-      const alleErledigt = nachweisStatus.filter(n => n.istOffen).length === 0;
+      // Ausführungsart auslesen
+      const ausfuehrungsart: Ausfuehrungsart = {
+        elektrik: extractText(columnValues[AUSFUEHRUNGSART_FELDER.elektrik]) || 'Nicht gesetzt',
+        bad: extractText(columnValues[AUSFUEHRUNGSART_FELDER.bad]) || 'Nicht gesetzt',
+      };
 
-      const result: CheckResult = { atbs_nr: atbsNr, nua_nr: nuaText || sr.nua_nr || '', nu_name: nuNameText, nu_anrede: generiereAnrede(nuNameText), nu_email: nuEmail, dokument_nr: sr.dokument_nr, offene_nachweise: nachweisStatus, alle_erledigt: alleErledigt };
+      // Nur erforderliche Nachweise basierend auf Ausführungsart ermitteln
+      const erforderlicheNachweise = ermittleErforderlicheNachweise(columnValues);
+
+      // Prüfe nur die erforderlichen Nachweise
+      const nachweisStatus = pruefeNachweise(columnValues, erforderlicheNachweise);
+      const alleErledigt = nachweisStatus.length === 0 || nachweisStatus.filter(n => n.istOffen).length === 0;
+
+      const result: CheckResult = {
+        atbs_nr: atbsNr,
+        nua_nr: nuaText || sr.nua_nr || '',
+        nu_name: nuNameText,
+        nu_anrede: generiereAnrede(nuNameText),
+        nu_email: nuEmail,
+        dokument_nr: sr.dokument_nr,
+        ausfuehrungsart,
+        erforderliche_nachweise: erforderlicheNachweise.length,
+        offene_nachweise: nachweisStatus,
+        alle_erledigt: alleErledigt
+      };
       results.push(result);
 
       if (mode !== 'check' && !alleErledigt) {
@@ -177,8 +262,21 @@ Deno.serve(async (req: Request) => {
       }
     }
 
+    // Statistik über gefilterte Nachweise
+    const totalErforderlich = results.reduce((sum, r) => sum + r.erforderliche_nachweise, 0);
+    const totalOffen = results.reduce((sum, r) => sum + r.offene_nachweise.filter(n => n.istOffen).length, 0);
+
     return new Response(JSON.stringify({
-      summary: { geprueft: results.length, mit_offenen_nachweisen: results.filter(r => !r.alle_erledigt).length, alle_erledigt: results.filter(r => r.alle_erledigt).length, emails_gesendet: emailsSent.length, test_modus: !!test_email },
+      summary: {
+        geprueft: results.length,
+        mit_offenen_nachweisen: results.filter(r => !r.alle_erledigt).length,
+        alle_erledigt: results.filter(r => r.alle_erledigt).length,
+        erforderliche_nachweise_total: totalErforderlich,
+        offene_nachweise_total: totalOffen,
+        emails_gesendet: emailsSent.length,
+        test_modus: !!test_email,
+        hinweis: 'Nachweise werden basierend auf Ausführungsart (Elektrik/Bad) gefiltert'
+      },
       results,
       emails_sent: emailsSent,
     }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
