@@ -1,7 +1,13 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from 'jsr:@supabase/supabase-js@2';
 
 const HERO_API_URL = 'https://login.hero-software.de/api/external/v7/graphql';
 const HERO_API_KEY = Deno.env.get('HERO_API_KEY') || 'ac_YDjiMpClamttVIZdjLv7uMZ3nhWUDYFz';
+
+// Supabase Client
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SOFTR_API_URL = 'https://tables-api.softr.io/api/v1';
 const SOFTR_API_KEY = Deno.env.get('SOFTR_API_KEY') || 'dWhawF85Rw7tqSsaaqmavvmkE';
@@ -59,12 +65,27 @@ interface HeroDocument {
   date: string;
   status_name: string;
   project_match_id?: number;
+  project_match?: {
+    id: number;
+    name: string;
+    project_nr: string;
+    customer?: {
+      id: number;
+      company_name: string;
+      full_name: string;
+      nr: string;
+    };
+  };
   metadata?: {
     invoice_style?: string | null;
     positions?: Array<{
       name: string;
+      quantity: number;
+      unit: string;
+      unit_price: number;
       net_value: number;
       vat: number;
+      vat_rate: number;
     }>;
   };
   file_upload?: {
@@ -81,6 +102,8 @@ interface SyncResult {
   skipped_drafts: number;
   skipped_duplicates: number;
   corrected_types: number;
+  supabase_synced: number;
+  supabase_errors: number;
   errors: string[];
 }
 
@@ -90,7 +113,7 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
   const allDocs: HeroDocument[] = [];
 
   for (let offset = 0; offset < 2000; offset += 500) {
-    // Große Batches (500) - ohne positions für Performance
+    // Größere Batches (500) - schneller, robuster
     const query = `{
       customer_documents(first: 500, offset: ${offset}) {
         id
@@ -101,11 +124,17 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
         date
         status_name
         project_match_id
+        project_match {
+          id
+          name
+          project_nr
+        }
         metadata {
           invoice_style
         }
         file_upload {
           filename
+          temporary_url
         }
       }
     }`;
@@ -131,7 +160,7 @@ async function fetchHeroDocuments(modifiedSince?: string): Promise<HeroDocument[
 
       console.log(`Fetched ${docs.length} docs at offset ${offset}`);
 
-      if (docs.length < 500) break;
+      if (docs.length < 200) break;
 
       // Rate limiting
       await new Promise(r => setTimeout(r, 50));
@@ -287,6 +316,84 @@ function extractPositionsText(positions?: Array<{name: string; net_value: number
     .join('\n');
 }
 
+// ============== SUPABASE SYNC ==============
+
+async function upsertToSupabase(doc: HeroDocument, artDokument: string): Promise<boolean> {
+  try {
+    // WICHTIG: Nur Beträge setzen wenn Hero tatsächlich Werte hat
+    // Verhindert Überschreiben von existierenden Supabase-Werten mit 0
+    const hasHeroValues = doc.value !== null && doc.value !== undefined && doc.value !== 0;
+    const netto = hasHeroValues ? doc.value : null;
+    const brutto = hasHeroValues ? (doc.value + (doc.vat || 0)) : null;
+
+    // Positionen als JSONB
+    const positionen = doc.metadata?.positions?.map(p => ({
+      bezeichnung: p.name,
+      menge: p.quantity,
+      einheit: p.unit,
+      einzelpreis: p.unit_price,
+      netto: p.net_value,
+      mwst: p.vat,
+      mwst_satz: p.vat_rate
+    })) || null;
+
+    // Projekt-/Kundendaten
+    const projektName = doc.project_match?.name || null;
+    const projektNr = doc.project_match?.project_nr || null;
+    const kundeName = doc.project_match?.customer?.company_name || doc.project_match?.customer?.full_name || null;
+    const kundeNr = doc.project_match?.customer?.nr || null;
+
+    // Basis-Record ohne Beträge
+    const record: Record<string, unknown> = {
+      dokument_nr: doc.nr,
+      art_des_dokuments: artDokument,
+      datum_erstellt: doc.date,
+      projektname: projektName,
+      atbs_nummer: projektNr,
+      quelle: 'hero',
+      positionen_erkannt: positionen,
+      kunde_erkannt: kundeName,
+      projekt_erkannt: projektName,
+      datei_name: doc.file_upload?.filename || null,
+      datei_url: doc.file_upload?.temporary_url || null,
+      metadata: {
+        hero_id: doc.id,
+        invoice_style: doc.metadata?.invoice_style,
+        project_match_id: doc.project_match_id,
+        kunde_nr: kundeNr,
+        status_name: doc.status_name,
+        synced_at: new Date().toISOString()
+      },
+      updated_at: new Date().toISOString()
+    };
+
+    // Beträge NUR hinzufügen wenn Hero tatsächlich Werte hat
+    // Verhindert Überschreiben von existierenden Supabase-Werten mit NULL
+    if (hasHeroValues) {
+      record.betrag_netto = netto;
+      record.betrag_brutto = brutto;
+    }
+
+    // Upsert basierend auf dokument_nr
+    const { error } = await supabase
+      .from('dokumente')
+      .upsert(record, {
+        onConflict: 'dokument_nr',
+        ignoreDuplicates: false
+      });
+
+    if (error) {
+      console.error(`Supabase upsert error for ${doc.nr}:`, error.message);
+      return false;
+    }
+
+    return true;
+  } catch (err) {
+    console.error(`Supabase error for ${doc.nr}:`, err);
+    return false;
+  }
+}
+
 function isRechnungDokument(heroType: string, dokNr: string): boolean {
   return heroType === 'invoice' && (dokNr.startsWith('RE-') || dokNr.startsWith('RE'));
 }
@@ -301,6 +408,8 @@ async function syncDocuments(forceUpdate: boolean = false): Promise<SyncResult> 
     skipped_drafts: 0,
     skipped_duplicates: 0,
     corrected_types: 0,
+    supabase_synced: 0,
+    supabase_errors: 0,
     errors: []
   };
 
@@ -332,7 +441,15 @@ async function syncDocuments(forceUpdate: boolean = false): Promise<SyncResult> 
           continue;
         }
 
-        // Duplikat-Prüfung: Rechnungen nicht erneut hochladen (außer forceUpdate)
+        // IMMER in Supabase speichern (mit allen Details)
+        const supabaseSuccess = await upsertToSupabase(heroDoc, artDokument);
+        if (supabaseSuccess) {
+          result.supabase_synced++;
+        } else {
+          result.supabase_errors++;
+        }
+
+        // Duplikat-Prüfung für Softr: Rechnungen nicht erneut hochladen (außer forceUpdate)
         if (existsInSoftr && isRechnung && !forceUpdate) {
           // Bei forceUpdate trotzdem updaten um Typ zu korrigieren
           const existingRecord = softrDocs.get(dokNr);

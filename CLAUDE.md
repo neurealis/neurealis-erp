@@ -144,6 +144,11 @@ cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 - `ui/src/lib/styles/tokens.css` - Zentrale Design-Variablen
 - `ui/src/lib/styles/global.css` - Globale Styles
 
+**Emoji-Regel (WICHTIG):**
+- NUR professionelle, dezente Emojis im Stil der Sidebar verwenden
+- KEINE bunten/verspielten Emojis - wirkt unprofessionell
+- Erlaubt: Strukturelle Icons wie in der Navigation
+
 **Bestellformular:**
 - Nur Textbox (keine UI-Spracherkennung)
 - Nutzer verwenden Google-Tastatur-Spracheingabe am Handy

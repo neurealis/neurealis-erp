@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-01-28 01:00 (aktualisiert)
+**Stand:** 2026-01-28 23:00 (aktualisiert)
 
 ---
 
@@ -42,6 +42,7 @@
 ### Deployment
 
 **Netlify:** https://neurealis-erp.netlify.app (Live)
+**Auth:** Microsoft OAuth via Supabase (funktioniert)
 
 ### Supabase-Datenquellen (angebunden)
 
@@ -50,7 +51,7 @@
 | `monday_bauprozess` | Dashboard, BV, Kalender | 193 Bauvorhaben |
 | `maengel_fertigstellung` | Mängel, BV-Detail | 57 Mängel |
 | `nachtraege` | Nachträge, Dashboard | aktive Nachträge |
-| `softr_dokumente` | Finanzen | 2.000 Rechnungen |
+| `softr_dokumente` | Finanzen | 1.777 Dokumente (bereinigt, 642 mit PDF) |
 | `tasks` | Dashboard, Aufgaben | 1.755 Tasks |
 | `dokumente` | Dashboard, BV-Detail | Aktivitäten |
 | `kontakte` | Kontakte, Nachunternehmer | 1.379 Kontakte |
@@ -59,8 +60,11 @@
 | `bestellartikel` | Einkauf | 768 Artikel |
 | `lv_positionen` | Einkauf | 3.057 LV-Positionen (alle mit Embeddings) |
 | `leads` | Leads | 8 Leads |
-| `social_media_posts` | Marketing | 4 Posts (NEU) |
-| `blog_posts` | Marketing | 3 Artikel (NEU) |
+| `social_media_posts` | Marketing | 4 Posts |
+| `blog_posts` | Marketing | 3 Artikel |
+| `email_details` | E-Mail-Sync | 77 E-Mail-Metadaten (NEU) |
+| `email_accounts` | E-Mail-Sync | 6 Postfächer konfiguriert (NEU) |
+| `kontakt_domains` | E-Mail-Sync | Domain→Kontakt Mapping (NEU) |
 
 ### Architektur
 
@@ -112,21 +116,106 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **VBW Verhandlung (28.01.):** Entscheidungsgrundlage PDF fertig
-→ **Hero Rechnungssync optimieren:** `invoice_style` statt Fallback-Logik
+→ **Nachweis-Trigger:** Automatische Ausführung bei neuen ER-NU-S Dokumenten
+→ **S3-Migration:** 447 Legacy-PDFs von S3 nach Supabase Storage migrieren
+→ **E-Mail Phase 2:** Cron-Jobs aktivieren (email-fetch alle 10 Min, email-process alle 15 Min)
+→ **Embeddings:** document_summaries mit vector(1536) erweitern für RAG
 → Kundenportal-Seiten: /angebote, /ansprechpartner, /rechnungen
-→ Partnerportal-Seiten: /auftraege, /lvs, /nachweise, /vorlagen
 
 ---
 
-## Letzte Session (2026-01-28)
+## Letzte Session (2026-01-28 ~23:00)
 
-**VBW LV 2026 Preisverhandlung & PDF-Generator:**
+**Hero-Sync Beträge-Bug-Fix + Wiederherstellung:**
+- **Bug-Fix:** `hero-document-sync` v13 - Beträge werden nur gesetzt wenn Hero Werte hat
+- **Problem:** `const netto = doc.value || 0;` überschrieb existierende Werte mit 0
+- **Wiederherstellung:** 11 Dokumente aus Softr-Backup (~142.578 € netto)
+  - NUA-355, NUA-357, NUA-358, NUA-359, NUA-363, NUA-364, NUA-365, NUA-366
+  - 2100021040, R-00156, R-00173
+- **Backup:** `docs/softr_amounts_backup.json` (2.515 Dokumente mit Beträgen)
+- **Vergleich:** ER-*/AR-*/RE-* stimmen zwischen Softr und Supabase überein
+  - Differenz nur durch Datumsfilter (`date >= '2025-01-01'`) in hero-document-sync
+
+**Cron-Job Status:**
+- `hero-document-sync`: `*/5 6-19 * * *` (alle 5 Min, nur 6-19 Uhr)
+- Status: aktiv, läuft automatisch tagsüber
+
+---
+
+## Vorherige Session (2026-01-28 ~22:00)
+
+**Schlussrechnung-Nachweis-Check Edge Function:**
+- **Edge Function:** `schlussrechnung-nachweis-check` v14 deployed
+- **Funktion:** Prüft bei NU-Schlussrechnungen (ER-NU-S) ob Nachweise fehlen
+- **Nachweise:** Rohinstallation Elektrik, Rohinstallation Sanitär, Abdichtung Bad, E-Check Protokoll
+- **Features:**
+  - Automatische E-Mail an NU mit personalisierter Anrede
+  - 2-Werktage-Deadline mit roter Warnung
+  - Test-Modus für sichere Entwicklung
+- **Test erfolgreich:** 2 E-Mails für ATBS-445 und ATBS-447 gesendet
+- **email-send v15:** Mit verify_jwt: false für interne Calls
+
+**Gelöste technische Probleme:**
+- Supabase Client JSONB-Filter funktioniert nicht → Manuelles Filtern
+- PostgREST LIKE-Syntax: %25 statt *
+- Edge Function zu Edge Function: verify_jwt: false nötig
+
+---
+
+## Vorherige Session (2026-01-28 ~21:00)
+
+**Beträge-Wiederherstellung & Bug-Fix:**
+- **Root Cause:** `hero-document-sync` überschrieb existierende Netto/Brutto-Werte mit 0 wenn Hero keinen Wert hatte
+- **Bug-Fix:** `upsertToSupabase()` aktualisiert - Beträge werden nur noch gesetzt wenn Hero tatsächlich Werte hat
+- **Wiederherstellung:** 11 Dokumente aus Softr-Backup wiederhergestellt (~159.000 € Gesamtwert)
+  - NUA-355 bis NUA-366 (8 Nachunternehmer-Aufträge)
+  - 2100021040, R-00156, R-00173 (3 Rechnungen)
+- **Analyse-Scripts:** `scripts/compare_and_restore.mjs`, `docs/softr_amounts_backup.json` (2.515 Dokumente)
+- **Erkenntnis:** Die meisten Dokumente mit 0/NULL-Werten sind korrekt (E-Mails, Aufmaße, etc. haben keine Beträge)
+
+---
+
+## Vorherige Session (2026-01-28 ~18:30)
+
+**Hero PDF-Sync - Vollständige Migration:**
+- `hero-document-sync` v11: temporary_url zur GraphQL-Query hinzugefügt
+- `hero-pdf-sync` v4: Filename-Sanitization für Umlaute/Sonderzeichen
+- **653 PDFs** von Hero → Supabase Storage migriert (100% Erfolg)
+- **686 PDFs** total in Supabase Storage
+- 447 S3-Legacy-PDFs noch zu migrieren
+
+---
+
+## Vorherige Session (2026-01-28 ~16:00)
+
+**E-Mail-Integration Phase 1 - FERTIG:**
+- `email-fetch` Edge Function v4: Holt E-Mails von MS365 Graph API
+- `email-process` Edge Function: Matching-Kaskade (Domain, ATBS, Postfach)
+- **50 E-Mails** importiert aus 5 Postfächern
+- **27 Anhänge** in Supabase Storage hochgeladen
+- Neue Tabellen: `email_details`, `email_accounts`, `kontakt_domains`, `email_sync_log`
+- Fixes: UNIQUE-Constraint mit COALESCE, Storage-Pfad-Sanitization, Graph API contentBytes
+
+**Postfächer aktiv:**
+- holger.neumann@, service@, rechnungen@, bewerbungen@, kontakt@ @neurealis.de
+
+**Vorherige Session (~11:00):**
+- `hero-document-sync` v10: 651 Dokumente synchronisiert
+- `monday-push` Edge Function (NEU): Pusht nach Monday.com
+
+**Vorherige Session (~09:00):**
+- Hero Webhook-Recherche: Keine native Webhook-API (nur Polling)
+- Cron optimiert: `*/5 6-19 * * *` (alle 5 Min, nur tagsüber)
+
+**Vorherige Session (~04:15):**
+- `softr_dokumente` + `dokumente` → einheitliche Tabelle (1.835 Docs)
+- 642 PDFs von Hero → Supabase Storage synchronisiert
+- Edge Functions: `classify-pdf`, `summarize-document`, `hero-pdf-sync`
+
+**Vorherige Session (VBW LV 2026):**
 - VBW Entscheidungsgrundlage HTML + PDF erstellt
 - Preisvergleich 2023 vs. 2026 mit GWS-Referenzpreisen
-- Tabellarische GWS-Vergleiche mit Artikelnummern
 - Leerstandskosten-Berechnung: 357.000 €/Jahr bei 3 Wochen Verzögerung
-- Prozessoptimierung für direkten Baustart nach Auszug
 
 **PDF-Generator (global nutzbar):**
 - Puppeteer-basierte HTML→PDF Konvertierung
@@ -181,4 +270,4 @@ search_lv_positions(query_embedding, match_count, filter_lv_typ, filter_gewerk)
 
 ---
 
-*Aktualisiert: 2026-01-27 23:30*
+*Aktualisiert: 2026-01-28 23:00*

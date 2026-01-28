@@ -254,13 +254,14 @@ curl -s -X POST https://login.hero-software.de/api/external/v7/graphql \
 
 ## Implementierungsstatus
 
-### ✅ Erledigt (2026-01-27)
+### ✅ Erledigt (2026-01-28)
 
 1. **Edge Function `hero-document-sync` v7 deployed**
    - `metadata.invoice_style` wird jetzt primär verwendet
    - Entwürfe (null) werden ignoriert
    - Dateiname wird aus Hero übernommen
    - Typ-Korrektur bei Abweichungen
+   - Batch-Size auf 500 erhöht (Performance)
 
 2. **Sync-Ergebnis:**
    - 642 Hero-Dokumente geprüft
@@ -268,9 +269,17 @@ curl -s -X POST https://login.hero-software.de/api/external/v7/graphql \
    - **0 Typ-Korrekturen** - alle Typen waren bereits korrekt!
    - Validierung: Die alte Fallback-Logik funktionierte gut
 
+3. **Datenqualitäts-Analyse:**
+   - 227 NUA-Dokumente, davon 80% ohne Beträge
+   - 62 Duplikate (27%)
+   - 31% ohne Projekt-Zuweisung (ATBS)
+
 ### Offen
 
 - [ ] Neue Dokumente (ANG, NUA, AB) automatisch anlegen (derzeit nur Update)
+- [ ] NUA-Beträge aus Hero nachsynchronisieren
+- [ ] Duplikate bereinigen
+- [ ] Projekt-Zuweisungen vervollständigen
 - [ ] Positionen als Text-Feld speichern (optional)
 
 ---
