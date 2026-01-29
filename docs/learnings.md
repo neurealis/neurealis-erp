@@ -512,18 +512,724 @@ const url = `${supabaseUrl}/rest/v1/dokumente?art_des_dokuments=like.ER-NU-S%25`
 ---
 
 ### L045 - PFLICHT: Backup vor DB-Änderungen mit KI
-**Datum:** 2026-01-28
+**Datum:** 2026-01-28 (erweitert 2026-01-29)
 **Kontext:** Datenwiederherstellung nach hero-document-sync Bug
 **REGEL (MUST-HAVE):** Vor JEDER direkten DB-Änderung mit Claude MUSS ein Backup erstellt werden:
 1. **Query vorher ausführen:** `SELECT * FROM tabelle WHERE bedingung` → JSON exportieren
 2. **Backup speichern:** `docs/backups/[datum]_[tabelle]_[aktion].json`
-3. **Erst dann:** UPDATE/DELETE/INSERT ausführen
-4. **Dokumentieren:** Was wurde geändert, wie kann es rückgängig gemacht werden
+3. **Änderungsprotokoll in Backup-Datei:**
+   ```json
+   {
+     "datum": "2026-01-29",
+     "tabelle": "maengel_fertigstellung",
+     "aktion": "UPDATE status_mangel",
+     "where_clause": "WHERE id IN ('uuid1', 'uuid2')",
+     "betroffene_records": 5,
+     "rollback_query": "UPDATE maengel_fertigstellung SET status_mangel = 'Offen' WHERE id IN (...)",
+     "backup_data": [...]
+   }
+   ```
+4. **Erst dann:** UPDATE/DELETE/INSERT ausführen
+5. **Verifizieren:** Nach Änderung kurzer SELECT um Erfolg zu prüfen
 
 **Backup-Verzeichnis:** `docs/backups/` für alle Daten-Snapshots vor Änderungen
 **Beispiel:** `docs/softr_amounts_backup.json` rettete 11 Dokumente (~142.578 €)
-**Grund:** KI kann Fehler machen - Backups ermöglichen IMMER Rollback
+**Grund:** KI kann Fehler machen - Backups mit vollständigem Protokoll ermöglichen IMMER exakten Rollback
 
 ---
 
-*Aktualisiert: 2026-01-28 23:00*
+## Marketing / Blog-Pipeline
+
+### L046 - OpenAI Responses API mit web_search_preview
+**Datum:** 2026-01-28
+**Kontext:** Blog-Pipeline benötigt Web-Recherche für aktuelle Trends
+**Lösung:** OpenAI Responses API mit `web_search_preview` Tool:
+```typescript
+const response = await fetch('https://api.openai.com/v1/responses', {
+  method: 'POST',
+  headers: { 'Authorization': `Bearer ${OPENAI_API_KEY}` },
+  body: JSON.stringify({
+    model: 'gpt-5.2',
+    input: 'Aktuelle KfW-Förderungen 2026',
+    tools: [{ type: 'web_search_preview' }]
+  })
+});
+```
+**Hinweis:** Responses API ist der neue Standard für Agenten-Funktionalität bei OpenAI
+
+### L047 - Agenten-Kommunikation via JSON-Output
+**Datum:** 2026-01-28
+**Kontext:** Blog-Pipeline mit 3 Agenten (Editor → Recherche → Writer)
+**Pattern:** Jeder Agent gibt strukturiertes JSON aus, das der nächste als Input erhält
+**Vorteil:** Klar definierte Schnittstellen, einfaches Debugging, keine Tool-Calls zwischen Agenten nötig
+**Implementierung:** Edge Function als Orchestrator koordiniert die Aufrufe sequentiell
+
+### L048 - Embedding-basierte Querverlinkung für SEO
+**Datum:** 2026-01-28
+**Kontext:** Blog-Artikel sollen sich gegenseitig verlinken (SEO: Domain Rating)
+**Lösung:**
+1. Jeder Artikel erhält vector(1536) Embedding bei Erstellung
+2. RPC `search_similar_blog_posts()` findet ähnliche Artikel
+3. Writer-Agent erhält Top-5 ähnliche Posts als Verlinkungsvorschläge
+4. Wöchentlicher Cron prüft alle Artikel auf fehlende Verlinkung
+**Regel:** Minimum 2 interne Links pro Artikel
+
+---
+
+## Claude Code / Subagenten (Fortsetzung)
+
+### L049 - Explore-Subagent und lokale Dateien (KORRIGIERT)
+**Datum:** 2026-01-28 (korrigiert 2026-01-29)
+**Ursprüngliche Annahme (FALSCH):** Subagenten können keine lokalen Dateien lesen
+**RICHTIG:** Subagenten KÖNNEN lokal synchronisierte Dateien lesen (z.B. OneDrive-Ordner)
+**Problem nur bei:** Unsynchronisierte Cloud-Dateien (Datei nur in der Cloud, nicht lokal)
+**Fazit:** Bei synchronisierten OneDrive/SharePoint-Ordnern funktionieren Subagenten für PDFs
+
+### L050 - Wissens-Struktur für Blog-Pipeline
+**Datum:** 2026-01-28
+**Kontext:** Extrahiertes Wissen aus internen Dokumenten für Content-Marketing
+**Lösung:** `wissen/` Ordner mit thematischen Markdown-Dateien:
+- `vertrieb_prozesse.md` - Sales-Ablauf, USPs, Kennzahlen
+- `marketing_strategie.md` - Positionierung, Content-Cluster
+- `README.md` - Index der Wissensdateien
+**Nutzung:**
+1. Blog-Pipeline liest relevante Wissensdateien als System-Prompt
+2. Agenten haben Zugriff auf aktuelle Unternehmens-Infos
+3. Einheitliche Terminologie und Zahlen über alle Artikel
+
+---
+
+## Bauprozess / Gewerke
+
+### L051 - Monday Ausführungsarten und Nachweis-Anforderungen
+**Datum:** 2026-01-28
+**Kontext:** Automatische Nachweis-E-Mails bei NU-Schlussrechnungen
+
+**Relevante Monday-Spalten für Ausführungsart:**
+
+| Spalte | Gewerk | Mögliche Werte |
+|--------|--------|----------------|
+| `color590__1` | Elektrik | Komplett, Teil-Mod, Austausch Feininstallation, Nur E-Check, Ohne |
+| `status23__1` | Bad | Komplett, Fliese auf Fliese, Nur Austausch Sanitärartikel, Ohne Bad |
+| `color78__1` | Boden | Ohne, Vinyl (Planken), Ausgleich, Laminat, Vinyl (Click), Holz schleifen, Fliesen |
+| `color427__1` | Wände | Ohne, Raufaser & Anstrich, 2x Anstrich, Q2 & Anstrich, Nur Spachteln |
+| `color97__1` | Türen | Ohne, Türblätter: neu \| Zarge: neu, lackieren \| lackieren, neu \| lackieren |
+| `color49__1` | Therme | Ohne Therme, Therme versetzen, Neue Therme, Asbestsanierung |
+
+**Nachweis-Logik nach Ausführungsart:**
+
+**Elektrik (color590__1):**
+| Ausführung | Rohinstallation Elektrik | E-Check |
+|------------|-------------------------|---------|
+| Komplett | ✅ | ✅ |
+| Teil-Mod (UV + Schalter) | ❌ | ✅ |
+| Austausch Feininstallation | ❌ | ✅ |
+| Nur E-Check | ❌ | ✅ |
+| Ohne | ❌ | ❌ |
+
+**Bad (status23__1):**
+| Ausführung | Rohinstallation Sanitär | Abdichtung Bad |
+|------------|------------------------|----------------|
+| Komplett | ✅ | ✅ |
+| Fliese auf Fliese | ❌ | ✅ |
+| Nur Austausch Sanitärartikel | ❌ | ❌ |
+| Ohne Bad | ❌ | ❌ |
+
+**Nachweis-Felder in Monday:**
+- `color_mkt2e02p`: Nachweis Rohinstallation Elektrik
+- `color_mkt2hpg0`: Nachweis Rohinstallation Sanitär
+- `color_mkt2t435`: Nachweis Abdichtung Bad
+- `color_mkt2t62x`: E-Check Protokoll
+
+**Status-Werte für "Erledigt":** Fertig, Erledigt, Komplett, OK, Ja, Erstellt
+
+---
+
+## Telegram-Bot
+
+### L053 - Telegram Webhook mit Supabase Edge Functions
+**Datum:** 2026-01-29
+**Kontext:** Telegram-Bot für neurealis Baustellen-Kommunikation
+**Lösung:** Edge Function mit verify_jwt: false (Telegram braucht keinen JWT)
+**Webhook-URL:** `https://{project}.supabase.co/functions/v1/telegram-webhook`
+**Registrierung:**
+```bash
+curl "https://api.telegram.org/bot{TOKEN}/setWebhook?url={WEBHOOK_URL}"
+```
+**Bot-Token:** Als Secret in Supabase hinterlegen, NIEMALS in Code!
+
+### L054 - Telegram Session-Management
+**Datum:** 2026-01-29
+**Kontext:** Mehrstufige Konversationen im Bot (z.B. Projekt öffnen → Mangel erfassen)
+**Lösung:** `telegram_sessions` Tabelle mit:
+- `aktuelles_bv_id` - Aktuell geöffnetes Projekt
+- `aktueller_modus` - 'idle', 'mangel_erfassen', 'foto_upload', etc.
+- `kontext` (JSONB) - Zwischenspeicher für mehrstufige Eingaben
+**Pattern:** Session pro chat_id, bei jedem Update `last_activity` aktualisieren
+
+---
+
+## SharePoint-Sync
+
+### L055 - SharePoint Delta-Queries für inkrementellen Sync
+**Datum:** 2026-01-29
+**Problem:** 90 GB SharePoint-Daten komplett zu synchen dauert ewig
+**Lösung:** Microsoft Graph API Delta-Queries:
+```typescript
+// Erster Aufruf
+GET /drives/{driveId}/root/delta
+
+// Folge-Aufrufe mit deltaLink
+GET {deltaLink aus vorheriger Response}
+```
+**Speicherung:** `sharepoint_sync_state` Tabelle für Delta-Links pro Site
+
+### L056 - SharePoint-Sync: Videos nur verlinken
+**Datum:** 2026-01-29
+**Problem:** Videos (MP4, MOV) sind zu groß für Supabase Storage
+**Lösung:** Differenzierte Sync-Strategie:
+- **Download:** PDF, DOCX, XLSX, JPG, PNG (< 50 MB)
+- **Link-Only:** MP4, MOV, AVI + alle > 50 MB
+**Implementierung:** `datei_url = NULL`, `sharepoint_link = Original-URL`
+
+---
+
+## Sicherheit / RLS
+
+### L057 - 4-Stufen-Sicherheitskonzept für Dokumente
+**Datum:** 2026-01-29
+**Kontext:** SharePoint-Sites mit unterschiedlicher Vertraulichkeit
+**Lösung:** `sicherheitsstufe` INTEGER (1-4) in dokumente-Tabelle:
+| Stufe | Zugriff | Beispiel |
+|-------|---------|----------|
+| 1 | Alle Mitarbeiter | Projekte, Marketing |
+| 2 | Bauleiter + GF | Preise, Vertrieb |
+| 3 | GF + Buchhaltung | Finanzen |
+| 4 | Nur GF | Personal, Management |
+**RLS-Policy:** `WHERE sicherheitsstufe <= user_level`
+
+---
+
+## Claude Code / Subagenten (Fortsetzung)
+
+### L058 - NIEMALS bestehende Edge Functions überschreiben
+**Datum:** 2026-01-29
+**Problem:** Annahme dass Code überschrieben wurde (war nicht der Fall - separate Functions)
+**Regel:** Bei Edge Function Updates IMMER:
+
+### L060 - Backups von Edge Functions erstellen
+**Datum:** 2026-01-29
+**Problem:** Edge Functions die nur in Supabase existieren können verloren gehen
+**Regel:** VOR jeder Änderung:
+1. `mcp__supabase__get_edge_function` zum Abrufen des Codes
+2. Backup speichern in `backups/edge-functions/[name]_v[version].ts`
+3. Erst dann Änderungen vornehmen
+**Backup-Pfad:** `C:\Users\holge\neurealis-erp\backups\edge-functions\`
+**Wichtig:** Auch wenn Function im lokalen Repo ist - Supabase-Version kann abweichen!
+
+### L061 - Edge Functions Struktur verstehen
+**Datum:** 2026-01-29
+**Kontext:** Annahme dass telegram-webhook Bedarfsanalyse enthielt
+**Wahrheit:** Bedarfsanalyse und Aufmaß sind SEPARATE Edge Functions:
+- `process-bedarfsanalyse` (v31) - OCR + Extraktion
+- `process-aufmass-complete` (v29) - CSV→Excel mit Styles
+- `generate-aufmass-excel` (v20) - Excel-Generierung
+- `telegram-webhook` (v46) - Nur Bot-Handler
+**Regel:** Bei Edge Function Updates IMMER:
+1. Bestehenden Code LESEN
+2. Nur ERGÄNZEN, nicht ersetzen
+3. Bestehende Befehle erhalten
+**Konsequenz:** Funktionalität verloren, musste neu implementiert werden
+
+### L059 - Parallele Subagenten für komplexe Implementierungen
+**Datum:** 2026-01-29
+**Problem:** Große Implementierungen füllen Context-Window
+**Lösung:** 3+ parallele Subagenten für unabhängige Aufgaben:
+1. DB-Migrationen
+2. Edge Function A
+3. Edge Function B (im Hintergrund)
+**Vorteil:** Jeder Agent hat eigenes Context-Window, Ergebnisse kompakt
+**Best Practice:** `run_in_background: true` für lang laufende Tasks
+
+---
+
+## Edge Functions
+
+### L052 - Edge Function Performance: Daten einmal laden
+**Datum:** 2026-01-29
+**Problem:** Edge Function läuft in WORKER_LIMIT wenn DB-Abfrage in Schleife
+**Kontext:** `schlussrechnung-nachweis-check` lud Monday-Daten pro Schlussrechnung neu
+**Ursache:** Supabase Edge Functions haben begrenzte Compute-Ressourcen
+**Lösung:** DB-Abfragen VOR Schleife ausführen, dann in-memory filtern:
+```javascript
+// FALSCH: In Schleife
+for (const item of items) {
+  const data = await supabase.from('tabelle').select('*');  // N Abfragen!
+  const match = data.find(x => x.id === item.id);
+}
+
+// RICHTIG: Einmal laden
+const allData = await supabase.from('tabelle').select('*');  // 1 Abfrage
+for (const item of items) {
+  const match = allData.find(x => x.id === item.id);  // In-memory
+}
+```
+**Ergebnis:** Function läuft erfolgreich statt WORKER_LIMIT Fehler
+
+### L053 - Matching mit Typo-Toleranz
+**Datum:** 2026-01-29
+**Problem:** Exaktes String-Matching findet keine Treffer bei Tippfehlern in Daten
+**Kontext:** Monday-Feld enthält "Feininstallaiton" statt "Feininstallation"
+**Lösung:** Prefix-Matching statt exaktem Match:
+```javascript
+// FALSCH: Exakt
+if (text.includes('feininstallation')) { ... }
+
+// RICHTIG: Prefix (toleriert Tippfehler am Ende)
+if (text.includes('feininstall')) { ... }
+```
+**Regel:** Bei Matching gegen User-eingepflegte Daten Typo-Toleranz einbauen
+
+---
+
+## Subagenten-Koordination
+
+### L054 - Subagenten über Markdown-Dateien koordinieren
+**Datum:** 2026-01-29
+**Problem:** Parallele Subagenten füllen das Haupt-Context-Window wenn sie direkt berichten
+**Lösung:** Koordination über zentrale Markdown-Datei:
+1. **Tracker-Datei erstellen:** z.B. `docs/IMPLEMENTATION_TRACKER.md`
+2. **Struktur:** Tasks mit Status (pending/in_progress/done/failed), Output-Pfade
+3. **Subagenten lesen:** Tracker am Start, verstehen Gesamtkontext
+4. **Subagenten schreiben:** Ergebnisse in separate Dateien, Status in Tracker updaten
+5. **Hauptagent:** Liest nur Tracker für Fortschritt, Details bei Bedarf
+**Vorteile:**
+- Context-Window bleibt schlank
+- Qualität bleibt gleich (vollständiger Kontext in Dateien)
+- Parallelisierung möglich
+- Nachvollziehbarkeit durch persistente Logs
+**Pattern:**
+```
+docs/
+├── IMPLEMENTATION_TRACKER.md  # Zentrale Koordination
+├── implementation/
+│   ├── task1_output.md        # Subagent 1 Output
+│   ├── task2_output.md        # Subagent 2 Output
+│   └── ...
+```
+**Regel:** Bei komplexen Multi-Step-Tasks IMMER Tracker-Datei verwenden
+
+---
+
+## Blog-Pipeline
+
+### L062 - OpenAI Responses API vs. Chat Completions
+**Datum:** 2026-01-29
+**Problem:** OpenAI `/v1/responses` Endpoint mit `web_search_preview` gibt 400-Fehler
+**Kontext:** blog-research sollte Web-Recherche via Responses API machen
+**Lösung:** Standard Chat Completions API verwenden (`/v1/chat/completions`)
+```javascript
+// FALSCH: Responses API (gibt 400)
+fetch('https://api.openai.com/v1/responses', {
+  body: JSON.stringify({
+    model: 'gpt-5.2',
+    input: query,
+    tools: [{ type: 'web_search_preview' }]
+  })
+});
+
+// RICHTIG: Chat Completions API
+fetch('https://api.openai.com/v1/chat/completions', {
+  body: JSON.stringify({
+    model: 'gpt-5.2',
+    messages: [{ role: 'user', content: query }],
+    max_completion_tokens: 2000
+  })
+});
+```
+**Hinweis:** Responses API ist für Agenten-Funktionalität gedacht, aber web_search_preview funktioniert nicht zuverlässig
+
+### L063 - Edge Functions verify_jwt für interne Calls
+**Datum:** 2026-01-29
+**Problem:** Cron-Jobs und interne Function-Calls scheitern mit 401 wenn verify_jwt: true
+**Lösung:** Bei Functions die intern oder via Cron aufgerufen werden: `verify_jwt: false`
+```javascript
+// Bei Deployment
+await mcp__supabase__deploy_edge_function({
+  name: 'blog-research',
+  verify_jwt: false,  // <- Wichtig für Cron/interne Calls
+  files: [...]
+});
+```
+**Regel:**
+- `verify_jwt: true` → User-facing APIs (erfordern Supabase Auth)
+- `verify_jwt: false` → Cron-Jobs, interne Function-Calls, Webhooks
+
+### L064 - Edge Function Timeouts bei Chain-Calls
+**Datum:** 2026-01-29
+**Problem:** Orchestrator ruft Editor→Research→Writer sequentiell auf, Writer timeouted
+**Kontext:** Jede Function braucht ~10-20s, Supabase Edge Function Timeout = 60s
+**Symptom:** Einzelne Functions funktionieren, Chain scheitert
+**Mögliche Lösungen:**
+1. **Async/Callback-Pattern:** Orchestrator startet Tasks, pollt Status
+2. **Kürzere Prompts:** Weniger Tokens pro Agent
+3. **Background-Processing:** Queue-basierte Verarbeitung
+4. **Timeout erhöhen:** Supabase Pro Plan (150s statt 60s)
+**Regel:** Bei Multi-Agent-Chains: Max 2-3 sequentielle API-Calls pro Edge Function
+
+### L065 - Supabase Cron mit pg_cron
+**Datum:** 2026-01-29
+**Kontext:** Tägliche/wöchentliche Blog-Jobs einrichten
+**Lösung:** `cron.schedule()` direkt in PostgreSQL
+```sql
+-- Täglich um 8:00 UTC
+SELECT cron.schedule(
+  'blog-orchestrate-daily',
+  '0 8 * * *',
+  $$SELECT net.http_post(
+    url := 'https://project.supabase.co/functions/v1/blog-orchestrate',
+    headers := '{"Authorization": "Bearer ' || current_setting('app.supabase_service_role_key') || '"}'::jsonb,
+    body := '{}'::jsonb
+  );$$
+);
+
+-- Sonntags um 6:00 UTC
+SELECT cron.schedule(
+  'blog-crosslink-weekly',
+  '0 6 * * 0',
+  $$SELECT net.http_post(...);$$
+);
+```
+**Verwaltung:** `SELECT * FROM cron.job;` für alle Jobs
+**Deaktivieren:** `SELECT cron.unschedule('job-name');`
+
+---
+
+## Meta / Prozess
+
+### L066 - Subagenten für Overnight-Tasks (KRITISCH)
+**Datum:** 2026-01-29
+**Problem:** Hauptchat-Kontext wurde mit Edge Function Code gefüllt, Context Window voll nach ~7 Stunden
+**Ursprüngliche Anforderung:** User wollte autonome Overnight-Implementierung
+**Was schief lief:**
+1. Edge Functions direkt im Hauptchat geschrieben statt via Subagenten
+2. Tracker-Datei erstellt, aber nicht konsequent genutzt
+3. Hauptchat musste /compact ausführen → Kontext-Verlust
+
+**RICHTIGE Vorgehensweise für lange autonome Tasks:**
+```
+1. TRACKER-DATEI erstellen (z.B. docs/IMPLEMENTATION_TRACKER.md)
+   - Alle Tasks mit IDs und Status (pending/in_progress/done)
+   - Output-Pfade für jeden Task
+
+2. PRO TASK einen SUBAGENTEN starten:
+   Task-Tool mit subagent_type="general-purpose"
+   Prompt: "Lies docs/IMPLEMENTATION_TRACKER.md, bearbeite Task TX,
+            schreibe Output nach implementation/TX_output.md,
+            aktualisiere Tracker wenn fertig."
+
+3. HAUPTCHAT nur für:
+   - Tracker lesen
+   - Subagenten starten
+   - Kurze Status-Updates
+
+4. PARALLELE Subagenten wenn Tasks unabhängig
+
+5. BACKGROUND-MODE für lang laufende Tasks:
+   run_in_background: true
+```
+
+**Vorteile:**
+- Jeder Subagent hat eigenes Context Window
+- Hauptchat bleibt schlank
+- Nachvollziehbarkeit durch Output-Dateien
+- Kann stundenlang ohne Context-Overflow laufen
+
+**REGEL:** Bei Tasks > 2h IMMER dieses Pattern verwenden!
+
+---
+
+## Softr API
+
+### L067 - Softr Tables API: Felder erstellen
+**Datum:** 2026-01-29
+**Kontext:** Erinnerungs-Felder mussten in Softr angelegt werden
+**Lösung:** POST-Request an `/api/v1/databases/{db}/tables/{table}/fields`
+```bash
+curl -X POST "https://tables-api.softr.io/api/v1/databases/{DB_ID}/tables/{TABLE_ID}/fields" \
+  -H "Softr-Api-Key: {API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Erinnerung Status",
+    "type": "SELECT",
+    "options": {
+      "choices": [
+        {"label": "Aktiv", "color": "#20956f"},
+        {"label": "Pausiert", "color": "#727272"}
+      ]
+    }
+  }'
+```
+**Unterstützte Typen:** SELECT, SINGLE_LINE_TEXT, NUMBER, DATETIME, etc.
+**Einschränkung:** PATCH für Feld-Updates wird NICHT unterstützt (nur für Records)
+
+### L068 - 2-Phasen-Erinnerungslogik für Mängelmanagement
+**Datum:** 2026-01-29
+**Kontext:** NU soll Erinnerungen bekommen bis Foto hochgeladen, dann BL zur Abnahme
+**Lösung:** Automatischer Phasenwechsel basierend auf `fotos_nachweis_nu`:
+```
+Phase 1 (NU-Erinnerung):
+  Bedingung: erinnerung_status='Aktiv' UND fotos_nachweis_nu LEER
+  → E-Mail an NU alle 2 Tage
+
+Phase 2 (BL-Erinnerung):
+  Bedingung: fotos_nachweis_nu BEFÜLLT UND status_mangel ≠ 'Abgenommen'
+  → E-Mail an Bauleiter alle 2 Tage
+
+Stopp:
+  - status_mangel enthält 'Abgenommen' oder 'Abgeschlossen'
+  - erinnerung_status = 'Pausiert' oder NULL
+```
+**Vorteil:** Kein manueller Statuswechsel nötig, Foto-Upload triggert automatisch Phase 2
+**Implementierung:** mangel-reminder v13 mit `hasNachweisPhoto()` Prüfung
+
+---
+
+## MS365 Graph API
+
+### L069 - Client Credentials Flow (Application Permissions)
+**Datum:** 2026-01-29
+**Problem:** refresh_token-basierter Flow erfordert User-Login
+**Lösung:** Client Credentials Flow für Server-zu-Server:
+```javascript
+// Kein User-Login nötig!
+const response = await fetch(tokenUrl, {
+  method: 'POST',
+  body: new URLSearchParams({
+    client_id: MS365_CLIENT_ID,
+    client_secret: MS365_CLIENT_SECRET,
+    scope: 'https://graph.microsoft.com/.default',
+    grant_type: 'client_credentials',  // <-- Wichtig!
+  }),
+});
+```
+**Voraussetzung:** Application Permissions (nicht Delegated) + Admin Consent
+
+### L070 - Graph API: 404 statt 403 bei Permission-Fehlern
+**Datum:** 2026-01-29
+**Problem:** Download gibt 404 obwohl Datei existiert
+**Ursache:** Microsoft versteckt Existenz wenn Permissions fehlen (Sicherheits-Feature)
+**Fazit:** Bei 404 IMMER auch Permissions prüfen, nicht nur ob Datei existiert
+
+### L071 - Admin Consent für Application Permissions
+**Datum:** 2026-01-29
+**Problem:** Application Permissions funktionieren nicht ohne Admin Consent
+**Lösung:** Azure Portal → App Registrations → API Permissions → "Administratorzustimmung erteilen"
+**Rollen die Consent geben können:** Global Administrator, Cloud Application Administrator
+
+---
+
+## Cloud-Dienste / Performance
+
+### L072 - PFLICHT: Batch API für langläufige KI-Tasks
+**Datum:** 2026-01-29
+**Kontext:** Blog-Pipeline Writer-Schritt timeouted bei Supabase Edge Functions (60s Limit)
+**REGEL:** Bei Cloud-Diensten (Supabase Edge Functions, Netlify Functions, etc.) IMMER Batch-Processing verwenden wenn:
+1. API-Calls > 30 Sekunden dauern können
+2. Mehrere Items verarbeitet werden
+3. Kosten eine Rolle spielen (Batch ist 50% günstiger)
+
+**OpenAI Batch API Pattern:**
+```
+1. SUBMIT: POST /batches mit JSONL-File von Requests
+2. POLL: GET /batches/{id} alle 5-10 Min bis status='completed'
+3. PROCESS: GET /files/{output_file_id}/content → Ergebnisse verarbeiten
+```
+
+**Implementierung für Blog-Pipeline:**
+```
+blog-batch-submit: Erstellt Batch mit 5-10 Artikeln
+blog-batch-poll: Cron alle 10 Min, prüft Status
+blog-batch-process: Verarbeitet fertige Ergebnisse
+```
+
+**Vorteile:**
+- Kein Timeout-Problem (async Verarbeitung)
+- 50% günstiger als synchrone API
+- Skaliert auf 100+ Artikel/Tag
+- Retry bei Fehlern automatisch
+
+**Regel:** Bei JEDER neuen Integration mit KI/LLMs ZUERST prüfen ob Batch-Processing möglich
+
+---
+
+## Supabase Storage
+
+### L073 - Storage-Bucket muss existieren
+**Datum:** 2026-01-29
+**Problem:** Edge Function Upload scheitert mit "Bucket not found"
+**Kontext:** sharepoint-sync versuchte in `dokumente` Bucket zu schreiben, der nicht existierte
+**Lösung:** VOR Deployment prüfen ob Bucket existiert:
+```javascript
+// Buckets auflisten
+const buckets = await mcp__supabase__list_storage_buckets();
+// Bucket erstellen oder existierenden verwenden
+```
+**Debugging:** "Bucket not found" Fehler kommt vom Upload, nicht vom Download!
+**Regel:** Bei neuen Edge Functions die Storage nutzen IMMER erst Buckets prüfen
+
+### L074 - Unique-Constraints bei generierten IDs
+**Datum:** 2026-01-29
+**Problem:** DB-Insert scheiterte mit Unique-Constraint-Verletzung
+**Kontext:** `dokument_nr = SP-${item.id.substring(0, 8)}` - mehrere SharePoint-Items begannen mit `01VBIR76`
+**Ursache:** 8 Zeichen zu wenig für Eindeutigkeit bei SharePoint-IDs
+**Lösung:** Mehr Zeichen verwenden:
+```javascript
+// FALSCH: Nur 8 Zeichen
+const dokumentNr = `SP-${item.id.substring(0, 8)}`;  // SP-01VBIR76 (Kollision!)
+
+// RICHTIG: 16 Zeichen
+const dokumentNr = `SP-${item.id.substring(0, 16)}`;  // SP-01VBIR76AYC2DRVZ (eindeutig)
+```
+**Regel:** Bei IDs aus externen Systemen: Mindestens 12-16 Zeichen für Eindeutigkeit
+
+### L075 - Error-Handling für DB-Operationen in Edge Functions
+**Datum:** 2026-01-29
+**Problem:** Edge Function meldete Erfolg obwohl DB-Inserts scheiterten
+**Kontext:** `itemsProcessed++` wurde IMMER erhöht, auch wenn Insert fehlschlug
+**Lösung:** Fehler prüfen und zählen:
+```javascript
+// FALSCH: Kein Error-Handling
+await supabase.from('tabelle').insert(record);
+result.itemsProcessed++;  // Zählt auch bei Fehler!
+
+// RICHTIG: Mit Error-Handling
+const { error } = await supabase.from('tabelle').insert(record);
+if (error) {
+  result.errors++;
+  result.errorDetails.push(`${item.name}: ${error.message}`);
+  return;  // Nicht als Erfolg zählen!
+}
+result.itemsProcessed++;
+```
+**Regel:** ALLE DB-Operationen in Edge Functions müssen error-geprüft werden
+
+---
+
+## Blog-Pipeline / Cornerstone-Content
+
+### L076 - max_completion_tokens für lange Artikel
+**Datum:** 2026-01-29
+**Kontext:** 3000-Wörter Cornerstone-Artikel mit OpenAI Batch API
+**Problem:** Artikel waren mit 4000 Tokens nur ~800-1200 Wörter
+**Lösung:** Token-Limits nach Wortanzahl staffeln:
+```javascript
+// Wort-zu-Token Verhältnis: ~1.3 Tokens pro Wort (Deutsch)
+// 3000 Wörter ≈ 4000 Tokens für Content
+// + Strukturierung + Redundanz = 12000 Tokens sicher
+
+const maxTokens = isCornerstone ? 12000 : 4000;
+```
+**Faustregel:** Für 3000 Wörter → mindestens 10.000-12.000 max_completion_tokens
+**Ergebnis:** 2.999 Wörter erreicht (praktisch Zielwert)
+
+### L077 - Cornerstone-Detection in Blog-Pipeline
+**Datum:** 2026-01-29
+**Kontext:** Unterscheidung normale Artikel vs. Pillar-Content
+**Lösung:** Zwei Erkennungsmethoden:
+1. **Explizit:** `cornerstone: true` Parameter beim Submit
+2. **Automatisch:** `priority >= 100` in blog_keywords
+**Implementierung:**
+```javascript
+const isCornerstone = cornerstone || kw.priority >= 100;
+if (isCornerstone) {
+  // Längerer Prompt mit 10-Sektionen-Struktur
+  // 12000 max_completion_tokens statt 4000
+}
+```
+**Prompt-Struktur für Cornerstone:**
+1. Einleitung (300 Wörter)
+2. Definition & Abgrenzung (250 Wörter)
+3. Kosten-Überblick (400 Wörter)
+4. Ablauf Schritt-für-Schritt (500 Wörter)
+5. Lokaler Fokus Ruhrgebiet (300 Wörter)
+6. Förderungen & Finanzierung (300 Wörter)
+7. Häufige Fehler (250 Wörter)
+8. Checkliste (200 Wörter)
+9. FAQ (300 Wörter)
+10. Fazit + CTA (200 Wörter)
+
+---
+
+## WordPress REST API
+
+### L078 - WordPress Application Passwords für API-Zugriff
+**Datum:** 2026-01-29
+**Kontext:** Blog-Artikel von Supabase nach WordPress synchronisieren
+**Lösung:** WordPress Application Passwords (seit WP 5.6):
+```javascript
+// Basic Auth mit Application Password
+const credentials = `${username}:${appPassword}`;
+const authHeader = `Basic ${btoa(credentials)}`;
+
+// POST erstellen
+await fetch(`${wpUrl}/wp-json/wp/v2/posts`, {
+  method: 'POST',
+  headers: {
+    'Authorization': authHeader,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: 'Titel',
+    content: '<p>Inhalt</p>',
+    status: 'publish',
+    slug: 'mein-slug'
+  })
+});
+```
+**Erstellen:** WordPress Admin → Benutzer → Profil → "Anwendungspasswörter"
+**Hinweis:** Generiertes Passwort nur einmal sichtbar!
+
+### L079 - WordPress REST API: POST für Create und Update
+**Datum:** 2026-01-29
+**Problem:** Annahme dass PUT für Updates nötig ist
+**Wahrheit:** WordPress REST API verwendet POST für beides:
+- `POST /wp-json/wp/v2/posts` → Neuen Post erstellen
+- `POST /wp-json/wp/v2/posts/{id}` → Bestehenden Post aktualisieren
+**Alternative:** PUT funktioniert auch für Updates, aber POST ist konsistenter
+
+### L080 - WordPress Slug-basierte Duplikat-Prüfung
+**Datum:** 2026-01-29
+**Kontext:** Prüfen ob Blog-Post bereits in WordPress existiert
+**Lösung:** Zwei-Schritt-Verfahren:
+1. Wenn `wordpress_post_id` vorhanden: GET `/wp-json/wp/v2/posts/{id}`
+2. Fallback: GET `/wp-json/wp/v2/posts?slug={slug}&status=any`
+**Wichtig:** `status=any` um auch Entwürfe und private Posts zu finden
+**Ergebnis:** Keine Duplikate, bestehende Posts werden aktualisiert
+
+---
+
+## Supabase RLS
+
+### L081 - RLS-Policies für anonyme User bei öffentlichen Seiten
+**Datum:** 2026-01-29
+**Problem:** Marketing-Seite war leer obwohl 9 Blog-Posts existierten
+**Ursache:** RLS-Policies nur für `authenticated` Rolle, Seite nutzt `anon` Key ohne Login
+**Lösung:** Explizite Policy für anonyme Leser hinzufügen:
+```sql
+CREATE POLICY "Anon users can read blog_posts"
+ON blog_posts FOR SELECT TO anon USING (true);
+```
+**Regel:** Bei öffentlichen Seiten ohne Login IMMER prüfen ob `anon` Rolle SELECT-Rechte hat
+
+### L082 - WordPress Application Password User-Rollen
+**Datum:** 2026-01-29
+**Problem:** WordPress API gibt 401 "nicht berechtigt, Beiträge zu erstellen"
+**Ursache:** Der WordPress-User hat keine ausreichenden Rechte (nur "Abonnent" o.ä.)
+**Lösung:** User muss mindestens Rolle "Redakteur" oder "Administrator" haben
+**Prüfung:** WordPress Admin → Benutzer → Rolle ändern
+**Hinweis:** Application Password allein reicht nicht - der User dahinter braucht Schreibrechte
+
+---
+
+*Aktualisiert: 2026-01-29 18:30*

@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-01-28
+**Stand:** 2026-01-29
 
 ---
 
@@ -25,6 +25,763 @@
 | LOG-015 | 2026-01-28 | Hero PDF-Sync - Vollständige Migration | Abgeschlossen |
 | LOG-016 | 2026-01-28 | Schlussrechnung-Nachweis-Check Edge Function | Abgeschlossen |
 | LOG-017 | 2026-01-28 | Hero-Sync Beträge-Bug-Fix + Wiederherstellung | Abgeschlossen |
+| LOG-018 | 2026-01-28 | Blog-Pipeline Planung (3-Agenten-System) | Geplant |
+| LOG-019 | 2026-01-28 | Wissens-Indizierung für Blog-Pipeline | Abgeschlossen |
+| LOG-020 | 2026-01-29 | Nachweis-Logik Analyse (Ausführungsarten) | Abgeschlossen |
+| LOG-021 | 2026-01-29 | Wissens-Indizierung Phase 2 (Wettbewerb + Business Plan) | Abgeschlossen |
+| LOG-022 | 2026-01-29 | Ausführungsart-basierte Nachweis-Filterung v19 | Abgeschlossen |
+| LOG-023 | 2026-01-29 | Blog-Pipeline Plan Finalisierung | Abgeschlossen |
+| LOG-024 | 2026-01-29 | Dokumentenmanagement-System: Telegram-Bot + SharePoint-Sync | Abgeschlossen |
+| LOG-025 | 2026-01-29 | Telegram-Bot v2.0 + Edge Function Backups | Abgeschlossen |
+| LOG-026 | 2026-01-29 | Blog-Pipeline Implementierung (T1-T8) | Abgeschlossen |
+| LOG-027 | 2026-01-29 | Mängel-Erinnerungssystem: 2-Phasen-Logik | Abgeschlossen |
+| LOG-028 | 2026-01-29 | SharePoint-Sync: Client Credentials Flow | Abgeschlossen |
+| LOG-029 | 2026-01-29 | Blog-Pipeline: Cornerstone 3000-Wörter-Artikel | Abgeschlossen |
+| LOG-030 | 2026-01-29 | Blog-WordPress-Sync Edge Function | Abgeschlossen |
+| LOG-031 | 2026-01-29 | WordPress-Sync v3 + Marketing-RLS-Fix | Abgeschlossen |
+
+---
+
+## LOG-031 - WordPress-Sync v3 + Marketing-RLS-Fix
+
+**Datum:** 2026-01-29 ~18:00 - 18:30
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+WordPress-Sync Edge Function erweitert für direkte Veröffentlichung bei Freigabe im ERP + RLS-Policy für Marketing-Seite gefixt.
+
+### Durchgeführte Arbeiten
+
+1. **WordPress-Sync v3 deployed:**
+   - Neuer Mode: `freigeben` - Push + sofort veröffentlichen
+   - Mode: `draft` - Nur als Entwurf für Vorschau
+   - Mode: `unpublish` - Zurück auf Draft setzen
+   - Korrektur Username (lowercase): `wcksjjdrwwtx6cona4pc`
+   - Test-Mode für Verbindungsprüfung
+
+2. **Marketing-Seite RLS-Fix:**
+   - Problem: Seite war leer (nur authenticated User konnten lesen)
+   - Lösung: RLS-Policy `Anon users can read blog_posts` hinzugefügt
+   - Migration: `add_anon_read_blog_posts`
+
+3. **WordPress-Auth Problem identifiziert:**
+   - API-Verbindung funktioniert (Test erfolgreich, 3 Posts)
+   - 401 bei POST: "Du bist mit deiner Benutzerrolle leider nicht berechtigt"
+   - Ursache: WordPress-User hat keine Editor/Admin-Rolle
+   - **Fix benötigt:** In WordPress diesem User die Rolle "Redakteur" geben
+
+### Technische Details
+
+**wordpress-sync Modi:**
+```
+mode: 'test'      → Verbindung prüfen
+mode: 'freigeben' → Push + sofort veröffentlichen (blog_post_id erforderlich)
+mode: 'draft'     → Nur als Entwurf pushen
+mode: 'unpublish' → Veröffentlichten Post zurück auf Draft
+```
+
+**RLS-Policy:**
+```sql
+CREATE POLICY "Anon users can read blog_posts"
+ON blog_posts FOR SELECT TO anon USING (true);
+```
+
+### Offene Punkte
+
+- [ ] WordPress-User `wcksjjdrwwtx6cona4pc` Rolle "Redakteur" geben
+- [ ] Dann Test-Artikel veröffentlichen
+
+---
+
+## LOG-030 - Blog-WordPress-Sync Edge Function
+
+**Datum:** 2026-01-29 ~17:00 - 17:15
+**Dauer:** ~15 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Implementierung einer Edge Function zur Synchronisation von Blog-Artikeln von Supabase nach WordPress.
+
+### Durchgeführte Arbeiten
+
+1. **Recherche WordPress REST API:**
+   - Application Passwords seit WordPress 5.6 verfügbar
+   - Basic Auth mit Base64-encoded Credentials
+   - POST /wp-json/wp/v2/posts für Create/Update
+
+2. **Edge Function `blog-wordpress-sync` v1 deployed:**
+   - Holt alle blog_posts mit status='veroeffentlicht' und review_status='approved'
+   - Duplikat-Check via wordpress_post_id oder Slug
+   - Erstellt neue Posts oder aktualisiert bestehende
+   - Speichert wordpress_post_id, wordpress_synced_at, wordpress_sync_status
+
+3. **Features:**
+   - `dry_run: true` Parameter für sichere Tests
+   - `post_id` Parameter für einzelnen Post
+   - Fehler-Status wird in Supabase gespeichert
+   - Rate-Limiting-Pause (500ms) zwischen Posts
+
+### Technische Details
+
+**WordPress REST API Authentication:**
+```javascript
+const authHeader = `Basic ${btoa(`${username}:${app_password}`)}`;
+```
+
+**Benötigte Secrets:**
+- WORDPRESS_URL (Default: https://neurealis.de)
+- WORDPRESS_USER
+- WORDPRESS_APP_PASSWORD
+
+**Application Password erstellen:**
+1. WordPress Admin -> Benutzer -> Profil
+2. Runterscrollen zu "Anwendungspasswörter"
+3. Name eingeben (z.B. "Supabase Sync")
+4. "Neues Anwendungspasswort hinzufügen"
+5. Generiertes Passwort kopieren (nur einmal sichtbar!)
+
+### Nächste Schritte
+
+1. WordPress Application Password erstellen
+2. Secrets in Supabase setzen
+3. Dry-Run testen
+4. Live-Sync durchführen
+5. Optional: Cron-Job für automatischen Sync einrichten
+
+---
+
+## LOG-028 - SharePoint-Sync: Client Credentials Flow
+
+**Datum:** 2026-01-29 ~12:00 - 14:30
+**Dauer:** ~2,5 Stunden
+**Status:** Abgeschlossen ✅
+
+### Zusammenfassung
+
+Umstellung SharePoint-Sync von Delegated Permissions (refresh_token) auf Application Permissions (Client Credentials Flow). **Alle Probleme behoben.**
+
+### Durchgeführte Änderungen
+
+**Azure AD App:**
+- Application Permissions: Sites.Read.All, Files.Read.All
+- Admin Consent erteilt
+- Delegated Permissions zusätzlich konfiguriert
+
+**Edge Function `sharepoint-sync` (v5 → v9):**
+- v5: Client Credentials Flow (kein User-Login)
+- v6: Delta-Query ohne $select
+- v7: Debug-Logging hinzugefügt
+- v8: Storage-Bucket von `dokumente` (existiert nicht!) auf `softr-files` umgestellt
+- v9: `dokument_nr` von 8 auf 16 Zeichen erweitert (Unique-Constraint)
+
+### Behobene Probleme
+
+| Problem | Ursache | Lösung |
+|---------|---------|--------|
+| Download-Fehler | Storage-Bucket `dokumente` existierte nicht | Auf `softr-files` umgestellt |
+| DB-Insert scheiterte | `dokument_nr` Unique-Constraint (8 Zeichen zu kurz, mehrere IDs beginnen mit `01VBIR76`) | Auf 16 Zeichen erweitert |
+| Fehler nicht erkannt | Insert/Update ohne Error-Handling | Fehler werden jetzt geloggt |
+
+### Finaler Status
+
+| Komponente | Status | Details |
+|------------|--------|---------|
+| Token-Abruf | ✅ | Client Credentials funktioniert |
+| Sites.Read.All | ✅ | Site-ID, Drive-ID abrufbar |
+| Files.Read.All | ✅ | Delta-Query gibt Items |
+| Download | ✅ | 302 → Location → Blob |
+| Storage-Upload | ✅ | softr-files Bucket |
+| DB-Insert | ✅ | 14 Dokumente synchronisiert |
+
+### Test-Ergebnis
+
+```json
+{
+  "success": true,
+  "version": 9,
+  "filesDownloaded": 13,
+  "errors": 0,
+  "storage_bucket": "softr-files"
+}
+```
+
+### Neue Erkenntnisse (L073-L075)
+
+- L073: Storage-Bucket muss existieren bevor Edge Function darauf schreibt
+- L074: Unique-Constraints bei generierten IDs - Prefix-Länge prüfen!
+- L075: Immer Error-Handling für DB-Operationen in Edge Functions
+
+---
+
+## LOG-029 - Blog-Pipeline: Cornerstone 3000-Wörter-Artikel
+
+**Datum:** 2026-01-29 ~16:00 - 16:45
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen ✅
+
+### Zusammenfassung
+
+Erfolgreicher Test der Blog-Pipeline mit OpenAI Batch API für lange Cornerstone-Artikel (3000 Wörter).
+
+### Durchgeführte Änderungen
+
+**blog-batch-submit v6:**
+- `max_completion_tokens: 12000` für Cornerstone-Artikel (statt 4000)
+- Cornerstone-Detection: `priority >= 100` ODER expliziter Parameter
+- Erweiterter System-Prompt mit 10-Sektionen-Struktur für 3000+ Wörter
+- Pflicht-Abschnitte definiert (Einleitung, Kosten, Ablauf, Förderungen, etc.)
+
+**blog-batch-poll v4:**
+- Deutsche Status-Werte (`entwurf`, `veroeffentlicht`)
+- Erweiterte Status-Suche (`submitted`, `validating`, `in_progress`, `finalizing`)
+
+### Test-Ergebnis
+
+**Eingabe:**
+- Keyword: "kernsanierung komplettsanierung dortmund 2026"
+- Priority: 100 (Cornerstone)
+- max_completion_tokens: 12000
+
+**Ausgabe:**
+- Titel: "Kernsanierung & Komplettsanierung in Dortmund 2026: Ablauf, Kosten, Förderungen und Praxis-Guide fürs Ruhrgebiet"
+- **word_count: 2.999** (praktisch 3000!)
+- Status: veroeffentlicht
+- Cluster: pillar-1-sanierung
+
+### Erstellte Artikel (gesamt)
+
+| Artikel | Wörter | Typ |
+|---------|--------|-----|
+| Kernsanierung Komplettsanierung Dortmund 2026 | 2.999 | **Cornerstone** |
+| GEG Sanierungspflicht Vermieter 2026 | 1.123 | Standard |
+| Wohnung sanieren Kosten 2026 | 975 | Standard |
+| Wohnungssanierung Dortmund 2026 | 893 | Standard |
+| Komplettsanierung Bochum 2026 | 863 | Standard |
+| Badsanierung Dortmund 2026 | 853 | Standard |
+
+### Neue Erkenntnisse (L076-L077)
+
+- L076: max_completion_tokens: 12000 nötig für 3000-Wörter-Artikel
+- L077: OpenAI Batch API funktioniert zuverlässig auch für lange Content-Pieces
+
+---
+
+## LOG-027 - Mängel-Erinnerungssystem: 2-Phasen-Logik
+
+**Datum:** 2026-01-29 ~11:00 - 12:15
+**Dauer:** ~1,25 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Erweiterung des bestehenden `mangel-reminder` Systems um eine 2-Phasen-Logik:
+- Phase 1: NU erhält Erinnerungen bis Nachweis-Foto hochgeladen
+- Phase 2: Bauleiter erhält Erinnerungen zur Abnahme
+
+### Implementierte Änderungen
+
+**Supabase:**
+- Spalte `erinnerung_status` (Default: 'Aktiv')
+- Spalte `letzte_erinnerung_bl_am` (Tracking BL)
+- Spalte `erinnerung_bl_count` (Anzahl BL-Erinnerungen)
+
+**Softr (via API erstellt):**
+- Erinnerung Status (Select: Aktiv/Pausiert)
+- Letzte Erinnerung NU (DateTime)
+- Erinnerung Count NU (Number)
+- Letzte Erinnerung BL (DateTime)
+- Erinnerung Count BL (Number)
+
+**Edge Function:**
+- `mangel-reminder` v13 deployed
+- 2-Phasen-Logik implementiert
+- Auto-Stopp bei status_mangel = 'Abgenommen'
+
+### Logik
+
+```
+PHASE 1: NU-Erinnerung
+  Wenn: erinnerung_status='Aktiv' UND fotos_nachweis_nu LEER
+  → E-Mail an NU alle 2 Tage
+
+PHASE 2: BL-Erinnerung (automatisch)
+  Wenn: fotos_nachweis_nu BEFÜLLT UND nicht abgenommen
+  → E-Mail an Bauleiter alle 2 Tage
+
+STOPP:
+  - status_mangel = 'Abgenommen'
+  - erinnerung_status = 'Pausiert'
+```
+
+### Neue Erkenntnisse
+
+- Softr Tables API unterstützt POST /fields zum Erstellen von Feldern
+- Softr Tables API unterstützt KEIN PATCH für Feld-Updates (nur Records)
+- Field-Mapping in `softr_sync_config` für bidirektionalen Sync
+
+---
+
+## LOG-026 - Blog-Pipeline Implementierung (T1-T8)
+
+**Datum:** 2026-01-29 ~08:30 - 16:00
+**Dauer:** ~7 Stunden
+**Status:** Abgeschlossen (T9 E2E-Test noch offen)
+
+### Zusammenfassung
+
+Vollständige Implementierung der automatisierten Blog-Pipeline für SEO-optimierte Blogartikel. 8 von 9 Tasks abgeschlossen, End-to-End-Test hat Timeout-Problem.
+
+### Implementierte Komponenten
+
+**T1 - DB-Migrationen:**
+- `blog_keywords` Tabelle (23 Test-Keywords)
+- `blog_pipeline_runs` Tabelle (Pipeline-Tracking)
+- `blog_posts` erweitert (embedding, cluster, confidence_score, etc.)
+- RPCs: `search_similar_blog_posts`, `get_next_blog_keyword`
+
+**T2-T6 - Edge Functions (alle deployed):**
+
+| Function | Version | Beschreibung |
+|----------|---------|--------------|
+| `blog-editor` | v1 | Redaktionschef - Briefing erstellen |
+| `blog-research` | v3 | Web-Recherche via Chat Completions |
+| `blog-writer` | v2 | SEO-Artikel mit Brand Voice |
+| `blog-orchestrate` | v2 | Pipeline-Koordinator |
+| `blog-crosslink` | v2 | Wöchentliche Embedding-Vernetzung |
+
+**T7 - Test-Keywords:**
+23 Keywords in 4 Clustern eingefügt:
+- pillar-1-sanierung (8 Keywords)
+- pillar-2-vermieter (7 Keywords)
+- pillar-3-regional (4 Keywords)
+- pillar-4-kompass (4 Keywords)
+
+**T8 - Cron-Jobs:**
+- `blog-orchestrate-daily`: `0 8 * * *` (täglich 8:00 UTC)
+- `blog-crosslink-weekly`: `0 6 * * 0` (sonntags 6:00 UTC)
+
+### Einzeltest-Ergebnisse
+
+| Function | Status | Ergebnis |
+|----------|--------|----------|
+| blog-editor | ✅ | Vollständiges Briefing JSON, 2 interne Links |
+| blog-research | ✅ | 6 Fakten, Trends, Lokaldaten NRW |
+| blog-writer | ✅ | 1.126 Wörter, 6 interne Links, Confidence 0.6 |
+
+### Bekanntes Problem (T9)
+
+**E2E-Test scheitert:** blog-orchestrate ruft sequentiell editor→research→writer auf. Der writer-Call endet mit "Keine Antwort von OpenAI erhalten" (Timeout).
+
+**Ursache:** Edge Function Timeout (60s) wird bei Chain von 3 API-Calls überschritten.
+
+**Lösungsansätze:**
+1. Async/Callback-Pattern
+2. Queue-basierte Verarbeitung
+3. Supabase Pro Plan (150s Timeout)
+
+### Neue Learnings
+
+- L062: OpenAI Responses API vs. Chat Completions
+- L063: verify_jwt für interne Edge Function Calls
+- L064: Edge Function Timeouts bei Chain-Calls
+- L065: Supabase Cron mit pg_cron
+
+### Kritik / Lessons Learned
+
+**Problem:** Hauptchat-Kontext wurde durch Edge Function Code gefüllt statt Subagenten zu nutzen.
+
+**Besserer Ansatz für Overnight-Tasks:**
+1. Tracker-Datei für Koordination (`docs/IMPLEMENTATION_TRACKER.md`)
+2. Subagenten für jeden Task mit eigener Output-Datei
+3. Hauptchat nur für Koordination und Status-Updates
+4. `run_in_background: true` für lang laufende Tasks
+
+---
+
+## LOG-025 - Telegram-Bot v2.0 + Edge Function Backups
+
+**Datum:** 2026-01-29 ~11:00
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Telegram-Bot v2.0 mit vollständiger Mangel/Nachtrag/Foto-Funktionalität implementiert.
+Edge Function Backup-Strategie etabliert.
+
+### Telegram-Bot v2.0 Features
+
+- **Mangel erfassen:** KI-Analyse splittet mehrere Mängel automatisch
+- **Nachtrag erfassen:** Mit Foto-Upload und Beschreibung
+- **Foto-Upload:** In Supabase Storage (neuer `fotos` Bucket)
+- **Sprach-zu-Text:** Whisper-Integration für mehrsprachige Eingabe (DE, RU, HU, RO, PL)
+- **Nachweis-Upload:** Typ-Auswahl (Rohinstallation, E-Check, etc.)
+- **Kritische Regel:** Mängel/Nachträge/Fotos NUR wenn Projekt geöffnet!
+
+### Edge Functions Backup
+
+Wichtige Erkenntnis: Bedarfsanalyse und Aufmaß sind **separate** Functions, wurden NICHT überschrieben:
+
+| Function | Version | Status |
+|----------|---------|--------|
+| `process-bedarfsanalyse` | v31 | ✅ Aktiv |
+| `process-aufmass-complete` | v29 | ✅ Aktiv |
+| `generate-aufmass-excel` | v20 | ✅ Aktiv |
+| `telegram-webhook` | v46 | ✅ Neu deployed |
+
+Backups erstellt in `backups/edge-functions/`:
+- `process-bedarfsanalyse_v31.ts`
+- `process-aufmass-complete_v29.ts`
+
+### SharePoint-Sync
+
+- Edge Function deployed, aber Download-Fehler (Token-Problem)
+- Subagent arbeitet an Fix
+
+### Neue Learnings
+
+- L058: Nie bestehende Edge Functions überschreiben
+- L059: Parallele Subagenten für komplexe Implementierungen
+- L060: Backups von Edge Functions erstellen
+- L061: Edge Functions Struktur verstehen
+
+---
+
+## LOG-024 - Dokumentenmanagement-System: Telegram-Bot + SharePoint-Sync
+
+**Datum:** 2026-01-29 ~02:00
+**Dauer:** ~60 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Ganzheitliches Dokumentenmanagement-System geplant und erste Komponenten implementiert:
+- Telegram-Bot für Baustellen-Kommunikation
+- SharePoint-Sync für ~90 GB Unternehmensdaten
+- 4-stufiges Sicherheitskonzept (RLS)
+
+### Architektur-Entscheidungen
+
+**Ingest-Quellen (Priorität):**
+1. Telegram-Bot (Prio 1) - Fotos, Mängel, Nachträge, Sprache
+2. SharePoint-Sync (Prio 2) - ~90 GB, parallel im Hintergrund
+3. Teams-Transkripte (Prio 3) - Graph API
+4. E-Mail + Hero (existiert bereits)
+
+**Sicherheitsstufen:**
+| Stufe | Zugriff | Beispiel |
+|-------|---------|----------|
+| 1 | Alle Mitarbeiter | Projekte, Marketing |
+| 2 | Bauleiter + GF | Preise, Vertrieb |
+| 3 | GF + Buchhaltung | Finanzen |
+| 4 | Nur GF | Personal, Management |
+
+### DB-Migrationen (6 Stück)
+
+1. `kontakt_typen` - 9 Rollen (ADM, GF, BL, HW, BH, NU, LI, KU, AP)
+2. `fotos` - Baustellen-Fotos mit Kategorien + Vision-Labels
+3. `telegram_sessions` - Bot-State pro Chat
+4. `erinnerungen` - Erinnerungs-System
+5. `kontakte` erweitert - telegram_chat_id, rolle, sprache
+6. `dokumente` - sicherheitsstufe + Umlaute korrigiert
+
+### Edge Functions Deployed
+
+| Function | Version | Beschreibung |
+|----------|---------|--------------|
+| `telegram-webhook` | v44 | Bot-Handler, verify_jwt: false |
+| `sharepoint-sync` | v1 | Delta-Sync, Sicherheitsstufen |
+
+### Telegram-Bot Features
+
+- `/start`, `/hilfe`, `/projekt`, `/heute`, `/status`
+- Foto-Upload mit Kategorisierung (Mangel, Nachtrag, Nachweis, Doku)
+- Sprach-Auswahl (DE, RU, HU, RO, PL)
+- Projekt-Suche via ATBS oder Adresse
+
+### SharePoint-Sync Konfiguration
+
+**Download:** PDF, DOCX, XLSX, JPG, PNG (max 50 MB)
+**Link-Only:** MP4, MOV, AVI (Videos nur verlinken)
+**Ausgeschlossen:** HN Privat, H&H Privat, Mieterservice
+
+### Parallele Subagenten
+
+3 Subagenten gleichzeitig für maximale Effizienz:
+1. DB-Migrationen
+2. Telegram-Bot
+3. SharePoint-Sync (im Hintergrund)
+
+### Nächste Schritte
+
+1. Telegram-Bot testen (@neurealis_bedarfsanalyse_bot)
+2. SharePoint-Sync starten (action=sync)
+3. Cron-Jobs einrichten
+4. RLS-Policies implementieren
+
+---
+
+## LOG-023 - Blog-Pipeline Plan Finalisierung
+
+**Datum:** 2026-01-29 ~01:30
+**Dauer:** ~20 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Detaillierten Blog-Pipeline-Plan erstellt, optimal auf neurealis Komplettsanierung zugeschnitten.
+
+### Erstellte Dokumentation
+
+**Datei:** `docs/blog_pipeline/BLOG_PIPELINE_PLAN.md`
+
+**Inhalte:**
+- 3-Agenten-Architektur (Editor → Research → Writer)
+- 4 Themen-Cluster (Sanierung, Vermieter, Regional, Sanierungskompass)
+- Brand Voice Guidelines mit neurealis-USPs
+- DB-Schema (blog_keywords, blog_pipeline_runs, Embeddings)
+- 5 Edge Functions spezifiziert
+- Implementierungs-Roadmap (5 Phasen)
+- Erfolgskriterien (30+ Artikel in 3 Monaten)
+
+### Verwendete Wissensquellen
+
+- `wissen/marketing_strategie.md` - Content-Cluster, Sanierungskompass
+- `wissen/business_strategie.md` - Zielgruppen, Schema N, USPs
+- `wissen/wettbewerber_analyse.md` - Differenzierung, Claims
+
+### Nächste Schritte
+
+1. Plan-Review durch User
+2. Phase 1: DB-Migrationen
+3. Phase 2: Edge Functions implementieren
+
+---
+
+## LOG-022 - Ausführungsart-basierte Nachweis-Filterung v19
+
+**Datum:** 2026-01-29 ~01:00
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Edge Function `schlussrechnung-nachweis-check` erweitert um intelligente Nachweis-Filterung basierend auf Ausführungsart (L051).
+
+### Implementierte Logik
+
+**Elektrik (color590__1):**
+| Ausführung | Rohinstallation E | E-Check |
+|------------|-------------------|---------|
+| Komplett | ✅ | ✅ |
+| Teil-Mod/Feininstall/E-Check | ❌ | ✅ |
+| Ohne | ❌ | ❌ |
+
+**Bad (status23__1):**
+| Ausführung | Rohinstallation S | Abdichtung |
+|------------|-------------------|------------|
+| Komplett | ✅ | ✅ |
+| Fliese auf Fliese | ❌ | ✅ |
+| Nur Austausch/Ohne | ❌ | ❌ |
+
+### Technische Änderungen
+
+- `ermittleErforderlicheNachweise()` - Neue Funktion für Ausführungsart-Mapping
+- `pruefeNachweise()` - Akzeptiert jetzt gefilterte Nachweisliste
+- Performance: Monday-Daten nur einmal laden (statt pro Schlussrechnung)
+- Typo-Toleranz: "feininstall" statt "feininstallation" für Matching
+- E-Mail-Template zeigt Ausführungsart zur Nachvollziehbarkeit
+
+### Ergebnis
+
+- 87 Schlussrechnungen geprüft
+- 295 erforderliche Nachweise (statt 348 bei immer 4)
+- 8 BV komplett ohne Nachweis-Anforderung
+- **~15% weniger falsche Nachweis-Anforderungen**
+
+### Git
+
+- Commit: `0174b62`
+- Push: ✅
+
+---
+
+## LOG-021 - Wissens-Indizierung Phase 2 (Wettbewerb + Business Plan)
+
+**Datum:** 2026-01-29 ~00:30
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Fortsetzung der Wissensindizierung für Blog-Pipeline. Wettbewerbsanalyse und Business Plan extrahiert und strukturiert.
+
+### Verarbeitete Dokumente
+
+| Dokument | Inhalt |
+|----------|--------|
+| Wettbewerbsanalyse – Überblick.pdf | 5 Wettbewerbergruppen, Positionierung, Marketing-Maßnahmen |
+| Business Plan 2025-04-12.txt | Vision, Zielgruppen, Schema N, Wachstumspfade (57k tokens) |
+
+### Erstellte Wissensdateien
+
+| Datei | Inhalt |
+|-------|--------|
+| `wettbewerber_analyse.md` | 5 Gruppen, 10+ Konkurrenten, SEO-Keywords, A/B-Tests |
+| `business_strategie.md` | Vision/Mission, Zielgruppen, Leistungspalette, Wachstumspfade |
+
+### Korrekturen
+
+- L049 korrigiert: Subagenten KÖNNEN lokal synchronisierte Dateien lesen
+
+### Wissens-Ordner komplett
+
+```
+wissen/
+├── README.md
+├── vertrieb_prozesse.md
+├── marketing_strategie.md
+├── wettbewerber_analyse.md
+└── business_strategie.md  ← NEU
+```
+
+---
+
+## LOG-020 - Nachweis-Logik Analyse (Ausführungsarten)
+
+**Datum:** 2026-01-29 ~00:00
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Analyse der Monday-Bauprozess-Spalten für Gewerks-Ausführungsarten. Ziel: Nachweis-E-Mails nur für tatsächlich ausgeführte Gewerke anfordern.
+
+### Analysierte Spalten
+
+| Spalte | Gewerk | Relevante Werte |
+|--------|--------|-----------------|
+| `color590__1` | Elektrik | Komplett, Teil-Mod, Austausch Feininstallation, Nur E-Check, Ohne |
+| `status23__1` | Bad | Komplett, Fliese auf Fliese, Nur Austausch Sanitärartikel, Ohne Bad |
+| `color78__1` | Boden | Vinyl (Planken), Laminat, Ausgleich, Holz schleifen, Fliesen, Ohne |
+| `color427__1` | Wände | Raufaser & Anstrich, 2x Anstrich, Q2 & Anstrich, Nur Spachteln, Ohne |
+| `color97__1` | Türen | Türblätter: neu \| Zarge: neu, lackieren \| lackieren, Ohne |
+| `color49__1` | Therme | Therme versetzen, Neue Therme, Asbestsanierung, Ohne Therme |
+
+### Nachweis-Logik definiert
+
+**Elektrik:**
+- Komplett → Rohinstallation Elektrik + E-Check
+- Teil-Mod/Austausch Feininstallation/Nur E-Check → nur E-Check
+- Ohne → keine Nachweise
+
+**Bad:**
+- Komplett → Rohinstallation Sanitär + Abdichtung
+- Fliese auf Fliese → nur Abdichtung
+- Nur Austausch Sanitärartikel/Ohne Bad → keine Nachweise
+
+### Dokumentation
+
+- L051 in learnings.md: Vollständige Nachweis-Logik nach Ausführungsart
+
+### Nächster Schritt
+
+- Edge Function erweitern um Ausführungsart-basierte Nachweis-Filterung
+
+---
+
+## LOG-019 - Wissens-Indizierung für Blog-Pipeline
+
+**Datum:** 2026-01-28 ~23:45
+**Dauer:** ~20 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Extraktion und Strukturierung von Sales/Marketing-Wissen aus internen PDFs für die Blog-Pipeline und Content-Marketing.
+
+### Verarbeitete Dokumente
+
+| Dokument | Inhalt |
+|----------|--------|
+| Besprechnung Angebot - Eil.pdf | Sales-Präsentation, 31 Folien, Ablauf Angebotsbesprechung |
+| Besprechnung Angebot - Blume.pdf | Privatkunden-Beispiel, DHH 120m², 159k€ |
+| Sanierungskompass.pdf | Beratungsprodukt, 3 Varianten (499-999€) |
+
+### Erstellte Wissensdateien
+
+```
+wissen/
+├── README.md             # Index
+├── vertrieb_prozesse.md  # Sales-Ablauf, USPs, Kennzahlen
+└── marketing_strategie.md # Sanierungskompass, Positionierung
+```
+
+### Extrahierte Kern-Informationen
+
+**Für Blog-Content:**
+- Kunden-Pain-Points mit Zahlen (600€/Monat Leerstand, +25% Nachträge)
+- USPs: Dreiklang, Fixpreis, Digitale Bausteuerung
+- Kennzahlen: 98% Termintreue, 95% Fixpreis-Quote, >500 Wohnungen
+- Content-Cluster: Sanierungswissen, Gewerke, Vermieterwissen, Regional
+
+**Für Sales-Schulung:**
+- 6-Phasen Angebotsbesprechung
+- Privat vs. B2B Unterschiede
+- Angebots-Beispiele mit Positionen
+
+---
+
+## LOG-018 - Blog-Pipeline Planung (3-Agenten-System)
+
+**Datum:** 2026-01-28 ~15:00
+**Dauer:** ~45 Minuten
+**Status:** Geplant (Implementierung ausstehend)
+
+### Zusammenfassung
+
+Vollständige Planung einer automatisierten Blog-Erstellungs-Pipeline mit 3-Agenten-Hierarchie (Redaktionschef, Recherche, Writer). Täglicher Cron-Trigger für SEO-optimierte Blogartikel.
+
+### Architektur geplant
+
+```
+CRON (täglich) → blog-orchestrate
+                      │
+    ┌─────────────────┼─────────────────┐
+    ▼                 ▼                 ▼
+blog-editor     blog-research     blog-writer
+(Themenwahl)    (Web-Recherche)   (Artikel)
+```
+
+### Geplante Edge Functions
+
+| Function | Verantwortung |
+|----------|---------------|
+| `blog-orchestrate` | Koordiniert Pipeline |
+| `blog-editor` | Themenwahl (Redaktionschef) |
+| `blog-research` | Web-Recherche via OpenAI |
+| `blog-writer` | Artikel schreiben |
+| `blog-crosslink` | Wöchentliche Nachvernetzung |
+
+### DB-Schema-Erweiterungen geplant
+
+- `blog_posts.embedding` (vector 1536) für Similarity Search
+- `blog_keywords` Tabelle für AHREFS-Daten
+- `blog_pipeline_runs` für Monitoring
+- RPC `search_similar_blog_posts` für Querverlinkung
+
+### Offene Punkte
+
+- AHREFS-Keywords: CSV-Import später
+- Wissen-Dateien: System-Prompt aufbereiten
+- Claude Opus 4.5: Später für Writer-Agent
+
+### Plan-Datei
+
+`C:\Users\holge\.claude\plans\tender-brewing-wigderson.md`
 
 ---
 

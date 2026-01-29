@@ -2,18 +2,19 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * mangel-reminder v3
+ * mangel-reminder v5
  *
- * Sendet automatische Erinnerungen für offene Mängel alle 2 Tage
- * - Prüft offene Mängel (status_mangel = '(0) Offen')
- * - Sendet Erinnerung an NU wenn nu_email vorhanden
+ * Sendet automatische Erinnerungen für Mängel alle 2 Tage
+ * - Nur Mängel mit erinnerung_status = 'Aktiv' werden verarbeitet
+ * - NEU v5: KEINE Erinnerung wenn status_mangel geschlossen ist
+ *   (Abgenommen, Abgeschlossen, Erledigt, Geschlossen)
+ * - Softr One-Click Edit setzt 'Aktiv' → Erinnerungen starten
  * - Trackt letzte_erinnerung_am und erinnerung_count
  * - Nutzt Microsoft Graph API für E-Mail-Versand
  * - Farbliche Status-Hervorhebung im Body
  * - Hinweis zur Schlussrechnung
- * - mangel_nr im Format ATBS-XXX-M1 (wie Nachträge)
  *
- * Aktualisiert: 2026-01-25
+ * Aktualisiert: 2026-01-29
  */
 
 const corsHeaders = {
@@ -28,6 +29,9 @@ const MS_CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 const SENDER_EMAIL = Deno.env.get('SMTP_FROM') || 'kontakt@neurealis.de';
 
 const REMINDER_INTERVAL_DAYS = 2;
+
+// Geschlossene Status-Werte - KEINE Erinnerung wenn status_mangel einen dieser Werte hat
+const CLOSED_STATUS_VALUES = ['Abgenommen', 'Abgeschlossen', 'Erledigt', 'Geschlossen'];
 
 interface Mangel {
   id: string;
@@ -45,6 +49,7 @@ interface Mangel {
   datum_frist: string | null;
   letzte_erinnerung_am: string | null;
   erinnerung_count: number;
+  erinnerung_status: string | null;
   fotos_mangel: any;
 }
 
@@ -90,7 +95,6 @@ neurealis GmbH, Kleyer Weg 40, 44149 Dortmund<br>
 
 // Erinnerungs-E-Mail Template für NU
 function templateReminderNU(m: Mangel, reminderCount: number): string {
-  // Status-Farben basierend auf Erinnerungszahl und Frist
   const now = new Date();
   const fristDate = m.datum_frist ? new Date(m.datum_frist) : null;
   const isOverdue = fristDate && fristDate < now;
@@ -265,15 +269,16 @@ Deno.serve(async (req: Request) => {
       { auth: { persistSession: false } }
     );
 
-    // 1. Finde offene Mängel die eine Erinnerung brauchen
+    // 1. Finde Mängel mit erinnerung_status = 'Aktiv' die eine Erinnerung brauchen
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - REMINDER_INTERVAL_DAYS);
 
-    // Hole alle offenen Mängel (auch ohne nu_email - wir holen die Daten vom Projekt)
+    // v5: Nur Mängel mit erinnerung_status = 'Aktiv' UND status_mangel NICHT geschlossen
     const { data: maengel, error: fetchError } = await supabase
       .from('maengel_fertigstellung')
       .select('*')
-      .in('status_mangel', ['(0) Offen', '(3) Überfällig'])
+      .eq('erinnerung_status', 'Aktiv')
+      .not('status_mangel', 'in', `(${CLOSED_STATUS_VALUES.map(s => `"${s}"`).join(',')})`)
       .or(`letzte_erinnerung_am.is.null,letzte_erinnerung_am.lt.${twoDaysAgo.toISOString()}`);
 
     if (fetchError) {
@@ -287,11 +292,10 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log(`Found ${maengel.length} Maengel needing reminders`);
+    console.log(`Found ${maengel.length} Maengel with erinnerung_status='Aktiv' needing reminders`);
     const results = [];
 
     for (const mangel of maengel as Mangel[]) {
-      // Variablen außerhalb try für catch-Block
       let nuEmail = mangel.nu_email;
       let nuName = mangel.nachunternehmer;
 
@@ -307,7 +311,6 @@ Deno.serve(async (req: Request) => {
 
           if (projekt?.column_values) {
             const cv = projekt.column_values as Record<string, any>;
-            // e_mail4__1 = NU E-Mail, text57__1 = NU Name
             const nuEmailFromProject = cv['e_mail4__1']?.value?.email || cv['e_mail4__1']?.text;
             const nuNameFromProject = cv['text57__1']?.value || cv['text57__1']?.text;
 
@@ -331,9 +334,7 @@ Deno.serve(async (req: Request) => {
           continue;
         }
 
-        // Verwende die gefundenen NU-Daten
         const mangelWithNU = { ...mangel, nu_email: nuEmail, nachunternehmer: nuName };
-
         const newCount = (mangel.erinnerung_count || 0) + 1;
         const mangelRef = mangel.mangel_nr || mangel.projekt_nr;
         const subject = `Erinnerung #${newCount}: Offener Mangel ${mangelRef}`;
@@ -342,7 +343,7 @@ Deno.serve(async (req: Request) => {
         // E-Mail senden
         await sendEmailViaGraph(nuEmail, subject, bodyContent);
 
-        // Mangel aktualisieren (inkl. nu_email falls neu gefunden)
+        // Mangel aktualisieren
         await supabase
           .from('maengel_fertigstellung')
           .update({
@@ -381,7 +382,6 @@ Deno.serve(async (req: Request) => {
       } catch (sendError) {
         console.error(`Failed to send reminder for ${mangel.id}:`, sendError);
 
-        // Fehler loggen
         await supabase
           .from('mangel_notifications')
           .insert({

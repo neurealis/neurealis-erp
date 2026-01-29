@@ -170,4 +170,98 @@
 
 ---
 
-*Aktualisiert: 2026-01-28*
+## Marketing / Blog
+
+### D018 - 3-Agenten-Blog-Pipeline
+**Datum:** 2026-01-28
+**Entscheidung:** Automatisierte Blog-Erstellung mit 3-Agenten-Hierarchie
+**Agenten:**
+1. **Redaktionschef** (blog-editor): Themenwahl basierend auf AHREFS-Keywords + Trends
+2. **Recherche-Agent** (blog-research): Web-Recherche via OpenAI Responses API
+3. **Writer-Agent** (blog-writer): Artikel schreiben mit Querverlinkung
+**Trigger:** Täglicher Cron-Job (08:00 UTC)
+**Grund:** Skalierbare SEO-Content-Erstellung für B2C-Markt-Eroberung
+**Alternative verworfen:** Manuelles Schreiben (nicht skalierbar), Single-Agent (zu komplex)
+
+### D019 - Embedding-basierte Querverlinkung
+**Datum:** 2026-01-28
+**Entscheidung:** Blog-Posts erhalten vector(1536) Embeddings für Similarity Search
+**Implementierung:**
+- `search_similar_blog_posts()` RPC für ähnliche Artikel
+- Writer-Agent erhält Top-5 ähnliche Posts für interne Verlinkung
+- Wöchentlicher `blog-crosslink` Job für Nachvernetzung
+**Grund:** SEO-Boost durch interne Verlinkung, Domain Rating erhöhen
+
+### D020 - OpenAI Responses API für Web-Recherche
+**Datum:** 2026-01-28
+**Entscheidung:** `web_search_preview` Tool in OpenAI Responses API nutzen
+**Grund:** Native Integration, keine zusätzliche API (z.B. Tavily) nötig
+**Einschränkung:** Abhängig von OpenAI-Verfügbarkeit des Tools
+
+---
+
+## Dokumentenmanagement
+
+### D021 - Telegram-Bot als primäre Baustellen-Kommunikation
+**Datum:** 2026-01-29
+**Entscheidung:** @neurealis_bedarfsanalyse_bot für Fotos, Mängel, Nachträge, Sprache
+**Nutzergruppen (Phasen):**
+1. Mitarbeiter (Bauleiter, Handwerker)
+2. Nachunternehmer
+3. Endkunden (perspektivisch)
+**Grund:** Mobile-first, mehrsprachig (DE, RU, HU, RO, PL), keine App-Installation nötig
+**Alternative verworfen:** Native App (zu aufwendig), WhatsApp (DSGVO-Probleme)
+
+### D022 - 4-Stufen-Sicherheitskonzept
+**Datum:** 2026-01-29
+**Entscheidung:** Dokumente erhalten `sicherheitsstufe` (1-4):
+| Stufe | Zugriff | SharePoint-Sites |
+|-------|---------|------------------|
+| 1 | Alle Mitarbeiter | Projekte, Marketing, Kunden |
+| 2 | Bauleiter + GF | Vertrieb, Großhandel |
+| 3 | GF + Buchhaltung | Finanzen |
+| 4 | Nur GF | Personal, Management |
+**Grund:** RLS-basierte Zugriffskontrolle ohne manuelle Rechtevergabe
+**Implementierung:** Automatisch beim SharePoint-Sync basierend auf Site
+
+### D023 - Fotos-Tabelle für strukturierte Verwaltung
+**Datum:** 2026-01-29
+**Entscheidung:** Eigene `fotos`-Tabelle statt nur in `dokumente`
+**Felder:** kategorie, nachweis_typ, gewerk, mangel_id, nachtrag_id, GPS, Vision-Labels
+**Kategorien:** mangel, nachtrag, nachweis, doku, bedarfsanalyse, kunde, bauplan
+**Grund:** Strukturierte Foto-Verwaltung, Rollen-basierter Zugriff, Vision-AI vorbereitet
+**Alternative verworfen:** Alles in dokumente (zu unstrukturiert für Fotos)
+
+### D024 - SharePoint-Sync: Videos nur verlinken
+**Datum:** 2026-01-29
+**Entscheidung:** Videos (MP4, MOV) werden NICHT nach Supabase kopiert
+**Stattdessen:** Nur SharePoint-Link in `sharepoint_link` speichern
+**Download:** PDF, DOCX, XLSX, JPG, PNG (< 50 MB)
+**Grund:** Videos zu groß (~25 GB allein Marketing-Videos), Storage-Kosten
+**Vorteil:** Metadaten + Suche trotzdem möglich
+
+### D025 - 2-Phasen-Erinnerung für Mängelmanagement
+**Datum:** 2026-01-29
+**Entscheidung:** Automatischer Phasenwechsel basierend auf Nachweis-Foto
+**Phasen:**
+- Phase 1: NU erhält Erinnerungen bis `fotos_nachweis_nu` befüllt
+- Phase 2: Bauleiter erhält Erinnerungen zur Abnahme
+**Trigger:** Foto-Upload durch NU wechselt automatisch zu Phase 2
+**Stopp:** `status_mangel` = 'Abgenommen' oder `erinnerung_status` = 'Pausiert'
+**Default:** Neue Mängel starten mit `erinnerung_status = 'Aktiv'`
+**Grund:** Kein manueller Statuswechsel nötig, Workflow folgt natürlichem Ablauf
+**Alternative verworfen:** Manuelles Umschalten zwischen NU/BL-Erinnerung
+
+### D026 - WordPress-Sync: Sofort-Veröffentlichung bei Freigabe
+**Datum:** 2026-01-29
+**Entscheidung:** Bei Freigabe im ERP wird Artikel direkt auf WordPress veröffentlicht
+**Modi der Edge Function:**
+- `freigeben`: Push + sofort `status: 'publish'`
+- `draft`: Nur Entwurf zur Vorschau
+- `unpublish`: Zurück auf Draft setzen
+**Grund:** Kein manuelles Zwischenschalten in WordPress nötig
+**Alternative verworfen:** Erst Draft pushen, dann manuell veröffentlichen (zu viele Schritte)
+
+---
+
+*Aktualisiert: 2026-01-29*
