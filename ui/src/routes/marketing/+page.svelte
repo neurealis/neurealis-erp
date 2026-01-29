@@ -23,6 +23,7 @@
 		titel: string;
 		slug: string | null;
 		excerpt: string | null;
+		inhalt: string | null;
 		status: 'entwurf' | 'review' | 'veroeffentlicht';
 		keywords: string[] | null;
 		meta_description: string | null;
@@ -30,6 +31,14 @@
 		autor: string | null;
 		veroeffentlicht_am: string | null;
 		created_at: string;
+		// Pipeline-Felder
+		confidence_score: number | null;
+		word_count: number | null;
+		review_status: 'draft' | 'pending' | 'approved' | 'rejected' | null;
+		cluster: string | null;
+		target_keyword: string | null;
+		internal_links: string[] | null;
+		pipeline_run_id: string | null;
 	}
 
 	// Tab State
@@ -102,7 +111,9 @@
 		const entwurf = blogPosts.filter(p => p.status === 'entwurf').length;
 		const review = blogPosts.filter(p => p.status === 'review').length;
 		const veroeffentlicht = blogPosts.filter(p => p.status === 'veroeffentlicht').length;
-		return { total, entwurf, review, veroeffentlicht };
+		const kiGeneriert = blogPosts.filter(p => p.pipeline_run_id !== null || p.confidence_score !== null).length;
+		const totalWords = blogPosts.reduce((sum, p) => sum + (p.word_count || 0), 0);
+		return { total, entwurf, review, veroeffentlicht, kiGeneriert, totalWords };
 	});
 
 	// Daten laden
@@ -353,12 +364,14 @@
 				<KPICard
 					label="Gesamt"
 					value={blogStats().total}
+					subvalue={blogStats().totalWords > 0 ? `${blogStats().totalWords.toLocaleString('de-DE')} Wörter` : undefined}
 					color="blue"
 				/>
 				<KPICard
-					label="Entwürfe"
-					value={blogStats().entwurf}
-					color="gray"
+					label="KI-generiert"
+					value={blogStats().kiGeneriert}
+					subvalue="Blog-Pipeline"
+					color="purple"
 				/>
 				<KPICard
 					label="In Review"
@@ -423,16 +436,33 @@
 							<div class="blog-header">
 								<div class="blog-meta-left">
 									<span class="blog-nr">#{post.post_nr}</span>
-									{#if post.kategorie}
-										<Badge variant="default" size="sm">{post.kategorie}</Badge>
+									{#if post.pipeline_run_id || post.confidence_score}
+										<Badge variant="info" size="sm">KI-generiert</Badge>
+									{/if}
+									{#if post.cluster}
+										<Badge variant="default" size="sm">{post.cluster}</Badge>
 									{/if}
 								</div>
-								<Badge variant={blogStatusConfig[post.status].variant} size="sm">
-									{blogStatusConfig[post.status].label}
-								</Badge>
+								<div class="blog-header-right">
+									{#if post.confidence_score !== null}
+										<span class="confidence-badge" class:high={post.confidence_score >= 0.8} class:medium={post.confidence_score >= 0.5 && post.confidence_score < 0.8} class:low={post.confidence_score < 0.5}>
+											{Math.round(post.confidence_score * 100)}%
+										</span>
+									{/if}
+									<Badge variant={blogStatusConfig[post.status].variant} size="sm">
+										{blogStatusConfig[post.status].label}
+									</Badge>
+								</div>
 							</div>
 
 							<h3 class="blog-titel">{post.titel}</h3>
+
+							{#if post.target_keyword}
+								<div class="target-keyword">
+									<span class="target-label">Ziel-Keyword:</span>
+									<span class="target-value">{post.target_keyword}</span>
+								</div>
+							{/if}
 
 							{#if post.excerpt}
 								<p class="blog-excerpt">{post.excerpt}</p>
@@ -456,10 +486,36 @@
 								</div>
 							{/if}
 
+							<!-- Pipeline-Metriken -->
+							{#if post.word_count || post.internal_links}
+								<div class="pipeline-metrics">
+									{#if post.word_count}
+										<div class="metric">
+											<span class="metric-value">{post.word_count.toLocaleString('de-DE')}</span>
+											<span class="metric-label">Wörter</span>
+										</div>
+									{/if}
+									{#if post.internal_links && post.internal_links.length > 0}
+										<div class="metric">
+											<span class="metric-value">{post.internal_links.length}</span>
+											<span class="metric-label">Interne Links</span>
+										</div>
+									{/if}
+									{#if post.review_status && post.review_status !== 'draft'}
+										<div class="metric">
+											<span class="metric-value review-{post.review_status}">{post.review_status === 'approved' ? 'Freigegeben' : post.review_status === 'pending' ? 'Ausstehend' : 'Abgelehnt'}</span>
+											<span class="metric-label">Review</span>
+										</div>
+									{/if}
+								</div>
+							{/if}
+
 							<div class="blog-footer">
 								<div class="blog-meta">
 									{#if post.autor}
 										<span class="meta-item">Von {post.autor}</span>
+									{:else if post.pipeline_run_id}
+										<span class="meta-item">Von Blog-Pipeline</span>
 									{/if}
 									{#if post.veroeffentlicht_am}
 										<span class="meta-item">{formatDate(post.veroeffentlicht_am)}</span>
@@ -1004,6 +1060,98 @@
 		gap: 1rem;
 		font-size: 0.8rem;
 		color: var(--color-gray-500);
+	}
+
+	/* Blog Header Right */
+	.blog-header-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	/* Confidence Badge */
+	.confidence-badge {
+		padding: 0.15rem 0.5rem;
+		border-radius: 4px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		font-family: var(--font-family-mono);
+	}
+
+	.confidence-badge.high {
+		background: var(--color-success-light, #dcfce7);
+		color: var(--color-success-dark, #166534);
+	}
+
+	.confidence-badge.medium {
+		background: var(--color-warning-light, #fef3c7);
+		color: var(--color-warning-dark, #92400e);
+	}
+
+	.confidence-badge.low {
+		background: var(--color-error-light, #fef2f2);
+		color: var(--color-error-dark, #991b1b);
+	}
+
+	/* Target Keyword */
+	.target-keyword {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		font-size: 0.85rem;
+	}
+
+	.target-label {
+		color: var(--color-gray-500);
+	}
+
+	.target-value {
+		background: var(--color-primary-50);
+		color: var(--color-primary-700);
+		padding: 0.15rem 0.5rem;
+		border-radius: 4px;
+		font-weight: 500;
+	}
+
+	/* Pipeline Metrics */
+	.pipeline-metrics {
+		display: flex;
+		gap: 1.5rem;
+		padding: 0.75rem;
+		background: var(--color-gray-50);
+		border-radius: 4px;
+		margin-bottom: 0.75rem;
+	}
+
+	.metric {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+	}
+
+	.metric-value {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--color-gray-800);
+	}
+
+	.metric-label {
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+		text-transform: uppercase;
+	}
+
+	.metric-value.review-approved {
+		color: var(--color-success, #10b981);
+	}
+
+	.metric-value.review-pending {
+		color: var(--color-warning, #f59e0b);
+	}
+
+	.metric-value.review-rejected {
+		color: var(--color-error, #ef4444);
 	}
 
 	/* Analytics Grid */
