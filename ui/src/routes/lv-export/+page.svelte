@@ -366,19 +366,21 @@
 				for (const pos of gewerke[gewerk]) {
 					posNr++;
 
-					// Text zusammenbauen: Artikelnummer klein + Bezeichnung
+					// Text zusammenbauen: 1. Name, 2. Artikelnummer, 3. Langtext
 					let displayText = '';
 
-					// Artikelnummer als kleine graue Zeile
+					// 1. Bezeichnung (Name) als erste Zeile
+					displayText = pos.bezeichnung || '(ohne Bezeichnung)';
+
+					// 2. Artikelnummer als zweite Zeile
 					if (pos.artikelnummer) {
-						displayText = `[${pos.artikelnummer}]\n`;
+						displayText += `\n[${pos.artikelnummer}]`;
 					}
 
-					// Bezeichnung oder Langtext
+					// 3. Langtext als dritte Zeile (wenn gewählt)
 					if (textOption === 'lang' && pos.beschreibung) {
-						displayText += stripHtml(pos.beschreibung).substring(0, 800);
-					} else {
-						displayText += pos.bezeichnung || '(ohne Bezeichnung)';
+						const langtext = stripHtml(pos.beschreibung).substring(0, 800);
+						displayText += `\n\n${langtext}`;
 					}
 
 					if (preisOption === 'mit') {
@@ -439,13 +441,10 @@
 				columnStyles: columnStyles,
 				margin: { left: 15, right: 15, top: 15, bottom: 20 },
 				didParseCell: (data) => {
-					// Artikelnummer in eckigen Klammern grau und kleiner darstellen
+					// Artikel-Spalte: Standard-Styling
 					if (data.column.index === 1 && data.section === 'body') {
-						const rawText = data.cell.raw as string;
-						if (rawText && rawText.startsWith('[')) {
-							// Erste Zeile ist Artikelnummer - wird automatisch angezeigt
-							data.cell.styles.fontSize = 8;
-						}
+						// Mehrzeiliger Text mit Name, Artikelnummer, Langtext
+						data.cell.styles.fontSize = 9;
 					}
 				},
 				didDrawPage: () => {
