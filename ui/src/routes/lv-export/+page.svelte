@@ -347,6 +347,10 @@
 			const allTableData: any[][] = [];
 			let posNr = 0;
 
+			// Mapping für Custom-Rendering: rowIndex -> Positionsdaten
+			const positionDataMap: Map<number, { bezeichnung: string; artikelnummer: string; langtext: string }> = new Map();
+			let rowIndex = 0;
+
 			for (const gewerk of sortedGewerke) {
 				// Gewerk-Header als Zeile über volle Breite (colSpan)
 				const gewerkRow: any[] = [{
@@ -362,41 +366,40 @@
 					}
 				}];
 				allTableData.push(gewerkRow);
+				rowIndex++;
 
 				for (const pos of gewerke[gewerk]) {
 					posNr++;
 
-					// Text zusammenbauen: 1. Name, 2. Artikelnummer, 3. Langtext
-					let displayText = '';
+					// Daten für Custom-Rendering speichern
+					const bezeichnung = pos.bezeichnung || '(ohne Bezeichnung)';
+					const artikelnummer = pos.artikelnummer || '';
+					const langtext = (textOption === 'lang' && pos.beschreibung)
+						? stripHtml(pos.beschreibung).substring(0, 800)
+						: '';
 
-					// 1. Bezeichnung (Name) als erste Zeile
-					displayText = pos.bezeichnung || '(ohne Bezeichnung)';
+					positionDataMap.set(rowIndex, { bezeichnung, artikelnummer, langtext });
 
-					// 2. Artikelnummer als zweite Zeile
-					if (pos.artikelnummer) {
-						displayText += `\n[${pos.artikelnummer}]`;
-					}
-
-					// 3. Langtext als dritte Zeile (wenn gewählt)
-					if (textOption === 'lang' && pos.beschreibung) {
-						const langtext = stripHtml(pos.beschreibung).substring(0, 800);
-						displayText += `\n\n${langtext}`;
-					}
+					// Platzhalter-Text für Höhenberechnung (wird überschrieben)
+					let placeholderText = bezeichnung;
+					if (artikelnummer) placeholderText += `\n${artikelnummer}`;
+					if (langtext) placeholderText += `\n${langtext}`;
 
 					if (preisOption === 'mit') {
 						allTableData.push([
 							posNr.toString(),
-							displayText,
+							placeholderText,
 							pos.einheit || 'Stk',
 							formatPreis(pos.listenpreis || pos.preis)
 						]);
 					} else {
 						allTableData.push([
 							posNr.toString(),
-							displayText,
+							placeholderText,
 							pos.einheit || 'Stk'
 						]);
 					}
+					rowIndex++;
 				}
 			}
 
@@ -441,10 +444,56 @@
 				columnStyles: columnStyles,
 				margin: { left: 15, right: 15, top: 15, bottom: 20 },
 				didParseCell: (data) => {
-					// Artikel-Spalte: Standard-Styling
+					// Artikel-Spalte: Text ausblenden (wird manuell gezeichnet)
 					if (data.column.index === 1 && data.section === 'body') {
-						// Mehrzeiliger Text mit Name, Artikelnummer, Langtext
-						data.cell.styles.fontSize = 9;
+						const posData = positionDataMap.get(data.row.index);
+						if (posData) {
+							// Text wird manuell gezeichnet, aber für Höhenberechnung brauchen wir ihn
+							data.cell.styles.fontSize = 9;
+						}
+					}
+				},
+				didDrawCell: (data) => {
+					// Artikel-Spalte: Custom-Rendering mit verschiedenen Styles
+					if (data.column.index === 1 && data.section === 'body') {
+						const posData = positionDataMap.get(data.row.index);
+						if (posData) {
+							const x = data.cell.x + 4;
+							let y = data.cell.y + 4;
+							const maxWidth = data.cell.width - 8;
+
+							// Original-Text übermalen
+							doc.setFillColor(data.row.index % 2 === 0 ? 255 : 252, data.row.index % 2 === 0 ? 255 : 252, data.row.index % 2 === 0 ? 255 : 253);
+							doc.rect(data.cell.x + 0.5, data.cell.y + 0.5, data.cell.width - 1, data.cell.height - 1, 'F');
+
+							// 1. Bezeichnung - FETT
+							doc.setFont('helvetica', 'bold');
+							doc.setFontSize(9);
+							doc.setTextColor(45, 55, 72);
+							const bezeichnungLines = doc.splitTextToSize(posData.bezeichnung, maxWidth);
+							doc.text(bezeichnungLines, x, y + 3);
+							y += bezeichnungLines.length * 4;
+
+							// 2. Artikelnummer - Normal, Mittelgrau
+							if (posData.artikelnummer) {
+								y += 2;
+								doc.setFont('helvetica', 'normal');
+								doc.setFontSize(8);
+								doc.setTextColor(120, 120, 120);
+								doc.text(posData.artikelnummer, x, y + 3);
+								y += 4;
+							}
+
+							// 3. Langtext - Normal, ohne extra Leerzeile
+							if (posData.langtext) {
+								y += 2;
+								doc.setFont('helvetica', 'normal');
+								doc.setFontSize(8);
+								doc.setTextColor(80, 80, 80);
+								const langtextLines = doc.splitTextToSize(posData.langtext, maxWidth);
+								doc.text(langtextLines, x, y + 3);
+							}
+						}
 					}
 				},
 				didDrawPage: () => {
