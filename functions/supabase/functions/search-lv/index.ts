@@ -3,7 +3,7 @@
  * v1 - Embedding-basierte Similarity-Suche
  *
  * Nimmt eine Suchanfrage, generiert ein Embedding und findet die
- * aehnlichsten LV-Positionen via Cosine-Similarity.
+ * ähnlichsten LV-Positionen via Cosine-Similarity.
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";

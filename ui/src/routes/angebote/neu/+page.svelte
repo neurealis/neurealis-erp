@@ -60,7 +60,9 @@
 			artikelnummer: string;
 			bezeichnung: string;
 			einzelpreis: number;
+			listenpreis?: number;
 			lv_typ?: string;
+			similarity?: number;
 		}>;
 		// NEU: LV-Typ-Filter für diese Position
 		filter_lv_typ: string;
@@ -177,14 +179,31 @@
 
 			// Initialisiere neue Felder für jede Position
 			const rawPositions = data?.positionen || [];
-			parsedPositions = rawPositions.map((pos: ParsedPosition) => ({
-				...pos,
-				selected_positions: pos.lv_position ? [pos.lv_position] : [],
-				filter_lv_typ: lvTyp, // Initialer Filter = gewählter LV-Typ
-				search_query: '',
-				search_results: [],
-				is_searching: false
-			}));
+			parsedPositions = rawPositions.map((pos: ParsedPosition) => {
+				// Sortiere Alternativen: Nach Similarity (höchste zuerst), dann nach listenpreis DESC
+				const sortedAlternativen = (pos.alternativen || [])
+					.map((alt: { id: string; artikelnummer: string; bezeichnung: string; einzelpreis: number; listenpreis?: number; lv_typ?: string; similarity?: number }) => ({
+						...alt,
+						listenpreis: alt.listenpreis || alt.einzelpreis,
+						similarity: alt.similarity || 0
+					}))
+					.sort((a: { similarity: number; listenpreis: number }, b: { similarity: number; listenpreis: number }) => {
+						if (b.similarity !== a.similarity) {
+							return b.similarity - a.similarity;
+						}
+						return b.listenpreis - a.listenpreis;
+					});
+
+				return {
+					...pos,
+					alternativen: sortedAlternativen,
+					selected_positions: pos.lv_position ? [pos.lv_position] : [],
+					filter_lv_typ: lvTyp, // Initialer Filter = gewählter LV-Typ
+					search_query: '',
+					search_results: [],
+					is_searching: false
+				};
+			});
 
 			if (parsedPositions.length === 0) {
 				analyzeError = 'Keine Positionen erkannt. Bitte prüfen Sie den Eingabetext.';
@@ -218,13 +237,27 @@
 
 			if (error) throw error;
 
-			parsedPositions[index].alternativen = (data?.positionen || []).map((p: LvPositionRef) => ({
-				id: p.id,
-				artikelnummer: p.artikelnummer,
-				bezeichnung: p.bezeichnung,
-				einzelpreis: p.listenpreis || p.einzelpreis,
-				lv_typ: newLvTyp
-			}));
+			// Sortierung: Nach Similarity (höchste zuerst), dann nach listenpreis DESC
+			const sortedPositions = (data?.positionen || [])
+				.map((p: LvPositionRef & { similarity?: number }) => ({
+					id: p.id,
+					artikelnummer: p.artikelnummer,
+					bezeichnung: p.bezeichnung,
+					einzelpreis: p.listenpreis || p.einzelpreis,
+					listenpreis: p.listenpreis || p.einzelpreis,
+					lv_typ: newLvTyp,
+					similarity: p.similarity || 0
+				}))
+				.sort((a: { similarity: number; listenpreis: number }, b: { similarity: number; listenpreis: number }) => {
+					// Erst nach Similarity (höchste zuerst)
+					if (b.similarity !== a.similarity) {
+						return b.similarity - a.similarity;
+					}
+					// Bei gleicher Similarity: Nach listenpreis DESC (teurere zuerst)
+					return b.listenpreis - a.listenpreis;
+				});
+
+			parsedPositions[index].alternativen = sortedPositions;
 		} catch (err) {
 			console.error('LV-Typ-Filter fehlgeschlagen:', err);
 		} finally {
@@ -313,14 +346,19 @@
 
 				if (error) throw error;
 
-				parsedPositions[index].search_results = (data || []).map(p => ({
-					id: p.id,
-					artikelnummer: p.artikelnummer,
-					bezeichnung: p.bezeichnung,
-					einzelpreis: p.listenpreis || p.preis || 0,
-					listenpreis: p.listenpreis || p.preis || 0,
-					lv_typ: p.lv_typ
-				}));
+				// Sortierung: Nach listenpreis DESC (teurere zuerst, da oft bessere Leistung)
+				const results = (data || [])
+					.map(p => ({
+						id: p.id,
+						artikelnummer: p.artikelnummer,
+						bezeichnung: p.bezeichnung,
+						einzelpreis: p.listenpreis || p.preis || 0,
+						listenpreis: p.listenpreis || p.preis || 0,
+						lv_typ: p.lv_typ
+					}))
+					.sort((a, b) => b.listenpreis - a.listenpreis);
+
+				parsedPositions[index].search_results = results;
 			} catch (err) {
 				console.error('Freitextsuche fehlgeschlagen:', err);
 				parsedPositions[index].search_results = [];
@@ -982,25 +1020,39 @@ Beispiel:
 										{#each pos.alternativen as alt}
 											{@const isSelected = pos.selected_positions.some(p => p.id === alt.id)}
 											<div class="alternative-item" class:selected={isSelected}>
-												<label class="checkbox-label">
-													<input
-														type="checkbox"
-														checked={isSelected}
-														onchange={(e) => {
-															const checked = (e.target as HTMLInputElement).checked;
-															if (checked) {
-																addPositionFromAlternative(index, alt);
-															} else {
-																removeSelectedPosition(index, alt.id);
-															}
-														}}
-													/>
-													<span class="alt-info">
-														<span class="alt-artikelnr">{alt.artikelnummer}</span>
-														<span class="alt-name">{alt.bezeichnung}</span>
-														<span class="alt-price">{formatCurrency(alt.einzelpreis)} EUR</span>
-													</span>
-												</label>
+												<div class="alt-content">
+													<label class="checkbox-label">
+														<input
+															type="checkbox"
+															checked={isSelected}
+															onchange={(e) => {
+																const checked = (e.target as HTMLInputElement).checked;
+																if (checked) {
+																	addPositionFromAlternative(index, alt);
+																} else {
+																	removeSelectedPosition(index, alt.id);
+																}
+															}}
+														/>
+														<span class="alt-info">
+															<span class="alt-name">{alt.bezeichnung}</span>
+															<span class="alt-artikelnr">{alt.artikelnummer}</span>
+															<span class="alt-price">{formatCurrency(alt.listenpreis || alt.einzelpreis)} €/{pos.einheit}</span>
+														</span>
+													</label>
+													{#if !isSelected}
+														<button
+															class="add-btn"
+															onclick={() => addPositionFromAlternative(index, alt)}
+															title="Position hinzufügen"
+														>
+															<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+																<line x1="12" y1="5" x2="12" y2="19"/>
+																<line x1="5" y1="12" x2="19" y2="12"/>
+															</svg>
+														</button>
+													{/if}
+												</div>
 											</div>
 										{/each}
 									</div>
@@ -1030,26 +1082,40 @@ Beispiel:
 										{#each pos.search_results as result}
 											{@const isSelected = pos.selected_positions.some(p => p.id === result.id)}
 											<div class="search-result-item" class:selected={isSelected}>
-												<label class="checkbox-label">
-													<input
-														type="checkbox"
-														checked={isSelected}
-														onchange={(e) => {
-															const checked = (e.target as HTMLInputElement).checked;
-															if (checked) {
-																addPositionFromAlternative(index, result);
-															} else {
-																removeSelectedPosition(index, result.id);
-															}
-														}}
-													/>
-													<span class="result-info">
-														<Badge variant="info" size="sm">{result.lv_typ || '?'}</Badge>
-														<span class="result-artikelnr">{result.artikelnummer}</span>
-														<span class="result-name">{result.bezeichnung}</span>
-														<span class="result-price">{formatCurrency(result.listenpreis || result.einzelpreis)} EUR</span>
-													</span>
-												</label>
+												<div class="result-content">
+													<label class="checkbox-label">
+														<input
+															type="checkbox"
+															checked={isSelected}
+															onchange={(e) => {
+																const checked = (e.target as HTMLInputElement).checked;
+																if (checked) {
+																	addPositionFromAlternative(index, result);
+																} else {
+																	removeSelectedPosition(index, result.id);
+																}
+															}}
+														/>
+														<span class="result-info">
+															<Badge variant="info" size="sm">{result.lv_typ || '?'}</Badge>
+															<span class="result-name">{result.bezeichnung}</span>
+															<span class="result-artikelnr">{result.artikelnummer}</span>
+															<span class="result-price">{formatCurrency(result.listenpreis || result.einzelpreis)} €/{pos.einheit}</span>
+														</span>
+													</label>
+													{#if !isSelected}
+														<button
+															class="add-btn"
+															onclick={() => addPositionFromAlternative(index, result)}
+															title="Position hinzufügen"
+														>
+															<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+																<line x1="12" y1="5" x2="12" y2="19"/>
+																<line x1="5" y1="12" x2="19" y2="12"/>
+															</svg>
+														</button>
+													{/if}
+												</div>
 											</div>
 										{/each}
 									</div>
@@ -1900,6 +1966,38 @@ Beispiel:
 		color: var(--color-gray-500);
 		font-style: italic;
 		margin: 0.5rem 0 0;
+	}
+
+	/* "+" Button für Mehrfachauswahl */
+	.alt-content, .result-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		gap: 0.5rem;
+	}
+
+	.add-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		min-width: 32px;
+		border: 1px solid var(--color-success);
+		background: white;
+		color: var(--color-success);
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.add-btn:hover {
+		background: var(--color-success);
+		color: white;
+	}
+
+	.add-btn:active {
+		transform: scale(0.95);
 	}
 
 	/* Freitextsuche */

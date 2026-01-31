@@ -1,29 +1,31 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 00:45 (aktualisiert)
+**Stand:** 2026-01-31 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
 
-### CPQ-Verbesserungen (IN ARBEIT)
+### CPQ-Verbesserungen (✅ FERTIG)
 
+**Abgeschlossen:** 2026-01-31
 **Koordinationsdatei:** `docs/implementation/cpq_verbesserungen_koordination.md`
 
-**Anforderungen bestätigt:**
-| # | Thema | Entscheidung |
-|---|-------|--------------|
-| 1 | LV-Priorisierung | Ausgewähltes LV = Priority-LV |
-| 2 | Freitextsuche | Hybrid: pg_trgm + Embedding Fallback |
-| 3 | Preisanzeige | Nur VK-Preis (listenpreis) |
-| 4 | Sortierung | Similarity first, dann VK-Preis |
-| 5 | Mehrfachauswahl | "+" Button neben Vorschlägen |
-| 6 | LV-Filter | Initial auf ausgewähltes LV |
-| 7 | Lern-System | Hierarchisch (LV-spezifisch → global Fallback) |
+**Implementierte Features:**
+| # | Thema | Status |
+|---|-------|--------|
+| 1 | LV-Priorisierung | ✅ Priority-LV aus Request |
+| 2 | Freitextsuche | ✅ Hybrid: pg_trgm + Embedding Fallback |
+| 3 | Preisanzeige | ✅ Nur VK-Preis (listenpreis) |
+| 4 | Sortierung | ✅ Similarity DESC, dann Preis DESC |
+| 5 | Mehrfachauswahl | ✅ "+" Button neben Vorschlägen |
+| 6 | LV-Filter | ✅ Initial auf ausgewähltes LV |
+| 7 | Lern-System | ✅ Hierarchisch (LV-spezifisch → global) |
 
-**Status:** Koordination erstellt, Subagenten noch nicht gestartet
-
-**Nächster Schritt:** Subagenten starten (T1-T4)
+**Deployments:**
+- `transcription-parse` v5 (Supabase Edge Function)
+- Migration `20260131213758_cpq_hybrid_search` (pg_trgm, RPCs)
+- Netlify UI: https://neurealis-erp.netlify.app
 
 ### UI-Migration Softr → SvelteKit
 
@@ -152,69 +154,24 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **CPQ-UI verbessern (PRIORITÄT):** Siehe "CPQ Verbesserungen" unten
 → **Hero-Konflikte manuell korrigieren:** FC.LV25.8.x (6 vertauschte Nummern), GWS Stand/Wand-WC
 → **Vonovia-LV importieren:** Aktuell 0 Positionen für LV-Typ 'vonovia'
 → **AHREFS-Analyse:** Wenn Keywords verfügbar, SEO-Optimierung durchführen
+→ **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
 
 ---
 
-## CPQ Verbesserungen (TODO für nächste Session)
+## Letzte Session (2026-01-31)
 
-**Status:** Workflow funktioniert, KI-Erkennung gut, aber UI-Verbesserungen gewünscht
+**CPQ-Verbesserungen IMPLEMENTIERT (7 Features):**
 
-### 1. GWS-LV Priorisierung
-- **Aktuell:** Vorschläge kommen aus allen LV-Typen gemischt
-- **Gewünscht:** Erst GWS-LV vorschlagen, dann Dropdown mit anderen LVs (VBW, neurealis, etc.)
+- T1: Backend Edge Function `transcription-parse` v5 (hierarchisches Lern-System)
+- T2: SQL-Migration mit pg_trgm, 2 neue RPCs (hybrid, hierarchical)
+- T3: UI-Updates (listenpreis, "+"-Button, LV-Filter, Sortierung)
+- T4: QA bestanden (12/12 Checks, 0 Fehler)
+- Beide Deployments erfolgreich (Supabase + Netlify)
 
-### 2. Freitextsuche ergänzen
-- **Aktuell:** Nur KI-Vorschläge
-- **Gewünscht:** Zusätzliche Volltextsuche über ALLE LV-Positionen unterhalb der Vorschläge
-
-### 3. Mehrere Artikel pro erkannter Position
-- **Aktuell:** 1:1 Mapping (eine erkannte Leistung → eine LV-Position)
-- **Gewünscht:** Zu einem erkannten Punkt mehrere LV-Artikel hinzufügen können
-
-### 4. Progress-Bar bei Transkriptions-Verarbeitung
-- **Aktuell:** Keine visuelle Rückmeldung bei langen Transkripten
-- **Gewünscht:** Progress-Bar unter der Textfeld-Karte während KI-Analyse
-
-### UI-Mockup (grob)
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Erkannte Leistung: "Bad fliesen 12 qm"                      │
-├─────────────────────────────────────────────────────────────┤
-│ GWS-Vorschläge:                                             │
-│   ○ GWS.LV23-05.01.01 - Wandfliesen bis 60x60 (28,50€/m²)  │
-│   ○ GWS.LV23-05.01.02 - Bodenfliesen bis 60x60 (32,00€/m²) │
-├─────────────────────────────────────────────────────────────┤
-│ Andere LVs: [Dropdown: VBW | neurealis | ...]  ▼            │
-│   ○ VBW.2026-05.01 - Fliesen Wand (25,00€/m²)              │
-├─────────────────────────────────────────────────────────────┤
-│ 🔍 Freitextsuche: [________________] [Suchen]               │
-│   (Durchsucht alle 3.167 LV-Positionen)                     │
-├─────────────────────────────────────────────────────────────┤
-│ Ausgewählt für diese Leistung:                              │
-│   ✓ GWS.LV23-05.01.01 - Wandfliesen (12 m², 342,00€)       │
-│   ✓ GWS.LV23-05.01.02 - Bodenfliesen (12 m², 384,00€)      │
-│   [+ Weitere Position hinzufügen]                           │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Implementierung-Hinweise
-- `transcription-parse` Edge Function: Filter auf `lv_typ = 'gws'` als primäre Suche
-- UI: Zweites Dropdown für andere LV-Typen mit separater Suche
-- Freitextsuche: Bestehende `search-lv` Edge Function oder Client-seitig mit LIKE
-- Mehrfachauswahl: Array statt einzelner Position in State speichern
-
----
-
-## Letzte Session (2026-02-01 ~00:00)
-
-**CPQ-Workflow getestet - UI-Verbesserungen dokumentiert:**
-
-- Workflow funktioniert nach den Bugfixes der vorherigen Session
-- KI-Erkennung gut, Vorschläge werden angezeigt
+**Details:** `docs/implementation/cpq_verbesserungen_koordination.md`
 - **3 Verbesserungswünsche dokumentiert:**
   1. GWS-LV priorisieren (erst GWS, dann andere LVs im Dropdown)
   2. Freitextsuche über alle LV-Positionen ergänzen

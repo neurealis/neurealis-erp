@@ -1,13 +1,15 @@
 /**
  * transcription-parse - Transkriptions-Parser mit Hybrid-Prompt und Lern-System
- * v4 - GWS-LV Priorisierung, LV-Config, Korrekturen, Fallback-Suche
+ * v5 - Hierarchisches Lern-System, verbesserte Sortierung
  *
  * Parst Baubesprechungs-Transkripte und ordnet Leistungen LV-Positionen zu.
  * Nutzt GPT-5.2 für Textanalyse und Embedding-basierte LV-Suche.
  *
- * Neu in v4:
- * - prioritize_lv_typ Parameter: Sucht zuerst im priorisierten LV-Typ
- * - from_priority_lv Markierung: Zeigt an ob Position aus priorisiertem LV stammt
+ * Neu in v5:
+ * - prioritize_lv_typ aus Request-Body (Default: 'gws')
+ * - Hierarchisches Lern-System: Erst LV-spezifisch, dann globaler Fallback
+ * - Bei globalem Treffer: Nutzt Hinweis, sucht aber im aktuellen LV
+ * - Sortierung: Similarity DESC, bei gleicher Similarity: Listenpreis DESC
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -312,7 +314,7 @@ Deno.serve(async (req: Request) => {
         einheit: pos.einheit || 'Stk',
       };
 
-      // 3a. Korrektur-Suche (gelernte Mappings)
+      // 3a. Korrektur-Suche (gelernte Mappings) - Hierarchisch: erst LV-spezifisch, dann global
       const { data: corrections } = await supabase.rpc('search_position_corrections', {
         query_embedding: embedding,
         p_lv_typ: lv_typ,
@@ -321,38 +323,91 @@ Deno.serve(async (req: Request) => {
       });
 
       if (corrections && corrections.length > 0) {
-        // Korrektur gefunden - direkt anwenden
         const correction = corrections[0];
-        console.log(`[transcription-parse] Korrektur angewendet für: ${searchText.substring(0, 50)}...`);
+        const isGlobalMatch = correction.is_global_match;
 
-        // Korrekte Position laden
-        const { data: korrekteLvPos } = await supabase
-          .from('lv_positionen')
-          .select('id, artikelnummer, bezeichnung, beschreibung, preis, listenpreis')
-          .eq('id', correction.korrekte_position_id)
-          .single();
+        if (isGlobalMatch) {
+          // Globaler Treffer: Nutze als Hinweis, suche aber im aktuellen LV
+          console.log(`[transcription-parse] Globaler Korrektur-Hinweis (aus ${correction.lv_typ}): ${searchText.substring(0, 50)}...`);
 
-        if (korrekteLvPos) {
-          parsedPos.lv_position = {
-            id: korrekteLvPos.id,
-            artikelnummer: korrekteLvPos.artikelnummer,
-            bezeichnung: korrekteLvPos.bezeichnung,
-            beschreibung: korrekteLvPos.beschreibung,
-            einzelpreis: Number(korrekteLvPos.preis) || 0,
-            listenpreis: Number(korrekteLvPos.listenpreis) || Number(korrekteLvPos.preis) || 0,
-            similarity: Number(correction.similarity),
-            is_fallback: false
-          };
-          parsedPos.korrektur_angewendet = true;
-          parsedPos.korrektur_id = correction.id;
-          korrekturenAngewendet++;
-          mitMatch++;
+          // Lade die korrekte Position, um deren Bezeichnung als Suchbegriff zu nutzen
+          const { data: hinweisPos } = await supabase
+            .from('lv_positionen')
+            .select('bezeichnung, beschreibung')
+            .eq('id', correction.korrekte_position_id)
+            .single();
 
-          // angewendet_count erhöhen
-          await supabase
-            .from('position_corrections')
-            .update({ angewendet_count: (corrections[0].angewendet_count || 0) + 1 })
-            .eq('id', correction.id);
+          if (hinweisPos) {
+            // Erstelle neues Embedding basierend auf der korrekten Bezeichnung
+            const hinweisSearchText = `${pos.gewerk}: ${hinweisPos.bezeichnung}`;
+            const hinweisEmbedding = await createEmbedding(hinweisSearchText, openaiKey);
+
+            // Suche im aktuellen LV mit dem Hinweis-Embedding
+            const { data: lvHinweisResults } = await supabase.rpc('search_lv_positions', {
+              query_embedding: hinweisEmbedding,
+              match_count: 1,
+              filter_lv_typ: lv_typ,
+              filter_gewerk: null
+            });
+
+            if (lvHinweisResults && lvHinweisResults.length > 0 && lvHinweisResults[0].similarity >= 0.7) {
+              const best = lvHinweisResults[0];
+              console.log(`[transcription-parse] Hinweis-basierter Match im ${lv_typ}: ${best.bezeichnung?.substring(0, 40)}... (sim=${best.similarity.toFixed(3)})`);
+              parsedPos.lv_position = {
+                id: best.id,
+                artikelnummer: best.artikelnummer,
+                bezeichnung: best.bezeichnung,
+                beschreibung: best.beschreibung,
+                einzelpreis: Number(best.preis) || 0,
+                listenpreis: Number(best.listenpreis) || Number(best.preis) || 0,
+                similarity: Number(best.similarity),
+                is_fallback: false
+              };
+              parsedPos.korrektur_angewendet = true;
+              parsedPos.korrektur_id = correction.id;
+              korrekturenAngewendet++;
+              mitMatch++;
+
+              // angewendet_count erhöhen
+              await supabase
+                .from('position_corrections')
+                .update({ angewendet_count: (correction.angewendet_count || 0) + 1 })
+                .eq('id', correction.id);
+            }
+          }
+        } else {
+          // LV-spezifischer Treffer - direkt anwenden
+          console.log(`[transcription-parse] Korrektur angewendet für: ${searchText.substring(0, 50)}...`);
+
+          // Korrekte Position laden
+          const { data: korrekteLvPos } = await supabase
+            .from('lv_positionen')
+            .select('id, artikelnummer, bezeichnung, beschreibung, preis, listenpreis')
+            .eq('id', correction.korrekte_position_id)
+            .single();
+
+          if (korrekteLvPos) {
+            parsedPos.lv_position = {
+              id: korrekteLvPos.id,
+              artikelnummer: korrekteLvPos.artikelnummer,
+              bezeichnung: korrekteLvPos.bezeichnung,
+              beschreibung: korrekteLvPos.beschreibung,
+              einzelpreis: Number(korrekteLvPos.preis) || 0,
+              listenpreis: Number(korrekteLvPos.listenpreis) || Number(korrekteLvPos.preis) || 0,
+              similarity: Number(correction.similarity),
+              is_fallback: false
+            };
+            parsedPos.korrektur_angewendet = true;
+            parsedPos.korrektur_id = correction.id;
+            korrekturenAngewendet++;
+            mitMatch++;
+
+            // angewendet_count erhöhen
+            await supabase
+              .from('position_corrections')
+              .update({ angewendet_count: (correction.angewendet_count || 0) + 1 })
+              .eq('id', correction.id);
+          }
         }
       }
 

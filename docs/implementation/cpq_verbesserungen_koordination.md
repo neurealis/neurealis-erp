@@ -1,7 +1,8 @@
 # CPQ-Verbesserungen - Koordination
 
 **Erstellt:** 2026-01-31 ~00:30
-**Status:** 🔄 IN ARBEIT
+**Abgeschlossen:** 2026-01-31
+**Status:** ✅ FERTIG (QA bestanden)
 **Projekt:** neurealis-erp
 
 ---
@@ -123,10 +124,10 @@
 
 | Agent | Status | Ergebnis |
 |-------|--------|----------|
-| T1: DEV-BACKEND | ⏳ | - |
-| T2: DEV-SEARCH | ⏳ | - |
-| T3: DEV-UI | ⏳ | - |
-| T4: QA-AGENT | ⏳ | - |
+| T1: DEV-BACKEND | ✅ | transcription-parse v5, hierarchisches Lern-System |
+| T2: DEV-SEARCH | ✅ | pg_trgm + 2 neue RPCs (hybrid, hierarchical) |
+| T3: DEV-UI | ✅ | listenpreis, "+"-Button, Sortierung |
+| T4: QA-AGENT | ✅ | 12 Checks OK, 4 Warnungen (nicht kritisch), 0 Fehler |
 
 ---
 
@@ -138,11 +139,12 @@ _(Hier dokumentieren die Agenten ihre Erkenntnisse)_
 
 ## ✅ Abschluss-Checkliste
 
-- [ ] Alle T1-T4 abgeschlossen
-- [ ] QA bestanden
-- [ ] Build erfolgreich
-- [ ] Edge Function deployed
-- [ ] Migration ausgeführt
+- [x] Alle T1-T4 abgeschlossen
+- [x] QA bestanden (12 Checks OK, 0 Fehler)
+- [x] Build erfolgreich
+- [x] Migration ausgeführt (20260131213758_cpq_hybrid_search)
+- [x] Edge Function deployed (transcription-parse v5 → Supabase v9)
+- [x] Netlify UI deployed (https://neurealis-erp.netlify.app)
 - [ ] docs/status_quo.md aktualisiert
 - [ ] docs/learnings.md aktualisiert (falls neue Erkenntnisse)
 
