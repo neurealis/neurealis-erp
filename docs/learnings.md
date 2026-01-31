@@ -2212,4 +2212,85 @@ CREATE INDEX idx_bezeichnung_trgm ON lv_positionen USING GIN (bezeichnung gin_tr
 
 ---
 
+## Meta / Prozess (STANDARD-ARBEITSWEISEN)
+
+### L141 - Subagenten-Entwicklungsmodell für größere Projekte (STANDARD)
+**Datum:** 2026-01-31
+**Kontext:** CPQ-Verbesserungen erfolgreich mit 4 parallelen Subagenten implementiert
+**PFLICHT für alle größeren Entwicklungsprojekte!**
+
+**Modell:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    HAUPTAGENT (PM)                          │
+│  - Koordination, Planung, Übersicht                         │
+│  - Erstellt Koordinationsdatei mit Tasks                    │
+│  - Startet Subagenten parallel                              │
+│  - Sammelt Ergebnisse, aktualisiert Doku                    │
+└─────────────────────────────────────────────────────────────┘
+          │
+          ├──→ T1: DEV-BACKEND (Edge Functions, APIs)
+          │
+          ├──→ T2: DEV-DATABASE (SQL, Migrationen, RPCs)
+          │
+          ├──→ T3: DEV-UI (Frontend, Komponenten)
+          │
+          └──→ T4: QA-AGENT (Code-Review, Tests, Build)
+                    ↑ Startet NACH T1-T3
+```
+
+**Ablauf:**
+1. PM erstellt Koordinationsdatei (`docs/implementation/projekt_koordination.md`)
+2. PM definiert Tasks mit klaren Aufgaben und Dateien
+3. T1-T3 starten parallel (unabhängige Arbeit)
+4. T4 (QA) startet nach T1-T3 Abschluss
+5. PM sammelt Ergebnisse, dokumentiert in logs.md
+
+**Vorteile:**
+- Parallele Entwicklung spart Zeit
+- Klare Verantwortlichkeiten
+- QA als Qualitätsgate vor Deployment
+- Koordinationsdatei als Single Source of Truth
+
+### L142 - Kontext-Schonung durch maximale Subagenten-Nutzung (STANDARD)
+**Datum:** 2026-01-31
+**PFLICHT: ALLES was ausgelagert werden kann, in Subagenten auslagern!**
+
+**IMMER Subagenten nutzen für:**
+| Aufgabe | Subagent-Typ |
+|---------|--------------|
+| Codebase durchsuchen | Explore |
+| API-Dokumentation lesen | Explore |
+| Mehrere Dateien analysieren | Explore |
+| Code implementieren | general-purpose |
+| SQL-Migrationen | general-purpose |
+| Tests schreiben/ausführen | general-purpose |
+| Build/Deploy | general-purpose |
+| Web-Recherche | general-purpose |
+
+**NUR im Hauptagent:**
+- Koordination und Planung
+- Kurze Datei-Reads (< 100 Zeilen)
+- Kleine Edits (einzelne Zeilen)
+- User-Kommunikation
+- Dokumentation aktualisieren
+
+**Parallele Subagenten:**
+- Bei unabhängigen Tasks: IMMER parallel starten
+- Spart Zeit und schont trotzdem Kontext
+- Beispiel: 3 DEV-Agents + 1 QA-Agent
+
+**Ergebnis-Handling:**
+- Subagenten geben kompakte Zusammenfassung zurück
+- Nur relevante Infos kommen ins Hauptfenster
+- Details bleiben im Subagent-Kontext
+
+**Warum wichtig:**
+- Kontextfenster ist begrenzt (~200k Tokens)
+- Lange Sessions füllen Kontext schnell
+- Subagenten haben eigenes Kontextfenster
+- Ergebnisse kommen komprimiert zurück
+
+---
+
 *Aktualisiert: 2026-01-31*
