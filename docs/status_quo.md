@@ -1,10 +1,29 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 00:00 (aktualisiert)
+**Stand:** 2026-02-01 00:45 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### CPQ-Verbesserungen (IN ARBEIT)
+
+**Koordinationsdatei:** `docs/implementation/cpq_verbesserungen_koordination.md`
+
+**Anforderungen bestätigt:**
+| # | Thema | Entscheidung |
+|---|-------|--------------|
+| 1 | LV-Priorisierung | Ausgewähltes LV = Priority-LV |
+| 2 | Freitextsuche | Hybrid: pg_trgm + Embedding Fallback |
+| 3 | Preisanzeige | Nur VK-Preis (listenpreis) |
+| 4 | Sortierung | Similarity first, dann VK-Preis |
+| 5 | Mehrfachauswahl | "+" Button neben Vorschlägen |
+| 6 | LV-Filter | Initial auf ausgewähltes LV |
+| 7 | Lern-System | Hierarchisch (LV-spezifisch → global Fallback) |
+
+**Status:** Koordination erstellt, Subagenten noch nicht gestartet
+
+**Nächster Schritt:** Subagenten starten (T1-T4)
 
 ### UI-Migration Softr → SvelteKit
 
