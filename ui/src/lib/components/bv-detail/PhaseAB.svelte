@@ -56,7 +56,7 @@
 
 <div class="phase-container">
 	<div class="phase-header">
-		<h3>(2.1) Auftragsbestaetigung</h3>
+		<h3>(2.1) Auftragsbestätigung</h3>
 		<Badge variant={getStatusVariant(bv.ab_status)}>
 			{bv.ab_status || '(0) Offen'}
 		</Badge>
@@ -98,7 +98,7 @@
 								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
 								<polyline points="14 2 14 8 20 8"/>
 							</svg>
-							PDF oeffnen
+							PDF öffnen
 						</a>
 					{:else}
 						<span class="value text-muted">Keine Datei</span>
@@ -128,9 +128,9 @@
 			{/if}
 		</div>
 
-		<!-- Auftragsbestaetigung -->
+		<!-- Auftragsbestätigung -->
 		<div class="section full-width">
-			<h4>Auftragsbestaetigung (AB)</h4>
+			<h4>Auftragsbestätigung (AB)</h4>
 			<div class="ab-grid">
 				<div class="field">
 					<label>AB-Nr.</label>
@@ -148,7 +148,7 @@
 								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
 								<polyline points="14 2 14 8 20 8"/>
 							</svg>
-							PDF oeffnen
+							PDF öffnen
 						</a>
 					{:else}
 						<span class="value text-muted">Keine Datei</span>

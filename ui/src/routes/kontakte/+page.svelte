@@ -83,12 +83,12 @@
 		partner: 'Partner',
 		lieferant: 'Lieferant',
 		ansprechpartner: 'Ansprechpartner',
-		eigentuemer: 'Eigentuemer',
+		eigentuemer: 'Eigentümer',
 		hausverwaltung: 'Hausverwaltung',
-		behoerde: 'Behoerde'
+		behoerde: 'Behörde'
 	};
 
-	// Farben fuer Kontaktarten
+	// Farben für Kontaktarten
 	const KONTAKTARTEN_COLORS: Record<string, 'success' | 'warning' | 'error' | 'default'> = {
 		kunde_privat: 'success',
 		kunde_gewerblich: 'success',
@@ -215,7 +215,7 @@
 		return `K-${String(nr).padStart(4, '0')}`;
 	}
 
-	// Primaere Telefonnummer
+	// Primäre Telefonnummer
 	function getPrimaryPhone(kontakt: Kontakt): string | null {
 		return kontakt.telefon_mobil || kontakt.telefon_festnetz || null;
 	}
@@ -230,7 +230,7 @@
 		return teile.join(', ') || '-';
 	}
 
-	// Badge-Variante fuer Kontaktart
+	// Badge-Variante für Kontaktart
 	function getKontaktartVariant(typ: string): 'success' | 'warning' | 'error' | 'default' {
 		return KONTAKTARTEN_COLORS[typ] || 'default';
 	}
@@ -305,7 +305,7 @@
 
 	// ==================== CRUD Funktionen ====================
 
-	// Modal oeffnen fuer Neuen Kontakt
+	// Modal öffnen für Neuen Kontakt
 	function openCreateModal() {
 		modalMode = 'create';
 		editingKontakt = null;
@@ -314,7 +314,7 @@
 		showModal = true;
 	}
 
-	// Modal oeffnen fuer Bearbeiten
+	// Modal öffnen für Bearbeiten
 	function openEditModal(kontakt: Kontakt) {
 		modalMode = 'edit';
 		editingKontakt = kontakt;
@@ -339,7 +339,7 @@
 		showModal = true;
 	}
 
-	// Modal schliessen
+	// Modal schließen
 	function closeModal() {
 		showModal = false;
 		editingKontakt = null;
@@ -427,20 +427,20 @@
 		}
 	}
 
-	// Loeschen-Bestaetigung oeffnen
+	// Löschen-Bestätigung öffnen
 	function openDeleteConfirm(kontakt: Kontakt, event: Event) {
 		event.stopPropagation();
 		deletingKontakt = kontakt;
 		showDeleteConfirm = true;
 	}
 
-	// Loeschen-Bestaetigung schliessen
+	// Löschen-Bestätigung schließen
 	function closeDeleteConfirm() {
 		showDeleteConfirm = false;
 		deletingKontakt = null;
 	}
 
-	// Kontakt loeschen (Soft-Delete: aktiv = false)
+	// Kontakt löschen (Soft-Delete: aktiv = false)
 	async function deleteKontakt() {
 		if (!deletingKontakt) return;
 
@@ -758,7 +758,7 @@
 		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
 			<div class="modal-header">
 				<h2>{modalMode === 'create' ? 'Neuer Kontakt' : 'Kontakt bearbeiten'}</h2>
-				<button class="close-btn" onclick={closeModal} aria-label="Schliessen">&times;</button>
+				<button class="close-btn" onclick={closeModal} aria-label="Schließen">&times;</button>
 			</div>
 
 			<form class="modal-body" onsubmit={(e) => { e.preventDefault(); saveKontakt(); }}>
@@ -767,13 +767,13 @@
 				{/if}
 
 				<div class="form-section">
-					<h3>Persoenliche Daten</h3>
+					<h3>Persönliche Daten</h3>
 
 					<div class="form-row">
 						<div class="form-group">
 							<label for="anrede">Anrede</label>
 							<select id="anrede" bind:value={formData.anrede}>
-								<option value="">-- Bitte waehlen --</option>
+								<option value="">-- Bitte wählen --</option>
 								{#each ANREDE_OPTIONS as option}
 									<option value={option}>{option}</option>
 								{/each}
@@ -803,7 +803,7 @@
 						</div>
 						<div class="form-group">
 							<label for="position">Position</label>
-							<input type="text" id="position" bind:value={formData.position} placeholder="z.B. Geschaeftsfuehrer">
+							<input type="text" id="position" bind:value={formData.position} placeholder="z.B. Geschäftsführer">
 						</div>
 					</div>
 				</div>
@@ -858,8 +858,8 @@
 					<h3>Adresse</h3>
 
 					<div class="form-group full-width">
-						<label for="strasse">Strasse / Hausnummer</label>
-						<input type="text" id="strasse" bind:value={formData.strasse} placeholder="Musterstrasse 123">
+						<label for="strasse">Straße / Hausnummer</label>
+						<input type="text" id="strasse" bind:value={formData.strasse} placeholder="Musterstraße 123">
 					</div>
 
 					<div class="form-row">
@@ -880,7 +880,7 @@
 						<textarea
 							id="notizen"
 							bind:value={formData.notizen}
-							placeholder="Zusaetzliche Notizen..."
+							placeholder="Zusätzliche Notizen..."
 							rows="3"
 						></textarea>
 					</div>
@@ -908,11 +908,11 @@
 	<div class="modal-overlay" onclick={closeDeleteConfirm} role="dialog" aria-modal="true">
 		<div class="modal-content small" onclick={(e) => e.stopPropagation()}>
 			<div class="modal-header">
-				<h2>Kontakt loeschen?</h2>
-				<button class="close-btn" onclick={closeDeleteConfirm} aria-label="Schliessen">&times;</button>
+				<h2>Kontakt löschen?</h2>
+				<button class="close-btn" onclick={closeDeleteConfirm} aria-label="Schließen">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>Moechten Sie den Kontakt <strong>{getAnzeigename(deletingKontakt)}</strong> wirklich loeschen?</p>
+				<p>Möchten Sie den Kontakt <strong>{getAnzeigename(deletingKontakt)}</strong> wirklich löschen?</p>
 				<p class="delete-info">Der Kontakt wird deaktiviert und kann bei Bedarf wiederhergestellt werden.</p>
 			</div>
 			<div class="modal-footer">

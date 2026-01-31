@@ -5,7 +5,7 @@
  * - Domain-Matching: Absender-Domain -> Kontakt
  * - Pattern-Matching: ATBS-Nr, RE-Nr aus Betreff/Body
  * - Postfach-Logik: rechnungen@ -> ER-*, etc.
- * - Kontakt-Anlage fuer unbekannte Absender
+ * - Kontakt-Anlage für unbekannte Absender
  *
  * Cron: alle 15 Min (versetzt)
  */

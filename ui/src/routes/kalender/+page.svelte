@@ -486,7 +486,7 @@
 		<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
 			<div class="modal-header">
 				<h2>{selectedEvent.adresse}</h2>
-				<button class="modal-close" onclick={closeModal} aria-label="Schliessen">&times;</button>
+				<button class="modal-close" onclick={closeModal} aria-label="Schließen">&times;</button>
 			</div>
 			<div class="modal-body">
 				<div class="detail-row">

@@ -434,7 +434,7 @@
 		});
 	}
 
-	// Kurzform fuer Dokumenttyp
+	// Kurzform für Dokumenttyp
 	function shortArt(art: string | null): string {
 		if (!art) return '-';
 		// "AR-S  Ausgangsrechnung - Schluss" -> "AR-S"

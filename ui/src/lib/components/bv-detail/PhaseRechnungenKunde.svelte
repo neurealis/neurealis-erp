@@ -338,11 +338,11 @@
 			{/if}
 		</Card>
 
-		<!-- Summen Uebersicht -->
+		<!-- Summen Übersicht -->
 		<Card>
 			{#snippet header()}
 				<div class="section-header">
-					<h3>Summen-Uebersicht</h3>
+					<h3>Summen-Übersicht</h3>
 				</div>
 			{/snippet}
 
@@ -353,7 +353,7 @@
 							<th></th>
 							<th>Rechnungen</th>
 							<th>Zahlungen</th>
-							<th>Offene Betraege</th>
+							<th>Offene Beträge</th>
 						</tr>
 					</thead>
 					<tbody>

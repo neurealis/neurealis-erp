@@ -2,11 +2,17 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v49 - Baustellen-Features + Phase 1+2 Merge
+ * telegram-webhook v50 - Dynamische gemeldet_von Erkennung
  *
  * KOMPLETT NEUER Bot: @neurealis_bedarfsanalyse_bot
  *
- * NEU in v49: Baustellen-Features
+ * NEU in v50: Dynamische gemeldet_von Erkennung für Nachträge
+ * - Lookup: chat_id in kontakte-Tabelle (telegram_chat_id)
+ * - NU (Nachunternehmer) → gemeldet_von='nu'
+ * - BL (Bauleiter) oder Holger Neumann → gemeldet_von='bauleiter'
+ * - Fallback: 'telegram'
+ *
+ * v49: Baustellen-Features
  * - 🏗️ Baustelle öffnen: ATBS-Nummer eingeben oder aus Liste wählen
  * - 🔧 Mangel melden: Text/Sprache, KI-Splitting, mehrsprachig (DE, RU, HU, RO, PL)
  * - 📋 Nachtrag erfassen: Beschreibung + Foto
@@ -565,6 +571,46 @@ async function handleMangelFoto(chatId: number, session: any, photos: any[]) {
 }
 
 // ============================================
+// Helper: Ermittle gemeldet_von basierend auf Kontakt
+// ============================================
+
+async function getGemeldetVon(chatId: number, session: any): Promise<{gemeldet_von: string, melder_name: string}> {
+  try {
+    // Lookup in kontakte-Tabelle via telegram_chat_id
+    const { data: kontakt } = await supabase
+      .from('kontakte')
+      .select('vorname, nachname, rolle')
+      .eq('telegram_chat_id', chatId)
+      .single();
+
+    if (kontakt) {
+      const vollname = [kontakt.vorname, kontakt.nachname].filter(Boolean).join(' ');
+      const rolle = (kontakt.rolle || '').toUpperCase();
+
+      // Nachunternehmer
+      if (rolle === 'NU') {
+        return { gemeldet_von: 'nu', melder_name: vollname || 'Nachunternehmer' };
+      }
+
+      // Bauleiter oder Holger Neumann
+      if (rolle === 'BL' ||
+          (kontakt.vorname?.toLowerCase() === 'holger' && kontakt.nachname?.toLowerCase() === 'neumann')) {
+        return { gemeldet_von: 'bauleiter', melder_name: vollname || 'Bauleiter' };
+      }
+
+      // Andere bekannte Kontakte
+      return { gemeldet_von: 'telegram', melder_name: vollname || 'Telegram' };
+    }
+  } catch (e) {
+    console.error('Error looking up kontakt:', e);
+  }
+
+  // Fallback: Telegram-Session Daten
+  const sessionName = [session?.first_name, session?.last_name].filter(Boolean).join(' ');
+  return { gemeldet_von: 'telegram', melder_name: sessionName || 'Telegram' };
+}
+
+// ============================================
 // Baustellen-Features: Nachtrag erfassen
 // ============================================
 
@@ -602,6 +648,10 @@ async function handleNachtragText(chatId: number, session: any, text: string) {
 
   const nachtragNr = `NT-${projektNr}-${(count || 0) + 1}`;
 
+  // Dynamische Ermittlung von gemeldet_von basierend auf Kontakt
+  const { gemeldet_von, melder_name } = await getGemeldetVon(chatId, session);
+  console.log(`[v50] Nachtrag von chat_id=${chatId}: gemeldet_von=${gemeldet_von}, melder_name=${melder_name}`);
+
   const { data: newNachtrag, error } = await supabase
     .from('nachtraege')
     .insert({
@@ -609,8 +659,8 @@ async function handleNachtragText(chatId: number, session: any, text: string) {
       nachtrag_nr: nachtragNr,
       beschreibung: text,
       status: 'Gemeldet',
-      gemeldet_von: 'telegram',
-      melder_name: session?.first_name || 'Telegram'
+      gemeldet_von: gemeldet_von,
+      melder_name: melder_name
     })
     .select('id, nachtrag_nr')
     .single();
@@ -1678,7 +1728,7 @@ async function handleCallbackQuery(update: any) {
 
 Deno.serve(async (req) => {
   if (req.method === 'GET') {
-    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v49-baustellen' }), {
+    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v50-gemeldet_von' }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }

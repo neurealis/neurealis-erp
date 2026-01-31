@@ -74,7 +74,7 @@
 							<polyline points="15 3 21 3 21 9"/>
 							<line x1="10" y1="14" x2="21" y2="3"/>
 						</svg>
-						3D-Rundgang oeffnen
+						3D-Rundgang öffnen
 					</a>
 				{:else}
 					<span class="value text-muted">Kein Link vorhanden</span>
@@ -131,7 +131,7 @@
 			<h4>Technische Daten</h4>
 			<div class="field-grid">
 				<div class="field">
-					<label>Grundflaeche (m2)</label>
+					<label>Grundfläche (m2)</label>
 					<span class="value highlight">
 						{bv.grundflaeche ? `${bv.grundflaeche} m2` : '-'}
 					</span>
@@ -144,7 +144,7 @@
 								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
 								<polyline points="14 2 14 8 20 8"/>
 							</svg>
-							Badplan oeffnen
+							Badplan öffnen
 						</a>
 					{:else}
 						<span class="value text-muted">Nicht vorhanden</span>

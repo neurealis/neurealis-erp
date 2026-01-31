@@ -526,7 +526,7 @@
 		return sortData(filtered);
 	});
 
-	// Anzahl pro Phase fuer Badges
+	// Anzahl pro Phase für Badges
 	let phaseCounts = $derived(() => {
 		const counts: Record<number, number> = {};
 		bauvorhaben.forEach(bv => {
@@ -572,7 +572,7 @@
 		return `${value > 0 ? '+' : ''}${value} Tage`;
 	}
 
-	// Wert fuer Tabellenzelle holen
+	// Wert für Tabellenzelle holen
 	function getCellValue(bv: Bauvorhaben, key: string): string {
 		switch (key) {
 			case 'projektNr': return bv.projektNr || '-';
@@ -613,7 +613,7 @@
 		}
 	}
 
-	// Zellen-Klasse fuer spezielle Formatierung
+	// Zellen-Klasse für spezielle Formatierung
 	function getCellClass(key: string, bv: Bauvorhaben): string {
 		if (key === 'offeneMaengel' && bv.offeneMaengel > 0) return 'cell-warning';
 		if (key === 'offeneNachtraege' && bv.offeneNachtraege > 0) return 'cell-info';

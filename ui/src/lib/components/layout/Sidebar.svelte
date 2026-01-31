@@ -55,6 +55,7 @@
 		// Intern + Admin
 		{ icon: 'building', label: 'Bauvorhaben', href: '/bauvorhaben', roles: ['admin', 'mitarbeiter'] },
 		{ icon: 'calendar', label: 'Kalender', href: '/kalender', roles: ['admin', 'mitarbeiter'] },
+		{ icon: 'file-text', label: 'Angebote', href: '/angebote', roles: ['admin', 'mitarbeiter'] },
 		{ icon: 'alert', label: 'Maengel', href: '/maengel', roles: ['admin', 'mitarbeiter', 'nachunternehmer'] },
 		{ icon: 'file-plus', label: 'Nachtraege', href: '/nachtraege', roles: ['admin', 'mitarbeiter'] },
 		{ icon: 'euro', label: 'Finanzen', href: '/finanzen', roles: ['admin', 'mitarbeiter'] },
@@ -91,7 +92,7 @@
 		{ icon: 'file-check', label: 'Nachweise', href: '/nachweise', roles: ['nachunternehmer'] },
 	];
 
-	// Gefilterte Entries fuer aktuelle Rolle
+	// Gefilterte Entries für aktuelle Rolle
 	let filteredEntries = $derived(
 		menuEntries
 			.filter(entry => entry.roles.includes(userRole))
@@ -113,7 +114,7 @@
 			})
 	);
 
-	// Pruefen ob eine Gruppe aktiv ist (eines der Kinder ist aktiv)
+	// Prüfen ob eine Gruppe aktiv ist (eines der Kinder ist aktiv)
 	function isGroupActive(group: MenuGroup): boolean {
 		return group.children.some(child => isActive(child.href));
 	}
@@ -146,6 +147,7 @@
 		plus: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>`,
 		list: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>`,
 		'file-check': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>`,
+		'file-text': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>`,
 		cart: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>`,
 		clipboard: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>`,
 		chart: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>`,

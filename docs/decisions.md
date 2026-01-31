@@ -264,4 +264,90 @@
 
 ---
 
-*Aktualisiert: 2026-01-29*
+## LV-Synchronisation
+
+### D027 - Supabase als LV-Master
+**Datum:** 2026-01-30
+**Entscheidung:** Supabase `lv_positionen` ist die Single Source of Truth für alle LV-Positionen
+**Synchronisation:**
+- **Hero Software:** Bidirektional (hero-lv-sync pull, lv-hero-push push)
+- **Softr.io:** Bidirektional (lv-softr-push push, softr-poll geplant)
+**Loop-Vermeidung:** `source` Spalte verhindert Ping-Pong-Syncs
+**Grund:** Zentrale Verwaltung, alle Features (Embeddings, KI-Suche) in Supabase
+
+### D028 - Automatische Preis-Historisierung
+**Datum:** 2026-01-30
+**Entscheidung:** Alle Preisänderungen werden automatisch in `lv_preis_historie` protokolliert
+**Trigger:** `trg_lv_preis_historie` bei UPDATE auf lv_positionen
+**Inhalt:** Alter/neuer Preis, prozentuale Änderung, Quelle, Datum
+**Grund:** Nachvollziehbarkeit für LV-Verhandlungen, keine manuelle Dokumentation nötig
+
+### D029 - LV-Typ "Privat" in "neurealis" konsolidiert
+**Datum:** 2026-01-31
+**Entscheidung:** LV-Typ "Privat" wird nicht mehr verwendet - alle Positionen sind jetzt "neurealis"
+**Migration:** 281 Positionen von "Privat" → "neurealis"
+**Ergebnis:** neurealis LV hat 693 Positionen für B2C-Privatkundenangebote
+**Grund:** Embedding-Suche funktioniert besser mit einem konsolidierten LV-Typ
+**Backup:** `docs/backups/2026-01-30_lv_positionen_privat_to_neurealis.json`
+
+---
+
+## Angebots-CPQ
+
+### D030 - Angebots-Struktur: Gewerk-basiert als Standard
+**Datum:** 2026-01-30
+**Entscheidung:** MVP strukturiert Angebote nach Gewerken (nicht Räumen)
+**Optionen:**
+- Nach Gewerken: Elektrik, Sanitär, Maler, Boden, etc.
+- Nach Räumen: Wohnzimmer, Schlafzimmer, Bad, etc.
+**Grund:** Gewerk-Struktur entspricht LV-Struktur, einfachere Implementierung
+**Phase 2:** Raum-basierte Struktur als Option hinzufügen
+
+### D031 - Abhängigkeiten: Regelbasiert vor ML
+**Datum:** 2026-01-30
+**Entscheidung:** MVP nutzt deterministische Regeln, ML-Lernen in Phase 3
+**Regelquellen:**
+1. LV-Langtext-Analyse (automatisch via GPT)
+2. Admin-Regeln (manuell gepflegt)
+3. Kundenspezifische Regeln (per Textfeld eingeben)
+**Verworfen für MVP:** Association Rules aus Rechnungshistorie (zu komplex)
+**Grund:** Kontrollierte Qualität, schnellere Implementierung
+
+### D032 - Dokument-Workflow: ANG → AB → NUA → RE
+**Datum:** 2026-01-30
+**Entscheidung:** Dokumente werden sequentiell aus Vorgänger generiert
+**Workflow:**
+1. Angebot (ANG) erstellen mit Positionen, Mengen, Preisen
+2. Auftrag erteilt → Auftragsbestätigung (AB) aus letztem ANG
+3. NU auswählen → NUA aus AB (ohne Preise, mit Budget)
+4. Fertigstellung → Rechnung (RE)
+**NUA-Besonderheit:** Keine Preise, aber: Budget, Start/End, Abschlag, Vertragswerk
+**Grund:** Konsistente Daten durch Vererbung, weniger Fehler
+
+### D033 - PDF-Generierung: jsPDF wiederverwenden
+**Datum:** 2026-01-30
+**Entscheidung:** Bestehende PDF-Generierung aus LV-Export für Angebote nutzen
+**Technologie:** jsPDF + autotable (Browser-seitig)
+**Anpassungen:**
+- Deckblatt mit Kunde/Projekt
+- Positionen gruppiert nach Gewerk
+- Zusammenfassung mit Netto/MwSt/Brutto
+- Annahme-Formular (letzte Seite)
+**Verworfen:** PandaDoc (externe Abhängigkeit), Puppeteer (Server-seitig zu langsam)
+
+### D034 - Hybrid-Prompt-Ansatz für transcription-parse
+**Datum:** 2026-01-30
+**Entscheidung:** Ein Prompt-Template mit LV-spezifischen Parametern statt komplett separate Prompts
+**Implementierung:**
+- Neue Tabelle `lv_config` für LV-spezifische Konfiguration
+- Gewerke-Liste dynamisch aus DB laden
+- LV-Besonderheiten (Zulagen, Staffeln) als Parameter
+- Fallback-Suche ohne Gewerk-Filter wenn keine Treffer
+**Grund:** Beste Balance zwischen Wartbarkeit und Genauigkeit
+**Alternative verworfen:**
+- Ein generischer Prompt (Gewerke-Mismatch, schlechte Treffer)
+- 5+ komplett separate Prompts (zu viel Wartungsaufwand)
+
+---
+
+*Aktualisiert: 2026-01-30*

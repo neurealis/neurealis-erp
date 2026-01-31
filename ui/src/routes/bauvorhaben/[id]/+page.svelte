@@ -161,7 +161,7 @@
 	let editBvStart = $state('');
 	let editBvEnde = $state('');
 
-	// Edit Form Values - Uebersicht
+	// Edit Form Values - Übersicht
 	let editGrundflaeche = $state<number | null>(null);
 	let editUmsatzNetto = $state<number | null>(null);
 	let editBudgetNU = $state<number | null>(null);
@@ -212,7 +212,7 @@
 		};
 	}
 
-	// Edit-Modus fuer Kunde starten
+	// Edit-Modus für Kunde starten
 	function startEditKunde() {
 		if (!bv) return;
 		editKundeAnrede = bv.kundeAnrede || '';
@@ -224,7 +224,7 @@
 		saveMessage = null;
 	}
 
-	// Edit-Modus fuer Termine starten
+	// Edit-Modus für Termine starten
 	function startEditTermine() {
 		if (!bv) return;
 		editBvStart = bv.bvStart || '';
@@ -233,7 +233,7 @@
 		saveMessage = null;
 	}
 
-	// Edit-Modus fuer Uebersicht starten
+	// Edit-Modus für Übersicht starten
 	function startEditUebersicht() {
 		if (!bv) return;
 		editGrundflaeche = bv.grundflaeche;
@@ -340,7 +340,7 @@
 		}
 	}
 
-	// Speichern: Uebersicht (Kennzahlen)
+	// Speichern: Übersicht (Kennzahlen)
 	async function saveUebersicht() {
 		if (!bv) return;
 		saving = true;
@@ -399,14 +399,14 @@
 
 	// Allgemeine Info Tabs (OBEN)
 	const infoTabs = [
-		{ id: 'uebersicht', label: 'Uebersicht', icon: 'chart' },
+		{ id: 'uebersicht', label: 'Übersicht', icon: 'chart' },
 		{ id: 'kunde', label: 'Kunde', icon: 'user' },
 		{ id: 'nu', label: 'NU', icon: 'wrench' },
 		{ id: 'dokumente', label: 'Dokumente', icon: 'file' },
 		{ id: 'aufgaben', label: 'Aufgaben', icon: 'checklist' },
 		{ id: 'termine', label: 'Termine', icon: 'calendar' },
 		{ id: 'abnahmen', label: 'Abnahmen', icon: 'check' },
-		{ id: 'maengel', label: 'Maengel', icon: 'alert' },
+		{ id: 'maengel', label: 'Mängel', icon: 'alert' },
 		{ id: 'nachweise', label: 'Nachweise', icon: 'clipboard' },
 		{ id: 'gewerke', label: 'Gewerke', icon: 'hammer' },
 	];
@@ -422,7 +422,7 @@
 		{ id: 'phase6', label: '(6) Nachkalkulation', phase: 6 },
 	];
 
-	// Phasen-Labels fuer Status-Bar
+	// Phasen-Labels für Status-Bar
 	const phasenLabels = [
 		{ nr: '0', name: 'Bedarfsanalyse', short: 'Bedarf' },
 		{ nr: '1', name: 'Angebot', short: 'Angebot' },
@@ -439,9 +439,9 @@
 		{ key: 'maurer', name: 'Maurer & Trockenbau', statusKey: 'color58__1' },
 		{ key: 'elektrik', name: 'Elektrik', statusKey: 'color63__1' },
 		{ key: 'echeck', name: 'E-Check', statusKey: 'color93__1' },
-		{ key: 'sanitaer', name: 'Bad & Sanitaer', statusKey: 'color65__1' },
+		{ key: 'sanitaer', name: 'Bad & Sanitär', statusKey: 'color65__1' },
 		{ key: 'heizung', name: 'Heizung', statusKey: 'color49__1' },
-		{ key: 'waende', name: 'Waende & Decken', statusKey: 'color98__1' },
+		{ key: 'waende', name: 'Wände & Decken', statusKey: 'color98__1' },
 		{ key: 'boden', name: 'Boden', statusKey: 'color05__1' },
 		{ key: 'tischler', name: 'Tischler', statusKey: 'color15__1' },
 		{ key: 'reinigung', name: 'Endreinigung', statusKey: 'color42__1' },
@@ -449,10 +449,10 @@
 		{ key: 'endabnahme', name: 'Endabnahme Kunde', statusKey: 'color72__1' },
 	];
 
-	// Nachweise-Definition (fuer BV)
+	// Nachweise-Definition (für BV)
 	const nachweiseDefinition = [
 		{ key: 'rohinstallation_elektrik', name: 'Rohinstallation Elektrik', required: true },
-		{ key: 'sanitaer_rohinstallation', name: 'Sanitaer Rohinstallation', required: true },
+		{ key: 'sanitaer_rohinstallation', name: 'Sanitär Rohinstallation', required: true },
 		{ key: 'abdichtung_bad', name: 'Abdichtung Bad', required: true },
 		{ key: 'echeck_protokoll', name: 'E-Check Protokoll', required: true },
 		{ key: 'brandschutz_nachweis', name: 'Nachweis Brandschutz (Fotos von Aufklebern)', required: true },
@@ -533,7 +533,7 @@
 		}
 	}
 
-	// Extrahiere Bild-URL aus column_values (fuer Titelfoto)
+	// Extrahiere Bild-URL aus column_values (für Titelfoto)
 	function extractImageUrl(columnValues: Record<string, unknown>, fieldId: string): string | null {
 		try {
 			const field = columnValues[fieldId] as { text?: string; value?: string; files?: Array<{url: string}> } | undefined;
@@ -738,7 +738,7 @@
 	let rohertrag = $derived(bv && bv.umsatzNetto && bv.budgetNU ? bv.umsatzNetto - bv.budgetNU : null);
 	let rohertragsquote = $derived(bv && bv.umsatzNetto && rohertrag ? Math.round((rohertrag / bv.umsatzNetto) * 100) : null);
 
-	// Nachweis-Status (pruefen ob Dokumente vorhanden sind)
+	// Nachweis-Status (prüfen ob Dokumente vorhanden sind)
 	let nachweiseStatus = $derived(nachweiseDefinition.map(n => {
 		// Suche nach passenden Dokumenten (z.B. E-Check Protokoll in Dokumenten)
 		const found = dokumente.some(d =>
@@ -767,7 +767,7 @@
 	let pflichtNachweise = $derived(nachweiseStatus.filter(n => n.required).length);
 	let vorhandenePflicht = $derived(nachweiseStatus.filter(n => n.required && n.vorhanden).length);
 
-	// Faellige Aufgaben
+	// Fällige Aufgaben
 	let upcomingTasks = $derived(tasks.filter(t => t.due_date && t.status !== 'completed').sort((a, b) => new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime()).slice(0, 5));
 
 	// NU-Dokumente
@@ -824,7 +824,7 @@
 	{:else if error}
 		<div class="error-state">
 			<p>Fehler: {error}</p>
-			<a href="/bauvorhaben" class="back-link">Zurueck zur Uebersicht</a>
+			<a href="/bauvorhaben" class="back-link">Zurück zur Übersicht</a>
 		</div>
 	{:else if bv}
 		<!-- Breadcrumb -->
@@ -962,7 +962,7 @@
 
 		<!-- Tab Content -->
 		<div class="tab-content">
-			<!-- UEBERSICHT TAB -->
+			<!-- ÜBERSICHT TAB -->
 			{#if activeTab === 'uebersicht'}
 				<div class="tab-panel">
 					<!-- Speicher-Meldung -->
@@ -983,7 +983,7 @@
 					</div>
 
 					{#if editingUebersicht}
-						<!-- Edit-Modus fuer Kennzahlen -->
+						<!-- Edit-Modus für Kennzahlen -->
 						<div class="edit-form">
 							<div class="form-grid form-grid-4">
 								<div class="form-group">
@@ -1094,7 +1094,7 @@
 
 					<!-- Schnelluebersicht -->
 					<div class="section">
-						<h3 class="section-title">Status-Uebersicht</h3>
+						<h3 class="section-title">Status-Übersicht</h3>
 						<div class="status-grid">
 							<div class="status-item" class:error={offeneMaengel > 0}>
 								<span class="status-count">{offeneMaengel}</span>
@@ -1262,9 +1262,9 @@
 			<!-- NU TAB -->
 			{:else if activeTab === 'nu'}
 				<div class="tab-panel">
-					<!-- Budget-Uebersicht -->
+					<!-- Budget-Übersicht -->
 					<div class="section">
-						<h3 class="section-title">NU-Budget Uebersicht</h3>
+						<h3 class="section-title">NU-Budget Übersicht</h3>
 						<div class="nu-budget-grid">
 							<div class="nu-budget-card">
 								<span class="nu-budget-label">Budget (Plan)</span>
@@ -1591,7 +1591,7 @@
 						</div>
 					{:else}
 						<div class="empty-state">
-							<p>Keine Aufgaben fuer dieses Projekt</p>
+							<p>Keine Aufgaben für dieses Projekt</p>
 							<Button variant="primary">Aufgabe erstellen</Button>
 						</div>
 					{/if}
@@ -1721,7 +1721,7 @@
 						</div>
 					</div>
 
-					<!-- Faellige Aufgaben -->
+					<!-- Fällige Aufgaben -->
 					{#if upcomingTasks.length > 0}
 						<div class="section">
 							<h3 class="section-title">Naechste Faelligkeiten</h3>
@@ -1966,7 +1966,7 @@
 						<div class="section">
 							<h3 class="section-title">Matterport vorher</h3>
 							<a href={bv.matterportVorher} target="_blank" class="matterport-link">
-								3D-Scan oeffnen
+								3D-Scan öffnen
 							</a>
 						</div>
 					{/if}

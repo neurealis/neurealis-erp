@@ -47,7 +47,7 @@ Deno.serve(async (req: Request) => {
       return Response.redirect(PORTAL_URL + '?error=not_found', 302);
     }
 
-    // Pruefen ob bereits bearbeitet
+    // Prüfen ob bereits bearbeitet
     if (nachtrag.status?.includes('Genehmigt') || nachtrag.status?.includes('Abgelehnt')) {
       return Response.redirect(PORTAL_URL + '?info=already_processed&nr=' + encodeURIComponent(nachtrag.nachtrag_nr), 302);
     }

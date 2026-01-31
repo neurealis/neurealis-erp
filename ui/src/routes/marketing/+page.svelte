@@ -2,6 +2,7 @@
 	import { Card, Badge, Button, KPICard } from '$lib/components/ui';
 	import { supabase } from '$lib/supabase';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	// Types
 	interface SocialPost {
@@ -41,8 +42,8 @@
 		pipeline_run_id: string | null;
 	}
 
-	// Tab State
-	let activeTab = $state<'social' | 'blog' | 'analytics'>('social');
+	// Tab State - Default auf 'blog' da dort der Content ist
+	let activeTab = $state<'social' | 'blog' | 'analytics'>('blog');
 
 	// Social Media State
 	let socialPosts = $state<SocialPost[]>([]);
@@ -432,7 +433,7 @@
 			{:else}
 				<div class="blog-list">
 					{#each filteredBlogPosts() as post}
-						<Card>
+						<Card onclick={() => goto(`/marketing/blog/${post.id}`)} class="clickable">
 							<div class="blog-header">
 								<div class="blog-meta-left">
 									<span class="blog-nr">#{post.post_nr}</span>
@@ -524,7 +525,7 @@
 									{/if}
 								</div>
 								<div class="blog-actions">
-									<Button variant="secondary" size="sm">Bearbeiten</Button>
+									<Button variant="secondary" size="sm" onclick={() => goto(`/marketing/blog/${post.id}`)}>Bearbeiten</Button>
 								</div>
 							</div>
 						</Card>
@@ -974,6 +975,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	.blog-list :global(.clickable) {
+		cursor: pointer;
+		transition: transform 0.1s ease, box-shadow 0.1s ease;
+	}
+
+	.blog-list :global(.clickable:hover) {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	}
 
 	.blog-header {

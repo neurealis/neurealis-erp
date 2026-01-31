@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-01-29
+**Stand:** 2026-02-01
 
 ---
 
@@ -39,6 +39,1369 @@
 | LOG-029 | 2026-01-29 | Blog-Pipeline: Cornerstone 3000-Wörter-Artikel | Abgeschlossen |
 | LOG-030 | 2026-01-29 | Blog-WordPress-Sync Edge Function | Abgeschlossen |
 | LOG-031 | 2026-01-29 | WordPress-Sync v3 + Marketing-RLS-Fix | Abgeschlossen |
+| LOG-032 | 2026-01-29 | Telegram-Bot v49 + Mängel-Reminder Fix | Abgeschlossen |
+| LOG-033 | 2026-01-29 | WordPress-Sync: IONOS Auth-Problem Troubleshooting | Blockiert |
+| LOG-034 | 2026-01-30 | Telegram-Bot v50 Debugging + Mängel-Reminder Fix | Abgeschlossen |
+| LOG-035 | 2026-01-30 | LV-Export PDF Styling Fix | Abgeschlossen |
+| LOG-036 | 2026-01-30 | LV-Sync Implementierung (T1-T5) | Abgeschlossen |
+| LOG-037 | 2026-01-30 | Telegram-Bot v51 - Verbesserte Mängel-Erfassung | Abgeschlossen |
+| LOG-038 | 2026-01-30 | GWS LV-Import 2026 Baupreisindex | Abgeschlossen |
+| LOG-039 | 2026-01-30 | Softr-Sync mangel_nr Fix + Duplikate-Bereinigung | Abgeschlossen |
+| LOG-040 | 2026-01-30 | Telegram-Bot v52-v55 - Nachtrag LV-Position-Matching | Abgeschlossen |
+| LOG-041 | 2026-01-31 | CPQ-System QA-Pruefung (T6) | Abgeschlossen |
+| LOG-041 | 2026-01-31 | Telegram-Bot v58 - Embedding-basierte LV-Suche + lv-embed-regenerate | Abgeschlossen |
+| LOG-042 | 2026-01-31 | Nachtrag-Bug-Fix + gemeldet_von + LV-Konsolidierung | Abgeschlossen |
+| LOG-043 | 2026-01-31 | Angebot aus Baubesprechungs-Transkription (ATBS-472) | Abgeschlossen |
+| LOG-044 | 2026-01-31 | Hero LV-Bereinigung: Duplikate, Alt-Versionen, Artikelnummern | Abgeschlossen |
+| LOG-045 | 2026-01-30 | Angebots-CPQ Konzept: Transkription→Angebot Tool + Aufmaß-Geometrien | Konzept fertig |
+| LOG-046 | 2026-01-30 | Angebots-CPQ Backend: DB-Migration + LV-Abhängigkeiten + transcription-parse | Abgeschlossen |
+| LOG-047 | 2026-01-31 | Angebots-CPQ Vollständig: UI-Wizard + Drag&Drop + Lern-System | Abgeschlossen |
+| LOG-048 | 2026-01-31 | T5: SEO-Lücken schließen (Tags, Kategorien, Featured Images) | Abgeschlossen |
+| LOG-049 | 2026-01-31 | T9: Broken Links finden und fixen | Abgeschlossen |
+| LOG-050 | 2026-01-31 | CPQ-Bugfixes: Projektauswahl, transcription-parse v3, Umlaute | Abgeschlossen |
+| LOG-050 | 2026-01-31 | T10: WordPress REST API Discovery | Abgeschlossen |
+| LOG-051 | 2026-01-31 | WordPress-Sync IONOS-Fix + Blog-Optimierung (T1-T13) | Abgeschlossen |
+| LOG-052 | 2026-01-31 | CPQ-Workflow Fix: Fehlerbehandlung + transcription-parse v7 | Abgeschlossen |
+| LOG-053 | 2026-02-01 | CPQ-Test + UI-Verbesserungen dokumentiert | Abgeschlossen |
+
+---
+
+## LOG-053 - CPQ-Test + UI-Verbesserungen dokumentiert
+
+**Datum:** 2026-02-01 00:00
+**Status:** Abgeschlossen
+
+### Durchgeführt
+
+- CPQ-Workflow getestet nach Bugfixes der vorherigen Session
+- KI-Erkennung funktioniert gut
+- **3 Verbesserungswünsche vom User dokumentiert:**
+
+### Gewünschte Verbesserungen
+
+1. **GWS-LV Priorisierung:**
+   - Vorschläge zuerst aus GWS-LV
+   - Dropdown für andere LVs (VBW, neurealis, etc.)
+
+2. **Freitextsuche:**
+   - Volltextsuche über alle 3.167 LV-Positionen
+   - Unterhalb der KI-Vorschläge anzeigen
+
+3. **Mehrfachauswahl pro Leistung:**
+   - Zu einer erkannten Leistung mehrere LV-Artikel hinzufügen
+   - Nicht nur 1:1 Mapping
+
+### Nächste Schritte
+
+- UI-Komponente erweitern (Dropdown für LV-Typ-Wechsel)
+- Freitextsuche integrieren (search-lv Edge Function oder Client-seitig)
+- State-Struktur ändern: Array statt einzelne Position
+
+---
+
+## LOG-052 - CPQ-Workflow Fix: Fehlerbehandlung + transcription-parse v7
+
+**Datum:** 2026-01-31 ~23:45
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Probleme behoben
+
+**1. UI-Fehlerbehandlung "is not a true Error":**
+- **Problem:** `supabase.functions.invoke()` gibt bei Fehlern `FunctionsHttpError` zurück, nicht `Error`
+- **Ursache:** `err instanceof Error` Prüfung schlug fehl
+- **Lösung:** Neue `getErrorMessage()` Utility-Funktion für robuste Fehlerbehandlung
+- **Datei:** `ui/src/routes/angebote/neu/+page.svelte`
+
+**2. transcription-parse 400-Fehler:**
+- **Problem:** GPT-5.2 API gab 400 zurück
+- **Ursache:** `max_tokens` Parameter nicht unterstützt bei GPT-5.2
+- **Lösung:** `max_completion_tokens: 4000` statt `max_tokens: 4000`
+- **Deployed:** transcription-parse v7
+
+### Verifizierung
+
+Test-Request erfolgreich:
+- Input: "Bad fliesen 12 qm und 3 Steckdosen neu"
+- Output: 2 Positionen mit LV-Matches und Alternativen
+- Statistik: 2 total, 2 mit_match, 0 ohne_match
+
+### Subagenten eingesetzt
+
+| Agent | Aufgabe | Ergebnis |
+|-------|---------|----------|
+| T1 | UI-Fehlerbehandlung | ✅ getErrorMessage() implementiert |
+| T2 | RPC-Funktionen prüfen | ✅ Alle 3 vorhanden |
+| T3 | DB-Tabellen prüfen | ✅ Alle 6 CPQ-Tabellen vorhanden |
+
+### Learnings
+
+- **L137:** GPT-5.2 benötigt `max_completion_tokens` statt `max_tokens` (bestätigt L028)
+- **L138:** Supabase FunctionsHttpError ist kein echtes Error-Objekt
+
+---
+
+## LOG-051 - WordPress-Sync IONOS-Fix + Blog-Optimierung (T1-T13)
+
+**Datum:** 2026-01-31 ~19:00 - 23:00
+**Dauer:** ~4 Stunden
+**Status:** Abgeschlossen (3 Subagenten noch aktiv)
+
+### Haupterfolg: IONOS Auth-Problem gelöst
+
+**Problem:** IONOS Hosting strippt HTTP Authorization Header im CGI-Modus
+**Lösung:** 3-stufiger Workaround:
+1. JWT Authentication Plugin installiert
+2. `JWT_AUTH_SECRET_KEY` in wp-config.php gesetzt
+3. Custom Header `X-WP-Auth` statt `Authorization` verwenden
+4. wp-config.php liest X-WP-Auth und kopiert nach HTTP_AUTHORIZATION
+
+**Ergebnis:** 8 Blog-Artikel erfolgreich nach WordPress veröffentlicht!
+
+### Blog-Optimierung mit 13 Subagenten-Tasks
+
+| Task | Beschreibung | Status |
+|------|--------------|--------|
+| T1 | Leerstand-Artikel überarbeiten | ✅ 2.100 Wörter |
+| T2 | WordPress-Struktur analysieren | ✅ 82 Posts/Pages |
+| T3 | Eigenheim-Template erstellen | ✅ 2.350 Wörter |
+| T4 | WordPress → GitHub Backup | ✅ 1,3 MB |
+| T5 | SEO-Lücken schließen | ✅ Tags, Kategorien, Images |
+| T6 | Eigenheim Kostenkorrektur | ✅ 121.000 EUR |
+| T7 | Upload mit Layout | ✅ 2 Artikel |
+| T8 | Alle KI-Artikel verbessern | ✅ 7 Artikel |
+| T9 | Broken Links fixen | ✅ 23 Ersetzungen |
+| T10 | WordPress API Schema | ✅ 485 Routen |
+| T11 | T8-Artikel hochladen | 🔄 Läuft |
+| T12 | Elementor API testen | 🔄 Läuft |
+| T13 | Eigenheim-Seite Elementor+Yoast | 🔄 Läuft |
+
+### Neue Learnings
+
+- L085: IONOS X-WP-Auth Workaround für JWT
+- L086: WordPress API Discovery (485 Routen, 22 Namespaces)
+- L087: Elementor speichert Layouts in _elementor_data Post-Meta
+- L088: Yoast SEO Meta via _yoast_wpseo_* Post-Meta setzen
+- L089: Subagenten-Koordination über Tracker-Dateien
+
+---
+
+## LOG-050 - T10: WordPress REST API Discovery
+
+**Datum:** 2026-01-31
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Vollstaendige Analyse der WordPress REST API auf neurealis.de durchgefuehrt. 485 Routen in 22 Namespaces dokumentiert.
+
+### Durchgefuehrte Arbeiten
+
+**API-Analyse:**
+- Haupt-API-Index abgerufen
+- Alle 22 Namespaces identifiziert
+- 485 Routen dokumentiert
+- Schwerpunkte: Elementor (79 Routen), wp/v2 (132 Routen), Yoast (45 Routen)
+
+**Dokumentation erstellt:**
+- `docs/wordpress_api/README.md` - Uebersicht
+- `docs/wordpress_api/core.md` - Posts, Pages, Media
+- `docs/wordpress_api/elementor.md` - Page Builder
+- `docs/wordpress_api/yoast.md` - SEO-Metadaten
+- `docs/wordpress_api/jwt_auth.md` - Authentifizierung
+- `docs/wordpress_api/plugins.md` - Redirection, Frase, WPVR
+
+### Wichtige Erkenntnisse
+
+1. **Elementor:** 79 API-Routen, aber Content als JSON in Post-Meta (komplex)
+2. **Yoast:** SEO-Daten als `yoast_head_json` im Post (read-only), setzen via Post-Meta
+3. **JWT Auth:** Funktioniert, aber IONOS-Problem bleibt (L083-L084)
+4. **Kategorien:** 5 vorhanden (Allgemein, Regional, Sanierungsarten, Vermieter-Wissen)
+
+### Ergebnis
+
+Vollstaendige API-Dokumentation unter `docs/wordpress_api/` erstellt.
+Hauptreport: `docs/implementation/t10_api_discovery.md`
+
+---
+
+## LOG-049 - T9: Broken Links finden und fixen
+
+**Datum:** 2026-01-31
+**Dauer:** ~20 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Broken Links auf neurealis.de identifiziert und automatisch gefixt. 107 Links gescannt, 12 broken gefunden, 23 Ersetzungen durchgeführt.
+
+### Durchgeführte Arbeiten
+
+**Analyse:**
+- Alle Posts (11) und Pages (71) von WordPress REST API geholt
+- Links aus Content extrahiert (86 intern, 21 extern)
+- Jeden Link mit HEAD-Request geprüft
+- 10 interne + 2 externe broken links gefunden
+
+**Fixes (11 Posts/Pages erfolgreich aktualisiert):**
+- KI-generierte Blog-Links (`/blog/...`) zu echten Artikeln umgeleitet
+- Alte Leistungen-Seite zu Aufwertung-Seite umgeleitet
+- Tippfehler bei Datenschutz und Sanierungs-Beispiele korrigiert
+
+**Ursachen der Broken Links:**
+1. KI-Halluzinationen: `/blog/` URLs die nie existierten
+2. Umbenannte Seiten ohne Redirects
+3. Tippfehler in URLs
+
+### Erstellte Scripts
+
+- `scripts/broken-link-checker.mjs` - Findet alle broken links
+- `scripts/fix-broken-links.mjs` - Fixt interne broken links via WordPress API
+
+### Offene externe Links
+
+- `{{ unsubscribe_link }}` - Newsletter-Platzhalter auf Testseite
+- `http://Prozess` - Tippfehler auf Karriere-Seite
+
+### Reports
+
+- `docs/implementation/t9_broken_links.md` - Detaillierter Report
+- `docs/implementation/broken_links_report.json` - Rohdaten
+
+---
+
+## LOG-050 - CPQ-Bugfixes: Projektauswahl, transcription-parse v3, Umlaute
+
+**Datum:** 2026-01-31 ~02:30
+**Dauer:** ~30 Minuten (3 parallele Subagenten)
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Drei kritische Bugs im CPQ-System behoben: Projektauswahl zeigte "[object Object]", Edge Function gab Fehler, Umlaute wurden als ae/oe/ue angezeigt.
+
+### Durchgeführte Arbeiten
+
+**1. Projektauswahl-Fix:**
+- Problem: Dropdown zeigte "Object" statt Projektnamen
+- Ursache: JSONB-Struktur `column_values?.status__1` ist verschachtelt `{text: "...", value: null}`
+- Fix: Korrektes Parsing mit `column_values?.status__1?.text`
+- Phase-Extraktion per Regex `\((\d+)\)` aus "(0) Offen"
+
+**2. transcription-parse v3:**
+- Problem: Status 400 wegen inkonsistentem Response-Format
+- Fix: Prompt und `response_format` konsistent gemacht (beide erwarten `{"positionen": [...]}`)
+- TypeScript Error-Handling verbessert (`error instanceof Error` Check)
+- Version auf v3 deployed
+
+**3. Umlaute-Korrektur (18 Dateien, ~100 Fixes):**
+- UI-Dateien: angebote, bauvorhaben, kontakte, einkauf, etc.
+- Edge Functions: email-process, email-fetch, search-lv, nachtrag-action
+- Beispiele: "pruefen" → "prüfen", "fuer" → "für", "Uebersicht" → "Übersicht"
+
+**4. CLAUDE.md aktualisiert (v2.4):**
+- Umlaut-Box erweitert mit allen Anwendungsbereichen
+- In VERBOTEN-Tabelle aufgenommen als harte Anforderung
+
+### Geänderte Dateien
+
+**UI (17 Dateien):**
+- `angebote/neu/+page.svelte` (Projektauswahl + 23 Umlaute)
+- `bauvorhaben/[id]/+page.svelte` (21 Umlaute)
+- `kontakte/+page.svelte` (18 Umlaute)
+- + 14 weitere Komponenten
+
+**Edge Functions:**
+- `transcription-parse/index.ts` (v3)
+- 4 weitere Functions (Umlaute)
+
+**Dokumentation:**
+- `C:\Users\holge\CLAUDE.md` (v2.4)
+
+---
+
+## LOG-048 - T5: SEO-Lücken schließen
+
+**Datum:** 2026-01-31
+**Dauer:** ~15 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+SEO-Optimierung der 8 KI-generierten Blog-Artikel über WordPress REST API: Tags, Kategorien und Featured Images zugewiesen.
+
+### Durchgeführte Arbeiten
+
+**Lücke 1: Tags erstellen und zuweisen:**
+- 14 neue Tags erstellt: Kernsanierung, Komplettsanierung, Badsanierung, Bochum, Ruhrgebiet, NRW, Kosten, Förderung, KfW, Vermieter, Mietwohnung, Leerstand, GEG, Sanierungspflicht
+- Alle 8 KI-Artikel mit passenden Tags (3-5 pro Artikel) versehen
+
+**Lücke 2: Kategorien erweitern:**
+- 3 neue Kategorien erstellt: Vermieter-Wissen, Regional, Sanierungsarten
+- Alle 8 Artikel in passende Kategorien eingeordnet
+
+**Lücke 3: Featured Images:**
+- Alle 8 Artikel hatten featured_media: 0
+- Bild ID 12028 (qohnzimmer-quer.webp) als Featured Image gesetzt
+- Empfehlung: Themenspezifische Bilder hochladen
+
+**Lücke 4: Interne Verlinkung:**
+- 10 Empfehlungen dokumentiert (Blog → Landing Pages, Blog → Blog)
+- Erfordert manuelle Content-Updates
+
+### Technisch
+
+- WordPress REST API mit JWT-Auth (X-WP-Auth Header)
+- Script: `scripts/seo-fix.mjs`
+- Report: `docs/implementation/t5_seo_fixes.md`
+
+### Neue IDs in WordPress
+
+| Typ | ID-Range |
+|-----|----------|
+| Tags | 195-208 |
+| Kategorien | 209-211 |
+
+---
+
+## LOG-047 - Angebots-CPQ Vollständig: UI-Wizard + Drag&Drop + Lern-System
+
+**Datum:** 2026-01-31 ~01:30
+**Dauer:** ~2 Stunden (6 parallele Subagenten)
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Vollständige Implementierung des Angebots-CPQ Systems mit 8-Schritt UI-Wizard, Drag&Drop Komponenten, Lern-System für KI-Korrekturen und 44 Angebotsbausteinen.
+
+### Durchgeführte Arbeiten (6 Tasks parallel)
+
+**T1: DB-Schema (lv_config, angebots_bausteine, position_corrections):**
+- `lv_config`: 3 LV-Typen mit Gewerken (GWS: 46, VBW: 23, neurealis: 35)
+- `angebots_bausteine`: Vorlagen-Tabelle
+- `position_corrections`: Lern-System mit Vector-Index
+- RPC: `search_position_corrections()`
+- RLS Policies für alle Tabellen
+
+**T2: transcription-parse v2:**
+- Hybrid-Prompt mit LV-Parametern aus `lv_config`
+- Fallback-Suche über alle LVs wenn Haupt-LV keine Treffer
+- Korrektur-System: Gelernte Mappings anwenden (Threshold 0.92)
+- Top 5 Alternativen pro Position zurückgeben
+- Statistiken (Matches, Fallbacks, Korrekturen)
+
+**T3: UI-Wizard (/angebote/neu):**
+- 8-Schritt Wizard: Projekt → Eingabe → Positionen prüfen → Gruppen → Abhängigkeiten → Aufmaß → Preise → Freigabe
+- 3-Spalten Layout für Position-Korrektur (Original | Erkannt | Alternativen)
+- Korrekturen werden für Lern-System gespeichert
+- Sidebar-Link hinzugefügt
+
+**T4: Drag&Drop Komponenten:**
+- `DraggableList.svelte` - Native HTML5 Drag&Drop
+- `PositionItem.svelte` - Inline-Edit für Mengen
+- `PositionGroup.svelte` - Collapsible mit Kopieren/Löschen
+- `PositionGroupList.svelte` - Container mit Toolbar
+- Touch-Support für Mobile
+
+**T5: Angebotsbausteine (44 Einträge):**
+- 3 Angebotsannahme-Vorlagen (HTML mit Unterschriftsfelder)
+- 2 NUA-Vertragswerke (§1-§12 VOB/B)
+- 10 Textbausteine (Zahlungsbedingungen, Gewährleistung, etc.)
+- 29 Bedarfspositionen mit echten GWS-Listenpreisen
+
+**T6: Qualitätssicherung:**
+- TypeScript-Fehler behoben (Type-Exports aus Svelte)
+- Build erfolgreich (18.62s)
+- Alle 7 Prüfpunkte bestanden
+
+### Neue Dateien
+
+```
+ui/src/routes/angebote/+page.svelte
+ui/src/routes/angebote/neu/+page.svelte
+ui/src/routes/api/position-correction/+server.ts
+ui/src/lib/components/cpq/DraggableList.svelte
+ui/src/lib/components/cpq/PositionItem.svelte
+ui/src/lib/components/cpq/PositionGroup.svelte
+ui/src/lib/components/cpq/PositionGroupList.svelte
+ui/src/lib/components/cpq/types.ts
+ui/src/lib/components/cpq/index.ts
+```
+
+### Offene TODOs (Phase 2)
+
+1. PDF-Generierung (jsPDF Integration)
+2. Modal für manuelle Position hinzufügen
+3. NUA-Detection implementieren
+4. Raum-Struktur als Alternative
+5. Auto-Save/Draft-Speicherung
+
+### Learnings
+
+- **L109:** Svelte 5 Type-Exports müssen in separater types.ts Datei sein, nicht in .svelte Komponenten
+- **L110:** 6 parallele Subagenten für große Features extrem effektiv - Kontext-Window bleibt sauber
+
+---
+
+## LOG-046 - Angebots-CPQ Backend: DB-Migration + LV-Abhängigkeiten + transcription-parse
+
+**Datum:** 2026-01-30 ~22:30
+**Dauer:** ~2 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Backend-Infrastruktur für Angebots-CPQ System implementiert: DB-Tabellen, LV-Abhängigkeiten analysiert und gespeichert, Edge Functions deployed.
+
+### Durchgeführte Arbeiten
+
+**1. T1: DB-Migration (6 Tabellen):**
+- `pricing_profiles` - 6 Profile (GWS, VBW, Covivio, neurealis, Privataufschlag 15%/20%)
+- `kunde_pricing` - Kundenspezifische Aufschläge
+- `position_dependencies` - LV-Abhängigkeiten
+- `angebote` - Haupttabelle mit Status-Workflow
+- `angebots_positionen` - Positionsdetails erweitert
+- `dokument_sequenzen` + `get_next_dokument_nr()` RPC
+
+**2. T3: LV-Abhängigkeiten-Analyse (lokal via Subagenten):**
+| LV-Typ | Positionen | Abhängigkeiten |
+|--------|------------|----------------|
+| GWS | 561 | 74 |
+| VBW | 100 | 39 |
+| neurealis | 236 | 25 |
+| **TOTAL** | 897 | **138** |
+
+Typen: `referenced_in_text`, `often_together`, `required`, `suggested`
+
+**3. T4: transcription-parse Edge Function:**
+- Deployed (Version 1)
+- GPT-5.2 Extraktion + Embedding-basierte LV-Suche
+- Abhängigkeiten aus DB laden
+
+**4. LV-Prompt-Analyse:**
+- Gewerke-Namen sind pro LV komplett unterschiedlich
+- Empfehlung: Hybrid-Ansatz (Ein Template + LV-spezifische Parameter)
+- Neue Tabelle `lv_config` vorgeschlagen
+
+### Probleme & Lösungen
+
+**Problem:** Edge Function `analyze-lv-dependencies` hatte Timeout (>150s)
+**Lösung:** Lokale Analyse via Subagenten ohne Timeout-Limit
+
+### Erstellte Dateien
+
+```
+docs/implementation/
+├── T1_MIGRATION_RESULT.md
+├── T3_GWS_RESULT.md / T3_GWS_LOKAL.md
+├── T3_VBW_RESULT.md / T3_VBW_LOKAL.md
+├── T3_NEUREALIS_RESULT.md / T3_NEUREALIS_LOKAL.md
+├── T4_TRANSCRIPTION_RESULT.md
+└── LV_PROMPT_ANALYSE.md
+```
+
+### Nächste Schritte
+
+1. `lv_config` Tabelle + Hybrid-Prompt implementieren
+2. UI-Wizard für Angebotserstellung
+3. PDF-Generierung anpassen
+
+---
+
+## LOG-044 - Hero LV-Bereinigung: Duplikate, Alt-Versionen, Artikelnummern
+
+**Datum:** 2026-01-31 ~04:00
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Umfassende Bereinigung der Hero LV-Positionen: Duplikate gelöscht, Alt-Versionen archiviert, generische Artikelnummern durch Schema ersetzt.
+
+### Durchgeführte Arbeiten
+
+**1. Supabase - Duplikat zusammengeführt:**
+- `GWS.LV23-01.01.24` (115,87 €) behalten
+- `LV23-01.01.24` (100,00 €) gelöscht
+- Preis-Historie eingefügt (100 € → 115,87 €)
+
+**2. Hero - DUPLIKAT und ALT gelöscht:**
+| Typ | Anzahl |
+|-----|--------|
+| DUPLIKAT-* | 190 |
+| ALT-* | 436 |
+| **Summe** | **626** |
+
+**3. Hero - Doppelte Artikelnummern bereinigt:**
+- 195 Positionen mit niedrigerem Preis gelöscht
+- Höherer Preis jeweils behalten
+
+**4. Hero - Generische Artikelnummern ersetzt:**
+| Alt | Neu |
+|-----|-----|
+| (LEER) | Sanitaer-Dusche-Zulage |
+| (LEER) | Allgemein-Anfahrt-Pauschale |
+| freie Position | Boden-Platten-Rueckbau |
+| 0 | Allgemein-Leer-Position |
+| rei | Sanitaer-Silikon-Erneuerung |
+| frei | Elektrik-Sat-Anschluss |
+| Trenner | Trenner-Maurer-Linie |
+
+**5. Ignorierte Konflikte (manuelle Korrektur nötig):**
+- FC.LV25.8.x Forte Capital (6 vertauschte Nummern)
+- GWS.LV23-21.02.01.34 (Stand-WC vs Wand-WC)
+
+### Backups erstellt
+
+- `docs/backups/2026-01-31_hero_duplikat_alt_backup.json`
+- `docs/backups/2026-01-31_hero_duplikate_niedriger_preis.json`
+- `docs/backups/2026-01-31_hero_artikelnummern_neu.json`
+
+### Gesamtergebnis
+
+| Aktion | Anzahl |
+|--------|--------|
+| DUPLIKAT-* gelöscht | 190 |
+| ALT-* gelöscht | 436 |
+| Niedrigere Preise gelöscht | 195 |
+| Generische Nr. ersetzt | 7 |
+| **Total bereinigt** | **828** |
+
+### Neue Learnings
+
+- L098: Hero GraphQL Soft-Delete via `is_deleted: true`
+- L099: Artikelnummer-Schema: Gewerk-Bauteil-Aspekt (Title Case)
+- L100: Bei LV-Duplikaten immer höheren Preis behalten
+
+---
+
+## LOG-045 - Angebots-CPQ Konzept: Transkription→Angebot Tool + Aufmaß-Geometrien
+
+**Datum:** 2026-01-30 ~17:00 - 18:00
+**Dauer:** ~2,5 Stunden
+**Status:** Konzept fertig
+
+### Zusammenfassung
+
+Vollständiges Konzept für ein CPQ-System (Configure-Price-Quote) entwickelt, das aus Spracheingaben, Transkriptionen und Katalogsuche automatisch strukturierte Angebote generiert. Basiert auf ChatGPT-Vorarbeit, angepasst an bestehende neurealis-Infrastruktur. Nachträglich um Raumgeometrien (L-Form, U-Form) und CSV-Import im Wizard erweitert.
+
+### Durchgeführte Arbeiten
+
+**1. Bestehende Infrastruktur analysiert (3 Subagenten parallel)**
+- `aufmass_data` Tabelle: rooms JSONB mit Raumflächen
+- `lv_positionen`: 3.167 Positionen mit Embeddings (pgvector)
+- `process-aufmass-complete`: CSV→Excel Edge Function
+- PDF-Generator: jsPDF + autotable in lv-export
+
+**2. Konzept erstellt**
+- 6-Schritt-Wizard: Projekt → Positionen → Mengen → Kalkulation → Freigabe → Versand
+- Nummernlogik: ATBS-472-ANG01, -AB01, -NUA01, -RE01
+- Abhängigkeiten-System: LV-Langtext-Analyse + Admin-Regeln + Kundenspezifisch
+- Pricing-Profile: Basis-LV + Aufschläge pro Kundengruppe
+
+**3. Technische Dokumentation erstellt**
+- SQL-Migrationen (6 neue Tabellen)
+- Edge Function Specs (transcription-parse, analyze-lv-dependencies)
+- UI-Route-Struktur (SvelteKit)
+- Seed-Daten für Abhängigkeiten
+
+**4. Nachträgliche Erweiterungen (User-Feedback)**
+- CSV-Import direkt im Wizard-Dialog (nicht nur via Telegram)
+- Raumgeometrien: Rechteck, L-Form, U-Form als Dropdown
+- Teilflächen-Eingabe für komplexe Räume (A, B, C)
+- Gemeinsame Wände (Innenwände zwischen Teilflächen)
+- Abzüge (Türen, Fenster) von Wandfläche
+- Berechnungslogik für alle Geometrien dokumentiert
+
+### Dateien erstellt/aktualisiert
+
+- `docs/ANGEBOTS_CPQ_KONZEPT.md` (Konzept + UI-Mockups + Geometrien)
+- `docs/implementation/ANGEBOTS_CPQ_IMPLEMENTATION.md` (SQL + TypeScript + Berechnungen)
+
+### Schlüsselentscheidungen
+
+1. **MVP nach Gewerken** (nicht Räumen) - einfacher
+2. **Abhängigkeiten aus LV-Langtexten** via KI-Analyse
+3. **Regelbasiert zuerst** - ML-Lernen in Phase 3
+4. **Bestehende PDF-Generierung nutzen** (jsPDF aus LV-Export)
+5. **Aufmaß via CSV** (nicht Matterport API) - bereits funktioniert
+6. **Raumgeometrien:** Rechteck, L-Form, U-Form mit Teilflächen
+
+### Neue Learnings
+
+- L109-L114: CPQ-Wizard, Abhängigkeiten, Aufmaß-UI, Nummernlogik, Pricing, Geometrien
+
+### Offene Punkte (User-Feedback nötig)
+
+1. ~~Aufmaß-Geometrie~~ → Gelöst: Rechteck, L-Form, U-Form
+2. Annahme-Formular: Text für letzte Seite?
+3. NUA-Vertragswerk: Kleingedruckter Text?
+4. Standard-Bedarfspositionen: Liste?
+
+### Nächste Schritte
+
+1. DB-Migration ausführen
+2. LV-Langtext-Analyse für GWS starten
+3. Wizard-UI bauen
+
+---
+
+## LOG-043 - Angebot aus Baubesprechungs-Transkription (ATBS-472)
+
+**Datum:** 2026-01-31 ~03:30
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Automatische Angebotserstellung aus Baubesprechungs-Transkription (Plaud-Aufnahme). Leistungen aus Sprachaufnahme extrahiert, GWS-LV-Positionen zugeordnet, und strukturiertes HTML-Angebot mit korrekten Listenpreisen erstellt.
+
+### Durchgeführte Arbeiten
+
+**1. Transkription analysiert (ATBS-472, GWS Bollwerkstraße 9)**
+- Baubesprechung mit Herrn Fromme (GWS), Mieter Minner, 4. OG
+- 45 Minuten Aufnahme → Leistungspositionen extrahiert
+- 9 Gewerke identifiziert: Demontage, Boden, Sanitär, Heizung, Elektro, Maler, Tischler, Reinigung, Sonstiges
+
+**2. GWS-LV-Positionen zugeordnet**
+- 41 Einzelpositionen mit Artikelnummern
+- Subagent für parallele DB-Abfragen genutzt
+- Mengen aus Transkription geschätzt (ca. 60m² Wohnung)
+
+**3. Preiskorrektur: EK → Listenpreis**
+- **Problem erkannt:** Erste Version nutzte `preis` (EK) statt `listenpreis` (VK)
+- DB-Struktur: `preis` = Einkaufspreis, `listenpreis` = Verkaufspreis für GWS
+- **Korrigiert:** Alle Positionen auf Listenpreise umgestellt
+- **Differenz:** 10.230,51 € (EK) → 14.427,46 € (VK) = **+41%**
+
+**4. HTML-Angebot erstellt**
+- Druckbares HTML mit neurealis-Branding
+- "Als PDF drucken" Button integriert
+- Alle Gewerke mit Zwischensummen
+- Gesamtübersicht mit Netto/Brutto
+
+### Ergebnis
+
+**Angebot ANG-ATBS-472:**
+| | Betrag |
+|--|------:|
+| Netto | 14.427,46 € |
+| Brutto | 17.168,68 € |
+
+**Größte Gewerke:**
+- Boden: 3.806,18 € (26%)
+- Maler: 3.487,75 € (24%)
+- Elektro: 2.069,15 € (14%)
+- Sanitär: 1.680,34 € (12%)
+
+### Dateien erstellt
+
+- `docs/angebote/ATBS-472_angebot.md` (Markdown)
+- `docs/angebote/ANG-ATBS-472_Bollwerkstr9_GWS.html` (druckbares HTML)
+- `docs/angebote/export-atbs-472-pdf.mjs` (PDF-Export-Script)
+
+### Learnings
+
+- **L103:** `preis` = EK, `listenpreis` = VK in lv_positionen
+- **L104:** Transkription → Angebot Workflow etabliert
+
+---
+
+## LOG-042 - Nachtrag-Bug-Fix + gemeldet_von + LV-Konsolidierung
+
+**Datum:** 2026-01-31 ~01:00
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Bug-Fix für Telegram-Bot Nachtrag-Erstellung (CHECK constraint Fehler), dynamische gemeldet_von Erkennung implementiert, Embedding-basierte LV-Position-Suche aktiviert, und LV-Typ "Privat" in "neurealis" konsolidiert.
+
+### Durchgeführte Arbeiten
+
+**1. Bug-Fix: Nachtrag speichern scheiterte**
+- **Problem:** "Fehler beim Speichern" nach Nachtrag-Analyse im Telegram-Bot
+- **Ursache:** CHECK constraints verletzt:
+  - `nachtraege_status_check`: Code nutzte `'Gemeldet'` (ungültig)
+  - `nachtraege_gemeldet_von_check`: Code nutzte `'telegram'` (ungültig)
+- **Fix v56:** Status auf `'(0) Offen / Preis eingeben'` geändert
+- **Migration:** `'telegram'` zu gemeldet_von CHECK constraint hinzugefügt
+
+**2. Dynamische gemeldet_von Erkennung (v57)**
+- Lookup: `telegram_chat_id` in kontakte-Tabelle
+- Rolle `NU` (Nachunternehmer) → `gemeldet_von='nu'`
+- Rolle `BL` oder Name "Holger Neumann" → `gemeldet_von='bauleiter'`
+- Fallback: `gemeldet_von='telegram'`
+
+**3. Embedding-basierte LV-Position-Suche (v58)**
+- Nachtrag-Text → Embedding → `search_lv_positions` RPC
+- Similarity-Threshold: 0.6 (60%)
+- Positionen nur angezeigt wenn gefunden
+- Telegram-Ausgabe formatiert mit Preis und Similarity%
+
+**4. Verbesserte Embeddings (lv-embed-regenerate)**
+- Kombination: `bezeichnung + ' - ' + strip_html(beschreibung)`
+- Neue Spalte: `embedding_text` für Nachvollziehbarkeit
+- Alle 2.214 LV-Positionen regeneriert
+
+**5. LV-Typ Konsolidierung**
+- "Privat" → "neurealis" umbenannt (281 Positionen)
+- neurealis hat jetzt 693 Positionen (vorher 412)
+- Backup: `docs/backups/2026-01-30_lv_positionen_privat_to_neurealis.json`
+
+### Edge Functions deployed
+
+| Function | Version | Änderung |
+|----------|---------|----------|
+| telegram-webhook | v58 | Embedding-LV-Suche, gemeldet_von dynamisch |
+| lv-embed-regenerate | v1 | Kombinierte Embeddings (bezeichnung + beschreibung) |
+
+### Neue Learnings
+
+- L101: CHECK constraints bei Telegram-Bot Inserts beachten
+- L102: LV-Typen konsolidieren statt doppelt pflegen
+
+---
+
+## LOG-041 - Telegram-Bot v58 - Embedding-basierte LV-Suche + lv-embed-regenerate
+
+**Datum:** 2026-01-31 ~00:00
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Erweiterung des Telegram-Bots um Embedding-basierte LV-Position-Suche für Nachträge. Die bisherige Score-basierte Suche wurde durch semantische Ähnlichkeitssuche via pgvector ersetzt. Zusätzlich wurde eine Edge Function `lv-embed-regenerate` erstellt, die die Embeddings mit kombiniertem Text (bezeichnung + strip_html(beschreibung)) regeneriert.
+
+### Durchgeführte Arbeiten
+
+**1. Migration: embedding_text Spalte + strip_html Funktion**
+```sql
+ALTER TABLE lv_positionen ADD COLUMN embedding_text TEXT;
+
+CREATE OR REPLACE FUNCTION strip_html(text) RETURNS text AS $$
+  SELECT COALESCE(regexp_replace($1, '<[^>]*>', ' ', 'g'), '');
+$$ LANGUAGE sql IMMUTABLE;
+
+CREATE OR REPLACE FUNCTION generate_embedding_text(bezeichnung text, beschreibung text) RETURNS text AS $$
+  SELECT TRIM(
+    COALESCE(bezeichnung, '') ||
+    CASE WHEN beschreibung IS NOT NULL AND beschreibung != ''
+         THEN ' - ' || strip_html(beschreibung)
+         ELSE ''
+    END
+  );
+$$ LANGUAGE sql IMMUTABLE;
+```
+
+**2. Edge Function lv-embed-regenerate v1:**
+- Kombiniert: `bezeichnung + ' - ' + strip_html(beschreibung)`
+- Generiert neue Embeddings mit `text-embedding-3-small`
+- Speichert kombinierten Text in `embedding_text` zur Nachvollziehbarkeit
+- Parameter: `lv_typ`, `batch_size`, `force`
+- Batch-Verarbeitung: 20 Embeddings pro OpenAI-Call
+
+**3. telegram-webhook v58:**
+- Embedding-basierte LV-Suche via `search_lv_positions` RPC
+- Similarity-Threshold: 0.6 (60%)
+- Telegram-Ausgabe angepasst:
+  - Mit Positionen: Formatierte Liste mit Artikelname, Similarity%, Preis
+  - Ohne Positionen: Nur Beschreibung anzeigen
+- Positionen werden in `nachtraege.positionen` JSONB gespeichert
+
+### Telegram-Ausgabe (mit gefundenen Positionen)
+
+```
+✅ Nachtrag NT-ATBS-456-001 erstellt!
+Gemeldet von: Holger Neumann (bauleiter)
+
+📋 Gefundene LV-Positionen:
+1. Elektrik: Teilmodernisierung (85% Match)
+   → 450,00 € / Stück
+2. Steckdose, 2-fach (72% Match)
+   → 25,00 € / Stück
+
+Geschätzte Summe: 475,00 € netto
+
+Foto hinzufügen?
+```
+
+### Telegram-Ausgabe (ohne Positionen)
+
+```
+✅ Nachtrag NT-ATBS-456-001 erstellt!
+Gemeldet von: Holger Neumann (bauleiter)
+
+Beschreibung: 3 zusätzliche Steckdosen
+
+Keine passenden LV-Positionen gefunden.
+
+Foto hinzufügen?
+```
+
+### Dateien
+
+| Datei | Änderung |
+|-------|----------|
+| `functions/supabase/functions/telegram-webhook/index.ts` | v58: Embedding-basierte LV-Suche |
+| `functions/supabase/functions/lv-embed-regenerate/index.ts` | NEU: Embedding-Regenerierung |
+
+### Neue Learnings
+
+- **L098:** Embedding-basierte Suche ist semantisch robuster als Score-basiertes Keyword-Matching
+- **L099:** strip_html entfernt HTML-Tags für saubere Embeddings
+- **L100:** Similarity-Threshold 0.6 ist guter Kompromiss zwischen Precision und Recall
+
+---
+
+## LOG-040 - Telegram-Bot v52-v55 - Nachtrag LV-Position-Matching
+
+**Datum:** 2026-01-30 ~22:00 - 23:30
+**Dauer:** ~1.5 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Implementierung eines LV-Position-Matching-Features für Nachträge im Telegram-Bot. Bei Nachtrag-Erfassung werden nun automatisch die passenden LV-Positionen basierend auf dem Auftraggeber des Projekts identifiziert und mit Preisen angezeigt.
+
+### Durchgeführte Arbeiten
+
+**1. Auftraggeber-Extraktion aus Projektname (v52):**
+```typescript
+function extractAuftraggeberFromName(projektName: string): string {
+  const firstPart = projektName.split('|')[0].trim().toLowerCase();
+  if (firstPart === 'vbw') return 'VBW';
+  if (firstPart === 'gws') return 'GWS';
+  if (firstPart === 'covivio') return 'Covivio';
+  if (firstPart === 'vonovia') return 'Vonovia';
+  // ... weitere Mappings
+  return 'neurealis'; // Fallback
+}
+```
+
+**2. LV-Typ Mapping (v55 - Vonovia-Korrektur):**
+```typescript
+const mapping = {
+  'VBW': 'VBW',
+  'GWS': 'GWS',
+  'Covivio': 'covivio',
+  'Vonovia': 'vonovia',  // Korrektur: Eigener LV-Typ!
+  'Privat': 'neurealis',
+  'neurealis': 'neurealis',
+  'WBG Lünen': 'WBG Lünen',
+};
+```
+
+**3. GPT-basiertes Nachtrag-Parsing (v53):**
+- GPT-5.2 analysiert freien Text/Spracheingabe
+- Extrahiert: Beschreibung, Menge, Einheit, Gewerk
+- Beispiel: "3 Steckdosen nachträglich" → {beschreibung: "Steckdose nachträglich installieren", menge: 3, einheit: "Stk", gewerk: "Elektrik"}
+
+**4. Score-basiertes LV-Position-Matching (v54):**
+```typescript
+// Scoring-Algorithmus:
+// - Gewerk-Match: +10 Punkte
+// - Wort-Match im Namen: +5 Punkte pro Wort
+// - Keyword-Match: +15 Punkte (Steckdose, Fliese, etc.)
+// - Threshold: >= 10 Punkte für validen Match
+```
+
+**5. Datenbank-Migration:**
+- Neue Spalten in `nachtraege`: `positionen` (JSONB), `summe_netto` (NUMERIC)
+- Speichert gematchte Positionen mit Preisen strukturiert
+
+### Ausgabe-Format
+
+Bei Nachtrag-Erfassung zeigt der Bot:
+```
+📝 Nachtrag erfasst
+
+📋 Roh-Text:
+"3 steckdosen nachträglich, 5m² fliesen bad"
+
+💰 Gefundene Positionen:
+1. Steckdose Komplett inkl. Zuleitung
+   3 x 85,00 € = 255,00 €
+2. Wandfliesen verlegen (Kermos 20x60)
+   5 x 48,50 € = 242,50 €
+
+Summe netto: 497,50 €
+```
+
+### Vonovia-Korrektur
+
+- **Ursprünglich:** Vonovia → GWS (falsch!)
+- **Korrigiert:** Vonovia → 'vonovia' (eigener LV-Typ)
+- **Hinweis:** Vonovia-LV noch nicht importiert, aktuell 0 Positionen
+
+### Neue Learnings
+
+- **L096:** Score-basiertes Matching für LV-Positionen (Gewerk + Keywords + Wort-Overlap)
+- **L097:** Auftraggeber-Extraktion aus Monday-Projektnamen (Format: "AG | Adresse | Details")
+
+### Deployment
+
+- telegram-webhook v55 deployed (Supabase Edge Function)
+- verify_jwt: false (Telegram Webhook braucht keinen JWT)
+
+### Nächste Schritte
+
+- Vonovia-LV importieren wenn verfügbar
+- Feature mit echten Projekten testen (VBW, GWS, Covivio)
+
+---
+
+## LOG-039 - Softr-Sync mangel_nr Fix + Duplikate-Bereinigung
+
+**Datum:** 2026-01-30 ~21:00 - 21:45
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Reparatur des Softr-Sync für das `mangel_nr` Feld und Bereinigung von Duplikaten in ATBS-456.
+
+### Durchgeführte Arbeiten
+
+**1. Softr-Sync mangel_nr Fix (v28):**
+- Problem: `mangel_nr` wurde nicht zu Softr synchronisiert
+- Ursache: Feld fehlte im FIELD_MAPPINGS der softr-sync Edge Function
+- Lösung: Softr-Feld-ID `1UqYa` für mangel_nr ermittelt und eingetragen
+- Datenbank-URL-Problem behoben (Supabase Client statt direktes Postgres)
+
+**2. Fehlende Mängelnummern nachgetragen:**
+- 13 Mängel für ATBS-456 hatten keine mangel_nr
+- Nummeriert als M1-M13 basierend auf created_at
+
+**3. Projektname aus Monday ergänzt:**
+- 16 Mängel fehlte `projektname_komplett`
+- JSON-Pfad für ATBS: `column_values->'text49__1'->>'text'`
+- Alle 16 Mängel mit Monday-Projektnamen aktualisiert
+
+**4. Duplikate bereinigt (ATBS-456):**
+- 22 Test-Mängel aus Supabase gelöscht (M2-M16 inkl. Duplikate)
+- Entsprechende Softr-Records gelöscht
+- Nur ATBS-456-M1 bleibt übrig
+- Backup: `docs/backups/2026-01-30_maengel_fertigstellung_ATBS-456_delete.json`
+
+### Neue Learnings
+
+- **L092:** Bauvorhaben-Pflichtfelder bei Telegram-Bot-Eingaben
+- **L093:** Softr-Sync mangel_nr Feldmapping
+
+### Ergebnis
+
+| System | ATBS-456 Mängel |
+|--------|-----------------|
+| Supabase | 1 (nur M1) ✅ |
+| Softr | 1 (nur M1) ✅ |
+
+---
+
+## LOG-038 - GWS LV-Import 2026 Baupreisindex
+
+**Datum:** 2026-01-30 ~19:00 - 20:30
+**Dauer:** ~1.5 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Erfolgreicher Import der GWS Baupreisindex-Aktualisierung August 2025. 771 Positionen aus Excel analysiert, 363 Preise aktualisiert, 110 neue Positionen angelegt.
+
+### Durchgeführte Arbeiten
+
+**1. Excel-Import mit Node.js:**
+```javascript
+const XLSX = require('xlsx');
+const workbook = XLSX.readFile(pfad);
+const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+```
+- Read-Tool kann keine binären .xlsx lesen → Node.js Script
+- 771 Zeilen mit Daten importiert
+
+**2. Artikelnummer-Transformation:**
+- Excel: `01.01.1` → DB: `GWS.LV23-01.01.1`
+- Präfix-Logik automatisiert
+
+**3. Dry-Run mit Kategorisierung:**
+- 363 Preiserhöhungen (durchschnittlich +26.22%)
+- 110 neue Positionen (Fenster, HLS, Weiß-/Grauware)
+- 8 echte Preissenkungen → NICHT importiert (User-Entscheidung)
+- 74 Überschriften (Preis = 0) → ignoriert
+- 216 ohne Match (Headers, Kommentare)
+
+**4. Fallback-Matching deaktiviert:**
+- Problem: Stundenlohn-Positionen 12x in Excel (pro Gewerk)
+- Fallback über Namen führte zu falschen Zuordnungen
+- Lösung: Nur noch exaktes Artikelnummer-Matching
+
+**5. Backup erstellt:**
+- Pfad: `docs/backups/2026-01-30_lv_positionen_gws_import.json`
+- Enthält alle 601 Original-GWS-Positionen vor Import
+
+### Import-Ergebnis
+
+| Kategorie | Anzahl | Details |
+|-----------|--------|---------|
+| Preiserhöhungen | 363 | Ø +26.22%, max +85.71% |
+| Neue Positionen | 110 | Fenster, HLS, Weißware |
+| Preissenkungen | 8 | NICHT importiert (alte Preise behalten) |
+| Überschriften | 74 | Ignoriert (Preis = 0) |
+| Kein Match | 216 | Headers, Kommentare |
+
+### Verifizierung
+
+```sql
+-- Nach Import:
+total_gws: 711 (vorher: 601)
+heute_importiert: 481
+heute_geaendert: 481
+```
+
+### Neue Learnings
+
+- L094: Dry-Run-Pflicht für LV-Imports
+- L095: Fallback-Matching bei mehrdeutigen Positionen deaktivieren
+
+---
+
+## LOG-037 - Telegram-Bot v51 - Verbesserte Mängel-Erfassung
+
+**Datum:** 2026-01-30 ~17:00 - 18:30
+**Dauer:** ~1.5 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Telegram-Bot v51 mit wesentlichen Verbesserungen für die Mängel-Erfassung deployed:
+- Automatische Mangelnummern (ATBS-XXX-M1, ATBS-XXX-M2, etc.)
+- Verbessertes KI-Parsing für Wohnungssanierung und Bauleitung
+- 3-Tage-Frist statt 7 Tage
+- Neuer Foto-Zuordnungs-Workflow für mehrere Mängel
+
+### Durchgeführte Arbeiten
+
+**1. Mangelnummer-Generierung:**
+```typescript
+async function generateMangelNummer(projektNr: string): Promise<string> {
+  const { count } = await supabase
+    .from('maengel_fertigstellung')
+    .select('id', { count: 'exact', head: true })
+    .eq('projekt_nr', projektNr);
+
+  const nextNum = (count || 0) + 1;
+  return `${projektNr}-M${nextNum}`;
+}
+```
+- Format: ATBS-456-M1, ATBS-456-M2, etc.
+- Automatische fortlaufende Nummerierung pro Projekt
+
+**2. Verbesserter GPT-Prompt:**
+- Kontext: Wohnungssanierung in Deutschland
+- Gewerke explizit benannt: Elektrik, Sanitär, Maler, Boden, Türen, Fenster, Heizung, Trockenbau, Küche
+- TRENNUNGS-REGELN für "Mangel 1: ..., Mangel 2: ..."
+- Beispiele für typische Mängel je Gewerk
+
+**3. Frist-Änderung:**
+- Alte Frist: 7 Tage
+- Neue Frist: 3 Tage (3 * 24 * 60 * 60 * 1000 ms)
+
+**4. Foto-Zuordnungs-Workflow:**
+- **Bei mehreren Mängeln:** Nutzer wählt welchem Mangel das Foto zugeordnet wird
+- **Zwei Richtungen:**
+  - Mangel auswählen → Foto hochladen
+  - Foto hochladen → Mangel-Auswahl wenn mehrere offen
+- Neue Callbacks: `mangel:foto:{id}`, `mangel:assign:{id}`
+- Neue Modi: `mangel_foto_auswahl`, `mangel_foto_zuordnung`
+
+### Neue/Geänderte Funktionen
+
+- `generateMangelNummer(projektNr)` - Mangelnummer generieren
+- `selectMangelForFoto(session, maengel)` - Foto-Mangel-Zuordnung Auswahl
+- `assignFotoToMangel(session, mangelId, fotoInfo)` - Pending Foto zuordnen
+- `handleMangelFoto(session, fotoInfo)` - Erweitert für Multi-Mangel-Szenario
+
+### Deployment
+
+- Edge Function: `telegram-webhook` v51
+- Status: Erfolgreich deployed via Supabase MCP
+
+---
+
+## LOG-036 - LV-Sync Implementierung (T1-T5)
+
+**Datum:** 2026-01-30 ~11:30 - 15:15
+**Dauer:** ~3.75 Stunden
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Umfassende LV-Synchronisations-Infrastruktur implementiert mit 5 parallelen Subagenten:
+- T1: Preis-Historie Tabelle + Trigger
+- T2: Softr-Push Edge Function + Initial-Sync
+- T3: Hero-Push Edge Function + Loop-Vermeidung
+- T4: LV-Import Konzept-Dokument
+- T5: Erweitertes Preis-Datenmodell (m:n AG, NU-Margen)
+
+### Durchgeführte Arbeiten
+
+**T1 - Preis-Historie:**
+- Tabelle `lv_preis_historie` mit Trigger `trg_lv_preis_historie`
+- Automatische Erfassung bei Preisänderungen
+- Prozentuale Änderung wird berechnet
+- Quelle via `SET LOCAL app.change_source` setzbar
+
+**T2 - Softr-Push:**
+- Edge Function `lv-softr-push` deployed
+- Initial-Push: 1.485 fehlende Positionen erfolgreich synchronisiert
+- Finaler Status: 3.057/3.057 (100%) mit softr_record_id
+- DB-Trigger `trg_lv_softr_push` für automatischen Sync
+
+**T3 - Hero-Push:**
+- Edge Function `lv-hero-push` deployed (Function ID: 66453b43-076d-4c23-a374-817bf0767bd3)
+- Neue Spalten: `hero_product_id`, `source` auf lv_positionen
+- Loop-Vermeidung: source='hero' wird nicht zurück gepusht
+- Alle 3.057 bestehenden Positionen auf source='hero' gesetzt
+
+**T4 - LV-Import Konzept:**
+- 5-Schritt-Workflow: Upload → LV-Typ → Mapping → Validierung → Import
+- 3 Import-Modi: Neues LV, Preis-Update, Komplett-Ersetzung
+- UI-Mockups dokumentiert
+- Klärungsfragen zu Artikelnummern, Preisstruktur, gelöschten Positionen
+
+**T5 - Preis-Datenmodell:**
+- Neue Tabellen: `lv_positionen_auftraggeber`, `nachunternehmer_konditionen`
+- m:n Zuordnung Position ↔ Auftraggeber mit individuellem EP
+- NU-spezifische Margen (pro AG + Gewerk möglich)
+- SQL-Funktion `fn_get_position_preis()` für Preisberechnung
+- Klärungsfragen zu Preisrichtung, Marge-Definition, Cross-AG-Positionen
+
+### Neue Migrationen
+
+1. `create_lv_preis_historie` - Preis-Historie Tabelle + Trigger
+2. `add_lv_softr_push_trigger` - Softr-Push Trigger
+3. `add_lv_positionen_hero_push_columns` - hero_product_id + source Spalten
+4. `add_lv_positionen_hero_push_trigger` - Hero-Push Trigger
+
+### Dokumentation
+
+- `docs/LV_SYNC_IMPLEMENTATION.md` - Tracker-Datei
+- `docs/implementation/t1_preis_historie.md`
+- `docs/implementation/t2_softr_push.md`
+- `docs/implementation/t3_hero_push.md`
+- `docs/implementation/t4_lv_import_konzept.md`
+- `docs/implementation/t5_preis_datenmodell.md`
+
+---
+
+## LOG-035 - LV-Export PDF Styling Fix
+
+**Datum:** 2026-01-30 ~10:00 - 10:30
+**Dauer:** ~30 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+LV-Export PDF Reihenfolge und Styling korrigiert - Name jetzt fett, Artikelnummer grau, keine Leerzeile vor Langtext.
+
+### Durchgeführte Arbeiten
+
+1. **Reihenfolge geändert:**
+   - Vorher: [Artikelnummer] → Bezeichnung → Langtext
+   - Nachher: Bezeichnung → Artikelnummer → Langtext
+
+2. **Custom-Rendering implementiert:**
+   - jsPDF-autotable erlaubt keine gemischten Styles in einer Zelle
+   - Lösung: `didDrawCell` Hook für manuelles Zeichnen
+   - `positionDataMap` für strukturierte Daten pro Zeile
+
+3. **Styling umgesetzt:**
+   - Bezeichnung: Helvetica Bold, 9pt, dunkelgrau (45, 55, 72)
+   - Artikelnummer: Helvetica Normal, 8pt, mittelgrau (120, 120, 120), ohne Klammern
+   - Langtext: Helvetica Normal, 8pt, dunkelgrau (80, 80, 80), keine Leerzeile davor
+
+4. **Deployment:**
+   - Netlify manuell deployed (Auto-Deploy war inaktiv)
+   - GitHub Commits: `1e133a3`, `aa6b09e`
+
+### Technische Details
+
+**Custom Cell Rendering Pattern:**
+```javascript
+didDrawCell: (data) => {
+  if (data.column.index === 1 && data.section === 'body') {
+    const posData = positionDataMap.get(data.row.index);
+    if (posData) {
+      // Hintergrund übermalen
+      doc.rect(data.cell.x, data.cell.y, data.cell.width, data.cell.height, 'F');
+      // Text manuell mit verschiedenen Styles zeichnen
+      doc.setFont('helvetica', 'bold');
+      doc.text(posData.bezeichnung, x, y);
+      // ... weitere Styles
+    }
+  }
+}
+```
+
+### Neue Learnings
+
+- L085: jsPDF-autotable `didDrawCell` für gemischte Styles in einer Zelle
+
+---
+
+## LOG-034 - Telegram-Bot v50 Debugging + Mängel-Reminder Fix
+
+**Datum:** 2026-01-30 ~00:30 - 01:15
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Telegram-Bot Baustellen-Features debugged - Code war vollständig, v50 mit Debug-Logging redeployed.
+
+### Durchgeführte Arbeiten
+
+1. **Mängel-Reminder Fix verifiziert:**
+   - v5 bereits deployed mit CLOSED_STATUS_VALUES Check
+   - Prüft: status_mangel NICHT in ['Abgenommen', 'Abgeschlossen', 'Erledigt', 'Geschlossen']
+
+2. **Telegram-Bot Code-Analyse:**
+   - Lokaler Code (v49) war vollständig mit allen Baustellen-Handlers
+   - Deployter Code enthielt alle Callback-Handler (bau:mangel, bau:nachtrag, etc.)
+   - Alle Text-Handler implementiert (mangel_erfassen, nachtrag_erfassen)
+   - Alle Foto-Handler implementiert (mangel_foto, nachtrag_foto, nachweis_foto)
+
+3. **v50 Redeployment mit Debug-Logging:**
+   - Zusätzliche console.log Statements für jeden Handler
+   - Logging: `[v50] Callback: data=..., chatId=..., bv_id=...`
+   - Version-Bump auf v50 für klare Identifikation
+
+### Technische Details
+
+**Bot-Workflow für Baustellen-Features:**
+```
+1. /start → Hauptmenü
+2. "🏗️ Baustelle öffnen" → mode_baustelle Callback
+3. "📋 Aktive Projekte" ODER ATBS-Nummer eingeben
+4. Projekt auswählen → openProjekt() → Session aktualisieren
+5. ERST DANN: Mangel/Nachtrag/Nachweis/Status verfügbar
+```
+
+**Kritische Session-Felder:**
+- `aktuelles_bv_id` - Muss gesetzt sein für Mangel/Nachtrag
+- `modus_daten.projekt_nr` - ATBS-Nummer
+- `aktueller_modus` - 'mangel_erfassen', 'nachtrag_erfassen', etc.
+
+### Neue Learnings
+
+- L085: Telegram-Bot erfordert Projekt-Öffnung vor Erfassung
+- L086: Debug-Logging in Edge Functions für Fehleranalyse
+
+---
+
+## LOG-033 - WordPress-Sync: IONOS Auth-Problem Troubleshooting
+
+**Datum:** 2026-01-29 ~19:00 - 19:45
+**Dauer:** ~45 Minuten
+**Status:** Blockiert - Wartet auf manuelle Aktion
+
+### Zusammenfassung
+
+WordPress REST API Authentifizierung auf IONOS Hosting funktioniert nicht vollständig. Authorization Header wird in CGI-Modus gestripped.
+
+### Durchgeführte Arbeiten
+
+1. **OpenAI Batch API - Cornerstone Artikel:**
+   - Batch erfolgreich abgeschlossen
+   - "Kernsanierung Komplettsanierung Dortmund 2026" (2.999 Wörter)
+   - 12000 max_completion_tokens für lange Artikel
+
+2. **WordPress-Sync Edge Function (bereits deployed v3):**
+   - API-Verbindung funktioniert (Test Mode zeigt 3 Posts)
+   - Basic Auth mit Application Password implementiert
+   - Username: `wcksjjdrwwtx6cona4pc` (lowercase!)
+
+3. **Auth-Problem diagnostiziert:**
+   - 401 Fehler: "Du bist mit deiner Benutzerrolle leider nicht berechtigt, Beiträge zu erstellen"
+   - Authentication funktioniert (Error wechselte von "rest_not_logged_in" zu "rest_cannot_create")
+   - **Root Cause:** IONOS Hosting stripped HTTP Authorization Header im CGI-Modus
+
+4. **.htaccess Fix versucht (FEHLGESCHLAGEN):**
+   ```apache
+   <IfModule mod_setenvif.c>
+   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+   </IfModule>
+   <IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteCond %{HTTP:Authorization} .
+   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+   </IfModule>
+   ```
+   - Verursachte 500 Internal Server Error
+   - .htaccess zurück auf Original gesetzt
+
+### Technische Details
+
+**IONOS-spezifisches Problem:**
+- Apache im CGI-Modus (nicht mod_php) stripped Authorization Header
+- Standard-.htaccess Fixes funktionieren nicht bei IONOS
+- Alternative: WordPress Plugin für alternative Auth-Methode nötig
+
+**Credentials (in Supabase Secrets):**
+- WORDPRESS_USERNAME: wcksjjdrwwtx6cona4pc
+- WORDPRESS_APP_PASSWORD: HejP z1LV jygM WSPD E3z7 YEqr
+
+### Offene Punkte (MANUELL ERFORDERLICH)
+
+1. **Option A:** WordPress Plugin "Application Passwords Workaround" installieren
+2. **Option B:** IONOS Support kontaktieren wegen PHP-Handler (CGI → FPM)
+3. **Option C:** wp-config.php Modification (erfordert FTP-Zugang)
+
+### Neue Learnings
+
+- L083: IONOS Hosting stripped Authorization Header im CGI-Modus
+- L084: .htaccess Auth-Fixes können 500 Errors verursachen
+
+---
+
+## LOG-032 - Telegram-Bot v49 + Mängel-Reminder Fix
+
+**Datum:** 2026-01-29 ~15:00 - 16:00
+**Dauer:** ~60 Minuten
+**Status:** Abgeschlossen
+
+### Durchgeführte Arbeiten
+
+1. **Mängel-Reminder Fix (v5)**
+   - Problem: Erinnerungen wurden verschickt obwohl `status_mangel` geschlossen war
+   - Lösung: Query erweitert um geschlossene Status auszuschließen
+   - Werte: 'Abgenommen', 'Abgeschlossen', 'Erledigt', 'Geschlossen'
+
+2. **Telegram-Bot v49 - Baustellen-Features**
+   - Neues Hauptmenü: "🏗️ Baustelle öffnen"
+   - Projekt-Suche: ATBS-Nummer oder Liste aktiver Projekte (Phase 2-4)
+   - Mangel melden: Text/Sprache, mehrsprachig, Auto-Splitting, Foto
+   - Nachtrag erfassen: Text + Foto, automatische Nummern (NT-ATBS-001)
+   - Nachweis hochladen: Typ-Auswahl (Elektrik/Sanitär/Abdichtung/E-Check)
+   - Status anzeigen: Offene Mängel/Nachträge/Nachweise
+   - Bestehende Features (Aufmaß, Bedarfsanalyse) unverändert
+
+3. **Angebots-Edge-Functions Analyse**
+   - finalize-angebot v30: Bedarfsanalyse → Angebot (GPT-Matching)
+   - generate-bestellung-pdf v6: PDF mit Corporate Design
+   - bestellung-submit v16: E-Mail via MS Graph
+
+4. **GitHub + Netlify Deployment**
+   - Commit 17a2a6d: 26 Dateien, +9.336 Zeilen
+   - Auto-Deploy auf Netlify aktiv
+
+### Ergebnisse
+
+- telegram-webhook v49 deployed
+- mangel-reminder v5 deployed
+- GitHub main branch aktualisiert
+- Netlify Build getriggert
 
 ---
 
@@ -1743,4 +3106,57 @@ const INVOICE_STYLE_TO_SOFTR: Record<string, string> = {
 
 ---
 
-*Aktualisiert: 2026-01-28 01:30*
+## LOG-041: CPQ-System QA-Pruefung (T6)
+
+**Datum:** 2026-01-31
+**Status:** Abgeschlossen
+
+### Durchgefuehrte Pruefungen
+
+1. **DB-Struktur:** 9/9 Tabellen vorhanden
+   - lv_config: 3 LV-Typen (GWS 46, VBW 23, neurealis 35 Gewerke)
+   - angebots_bausteine: 44 Eintraege
+   - position_dependencies: 138 Abhaengigkeiten
+
+2. **Edge Function:** transcription-parse v2 aktiv
+
+3. **TypeScript:** 2 Fehler gefunden und behoben
+
+4. **Svelte-Komponenten:** Alle 6 Dateien korrekt
+
+5. **Imports:** Alle Imports verifiziert
+
+6. **API-Route:** position-correction funktional
+
+7. **Sidebar:** Link zu /angebote vorhanden
+
+### Fixes
+
+| Problem | Loesung |
+|---------|---------|
+| TypeScript Type-Export aus Svelte-Komponenten | Neue types.ts Datei erstellt, Imports aktualisiert |
+
+**Geaenderte Dateien:**
+- `ui/src/lib/components/cpq/types.ts` (NEU)
+- `ui/src/lib/components/cpq/index.ts`
+- `ui/src/lib/components/cpq/PositionItem.svelte`
+- `ui/src/lib/components/cpq/PositionGroup.svelte`
+- `ui/src/lib/components/cpq/PositionGroupList.svelte`
+- `ui/src/routes/angebote/neu/+page.svelte`
+
+### Ergebnis
+
+**BESTANDEN** - Alle kritischen Pruefungen erfolgreich
+
+**Offene TODOs (nicht-kritisch):**
+- PDF-Generierung implementieren
+- Manuelle Position hinzufuegen implementieren
+- NUA-Detection implementieren
+
+### Erstellte Dokumentation
+
+- `docs/implementation/t6_qa_result.md`
+
+---
+
+*Aktualisiert: 2026-01-31 05:30*

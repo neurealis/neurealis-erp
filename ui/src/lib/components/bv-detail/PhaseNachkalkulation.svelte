@@ -78,7 +78,7 @@
 		},
 	]);
 
-	// Maximalwert fuer Skalierung
+	// Maximalwert für Skalierung
 	let maxValue = $derived(
 		Math.max(ausgangsrechnungen, eingangsrechnungen, Math.abs(rohertrag)) || 1
 	);

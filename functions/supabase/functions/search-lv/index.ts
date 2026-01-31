@@ -93,7 +93,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Embedding fuer Suchanfrage erstellen
+    // Embedding für Suchanfrage erstellen
     const queryEmbedding = await createEmbedding(query, openaiKey);
 
     // Semantische Suche via SQL-Funktion

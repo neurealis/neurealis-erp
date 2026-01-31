@@ -62,7 +62,7 @@
 		aktiv: boolean;
 	}>>([]);
 
-	// Distinct-Werte fuer Filter
+	// Distinct-Werte für Filter
 	let kategorien = $state<string[]>([]);
 	let gewerke = $state<string[]>([]);
 	let lvTypen = $state<string[]>([]);
@@ -154,7 +154,7 @@
 			if (lvError) throw lvError;
 			lvPositionen = lvData || [];
 
-			// Distinct-Werte fuer Filter extrahieren
+			// Distinct-Werte für Filter extrahieren
 			kategorien = [...new Set(artikel.map(a => a.kategorie).filter(Boolean))].sort();
 			gewerke = [...new Set(lvPositionen.map(p => p.gewerk).filter(Boolean))].sort();
 			lvTypen = [...new Set(lvPositionen.map(p => p.lv_typ).filter(Boolean))].sort();
@@ -461,11 +461,11 @@
 		{:else if gefiltertFinal.length === 0}
 			<div class="empty-state">
 				{#if searchMode === 'semantic' && searchQuery.length >= 3}
-					Keine aehnlichen Positionen gefunden
+					Keine ähnlichen Positionen gefunden
 				{:else if searchQuery.length > 0 && searchQuery.length < 3 && searchMode === 'semantic'}
-					Mindestens 3 Zeichen fuer KI-Suche
+					Mindestens 3 Zeichen für KI-Suche
 				{:else}
-					Keine Eintraege gefunden
+					Keine Einträge gefunden
 				{/if}
 			</div>
 		{:else if activeTab === 'lieferanten'}

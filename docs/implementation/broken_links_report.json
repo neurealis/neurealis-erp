@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-01-30T23:43:07.037Z",
+  "summary": {
+    "totalLinks": 108,
+    "internalLinks": 87,
+    "externalLinks": 21,
+    "brokenLinks": 8,
+    "brokenInternal": 6,
+    "brokenExternal": 2
+  },
+  "brokenLinks": [
+    {
+      "url": "https://neurealis.de/wohnung-sanieren-dortmund/",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 6900,
+          "title": "Was ist der Unterschied zwischen Renovierung und Sanierung einer Wohnung?",
+          "url": "https://neurealis.de/unterschiede-renovierung-sanierung-neurealis-dortmund/"
+        }
+      ]
+    },
+    {
+      "url": "https://neurealis.de/wohnung-renovieren-dortmund/",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 6900,
+          "title": "Was ist der Unterschied zwischen Renovierung und Sanierung einer Wohnung?",
+          "url": "https://neurealis.de/unterschiede-renovierung-sanierung-neurealis-dortmund/"
+        }
+      ]
+    },
+    {
+      "url": "https://neurealis.de/unsere-leistungen-sanierung-renovierung-wohnung-dortmund",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 6900,
+          "title": "Was ist der Unterschied zwischen Renovierung und Sanierung einer Wohnung?",
+          "url": "https://neurealis.de/unterschiede-renovierung-sanierung-neurealis-dortmund/"
+        }
+      ]
+    },
+    {
+      "url": "https://neurealis.de/sanierungspaket",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 11171,
+          "title": "Testseite",
+          "url": "https://neurealis.de/testseite/"
+        }
+      ]
+    },
+    {
+      "url": "https://neurealis.de/datenschutz",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 11171,
+          "title": "Testseite",
+          "url": "https://neurealis.de/testseite/"
+        }
+      ]
+    },
+    {
+      "url": "https://neurealis.de/sanierungs-beispiele-vorher-nachher-ubersicht",
+      "status": 404,
+      "error": null,
+      "isInternal": true,
+      "foundOn": [
+        {
+          "id": 8701,
+          "title": "Renovierung Ihrer Mietwohnung in Dortmund",
+          "url": "https://neurealis.de/renovierung-ihrer-mietwohnung-in-dortmund/"
+        },
+        {
+          "id": 6915,
+          "title": "Optimale Aufwertung Ihrer Mietwohnung | Unseren Leistungspakete",
+          "url": "https://neurealis.de/aufwertung-ihrer-mietwohnung-in-dortmund-unsere-leistungspakete/"
+        }
+      ]
+    },
+    {
+      "url": "{{ unsubscribe_link }}",
+      "status": 0,
+      "error": "Invalid URL",
+      "isInternal": false,
+      "foundOn": [
+        {
+          "id": 11171,
+          "title": "Testseite",
+          "url": "https://neurealis.de/testseite/"
+        }
+      ]
+    },
+    {
+      "url": "http://Prozess",
+      "status": 0,
+      "error": "getaddrinfo ENOTFOUND prozess",
+      "isInternal": false,
+      "foundOn": [
+        {
+          "id": 6278,
+          "title": "Karriere | Unser Bewerbungsprozess",
+          "url": "https://neurealis.de/karriere-unser-bewerbungsprozess/"
+        }
+      ]
+    }
+  ]
+}

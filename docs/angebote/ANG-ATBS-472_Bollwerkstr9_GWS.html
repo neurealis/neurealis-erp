@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Angebot ANG-ATBS-472</title>
+  <style>
+    @page { size: A4; margin: 15mm; }
+    @media print { .no-print { display: none !important; } body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Calibri, Arial, sans-serif; font-size: 9pt; line-height: 1.35; color: #1f2937; margin: 0; padding: 20px; max-width: 210mm; margin: 0 auto; }
+    .print-btn { position: fixed; top: 20px; right: 20px; background: #C41E3A; color: white; border: none; padding: 12px 24px; font-size: 14px; cursor: pointer; border-radius: 4px; z-index: 1000; }
+    .print-btn:hover { background: #A31830; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12px; border-bottom: 3px solid #C41E3A; margin-bottom: 15px; }
+    .logo { font-size: 22pt; font-weight: bold; color: #C41E3A; }
+    .logo-subtitle { font-size: 8pt; color: #6b7280; }
+    .company-info { text-align: right; font-size: 7pt; color: #6b7280; }
+    .document-title { font-size: 16pt; color: #A31830; margin: 15px 0 8px; }
+    .document-meta { color: #6b7280; font-size: 8pt; margin-bottom: 15px; }
+    .info-row { display: flex; justify-content: space-between; margin: 15px 0 20px; }
+    .highlight-box { background-color: #f9fafb; border-left: 4px solid #C41E3A; padding: 8px 12px; margin: 12px 0; font-size: 8pt; }
+    h3 { color: #C41E3A; margin-top: 20px; margin-bottom: 8px; border-bottom: 2px solid #C41E3A; padding-bottom: 4px; font-size: 11pt; page-break-after: avoid; }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 15px; font-size: 8pt; }
+    th { background-color: #C41E3A; color: white; padding: 6px 8px; text-align: left; font-weight: 600; font-size: 8pt; }
+    td { border: 1px solid #e5e7eb; padding: 4px 8px; }
+    tr:nth-child(even) { background-color: #f9fafb; }
+    .sum-row { background-color: #f3f4f6 !important; font-weight: bold; }
+    .amount { text-align: right; }
+    .total-row { background-color: #C41E3A !important; color: white; }
+    .hinweise { font-size: 8pt; margin-top: 20px; page-break-inside: avoid; }
+    .hinweise ol { margin: 5px 0; padding-left: 18px; }
+    .signatur { margin-top: 30px; font-size: 8pt; color: #6b7280; }
+    .footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid #e5e7eb; font-size: 7pt; color: #6b7280; display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+  <button class="print-btn no-print" onclick="window.print()">📄 Als PDF drucken</button>
+
+  <div class="header">
+    <div>
+      <div class="logo">neurealis</div>
+      <div class="logo-subtitle">Komplettsanierung NRW</div>
+    </div>
+    <div class="company-info">
+      neurealis GmbH<br>
+      Grüner Weg 3<br>
+      44795 Bochum<br>
+      Tel: 0234 / XXX XXX<br>
+      holger.neumann@neurealis.de
+    </div>
+  </div>
+
+  <h1 class="document-title">Angebot ANG-ATBS-472</h1>
+  <div class="document-meta">Datum: 30.01.2026 | <strong style="color:#C41E3A;">KORRIGIERT - LISTENPREISE</strong></div>
+
+  <div class="info-row">
+    <div>
+      <strong>Auftraggeber:</strong><br>
+      GWS Wohnungsgesellschaft mbH<br>
+      z.Hd. Herrn Fromme
+    </div>
+    <div style="text-align: right;">
+      <strong>Bauvorhaben:</strong><br>
+      Bollwerkstraße 9, 4. OG<br>
+      Dortmund<br>
+      <em>Mieter: Minner</em>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Leistungsumfang:</strong> Instandsetzung Mietwohnung 4. OG nach Auszug<br>
+    <strong>Ausführungszeitraum:</strong> ca. 3-4 Wochen nach Auftragseingang
+  </div>
+
+  <!-- 1. DEMONTAGE -->
+  <h3>1. Demontage / Abriss</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.1</td><td>Demontage Gardinenleisten u. Kleinteile, WE 30-90m²</td><td>psch</td><td class="amount">73,02 €</td><td class="amount">1</td><td class="amount">73,02 €</td></tr>
+      <tr><td>1.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.2</td><td>Demontage Sockelleisten, WE 30-90m²</td><td>psch</td><td class="amount">156,78 €</td><td class="amount">1</td><td class="amount">156,78 €</td></tr>
+      <tr><td>1.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.01.4</td><td>Tapeten ablösen, Wandfl., 2 lagig (Küche)</td><td>m²</td><td class="amount">3,87 €</td><td class="amount">25</td><td class="amount">96,75 €</td></tr>
+      <tr><td>1.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.01.4</td><td>Tapeten ablösen, Wandfl., 2 lagig (Schlafzimmer)</td><td>m²</td><td class="amount">3,87 €</td><td class="amount">35</td><td class="amount">135,45 €</td></tr>
+      <tr><td>1.5</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.13</td><td>Rückbau Fliesenspiegel Küche</td><td>m²</td><td class="amount">21,48 €</td><td class="amount">4</td><td class="amount">85,92 €</td></tr>
+      <tr><td>1.6</td><td style="font-size:7pt;color:#666;">GWS.LV23-02.02.7</td><td>Gips-Leichtputz als Wandputz Q2</td><td>m²</td><td class="amount">20,63 €</td><td class="amount">4</td><td class="amount">82,52 €</td></tr>
+      <tr><td>1.7</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.11</td><td>Demontage Deckenbekleidungen (Küche)</td><td>m²</td><td class="amount">14,32 €</td><td class="amount">8</td><td class="amount">114,56 €</td></tr>
+      <tr><td>1.8</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.11</td><td>Demontage Deckenpaneele (Schlafzimmer)</td><td>m²</td><td class="amount">14,32 €</td><td class="amount">14</td><td class="amount">200,48 €</td></tr>
+      <tr><td>1.9</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.01.3</td><td>Rückbau Altbelag lose (Teppich)</td><td>psch</td><td class="amount">354,36 €</td><td class="amount">0,5</td><td class="amount">177,18 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Demontage:</strong></td><td class="amount"><strong>1.122,66 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 2. BODEN -->
+  <h3>2. Boden</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.4</td><td>Dampfbremse/Weichmachersperre PE Folie</td><td>m²</td><td class="amount">3,98 €</td><td class="amount">60</td><td class="amount">238,80 €</td></tr>
+      <tr><td>2.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.3</td><td>Nivellierausgleich</td><td>m²</td><td class="amount">11,83 €</td><td class="amount">60</td><td class="amount">709,80 €</td></tr>
+      <tr><td>2.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.9</td><td>Bodenbelag Vinyl Planken (Gerflor Creation 30)</td><td>m²</td><td class="amount">37,04 €</td><td class="amount">60</td><td class="amount">2.222,40 €</td></tr>
+      <tr><td>2.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.20</td><td>Übergangsschienen</td><td>Stk</td><td class="amount">17,89 €</td><td class="amount">2</td><td class="amount">35,78 €</td></tr>
+      <tr><td>2.5</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.12</td><td>Sockelleiste Hart-PVC weiß</td><td>lfm</td><td class="amount">8,10 €</td><td class="amount">74</td><td class="amount">599,40 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Boden:</strong></td><td class="amount"><strong>3.806,18 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 3. SANITÄR -->
+  <h3>3. Sanitär</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>3.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-21.02.01.33</td><td>Wand-WC komplett</td><td>Stk</td><td class="amount">352,13 €</td><td class="amount">1</td><td class="amount">352,13 €</td></tr>
+      <tr><td>3.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-21.02.01.32</td><td>Spülkasten AP</td><td>Stk</td><td class="amount">111,14 €</td><td class="amount">1</td><td class="amount">111,14 €</td></tr>
+      <tr><td>3.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-21.02.01.26</td><td>Waschtischanlage 60cm (inkl. Armatur)</td><td>Stk</td><td class="amount">407,15 €</td><td class="amount">1</td><td class="amount">407,15 €</td></tr>
+      <tr><td>3.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.16</td><td>Silikonfugen Wanne dauerelastisch</td><td>lfm</td><td class="amount">8,32 €</td><td class="amount">8</td><td class="amount">66,56 €</td></tr>
+      <tr><td>3.5</td><td style="font-size:7pt;color:#666;">GWS.LV23-07.01.16</td><td>Silikonfugen Boden dauerelastisch</td><td>lfm</td><td class="amount">8,32 €</td><td class="amount">6</td><td class="amount">49,92 €</td></tr>
+      <tr><td>3.6</td><td style="font-size:7pt;color:#666;">GWS.LV23-21.02.01.30</td><td>Brausebatterie/Duscharmatur neu</td><td>Stk</td><td class="amount">176,06 €</td><td class="amount">1</td><td class="amount">176,06 €</td></tr>
+      <tr><td>3.7</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.99.05.23</td><td>Kombieckventil Küche, selbstdichtend</td><td>Stk</td><td class="amount">88,07 €</td><td class="amount">1</td><td class="amount">88,07 €</td></tr>
+      <tr><td>3.8</td><td style="font-size:7pt;color:#666;">GWS.LV23-21.02.01.1</td><td>Waschmaschinenanschluss prüfen</td><td>Stk</td><td class="amount">154,06 €</td><td class="amount">0,5</td><td class="amount">77,03 €</td></tr>
+      <tr><td>3.9</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.99.05.4</td><td>WC-Rollenhalter + Handtuchhalter</td><td>Stk</td><td class="amount">176,14 €</td><td class="amount">2</td><td class="amount">352,28 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Sanitär:</strong></td><td class="amount"><strong>1.680,34 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 4. HEIZUNG -->
+  <h3>4. Heizung</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>4.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-20.01.38</td><td>Thermostatkopf erneuern</td><td>Stk</td><td class="amount">50,46 €</td><td class="amount">6</td><td class="amount">302,76 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Heizung:</strong></td><td class="amount"><strong>302,76 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 5. ELEKTRO -->
+  <h3>5. Elektro</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>5.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-20.01.5</td><td>Unterverteilung (Automaten erneuern)</td><td>Stk</td><td class="amount">742,25 €</td><td class="amount">1</td><td class="amount">742,25 €</td></tr>
+      <tr><td>5.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-20.01.7</td><td>FI/LS-Schalter 4-polig 30mA</td><td>Stk</td><td class="amount">94,18 €</td><td class="amount">1</td><td class="amount">94,18 €</td></tr>
+      <tr><td>5.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-01.99.05.21</td><td>Baufassung E27</td><td>Stk</td><td class="amount">10,36 €</td><td class="amount">6</td><td class="amount">62,16 €</td></tr>
+      <tr><td>5.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-20.01.10</td><td>Erneuerung Schalter-/Steckdosen WE</td><td>psch</td><td class="amount">632,37 €</td><td class="amount">1</td><td class="amount">632,37 €</td></tr>
+      <tr><td>5.5</td><td style="font-size:7pt;color:#666;">GWS.LV23-20.01.37</td><td>E-Check nach VDE</td><td>Stk</td><td class="amount">538,19 €</td><td class="amount">1</td><td class="amount">538,19 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Elektro:</strong></td><td class="amount"><strong>2.069,15 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 6. MALER -->
+  <h3>6. Maler</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>6.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.05.8</td><td>Lackierung Plattenheizkörper bis 1m</td><td>Stk</td><td class="amount">47,69 €</td><td class="amount">5</td><td class="amount">238,45 €</td></tr>
+      <tr><td>6.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.05.8</td><td>Lackierung Plattenheizkörper bis 2m</td><td>Stk</td><td class="amount">47,69 €</td><td class="amount">1</td><td class="amount">47,69 €</td></tr>
+      <tr><td>6.2a</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.05.10</td><td>Zulage Breite bis 2m</td><td>Stk</td><td class="amount">24,06 €</td><td class="amount">1</td><td class="amount">24,06 €</td></tr>
+      <tr><td>6.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.05.1</td><td>Lackierung Innentürblatt</td><td>Stk</td><td class="amount">80,72 €</td><td class="amount">7</td><td class="amount">565,04 €</td></tr>
+      <tr><td>6.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.05.2</td><td>Lackierung Umfassungszarge</td><td>Stk</td><td class="amount">45,11 €</td><td class="amount">7</td><td class="amount">315,77 €</td></tr>
+      <tr><td>6.5</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.06.1</td><td>Renovierungsanstrich Eingangstür</td><td>Stk</td><td class="amount">91,29 €</td><td class="amount">1</td><td class="amount">91,29 €</td></tr>
+      <tr><td>6.6</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.04.1</td><td>Raufaser tapezieren (Küche)</td><td>m²</td><td class="amount">7,09 €</td><td class="amount">25</td><td class="amount">177,25 €</td></tr>
+      <tr><td>6.7</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.04.1</td><td>Raufaser tapezieren (Schlafzimmer)</td><td>m²</td><td class="amount">7,09 €</td><td class="amount">35</td><td class="amount">248,15 €</td></tr>
+      <tr><td>6.8</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.04.2</td><td>Dispersionsanstrich Wände + Decken</td><td>m²</td><td class="amount">6,01 €</td><td class="amount">280</td><td class="amount">1.682,80 €</td></tr>
+      <tr><td>6.9</td><td style="font-size:7pt;color:#666;">GWS.LV23-09.04.3</td><td>Dispersionsanstrich Fensterleibungen</td><td>lfm</td><td class="amount">3,89 €</td><td class="amount">25</td><td class="amount">97,25 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Maler:</strong></td><td class="amount"><strong>3.487,75 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 7. TISCHLER -->
+  <h3>7. Tischler</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>7.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-08.04.10</td><td>Drückergarnitur Zimmertür</td><td>Stk</td><td class="amount">44,76 €</td><td class="amount">5</td><td class="amount">223,80 €</td></tr>
+      <tr><td>7.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-08.04.15</td><td>Sicherheitsbeschlag WE-Tür</td><td>Stk</td><td class="amount">119,36 €</td><td class="amount">1</td><td class="amount">119,36 €</td></tr>
+      <tr><td>7.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-08.01.5</td><td>Einsteckschloss Zimmertür erneuern</td><td>Stk</td><td class="amount">35,59 €</td><td class="amount">5</td><td class="amount">177,95 €</td></tr>
+      <tr><td>7.4</td><td style="font-size:7pt;color:#666;">GWS.LV23-08.01.16</td><td>Zylinder WE-Tür erneuern</td><td>Stk</td><td class="amount">52,75 €</td><td class="amount">1</td><td class="amount">52,75 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Tischler:</strong></td><td class="amount"><strong>573,86 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 8. REINIGUNG -->
+  <h3>8. Reinigung</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>8.1</td><td style="font-size:7pt;color:#666;">GWS.LV23-11.02.6</td><td>Bauendreinigung Wohnung bis 65m²</td><td>psch</td><td class="amount">263,08 €</td><td class="amount">1</td><td class="amount">263,08 €</td></tr>
+      <tr><td>8.2</td><td style="font-size:7pt;color:#666;">GWS.LV23-11.01.1</td><td>Grundreinigung Treppenhaus EG</td><td>Woche</td><td class="amount">48,32 €</td><td class="amount">2</td><td class="amount">96,64 €</td></tr>
+      <tr><td>8.3</td><td style="font-size:7pt;color:#666;">GWS.LV23-11.01.2</td><td>Reinigung je weitere Etage (4 Etagen)</td><td>Woche</td><td class="amount">28,13 €</td><td class="amount">8</td><td class="amount">225,04 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Reinigung:</strong></td><td class="amount"><strong>584,76 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- 9. SONSTIGES -->
+  <h3>9. Sonstiges</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">Pos.</th>
+        <th style="width: 14%;">Art.-Nr.</th>
+        <th style="width: 41%;">Bezeichnung</th>
+        <th style="width: 8%;">Einheit</th>
+        <th style="width: 10%;" class="amount">EP</th>
+        <th style="width: 8%;" class="amount">Menge</th>
+        <th style="width: 14%;" class="amount">Gesamt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>9.1</td><td style="font-size:7pt;color:#666;">-</td><td>Kleinteile-Pauschale (Haken, Halter, Dübel, etc.)</td><td>psch</td><td class="amount">200,00 €</td><td class="amount">4</td><td class="amount">800,00 €</td></tr>
+      <tr class="sum-row"><td colspan="6" style="text-align:right;"><strong>Summe Sonstiges:</strong></td><td class="amount"><strong>800,00 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- GESAMTÜBERSICHT -->
+  <h3 style="margin-top: 30px;">Gesamtübersicht</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">Nr.</th>
+        <th style="width: 70%;">Gewerk</th>
+        <th style="width: 20%;" class="amount">Netto EUR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Demontage / Abriss</td><td class="amount">1.122,66 €</td></tr>
+      <tr><td>2</td><td>Boden</td><td class="amount">3.806,18 €</td></tr>
+      <tr><td>3</td><td>Sanitär</td><td class="amount">1.680,34 €</td></tr>
+      <tr><td>4</td><td>Heizung</td><td class="amount">302,76 €</td></tr>
+      <tr><td>5</td><td>Elektro</td><td class="amount">2.069,15 €</td></tr>
+      <tr><td>6</td><td>Maler</td><td class="amount">3.487,75 €</td></tr>
+      <tr><td>7</td><td>Tischler</td><td class="amount">573,86 €</td></tr>
+      <tr><td>8</td><td>Reinigung</td><td class="amount">584,76 €</td></tr>
+      <tr><td>9</td><td>Sonstiges</td><td class="amount">800,00 €</td></tr>
+      <tr class="sum-row"><td colspan="2" style="text-align:right;"><strong>SUMME NETTO:</strong></td><td class="amount"><strong>14.427,46 €</strong></td></tr>
+      <tr><td colspan="2" style="text-align:right;">zzgl. 19% MwSt:</td><td class="amount">2.741,22 €</td></tr>
+      <tr class="total-row"><td colspan="2" style="text-align:right;"><strong>SUMME BRUTTO:</strong></td><td class="amount"><strong>17.168,68 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="hinweise">
+    <h4>Hinweise:</h4>
+    <ol>
+      <li>Alter PVC-Boden bleibt als Untergrund (asbestfrei lt. Begehung). Weichmachersperre wird aufgetragen.</li>
+      <li>Stuckleisten bleiben und werden mitgestrichen.</li>
+      <li>Balkon-Beschichtung erfolgt im Sommer separat (nicht enthalten).</li>
+      <li>Mengen sind geschätzt für Standard 2-Zi-Wohnung ca. 60m². Anpassung nach Aufmaß möglich.</li>
+    </ol>
+  </div>
+
+  <div class="signatur">
+    Wir freuen uns auf Ihre Beauftragung und stehen für Rückfragen gerne zur Verfügung.<br><br>
+    Mit freundlichen Grüßen<br><br>
+    <strong>Holger Neumann</strong><br>
+    Geschäftsführer
+  </div>
+
+  <div class="footer">
+    <div>neurealis GmbH | Grüner Weg 3 | 44795 Bochum</div>
+    <div>30.01.2026</div>
+  </div>
+</body>
+</html>

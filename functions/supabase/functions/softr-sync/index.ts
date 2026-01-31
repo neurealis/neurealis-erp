@@ -51,6 +51,34 @@ const FIELD_MAPPINGS: Record<string, Record<string, string>> = {
     're_nr': '7J0YZ',
     're_nr_zahl': '4CNE4',
     'nua_nr': 'RXGvn'
+  },
+  'maengel_fertigstellung': {
+    'mangel_nr': '1UqYa',
+    'datum_meldung': '2la7j',
+    'mangel_behoben_datum': '3v0hM',
+    'art_des_mangels': '4qiAo',
+    'nachunternehmer': '4uDJM',
+    'erinnerung_bl_count': '6wh4n',
+    'letzte_erinnerung_am': 'DMs3N',
+    'projektname_komplett': 'FF4FP',
+    'kommentar_nu': 'LQPDA',
+    'kunde_email': 'Nv4yH',
+    'projekt_nr': 'QEcc2',
+    'letzte_erinnerung_bl_am': 'QXYZN',
+    'nu_email': 'TFj9o',
+    'status_mangel': 'YUT8c',
+    'erinnerung_count': 'Z6zHO',
+    'datum_frist': 'aGWIf',
+    'fotos_mangel': 'aScwq',
+    'kunde_name': 'bC4R6',
+    'bauleiter': 'ctNAI',
+    'kosten': 'jFILZ',
+    'kunde_telefon': 'kgCJK',
+    'status_mangel_nu': 'mhgIW',
+    'beschreibung_mangel': 'ozrIj',
+    'nua_nr': 'qxHu4',
+    'erinnerung_status': 'w9hbN',
+    'fotos_nachweis_nu': 'zBq5l'
   }
 };
 
@@ -254,6 +282,46 @@ async function fetchTransactionsForPush(mode: 'new' | 'all'): Promise<any[]> {
   }
 }
 
+async function fetchMaengelForPush(mode: 'new' | 'changed' | 'all'): Promise<any[]> {
+  let query = supabase
+    .from('maengel_fertigstellung')
+    .select('id, mangel_nr, datum_meldung, mangel_behoben_datum, art_des_mangels, nachunternehmer, erinnerung_bl_count, letzte_erinnerung_am, projektname_komplett, kommentar_nu, kunde_email, projekt_nr, letzte_erinnerung_bl_am, nu_email, status_mangel, erinnerung_count, datum_frist, fotos_mangel, kunde_name, bauleiter, kosten, kunde_telefon, status_mangel_nu, beschreibung_mangel, nua_nr, erinnerung_status, fotos_nachweis_nu, softr_record_id, softr_synced_at, updated_at')
+    .limit(100);
+
+  if (mode === 'new') {
+    query = query.is('softr_record_id', null);
+  } else if (mode === 'changed') {
+    // Fetch all and filter client-side for softr_synced_at < updated_at
+    query = query.not('softr_record_id', 'is', null);
+  }
+
+  const { data, error } = await query;
+  if (error) throw new Error(`Fetch error: ${error.message}`);
+
+  // For changed mode, filter records where updated_at > softr_synced_at
+  if (mode === 'changed' && data) {
+    return data.filter(r => !r.softr_synced_at || new Date(r.updated_at) > new Date(r.softr_synced_at));
+  }
+
+  return data || [];
+}
+
+async function updateMaengelSoftrSync(id: string, softrRecordId: string | null): Promise<boolean> {
+  const updateData: Record<string, any> = {
+    softr_synced_at: new Date().toISOString()
+  };
+  if (softrRecordId) {
+    updateData.softr_record_id = softrRecordId;
+  }
+
+  const { error } = await supabase
+    .from('maengel_fertigstellung')
+    .update(updateData)
+    .eq('id', id);
+
+  return !error;
+}
+
 async function updateTransactionSoftrSync(id: string, softrRecordId: string | null): Promise<boolean> {
   const sql = postgres(DATABASE_URL, { max: 1 });
   try {
@@ -278,7 +346,7 @@ async function updateTransactionSoftrSync(id: string, softrRecordId: string | nu
   }
 }
 
-async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode: 'new' | 'all' = 'new') {
+async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode: 'new' | 'changed' | 'all' = 'new') {
   let processed = 0, created = 0, updated = 0, failed = 0;
   const errors: string[] = [];
 
@@ -287,15 +355,20 @@ async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode
     return { processed: 0, created: 0, updated: 0, failed: 0, error: `No field mapping for ${supabaseTableName}` };
   }
 
-  // Only konto_transaktionen is supported for push via RPC
-  if (supabaseTableName !== 'konto_transaktionen') {
-    return { processed: 0, created: 0, updated: 0, failed: 0, error: `Push not yet implemented for ${supabaseTableName}` };
-  }
-
-  // Fetch records to push via RPC function
+  // Fetch records based on table type
   let records: any[];
+  let updateSyncFn: (id: string, softrRecordId: string | null) => Promise<boolean>;
+
   try {
-    records = await fetchTransactionsForPush(mode);
+    if (supabaseTableName === 'konto_transaktionen') {
+      records = await fetchTransactionsForPush(mode === 'changed' ? 'all' : mode);
+      updateSyncFn = updateTransactionSoftrSync;
+    } else if (supabaseTableName === 'maengel_fertigstellung') {
+      records = await fetchMaengelForPush(mode);
+      updateSyncFn = updateMaengelSoftrSync;
+    } else {
+      return { processed: 0, created: 0, updated: 0, failed: 0, error: `Push not implemented for ${supabaseTableName}` };
+    }
   } catch (err) {
     return { processed: 0, created: 0, updated: 0, failed: 0, error: String(err) };
   }
@@ -312,19 +385,21 @@ async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode
         // Update existing record
         const success = await updateSoftrRecord(softrTableId, record.softr_record_id, softrFields);
         if (success) {
-          await updateTransactionSoftrSync(record.id, null);
+          await updateSyncFn(record.id, null);
           updated++;
         } else {
           failed++;
+          errors.push(`Update failed for ${record.id}`);
         }
       } else {
         // Create new record
         const newSoftrId = await createSoftrRecord(softrTableId, softrFields);
         if (newSoftrId) {
-          await updateTransactionSoftrSync(record.id, newSoftrId);
+          await updateSyncFn(record.id, newSoftrId);
           created++;
         } else {
           failed++;
+          errors.push(`Create failed for ${record.id}`);
         }
       }
       processed++;
@@ -347,7 +422,13 @@ Deno.serve(async (req: Request) => {
     const url = new URL(req.url);
     const tableFilter = url.searchParams.get('table');
     const direction = url.searchParams.get('direction') || 'pull';
-    const mode = url.searchParams.get('mode') as 'new' | 'all' || 'new';
+    const mode = url.searchParams.get('mode') as 'new' | 'changed' | 'all' || 'new';
+
+    // Support friendly table names
+    const TABLE_ALIASES: Record<string, string> = {
+      'maengel': 'maengel_fertigstellung',
+      'transaktionen': 'konto_transaktionen'
+    };
 
     const results: any[] = [];
     let totalProcessed = 0, totalCreated = 0, totalUpdated = 0, totalFailed = 0;
@@ -384,13 +465,32 @@ Deno.serve(async (req: Request) => {
       }
     } else if (direction === 'push') {
       // PUSH: Supabase -> Softr
-      const tablesToPush = tableFilter
-        ? { [tableFilter]: REVERSE_TABLE_MAPPING[tableFilter] || tableFilter }
-        : REVERSE_TABLE_MAPPING;
+      // Resolve table alias if provided
+      const resolvedTable = tableFilter ? (TABLE_ALIASES[tableFilter] || tableFilter) : null;
+
+      // Build tables to push
+      let tablesToPush: Record<string, string>;
+      if (resolvedTable) {
+        const softrId = REVERSE_TABLE_MAPPING[resolvedTable];
+        if (softrId) {
+          tablesToPush = { [resolvedTable]: softrId };
+        } else {
+          return new Response(JSON.stringify({ error: `Unknown table: ${tableFilter}` }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+      } else {
+        // Push all tables that have field mappings
+        tablesToPush = {};
+        for (const [supabaseTable, softrId] of Object.entries(REVERSE_TABLE_MAPPING)) {
+          if (FIELD_MAPPINGS[supabaseTable]) {
+            tablesToPush[supabaseTable] = softrId;
+          }
+        }
+      }
 
       for (const [supabaseTable, softrId] of Object.entries(tablesToPush)) {
-        if (!softrId || !FIELD_MAPPINGS[supabaseTable]) continue;
-
         try {
           const result = await pushToSoftr(supabaseTable, softrId, mode);
           results.push({

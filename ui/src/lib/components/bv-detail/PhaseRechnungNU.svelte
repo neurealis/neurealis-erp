@@ -85,7 +85,7 @@
 		)
 	);
 
-	// Gruppiere nach NUA-Nr fuer Uebersicht
+	// Gruppiere nach NUA-Nr für Übersicht
 	let nuaUebersicht = $derived(() => {
 		const grouped: Map<string, NUAAuftrag> = new Map();
 
@@ -205,7 +205,7 @@
 								<th>RE-Nr</th>
 								<th>Steller</th>
 								<th>Art</th>
-								<th>Pruefung</th>
+								<th>Prüfung</th>
 								<th>Zahlung</th>
 								<th>Brutto</th>
 								<th>Netto</th>
@@ -265,11 +265,11 @@
 			{/if}
 		</Card>
 
-		<!-- NUA Uebersicht -->
+		<!-- NUA Übersicht -->
 		<Card>
 			{#snippet header()}
 				<div class="section-header">
-					<h3>NUA-Uebersicht</h3>
+					<h3>NUA-Übersicht</h3>
 				</div>
 			{/snippet}
 
@@ -280,14 +280,14 @@
 							<tr>
 								<th>Typ</th>
 								<th>NUA-Nr.</th>
-								<th>Pruefung</th>
+								<th>Prüfung</th>
 								<th>Erstellt</th>
 								<th>Brutto</th>
 								<th>Netto</th>
 								<th>Abschlag</th>
 								<th>Ende Plan</th>
-								<th>Ende maengelfrei</th>
-								<th>Verspaetung</th>
+								<th>Ende mängelfrei</th>
+								<th>Verspätung</th>
 								<th>Strafe/Tag</th>
 								<th>Strafe</th>
 								<th>Notizen</th>
@@ -323,7 +323,7 @@
 					</table>
 				</div>
 			{:else}
-				<p class="empty-text">Keine NUA-Auftraege</p>
+				<p class="empty-text">Keine NUA-Aufträge</p>
 			{/if}
 		</Card>
 
@@ -331,7 +331,7 @@
 		<Card>
 			{#snippet header()}
 				<div class="section-header">
-					<h3>Summen-Uebersicht</h3>
+					<h3>Summen-Übersicht</h3>
 				</div>
 			{/snippet}
 
@@ -355,7 +355,7 @@
 							<td class="amount-cell amount-open">{formatCurrency(summenRechnungen.offen)}</td>
 						</tr>
 						<tr>
-							<td class="row-label">Verzoegerung</td>
+							<td class="row-label">Verzögerung</td>
 							<td class="amount-cell">-</td>
 							<td class="amount-cell">-</td>
 							<td class="amount-cell">-</td>
@@ -385,7 +385,7 @@
 			<div class="info-box">
 				<span class="info-icon">i</span>
 				<div class="info-content">
-					<strong>Betrag fuer Deine Schlussrechnung:</strong>
+					<strong>Betrag für Deine Schlussrechnung:</strong>
 					<span class="info-amount">{formatCurrency(schlussrechnungBetrag)}</span>
 				</div>
 			</div>
@@ -394,7 +394,7 @@
 				<div class="warning-box">
 					<span class="warning-icon">!</span>
 					<span class="warning-text">
-						Budget ueberschritten um {formatCurrency(Math.abs(budgetDifferenz))}
+						Budget überschritten um {formatCurrency(Math.abs(budgetDifferenz))}
 					</span>
 				</div>
 			{/if}

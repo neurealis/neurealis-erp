@@ -49,7 +49,7 @@
 	</div>
 
 	<div class="content-wrapper">
-		<!-- Status-Uebersicht -->
+		<!-- Status-Übersicht -->
 		<div class="status-overview">
 			<div class="status-step" class:completed={isSent} class:active={!isSent}>
 				<div class="step-icon">
@@ -126,7 +126,7 @@
 								<polyline points="15 3 21 3 21 9"/>
 								<line x1="10" y1="14" x2="21" y2="3"/>
 							</svg>
-							In SharePoint oeffnen
+							In SharePoint öffnen
 						</a>
 					{:else}
 						<span class="text-muted">Kein Link vorhanden</span>

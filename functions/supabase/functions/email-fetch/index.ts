@@ -2,9 +2,9 @@
  * email-fetch: E-Mail-Abruf von Microsoft Graph API
  *
  * Funktionen:
- * - Holt E-Mails von konfigurierten Postfaechern (email_accounts)
- * - Erstellt Dokumente fuer E-Mails und Anhaenge
- * - Speichert Anhaenge in Supabase Storage
+ * - Holt E-Mails von konfigurierten Postfächern (email_accounts)
+ * - Erstellt Dokumente für E-Mails und Anhänge
+ * - Speichert Anhänge in Supabase Storage
  *
  * Cron: alle 10 Min (6-20 Uhr)
  */

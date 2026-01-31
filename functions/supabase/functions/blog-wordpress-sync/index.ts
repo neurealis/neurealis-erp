@@ -2,7 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * blog-wordpress-sync v1
+ * blog-wordpress-sync v2
  *
  * Synchronisiert Blog-Artikel von Supabase nach WordPress.
  * - Holt alle blog_posts mit status='veroeffentlicht' und review_status='approved'
@@ -12,13 +12,20 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
  *
  * Benötigte Secrets:
  * - WORDPRESS_URL: https://neurealis.de
- * - WORDPRESS_USER: WordPress-Benutzername
- * - WORDPRESS_APP_PASSWORD: Application Password aus WP
+ * - WORDPRESS_USER: WordPress-Benutzername (lowercase!)
+ * - WORDPRESS_APP_PASSWORD: Application Password aus WP (ohne Leerzeichen!)
+ *
+ * Modes:
+ * - test: Testet nur WordPress-Verbindung (GET /posts)
+ * - whoami: Prüft Authentifizierung (/users/me)
+ * - sync: Synchronisiert Posts (default)
  *
  * Usage:
  * POST /functions/v1/blog-wordpress-sync
- * Body: { "dry_run": true } // Optional: Nur prüfen, nichts ändern
- *       { "post_id": "uuid" } // Optional: Nur einen bestimmten Post synchen
+ * Body: { "mode": "test" } // Test-Modus
+ *       { "mode": "whoami" } // Auth prüfen
+ *       { "dry_run": true } // Nur prüfen, nichts ändern
+ *       { "post_id": "uuid" } // Nur einen bestimmten Post synchen
  */
 
 const corsHeaders = {
@@ -29,8 +36,10 @@ const corsHeaders = {
 
 // WordPress Config
 const WORDPRESS_URL = Deno.env.get('WORDPRESS_URL') || 'https://neurealis.de';
-const WORDPRESS_USER = Deno.env.get('WORDPRESS_USER') || '';
-const WORDPRESS_APP_PASSWORD = Deno.env.get('WORDPRESS_APP_PASSWORD') || '';
+// Versuche verschiedene Secret-Namen (WORDPRESS_USER oder WORDPRESS_API_USER)
+const WORDPRESS_USER = Deno.env.get('WORDPRESS_USER') || Deno.env.get('WORDPRESS_API_USER') || 'wcksjjdrwwtx6cona4pc';
+// Versuche verschiedene Secret-Namen (WORDPRESS_APP_PASSWORD oder WORDPRESS_API_TOKEN)
+const WORDPRESS_APP_PASSWORD = Deno.env.get('WORDPRESS_APP_PASSWORD') || Deno.env.get('WORDPRESS_API_TOKEN') || '';
 
 // Supabase Config
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL') || '';
@@ -75,21 +84,23 @@ interface SyncResult {
 interface RequestBody {
   dry_run?: boolean;
   post_id?: string;
+  mode?: 'test' | 'whoami' | 'sync';
 }
 
 /**
- * Base64-Encoding für Basic Auth
+ * Erstellt bereinigte Auth-Credentials
  */
-function encodeBasicAuth(username: string, password: string): string {
-  const credentials = `${username}:${password}`;
-  return btoa(credentials);
+function getCleanAuthHeader(): string {
+  const wpUser = WORDPRESS_USER.toLowerCase();
+  const wpPassword = WORDPRESS_APP_PASSWORD.replace(/\s+/g, '');
+  return `Basic ${btoa(`${wpUser}:${wpPassword}`)}`;
 }
 
 /**
  * Prüft ob ein Post mit dem Slug bereits in WordPress existiert
  */
 async function findWordPressPostBySlug(slug: string): Promise<WordPressPost | null> {
-  const authHeader = `Basic ${encodeBasicAuth(WORDPRESS_USER, WORDPRESS_APP_PASSWORD)}`;
+  const authHeader = getCleanAuthHeader();
 
   const url = `${WORDPRESS_URL}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&status=any`;
 
@@ -114,7 +125,7 @@ async function findWordPressPostBySlug(slug: string): Promise<WordPressPost | nu
  * Holt einen WordPress-Post anhand der ID
  */
 async function getWordPressPostById(postId: number): Promise<WordPressPost | null> {
-  const authHeader = `Basic ${encodeBasicAuth(WORDPRESS_USER, WORDPRESS_APP_PASSWORD)}`;
+  const authHeader = getCleanAuthHeader();
 
   const url = `${WORDPRESS_URL}/wp-json/wp/v2/posts/${postId}`;
 
@@ -141,7 +152,7 @@ async function getWordPressPostById(postId: number): Promise<WordPressPost | nul
  * Erstellt einen neuen WordPress-Post
  */
 async function createWordPressPost(post: BlogPost): Promise<WordPressPost> {
-  const authHeader = `Basic ${encodeBasicAuth(WORDPRESS_USER, WORDPRESS_APP_PASSWORD)}`;
+  const authHeader = getCleanAuthHeader();
 
   const wpPostData = {
     title: post.titel,
@@ -179,7 +190,7 @@ async function createWordPressPost(post: BlogPost): Promise<WordPressPost> {
  * Aktualisiert einen bestehenden WordPress-Post
  */
 async function updateWordPressPost(postId: number, post: BlogPost): Promise<WordPressPost> {
-  const authHeader = `Basic ${encodeBasicAuth(WORDPRESS_USER, WORDPRESS_APP_PASSWORD)}`;
+  const authHeader = getCleanAuthHeader();
 
   const wpPostData = {
     title: post.titel,
@@ -334,19 +345,156 @@ Deno.serve(async (req: Request) => {
 
     const dryRun = body.dry_run === true;
     const specificPostId = body.post_id;
+    const mode = body.mode || 'sync';
 
-    console.log(`blog-wordpress-sync v1 - ${dryRun ? 'DRY-RUN' : 'LIVE'}`);
+    // Username immer lowercase (WordPress ist case-insensitive bei Usernames)
+    const wpUser = WORDPRESS_USER.toLowerCase();
+    // App Password: Leerzeichen entfernen
+    const wpPassword = WORDPRESS_APP_PASSWORD.replace(/\s+/g, '');
 
-    // Config prüfen
-    if (!WORDPRESS_USER || !WORDPRESS_APP_PASSWORD) {
+    console.log(`blog-wordpress-sync v2 - Mode: ${mode}, ${dryRun ? 'DRY-RUN' : 'LIVE'}`);
+
+    // Config prüfen (nur Password ist required, User hat Fallback)
+    if (!WORDPRESS_APP_PASSWORD) {
       return new Response(
         JSON.stringify({
           error: 'WordPress-Credentials nicht konfiguriert',
-          hint: 'Setze WORDPRESS_URL, WORDPRESS_USER und WORDPRESS_APP_PASSWORD in Supabase Secrets'
+          hint: 'Setze WORDPRESS_APP_PASSWORD oder WORDPRESS_API_TOKEN in Supabase Secrets',
+          configured: {
+            url: WORDPRESS_URL,
+            user: wpUser,
+            password_env: !!Deno.env.get('WORDPRESS_APP_PASSWORD') ? 'WORDPRESS_APP_PASSWORD' : (!!Deno.env.get('WORDPRESS_API_TOKEN') ? 'WORDPRESS_API_TOKEN' : 'NICHT GESETZT'),
+          }
         }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    // Auth-Header mit bereinigten Credentials
+    const authHeader = `Basic ${btoa(`${wpUser}:${wpPassword}`)}`;
+
+    // ============ TEST MODE ============
+    if (mode === 'test') {
+      console.log('TEST MODE: Prüfe WordPress-Verbindung...');
+      try {
+        const testUrl = `${WORDPRESS_URL}/wp-json/wp/v2/posts?per_page=1`;
+        const testResponse = await fetch(testUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': authHeader,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (testResponse.ok) {
+          const posts = await testResponse.json();
+          return new Response(
+            JSON.stringify({
+              success: true,
+              mode: 'test',
+              message: 'WordPress-Verbindung erfolgreich',
+              wordpress_url: WORDPRESS_URL,
+              posts_found: posts.length,
+              sample_post: posts.length > 0 ? { id: posts[0].id, title: posts[0].title?.rendered } : null,
+              auth_config: {
+                user: wpUser,
+                password_length: wpPassword.length,
+              },
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        } else {
+          const errorText = await testResponse.text();
+          return new Response(
+            JSON.stringify({
+              success: false,
+              mode: 'test',
+              error: `WordPress API Fehler: ${testResponse.status}`,
+              details: errorText,
+              auth_config: {
+                user: wpUser,
+                password_length: wpPassword.length,
+              },
+            }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+      } catch (error) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            mode: 'test',
+            error: error instanceof Error ? error.message : String(error),
+          }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
+    // ============ WHOAMI MODE ============
+    if (mode === 'whoami') {
+      console.log('WHOAMI MODE: Prüfe Authentifizierung...');
+      try {
+        const whoamiUrl = `${WORDPRESS_URL}/wp-json/wp/v2/users/me`;
+        const whoamiResponse = await fetch(whoamiUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': authHeader,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const responseText = await whoamiResponse.text();
+
+        if (whoamiResponse.ok) {
+          const user = JSON.parse(responseText);
+          return new Response(
+            JSON.stringify({
+              success: true,
+              mode: 'whoami',
+              message: 'Authentifizierung erfolgreich',
+              wordpress_user: {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                roles: user.roles,
+                capabilities: user.capabilities ? Object.keys(user.capabilities).filter(k => user.capabilities[k]) : [],
+              },
+              auth_config: {
+                user: wpUser,
+                password_length: wpPassword.length,
+              },
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        } else {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              mode: 'whoami',
+              error: `Authentifizierung fehlgeschlagen: ${whoamiResponse.status}`,
+              details: responseText,
+              auth_config: {
+                user: wpUser,
+                password_length: wpPassword.length,
+              },
+            }),
+            { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+      } catch (error) {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            mode: 'whoami',
+            error: error instanceof Error ? error.message : String(error),
+          }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
+    // ============ SYNC MODE (default) ============
 
     // Supabase Client
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
