@@ -63,6 +63,7 @@
 | LOG-051 | 2026-01-31 | WordPress-Sync IONOS-Fix + Blog-Optimierung (T1-T13) | Abgeschlossen |
 | LOG-052 | 2026-01-31 | CPQ-Workflow Fix: Fehlerbehandlung + transcription-parse v7 | Abgeschlossen |
 | LOG-053 | 2026-02-01 | CPQ-Test + UI-Verbesserungen dokumentiert | Abgeschlossen |
+| LOG-054 | 2026-01-31 | CPQ-Verbesserungen: 7 Features implementiert (T1-T4) | Abgeschlossen |
 
 ---
 
@@ -93,9 +94,68 @@
 
 ### Nächste Schritte
 
-- UI-Komponente erweitern (Dropdown für LV-Typ-Wechsel)
-- Freitextsuche integrieren (search-lv Edge Function oder Client-seitig)
-- State-Struktur ändern: Array statt einzelne Position
+- ✅ Alle Verbesserungen in LOG-054 implementiert
+
+---
+
+## LOG-054 - CPQ-Verbesserungen: 7 Features implementiert (T1-T4)
+
+**Datum:** 2026-01-31
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Implementierte Features
+
+| # | Feature | Status |
+|---|---------|--------|
+| 1 | LV-Priorisierung | ✅ Priority-LV aus Request |
+| 2 | Freitextsuche | ✅ Hybrid: pg_trgm + Embedding Fallback |
+| 3 | Preisanzeige | ✅ Nur VK-Preis (listenpreis) |
+| 4 | Sortierung | ✅ Similarity DESC, dann Preis DESC |
+| 5 | Mehrfachauswahl | ✅ "+" Button neben Vorschlägen |
+| 6 | LV-Filter | ✅ Initial auf ausgewähltes LV |
+| 7 | Lern-System | ✅ Hierarchisch (LV-spezifisch → global) |
+
+### Subagenten
+
+| Agent | Aufgabe | Ergebnis |
+|-------|---------|----------|
+| T1 | Backend: transcription-parse v5 | ✅ Hierarchisches Lern-System |
+| T2 | SQL: RPCs für Hybrid-Suche | ✅ pg_trgm + 2 neue RPCs |
+| T3 | UI: Frontend-Änderungen | ✅ listenpreis, "+"-Button, Sortierung |
+| T4 | QA: Code-Review + Tests | ✅ 12/12 Checks, 0 Fehler |
+
+### Technische Änderungen
+
+**Migration `20260131213758_cpq_hybrid_search`:**
+- `pg_trgm` Extension aktiviert
+- GIN-Indizes auf `bezeichnung` und `beschreibung`
+- `search_lv_positions_hybrid()` RPC (Fuzzy → Embedding)
+- `search_position_corrections_hierarchical()` RPC (LV → global)
+
+**Edge Function transcription-parse v5:**
+- Priority-LV aus Request-Body
+- Hierarchisches Lern-System mit `is_global_match` Flag
+- Bei globalem Treffer: Bezeichnung als Hinweis, Suche im aktuellen LV
+
+**UI-Änderungen:**
+- `listenpreis` (VK) statt `einzelpreis` (EK)
+- "+" Button für Mehrfachauswahl pro Position
+- Sortierung: Similarity DESC, bei gleich Preis DESC
+
+### Deployments
+
+- Edge Function: `transcription-parse` v5 → Supabase v9
+- UI: https://neurealis-erp.netlify.app (76 Assets, 50 neu)
+
+### QA-Ergebnis
+
+- 12/12 Checks bestanden
+- 4 Warnungen (nicht kritisch):
+  - W1: Umlaut in Kommentar (gefixt)
+  - W2: position_corrections leer (normal)
+  - W3: 31% LV ohne listenpreis (Fallback vorhanden)
+  - W4: A11y-Warnungen (optional)
 
 ---
 

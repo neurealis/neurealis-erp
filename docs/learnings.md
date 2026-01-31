@@ -2187,6 +2187,29 @@ function getErrorMessage(err: unknown): string {
 ```
 **Regel:** Bei Supabase Functions IMMER diese Pattern verwenden statt `err instanceof Error`
 
+### L139 - pg_trgm für Fuzzy-Suche in PostgreSQL
+**Datum:** 2026-01-31
+**Kontext:** CPQ Hybrid-Suche: Erst Fuzzy, dann Embedding-Fallback
+**Extension:** `CREATE EXTENSION IF NOT EXISTS pg_trgm;`
+**GIN-Index:**
+```sql
+CREATE INDEX idx_bezeichnung_trgm ON lv_positionen USING GIN (bezeichnung gin_trgm_ops);
+```
+**Similarity-Funktion:** `similarity(bezeichnung, 'suchbegriff')` gibt 0-1 zurück
+**Threshold:** 0.3 ist guter Schwellenwert für sinnvolle Treffer
+**Vorteil:** Findet auch Tippfehler und ähnliche Schreibweisen
+
+### L140 - Hierarchisches Lern-System für KI-Korrekturen
+**Datum:** 2026-01-31
+**Kontext:** CPQ-Lern-System soll aus Korrekturen lernen
+**Problem:** Korrektur in GWS-Projekt soll auch bei VBW helfen
+**Lösung:** 2-stufige Suche:
+1. Erst im aktuellen `lv_typ` suchen
+2. Falls keine Treffer: Globaler Fallback
+3. Bei globalem Treffer: Bezeichnung als Hinweis nutzen, dann im aktuellen LV suchen
+**Rückgabe:** `is_global_match` Flag zeigt Fallback-Status
+**Vorteil:** Wissen wird LV-übergreifend genutzt, aber lokale Treffer bevorzugt
+
 ---
 
-*Aktualisiert: 2026-01-31 23:55*
+*Aktualisiert: 2026-01-31*
