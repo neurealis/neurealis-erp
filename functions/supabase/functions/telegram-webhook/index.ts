@@ -2,18 +2,39 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v50 - Dynamische gemeldet_von Erkennung
+ * telegram-webhook v54 - Kompakte Projekt-Info & Gewerk-Status-Tabelle
  *
  * KOMPLETT NEUER Bot: @neurealis_bedarfsanalyse_bot
  *
- * NEU in v50: Dynamische gemeldet_von Erkennung für Nachträge
+ * NEU in v54: Kompakte Projekt-Info & Gewerk-Status-Tabelle
+ * - Beim Öffnen: BL, NU, Termine (Start, Ende NU Plan, Mängelfrei, Kunde)
+ * - Zählt offene Mängel und Nachträge
+ * - 🏗️ Gewerk-Status: Tabelle mit allen 9 Gewerken und Status-Emojis
+ * - Callback: bau:gewerke:{projektId}
+ *
+ * v53: Multi-Foto-Upload & Abnahmeprotokolle
+ * - Multi-Foto-Upload: Erkennt media_group_id und sammelt alle Fotos einer Gruppe
+ * - pending_fotos in Session speichern, nach 2s Delay verarbeiten
+ * - 📄 Abnahmeprotokoll hochladen: NU-Abnahme (QM-ABN-NU) oder Kunden-Abnahme (QM-ABN-KU)
+ * - Speicherung in dokumente-Tabelle
+ *
+ * v52: Ausführungsarten-Tabelle & Brandschutz-Nachweis
+ * - 📐 Ausführungsarten: Kombinierte Tabelle aller Gewerke mit Status
+ * - 🔥 Brandschutz-Nachweis: Neuer Nachweis-Typ hinzugefügt
+ *
+ * v51: Phasen-Filter & ATBS-Schnellzugriff
+ * - 🏗️ Baustelle öffnen: Auswahl-Methode (Phase/ATBS/Alle)
+ * - Phasen-Filter: Projekte nach Phase (0-4) filtern
+ * - ATBS-Schnellzugriff: ATBS-Nummer direkt im Hauptmenü eingeben
+ * - Projekt-Liste: Vollständiger Name (AG | Adresse | Wohnung)
+ *
+ * v50: Dynamische gemeldet_von Erkennung für Nachträge
  * - Lookup: chat_id in kontakte-Tabelle (telegram_chat_id)
  * - NU (Nachunternehmer) → gemeldet_von='nu'
  * - BL (Bauleiter) oder Holger Neumann → gemeldet_von='bauleiter'
  * - Fallback: 'telegram'
  *
  * v49: Baustellen-Features
- * - 🏗️ Baustelle öffnen: ATBS-Nummer eingeben oder aus Liste wählen
  * - 🔧 Mangel melden: Text/Sprache, KI-Splitting, mehrsprachig (DE, RU, HU, RO, PL)
  * - 📋 Nachtrag erfassen: Beschreibung + Foto
  * - 📸 Nachweis hochladen: Typ-Auswahl (Rohinstallation Elektrik/Sanitär, Abdichtung, E-Check)
@@ -151,6 +172,109 @@ function extractPhase(columnValues: any): string | null {
   return null;
 }
 
+function extractPhaseNumber(columnValues: any): number | null {
+  const phase = extractPhase(columnValues);
+  if (!phase) return null;
+  const match = phase.match(/^\((\d+)\)/);
+  if (match) return parseInt(match[1], 10);
+  return null;
+}
+
+// Phase-Labels für die Anzeige
+const PHASE_LABELS: Record<number, string> = {
+  0: '(0) Bedarfsanalyse',
+  1: '(1) Angebotsstellung',
+  2: '(2) Auftrag erhalten',
+  3: '(3) Vorbereitung',
+  4: '(4) Umsetzung'
+};
+
+// Gewerk-Spalten-Mapping (Monday column IDs)
+const GEWERK_SPALTEN: Record<string, string> = {
+  'Entkernung': 'gg2On',
+  'Maurer': '67n4J',
+  'Elektrik': '06reu',
+  'Bad & Sanitär': 'GnADf',
+  'Heizung': 'aJKmD',
+  'Tischler': 'tSYWD',
+  'Wände & Decken': 'Fl8Za',
+  'Boden': 'qAUvS',
+  'Endreinigung': 'Nygjn',
+};
+
+// Monday-Spalten für Projekt-Info
+const PROJEKT_SPALTEN = {
+  bauleiter: ['people__1', 'FPlQB'],
+  nachunternehmer: ['mirror__1', 'sQkwj'],
+  bv_start: ['date_bvstart', 'f55yA'],
+  bv_ende_plan: '25nEy',
+  bv_ende_maengelfrei: '7hwYG',
+  bv_ende_kunde: '8pRus',
+};
+
+// Helper: Extrahiere Feld-Text aus verschiedenen Monday-Formaten
+function extractFieldText(columnValues: any, ...fieldIds: string[]): string {
+  if (!columnValues) return '';
+  for (const fieldId of fieldIds) {
+    const field = columnValues[fieldId];
+    if (!field) continue;
+    if (typeof field === 'string') return field;
+    if (typeof field === 'object') {
+      if (field.text) return field.text;
+      if (field.value) {
+        try {
+          const parsed = JSON.parse(field.value);
+          return parsed.text || parsed.value || '';
+        } catch {
+          return field.value;
+        }
+      }
+    }
+  }
+  return '';
+}
+
+// Helper: Extrahiere Datum aus Monday-Feld
+function extractDate(columnValues: any, fieldId: string): string {
+  if (!columnValues) return '-';
+  const field = columnValues[fieldId];
+  if (!field) return '-';
+  let dateStr = '';
+  if (typeof field === 'string') {
+    dateStr = field;
+  } else if (typeof field === 'object') {
+    if (field.text) dateStr = field.text;
+    else if (field.date) dateStr = field.date;
+    else if (field.value) {
+      try {
+        const parsed = JSON.parse(field.value);
+        dateStr = parsed.date || parsed.text || '';
+      } catch {
+        dateStr = field.value;
+      }
+    }
+  }
+  if (!dateStr) return '-';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '-';
+    return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  } catch {
+    return dateStr.substring(0, 10);
+  }
+}
+
+// Status-zu-Emoji-Mapping für Gewerke
+function gewerkStatusEmoji(status: string): string {
+  if (!status) return '-';
+  const s = status.toLowerCase();
+  if (s.includes('fertig') || s.includes('erledigt') || s.includes('komplett')) return '✅';
+  if (s.includes('arbeit') || s.includes('läuft') || s.includes('rohinstall')) return '🔨';
+  if (s.includes('geplant') || s.includes('offen')) return '⏳';
+  if (s.includes('verspätet') || s.includes('verzug')) return '⚠️';
+  return '-';
+}
+
 // ============================================
 // OpenAI Whisper Integration (Sprache-zu-Text)
 // ============================================
@@ -274,66 +398,192 @@ async function showBaustellenMenu(chatId: number, session: any) {
         [{ text: "🔧 Mangel melden", callback_data: "bau:mangel" }],
         [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
         [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
+        [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
         [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
         [{ text: "❌ Projekt schließen", callback_data: "bau:close" }],
         [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
       ] } }
     );
   } else {
-    await updateSession(chatId, { aktueller_modus: 'baustelle_suche', modus_daten: {} });
+    // NEU v51: Auswahl-Methode anzeigen
+    await updateSession(chatId, { aktueller_modus: 'baustelle_auswahl', modus_daten: {} });
     await sendMessage(chatId,
       `<b>🏗️ Baustelle öffnen</b>\n\n` +
-      `Gib eine ATBS-Nummer ein (z.B. ATBS-448) oder wähle aus der Liste:`,
+      `Wie möchtest du ein Projekt finden?`,
       { reply_markup: { inline_keyboard: [
-        [{ text: "📋 Aktive Projekte anzeigen", callback_data: "bau:list" }],
+        [{ text: "📁 Nach Phase filtern", callback_data: "bau:select_method:phase" }],
+        [{ text: "🔍 ATBS-Nummer eingeben", callback_data: "bau:select_method:atbs" }],
+        [{ text: "📋 Alle aktiven Projekte", callback_data: "bau:list" }],
         [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
       ] } }
     );
   }
 }
 
-async function listActiveProjekte(chatId: number) {
+// NEU v51: Phasen-Auswahl anzeigen
+async function showPhaseSelection(chatId: number) {
+  await updateSession(chatId, { aktueller_modus: 'baustelle_phase_wahl', modus_daten: {} });
+  await sendMessage(chatId,
+    `<b>📁 Phase auswählen</b>\n\n` +
+    `Welche Phase möchtest du filtern?`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "(0) Bedarfsanalyse", callback_data: "phase:0" }],
+      [{ text: "(1) Angebotsstellung", callback_data: "phase:1" }],
+      [{ text: "(2) Auftrag erhalten", callback_data: "phase:2" }],
+      [{ text: "(3) Vorbereitung", callback_data: "phase:3" }],
+      [{ text: "(4) Umsetzung", callback_data: "phase:4" }],
+      [{ text: "⬅️ Zurück", callback_data: "mode_baustelle" }]
+    ] } }
+  );
+}
+
+// NEU v51: Projekte nach Phase filtern
+async function listProjekteByPhase(chatId: number, phaseNumber: number, page: number = 0) {
+  const PAGE_SIZE = 15;
+
   const { data: projekte, error } = await supabase
     .from('monday_bauprozess')
     .select('id, name, column_values')
     .order('updated_at', { ascending: false })
-    .limit(50);
+    .limit(200);
+
+  if (error || !projekte || projekte.length === 0) {
+    await sendMessage(chatId, 'Keine Projekte gefunden.');
+    return;
+  }
+
+  // Nach Phase filtern
+  const gefiltert = projekte.filter(p => {
+    const pNum = extractPhaseNumber(p.column_values);
+    return pNum === phaseNumber;
+  });
+
+  if (gefiltert.length === 0) {
+    await sendMessage(chatId,
+      `Keine Projekte in Phase ${PHASE_LABELS[phaseNumber] || phaseNumber} gefunden.`,
+      { reply_markup: { inline_keyboard: [
+        [{ text: "⬅️ Andere Phase wählen", callback_data: "bau:select_method:phase" }],
+        [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
+      ] } }
+    );
+    return;
+  }
+
+  // Pagination
+  const totalPages = Math.ceil(gefiltert.length / PAGE_SIZE);
+  const startIdx = page * PAGE_SIZE;
+  const pageItems = gefiltert.slice(startIdx, startIdx + PAGE_SIZE);
+
+  const buttons: any[][] = pageItems.map(p => {
+    const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
+    // VOLLSTÄNDIGER Name - nicht abschneiden!
+    const name = p.name || extractProjectName(p.column_values) || '';
+    return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
+  });
+
+  // Pagination-Buttons
+  const navButtons: any[] = [];
+  if (page > 0) {
+    navButtons.push({ text: "⬅️ Zurück", callback_data: `phase:${phaseNumber}:${page - 1}` });
+  }
+  if (page < totalPages - 1) {
+    navButtons.push({ text: "Weiter ➡️", callback_data: `phase:${phaseNumber}:${page + 1}` });
+  }
+  if (navButtons.length > 0) {
+    buttons.push(navButtons);
+  }
+
+  buttons.push([{ text: "📁 Andere Phase", callback_data: "bau:select_method:phase" }]);
+  buttons.push([{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]);
+
+  const pageInfo = totalPages > 1 ? ` (Seite ${page + 1}/${totalPages})` : '';
+  await sendMessage(chatId,
+    `<b>${PHASE_LABELS[phaseNumber] || `Phase ${phaseNumber}`}</b>\n` +
+    `${gefiltert.length} Projekte${pageInfo}:`,
+    { reply_markup: { inline_keyboard: buttons } }
+  );
+}
+
+// NEU v51: ATBS-Schnellzugriff Modus
+async function startAtbsDirectInput(chatId: number) {
+  await updateSession(chatId, { aktueller_modus: 'atbs_direkt', modus_daten: {} });
+  await sendMessage(chatId,
+    `<b>🔍 ATBS direkt eingeben</b>\n\n` +
+    `Gib die ATBS-Nummer ein (z.B. ATBS-448 oder nur 448):`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
+    ] } }
+  );
+}
+
+async function listActiveProjekte(chatId: number, page: number = 0) {
+  const PAGE_SIZE = 15;
+
+  const { data: projekte, error } = await supabase
+    .from('monday_bauprozess')
+    .select('id, name, column_values')
+    .order('updated_at', { ascending: false })
+    .limit(200);
 
   if (error || !projekte || projekte.length === 0) {
     await sendMessage(chatId, 'Keine aktiven Projekte gefunden.');
     return;
   }
 
+  // Filter auf aktive Phasen (2, 3, 4)
   const aktiveProjekte = projekte.filter(p => {
-    const phase = extractPhase(p.column_values);
-    return phase && ['2', '3', '4'].some(ph => phase.includes(ph));
-  }).slice(0, 10);
+    const phaseNum = extractPhaseNumber(p.column_values);
+    return phaseNum !== null && [2, 3, 4].includes(phaseNum);
+  });
 
   if (aktiveProjekte.length === 0) {
     await sendMessage(chatId, 'Keine aktiven Baustellen gefunden.');
     return;
   }
 
-  const buttons = aktiveProjekte.map(p => {
+  // Pagination
+  const totalPages = Math.ceil(aktiveProjekte.length / PAGE_SIZE);
+  const startIdx = page * PAGE_SIZE;
+  const pageItems = aktiveProjekte.slice(startIdx, startIdx + PAGE_SIZE);
+
+  const buttons: any[][] = pageItems.map(p => {
     const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
-    const name = (p.name || '').substring(0, 30);
+    // VOLLSTÄNDIGER Name - nicht abschneiden!
+    const name = p.name || extractProjectName(p.column_values) || '';
     return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
   });
-  buttons.push([{ text: "⬅️ Zurück", callback_data: "mode_baustelle" }]);
 
+  // Pagination-Buttons
+  const navButtons: any[] = [];
+  if (page > 0) {
+    navButtons.push({ text: "⬅️ Zurück", callback_data: `bau:list:${page - 1}` });
+  }
+  if (page < totalPages - 1) {
+    navButtons.push({ text: "Weiter ➡️", callback_data: `bau:list:${page + 1}` });
+  }
+  if (navButtons.length > 0) {
+    buttons.push(navButtons);
+  }
+
+  buttons.push([{ text: "📁 Nach Phase filtern", callback_data: "bau:select_method:phase" }]);
+  buttons.push([{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]);
+
+  const pageInfo = totalPages > 1 ? ` (Seite ${page + 1}/${totalPages})` : '';
   await sendMessage(chatId,
-    `<b>Aktive Baustellen (${aktiveProjekte.length}):</b>`,
+    `<b>Aktive Baustellen (${aktiveProjekte.length})${pageInfo}:</b>`,
     { reply_markup: { inline_keyboard: buttons } }
   );
 }
 
 async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
-  const term = searchTerm.trim().toUpperCase();
+  // Normalisiere Suchbegriff: "448", "ATBS-448", "ATBS 448" -> "448"
+  let term = searchTerm.trim().toUpperCase();
+  term = term.replace(/^ATBS[- ]?/i, '');
 
   const { data: projekte } = await supabase
     .from('monday_bauprozess')
     .select('id, name, column_values')
-    .limit(100);
+    .limit(200);
 
   if (!projekte) {
     await sendMessage(chatId, 'Fehler bei der Projektsuche.');
@@ -341,22 +591,31 @@ async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
   }
 
   const matches = projekte.filter(p => {
-    const atbs = extractATBS(p.column_values) || '';
+    const atbs = (extractATBS(p.column_values) || '').toUpperCase();
     const name = (p.name || '').toUpperCase();
-    return atbs.includes(term) || name.includes(term);
+    // Suche auch nach reiner Nummer im ATBS
+    const atbsNum = atbs.replace(/^ATBS[- ]?/i, '');
+    return atbs.includes(term) || atbsNum === term || name.includes(term);
   });
 
   if (matches.length === 0) {
-    await sendMessage(chatId, `Kein Projekt gefunden für "${searchTerm}".\n\nVersuche eine ATBS-Nummer (z.B. ATBS-448).`);
+    await sendMessage(chatId,
+      `Kein Projekt gefunden für "${searchTerm}".\n\nVersuche eine ATBS-Nummer (z.B. ATBS-448 oder 448).`,
+      { reply_markup: { inline_keyboard: [
+        [{ text: "🔍 Nochmal suchen", callback_data: "bau:select_method:atbs" }],
+        [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
+      ] } }
+    );
     return;
   }
 
   if (matches.length === 1) {
     await openProjekt(chatId, matches[0]);
   } else {
-    const buttons = matches.slice(0, 8).map(p => {
+    // VOLLSTÄNDIGER Name - nicht abschneiden!
+    const buttons = matches.slice(0, 15).map(p => {
       const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
-      const name = (p.name || '').substring(0, 30);
+      const name = p.name || extractProjectName(p.column_values) || '';
       return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
     });
     buttons.push([{ text: "⬅️ Abbrechen", callback_data: "mode_baustelle" }]);
@@ -372,6 +631,30 @@ async function openProjekt(chatId: number, projekt: any) {
   const atbs = extractATBS(projekt.column_values) || projekt.id.substring(0, 8);
   const projektName = projekt.name || extractProjectName(projekt.column_values) || '';
   const phase = extractPhase(projekt.column_values) || '?';
+  const columnValues = projekt.column_values || {};
+
+  // Extrahiere zusätzliche Projekt-Infos aus Monday
+  const bauleiter = extractFieldText(columnValues, ...PROJEKT_SPALTEN.bauleiter) || '-';
+  const nachunternehmer = extractFieldText(columnValues, ...PROJEKT_SPALTEN.nachunternehmer) || '-';
+  const bvStart = extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0]) !== '-'
+    ? extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0])
+    : extractDate(columnValues, PROJEKT_SPALTEN.bv_start[1]);
+  const bvEndePlan = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_plan);
+  const bvEndeMaengelfrei = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_maengelfrei);
+  const bvEndeKunde = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_kunde);
+
+  // Zähle offene Mängel und Nachträge
+  const { count: mangelCount } = await supabase
+    .from('maengel_fertigstellung')
+    .select('*', { count: 'exact', head: true })
+    .eq('projekt_nr', atbs)
+    .not('status_mangel', 'in', '(Abgenommen,Geschlossen)');
+
+  const { count: nachtragCount } = await supabase
+    .from('nachtraege')
+    .select('*', { count: 'exact', head: true })
+    .eq('atbs_nummer', atbs)
+    .in('status', ['Gemeldet', 'In Prüfung']);
 
   await updateSession(chatId, {
     aktuelles_bv_id: projekt.id,
@@ -383,19 +666,76 @@ async function openProjekt(chatId: number, projekt: any) {
     }
   });
 
-  await sendMessage(chatId,
-    `<b>✅ Projekt geöffnet:</b>\n\n` +
-    `ATBS: <b>${atbs}</b>\n` +
-    `Name: ${projektName}\n` +
-    `Phase: ${phase}`,
-    { reply_markup: { inline_keyboard: [
+  // Kompakte Projekt-Info Anzeige
+  let infoText = `<b>Projekt: ${atbs}</b>\n`;
+  infoText += `${projektName}\n\n`;
+  infoText += `━━━━━━━━━━━━━━━━━━━━\n`;
+  infoText += `📍 Phase: ${phase}\n`;
+  infoText += `👷 BL: ${bauleiter}\n`;
+  infoText += `🔧 NU: ${nachunternehmer}\n\n`;
+  infoText += `📅 Termine:\n`;
+  infoText += `   Start: ${bvStart}\n`;
+  infoText += `   Ende NU Plan: ${bvEndePlan}\n`;
+  infoText += `   Ende Mängelfrei: ${bvEndeMaengelfrei}\n`;
+  infoText += `   Ende Kunde: ${bvEndeKunde}\n\n`;
+  infoText += `⚠️ Offen: ${mangelCount || 0} Mängel | ${nachtragCount || 0} Nachträge\n`;
+  infoText += `━━━━━━━━━━━━━━━━━━━━`;
+
+  await sendMessage(chatId, infoText, {
+    reply_markup: { inline_keyboard: [
       [{ text: "🔧 Mangel melden", callback_data: "bau:mangel" }],
       [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
       [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
+      [{ text: "🏗️ Gewerk-Status", callback_data: `bau:gewerke:${projekt.id}` }],
+      [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
       [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
       [{ text: "❌ Projekt schließen", callback_data: "bau:close" }]
-    ] } }
-  );
+    ] }
+  });
+}
+
+// NEU: Gewerk-Status-Tabelle anzeigen
+async function showGewerkStatus(chatId: number, projektId: string) {
+  const { data: projekt } = await supabase
+    .from('monday_bauprozess')
+    .select('id, name, column_values')
+    .eq('id', projektId)
+    .single();
+
+  if (!projekt) {
+    await sendMessage(chatId, 'Projekt nicht gefunden.');
+    return;
+  }
+
+  const atbs = extractATBS(projekt.column_values) || projektId.substring(0, 8);
+  const columnValues = projekt.column_values || {};
+
+  // Baue Gewerk-Status-Tabelle
+  let tableText = `<b>🏗️ Gewerk-Status ${atbs}</b>\n\n`;
+  tableText += `<pre>`;
+  tableText += `┌─────────────────┬────────────┐\n`;
+  tableText += `│ Gewerk          │ Status     │\n`;
+  tableText += `├─────────────────┼────────────┤\n`;
+
+  for (const [gewerkName, spalteId] of Object.entries(GEWERK_SPALTEN)) {
+    const status = extractFieldText(columnValues, spalteId);
+    const emoji = gewerkStatusEmoji(status);
+    const statusDisplay = status ? `${emoji} ${status.substring(0, 8)}` : '-';
+    // Padding für Tabellen-Layout
+    const namePadded = gewerkName.padEnd(15);
+    const statusPadded = statusDisplay.padEnd(10);
+    tableText += `│ ${namePadded} │ ${statusPadded} │\n`;
+  }
+
+  tableText += `└─────────────────┴────────────┘\n`;
+  tableText += `</pre>\n\n`;
+  tableText += `<i>✅ Fertig | 🔨 In Arbeit | ⏳ Geplant | ⚠️ Verspätet</i>`;
+
+  await sendMessage(chatId, tableText, {
+    reply_markup: { inline_keyboard: [
+      [{ text: "⬅️ Zurück zum Projekt", callback_data: `bau:open:${projektId}` }]
+    ] }
+  });
 }
 
 async function closeProjekt(chatId: number) {
@@ -787,6 +1127,7 @@ async function showNachweisTypen(chatId: number, session: any) {
       [{ text: "🚿 Rohinstallation Sanitär", callback_data: "nachweis:rohinstall_sanitaer" }],
       [{ text: "🛁 Abdichtung Bad", callback_data: "nachweis:abdichtung_bad" }],
       [{ text: "✅ E-Check Protokoll", callback_data: "nachweis:e_check" }],
+      [{ text: "🔥 Brandschutz", callback_data: "nachweis:brandschutz" }],
       [{ text: "❌ Abbrechen", callback_data: "bau:menu" }]
     ] } }
   );
@@ -797,7 +1138,8 @@ async function handleNachweisTyp(chatId: number, session: any, typ: string) {
     'rohinstall_elektrik': 'Rohinstallation Elektrik',
     'rohinstall_sanitaer': 'Rohinstallation Sanitär',
     'abdichtung_bad': 'Abdichtung Bad',
-    'e_check': 'E-Check Protokoll'
+    'e_check': 'E-Check Protokoll',
+    'brandschutz': 'Brandschutz'
   };
 
   await updateSession(chatId, {
@@ -871,7 +1213,8 @@ async function handleNachweisFoto(chatId: number, session: any, photos: any[]) {
     'rohinstall_elektrik': 'Rohinstallation Elektrik',
     'rohinstall_sanitaer': 'Rohinstallation Sanitär',
     'abdichtung_bad': 'Abdichtung Bad',
-    'e_check': 'E-Check Protokoll'
+    'e_check': 'E-Check Protokoll',
+    'brandschutz': 'Brandschutz'
   };
 
   await sendMessage(chatId,
@@ -949,11 +1292,406 @@ async function showProjektStatus(chatId: number, session: any) {
     `• Gesamt: ${nachtraegeGesamt || 0}\n\n` +
     `<b>📸 Nachweise:</b> ${nachweiseCount || 0}`,
     { reply_markup: { inline_keyboard: [
+      [{ text: "📐 Ausführungsarten", callback_data: `bau:ausfuehrung:${bvId}` }],
       [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
     ] } }
   );
 }
 
+// ============================================
+// Baustellen-Features: Ausführungsarten anzeigen (NEU v52)
+// ============================================
+
+// Monday.com Spalten-IDs für Ausführungsarten
+const AUSFUEHRUNGSART_SPALTEN: Record<string, { id: string; label: string; icon: string }> = {
+  bad: { id: 'status23__1', label: 'Bad', icon: '🛁' },
+  elektrik: { id: 'color590__1', label: 'Elektrik', icon: '⚡' },
+  // Weitere Spalten können ergänzt werden wenn die IDs in Monday bekannt sind:
+  // waende: { id: 'XXX', label: 'Wände', icon: '🧱' },
+  // decken: { id: 'XXX', label: 'Decken', icon: '📐' },
+  // boden: { id: 'XXX', label: 'Boden', icon: '🪵' },
+  // tueren: { id: 'XXX', label: 'Türen', icon: '🚪' },
+  // gastherme: { id: 'XXX', label: 'Gastherme', icon: '🔥' },
+};
+
+function extractMondayText(jsonValue: unknown): string {
+  if (!jsonValue) return '-';
+  if (typeof jsonValue === 'string') {
+    try {
+      const parsed = JSON.parse(jsonValue);
+      return parsed?.text || '-';
+    } catch {
+      return jsonValue;
+    }
+  }
+  if (typeof jsonValue === 'object' && jsonValue !== null) {
+    return (jsonValue as { text?: string }).text || '-';
+  }
+  return '-';
+}
+
+function getAusfuehrungStatus(value: string): { emoji: string; text: string } {
+  const lower = value.toLowerCase();
+  if (lower === 'komplett' || lower === 'fertig' || lower === 'erledigt') {
+    return { emoji: '✅', text: 'Fertig' };
+  }
+  if (lower.includes('läuft') || lower.includes('in arbeit') || lower.includes('teil')) {
+    return { emoji: '🔨', text: 'Läuft' };
+  }
+  if (lower === 'ohne' || lower === 'nicht geplant' || lower === '-') {
+    return { emoji: '➖', text: '-' };
+  }
+  if (lower === 'offen' || lower === 'geplant') {
+    return { emoji: '⏳', text: 'Geplant' };
+  }
+  return { emoji: '📋', text: value.substring(0, 15) };
+}
+
+async function showAusfuehrungsarten(chatId: number, session: any, projektId: string) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  if (!projektNr) {
+    await sendMessage(chatId, '⚠️ Kein Projekt geöffnet.');
+    return;
+  }
+
+  // Monday-Daten laden
+  const { data: projekt, error } = await supabase
+    .from('monday_bauprozess')
+    .select('column_values')
+    .eq('id', projektId)
+    .single();
+
+  if (error || !projekt) {
+    await sendMessage(chatId, '⚠️ Projekt nicht gefunden.');
+    return;
+  }
+
+  const columnValues = projekt.column_values as Record<string, unknown>;
+
+  // Tabelle erstellen mit Unicode Box-Drawing
+  let table = `<b>📐 Ausführungsarten ${projektNr}</b>\n\n`;
+  table += `<pre>`;
+  table += `┌──────────┬────────────────┬────────┐\n`;
+  table += `│ Gewerk   │ Ausführung     │ Status │\n`;
+  table += `├──────────┼────────────────┼────────┤\n`;
+
+  for (const [key, config] of Object.entries(AUSFUEHRUNGSART_SPALTEN)) {
+    const rawValue = extractMondayText(columnValues[config.id]);
+    const status = getAusfuehrungStatus(rawValue);
+
+    // Formatierung für feste Spaltenbreiten
+    const gewerk = (config.icon + ' ' + config.label).padEnd(8).substring(0, 8);
+    const ausfuehrung = rawValue.padEnd(14).substring(0, 14);
+    const statusText = status.emoji;
+
+    table += `│ ${gewerk} │ ${ausfuehrung} │   ${statusText}   │\n`;
+  }
+
+  table += `└──────────┴────────────────┴────────┘`;
+  table += `</pre>\n\n`;
+  table += `<i>Legende: ✅ Fertig | 🔨 Läuft | ⏳ Geplant | ➖ Ohne</i>`;
+
+  await sendMessage(chatId, table, {
+    reply_markup: { inline_keyboard: [
+      [{ text: "📊 Zurück zum Status", callback_data: "bau:status" }],
+      [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
+    ] }
+  });
+}
+
+// ============================================
+// Baustellen-Features: Abnahmeprotokolle (NEU v53)
+// ============================================
+
+async function showAbnahmeTypen(chatId: number, session: any) {
+  if (!session?.aktuelles_bv_id) {
+    await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
+    await showBaustellenMenu(chatId, session);
+    return;
+  }
+
+  const projektNr = session?.modus_daten?.projekt_nr || '?';
+
+  await sendMessage(chatId,
+    `<b>📄 Abnahmeprotokoll hochladen für ${projektNr}</b>\n\n` +
+    `Welche Art von Abnahme möchtest du dokumentieren?`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "👷 NU-Abnahme (intern)", callback_data: "abnahme:nu" }],
+      [{ text: "🏠 Kunden-Abnahme", callback_data: "abnahme:kunde" }],
+      [{ text: "⬅️ Zurück", callback_data: "bau:menu" }]
+    ] } }
+  );
+}
+
+async function handleAbnahmeTyp(chatId: number, session: any, typ: string) {
+  const typLabels: Record<string, { label: string; dokumenttyp: string }> = {
+    'nu': { label: 'NU-Abnahme (intern)', dokumenttyp: 'QM-ABN-NU' },
+    'kunde': { label: 'Kunden-Abnahme', dokumenttyp: 'QM-ABN-KU' }
+  };
+
+  const config = typLabels[typ];
+  if (!config) {
+    await sendMessage(chatId, 'Unbekannter Abnahme-Typ.');
+    return;
+  }
+
+  await updateSession(chatId, {
+    aktueller_modus: 'abnahme_foto',
+    modus_daten: {
+      ...session?.modus_daten,
+      abnahme_typ: typ,
+      abnahme_dokumenttyp: config.dokumenttyp,
+      abnahme_label: config.label
+    }
+  });
+
+  await sendMessage(chatId,
+    `<b>📄 ${config.label}</b>\n\n` +
+    `Sende jetzt ein oder mehrere Fotos des Abnahmeprotokolls.\n\n` +
+    `<i>Tipp: Du kannst mehrere Fotos auf einmal senden - sie werden alle dem gleichen Protokoll zugeordnet.</i>`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "❌ Abbrechen", callback_data: "bau:abnahme" }]
+    ] } }
+  );
+}
+
+async function handleAbnahmeFoto(chatId: number, session: any, photos: any[]) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+  const abnahmeTyp = session?.modus_daten?.abnahme_typ;
+  const dokumentTyp = session?.modus_daten?.abnahme_dokumenttyp;
+  const label = session?.modus_daten?.abnahme_label;
+
+  if (!abnahmeTyp || !dokumentTyp) {
+    await sendMessage(chatId, '⚠️ Kein Abnahme-Typ gewählt. Bitte erst Typ auswählen.');
+    await showAbnahmeTypen(chatId, session);
+    return;
+  }
+
+  const largestPhoto = photos[photos.length - 1];
+  const fileData = await downloadTelegramFile(largestPhoto.file_id);
+
+  if (!fileData) {
+    await sendMessage(chatId, 'Fehler beim Herunterladen des Fotos.');
+    return;
+  }
+
+  const timestamp = Date.now();
+  const filename = `${projektNr}_${dokumentTyp}_${timestamp}.jpg`;
+  const filePath = `abnahmeprotokolle/${projektNr}/${filename}`;
+
+  // Base64 zu Uint8Array konvertieren
+  const binaryString = atob(fileData.base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+
+  // In Storage hochladen
+  const { error: uploadError } = await supabase.storage
+    .from('fotos')
+    .upload(filePath, bytes, { contentType: fileData.mimeType });
+
+  if (uploadError) {
+    console.error('Storage upload error:', uploadError);
+    await sendMessage(chatId, 'Fehler beim Speichern des Fotos.');
+    return;
+  }
+
+  const { data: publicUrl } = supabase.storage.from('fotos').getPublicUrl(filePath);
+
+  // In dokumente-Tabelle speichern
+  const { error: insertError } = await supabase.from('dokumente').insert({
+    id: crypto.randomUUID(),
+    atbs_nummer: projektNr,
+    art_des_dokuments: dokumentTyp,
+    dokument_nr: `${dokumentTyp}-${projektNr}-${new Date().toISOString().split('T')[0]}`,
+    datei_url: publicUrl.publicUrl,
+    datei_name: filename,
+    quelle: 'telegram',
+    datum_erstellt: new Date().toISOString().split('T')[0],
+    notizen: `Hochgeladen via Telegram Bot (${label})`
+  });
+
+  if (insertError) {
+    console.error('Dokument insert error:', insertError);
+  }
+
+  // Auch in fotos-Tabelle speichern für Referenz
+  await supabase.from('fotos').insert({
+    atbs_nummer: projektNr,
+    bauvorhaben_id: session?.aktuelles_bv_id,
+    kategorie: 'abnahmeprotokoll',
+    nachweis_typ: dokumentTyp,
+    datei_url: publicUrl.publicUrl,
+    datei_name: filename,
+    mime_type: fileData.mimeType,
+    quelle: 'telegram'
+  });
+
+  await sendMessage(chatId,
+    `<b>✅ Abnahmeprotokoll gespeichert!</b>\n\n` +
+    `Typ: ${label}\n` +
+    `Projekt: ${projektNr}\n` +
+    `Dokumenttyp: ${dokumentTyp}`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "📄 Weiteres Protokoll hochladen", callback_data: "bau:abnahme" }],
+      [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
+    ] } }
+  );
+
+  // Modus zurücksetzen
+  await updateSession(chatId, {
+    aktueller_modus: 'baustelle',
+    modus_daten: {
+      ...session?.modus_daten,
+      abnahme_typ: null,
+      abnahme_dokumenttyp: null,
+      abnahme_label: null
+    }
+  });
+}
+
+// ============================================
+// Multi-Foto-Upload Handler (NEU v53)
+// ============================================
+
+interface PendingFoto {
+  file_id: string;
+  media_group_id: string;
+  received_at: number;
+}
+
+async function handleMultiFotoUpload(chatId: number, session: any, update: any): Promise<PendingFoto[] | 'pending' | null> {
+  const mediaGroupId = update.message?.media_group_id;
+  const photos = update.message?.photo || [];
+  const largestPhoto = photos[photos.length - 1];
+  const modus = session?.aktueller_modus;
+
+  // Falls kein media_group_id, ist es ein einzelnes Foto
+  if (!mediaGroupId) {
+    return null; // null = Einzelfoto, soll normal verarbeitet werden
+  }
+
+  // Foto zur pending-Liste hinzufügen
+  const pendingFotos: PendingFoto[] = session?.pending_fotos || [];
+  pendingFotos.push({
+    file_id: largestPhoto.file_id,
+    media_group_id: mediaGroupId,
+    received_at: Date.now()
+  });
+
+  await updateSession(chatId, { pending_fotos: pendingFotos });
+
+  // Zählen wie viele Fotos dieser Gruppe schon da sind
+  const groupFotos = pendingFotos.filter(f => f.media_group_id === mediaGroupId);
+
+  // Beim ersten Foto der Gruppe: Hinweis senden und Timer starten
+  if (groupFotos.length === 1) {
+    console.log(`[v53] Multi-Foto-Gruppe ${mediaGroupId} gestartet für Modus ${modus}`);
+
+    await updateSession(chatId, {
+      pending_fotos: pendingFotos,
+      modus_daten: {
+        ...session?.modus_daten,
+        pending_media_group_id: mediaGroupId,
+        pending_media_group_start: Date.now()
+      }
+    });
+
+    return 'pending';
+  }
+
+  // Bei weiteren Fotos: Prüfen ob Timeout (1.5s nach erstem Foto)
+  const groupStart = session?.modus_daten?.pending_media_group_start;
+  const elapsed = Date.now() - (groupStart || Date.now());
+
+  if (elapsed < 1500) {
+    return 'pending';
+  }
+
+  // Timeout erreicht - alle Fotos der Gruppe verarbeiten
+  console.log(`[v53] Multi-Foto-Gruppe ${mediaGroupId} verarbeiten: ${groupFotos.length} Fotos`);
+
+  const remainingFotos = pendingFotos.filter(f => f.media_group_id !== mediaGroupId);
+  await updateSession(chatId, {
+    pending_fotos: remainingFotos,
+    modus_daten: {
+      ...session?.modus_daten,
+      pending_media_group_id: null,
+      pending_media_group_start: null
+    }
+  });
+
+  return groupFotos;
+}
+
+async function processPendingFotos(chatId: number, session: any, fotos: PendingFoto[]): Promise<number> {
+  const modus = session?.aktueller_modus;
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  let successCount = 0;
+
+  for (const foto of fotos) {
+    const fileData = await downloadTelegramFile(foto.file_id);
+    if (!fileData) continue;
+
+    const timestamp = Date.now();
+    let filePath: string;
+    let kategorie: string;
+
+    if (modus === 'mangel_foto') {
+      filePath = `maengel/${projektNr}/${projektNr}_mangel_${timestamp}_${successCount}.jpg`;
+      kategorie = 'mangel';
+    } else if (modus === 'nachtrag_foto') {
+      filePath = `nachtraege/${projektNr}/${projektNr}_nachtrag_${timestamp}_${successCount}.jpg`;
+      kategorie = 'nachtrag';
+    } else if (modus === 'nachweis_foto') {
+      const nachweisTyp = session?.modus_daten?.nachweis_typ || 'allgemein';
+      filePath = `nachweise/${projektNr}/${projektNr}_${nachweisTyp}_${timestamp}_${successCount}.jpg`;
+      kategorie = 'nachweis';
+    } else if (modus === 'abnahme_foto') {
+      const dokumentTyp = session?.modus_daten?.abnahme_dokumenttyp || 'QM-ABN';
+      filePath = `abnahmeprotokolle/${projektNr}/${projektNr}_${dokumentTyp}_${timestamp}_${successCount}.jpg`;
+      kategorie = 'abnahmeprotokoll';
+    } else {
+      filePath = `allgemein/${projektNr}/${projektNr}_foto_${timestamp}_${successCount}.jpg`;
+      kategorie = 'allgemein';
+    }
+
+    const binaryString = atob(fileData.base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    const { error: uploadError } = await supabase.storage
+      .from('fotos')
+      .upload(filePath, bytes, { contentType: fileData.mimeType });
+
+    if (!uploadError) {
+      const { data: publicUrl } = supabase.storage.from('fotos').getPublicUrl(filePath);
+
+      await supabase.from('fotos').insert({
+        atbs_nummer: projektNr,
+        bauvorhaben_id: session?.aktuelles_bv_id,
+        kategorie,
+        datei_url: publicUrl.publicUrl,
+        datei_name: filePath.split('/').pop(),
+        mime_type: fileData.mimeType,
+        quelle: 'telegram'
+      });
+
+      successCount++;
+    }
+  }
+
+  if (successCount > 0) {
+    await sendMessage(chatId, `✅ ${successCount} Fotos gespeichert!`);
+  }
+
+  return successCount;
+}
 // ============================================
 // Phase 2: Bedarfsanalyse Helpers (BESTEHEND)
 // ============================================
@@ -1382,6 +2120,7 @@ async function handleStart(chatId: number, session: any) {
       [{ text: "📊 Aufmaß erstellen/ansehen", callback_data: "mode_aufmass" }],
       [{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }],
       [{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }],
+      [{ text: "🔍 ATBS direkt eingeben", callback_data: "mode_atbs_direkt" }],
     ] } }
   );
 }
@@ -1493,7 +2232,60 @@ async function handleCallbackQuery(update: any) {
 
   if (data === 'bau:list') {
     await answerCallbackQuery(callbackId, 'Lade Projekte...');
-    await listActiveProjekte(chatId);
+    await listActiveProjekte(chatId, 0);
+    return;
+  }
+
+  // NEU v51: Pagination für Projekt-Liste
+  if (data.startsWith('bau:list:')) {
+    const page = parseInt(data.replace('bau:list:', ''), 10);
+    await answerCallbackQuery(callbackId);
+    await listActiveProjekte(chatId, page);
+    return;
+  }
+
+  // NEU v51: Auswahl-Methode Handler
+  if (data === 'bau:select_method:phase') {
+    await answerCallbackQuery(callbackId);
+    await showPhaseSelection(chatId);
+    return;
+  }
+
+  if (data === 'bau:select_method:atbs') {
+    await answerCallbackQuery(callbackId);
+    await updateSession(chatId, { aktueller_modus: 'baustelle_suche', modus_daten: {} });
+    await sendMessage(chatId,
+      `<b>🔍 ATBS-Nummer eingeben</b>\n\n` +
+      `Gib die ATBS-Nummer ein (z.B. ATBS-448 oder nur 448):`,
+      { reply_markup: { inline_keyboard: [
+        [{ text: "⬅️ Zurück", callback_data: "mode_baustelle" }]
+      ] } }
+    );
+    return;
+  }
+
+  // NEU v51: Phasen-Filter Handler
+  if (data.match(/^phase:\d+$/)) {
+    const phaseNum = parseInt(data.replace('phase:', ''), 10);
+    await answerCallbackQuery(callbackId, `Phase ${phaseNum}...`);
+    await listProjekteByPhase(chatId, phaseNum, 0);
+    return;
+  }
+
+  // NEU v51: Phasen-Filter mit Pagination
+  if (data.match(/^phase:\d+:\d+$/)) {
+    const parts = data.split(':');
+    const phaseNum = parseInt(parts[1], 10);
+    const page = parseInt(parts[2], 10);
+    await answerCallbackQuery(callbackId);
+    await listProjekteByPhase(chatId, phaseNum, page);
+    return;
+  }
+
+  // NEU v51: ATBS-Schnellzugriff im Hauptmenü
+  if (data === 'mode_atbs_direkt') {
+    await answerCallbackQuery(callbackId);
+    await startAtbsDirectInput(chatId);
     return;
   }
 
@@ -1533,9 +2325,40 @@ async function handleCallbackQuery(update: any) {
     return;
   }
 
+  // NEU v53: Abnahmeprotokoll
+  if (data === 'bau:abnahme') {
+    await answerCallbackQuery(callbackId);
+    await showAbnahmeTypen(chatId, session);
+    return;
+  }
+
+  // NEU v53: Abnahme-Typ gewählt
+  if (data.startsWith('abnahme:')) {
+    const typ = data.replace('abnahme:', '');
+    await answerCallbackQuery(callbackId);
+    await handleAbnahmeTyp(chatId, session, typ);
+    return;
+  }
+
   if (data === 'bau:status') {
     await answerCallbackQuery(callbackId);
     await showProjektStatus(chatId, session);
+    return;
+  }
+
+  // NEU: Gewerk-Status-Tabelle
+  if (data.startsWith('bau:gewerke:')) {
+    const projektId = data.replace('bau:gewerke:', '');
+    await answerCallbackQuery(callbackId, 'Lade Gewerk-Status...');
+    await showGewerkStatus(chatId, projektId);
+    return;
+  }
+
+  // NEU v52: Ausführungsarten-Tabelle
+  if (data.startsWith('bau:ausfuehrung:')) {
+    const projektId = data.replace('bau:ausfuehrung:', '');
+    await answerCallbackQuery(callbackId, 'Lade Ausführungsarten...');
+    await showAusfuehrungsarten(chatId, session, projektId);
     return;
   }
 
@@ -1728,7 +2551,7 @@ async function handleCallbackQuery(update: any) {
 
 Deno.serve(async (req) => {
   if (req.method === 'GET') {
-    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v50-gemeldet_von' }), {
+    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v53-multi-foto-abnahme' }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -1783,6 +2606,23 @@ Deno.serve(async (req) => {
       else if (update.message.photo) {
         const modus = session?.aktueller_modus;
 
+        // NEU v53: Multi-Foto-Upload Check
+        const mediaGroupId = update.message?.media_group_id;
+        if (mediaGroupId) {
+          // Multi-Foto-Upload: Fotos sammeln
+          const multiResult = await handleMultiFotoUpload(chatId, session, update);
+          if (multiResult === 'pending') {
+            // Warte auf weitere Fotos der Gruppe
+            return new Response('OK', { status: 200 });
+          }
+          if (Array.isArray(multiResult) && multiResult.length > 1) {
+            // Mehrere Fotos verarbeiten
+            await processPendingFotos(chatId, session, multiResult);
+            return new Response('OK', { status: 200 });
+          }
+          // Einzelnes Foto (obwohl media_group_id vorhanden) - normal verarbeiten
+        }
+
         if (modus === 'mangel_foto') {
           await handleMangelFoto(chatId, session, update.message.photo);
         }
@@ -1791,6 +2631,10 @@ Deno.serve(async (req) => {
         }
         else if (modus === 'nachweis_foto') {
           await handleNachweisFoto(chatId, session, update.message.photo);
+        }
+        else if (modus === 'abnahme_foto') {
+          // NEU v53: Abnahmeprotokoll-Foto
+          await handleAbnahmeFoto(chatId, session, update.message.photo);
         }
         else if (modus === 'bedarfsanalyse' || modus === 'bedarfsanalyse_fotos') {
           await handleBedarfsanalysePhoto(chatId, session, update.message.photo);
@@ -1812,7 +2656,7 @@ Deno.serve(async (req) => {
       else if (text && !text.startsWith('/')) {
         const modus = session?.aktueller_modus;
 
-        if (modus === 'baustelle_suche') {
+        if (modus === 'baustelle_suche' || modus === 'atbs_direkt') {
           await searchAndOpenProjekt(chatId, text);
         }
         else if (modus === 'mangel_erfassen') {

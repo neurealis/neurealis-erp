@@ -2291,6 +2291,59 @@ CREATE INDEX idx_bezeichnung_trgm ON lv_positionen USING GIN (bezeichnung gin_tr
 - Subagenten haben eigenes Kontextfenster
 - Ergebnisse kommen komprimiert zurück
 
+### L143 - Telegram media_group_id für Multi-Foto-Upload
+**Datum:** 2026-01-31
+**Problem:** Wenn User mehrere Fotos gleichzeitig sendet, werden sie einzeln verarbeitet
+**Lösung:** `media_group_id` aus Telegram-Update nutzen:
+```typescript
+const mediaGroupId = update.message?.media_group_id;
+if (mediaGroupId) {
+  // Foto zur pending-Liste hinzufügen
+  // Nach 1.5-2 Sekunden alle Fotos der Gruppe verarbeiten
+}
+```
+**Wichtig:** Telegram sendet Gruppen-Fotos mit kurzer Verzögerung einzeln - daher Timeout zum Sammeln nötig
+
+### L144 - Monday column_values Struktur variiert je nach Feldtyp
+**Datum:** 2026-01-31
+**Problem:** Monday-Spalten haben unterschiedliche JSON-Strukturen
+**Lösung:** Flexible Extraktion mit Fallbacks:
+```typescript
+function extractFieldText(columnValues: any, ...fieldIds: string[]): string {
+  for (const id of fieldIds) {
+    const field = columnValues?.[id];
+    if (!field) continue;
+    // Verschiedene Strukturen prüfen
+    if (typeof field === 'string') return field;
+    if (field.text) return field.text;
+    if (field.value) return field.value;
+    if (field.label) return field.label;
+  }
+  return '';
+}
+```
+
+### L145 - Berechtigungs-Prüfung für Telegram-Bot-Aktionen
+**Datum:** 2026-01-31
+**Kontext:** Nicht jeder soll alles ändern dürfen (z.B. Termine, Status)
+**Lösung:** Berechtigte E-Mails/Telegram-IDs in Code oder DB pflegen:
+```typescript
+const BERECHTIGTE = [
+  'holger.neumann@neurealis.de',
+  'dirk.jansen@neurealis.de'
+];
+
+async function istBerechtigt(chatId: number): Promise<boolean> {
+  const { data: kontakt } = await supabase
+    .from('kontakte')
+    .select('email')
+    .eq('telegram_chat_id', chatId)
+    .single();
+  return BERECHTIGTE.includes(kontakt?.email?.toLowerCase());
+}
+```
+**Regel:** Bei kritischen Aktionen IMMER Berechtigung prüfen
+
 ---
 
 *Aktualisiert: 2026-01-31*

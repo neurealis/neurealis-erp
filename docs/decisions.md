@@ -350,4 +350,38 @@
 
 ---
 
-*Aktualisiert: 2026-01-30*
+## Telegram-Bot Erweiterung
+
+### D035 - Phasen-Filter als primäre Projekt-Navigation
+**Datum:** 2026-01-31
+**Entscheidung:** Beim "Baustelle öffnen" zuerst Phase (0-4) auswählen, dann Projekte dieser Phase
+**Grund:** Bauleiter arbeiten meist in Phase 3-4 (Vorbereitung/Umsetzung), Filter reduziert Auswahl
+**Alternative verworfen:** Nur alphabetische Liste (zu viele Projekte auf einmal)
+
+### D036 - Nur Holger + Dirk dürfen Termine/Status ändern
+**Datum:** 2026-01-31
+**Entscheidung:** Kritische Bot-Aktionen nur für berechtigte Personen
+**Berechtigte:**
+- holger.neumann@neurealis.de (GF)
+- dirk.jansen@neurealis.de (BL, Tel: +49 1515 632 1931)
+**Grund:** Datenschutz und Verantwortlichkeit, keine versehentlichen Änderungen durch NU
+**Implementierung:** E-Mail-Check in `istBerechtigt()` Funktion
+
+### D037 - Sprach-Befehle mit Bestätigung
+**Datum:** 2026-01-31
+**Entscheidung:** GPT interpretiert Sprach-Befehle tolerant, aber User muss vor Ausführung bestätigen
+**Flow:** Befehl → GPT-Parsing → Vorschau → [✅ Ausführen] [❌ Abbrechen]
+**Grund:** Balance zwischen Benutzerfreundlichkeit und Sicherheit
+**Alternative verworfen:**
+- Strikt (nur exakte Befehle) - zu unflexibel für Baustelle
+- Voll automatisch - zu riskant bei Missverständnissen
+
+### D038 - Nachtrag-LV-Matching voll automatisch
+**Datum:** 2026-01-31
+**Entscheidung:** Bei Nachtrag per Sprache werden LV-Positionen automatisch zugewiesen (ohne Bestätigung)
+**Grund:** Beschleunigt Workflow auf Baustelle, LV-Matching ist gut genug
+**Nachbearbeitung:** User kann im ERP korrigieren falls nötig
+
+---
+
+*Aktualisiert: 2026-01-31*

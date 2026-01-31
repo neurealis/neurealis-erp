@@ -1,10 +1,34 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-01-31 (aktualisiert)
+**Stand:** 2026-01-31 22:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Telegram-Bot v54 (✅ CODE FERTIG - Deployment ausstehend)
+
+**Implementiert:** 2026-01-31 (4 parallele Subagenten)
+
+**Neue Features:**
+| Feature | Status |
+|---------|--------|
+| Phasen-Filter (0-4) beim Projekt-Öffnen | ✅ |
+| ATBS-Schnellzugriff im Hauptmenü | ✅ |
+| Vollständige Projektnamen (Wohnungsnummer sichtbar) | ✅ |
+| Kompakte Projekt-Info (Phase, BL, NU, Termine, offene Mängel) | ✅ |
+| Gewerk-Status-Tabelle (9 Gewerke mit Emojis) | ✅ |
+| Ausführungsarten-Tabelle (kombiniert: Gewerk/Ausführung/Status) | ✅ |
+| Brandschutz-Nachweis (neu) | ✅ |
+| Multi-Foto-Upload (media_group_id Gruppierung) | ✅ |
+| Abnahmeprotokolle (QM-ABN-NU, QM-ABN-KU) | ✅ |
+
+**Nächster Schritt:** Deployment! Dann Phase 3+4 (Termine, Sprach-Befehle)
+
+**Konzept-Dokument:** `docs/TELEGRAM_BOT_ERWEITERUNG_KONZEPT.md`
+**Nacht-Plan:** `docs/implementation/telegram_phase3_4_nachtplan.md`
+
+---
 
 ### CPQ-Verbesserungen (✅ FERTIG)
 

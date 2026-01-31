@@ -48,6 +48,8 @@
 | LOG-038 | 2026-01-30 | GWS LV-Import 2026 Baupreisindex | Abgeschlossen |
 | LOG-039 | 2026-01-30 | Softr-Sync mangel_nr Fix + Duplikate-Bereinigung | Abgeschlossen |
 | LOG-040 | 2026-01-30 | Telegram-Bot v52-v55 - Nachtrag LV-Position-Matching | Abgeschlossen |
+| LOG-041 | 2026-01-31 | Telegram-Bot v54 - Phasen-Filter, Gewerk-Status, Ausführungen, Multi-Foto | Abgeschlossen |
+| LOG-042 | 2026-01-31 | Telegram-Bot Phase 3+4 Nachtplan (Termine, Sprach-Befehle) | Geplant |
 | LOG-041 | 2026-01-31 | CPQ-System QA-Pruefung (T6) | Abgeschlossen |
 | LOG-041 | 2026-01-31 | Telegram-Bot v58 - Embedding-basierte LV-Suche + lv-embed-regenerate | Abgeschlossen |
 | LOG-042 | 2026-01-31 | Nachtrag-Bug-Fix + gemeldet_von + LV-Konsolidierung | Abgeschlossen |
