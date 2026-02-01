@@ -6,6 +6,18 @@
 
 ## Kritische Feld-Mappings
 
+### L165 - Logo-Pfad für PDF-Generierung zentral in docs/
+**Datum:** 2026-02-01
+**Kontext:** PDF-Generierung mit Puppeteer braucht Bilder
+**Lösung:** Logo und andere Assets in `docs/` Ordner kopieren
+**Pfade:**
+- `docs/logo-neurealis.png` - neurealis Logo für alle PDFs
+- Quelle: `ui/static/logo-neurealis.png`
+**Verwendung im HTML:**
+- Relativer Pfad: `src="logo-neurealis.png"` (wenn HTML in docs/)
+- Puppeteer PDF: `page.goto('file:///.../docs/DOCUMENT.html')`
+**Vorteil:** Ein Ort für alle PDF-Assets, konsistente CI
+
 ### L163 - Microsoft Graph API Rate-Limiting (429)
 **Datum:** 2026-02-01
 **Kontext:** SharePoint-Sync mit vielen parallelen Downloads

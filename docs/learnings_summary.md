@@ -416,6 +416,14 @@
 
 ---
 
-**Anzahl Learnings:** 162 (L001-L162, ohne Duplikate bei L053/L143/L144)
+## PDF-Generierung
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L165 | Logo-Pfad für PDF-Generierung zentral in docs/ | Assets in docs/ für Puppeteer PDF |
+
+---
+
+**Anzahl Learnings:** 165 (L001-L165, ohne Duplikate bei L053/L143/L144)
 
 *Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values). Die zweiten Vorkommen sollten umnummeriert werden.*

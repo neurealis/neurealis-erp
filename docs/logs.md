@@ -81,6 +81,54 @@
 | LOG-067 | 2026-02-01 | Telegram-Bot v74: Status/Gewerke kombiniert + Menü-Optimierung + PDF | Abgeschlossen |
 | LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
 | LOG-068 | 2026-02-01 | SharePoint Initial-Sync: Rate-Limiting-Fix v13 | Abgeschlossen |
+| LOG-069 | 2026-02-01 | Telegram User Guide: Menü-Struktur + Logo-Integration | Abgeschlossen |
+
+---
+
+## LOG-069 - Telegram User Guide: Menü-Struktur + Logo-Integration
+**Datum:** 2026-02-01 20:20
+**Status:** Abgeschlossen
+
+### Änderungen am User Guide
+
+**Inhaltsverzeichnis neu strukturiert (wie Bot-Menü):**
+```
+1. Hauptmenü
+   1.1 Letzte Projekte
+   1.2 ATBS direkt eingeben
+   1.3 Baustelle öffnen
+   1.4 Aufmaß erstellen
+   1.5 Audio-Briefing
+   1.6 Bedarfsanalyse
+2. Projekt-Menü
+   2.1 Mängel erfassen
+   2.2 Nachträge erfassen
+   2.3 Nachweise hochladen
+   2.4 Berichte erstellen
+   2.5 Abnahmeprotokoll
+   2.6 Status & Gewerke
+3. Sprachbefehle
+4. Referenz
+   4.1 Menübaum
+   4.2 Datum-Formate
+```
+
+**Logo-Integration:**
+- Titelseite: Großes Logo (60mm) statt 🤖 Emoji
+- Seitenheader: Logo (8mm) links neben Titel
+- Footer: Logo (6mm) links
+
+**Status & Gewerke als HTML-Tabelle:**
+- ASCII-Art durch echte HTML-Tabelle ersetzt
+- Bessere Darstellung im PDF
+
+**Dateien:**
+- `docs/logo-neurealis.png` - Logo kopiert aus `ui/static/`
+- `docs/TELEGRAM_BOT_USER_GUIDE.html` - Neue Struktur
+- `docs/TELEGRAM_BOT_USER_GUIDE.pdf` - Regeneriert mit Puppeteer
+
+### Learnings
+- L163: Logo-Pfad für PDF-Generierung in docs/ bereithalten
 
 ---
 
