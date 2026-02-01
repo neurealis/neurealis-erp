@@ -20,7 +20,7 @@ const TABLE_MAPPING: Record<string, string> = {
   'VzvQUdlHStrRtN': 'softr_kontakte',
   '0xZkAxDadNyOMI': 'ausfuehrungsmaengel',
   'bLgAqseB1AgVeu': 'einzelgewerke',
-  'bl0tRF2R7aMLYC': 'personal_bewerber',
+  'bl0tRF2R7aMLYC': 'bewerber',
   'gGcyZx01A4bDuH': 'logs_vapi',
   'ORCDcA1wFrCzu2': 'softr_angebotserstellung',
   'va3BbWTn101BXJ': 'softr_leads',
@@ -79,8 +79,53 @@ const FIELD_MAPPINGS: Record<string, Record<string, string>> = {
     'nua_nr': 'qxHu4',
     'erinnerung_status': 'w9hbN',
     'fotos_nachweis_nu': 'zBq5l'
+  },
+  'bewerber': {
+    // Stamm-Felder (Supabase-Spalte → Softr-Feld-ID)
+    'name': 'qtiHG',
+    'email': 'L4Gai',
+    'telefon': 'wJsq7',
+    'position': 'fzgN8',
+    'status': '5XRlb',
+    'bewerbung_am': '6NqwI',           // Softr: "Eingang Bewerbung" → Supabase: bewerbung_am
+    'beginn_ab': 'S5wp3',
+    'gehaltsvorstellung': 'S78Ry',
+    'kultur_rating': 'iRw0a',
+    'kommunikation_rating': '6nxYX',
+    'skills_rating': 'pRRtz',
+    'anschreiben': 'uxkU0',
+    'email_inhalt': 'lRlel',
+    'zusammenfassung': '5YJRl',
+    'notizen': '89Log',
+    // Neue Felder
+    'quelle': '6xMsv',
+    'vermittler_name': 'V9R4A',
+    'vermittler_aktiv': 'VpuNI',
+    'provision_typ': '3N3KS',
+    'provision_pauschal': 'lHfxE',
+    'provision_prozent': 'LJJr4',
+    'berufserfahrung_jahre': 'tm1ME',
+    'fuehrerschein': 'RWZAn'
   }
 };
+
+// Rating fields that need special handling (Softr returns 0-5, Supabase expects 1-5 or NULL)
+const RATING_FIELDS = new Set(['kultur_rating', 'kommunikation_rating', 'skills_rating']);
+
+// Fields that are stored as SELECT in Softr but TEXT in Supabase
+const SELECT_FIELDS = new Set(['status', 'quelle', 'provision_typ', 'position']);
+
+// Checkbox/Boolean fields
+const CHECKBOX_FIELDS = new Set(['vermittler_aktiv', 'fuehrerschein']);
+
+// Helper: Create inverse field mapping (Softr field ID -> Supabase column)
+function getInverseFieldMapping(tableName: string): Record<string, string> {
+  const mapping = FIELD_MAPPINGS[tableName];
+  if (!mapping) return {};
+  return Object.fromEntries(
+    Object.entries(mapping).map(([supabaseCol, softrFieldId]) => [softrFieldId, supabaseCol])
+  );
+}
 
 // ============== PULL: Softr -> Supabase ==============
 
@@ -123,14 +168,18 @@ async function pullFromSoftr(softrTableId: string, supabaseTableName: string) {
   const limit = 100;
   const errors: string[] = [];
 
-  // Get field mapping from softr_sync_config
+  // Get field mapping from softr_sync_config OR from FIELD_MAPPINGS
   const { data: configData } = await supabase
     .from('softr_sync_config')
     .select('field_mapping')
     .eq('softr_table_id', softrTableId)
     .single();
 
-  const fieldMapping: Record<string, string> = configData?.field_mapping || {};
+  // Use inverse of FIELD_MAPPINGS if config not found (Softr field ID -> Supabase column)
+  let fieldMapping: Record<string, string> = configData?.field_mapping || {};
+  if (Object.keys(fieldMapping).length === 0) {
+    fieldMapping = getInverseFieldMapping(supabaseTableName);
+  }
   const hasFieldMapping = Object.keys(fieldMapping).length > 0;
 
   while (true) {
@@ -149,8 +198,19 @@ async function pullFromSoftr(softrTableId: string, supabaseTableName: string) {
           if (supabaseCol) {
             // Extract label from Softr SELECT fields (they come as {id, label} objects)
             if (value && typeof value === 'object' && 'label' in value) {
-              convertedFields[supabaseCol] = value.label;
-            } else {
+              convertedFields[supabaseCol] = (value as {label: string}).label;
+            }
+            // Handle RATING fields (Softr returns number 0-5, Supabase expects 1-5 or NULL)
+            // 0 in Softr means "not rated" -> NULL in Supabase
+            else if (RATING_FIELDS.has(supabaseCol)) {
+              const rating = typeof value === 'number' ? value : (parseInt(String(value)) || 0);
+              convertedFields[supabaseCol] = rating === 0 ? null : rating;
+            }
+            // Handle CHECKBOX fields (Softr returns boolean)
+            else if (CHECKBOX_FIELDS.has(supabaseCol)) {
+              convertedFields[supabaseCol] = Boolean(value);
+            }
+            else {
               convertedFields[supabaseCol] = value;
             }
           }
@@ -158,6 +218,10 @@ async function pullFromSoftr(softrTableId: string, supabaseTableName: string) {
 
         convertedFields.softr_record_id = softrRecordId;
         convertedFields.softr_synced_at = new Date().toISOString();
+        // Mark sync source for loop prevention (for tables that support it)
+        if (supabaseTableName === 'bewerber') {
+          convertedFields.sync_source = 'softr';
+        }
 
         const { data: existing } = await supabase
           .from(supabaseTableName)
@@ -229,14 +293,14 @@ async function updateSoftrRecord(tableId: string, recordId: string, fields: Reco
   return response.ok;
 }
 
-function mapSupabaseToSoftr(supabaseRecord: Record<string, any>, fieldMapping: Record<string, string>): Record<string, any> {
+function mapSupabaseToSoftr(supabaseRecord: Record<string, any>, fieldMapping: Record<string, string>, tableName?: string): Record<string, any> {
   const softrFields: Record<string, any> = {};
 
   for (const [supabaseCol, softrFieldId] of Object.entries(fieldMapping)) {
     const value = supabaseRecord[supabaseCol];
     if (value !== null && value !== undefined) {
       // Handle date fields
-      if (supabaseCol === 'buchungsdatum' && value) {
+      if ((supabaseCol === 'buchungsdatum' || supabaseCol === 'bewerbung_am' || supabaseCol === 'beginn_ab') && value) {
         softrFields[softrFieldId] = new Date(value).toISOString();
       }
       // Handle number fields
@@ -244,6 +308,18 @@ function mapSupabaseToSoftr(supabaseRecord: Record<string, any>, fieldMapping: R
         softrFields[softrFieldId] = parseInt(value);
       }
       else if (supabaseCol === 'betrag' && value) {
+        softrFields[softrFieldId] = parseFloat(value);
+      }
+      // Handle RATING fields (Supabase stores 0-5, Softr expects 0-5)
+      else if (RATING_FIELDS.has(supabaseCol)) {
+        softrFields[softrFieldId] = Math.max(0, Math.min(5, typeof value === 'number' ? value : (parseInt(String(value)) || 0)));
+      }
+      // Handle CHECKBOX fields (boolean -> boolean)
+      else if (CHECKBOX_FIELDS.has(supabaseCol)) {
+        softrFields[softrFieldId] = Boolean(value);
+      }
+      // Handle numeric fields for bewerber
+      else if ((supabaseCol === 'provision_pauschal' || supabaseCol === 'provision_prozent' || supabaseCol === 'berufserfahrung_jahre') && value) {
         softrFields[softrFieldId] = parseFloat(value);
       }
       // Handle text fields - truncate if too long
@@ -346,6 +422,52 @@ async function updateTransactionSoftrSync(id: string, softrRecordId: string | nu
   }
 }
 
+async function fetchBewerberForPush(mode: 'new' | 'changed' | 'all'): Promise<any[]> {
+  let query = supabase
+    .from('bewerber')
+    .select('id, name, email, telefon, position, status, bewerbung_am, beginn_ab, gehaltsvorstellung, kultur_rating, kommunikation_rating, skills_rating, anschreiben, email_inhalt, zusammenfassung, notizen, quelle, vermittler_name, vermittler_aktiv, provision_typ, provision_pauschal, provision_prozent, berufserfahrung_jahre, fuehrerschein, softr_record_id, softr_synced_at, aktualisiert_am, sync_source')
+    .limit(200);
+
+  if (mode === 'new') {
+    query = query.is('softr_record_id', null);
+  } else if (mode === 'changed') {
+    // Fetch records where sync_source is not 'softr' (to avoid loops)
+    query = query.not('softr_record_id', 'is', null);
+  }
+
+  const { data, error } = await query;
+  if (error) throw new Error(`Fetch bewerber error: ${error.message}`);
+
+  // For changed mode, filter records where:
+  // 1. aktualisiert_am > softr_synced_at
+  // 2. sync_source is not 'softr' (loop prevention)
+  if (mode === 'changed' && data) {
+    return data.filter(r =>
+      r.sync_source !== 'softr' &&
+      (!r.softr_synced_at || new Date(r.aktualisiert_am) > new Date(r.softr_synced_at))
+    );
+  }
+
+  return data || [];
+}
+
+async function updateBewerberSoftrSync(id: string, softrRecordId: string | null): Promise<boolean> {
+  const updateData: Record<string, any> = {
+    softr_synced_at: new Date().toISOString(),
+    sync_source: 'supabase'  // Mark as synced from Supabase to prevent loops
+  };
+  if (softrRecordId) {
+    updateData.softr_record_id = softrRecordId;
+  }
+
+  const { error } = await supabase
+    .from('bewerber')
+    .update(updateData)
+    .eq('id', id);
+
+  return !error;
+}
+
 async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode: 'new' | 'changed' | 'all' = 'new') {
   let processed = 0, created = 0, updated = 0, failed = 0;
   const errors: string[] = [];
@@ -366,6 +488,9 @@ async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode
     } else if (supabaseTableName === 'maengel_fertigstellung') {
       records = await fetchMaengelForPush(mode);
       updateSyncFn = updateMaengelSoftrSync;
+    } else if (supabaseTableName === 'bewerber') {
+      records = await fetchBewerberForPush(mode);
+      updateSyncFn = updateBewerberSoftrSync;
     } else {
       return { processed: 0, created: 0, updated: 0, failed: 0, error: `Push not implemented for ${supabaseTableName}` };
     }
@@ -379,7 +504,7 @@ async function pushToSoftr(supabaseTableName: string, softrTableId: string, mode
 
   for (const record of records) {
     try {
-      const softrFields = mapSupabaseToSoftr(record, fieldMapping);
+      const softrFields = mapSupabaseToSoftr(record, fieldMapping, supabaseTableName);
 
       if (record.softr_record_id) {
         // Update existing record
@@ -427,7 +552,8 @@ Deno.serve(async (req: Request) => {
     // Support friendly table names
     const TABLE_ALIASES: Record<string, string> = {
       'maengel': 'maengel_fertigstellung',
-      'transaktionen': 'konto_transaktionen'
+      'transaktionen': 'konto_transaktionen',
+      'bewerber': 'bewerber'
     };
 
     const results: any[] = [];

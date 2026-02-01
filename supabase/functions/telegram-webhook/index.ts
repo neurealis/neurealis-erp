@@ -2,11 +2,32 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v54 - Kompakte Projekt-Info & Gewerk-Status-Tabelle
+ * telegram-webhook v60 - Audio-Briefing für Bauleiter
  *
  * KOMPLETT NEUER Bot: @neurealis_bedarfsanalyse_bot
  *
- * NEU in v54: Kompakte Projekt-Info & Gewerk-Status-Tabelle
+ * NEU in v60: Audio-Briefing Feature
+ * - 🎙️ /briefing Befehl: Generiert Audio-Briefing für Bauleiter
+ *   - Nur für Bauleiter (Rolle BL) oder Holger Neumann verfügbar
+ *   - Ruft audio-briefing-generate Edge Function auf
+ *   - Audio wird direkt als Telegram-Sprachnachricht gesendet
+ * - 🎙️ Button im Hauptmenü für Bauleiter: "Audio-Briefing abrufen"
+ *
+ * v59: Phase 4 - Baustellenberichte & NU-Kommunikation
+ * - 📝 Bericht erstellen: Baustellenbegehungsberichte via Text/Sprache
+ *   - Speicherung in dokumente-Tabelle (Dokumenttyp: BERICHT)
+ *   - Session-State für Bericht-Eingabe
+ * - 📨 Nachricht an NU: Schnell-Nachrichten an Nachunternehmer
+ *   - Vordefinierte Templates (Termin, Material, Dringend)
+ *   - Eigene Nachricht schreiben
+ *   - NU-Chat-ID aus monday_bauprozess → kontakte ermitteln
+ *
+ * v58: Tages-Dashboard, ATBS-Nummerierung, Favoriten
+ * - 📊 Tages-Dashboard: Bei /start für Bauleiter überfällige Mängel + offene Nachträge
+ * - 🔢 Nummerierung ATBS-XXX-M1/N1: Fortlaufende Nummern pro Projekt
+ * - ⭐ Projekt-Favoriten: Top 3 aktive Projekte im Hauptmenü
+ *
+ * v54: Kompakte Projekt-Info & Gewerk-Status-Tabelle
  * - Beim Öffnen: BL, NU, Termine (Start, Ende NU Plan, Mängelfrei, Kunde)
  * - Zählt offene Mängel und Nachträge
  * - 🏗️ Gewerk-Status: Tabelle mit allen 9 Gewerken und Status-Emojis
@@ -222,8 +243,8 @@ const GEWERK_SPALTEN: Record<string, string> = {
 
 // Monday-Spalten für Projekt-Info
 const PROJEKT_SPALTEN = {
-  bauleiter: ['people__1', 'FPlQB'],
-  nachunternehmer: ['mirror__1', 'sQkwj'],
+  bl_name: ['people__1', 'FPlQB'],
+  nu_firma: ['mirror__1', 'sQkwj'],
   bv_start: ['date_bvstart', 'f55yA'],
   bv_ende_plan: '25nEy',
   bv_ende_maengelfrei: '7hwYG',
@@ -291,6 +312,190 @@ function gewerkStatusEmoji(status: string): string {
   if (s.includes('geplant') || s.includes('offen')) return '⏳';
   if (s.includes('verspätet') || s.includes('verzug')) return '⚠️';
   return '-';
+}
+
+// ============================================
+// NEU v58: Mangel/Nachtrag Nummerierung ATBS-XXX-M1/N1
+// ============================================
+
+async function generateMangelNummer(atbs: string): Promise<string> {
+  // Zähle bestehende Mängel für dieses Projekt
+  const { count } = await supabase
+    .from('maengel_fertigstellung')
+    .select('*', { count: 'exact', head: true })
+    .eq('projekt_nr', atbs);
+
+  const nextNum = (count || 0) + 1;
+  return `${atbs}-M${nextNum}`;
+}
+
+async function generateNachtragNummer(atbs: string): Promise<string> {
+  // Zähle bestehende Nachträge für dieses Projekt
+  const { count } = await supabase
+    .from('nachtraege')
+    .select('*', { count: 'exact', head: true })
+    .eq('atbs_nummer', atbs);
+
+  const nextNum = (count || 0) + 1;
+  return `${atbs}-N${nextNum}`;
+}
+
+// ============================================
+// NEU v58: Tages-Dashboard für Bauleiter
+// ============================================
+
+async function getBauleiterDashboard(chatId: number): Promise<string | null> {
+  try {
+    // Prüfe ob der User ein Bauleiter ist
+    const { data: kontakt } = await supabase
+      .from('kontakte')
+      .select('vorname, nachname, rolle')
+      .eq('telegram_chat_id', chatId)
+      .single();
+
+    // Nur für Bauleiter (BL) oder Holger Neumann Dashboard zeigen
+    const isBauleiter = kontakt?.rolle?.toUpperCase() === 'BL' ||
+      (kontakt?.vorname?.toLowerCase() === 'holger' && kontakt?.nachname?.toLowerCase() === 'neumann');
+
+    if (!isBauleiter) return null;
+
+    // Überfällige Mängel abfragen
+    const { data: ueberfaelligeMaengel, count: mangelCount } = await supabase
+      .from('maengel_fertigstellung')
+      .select('id, projekt_nr, beschreibung_mangel, datum_frist', { count: 'exact' })
+      .lt('datum_frist', new Date().toISOString().split('T')[0])
+      .not('status_mangel', 'in', '(Abgenommen,Abgeschlossen,Erledigt,Geschlossen)')
+      .order('datum_frist', { ascending: true })
+      .limit(3);
+
+    // Offene Nachträge abfragen
+    const { data: offeneNachtraege, count: nachtragCount } = await supabase
+      .from('nachtraege')
+      .select('id, atbs_nummer, beschreibung, betrag_netto', { count: 'exact' })
+      .in('status', ['Gemeldet', 'In Prüfung']);
+
+    // Summe der offenen Nachträge
+    const summaNetto = (offeneNachtraege || []).reduce((sum, n) => sum + (Number(n.betrag_netto) || 0), 0);
+
+    // Dashboard-Text erstellen
+    let dashboard = `<b>📊 Tages-Dashboard</b>\n`;
+    dashboard += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+    // Überfällige Mängel
+    dashboard += `<b>⚠️ Überfällige Mängel: ${mangelCount || 0}</b>\n`;
+    if (ueberfaelligeMaengel && ueberfaelligeMaengel.length > 0) {
+      for (const m of ueberfaelligeMaengel) {
+        const frist = new Date(m.datum_frist);
+        const heute = new Date();
+        const tageUeberfaellig = Math.floor((heute.getTime() - frist.getTime()) / (1000 * 60 * 60 * 24));
+        const beschreibung = (m.beschreibung_mangel || '').substring(0, 30);
+        dashboard += `  • ${m.projekt_nr}: ${beschreibung}${beschreibung.length >= 30 ? '...' : ''}\n`;
+        dashboard += `    <i>(${tageUeberfaellig} Tage überfällig)</i>\n`;
+      }
+      if ((mangelCount || 0) > 3) {
+        dashboard += `  <i>... und ${(mangelCount || 0) - 3} weitere</i>\n`;
+      }
+    } else {
+      dashboard += `  <i>Keine überfälligen Mängel 🎉</i>\n`;
+    }
+
+    dashboard += `\n`;
+
+    // Offene Nachträge
+    dashboard += `<b>📋 Offene Nachträge: ${nachtragCount || 0}</b>\n`;
+    if (summaNetto > 0) {
+      dashboard += `  Summe netto: <b>${summaNetto.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</b>\n`;
+    } else {
+      dashboard += `  <i>Keine offenen Nachträge</i>\n`;
+    }
+
+    dashboard += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+
+    return dashboard;
+  } catch (e) {
+    console.error('Dashboard error:', e);
+    return null;
+  }
+}
+
+// ============================================
+// NEU v58: Projekt-Favoriten (Top 3 aktive Projekte)
+// ============================================
+
+async function getProjektFavoriten(): Promise<Array<{id: string, atbs: string, name: string}>> {
+  try {
+    // Letzte Aktivität basierend auf neuesten Mängeln und Nachträgen
+    // Phase 3-4 bevorzugen (Vorbereitung/Umsetzung)
+
+    // Hole Projekte mit aktueller Aktivität
+    const { data: maengelProjekte } = await supabase
+      .from('maengel_fertigstellung')
+      .select('projekt_nr')
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    const { data: nachtragProjekte } = await supabase
+      .from('nachtraege')
+      .select('atbs_nummer')
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    // Sammle einzigartige ATBS-Nummern nach Aktivität
+    const aktiveProjekte = new Map<string, number>();
+
+    (maengelProjekte || []).forEach((m, idx) => {
+      const atbs = m.projekt_nr;
+      if (atbs && !aktiveProjekte.has(atbs)) {
+        aktiveProjekte.set(atbs, idx);
+      }
+    });
+
+    (nachtragProjekte || []).forEach((n, idx) => {
+      const atbs = n.atbs_nummer;
+      if (atbs) {
+        const existing = aktiveProjekte.get(atbs);
+        if (existing === undefined || idx < existing) {
+          aktiveProjekte.set(atbs, idx);
+        }
+      }
+    });
+
+    // Sortiere nach Aktivität und nimm Top 3
+    const sortedAtbs = Array.from(aktiveProjekte.entries())
+      .sort((a, b) => a[1] - b[1])
+      .slice(0, 5)
+      .map(([atbs]) => atbs);
+
+    if (sortedAtbs.length === 0) return [];
+
+    // Hole Projekt-Details aus monday_bauprozess
+    const { data: projekte } = await supabase
+      .from('monday_bauprozess')
+      .select('id, atbs_nummer, name, status_projekt')
+      .in('atbs_nummer', sortedAtbs)
+      .or('status_projekt.like.(3)%,status_projekt.like.(4)%'); // Phase 3-4 bevorzugen
+
+    if (!projekte || projekte.length === 0) return [];
+
+    // Sortiere nach Original-Aktivitätsreihenfolge und nimm Top 3
+    const result = projekte
+      .sort((a, b) => {
+        const idxA = sortedAtbs.indexOf(a.atbs_nummer || '');
+        const idxB = sortedAtbs.indexOf(b.atbs_nummer || '');
+        return idxA - idxB;
+      })
+      .slice(0, 3)
+      .map(p => ({
+        id: p.id,
+        atbs: p.atbs_nummer || p.id.substring(0, 8),
+        name: p.name || ''
+      }));
+
+    return result;
+  } catch (e) {
+    console.error('Favoriten error:', e);
+    return [];
+  }
 }
 
 // ============================================
@@ -416,6 +621,8 @@ async function showBaustellenMenu(chatId: number, session: any) {
         [{ text: "🔧 Mangel melden", callback_data: "bau:mangel" }],
         [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
         [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
+        [{ text: "📝 Bericht erstellen", callback_data: "bau:bericht" }],
+        [{ text: "📨 Nachricht an NU", callback_data: "bau:nachricht:nu" }],
         [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
         [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
         [{ text: "❌ Projekt schließen", callback_data: "bau:close" }],
@@ -584,7 +791,7 @@ async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
   // Direkt in DB suchen nach ATBS oder Name
   const { data: matches } = await supabase
     .from('monday_bauprozess')
-    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse, bauleiter, nachunternehmer, budget, baustart, bauende, bauleiter_email, bauleiter_telefon, sharepoint_link, hero_projekt_id')
+    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse, bl_name, nu_firma, nu_ansprechpartner, nu_telefon, nu_email, ag_telefon, datum_kundenabnahme, budget, baustart, bauende, bl_email, bl_telefon, sharepoint_link, hero_projekt_id')
     .or(`atbs_nummer.ilike.%${term}%,name.ilike.%${term}%`)
     .limit(20);
 
@@ -617,14 +824,38 @@ async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
 }
 
 async function openProjekt(chatId: number, projekt: any) {
-  // v71: Nutze direkt die neuen Spalten statt column_values
+  // v74: Umbenannte Spalten mit Präfixen: nu_ (NU), bl_ (BL), ag_ (AG)
   const atbs = projekt.atbs_nummer || projekt.id.substring(0, 8);
   const projektName = projekt.name || projekt.adresse || '';
   const phase = projekt.status_projekt || '?';
-  const bauleiter = projekt.bauleiter || '-';
-  const nachunternehmer = projekt.nachunternehmer || '-';
+  const nuFirma = projekt.nu_firma || '-';           // NU Firmenname
+  const nuAnsprechpartner = projekt.nu_ansprechpartner || ''; // NU Ansprechpartner-Name
+  const nuTelefon = projekt.nu_telefon || '';        // NU Telefon
+  const nuEmail = projekt.nu_email || '';            // NU E-Mail
+  const auftraggeber = (projekt.auftraggeber || '-').toLowerCase();
+  const telefonKunde = projekt.ag_telefon || '';
   const bvStart = projekt.baustart ? formatDate(projekt.baustart) : '-';
-  const bvEnde = projekt.bauende ? formatDate(projekt.bauende) : '-';
+  const bvEndeNuPlan = projekt.bauende ? formatDate(projekt.bauende) : '-';
+  const bvEndeKunde = projekt.datum_kundenabnahme ? formatDate(projekt.datum_kundenabnahme) : '-';
+  const adresse = projekt.adresse || '';
+
+  // Erstelle Google Maps Link aus der Adresse
+  const adresseClean = adresse.split('|')[0]?.trim() || adresse;
+  const mapsUrl = adresseClean ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adresseClean)}` : '';
+
+  // Kunde-Anzeige: Geschäftskunde vs. Privatkunde
+  let kundeDisplay = '';
+  const isPrivat = auftraggeber === 'privat' || auftraggeber === 'neurealis';
+  if (isPrivat) {
+    // Privat: Name aus Projektname extrahieren (Format: "Vorname Nachname | Adresse")
+    const namePart = projektName.split('|')[0]?.trim() || projektName;
+    kundeDisplay = telefonKunde ? `${namePart} (${telefonKunde})` : namePart;
+  } else {
+    // Geschäftskunde: "gws Stefan Fromme (Telefon)" - AG + Name aus Projektname
+    const namePart = projektName.split('|')[0]?.trim() || '';
+    const agDisplay = projekt.auftraggeber || auftraggeber;
+    kundeDisplay = telefonKunde ? `${agDisplay} ${namePart} (${telefonKunde})` : `${agDisplay} ${namePart}`;
+  }
 
   // Zähle offene Mängel und Nachträge
   const { count: mangelCount } = await supabase
@@ -651,14 +882,23 @@ async function openProjekt(chatId: number, projekt: any) {
 
   // Kompakte Projekt-Info Anzeige
   let infoText = `<b>Projekt: ${atbs}</b>\n`;
-  infoText += `${projektName}\n\n`;
-  infoText += `━━━━━━━━━━━━━━━━━━━━\n`;
+  infoText += `${projektName}\n`;
+  if (mapsUrl) {
+    infoText += `📍 <a href="${mapsUrl}">Route öffnen</a>\n`;
+  }
+  infoText += `\n━━━━━━━━━━━━━━━━━━━━\n`;
   infoText += `📍 Phase: ${phase}\n`;
-  infoText += `👷 BL: ${bauleiter}\n`;
-  infoText += `🔧 NU: ${nachunternehmer}\n\n`;
+  // Kunde (bereits oben berechnet)
+  infoText += `👤 Kunde: ${kundeDisplay}\n`;
+  // NU: Firma - Ansprechpartner (Telefon)
+  let nuDisplay = nuFirma;
+  if (nuAnsprechpartner) nuDisplay += ` - ${nuAnsprechpartner}`;
+  if (nuTelefon) nuDisplay += ` (${nuTelefon})`;
+  infoText += `🔧 NU: ${nuDisplay}\n\n`;
   infoText += `📅 Termine:\n`;
-  infoText += `   Start: ${bvStart}\n`;
-  infoText += `   Ende: ${bvEnde}\n\n`;
+  infoText += `   BV Start: ${bvStart}\n`;
+  infoText += `   BV Ende NU Plan: ${bvEndeNuPlan}\n`;
+  infoText += `   BV Ende Kunde: ${bvEndeKunde}\n\n`;
   infoText += `⚠️ Offen: ${mangelCount || 0} Mängel | ${nachtragCount || 0} Nachträge\n`;
   infoText += `━━━━━━━━━━━━━━━━━━━━`;
 
@@ -667,6 +907,8 @@ async function openProjekt(chatId: number, projekt: any) {
       [{ text: "🔧 Mangel melden", callback_data: "bau:mangel" }],
       [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
       [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
+      [{ text: "📝 Bericht erstellen", callback_data: "bau:bericht" }],
+      [{ text: "📨 Nachricht an NU", callback_data: "bau:nachricht:nu" }],
       [{ text: "🏗️ Gewerk-Status", callback_data: `bau:gewerke:${projekt.id}` }],
       [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
       [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
@@ -729,6 +971,242 @@ async function closeProjekt(chatId: number) {
 }
 
 // ============================================
+// Baustellen-Features: Baustellenbegehungsbericht (NEU v59)
+// ============================================
+
+async function startBerichtErstellung(chatId: number, session: any) {
+  if (!session?.aktuelles_bv_id) {
+    await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
+    await showBaustellenMenu(chatId, session);
+    return;
+  }
+
+  await updateSession(chatId, {
+    aktueller_modus: 'bericht_erfassen',
+    modus_daten: {
+      ...session?.modus_daten,
+    }
+  });
+
+  await sendMessage(chatId,
+    `<b>📝 Bericht erstellen für ${session?.modus_daten?.projekt_nr}</b>\n\n` +
+    `Beschreibe deine Begehung per Text oder Sprachnachricht.\n\n` +
+    `💡 <i>Beispiel: "Estrich getrocknet, Elektrik Rohinstallation fertig, Sanitär beginnt morgen."</i>`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "❌ Abbrechen", callback_data: "bau:menu" }]
+    ] } }
+  );
+}
+
+async function handleBerichtText(chatId: number, session: any, text: string) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  // Ermittle Ersteller basierend auf Kontakt
+  const { gemeldet_von, melder_name } = await getGemeldetVon(chatId, session);
+
+  // Generiere Bericht-Titel mit Datum
+  const heute = new Date().toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+  const titel = `Baustellenbegehung ${heute}`;
+
+  // Speichere in dokumente-Tabelle
+  // Hinweis: 'titel' existiert nicht als Spalte, daher in datei_name speichern
+  const { data: newDokument, error } = await supabase
+    .from('dokumente')
+    .insert({
+      id: crypto.randomUUID(),
+      atbs_nummer: projektNr,
+      art_des_dokuments: 'BERICHT',
+      dokument_nr: `BERICHT-${projektNr}-${Date.now()}`,
+      datei_name: titel,
+      notizen: text,
+      quelle: 'telegram',
+      datum_erstellt: new Date().toISOString().split('T')[0],
+    })
+    .select('id, dokument_nr')
+    .single();
+
+  if (error || !newDokument) {
+    console.error('Bericht error:', error);
+    await sendMessage(chatId, 'Fehler beim Speichern des Berichts.');
+    return;
+  }
+
+  console.log(`[v59] Bericht erstellt: ${newDokument.dokument_nr} von ${melder_name} (${gemeldet_von})`);
+
+  // Zurück zum Baustellen-Menü
+  await updateSession(chatId, {
+    aktueller_modus: 'baustelle',
+    modus_daten: session?.modus_daten
+  });
+
+  await sendMessage(chatId,
+    `<b>✅ Bericht gespeichert!</b>\n\n` +
+    `Titel: ${titel}\n` +
+    `Projekt: ${projektNr}\n` +
+    `Erstellt von: ${melder_name}\n\n` +
+    `<i>${text.substring(0, 200)}${text.length > 200 ? '...' : ''}</i>`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "📝 Weiteren Bericht erstellen", callback_data: "bau:bericht" }],
+      [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
+    ] } }
+  );
+}
+
+// ============================================
+// Baustellen-Features: Schnell-Nachricht an NU (NEU v59)
+// ============================================
+
+async function showNachrichtNuMenu(chatId: number, session: any) {
+  if (!session?.aktuelles_bv_id) {
+    await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
+    await showBaustellenMenu(chatId, session);
+    return;
+  }
+
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  await sendMessage(chatId,
+    `<b>📨 Nachricht an NU für ${projektNr}</b>\n\n` +
+    `Wähle eine vordefinierte Nachricht oder schreibe eine eigene:`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "📅 Termin verschieben", callback_data: "nu:msg:termin" }],
+      [{ text: "🚚 Material morgen geliefert", callback_data: "nu:msg:material" }],
+      [{ text: "⚠️ Bitte dringend anrufen", callback_data: "nu:msg:dringend" }],
+      [{ text: "✏️ Eigene Nachricht", callback_data: "nu:msg:eigene" }],
+      [{ text: "⬅️ Abbrechen", callback_data: "bau:menu" }]
+    ] } }
+  );
+}
+
+async function handleNuNachrichtTemplate(chatId: number, session: any, templateKey: string) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+  const projektName = session?.modus_daten?.projekt_name || '';
+
+  const templates: Record<string, string> = {
+    'termin': `📅 Termin ${projektNr}: Der Termin muss leider verschoben werden. Bitte melde dich für eine Neuplanung.`,
+    'material': `🚚 Material ${projektNr}: Das benötigte Material wird morgen geliefert. Bitte entsprechend einplanen.`,
+    'dringend': `⚠️ Dringend ${projektNr}: Bitte ruf mich dringend zurück! Es gibt ein wichtiges Thema zu besprechen.`,
+  };
+
+  const nachricht = templates[templateKey];
+  if (!nachricht) {
+    await sendMessage(chatId, 'Unbekanntes Template.');
+    return;
+  }
+
+  await sendNachrichtAnNU(chatId, session, nachricht);
+}
+
+async function startEigeneNachrichtNU(chatId: number, session: any) {
+  await updateSession(chatId, {
+    aktueller_modus: 'nu_nachricht_eigene',
+    modus_daten: session?.modus_daten
+  });
+
+  await sendMessage(chatId,
+    `<b>✏️ Eigene Nachricht an NU</b>\n\n` +
+    `Gib deine Nachricht ein (Text oder Sprachnachricht):`,
+    { reply_markup: { inline_keyboard: [
+      [{ text: "❌ Abbrechen", callback_data: "bau:nachricht:nu" }]
+    ] } }
+  );
+}
+
+async function handleEigeneNachrichtNU(chatId: number, session: any, text: string) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+  const nachricht = `📨 ${projektNr}: ${text}`;
+  await sendNachrichtAnNU(chatId, session, nachricht);
+}
+
+async function sendNachrichtAnNU(chatId: number, session: any, nachricht: string) {
+  const projektNr = session?.modus_daten?.projekt_nr;
+  const bvId = session?.aktuelles_bv_id;
+
+  try {
+    // 1. Hole Nachunternehmer aus monday_bauprozess (nu_ Präfix)
+    const { data: projekt } = await supabase
+      .from('monday_bauprozess')
+      .select('nu_firma')
+      .eq('id', bvId)
+      .single();
+
+    if (!projekt?.nu_firma) {
+      await sendMessage(chatId,
+        `⚠️ Kein Nachunternehmer für ${projektNr} hinterlegt.\n\n` +
+        `Bitte in Monday.com einen NU zuweisen.`,
+        { reply_markup: { inline_keyboard: [
+          [{ text: "⬅️ Zurück", callback_data: "bau:menu" }]
+        ] } }
+      );
+      return;
+    }
+
+    const nuName = projekt.nu_firma;
+
+    // 2. Suche NU in kontakte-Tabelle und hole telegram_chat_id
+    const { data: kontakt } = await supabase
+      .from('kontakte')
+      .select('id, vorname, nachname, telegram_chat_id')
+      .or(`nachname.ilike.%${nuName}%,firma.ilike.%${nuName}%`)
+      .eq('rolle', 'NU')
+      .limit(1)
+      .single();
+
+    if (!kontakt?.telegram_chat_id) {
+      const kontaktName = kontakt ? `${kontakt.vorname || ''} ${kontakt.nachname || ''}`.trim() : nuName;
+      await sendMessage(chatId,
+        `⚠️ Keine Telegram-Verknüpfung für NU "${kontaktName}" gefunden.\n\n` +
+        `Der NU muss zuerst den Bot starten, damit Nachrichten gesendet werden können.`,
+        { reply_markup: { inline_keyboard: [
+          [{ text: "⬅️ Zurück", callback_data: "bau:menu" }]
+        ] } }
+      );
+      return;
+    }
+
+    const nuChatId = kontakt.telegram_chat_id;
+    const nuVollname = `${kontakt.vorname || ''} ${kontakt.nachname || ''}`.trim() || nuName;
+
+    // 3. Sende Nachricht an NU
+    const response = await sendMessage(nuChatId, nachricht);
+
+    if (response.ok) {
+      // Zurück zum Menü
+      await updateSession(chatId, {
+        aktueller_modus: 'baustelle',
+        modus_daten: session?.modus_daten
+      });
+
+      await sendMessage(chatId,
+        `<b>✅ Nachricht gesendet!</b>\n\n` +
+        `An: ${nuVollname}\n` +
+        `Projekt: ${projektNr}\n\n` +
+        `<i>${nachricht.substring(0, 100)}${nachricht.length > 100 ? '...' : ''}</i>`,
+        { reply_markup: { inline_keyboard: [
+          [{ text: "📨 Weitere Nachricht", callback_data: "bau:nachricht:nu" }],
+          [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
+        ] } }
+      );
+    } else {
+      await sendMessage(chatId, '❌ Fehler beim Senden der Nachricht.');
+    }
+
+  } catch (e) {
+    console.error('Error sending message to NU:', e);
+    await sendMessage(chatId,
+      `❌ Fehler beim Senden der Nachricht.\n\n${(e as Error).message}`,
+      { reply_markup: { inline_keyboard: [
+        [{ text: "⬅️ Zurück", callback_data: "bau:menu" }]
+      ] } }
+    );
+  }
+}
+
+// ============================================
 // Baustellen-Features: Mangel melden
 // ============================================
 
@@ -775,10 +1253,14 @@ async function handleMangelText(chatId: number, session: any, text: string) {
 
   const createdMaengel = [];
   for (const m of maengel) {
+    // NEU v58: Generiere Mangel-Nummer im Format ATBS-XXX-M1
+    const mangelNummer = await generateMangelNummer(projektNr);
+
     const { data: newMangel, error } = await supabase
       .from('maengel_fertigstellung')
       .insert({
         projekt_nr: projektNr,
+        mangel_id: mangelNummer,
         beschreibung_mangel: m.beschreibung_de,
         art_des_mangels: m.gewerk || 'Sonstiges',
         status_mangel: 'Offen',
@@ -962,16 +1444,12 @@ async function startNachtragErfassung(chatId: number, session: any) {
 async function handleNachtragText(chatId: number, session: any, text: string) {
   const projektNr = session?.modus_daten?.projekt_nr;
 
-  const { count } = await supabase
-    .from('nachtraege')
-    .select('id', { count: 'exact', head: true })
-    .eq('atbs_nummer', projektNr);
-
-  const nachtragNr = `NT-${projektNr}-${(count || 0) + 1}`;
+  // NEU v58: Generiere Nachtrag-Nummer im Format ATBS-XXX-N1
+  const nachtragNr = await generateNachtragNummer(projektNr);
 
   // Dynamische Ermittlung von gemeldet_von basierend auf Kontakt
   const { gemeldet_von, melder_name } = await getGemeldetVon(chatId, session);
-  console.log(`[v50] Nachtrag von chat_id=${chatId}: gemeldet_von=${gemeldet_von}, melder_name=${melder_name}`);
+  console.log(`[v58] Nachtrag von chat_id=${chatId}: gemeldet_von=${gemeldet_von}, melder_name=${melder_name}, nr=${nachtragNr}`);
 
   const { data: newNachtrag, error } = await supabase
     .from('nachtraege')
@@ -2094,16 +2572,47 @@ async function handleCsvUpload(chatId: number, session: any, document: any) {
 async function handleStart(chatId: number, session: any) {
   const name = session?.first_name || "Benutzer";
   await updateSession(chatId, { aktueller_modus: null, modus_daten: {}, aktuelles_bv_id: null });
-  await sendMessage(chatId,
-    `<b>Willkommen beim neurealis Bot!</b>\n\n` +
-    `Hallo ${name}! Was möchtest du tun?`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "📊 Aufmaß erstellen/ansehen", callback_data: "mode_aufmass" }],
-      [{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }],
-      [{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }],
-      [{ text: "🔍 ATBS direkt eingeben", callback_data: "mode_atbs_direkt" }],
-    ] } }
-  );
+
+  // NEU v58: Tages-Dashboard für Bauleiter
+  const dashboard = await getBauleiterDashboard(chatId);
+
+  // NEU v58: Projekt-Favoriten laden
+  const favoriten = await getProjektFavoriten();
+
+  // Basis-Buttons
+  const buttons: any[][] = [];
+
+  // Favoriten als Top-Buttons (wenn vorhanden)
+  if (favoriten.length > 0) {
+    buttons.push([{ text: "⭐ Letzte Projekte:", callback_data: "noop" }]);
+    for (const fav of favoriten) {
+      const displayName = fav.name ? `${fav.atbs}: ${fav.name.substring(0, 25)}` : fav.atbs;
+      buttons.push([{ text: `  ${displayName}`, callback_data: `bau:open:${fav.id}` }]);
+    }
+  }
+
+  // Standard-Menü-Buttons
+  buttons.push([{ text: "📊 Aufmaß erstellen/ansehen", callback_data: "mode_aufmass" }]);
+  buttons.push([{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }]);
+  buttons.push([{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }]);
+  buttons.push([{ text: "🔍 ATBS direkt eingeben", callback_data: "mode_atbs_direkt" }]);
+
+  // NEU v60: Audio-Briefing Button (nur für Bauleiter - wenn Dashboard angezeigt wird)
+  if (dashboard) {
+    buttons.push([{ text: "🎙️ Audio-Briefing abrufen", callback_data: "briefing:generate" }]);
+  }
+
+  // Nachricht zusammenbauen
+  let messageText = `<b>Willkommen beim neurealis Bot!</b>\n\n`;
+  messageText += `Hallo ${name}!\n\n`;
+
+  if (dashboard) {
+    messageText += dashboard + `\n`;
+  }
+
+  messageText += `Was möchtest du tun?`;
+
+  await sendMessage(chatId, messageText, { reply_markup: { inline_keyboard: buttons } });
 }
 
 async function handleHelp(chatId: number) {
@@ -2113,7 +2622,8 @@ async function handleHelp(chatId: number) {
     `/hilfe - Diese Hilfe\n` +
     `/status - Aktueller Status\n` +
     `/abbrechen - Aktuellen Vorgang abbrechen\n` +
-    `/sync - Matterport-Projekte synchronisieren\n\n` +
+    `/sync - Matterport-Projekte synchronisieren\n` +
+    `/briefing - Audio-Briefing abrufen (nur Bauleiter)\n\n` +
     `<b>Aufmaß-Modus:</b>\n` +
     `ATBS-Nummer oder Adresse eingeben → Projekt suchen\n` +
     `CSV hochladen → Excel-Aufmaß\n\n` +
@@ -2168,6 +2678,68 @@ async function handleAbbrechen(chatId: number) {
 }
 
 // ============================================
+// NEU v60: Audio-Briefing für Bauleiter
+// ============================================
+
+async function handleBriefingCommand(chatId: number): Promise<void> {
+  try {
+    // 1. User ermitteln via telegram_chat_id
+    const { data: kontakt } = await supabase
+      .from('kontakte')
+      .select('email, vorname, nachname, rolle')
+      .eq('telegram_chat_id', chatId)
+      .single();
+
+    // Prüfe ob Bauleiter (BL) oder Holger Neumann
+    const isBauleiter = kontakt?.rolle?.toUpperCase() === 'BL' ||
+      (kontakt?.vorname?.toLowerCase() === 'holger' && kontakt?.nachname?.toLowerCase() === 'neumann');
+
+    if (!kontakt || !isBauleiter) {
+      await sendMessage(chatId, '❌ Dieser Befehl ist nur für Bauleiter verfügbar.');
+      return;
+    }
+
+    if (!kontakt.email) {
+      await sendMessage(chatId, '❌ Für dein Konto ist keine E-Mail hinterlegt. Bitte kontaktiere den Administrator.');
+      return;
+    }
+
+    // 2. Statusmeldung senden
+    await sendMessage(chatId,
+      '🎙️ <b>Audio-Briefing wird generiert...</b>\n\n' +
+      'Das dauert ca. 30-60 Sekunden.\n' +
+      'Du erhältst eine Sprachnachricht sobald es fertig ist.'
+    );
+
+    // 3. Edge Function aufrufen
+    const response = await fetch(
+      `${SUPABASE_URL}/functions/v1/audio-briefing-generate`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          bauleiter_email: kontakt.email,
+          force: true // Bei manuellem Abruf immer neu generieren
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Audio-Briefing error:', errorText);
+      await sendMessage(chatId, '❌ Fehler beim Generieren des Briefings. Bitte versuche es später erneut.');
+    }
+    // Audio wird von der Edge Function direkt an Telegram gesendet
+  } catch (e) {
+    console.error('handleBriefingCommand error:', e);
+    await sendMessage(chatId, '❌ Ein unerwarteter Fehler ist aufgetreten.');
+  }
+}
+
+// ============================================
 // Callback Query Handler
 // ============================================
 
@@ -2180,6 +2752,12 @@ async function handleCallbackQuery(update: any) {
   if (data === 'main_menu') {
     await answerCallbackQuery(callbackId);
     await handleStart(chatId, session);
+    return;
+  }
+
+  // NEU v58: Noop für dekorative Buttons (z.B. Favoriten-Überschrift)
+  if (data === 'noop') {
+    await answerCallbackQuery(callbackId);
     return;
   }
 
@@ -2306,6 +2884,32 @@ async function handleCallbackQuery(update: any) {
     return;
   }
 
+  // NEU v59: Baustellenbegehungsbericht
+  if (data === 'bau:bericht') {
+    await answerCallbackQuery(callbackId);
+    await startBerichtErstellung(chatId, session);
+    return;
+  }
+
+  // NEU v59: Nachricht an NU
+  if (data === 'bau:nachricht:nu') {
+    await answerCallbackQuery(callbackId);
+    await showNachrichtNuMenu(chatId, session);
+    return;
+  }
+
+  // NEU v59: NU-Nachricht Templates
+  if (data.startsWith('nu:msg:')) {
+    const templateKey = data.replace('nu:msg:', '');
+    await answerCallbackQuery(callbackId);
+    if (templateKey === 'eigene') {
+      await startEigeneNachrichtNU(chatId, session);
+    } else {
+      await handleNuNachrichtTemplate(chatId, session, templateKey);
+    }
+    return;
+  }
+
   // NEU v53: Abnahmeprotokoll
   if (data === 'bau:abnahme') {
     await answerCallbackQuery(callbackId);
@@ -2324,6 +2928,13 @@ async function handleCallbackQuery(update: any) {
   if (data === 'bau:status') {
     await answerCallbackQuery(callbackId);
     await showProjektStatus(chatId, session);
+    return;
+  }
+
+  // NEU v60: Audio-Briefing abrufen
+  if (data === 'briefing:generate') {
+    await answerCallbackQuery(callbackId);
+    await handleBriefingCommand(chatId);
     return;
   }
 
@@ -2532,7 +3143,7 @@ async function handleCallbackQuery(update: any) {
 
 Deno.serve(async (req) => {
   if (req.method === 'GET') {
-    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v53-multi-foto-abnahme' }), {
+    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v59-berichte-nu-nachrichten' }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -2559,10 +3170,12 @@ Deno.serve(async (req) => {
       else if (text.startsWith('/sync')) { await handleSync(chatId); }
       else if (text.startsWith('/status')) { await handleStatus(chatId, session); }
       else if (text.startsWith('/abbrechen')) { await handleAbbrechen(chatId); }
+      else if (text.startsWith('/briefing')) { await handleBriefingCommand(chatId); }
 
       else if (update.message.voice) {
         const modus = session?.aktueller_modus;
-        if (modus === 'mangel_erfassen' || modus === 'nachtrag_erfassen') {
+        // Erweitert für Berichte und NU-Nachrichten (v59)
+        if (modus === 'mangel_erfassen' || modus === 'nachtrag_erfassen' || modus === 'bericht_erfassen' || modus === 'nu_nachricht_eigene') {
           await sendMessage(chatId, '⏳ Sprachnachricht wird transkribiert...');
           const fileData = await downloadTelegramFile(update.message.voice.file_id);
           if (fileData) {
@@ -2570,8 +3183,12 @@ Deno.serve(async (req) => {
             if (transcript) {
               if (modus === 'mangel_erfassen') {
                 await handleMangelText(chatId, session, transcript);
-              } else {
+              } else if (modus === 'nachtrag_erfassen') {
                 await handleNachtragText(chatId, session, transcript);
+              } else if (modus === 'bericht_erfassen') {
+                await handleBerichtText(chatId, session, transcript);
+              } else if (modus === 'nu_nachricht_eigene') {
+                await handleEigeneNachrichtNU(chatId, session, transcript);
               }
             } else {
               await sendMessage(chatId, 'Fehler bei der Transkription. Bitte versuche es erneut.');
@@ -2580,7 +3197,7 @@ Deno.serve(async (req) => {
             await sendMessage(chatId, 'Fehler beim Herunterladen der Sprachnachricht.');
           }
         } else {
-          await sendMessage(chatId, 'Sprachnachrichten werden nur im Mangel- oder Nachtrag-Modus unterstützt.');
+          await sendMessage(chatId, 'Sprachnachrichten werden nur im Mangel-, Nachtrag-, Bericht- oder Nachricht-Modus unterstützt.');
         }
       }
 
@@ -2645,6 +3262,14 @@ Deno.serve(async (req) => {
         }
         else if (modus === 'nachtrag_erfassen') {
           await handleNachtragText(chatId, session, text);
+        }
+        // NEU v59: Bericht erstellen
+        else if (modus === 'bericht_erfassen') {
+          await handleBerichtText(chatId, session, text);
+        }
+        // NEU v59: Eigene Nachricht an NU
+        else if (modus === 'nu_nachricht_eigene') {
+          await handleEigeneNachrichtNU(chatId, session, text);
         }
         else if (modus === 'aufmass') {
           await searchMatterportProject(chatId, text);

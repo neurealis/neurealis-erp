@@ -2,7 +2,12 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
 
 /**
- * monday-push v1 - Push Supabase-Änderungen zu Monday.com
+ * monday-push v6 - Push Supabase-Änderungen zu Monday.com
+ *
+ * NEU in v6:
+ * - Label-Mapping aus monday_label_mapping Tabelle
+ * - getLabelIndex() für Status-Spalten
+ * - Kein hardcodiertes STATUS_LABEL_MAPPING mehr
  *
  * Features:
  * - Liest Items mit sync_status = 'pending_push' ODER last_supabase_change_at > last_monday_push_at
@@ -23,6 +28,90 @@ const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 // ============================================
+// Label Mapping Cache
+// ============================================
+
+interface LabelMapping {
+  column_id: string;
+  label_index: number;
+  label_text: string;
+}
+
+let labelMappingCache: LabelMapping[] = [];
+let cacheLoaded = false;
+
+/**
+ * Lädt das Label-Mapping aus der Datenbank
+ */
+async function loadLabelMapping(): Promise<void> {
+  if (cacheLoaded) return;
+
+  const { data, error } = await supabase
+    .from('monday_label_mapping')
+    .select('column_id, label_index, label_text');
+
+  if (error) {
+    console.error('Error loading label mapping:', error);
+    labelMappingCache = [];
+  } else {
+    labelMappingCache = data || [];
+  }
+
+  cacheLoaded = true;
+  console.log(`Loaded ${labelMappingCache.length} label mappings`);
+}
+
+/**
+ * Sucht den Label-Index für einen Status-Text
+ * Gibt null zurück wenn kein Mapping gefunden
+ */
+function getLabelIndex(columnId: string, labelText: string): number | null {
+  // Exakter Match
+  let match = labelMappingCache.find(
+    m => m.column_id === columnId && m.label_text === labelText
+  );
+
+  if (match) {
+    return match.label_index;
+  }
+
+  // Fallback: Case-insensitive Suche
+  const lowerText = labelText.toLowerCase();
+  match = labelMappingCache.find(
+    m => m.column_id === columnId && m.label_text.toLowerCase() === lowerText
+  );
+
+  if (match) {
+    return match.label_index;
+  }
+
+  // Fallback: Partial Match (Label enthält den Text oder umgekehrt)
+  match = labelMappingCache.find(
+    m => m.column_id === columnId && (
+      m.label_text.toLowerCase().includes(lowerText) ||
+      lowerText.includes(m.label_text.toLowerCase())
+    )
+  );
+
+  if (match) {
+    console.log(`Partial match for '${labelText}' -> '${match.label_text}' (index ${match.label_index})`);
+    return match.label_index;
+  }
+
+  console.warn(`No label mapping found for column '${columnId}' with text '${labelText}'`);
+  return null;
+}
+
+/**
+ * Gibt alle verfügbaren Labels für eine Spalte zurück (für Debugging)
+ */
+function getAvailableLabels(columnId: string): string[] {
+  return labelMappingCache
+    .filter(m => m.column_id === columnId)
+    .map(m => m.label_text);
+}
+
+// ============================================
 // Reverse Column Mapping (Supabase → Monday)
 // ============================================
 
@@ -40,10 +129,12 @@ const REVERSE_COLUMN_MAPPING: Record<string, { monday_col: string; type: 'text' 
   // === Adressen ===
   'adresse': { monday_col: 'text51__1', type: 'text' },
 
-  // === Personen ===
-  'bauleiter': { monday_col: 'text_mkn8ggev', type: 'text' },
-  'nachunternehmer': { monday_col: 'text57__1', type: 'text' },
-  'ansprechpartner': { monday_col: 'text573__1', type: 'text' },
+  // === Personen - NU (Nachunternehmer) ===
+  'nu_firma': { monday_col: 'text57__1', type: 'text' },
+  'nu_ansprechpartner': { monday_col: 'text573__1', type: 'text' },
+
+  // === Personen - BL (Bauleiter) ===
+  'bl_name': { monday_col: 'text_mkn8ggev', type: 'text' },
 
   // === Budget & Finanzen ===
   'budget': { monday_col: 'zahlen1__1', type: 'number' },
@@ -58,20 +149,6 @@ const REVERSE_COLUMN_MAPPING: Record<string, { monday_col: string; type: 'text' 
   'datum_uebergabe': { monday_col: 'datum_mkm1m451', type: 'date' },
   'datum_kundenabnahme': { monday_col: 'datum_mkm7qwag', type: 'date' },
 
-  // === Gewerk-Status (bidirektional wichtig!) ===
-  'status_elektrik': { monday_col: 'color_mkkh1mw9', type: 'status' },
-  'status_sanitaer': { monday_col: 'color_mkkh7fp6', type: 'status' },
-  'status_maler': { monday_col: 'color427__1', type: 'status' },
-  'status_boden': { monday_col: 'color78__1', type: 'status' },
-  'status_tischler': { monday_col: 'color97__1', type: 'status' },
-  'status_abbruch': { monday_col: 'dup__of_entkernung__1', type: 'status' },
-  'status_heizung': { monday_col: 'color49__1', type: 'status' },
-  'status_fliesen': { monday_col: 'color_mkn5z0hs', type: 'status' },
-
-  // === Zahlen ===
-  'anzahl_zimmer': { monday_col: 'numeric__1', type: 'number' },
-  'wohnflaeche': { monday_col: 'zahlen4__1', type: 'number' },
-
   // === Links ===
   'hero_link': { monday_col: 'link__1', type: 'link' },
   'sharepoint_link': { monday_col: 'link_mkn32ss7', type: 'link' },
@@ -80,44 +157,10 @@ const REVERSE_COLUMN_MAPPING: Record<string, { monday_col: string; type: 'text' 
   // === Sonstiges ===
   'bemerkungen': { monday_col: 'text27__1', type: 'text' },
   'notizen': { monday_col: 'text71__1', type: 'text' },
-};
 
-// ============================================
-// Status Label Mapping (Supabase Text → Monday Label)
-// ============================================
-
-/**
- * Mapping von Status-Text zu Monday-Status-Labels
- * Monday erwartet exakte Label-Namen
- */
-const STATUS_LABEL_MAPPING: Record<string, Record<string, string>> = {
-  // Projekt-Status (status06__1)
-  'status_projekt': {
-    '(0) Lead': '(0) Lead',
-    '(1) Anfrage erhalten': '(1) Anfrage erhalten',
-    '(2) Terminiert': '(2) Terminiert',
-    '(3) Vorbereitung': '(3) Vorbereitung',
-    '(4) Umsetzung': '(4) Umsetzung',
-    '(5) Abgenommen': '(5) Abgenommen',
-    '(6) Abgeschlossen': '(6) Abgeschlossen',
-    '(7) Gewährleistung': '(7) Gewährleistung',
-    '(8) Pausiert': '(8) Pausiert',
-    '(9) Auftrag nicht erhalten': '(9) Auftrag nicht erhalten',
-  },
-
-  // Gewerk-Status (allgemein)
-  '_gewerk': {
-    'Geplant': 'Geplant',
-    'In Arbeit': 'In Arbeit',
-    'Fertig': 'Fertig',
-    'Verspätet': 'Verspätet',
-    'Offen': 'Offen',
-    'Keine': 'Keine',
-    // Spezial-Status
-    'Fertig (Feininstallation)': 'Fertig (Feininstallation)',
-    'In Arbeit (Schlitze & Rohinstallation)': 'In Arbeit (Schlitze & Rohinstallation)',
-    'In Arbeit (Rohinstallation)': 'In Arbeit (Rohinstallation)',
-  },
+  // === Zahlen ===
+  'anzahl_zimmer': { monday_col: 'numeric__1', type: 'number' },
+  'wohnflaeche': { monday_col: 'zahlen4__1', type: 'number' },
 };
 
 // ============================================
@@ -157,11 +200,17 @@ function formatValueForMonday(
       return { [config.monday_col]: { date: dateStr } };
 
     case 'status':
-      // Monday erwartet: { "label": "Status Name" }
-      // Lookup im Mapping oder direkt verwenden
-      const mapping = STATUS_LABEL_MAPPING[supabaseCol] || STATUS_LABEL_MAPPING['_gewerk'];
-      const label = mapping?.[value] || value;
-      return { [config.monday_col]: { label } };
+      // NEU in v6: Lookup über monday_label_mapping
+      const labelIndex = getLabelIndex(config.monday_col, String(value));
+
+      if (labelIndex !== null) {
+        // Monday erwartet: { "index": 5 } für Status-Spalten
+        return { [config.monday_col]: { index: labelIndex } };
+      } else {
+        // Fallback: Label-Text direkt (kann fehlschlagen)
+        console.warn(`No label index for '${value}' in column '${config.monday_col}'. Available: ${getAvailableLabels(config.monday_col).join(', ')}`);
+        return { [config.monday_col]: { label: String(value) } };
+      }
 
     case 'email':
       return { [config.monday_col]: { email: String(value), text: String(value) } };
@@ -344,13 +393,18 @@ Deno.serve(async (req: Request) => {
   try {
     const startTime = Date.now();
 
-    console.log('monday-push v1 starting...');
+    console.log('monday-push v6 starting...');
+
+    // NEU in v6: Label-Mapping laden
+    await loadLabelMapping();
 
     // Optionaler Parameter: force_item_id für einzelnes Item
     let forceItemId: string | null = null;
+    let mode: string = 'cron';
     try {
       const body = await req.json();
       forceItemId = body.item_id || null;
+      mode = body.mode || 'cron';
     } catch {
       // Kein JSON Body, ok
     }
@@ -366,6 +420,7 @@ Deno.serve(async (req: Request) => {
         .single();
 
       itemsToPush = data ? [data] : [];
+      mode = 'trigger';
     } else {
       // Alle pending Items finden
       itemsToPush = await findItemsToPush();
@@ -376,10 +431,12 @@ Deno.serve(async (req: Request) => {
     if (itemsToPush.length === 0) {
       return new Response(JSON.stringify({
         success: true,
-        version: 'v1',
+        version: 'v6',
+        mode,
         message: 'No items to push',
         items_checked: 0,
         items_pushed: 0,
+        label_mappings_loaded: labelMappingCache.length,
         duration_ms: Date.now() - startTime
       }), {
         headers: { 'Content-Type': 'application/json' }
@@ -421,7 +478,8 @@ Deno.serve(async (req: Request) => {
 
     return new Response(JSON.stringify({
       success: true,
-      version: 'v1',
+      version: 'v6',
+      mode,
       board_id: BOARD_ID,
       items_checked: itemsToPush.length,
       items_pushed: pushed,
@@ -429,16 +487,17 @@ Deno.serve(async (req: Request) => {
       items_failed: failed,
       errors: failed > 0 ? errors.slice(0, 5) : undefined,
       mapped_columns: Object.keys(REVERSE_COLUMN_MAPPING).length,
+      label_mappings_loaded: labelMappingCache.length,
       duration_ms: Date.now() - startTime
     }), {
       headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
-    console.error('monday-push v1 error:', error);
+    console.error('monday-push v6 error:', error);
     return new Response(JSON.stringify({
       success: false,
-      version: 'v1',
+      version: 'v6',
       error: String(error)
     }), {
       status: 500,

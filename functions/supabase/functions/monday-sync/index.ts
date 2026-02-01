@@ -58,13 +58,19 @@ const COLUMN_MAPPING: Record<string, { target: string; type: 'text' | 'number' |
   'text51__1': { target: 'adresse', type: 'text' },
   'standort__1': { target: 'adresse', type: 'location' }, // Fallback aus Location
 
-  // === Personen ===
-  'text_mkn8ggev': { target: 'bauleiter', type: 'text' },
-  'text57__1': { target: 'nachunternehmer', type: 'text' },
-  'e_mail4__1': { target: 'email_kunde', type: 'email' },
-  'telefon___kunde__1': { target: 'telefon_kunde', type: 'phone' },
-  'text573__1': { target: 'ansprechpartner', type: 'text' },
-  'text_1__1': { target: 'kundenname', type: 'text' }, // Anrede (Herr/Frau)
+  // === Personen - NU (Nachunternehmer) ===
+  'text57__1': { target: 'nu_firma', type: 'text' },
+  'text573__1': { target: 'nu_ansprechpartner', type: 'text' },
+  // nu_telefon und nu_email werden über People-Spalte gemappt (text573__1)
+
+  // === Personen - BL (Bauleiter) ===
+  'text_mkn8ggev': { target: 'bl_name', type: 'text' },
+  // bl_email und bl_telefon separat (falls Monday-Spalten existieren)
+
+  // === Personen - AG (Auftraggeber/Kunde) ===
+  'e_mail4__1': { target: 'ag_email', type: 'email' },
+  'telefon___kunde__1': { target: 'ag_telefon', type: 'phone' },
+  'text_1__1': { target: 'ag_name', type: 'text' }, // Anrede (Herr/Frau)
 
   // === Budget & Finanzen ===
   'zahlen1__1': { target: 'budget', type: 'number' },

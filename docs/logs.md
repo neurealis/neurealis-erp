@@ -74,6 +74,86 @@
 | LOG-060 | 2026-02-01 | Telegram-Bot User Guide PDF + Feature-Analyse + Roadmap-Planung | Abgeschlossen |
 | LOG-061 | 2026-02-01 | Sync-Optimierung Konzept: Bidirektional + Last-Write-Wins | Abgeschlossen |
 | LOG-062 | 2026-02-01 | Sync P1-Tasks: SharePoint Debug, Monday Labels, Softr Push | Abgeschlossen |
+| LOG-063 | 2026-02-01 | Audio-Briefing v2.1 + Telegram-Bot v73 BV-Anzeige | Abgeschlossen |
+| LOG-064 | 2026-02-01 | monday_bauprozess Spalten-Umbenennung mit Präfixen | Abgeschlossen |
+| LOG-065 | 2026-02-01 | SharePoint Sites Katalogisierung + Muster-Analyse | Abgeschlossen |
+
+---
+
+## LOG-065 - SharePoint Sites Katalogisierung + Muster-Analyse
+**Datum:** 2026-02-01 18:00
+**Status:** Abgeschlossen
+
+### Durchgeführte Arbeiten
+
+**1. SharePoint Sites vollständig katalogisiert:**
+- 49 SharePoint-Sites gefunden (davon 12 Wohnungssanierung-relevant)
+- `sharepoint-sites` Edge Function für Auflistung genutzt
+- Dokumentation: `docs/sharepoint_sites.json`, `docs/SHAREPOINT_SITES.md`
+
+**2. SharePoint-Sync auf 12 Sites erweitert:**
+- 6 neue Sites hinzugefügt (Personal, Operations, Nachunternehmer, Großhandel, Vertrieb, Technik)
+- `sharepoint-sync` v10 deployed
+- Sicherheitsstufen konfiguriert (Stufe 1-4)
+
+**3. Verzeichnisstruktur analysiert:**
+- 42 Top-Level-Ordner, 365 Unterordner dokumentiert
+- Standard-Projektstruktur erkannt (01-30 nummerierte Ordner)
+- `sharepoint-folders` Edge Function erstellt
+
+**4. Muster-Analyse:**
+- Erkannte Muster: ATBS-Nummern (60%), ISO-Datum (55%), nummerierte Ordner
+- Inkonsistenzen: Auftraggeber-Schreibweise, Projekte ohne ATBS, Legacy Google Drive Links (53%)
+- Dokumentation: `docs/SHAREPOINT_MUSTER_ANALYSE.md`
+
+### Sync-Status
+
+| Kategorie | Wert |
+|-----------|------|
+| Gesamt SharePoint | 112 GB |
+| Supabase Docs | 45 (0,05%) |
+| Sites mit Sync-State | 1 von 12 |
+| Initial-Sync ausstehend | 11 Sites |
+
+### Neue Learnings
+- L160: SharePoint Sites via MS Graph API katalogisieren
+- L161: Ordnerstruktur-Muster (01-30 nummerierte Ordner)
+- L162: Delta-Query braucht Initial-Sync pro Site
+
+---
+
+## LOG-063 - Audio-Briefing v2.1 + Telegram-Bot v73 BV-Anzeige
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Durchgeführte Arbeiten
+
+**1. Audio-Briefing v2.1 deployed:**
+- Speed auf 0.75 (langsamer für besseres Verständnis)
+- Keine Budgets/Beträge im Audio
+- Edge Function `audio-briefing-generate` aktualisiert
+- Erfolgreich getestet: Briefing an Telegram gesendet
+
+**2. Dummy-Leads gelöscht:**
+- 8 Test-Leads aus `leads`-Tabelle entfernt
+
+**3. Telegram-Bot v73 - BV-Anzeige überarbeitet:**
+- Google Maps Link für Route
+- Kunde-Anzeige: Geschäftskunde vs. Privatkunde
+- NU korrekte Felder: `nachunternehmer`, `ansprechpartner`, `telefon_ansprechpartner`
+- Neue Termin-Labels: BV Start, BV Ende NU Plan, BV Ende Kunde
+
+**4. Neue Learnings:**
+- L143: Audio-Generierung NUR auf Edge Functions
+- L144: NU-Felder in monday_bauprozess (Mapping dokumentiert)
+
+### NU-Feld-Mapping (WICHTIG)
+| Monday-Spalte | Supabase-Spalte |
+|---------------|-----------------|
+| Nachunternehmer | `nachunternehmer` |
+| Ansprechpartner \| NU | `ansprechpartner` |
+| Telefon \| NU | `telefon_ansprechpartner` |
+| E-Mail \| NU | `email_ansprechpartner` |
 
 ---
 
@@ -3629,4 +3709,61 @@ const INVOICE_STYLE_TO_SOFTR: Record<string, string> = {
 
 ---
 
-*Aktualisiert: 2026-01-31 05:30*
+## LOG-064 - monday_bauprozess Spalten-Umbenennung mit Präfixen
+
+**Datum:** 2026-02-01 ~18:00
+**Dauer:** ~15 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Spalten in `monday_bauprozess` mit eindeutigen Präfixen umbenannt für bessere Zuordnung (NU, BL, AG).
+
+### Durchgeführte Arbeiten
+
+**1. SQL-Migration:**
+- Name: `rename_monday_bauprozess_columns_with_prefixes`
+- Version: 20260201180404
+
+**Umbenannte Spalten:**
+
+| Kategorie | Alt | Neu |
+|-----------|-----|-----|
+| **NU** | nachunternehmer | nu_firma |
+| | ansprechpartner | nu_ansprechpartner |
+| | telefon_ansprechpartner | nu_telefon |
+| | email_ansprechpartner | nu_email |
+| **BL** | bauleiter | bl_name |
+| | bauleiter_email | bl_email |
+| | bauleiter_telefon | bl_telefon |
+| **AG** | kundenname | ag_name |
+| | kundennummer | ag_nummer |
+| | email_kunde | ag_email |
+| | telefon_kunde | ag_telefon |
+
+**2. Edge Functions aktualisiert + redeployed:**
+- `monday-sync` v17 - COLUMN_MAPPING
+- `monday-push` v12 - REVERSE_COLUMN_MAPPING
+- `telegram-webhook` v73 - PROJEKT_SPALTEN + Queries
+- `audio-briefing-generate` v5 - Interfaces + Queries
+
+**3. Dokumentation:**
+- `docs/learnings.md` L144 aktualisiert
+- `docs/status_quo.md` neuer Abschnitt
+
+### Präfix-Konvention (NEU)
+
+| Präfix | Bedeutung | Beispiele |
+|--------|-----------|-----------|
+| `nu_` | Nachunternehmer | nu_firma, nu_email |
+| `bl_` | Bauleiter | bl_name, bl_telefon |
+| `ag_` | Auftraggeber | ag_name, ag_nummer |
+| (ohne) | Projekt-Stammdaten | atbs_nummer, budget, baustart |
+
+### Learnings
+
+- L145: Spalten mit Präfix benennen für Eindeutigkeit (nu_, bl_, ag_)
+
+---
+
+*Aktualisiert: 2026-02-01 18:15*

@@ -1,0 +1,2260 @@
+{
+  "generatedAt": "2026-02-01T17:44:40.759Z",
+  "totalSites": 49,
+  "sites": [
+    {
+      "nr": 1,
+      "name": "mieten",
+      "displayName": "Mieter-Service | neurealis",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/mieten",
+      "id": "neurealisde.sharepoint.com,1d8d8e5f-41c6-4295-9d72-278260f6f205,442b64de-4140-4b34-9f0a-8e3953dc774f",
+      "drives": 2,
+      "usedGB": "41.72",
+      "usedPercent": "0.16",
+      "driveDetails": [
+        {
+          "name": "Teams Wiki Data",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/mieten/Teams%20Wiki%20Data",
+          "driveId": "b!X46NHcZBlUKdcieCYPbyBd5kK0RAQTRLnwqOOVPcd08l41rqf2p3SrTXSJPP6RTe",
+          "usedGB": "41.72"
+        },
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/mieten/Freigegebene%20Dokumente",
+          "driveId": "b!X46NHcZBlUKdcieCYPbyBd5kK0RAQTRLnwqOOVPcd08aT-zDsSuuSqAq-mxhNIiK",
+          "usedGB": "41.72"
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "name": "Wohnungssanierung",
+      "displayName": "Wohnungssanierung",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung",
+      "id": "neurealisde.sharepoint.com,bbd63a51-ffd8-45fb-9c72-484b368b278e,89277c71-33da-4b47-a4ff-ee36c861192f",
+      "drives": 1,
+      "usedGB": "0.11",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung/Freigegebene%20Dokumente",
+          "driveId": "b!UTrWu9j_-0WcckhLNosnjnF8J4naM0dLpP_uNshhGS-q1dDe2AsgQJC7TZFUZcTJ",
+          "usedGB": "0.11"
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "name": "Wohnungssanierung-Finanzen",
+      "displayName": "Wohnungssanierung - 50 Finanzen",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Finanzen",
+      "id": "neurealisde.sharepoint.com,2ddd16e6-d668-4db3-beec-36c7bd94e27c,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "1.81",
+      "usedPercent": "0.01",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Finanzen/Freigegebene%20Dokumente",
+          "driveId": "b!5hbdLWjWs02-7DbHvZTifCrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "1.81"
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "name": "Wohnungssanierung-04Personal",
+      "displayName": "Wohnungssanierung - 04 Personal",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-04Personal",
+      "id": "neurealisde.sharepoint.com,71488992-65f0-4168-8516-d30a0a60f207,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "0.66",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-04Personal/Freigegebene%20Dokumente",
+          "driveId": "b!kolIcfBlaEGFFtMKCmDyByrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "0.66"
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "name": "Wohnungssanierung-60Operations",
+      "displayName": "Wohnungssanierung - 60 Operations",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-60Operations",
+      "id": "neurealisde.sharepoint.com,2c5347cd-a1b8-46ef-afd1-aa861030b6e7,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "0.82",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-60Operations/Freigegebene%20Dokumente",
+          "driveId": "b!zUdTLLih70av0aqGEDC25yrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "0.82"
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "name": "Wohnungssanierung-11Nachunternehmer",
+      "displayName": "Wohnungssanierung - 11 Nachunternehmer",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-11Nachunternehmer",
+      "id": "neurealisde.sharepoint.com,ffe97825-d9c4-4af1-925b-9b20a9b68b17,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "0.43",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-11Nachunternehmer/Freigegebene%20Dokumente",
+          "driveId": "b!JXjp_8TZ8UqSW5sgqbaLFyrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "0.43"
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "name": "Wohnungssanierung-15Grohandel",
+      "displayName": "Wohnungssanierung - 15 Großhandel",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-15Grohandel",
+      "id": "neurealisde.sharepoint.com,b0ca6c5f-2bbc-4dfb-8cc0-be6a481c8dc9,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "0.14",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-15Grohandel/Freigegebene%20Dokumente",
+          "driveId": "b!X2zKsLwr-02MwL5qSByNySrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "0.14"
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "name": "neurealis",
+      "displayName": "neurealis",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis",
+      "id": "neurealisde.sharepoint.com,c8f46f8b-f19e-4c58-8dd1-ded0024a9e45,a3ecf51e-d326-4969-9bd4-f249bbf0eb02",
+      "drives": 2,
+      "usedGB": "0.74",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis/Freigegebene%20Dokumente",
+          "driveId": "b!i2_0yJ7xWEyN0d7QAkqeRR717KMm02lJm9TySbvw6wKHaRFxHRlYQJf3lFsaql7H",
+          "usedGB": "0.74"
+        },
+        {
+          "name": "Teams Wiki Data",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis/Teams%20Wiki%20Data",
+          "driveId": "b!i2_0yJ7xWEyN0d7QAkqeRR717KMm02lJm9TySbvw6wKNsaCzRn78Q4x07lM0jKgh",
+          "usedGB": "0.74"
+        }
+      ]
+    },
+    {
+      "nr": 9,
+      "name": "Wohnungssanierung-Kunden",
+      "displayName": "Wohnungssanierung - 10 Kunden",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Kunden",
+      "id": "neurealisde.sharepoint.com,3d5a2684-4fda-4c8f-83f6-a5c429d3b0d0,dd04ea44-71e0-46fc-a523-0a459f7a355d",
+      "drives": 1,
+      "usedGB": "7.62",
+      "usedPercent": "0.03",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Kunden/Freigegebene%20Dokumente",
+          "driveId": "b!hCZaPdpPj0yD9qXEKdOw0ETqBN3gcfxGpSMKRZ96NV3JvEHsrd_xR5S_FjB0gQqL",
+          "usedGB": "7.62"
+        }
+      ]
+    },
+    {
+      "nr": 10,
+      "name": "Wohnungssanierung-Projekte",
+      "displayName": "Wohnungssanierung-Projekte",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Projekte",
+      "id": "neurealisde.sharepoint.com,5a369000-65a5-4453-a147-253b368dfd37,a5ccf844-03ec-4270-9c9e-633e049cee22",
+      "drives": 1,
+      "usedGB": "69.66",
+      "usedPercent": "0.27",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Projekte/Freigegebene%20Dokumente",
+          "driveId": "b!AJA2WqVlU0ShRyU7No39N0T4zKXsA3BCnJ5jPgSc7iJVnlF9e4HZQoDJ3gNl6qpI",
+          "usedGB": "69.66"
+        }
+      ]
+    },
+    {
+      "nr": 11,
+      "name": "TerraImmobilienneurealis-Koordination",
+      "displayName": "Terra Immobilien / neurealis - Koordination",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/TerraImmobilienneurealis-Koordination",
+      "id": "neurealisde.sharepoint.com,d241cd74-0985-4d32-840a-1b2a50765b58,0bcc904f-dc8f-4c29-8587-4ae007be10ee",
+      "drives": 2,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Teams Wiki Data",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/TerraImmobilienneurealis-Koordination/Teams%20Wiki%20Data",
+          "driveId": "b!dM1B0oUJMk2EChsqUHZbWE-QzAuP3ClMhYdK4Ae-EO4GaSi7_x8ESZCUKKxm3XPv",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/TerraImmobilienneurealis-Koordination/Freigegebene%20Dokumente",
+          "driveId": "b!dM1B0oUJMk2EChsqUHZbWE-QzAuP3ClMhYdK4Ae-EO7NU_Mcvc6HSoPCsdD552SX",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 12,
+      "name": "neurealisresidentialGmbH",
+      "displayName": "neurealis residential GmbH",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisresidentialGmbH",
+      "id": "neurealisde.sharepoint.com,e75aa844-d3d8-493e-ae28-e4e55d9871e8,43e39067-0cbb-4f51-a8bd-ae98d92c81df",
+      "drives": 1,
+      "usedGB": "0.59",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisresidentialGmbH/Freigegebene%20Dokumente",
+          "driveId": "b!RKha59jTPkmuKOTlXZhx6GeQ40O7DFFPqL2umNksgd8FDW_iP6WmRKGaOuhfvcBd",
+          "usedGB": "0.59"
+        }
+      ]
+    },
+    {
+      "nr": 13,
+      "name": "Wohnungssanierung-Marketing",
+      "displayName": "Wohnungssanierung - 20 Marketing",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Marketing",
+      "id": "neurealisde.sharepoint.com,9d910921-dd31-4fbc-86fd-ed4a9d9815cf,b162f419-47ed-4e5e-bcc0-f4412b935ee4",
+      "drives": 1,
+      "usedGB": "16.62",
+      "usedPercent": "0.06",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Marketing/Freigegebene%20Dokumente",
+          "driveId": "b!IQmRnTHdvE-G_e1KnZgVzxn0YrHtR15OvMD0QSuTXuTPCt7HjPhDSJ46tCDGjnDf",
+          "usedGB": "16.62"
+        }
+      ]
+    },
+    {
+      "nr": 14,
+      "name": "Wohnungssanierung-Management",
+      "displayName": "Wohnungssanierung - Management",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Management",
+      "id": "neurealisde.sharepoint.com,9737f9b2-cd84-4ea1-8b45-9074b468eec0,b162f419-47ed-4e5e-bcc0-f4412b935ee4",
+      "drives": 1,
+      "usedGB": "12.02",
+      "usedPercent": "0.05",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Management/Freigegebene%20Dokumente",
+          "driveId": "b!svk3l4TNoU6LRZB0tGjuwBn0YrHtR15OvMD0QSuTXuTPCt7HjPhDSJ46tCDGjnDf",
+          "usedGB": "12.02"
+        }
+      ]
+    },
+    {
+      "nr": 15,
+      "name": "neurealisde.sharepoint.com",
+      "displayName": "Kommunikationswebsite",
+      "webUrl": "https://neurealisde.sharepoint.com",
+      "id": "neurealisde.sharepoint.com,6099dd06-7238-4d9d-8fce-2e9ea3a78c28,83cd889c-b6bc-4218-8e5c-162eba3fba6a",
+      "drives": 1,
+      "usedGB": "0.01",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/Freigegebene%20Dokumente",
+          "driveId": "b!Bt2ZYDhynU2Pzi6eo6eMKJyIzYO8thhCjlwWLro_umqTvMSgXwu7R5PtBKdRhQsw",
+          "usedGB": "0.01"
+        }
+      ]
+    },
+    {
+      "nr": 16,
+      "name": "Wohnungssanierung-00Vertrieb",
+      "displayName": "Wohnungssanierung - 00 Vertrieb",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-00Vertrieb",
+      "id": "neurealisde.sharepoint.com,6adda203-a341-4453-9801-3755f767b10a,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "2.54",
+      "usedPercent": "0.01",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-00Vertrieb/Freigegebene%20Dokumente",
+          "driveId": "b!A6LdakGjU0SYATdV92exCirGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "2.54"
+        }
+      ]
+    },
+    {
+      "nr": 17,
+      "name": "HNPrivat",
+      "displayName": "HN Privat",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/HNPrivat",
+      "id": "neurealisde.sharepoint.com,0227b3a8-821e-4359-b18b-9913ffa485c9,a3ecf51e-d326-4969-9bd4-f249bbf0eb02",
+      "drives": 1,
+      "usedGB": "147.00",
+      "usedPercent": "0.57",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/HNPrivat/Freigegebene%20Dokumente",
+          "driveId": "b!qLMnAh6CWUOxi5kT_6SFyR717KMm02lJm9TySbvw6wKHaRFxHRlYQJf3lFsaql7H",
+          "usedGB": "147.00"
+        }
+      ]
+    },
+    {
+      "nr": 18,
+      "name": "HHprivat",
+      "displayName": "H+H privat",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/HHprivat",
+      "id": "neurealisde.sharepoint.com,8c8f7420-3eb3-4769-8cc3-74db97f1c721,5a15ee74-a5dd-43e9-bcb5-7707bbb5bffc",
+      "drives": 1,
+      "usedGB": "5.32",
+      "usedPercent": "0.02",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/HHprivat/Freigegebene%20Dokumente",
+          "driveId": "b!IHSPjLM-aUeMw3Tbl_HHIXTuFVrdpelDvLV3B7u1v_zc10JbPzU3RLW0RJjZteqP",
+          "usedGB": "5.32"
+        }
+      ]
+    },
+    {
+      "nr": 19,
+      "name": "CSP_321eb004-4785-4e5d-87ff-b21db1a7b136",
+      "displayName": "Hausverwaltung",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/CSP_321eb004-4785-4e5d-87ff-b21db1a7b136",
+      "id": "neurealisde.sharepoint.com,321eb004-4785-4e5d-87ff-b21db1a7b136,b60768fe-215e-4dc2-941c-4bd9437b1918",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 20,
+      "name": "CSP_d81ca172-089f-45d7-9c99-5d220db0df51",
+      "displayName": "Getting Started",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/CSP_d81ca172-089f-45d7-9c99-5d220db0df51",
+      "id": "neurealisde.sharepoint.com,d81ca172-089f-45d7-9c99-5d220db0df51,7526e0e2-0d5b-4e61-9321-bc14fd1c3b32",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 21,
+      "name": "CSP_88a6e997-4271-44f0-90b5-a3e2e0e94159",
+      "displayName": "Daggi & Holger",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/CSP_88a6e997-4271-44f0-90b5-a3e2e0e94159",
+      "id": "neurealisde.sharepoint.com,88a6e997-4271-44f0-90b5-a3e2e0e94159,8e69472e-9faf-4806-8be7-f548c25e0542",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 22,
+      "name": "neurealisinvestmentGmbH",
+      "displayName": "neurealis investment GmbH",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisinvestmentGmbH",
+      "id": "neurealisde.sharepoint.com,b5208001-a141-499f-a80f-0e8fe9e6fc9e,43e39067-0cbb-4f51-a8bd-ae98d92c81df",
+      "drives": 1,
+      "usedGB": "0.73",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisinvestmentGmbH/Freigegebene%20Dokumente",
+          "driveId": "b!AYAgtUGhn0moDw6P6eb8nmeQ40O7DFFPqL2umNksgd8FDW_iP6WmRKGaOuhfvcBd",
+          "usedGB": "0.73"
+        }
+      ]
+    },
+    {
+      "nr": 23,
+      "name": "CSP_ac993f91-24fc-4871-a0b0-9dc0c14727e1",
+      "displayName": "Aufbau Bauunternehmung",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/CSP_ac993f91-24fc-4871-a0b0-9dc0c14727e1",
+      "id": "neurealisde.sharepoint.com,ac993f91-24fc-4871-a0b0-9dc0c14727e1,c15bd9f6-6c14-449b-9d16-e39faca8111d",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 24,
+      "name": "neurealisinvestmentGmbHi.Gr",
+      "displayName": "Management",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisinvestmentGmbHi.Gr",
+      "id": "neurealisde.sharepoint.com,cbed595c-f565-426d-ae0b-3a4906489082,64c129a6-8c45-44fc-91c5-4ea49032be55",
+      "drives": 2,
+      "usedGB": "117.51",
+      "usedPercent": "0.46",
+      "driveDetails": [
+        {
+          "name": "Teams Wiki Data",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisinvestmentGmbHi.Gr/Teams%20Wiki%20Data",
+          "driveId": "b!XFnty2X1bUKuCzpJBkiQgqYpwWRFjPxEkcVOpJAyvlU5lCJl6CTqRZNTN1xgCwOi",
+          "usedGB": "117.51"
+        },
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisinvestmentGmbHi.Gr/Freigegebene%20Dokumente",
+          "driveId": "b!XFnty2X1bUKuCzpJBkiQgqYpwWRFjPxEkcVOpJAyvlVR-CTswgnrQpENU48K2PQy",
+          "usedGB": "117.51"
+        }
+      ]
+    },
+    {
+      "nr": 25,
+      "name": "x8FNO-xtskuCRX2_fMTHLeq1TjBiG39Pl8Td9vrs-0Q",
+      "displayName": "Pages",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/x8FNO-xtskuCRX2_fMTHLeq1TjBiG39Pl8Td9vrs-0Q",
+      "id": "neurealisde.sharepoint.com,ae0c076a-b023-4987-91d5-3a49638d6c71,904395fd-c003-4888-aa2b-2b9340e72ff9",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 26,
+      "name": "CSP_0565d23d-2e9b-4844-aa06-9d89cbb07b7d",
+      "displayName": "Ideas",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/CSP_0565d23d-2e9b-4844-aa06-9d89cbb07b7d",
+      "id": "neurealisde.sharepoint.com,0565d23d-2e9b-4844-aa06-9d89cbb07b7d,21a56551-5b1b-4f63-be7c-26604a67e2c6",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 27,
+      "name": "akquise-PersonalthemenV.Reith",
+      "displayName": "Akquise - Personalthemen V. Reith",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/akquise-PersonalthemenV.Reith",
+      "id": "neurealisde.sharepoint.com,e9d4f254-6f0b-4a0f-b4e6-23f23e367a3e,6e75b45d-2daa-4299-8653-4181aa7cecdd",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/akquise-PersonalthemenV.Reith/Freigegebene%20Dokumente",
+          "driveId": "b!VPLU6QtvD0q05iPyPjZ6Pl20dW6qLZlChlNBgap87N3NbfhV__sqR71TSMihcSLz",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 28,
+      "name": "neurealis-Personalthemen-TeresaLukmann",
+      "displayName": "neurealis - Personalthemen - Teresa Lukmann",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-Personalthemen-TeresaLukmann",
+      "id": "neurealisde.sharepoint.com,d77afe61-57fc-4d31-adc3-2286d8e5d75a,21898d8a-1ee8-444c-8829-8ceedf570838",
+      "drives": 1,
+      "usedGB": "0.52",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-Personalthemen-TeresaLukmann/Freigegebene%20Dokumente",
+          "driveId": "b!Yf561_xXMU2twyKG2OXXWoqNiSHoHkxEiCmM7t9XCDg2NkwzKjDCRosD5urT__qG",
+          "usedGB": "0.52"
+        }
+      ]
+    },
+    {
+      "nr": 29,
+      "name": "Co-Investment-GnterHolger",
+      "displayName": "Co-Investment - Günter/Holger",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Co-Investment-GnterHolger",
+      "id": "neurealisde.sharepoint.com,36db4337-36ef-43be-9e43-8525a803fa44,5f4c85fa-22a7-40d7-8f80-ea809ce30789",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Co-Investment-GnterHolger/Freigegebene%20Dokumente",
+          "driveId": "b!N0PbNu82vkOeQ4UlqAP6RPqFTF-nItdAj4DqgJzjB4mk2bMLVowxQbLqtSvtGFyS",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 30,
+      "name": "akquise-PersonalthemenC.Antkowiak",
+      "displayName": "Akquise - Personalthemen C. Antkowiak",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/akquise-PersonalthemenC.Antkowiak",
+      "id": "neurealisde.sharepoint.com,8c01a227-6c55-45a4-a753-cc6962119dcc,f3631b87-f8ae-46ae-a7ff-5db2614a316e",
+      "drives": 1,
+      "usedGB": "3.30",
+      "usedPercent": "0.01",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/akquise-PersonalthemenC.Antkowiak/Freigegebene%20Dokumente",
+          "driveId": "b!J6IBjFVspEWnU8xpYhGdzIcbY_Ou-K5Gp_9dsmFKMW5QuPAOaAB0TYTGB261fV-m",
+          "usedGB": "3.30"
+        }
+      ]
+    },
+    {
+      "nr": 31,
+      "name": "akquise",
+      "displayName": "Akquise",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/akquise",
+      "id": "neurealisde.sharepoint.com,163aa1f3-6c7f-46d0-92db-612c951e9177,442b64de-4140-4b34-9f0a-8e3953dc774f",
+      "drives": 2,
+      "usedGB": "30.30",
+      "usedPercent": "0.12",
+      "driveDetails": [
+        {
+          "name": "Teams Wiki Data",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/akquise/Teams%20Wiki%20Data",
+          "driveId": "b!86E6Fn9s0EaS22EslR6Rd95kK0RAQTRLnwqOOVPcd0-yaifxCRj1S5DiEbbUk17C",
+          "usedGB": "30.30"
+        },
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/akquise/Freigegebene%20Dokumente",
+          "driveId": "b!86E6Fn9s0EaS22EslR6Rd95kK0RAQTRLnwqOOVPcd08aT-zDsSuuSqAq-mxhNIiK",
+          "usedGB": "30.30"
+        }
+      ]
+    },
+    {
+      "nr": 32,
+      "name": "mieten-PersonalthemenHelenaBirkhuser",
+      "displayName": "Mieter-Service | neurealis - Personalthemen Helena Birkhäuser",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/mieten-PersonalthemenHelenaBirkhuser",
+      "id": "neurealisde.sharepoint.com,d0c2d5c1-9a25-41d6-9cb0-a652e9d554bb,5f6ef317-3d61-41ec-ab32-e331178eba8e",
+      "drives": 1,
+      "usedGB": "0.01",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/mieten-PersonalthemenHelenaBirkhuser/Freigegebene%20Dokumente",
+          "driveId": "b!wdXC0CWa1kGcsKZS6dVUuxfzbl9hPexBqzLjMReOuo5D5JImLXu4RKaYTT19NukQ",
+          "usedGB": "0.01"
+        }
+      ]
+    },
+    {
+      "nr": 33,
+      "name": "DaggiHolger",
+      "displayName": "Daggi / Holger",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/DaggiHolger",
+      "id": "neurealisde.sharepoint.com,e4d59bdd-3992-42ba-b48d-72ac1e1cad06,628157f4-5f12-4484-b6f4-e90ca1d88de5",
+      "drives": 1,
+      "usedGB": "0.19",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/DaggiHolger/Freigegebene%20Dokumente",
+          "driveId": "b!3ZvV5JI5ukK0jXKsHhytBvRXgWISX4REtvTpDKHYjeUXGLRn3zoRQbndq0Oz4Y6h",
+          "usedGB": "0.19"
+        }
+      ]
+    },
+    {
+      "nr": 34,
+      "name": "Knothe",
+      "displayName": "Knothe - Übernahme & Optimierung",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Knothe",
+      "id": "neurealisde.sharepoint.com,7d277542-9641-4ba2-bc77-e98bec6ddb46,d4ffa543-625b-4388-b47e-8b64b1b0778b",
+      "drives": 1,
+      "usedGB": "4.90",
+      "usedPercent": "0.02",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Knothe/Freigegebene%20Dokumente",
+          "driveId": "b!QnUnfUGWoku8d-mL7G3bRkOl_9RbYohDtH6LZLGwd4t6rJlxt9fbR6XwczsHHg2I",
+          "usedGB": "4.90"
+        }
+      ]
+    },
+    {
+      "nr": 35,
+      "name": "hausverwaltung",
+      "displayName": "hausverwaltung",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung",
+      "id": "neurealisde.sharepoint.com,12de7977-d1fd-47bd-a5a6-daa026715dfa,55a23356-6dd6-4752-a9b3-df45b657d26d",
+      "drives": 188,
+      "usedGB": "0.01",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "WEG Verwaltervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/WEG%20Verwaltervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3SUTpdaC01QITJAG7QL_QK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Beschreibung Technische Gebäudeausstattung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Beschreibung%20Technische%20Gebudeausstattung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0M6br9MeeVT6ORAS1F-bRf",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Unterweisungsprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Unterweisungsprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m39rqBvBAC3SboBAY3OGdLZ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Finanzabschluss",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Finanzabschluss",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0Bz409WL4wRo00Aj5L9mlK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Nachhaltigkeitszertifikat Management",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Nachhaltigkeitszertifikat%20Management",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0-ZtND5C3yS433BQECABQe",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bescheid Abgeschlossenheitsbescheinigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bescheid%20Abgeschlossenheitsbescheinigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1EtGVodHRYSq35BneKMhph",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Eintragungsbewilligung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Eintragungsbewilligung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1cUb3OCD_KRIloBuKEg1W4",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Denkmalschutzgutachten",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Denkmalschutzgutachten",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m04sp4FpknxSIFDCBKX6nW6",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mietflächenberechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mietflchenberechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m11tBXMcaseRJ6HCEFTAV57",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz intern",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20intern",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0YUVWiMNAVS6-YCIJzLMrs",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Städtebaulicher Verpflichtung / Planungsrechtauskunft",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Stdtebaulicher%20Verpflichtung%20%20Planungsrechtauskunf",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1rlSR2uR2URKOBCTIHl1Rf",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Nebenkostenabrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Nebenkostenabrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0tASCuv0v1Ta3YCVfJeR78",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Grundsteuerbescheid",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Grundsteuerbescheid",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2LTkYp7JalQZ6ACZop1vuY",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Grundsteuermessbescheid/ Einheitswertbescheid",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Grundsteuermessbescheid%20Einheitswertbescheid",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1MTE8zq4ocTI58DIuKFl7d",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Umweltgutachten",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Umweltgutachten",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3u0-ivgLyKS46nDbWK3ceo",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Konformitätserklärung Sachverständiger",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Konformittserklrung%20Sachverstndiger",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0WpBzgo1A3T6GTEAWhRsM_",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mahnung Mietrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mahnung%20Mietrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2js8_CqmOCTbpHE3dZWiD5",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Rechnung Debitor Allgemein",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Rechnung%20Debitor%20Allgemein",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2t7dLoGJe7Tb_yGPXnIjqe",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Erschließungskonzept",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Erschlieungskonzept",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0nsD_jzchyQoINGWbeUUHQ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Denkmalschutzkonzept",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Denkmalschutzkonzept",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1rgKq1oUdaTYBLGq5BAoXa",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Center Management Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Center%20Management%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1nWKmpBjh1QIfkG3YKSOgV",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gesellschafterliste",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gesellschafterliste",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m20TaHS4_xYQLL7HVOq3DrW",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Abnahmeprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Abnahmeprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1LyVUh02HkRLh3HW734Meq",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Hausordnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Hausordnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2AQXA3qbAKSIKKHet5W-qf",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Offene-Posten-Liste",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/OffenePostenListe",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0ewvjaQL8lRIPvHpr-T9rx",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Video",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Video",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1zBk79R7sVTbqRIT0vgwcZ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Werkvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Werkvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1X3jbUVYW7QIFSIUiuwy7X",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bodenrichtwertkarte",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bodenrichtwertkarte",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m16t6YeSKJCQ6lDJMQN_02r",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bedienungsanleitung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bedienungsanleitung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0qFdzwWBrOSJGKJn38GdJ8",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Folgebewertung / Wertfortschreibung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Folgebewertung%20%20Wertfortschreibung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m16UWuFYuQKTY4QJ3L3Rqbi",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Grundstücks-/Gebäudeplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/GrundstcksGebudeplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1WcZxy8_Q9RKWAJ7lIePpl",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Amtlicher Lageplan (Vermesserplan)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Amtlicher%20Lageplan%20Vermesserplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1kTxiS903vSotEKAJ-lJdI",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Vermögensaufstellung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Vermgensaufstellung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3Mrwc3_A2qRoAkKCMqd98F",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Sperrkonto (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Sperrkonto%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2mZWWOCShETKERKocUUys0",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bilanz",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bilanz",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0WffksialERIIpKrkh8yam",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Aufteilungsplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Aufteilungsplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3BpCG4FIz-QbtsKykw5cD7",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Wasserrechtliche Erlaubnis",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Wasserrechtliche%20Erlaubnis",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3KEVHC-ZaGQ5ACK3DwQWHS",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Rechtlicher DD Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Rechtlicher%20DD%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0cOfI9FFGUR69hLU4NUS_j",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Energieausweis",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Energieausweis",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3h7iF4NndcSbpWLyYkO8ZM",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Konformitätserklärung Errichter",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Konformittserklrung%20Errichter",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1FB8YVM9LLSbyYMWSREpS6",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Darlehensvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Darlehensvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m392dCUq_HqRabBM9XIRTsG",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Mieter",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Mieter",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1CPDC-Khn4R5vMNIsF1tau",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gesellschaftsbeschluss",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gesellschaftsbeschluss",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m12bwM49zfFRoLLNnM1Pdbp",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gesellschaftervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gesellschaftervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1G4MWoEfa1RZBnN3TptHOu",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Nachbarschaftsvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Nachbarschaftsvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3j4oGNGRvpT5sjOM5V1PjW",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Belegungsplan Mietflächen",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Belegungsplan%20Mietflchen",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3ipEfai2LiSKH3OQ-CfrXg",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Objektexpose",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Objektexpose",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2OlhnXKwFcRbCJOXJGA3rY",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Städtebaulicher Vertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Stdtebaulicher%20Vertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1FbJgn1iG4QYTcOZQWRp79",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Freigegebene%20Dokumente",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m15l1UhEC2mQrKFO_nvKtoX",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Jahresbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Jahresbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3Q22pXqm-hS6IJPgAz5o04",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steuerbescheid",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Steuerbescheid",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0FDQMZIDpbSri5Pn8QpCDq",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Sanierungskonzept Grundstück",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Sanierungskonzept%20Grundstck",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m166Tj1xsy2RoSPPsGQBgJE",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Dienstleister",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Dienstleister",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3jtwcvI9glR6VGP6rxK1iH",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gremienzustimmung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gremienzustimmung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2HXSZSmlhdRb-QP8kZ6h04",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Audio",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Audio",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0uxWYYK5hZQLrTQd0U4rs7",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Genehmigung Einbauten Umbauten",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Genehmigung%20Einbauten%20Umbauten",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2OO31Xv33CTpyDQ5S--C6G",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mieterliste",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mieterliste",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3pGN6UrKVTQrjhROiG8Sia",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Contractingvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Contractingvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2uKUAgLDXtRIxnRzGKrwrx",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Brandschutzkonzept",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Brandschutzkonzept",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1VN9eE5E11RrctSXCdpFdF",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Freistellungsbescheinigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Freistellungsbescheinigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2F-X4IKG-VTabrSZF2gz6a",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Konzernverrechnungsvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Konzernverrechnungsvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3KCaBwR3ohT4inSaIZuGl-",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Versicherungspolice",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Versicherungspolice",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1QLMGWngvjQ54mSwAvQfp5",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Raumbuch",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Raumbuch",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1WJxyzErRJR49wS3BJIkTg",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Teilungserklärung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Teilungserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0BMjx9q8HnS5TNS5Lduse0",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Quartalsbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Quartalsbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3qU6KFGO4KQ77WS5tu0tis",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gewinn- und Verlustrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gewinn%20und%20Verlustrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0JMAkMqLI8S6NjS992wbcz",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Indexierung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Indexierung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1nV935auuYQLcAS-3PXfJK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mahnung Nebenkostenabrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mahnung%20Nebenkostenabrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3qLXnMip5pSoN_TCRIk5DR",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bürgschaft (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Brgschaft%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3P8Hdh7Q8aRa8bTM3XqUgr",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Liegenschaftsbuch (Eigentümernachweis)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Liegenschaftsbuch%20Eigentmernachweis",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0J3tZnI4mtTrvjTj9BWJU0",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steueranmeldung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Steueranmeldung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2UMJihTY7-Rpp3TzWLJVIV",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gewährleistungsbürgschaft",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gewhrleistungsbrgschaft",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1-k_jY1GVaRKdzUH4U99ek",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Objektbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Objektbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1-5NE0yjMqQbaYUz_sCcJa",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Dienstleistervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Dienstleistervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0L8M-pttgyR6hmVPLxLRuM",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bescheid Denkmalschutz",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bescheid%20Denkmalschutz",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1807puUf26RIYEVrhaUzIl",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Geschäftsführervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Geschftsfhrervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1rMzqLpx9aSIj1WLOXdKLR",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Erbbaurechtsvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Erbbaurechtsvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1DS1m5TDeET7BwWOApsfRu",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Asset Management Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Asset%20Management%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2AGyhWsHHkQ7NCW_3PTyWW",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Feuerwehrplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Feuerwehrplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2yzL4gGCbyQbSlXcdX-jgF",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Baugenehmigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Baugenehmigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2DMT1rSlK5Tbg2X_uNiY85",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Mietänderung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Mietnderung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2DKGQkF2UtRL2nYAcXbxRY",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Betreibervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Betreibervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1GuWEtHRkQRIMVYnrzruqq",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bonitätsauskunft (Bonitätsrating)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bonittsauskunft%20Bonittsrating",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2T45AE5N5ESL5AY4zOlmNR",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Protokoll Dienstleister",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Protokoll%20Dienstleister",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1aIOX4z2MZQKpaZBjfnP8u",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Wartungsprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Wartungsprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3dNkUlqSSETpftZL2kGz1I",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Erschließungsbeitragsbescheinigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Erschlieungsbeitragsbescheinigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1XpmYc4CraTpLnZTL_UpXL",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steuerliche Hinweise",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Steuerliche%20Hinweise",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3dQMHZ-D_wQrqPZdQHbzc5",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "LOI (Absichtserklärung)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/LOI%20Absichtserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3HRP94Jxq2SpoWaHZhIyAa",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Wechsel (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Wechsel%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2n0bZ2KMigTbhQaOQX_OdK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Hauptdokument Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Hauptdokument%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m23rDUzYg1YSKaBaf8VI5S7",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Abnahme Entwässerung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Abnahme%20Entwsserung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m28TFbGFaetTKHFbbwDu-YU",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Nachhaltigkeitszertifikat Objekt",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Nachhaltigkeitszertifikat%20Objekt",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m35Vlkv-m4WTYEacmjXKrMc",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Anwesenheitsprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Anwesenheitsprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m33xuBOxEHLRZKhdTRbp5WG",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Eintragungsbekanntmachung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Eintragungsbekanntmachung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1Xr8APOGdWSpVadpdat7rb",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Liegenschaftskarte / Flurkarte",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Liegenschaftskarte%20%20Flurkarte",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0Iobys1eWtQZOleUPsBda7",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mietspiegel",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mietspiegel",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2JJhGdQ2GDRbt3epNin9Az",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Kaufvertrag (nicht Objekt)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Kaufvertrag%20nicht%20Objekt",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3xqF_OAPSKRZaCeyUhpS3N",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Antrag Abbruchgenehmigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Antrag%20Abbruchgenehmigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2ZBG5m0vDHRptIfs1pMR3i",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Baulastenblatt",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Baulastenblatt",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1PUlw_p4D_QpQVgWR38E3I",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Grundbuchauszug",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Grundbuchauszug",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0TqFONKg2aRKT9gaWD4R9h",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gründungs-/ Baugrundgutachten",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Grndungs%20Baugrundgutachten",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3FNjHe0trWS5ZDgiQio5Ej",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steuer-Ruling",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/SteuerRuling",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2uq_mdfYhIQZEwgj9zyFy0",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Patronatserklärung (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Patronatserklrung%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0mORfvILVISqwThDRYI9H9",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Geschäftsordnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Geschftsordnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2S57WVLXpETYDAhSR_MmoQ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mietflächenplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mietflchenplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0ITeaAd72MS4johmmZttuR",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Kampfmittelauskunft",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Kampfmittelauskunft",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2MxBc1RpOjTIA0h5_f0HnK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Foto",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Foto",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3RHymFcJB4TLRbi0_CRjmN",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Auflassungsvormerkung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Auflassungsvormerkung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m01T4v8nFiPQpOTjOMPjMGk",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Handelsregisterauszüge",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Handelsregisterauszge",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2HLlmn-PBNSZgFj1UaxaYX",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Rechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Rechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1fHDHGMEW-SaC3j3Rfr3X3",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Nebenkostenabrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Nebenkostenabrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1CXnwezLKySbNFj4-KHrij",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Grunderwerbsteuerbescheid",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Grunderwerbsteuerbescheid",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1sq1G--yO4SrlHj5i4Jh73",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Garantie Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Garantie%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2FCgoWLTebRKwTkC6GJx8l",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Kündigungsschreiben",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Kndigungsschreiben",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0kR8NgyPCBR7NwkTJ4Y3CK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "WEG-Protokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/WEGProtokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1IXjo09YrPTajJkVpR4mCE",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Versicherung (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Versicherung%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1vNZt3MLKWSqfTk29V77Rn",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steuerlicher DD Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Steuerlicher%20DD%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3cFX770WILQokAlBQ-aZ8z",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Protokoll Behörde",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Protokoll%20Behrde",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0XCU6GEYPdT5oelDnGcQbE",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Prüfungsbericht §250 KAGB",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Prfungsbericht%20250%20KAGB",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0X641nF6UBSqDglDvKIPzB",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bankkontoauszug",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bankkontoauszug",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0gpPu_-h5ySaG-lSSizLqT",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mahnung debitorische Rechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mahnung%20debitorische%20Rechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0Zhu_luE-9RalLl--qHWPV",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Optionsausübung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Optionsausbung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1uRc50x0JiSbgVmUIA6nWW",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Flucht- und Rettungsplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Flucht%20und%20Rettungsplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3g9mkEmJiGSbqVmVebuWca",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "USt.-Optionsbescheinigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/UStOptionsbescheinigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3cyFdKZqMASJUbnfDayN8f",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Denkmalschutzauskunft",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Denkmalschutzauskunft",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0c3ljqTIXURaQhnu-wpQ7v",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Laufende Rechtsstreitigkeiten",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Laufende%20Rechtsstreitigkeiten",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3ZbJkPzEwiQrUuoGFOimkA",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Objektkaufvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Objektkaufvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2rbKW3qUXXS4S9onG9IjrK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mietanpassung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mietanpassung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2fCkYEglWsQ7JgowvipM4q",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mahnung Nebenkostenvorauszahlung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mahnung%20Nebenkostenvorauszahlung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1XeEM5K0XjS6kIowzKL-6w",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Finanzplanung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Finanzplanung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2kVrMk2YMcQ5VkpY6eDk8o",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bebauungsplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bebauungsplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1tEOzb8G6SSp2Dqz8VsXgU",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Protokoll Mieter",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Protokoll%20Mieter",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m00dub0IwyDTYTUq_--5d3z",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Objektangebot",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Objektangebot",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3XrsZuCtfyToURrAWlRPpa",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Korrespondenz Behörde",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Korrespondenz%20Behrde",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1qVqL-Gxy3Qa7Wr4VYD5n6",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bescheid Abbruchgenehmigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bescheid%20Abbruchgenehmigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1JmJG-51J_R5gQr5YEqaNU",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Wirtschaftsprüfungsbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Wirtschaftsprfungsbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0JMO_86ZMNRb1Bshnr9Nv5",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Antrag Baugenehmigung/ Nutzungs(änderungs)genehmigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Antrag%20Baugenehmigung%20Nutzungsnderungsgenehmigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3_vRyWkV2rRKWStPCLdFcJ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gebäudebeschreibung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gebudebeschreibung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m28J3pOX8CRQr_stqqU14C_",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "NDA (Geheimhaltungserklärung)",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/NDA%20Geheimhaltungserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3MRLaAaz0wTpELtwYFCcsk",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Handlungsvollmacht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Handlungsvollmacht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1L_chfCT4BR6lXt-MSM2QN",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Verrechnungspreis-Vorschrift",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/VerrechnungspreisVorschrift",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1BJODkPNUAQ7tVuevj4ZNc",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gutachten Brandschutz",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gutachten%20Brandschutz",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1iyibIbI7FQo0RwDYzbfIb",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Property Management Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Property%20Management%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m11-En2F4C4R7mtwKyVGcYy",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Marktbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Marktbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2zFzPIYeM8R6C5wL2s-mVE",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Sparbuch (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Sparbuch%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3syiTB6rc-Tb4lwMJsDynv",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Finanzieller DD Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Finanzieller%20DD%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2RYI2TonZJSYsRwd-pxkuQ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Facility Management Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Facility%20Management%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2e2pIdIg0ETL3UwfG8dBgJ",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Selbstauskunft",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Selbstauskunft",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0C5FxMnByNRLqHwoUFRovr",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Bescheid Entwässerung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Bescheid%20Entwsserung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1iy4SiQcT3SZsZw3vVKLTw",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Verpflichtungserklärung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Verpflichtungserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m35y7DWFIcfSJPEyBQSm5S2",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "SEPA-Mandat",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/SEPAMandat",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3xqKP07jLHRoowyWkYmWgu",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Aufhebungsvereinbarung Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Aufhebungsvereinbarung%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0blK57oDjwR6-TyaihbEzG",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Prüfbericht Sachverständigenprüfung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Prfbericht%20Sachverstndigenprfung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2LkzQnDRm0T7B8yhwhP1eg",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Umwelt DD Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Umwelt%20DD%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2w3bkioYw-RIM8yzYvg7UT",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gewährleistungsspiegel",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gewhrleistungsspiegel",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1kC-pzLulqRIIdzDW7QuEK",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Kündigungsbestätigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Kndigungsbesttigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2BViGdtrCbSYqqzDumw4H1",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Auszug aus dem Baulastenverzeichnis",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Auszug%20aus%20dem%20Baulastenverzeichnis",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m18GNPJ05UmQLCjzIQRD4bX",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Rechnung Nebenkostenvorauszahlung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Rechnung%20Nebenkostenvorauszahlung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3H16UTxafaSYg8z_qOk_dq",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Fachplanervertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Fachplanervertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3wZB_YZd3IT6nX0Kr2DaCg",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Steuererklärung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Steuererklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3zueU32A_rTror0j6PLtQu",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Flächennutzungsplan",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Flchennutzungsplan",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2I33KCdK77SLGL07iBWBLf",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Wirtschaftsplan und Abrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Wirtschaftsplan%20und%20Abrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1O4zdQtZ0mQZ4e1A5sPwPB",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Rechnung Mietzins",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Rechnung%20Mietzins",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1Ut2ZdebBMSrHJ1KVPYnz4",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Investment Memorandum",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Investment%20Memorandum",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1ufemFox2TSqBM2ndysAUM",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gesellschaftssatzung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gesellschaftssatzung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0NsRPtwhgDTY3D2vdzpHiC",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Auslagerungsvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Auslagerungsvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1h6xt35YBBRKiJ2_s1mRdd",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Technischer DD Bericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Technischer%20DD%20Bericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3p7BQX9Q2eSYyz3MyGehqF",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Haftungsvereinbarung (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Haftungsvereinbarung%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1lQ1zTZCqcTouR3uTxJz_J",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Verpfändungserklärung (Sicherheit) Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Verpfndungserklrung%20Sicherheit%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0E9Ij6_eAEQ5323yvdplkX",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Fertigstellungsanzeige",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Fertigstellungsanzeige",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0Qd7UyHb4tSaoJ4BSNU-yt",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Prüfstatik",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Prfstatik",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0_gXGZYrKMT7uv4FmwqiYT",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Sicherheitskonzept",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Sicherheitskonzept",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0UNFu6d51iToAa4fJ5xLew",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Vollständigkeitserklärung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Vollstndigkeitserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m3KZP9ERiXSTodO4qjYfryX",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Statische Berechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Statische%20Berechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1vSbMhtiYhS6S04xML2Dd8",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Gestattungsvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Gestattungsvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2bcfpLejVhRo_w5AK1ilVO",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Lagebericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Lagebericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2omfqIRQoxSpxs5PiKzy45",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Halbjahresbericht",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Halbjahresbericht",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1Kpg6Y015GTq5r5pNqr1Cm",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Unbedenklichkeitsbescheinigung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Unbedenklichkeitsbescheinigung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m21-pWjs6OlRK3H6I_IHUFS",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Einmessprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Einmessprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2Bo1rFbpcnQZfC6hZS_hHN",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Versicherungsnachweis Mieter",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Versicherungsnachweis%20Mieter",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2MvjXLhrtjToWg6mIF7og2",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Nachtrag Mietvertrag",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Nachtrag%20Mietvertrag",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m1ZAn7j7M7YS7V_6wgPGt1d",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Feststellungserklärung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Feststellungserklrung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m21tvEMreBpTqVw63fFzKAw",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Erstbewertung / Ankaufsbewertung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Erstbewertung%20%20Ankaufsbewertung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m28ujSeus3dRLum6-Eobtsl",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Kaufpreisabrechnung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Kaufpreisabrechnung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m37MSBx-lKtT7Zz8WJqDb0l",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Städtebauliche Satzung",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Stdtebauliche%20Satzung",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m05psh2aUA1T57O8qieCjLM",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Mietflächenübergabeprotokoll",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Mietflchenbergabeprotokoll",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m0hM2c6VIy5QqGt8v4u4j-z",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Auskunft aus dem Altlastenkataster",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Auskunft%20aus%20dem%20Altlastenkataster",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m2zcgQ2ipFWRY5g9WGgr7wj",
+          "usedGB": "0.01"
+        },
+        {
+          "name": "Sanierungskonzept Gebäude",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/hausverwaltung/Sanierungskonzept%20Gebude",
+          "driveId": "b!d3neEv3RvUelptqgJnFd-lYzolXWbVJHqbPfRbZX0m28j5licwy7Sorg9tWE6bBr",
+          "usedGB": "0.01"
+        }
+      ]
+    },
+    {
+      "nr": 36,
+      "name": "AbstimmungHausverwaltung",
+      "displayName": "Abstimmung Hausverwaltung",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/AbstimmungHausverwaltung",
+      "id": "neurealisde.sharepoint.com,29474462-fb23-431f-a9e7-15665b47dbfc,89277c71-33da-4b47-a4ff-ee36c861192f",
+      "drives": 1,
+      "usedGB": "0.02",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/AbstimmungHausverwaltung/Freigegebene%20Dokumente",
+          "driveId": "b!YkRHKSP7H0Op5xVmW0fb_HF8J4naM0dLpP_uNshhGS-q1dDe2AsgQJC7TZFUZcTJ",
+          "usedGB": "0.02"
+        }
+      ]
+    },
+    {
+      "nr": 37,
+      "name": "AbstimmungHr.Kodaman",
+      "displayName": "Abstimmung Hausmeister",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/AbstimmungHr.Kodaman",
+      "id": "neurealisde.sharepoint.com,d84ac2cb-7cca-4ad1-9afa-c789ef77cc2a,89277c71-33da-4b47-a4ff-ee36c861192f",
+      "drives": 1,
+      "usedGB": "0.16",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/AbstimmungHr.Kodaman/Freigegebene%20Dokumente",
+          "driveId": "b!y8JK2Mp80Uqa-seJ73fMKnF8J4naM0dLpP_uNshhGS-q1dDe2AsgQJC7TZFUZcTJ",
+          "usedGB": "0.16"
+        }
+      ]
+    },
+    {
+      "nr": 38,
+      "name": "Wohnungssanierung-30Technik",
+      "displayName": "Wohnungssanierung - 30 Technik",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-30Technik",
+      "id": "neurealisde.sharepoint.com,ec332bc1-019f-43a4-be12-3ce0431fef94,79b4c62a-2b59-4db3-b566-8e54a083ca90",
+      "drives": 1,
+      "usedGB": "0.01",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-30Technik/Freigegebene%20Dokumente",
+          "driveId": "b!wSsz7J8BpEO-EjzgQx_vlCrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+          "usedGB": "0.01"
+        }
+      ]
+    },
+    {
+      "nr": 39,
+      "name": "neurealisadastraGmbH",
+      "displayName": "neurealis adastra GmbH",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisadastraGmbH",
+      "id": "neurealisde.sharepoint.com,0dd1bc04-12be-4633-a6ae-17d28bdeb253,43e39067-0cbb-4f51-a8bd-ae98d92c81df",
+      "drives": 1,
+      "usedGB": "9.79",
+      "usedPercent": "0.04",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealisadastraGmbH/Freigegebene%20Dokumente",
+          "driveId": "b!BLzRDb4SM0amrhfSi96yU2eQ40O7DFFPqL2umNksgd8FDW_iP6WmRKGaOuhfvcBd",
+          "usedGB": "9.79"
+        }
+      ]
+    },
+    {
+      "nr": 40,
+      "name": "neurealis-Personalthemen-MeikeBartels",
+      "displayName": "neurealis - Personalthemen - Meike Bartels",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-Personalthemen-MeikeBartels",
+      "id": "neurealisde.sharepoint.com,10dff9e9-cc96-443f-b4fe-aa64f661e9c2,00300bca-17e1-4ce0-8c1d-429d50aa2ebd",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-Personalthemen-MeikeBartels/Freigegebene%20Dokumente",
+          "driveId": "b!6fnfEJbMP0S0_qpk9mHpwsoLMADhF-BMjB1CnVCqLr2aBH0lT9UNRZTZ0yoeImqw",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 41,
+      "name": "Community",
+      "displayName": "Community",
+      "webUrl": "https://neurealisde.sharepoint.com/portals/Community",
+      "id": "neurealisde.sharepoint.com,ecbea40d-c8ae-4602-b70c-bbcd1b29fb48,cb98ce85-3e1e-4aa1-af1e-2f728cd7065e",
+      "drives": 4,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Images",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/portals/Community/pImg",
+          "driveId": "b!DaS-7K7IAka3DLvNGyn7SIXOmMsePqFKrx4vcozXBl42QRNOrzBDRbUEMT9Y8m-R",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Pages",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/portals/Community/pPg",
+          "driveId": "b!DaS-7K7IAka3DLvNGyn7SIXOmMsePqFKrx4vcozXBl6qcVqxd-ZDQI4bMnDaqRsL",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Videos",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/portals/Community/pVid",
+          "driveId": "b!DaS-7K7IAka3DLvNGyn7SIXOmMsePqFKrx4vcozXBl7hjUKYH8ENS6BtfvXl0xT1",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Settings",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/portals/Community/pSet",
+          "driveId": "b!DaS-7K7IAka3DLvNGyn7SIXOmMsePqFKrx4vcozXBl4q0eDG-rNLRo4V5N7mVN95",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 42,
+      "name": "hub",
+      "displayName": "PointPublishing-Hubwebsite",
+      "webUrl": "https://neurealisde.sharepoint.com/portals/hub",
+      "id": "neurealisde.sharepoint.com,961609f4-a520-44ee-9db8-a094e5128b5c,f5ba7974-2602-4358-8bd7-38262e9bfa44",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "AppPages",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/portals/hub/AppPages",
+          "driveId": "b!9AkWliCl7kSduKCU5RKLXHR5uvUCJlhDi9c4Ji6b-kSNOP9O5j6nQIUQvjcQfQSD",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 43,
+      "name": "coJsE0OdIkqu2uEOCncHOeq1TjBiG39Pl8Td9vrs-0Q",
+      "displayName": "Designer",
+      "webUrl": "https://neurealisde.sharepoint.com/contentstorage/coJsE0OdIkqu2uEOCncHOeq1TjBiG39Pl8Td9vrs-0Q",
+      "id": "neurealisde.sharepoint.com,0a6b6a3c-b7f8-4469-972d-d5bd5fffe59d,64124747-1c74-4fd4-a0a6-9ac9bce3754f",
+      "drives": 0,
+      "usedGB": "N/A",
+      "usedPercent": "N/A",
+      "driveDetails": []
+    },
+    {
+      "nr": 44,
+      "name": "neurealis-HuH-Abstimmungneurealis",
+      "displayName": "neurealis - HuH - Abstimmung neurealis",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-HuH-Abstimmungneurealis",
+      "id": "neurealisde.sharepoint.com,d3d5cfb9-dbb8-4d12-bd28-2fb3ee324eeb,72c8a80c-91ee-440e-93d8-d88a21028f49",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/neurealis-HuH-Abstimmungneurealis/Freigegebene%20Dokumente",
+          "driveId": "b!uc_V07jbEk29KC-z7jJO6wyoyHLukQ5Ek9jYiiECj0k3eJPxLcKhTZW1EUNtQq_I",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 45,
+      "name": "HHneurealis",
+      "displayName": "H&H | neurealis",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/HHneurealis",
+      "id": "neurealisde.sharepoint.com,9720a191-4d40-403c-9c0c-8e715d23000b,7ed92dd9-6f7d-4a40-873c-347026b3623b",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/HHneurealis/Freigegebene%20Dokumente",
+          "driveId": "b!kaEgl0BNPECcDI5xXSMAC9kt2X59b0BKhzw0cCazYjs1lD6IVDUnR61zgz0Ynqu9",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 46,
+      "name": "SabineEinarbeitung",
+      "displayName": "Sabine | Einarbeitung",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/SabineEinarbeitung",
+      "id": "neurealisde.sharepoint.com,90515cf4-af72-492c-b0ab-ddfe77959add,4287e354-de53-4084-8e9a-c3776ef4b824",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/SabineEinarbeitung/Freigegebene%20Dokumente",
+          "driveId": "b!9FxRkHKvLEmwq93-d5Wa3VTjh0JT3oRAjprDd270uCRMkBZGVZn5RLOywPhGf6mq",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 47,
+      "name": "alle",
+      "displayName": "All Company",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/alle",
+      "id": "neurealisde.sharepoint.com,f89f0d26-2f49-497a-8e86-382643d730d4,50f4f5f9-7dbd-40b4-9250-aad7bee71eea",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/alle/Freigegebene%20Dokumente",
+          "driveId": "b!Jg2f-EkvekmOhjgmQ9cw1Pn19FC9fbRAklCq177nHurRtBZBehktToeC4uXH80te",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 48,
+      "name": "contentTypeHub",
+      "displayName": "Teamwebsite",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/contentTypeHub",
+      "id": "neurealisde.sharepoint.com,924fa0c7-0567-42a8-b11f-2cfea4b999fa,2015764b-c135-420e-a514-58ee27635649",
+      "drives": 1,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Dokumente",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/contentTypeHub/Freigegebene%20Dokumente",
+          "driveId": "b!x6BPkmcFqEKxHyz-pLmZ-kt2FSA1wQ5CpRRY7idjVkkMVEdhFyn_Rap8ngGnhs5x",
+          "usedGB": "0.00"
+        }
+      ]
+    },
+    {
+      "nr": 49,
+      "name": "appcatalog",
+      "displayName": "Apps",
+      "webUrl": "https://neurealisde.sharepoint.com/sites/appcatalog",
+      "id": "neurealisde.sharepoint.com,bc0f0df0-e6a3-4bb2-9bc9-6addb080b271,4f5bc1a1-cbf3-4d52-a648-6f85216daa31",
+      "drives": 3,
+      "usedGB": "0.00",
+      "usedPercent": "0.00",
+      "driveDetails": [
+        {
+          "name": "Apps für Office",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/appcatalog/AgaveCatalog",
+          "driveId": "b!8A0PvKPmskubyWrdsICycaHBW0_zy1JNpkhvhSFtqjEPyXOBS0k2T6IKDur5D9Zh",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Apps für SharePoint",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/appcatalog/AppCatalog",
+          "driveId": "b!8A0PvKPmskubyWrdsICycaHBW0_zy1JNpkhvhSFtqjGQvs0dQUPgQqVEVVNebXnX",
+          "usedGB": "0.00"
+        },
+        {
+          "name": "Clientseitige Objekte",
+          "type": "documentLibrary",
+          "webUrl": "https://neurealisde.sharepoint.com/sites/appcatalog/ClientSideAssets",
+          "driveId": "b!8A0PvKPmskubyWrdsICycaHBW0_zy1JNpkhvhSFtqjFSOlIwyokSR4qz1sj2aWZa",
+          "usedGB": "0.00"
+        }
+      ]
+    }
+  ]
+}

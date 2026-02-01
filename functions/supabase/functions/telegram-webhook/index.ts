@@ -573,8 +573,8 @@ const PHASE_LABELS: Record<number, string> = {
 
 // Monday-Spalten für Projekt-Info (GEWERK_SPALTEN ist oben im Monday-API-Bereich definiert)
 const PROJEKT_SPALTEN = {
-  bauleiter: ['people__1', 'FPlQB'],
-  nachunternehmer: ['mirror__1', 'sQkwj'],
+  bl_name: ['people__1', 'FPlQB'],
+  nu_firma: ['mirror__1', 'sQkwj'],
   bv_start: ['date_bvstart', 'f55yA'],
   bv_ende_plan: '25nEy',
   bv_ende_maengelfrei: '7hwYG',
@@ -1982,9 +1982,9 @@ async function openProjekt(chatId: number, projekt: any) {
   const phase = extractPhase(projekt.column_values) || '?';
   const columnValues = projekt.column_values || {};
 
-  // Extrahiere zusätzliche Projekt-Infos aus Monday
-  const bauleiter = extractFieldText(columnValues, ...PROJEKT_SPALTEN.bauleiter) || '-';
-  const nachunternehmer = extractFieldText(columnValues, ...PROJEKT_SPALTEN.nachunternehmer) || '-';
+  // Extrahiere zusätzliche Projekt-Infos aus Monday (Präfix-Konvention: bl_, nu_)
+  const bauleiter = extractFieldText(columnValues, ...PROJEKT_SPALTEN.bl_name) || '-';
+  const nuFirma = extractFieldText(columnValues, ...PROJEKT_SPALTEN.nu_firma) || '-';
   const bvStart = extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0]) !== '-'
     ? extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0])
     : extractDate(columnValues, PROJEKT_SPALTEN.bv_start[1]);
@@ -2021,7 +2021,7 @@ async function openProjekt(chatId: number, projekt: any) {
   infoText += `━━━━━━━━━━━━━━━━━━━━\n`;
   infoText += `📍 Phase: ${phase}\n`;
   infoText += `👷 BL: ${bauleiter}\n`;
-  infoText += `🔧 NU: ${nachunternehmer}\n\n`;
+  infoText += `🔧 NU: ${nuFirma}\n\n`;
   infoText += `📅 Termine:\n`;
   infoText += `   Start: ${bvStart}\n`;
   infoText += `   Ende NU Plan: ${bvEndePlan}\n`;

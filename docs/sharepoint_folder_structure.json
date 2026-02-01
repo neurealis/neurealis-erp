@@ -1,0 +1,2305 @@
+{
+  "generated_at": "2026-02-01T18:04:51.578Z",
+  "total_sites": 12,
+  "depth": 2,
+  "summary": {
+    "total_top_level_folders": 42,
+    "total_subfolders": 365,
+    "sites_overview": [
+      {
+        "name": "Wohnungssanierung",
+        "display_name": "Wohnungssanierung",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung",
+        "folder_count": 1,
+        "subfolder_count": 2
+      },
+      {
+        "name": "Wohnungssanierung-Projekte",
+        "display_name": "Wohnungssanierung-Projekte",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Projekte",
+        "folder_count": 31,
+        "subfolder_count": 229
+      },
+      {
+        "name": "Wohnungssanierung-Kunden",
+        "display_name": "Wohnungssanierung - 10 Kunden",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Kunden",
+        "folder_count": 1,
+        "subfolder_count": 22
+      },
+      {
+        "name": "Wohnungssanierung-Marketing",
+        "display_name": "Wohnungssanierung - 20 Marketing",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Marketing",
+        "folder_count": 1,
+        "subfolder_count": 25
+      },
+      {
+        "name": "Wohnungssanierung-60Operations",
+        "display_name": "Wohnungssanierung - 60 Operations",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-60Operations",
+        "folder_count": 1,
+        "subfolder_count": 15
+      },
+      {
+        "name": "Wohnungssanierung-11Nachunternehmer",
+        "display_name": "Wohnungssanierung - 11 Nachunternehmer",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-11Nachunternehmer",
+        "folder_count": 1,
+        "subfolder_count": 18
+      },
+      {
+        "name": "Wohnungssanierung-15Grohandel",
+        "display_name": "Wohnungssanierung - 15 Großhandel",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-15Grohandel",
+        "folder_count": 1,
+        "subfolder_count": 11
+      },
+      {
+        "name": "Wohnungssanierung-00Vertrieb",
+        "display_name": "Wohnungssanierung - 00 Vertrieb",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-00Vertrieb",
+        "folder_count": 1,
+        "subfolder_count": 5
+      },
+      {
+        "name": "Wohnungssanierung-30Technik",
+        "display_name": "Wohnungssanierung - 30 Technik",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-30Technik",
+        "folder_count": 1,
+        "subfolder_count": 5
+      },
+      {
+        "name": "Wohnungssanierung-Finanzen",
+        "display_name": "Wohnungssanierung - 50 Finanzen",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Finanzen",
+        "folder_count": 1,
+        "subfolder_count": 11
+      },
+      {
+        "name": "Wohnungssanierung-Management",
+        "display_name": "Wohnungssanierung - Management",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Management",
+        "folder_count": 1,
+        "subfolder_count": 12
+      },
+      {
+        "name": "Wohnungssanierung-04Personal",
+        "display_name": "Wohnungssanierung - 04 Personal",
+        "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-04Personal",
+        "folder_count": 1,
+        "subfolder_count": 10
+      }
+    ]
+  },
+  "sites": [
+    {
+      "name": "Wohnungssanierung",
+      "display_name": "Wohnungssanierung",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung",
+      "drive_id": "b!UTrWu9j_-0WcckhLNosnjnF8J4naM0dLpP_uNshhGS-q1dDe2AsgQJC7TZFUZcTJ",
+      "folders": [
+        {
+          "name": "General",
+          "id": "01VBIR76B5TQTA44MWB5DJHHT23KMI23E7",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "2025-05-07 Workshop Differenzierung",
+              "id": "01VBIR76DOF5DH3Y4AQVDKMXRDUQS55IWT",
+              "item_count": 2
+            },
+            {
+              "name": "neurealis - ISO 9001",
+              "id": "01VBIR76G6L47BRCK66VDLZPRTO4OHFAJU",
+              "item_count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-Projekte",
+      "display_name": "Wohnungssanierung-Projekte",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Projekte",
+      "drive_id": "b!AJA2WqVlU0ShRyU7No39N0T4zKXsA3BCnJ5jPgSc7iJVnlF9e4HZQoDJ3gNl6qpI",
+      "folders": [
+        {
+          "name": "00 Quadrat",
+          "id": "01VLEBENFPGMSE7SMTYBAZUONXX47JW6DD",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "ATBS-402 Quadrat - Rheinische Str. 94, Dortmund - DG",
+              "id": "01VLEBENGWTOJLR3H3G5CZTCB4CB5JUEGJ",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-403 Quadrat - Rheinische Str. 94, Dortmund - DG",
+              "id": "01VLEBENFTGNXUAVFKPFBZ3EX3XA6L7OWI",
+              "item_count": 11
+            }
+          ]
+        },
+        {
+          "name": "00 Vorlage",
+          "id": "01VLEBENA4M7FDQUSDNBEZ7BNUH2L7N5KU",
+          "item_count": 15,
+          "subfolders": [
+            {
+              "name": "01 Angebot - SUB",
+              "id": "01VLEBENAKHQWK65ULMVAKZQVE6P6T3PPI",
+              "item_count": 0
+            },
+            {
+              "name": "02 Angebot - Kunde",
+              "id": "01VLEBENFG52CIKFZIKJEIVZOHGHJFQUKA",
+              "item_count": 29
+            },
+            {
+              "name": "03 Auftrag",
+              "id": "01VLEBENGCOZILDRGNOBFL54A375JCVXV7",
+              "item_count": 0
+            },
+            {
+              "name": "04 Anzeige Beginn Sanierung",
+              "id": "01VLEBENGROGMNB6LN6ZFZSJFPEMWWEWRY",
+              "item_count": 0
+            },
+            {
+              "name": "05 Nachträge",
+              "id": "01VLEBENF6GXDYIKXAYRDK362ZD2N34AGR",
+              "item_count": 0
+            },
+            {
+              "name": "06 Rechnung - Kunde",
+              "id": "01VLEBENFSNDNDJ4VSLNEL2JFXMRNPQFPD",
+              "item_count": 3
+            },
+            {
+              "name": "07 Rechnung - SUB",
+              "id": "01VLEBENHQAO4COK6XHBA3BG4HBU64WS7Y",
+              "item_count": 0
+            },
+            {
+              "name": "10 Fotos",
+              "id": "01VLEBENF6RKD7SJRLVRELRHPHMD4V3YX5",
+              "item_count": 7
+            },
+            {
+              "name": "15 Einkauf",
+              "id": "01VLEBENA3AWHNA7HJLNC3KDB6WC4XLJFZ",
+              "item_count": 9
+            },
+            {
+              "name": "20 E-Check",
+              "id": "01VLEBENGI4F46XSCBMJALLKBUOY2FLRJ3",
+              "item_count": 2
+            },
+            {
+              "name": "30 Qualitätssicherung",
+              "id": "01VLEBENFME3IPZW6OEZAYXYXEDODJ373P",
+              "item_count": 6
+            }
+          ]
+        },
+        {
+          "name": "10 _________________",
+          "id": "01VLEBENDNBMQO5SKZXJA3BRLIW3MF5Z5S",
+          "item_count": 0,
+          "subfolders": []
+        },
+        {
+          "name": "10 GWS",
+          "id": "01VLEBENBBUVNQUKTMQBD34T5SO4BR2GM4",
+          "item_count": 41,
+          "subfolders": [
+            {
+              "name": "00 Abgeschlossene Bauvorhaben",
+              "id": "01VLEBENBUW2C74GTDDFEL4S4WLNJO5QJC",
+              "item_count": 27
+            },
+            {
+              "name": "Abgeschlossen",
+              "id": "01VLEBENCIGGDNLXRDERB3AWHCKJPKXRPZ",
+              "item_count": 36
+            },
+            {
+              "name": "ATBS-358 gws - Entenpoth 39 Dortmund - 1.OG mitte",
+              "id": "01VLEBENDN6NV2UJQBIZAYRE3WS6EVJ7NR",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-359 gws - Langer Rüggen 1 Dortmund - EG rechts",
+              "id": "01VLEBENCOLD7LXLQ5ARF33VICZOCW2FLO",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-360 gws - Teutonenstrasse 3 Dortmund - 1.OG rechts",
+              "id": "01VLEBENFMTXPMQ5RGTBDLY6ENBE74SOG5",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-360 gws - Teutonenstrasse 3, Dortmund - 1.OG rechts",
+              "id": "01VLEBENCP735MU75WHRGK5W52YSLWLULR",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-364 gws - Aldinghofer Straße 6 Dortmund - EG rechts",
+              "id": "01VLEBENBIVAE5TQNMQBCI6SQI6L7BUQHV",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-369 gws - Im Heidegrund 3 Dortmund - EG mitte",
+              "id": "01VLEBENCWB7JTEYJR2RH2H5DQ3LF7FGGW",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-369 gws - Im Heidegrund 3, Dortmund - EG mitte",
+              "id": "01VLEBENGQVSJK3SFNJRGZ6LLZL522X5QC",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-374 gws - Seekante 13 , Dortmund - 1.OG links",
+              "id": "01VLEBENDTLX56XGDSIVEL2G3WC7V3OFEO",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-374 gws - Seekante 13 Dortmund - 1.OG links",
+              "id": "01VLEBENA24DAKLPDBY5D2M66GWLE22PUV",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-380 gws - Cimbernstr .35 Dortmund - 1.OG rechts",
+              "id": "01VLEBENBY3NPWPCZ2ANAKFKVGY2Y62VRH",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-380 gws - Cimbernstr .35, Dortmund - 1.OG rechts",
+              "id": "01VLEBENFJTZAVCJVF2FGION23RUGBKS3E",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-393 GWS - Friedrich-Ebert-Straße 3 Dortmund - 1.OG links",
+              "id": "01VLEBENG5WL36C4Y4DFCZXLQWTV4MC4JE",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-393 GWS - Friedrich-Ebert-Straße 3, Dortmund - 1.OG links",
+              "id": "01VLEBENDGL5BXX5JU6RFJG3QCDLR4GNM2",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-394 gws - Hörder Bruch 28 Dortmund - 1.OG rechts",
+              "id": "01VLEBENB7GC4ZKTBER5D33HR66ISS5SJX",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-394 gws - Hörder Bruch 28, Dortmund - 1.OG rechts",
+              "id": "01VLEBEND4YN7BFGMYEVFLXTI35RTEYSXE",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-400 gws - Hörder Semerteichstr.168 , Dortmund - EG rechts mitte",
+              "id": "01VLEBENAGM24VFTXL6VGYPVVREXRMPUID",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-400 gws - Hörder Semerteichstr.168 Dortmund - EG rechts mitte",
+              "id": "01VLEBENGJBEXQDTI7TVHKPQNO722MBTBU",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-406 gws - Hörder Bruch 28 Dortmund - 1.OG rechts",
+              "id": "01VLEBENFWNREEPQBPM5CI6FXT3QODZVCD",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-406 gws - Hörder Bruch 28, Dortmund - 1.OG rechts",
+              "id": "01VLEBENFA2FI5TPNCYBBJW3SSQ42JBRRO",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-419 gws - Hörder Bruch 22-30 - Dortmund - EG",
+              "id": "01VLEBENFFRUJOV4AHFVG3KF66PTIBHYR4",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-421 gws - Cimbernstr. 50 - Dortmund - 2.OG",
+              "id": "01VLEBENEWSNXWA6KMQ5AJ2NTK4QEQZSYP",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-430 gws - Langobardenstrasse 33 - Dortmund - EG mitte",
+              "id": "01VLEBENA65G6D7Q2MGJFZOXPQZ5XO3CL3",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-444 gws - Alfred-Trappen-Str.39 - Dortmund - 2OG links",
+              "id": "01VLEBENCGJGY7GTBAGNE36ZR5TKFOIYWT",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-453 gws - Im Heidegrund 3 - Dortmund - EG links",
+              "id": "01VLEBENGXBLPSBPIGYNB3X7H2D4IKMBRD",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-462 gws - Holzwickeder Straße 52, Dortmund - EG rechts",
+              "id": "01VLEBENAUS3SVJEYNCVBZDBS5JM2FSHWT",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-466 gws - Holzwickeder Straße 52, Dortmund - EG links",
+              "id": "01VLEBENDPZ4XPJOY42NF2KX7AZZM5TTIS",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-467 gws - Unterer Sendweg 2, Dortmund - EG li",
+              "id": "01VLEBENAUPXA64Q2XTZD2ZL4YCNFMSXQH",
+              "item_count": 21
+            }
+          ]
+        },
+        {
+          "name": "12 Covivio",
+          "id": "01VLEBENHQPBPNWAEVRJH32Y2SKGAUV3PR",
+          "item_count": 11,
+          "subfolders": [
+            {
+              "name": "Abgeschlossen",
+              "id": "01VLEBENBLMNC6X2SEFFGYFZBDK6LDX4WB",
+              "item_count": 9
+            },
+            {
+              "name": "ATBS-385 covivio - Wolbeckstr.9, Essen - 2OG 1.v.l",
+              "id": "01VLEBENCLPECXLJCXZREZUVDOWDZZFWWA",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-386 covivio - Herbertshof 7, Essen - 2OG 2 v.l",
+              "id": "01VLEBENH2WFTTE5CKVNAJHENAS47WPKLP",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-387 covivio - Kreitenstraße 14, Düsseldorf - 1.OG rechts",
+              "id": "01VLEBENHHXUUPZUK375HKSHUIGCLVXWCJ",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-390 covivio - Leimgardtsfeld 21, Essen - EG 1_Einheit v_l_",
+              "id": "01VLEBENBR7S655IUBOBEKCUTOZANMJQR3",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-414 covivio - Hiesfelderstr.25 - Oberhausen - EG links",
+              "id": "01VLEBENDBNQAOWYR3P5HZGBNNJDMQD76X",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-433 covivio - Hansaallee 348a - Düsseldorf - 1. Einh.v.links",
+              "id": "01VLEBENHY2NXADPVJ2FB3G2FNNDC4MNXS",
+              "item_count": 16
+            },
+            {
+              "name": "ATBS-434 covivio - Rudolf-Heinrich-Str.10 - Essen - 3 OG",
+              "id": "01VLEBENCPOELB7EKHNVF2MTOUODGNKOHG",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-436 covivio - Oberer Schloßhang 1 - Essen - 1.OG links",
+              "id": "01VLEBENFEFMOO4A3IBFHYYKG4IBPU744Y",
+              "item_count": 15
+            }
+          ]
+        },
+        {
+          "name": "13 Forte Capital",
+          "id": "01VLEBENGKPRJ4ONVKBNHYULSP2FZYRP2B",
+          "item_count": 22,
+          "subfolders": [
+            {
+              "name": "2024-09 Forte - 2x WE Duisburg - Testwohnungen komplett",
+              "id": "01VLEBENFG4QYKXBLMFNC3OUHAQNN3HHS7",
+              "item_count": 16
+            },
+            {
+              "name": "2024-11 Forte Capital - Bruchstr 74, Mülheim - 2. OG links",
+              "id": "01VLEBENBTABP4M55B3BA35GQFNL47G4CP",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Bruchstr 74, Mülheim - 2. OG Mitte",
+              "id": "01VLEBENG5JICGU74LI5A2BMJ2SY36FRVT",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Kaiserswerther Str. 120, Duisburg, EG ME4",
+              "id": "01VLEBEND5JI6QZ4W7JZFZO5DOY4PE67WH",
+              "item_count": 11
+            },
+            {
+              "name": "2024-11 Forte Capital - Kaiserswerther Str. 120, Duisburg, EG ME5",
+              "id": "01VLEBENDGOVSDADYGD5FJE4PKWD5AVZLG",
+              "item_count": 11
+            },
+            {
+              "name": "2024-11 Forte Capital - Muhrenkamp 105 Muehlheim - 2OG",
+              "id": "01VLEBENFIGV2WCZRACVFK44GDWOZP4BJJ",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Muhrenkamp 105 Muehlheim - 3OG",
+              "id": "01VLEBENB3LQ7HN4Y6FZH2VCFF7W3FMUX6",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Muhrenkamp 105, Mühlheim - UG",
+              "id": "01VLEBENCMI5J24BGAZNGITFQFEVVD4UIR",
+              "item_count": 0
+            },
+            {
+              "name": "2024-11 Forte Capital - Neuplatz 37, Remscheid - EG links",
+              "id": "01VLEBENCPGVWSXCL7RRBKFC4VYNMCRIXL",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Neuplatz 39, Remscheid - DG",
+              "id": "01VLEBENEIEOLSEH55W5G3ZW7JU5CXOAZT",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Neuplatz 39, Remscheid - Souterrain links",
+              "id": "01VLEBENEGDZVBOVHX5RAILTJOV377IVUE",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Neuplatz 39, Remscheid - UG",
+              "id": "01VLEBENHNZAENWUZBDFCK6OWVE6JZWSRB",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Saarner Str. 140, Mülheim - 3. OG",
+              "id": "01VLEBENAN26DBIK2WQ5DJBO3M67R6XSCF",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Teststr 123 Bochum - 12OG mitte",
+              "id": "01VLEBENEZFZFBGN46JJH33CIRZF6HBWDE",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 Forte Capital - Tiergartenstr. 265, Wuppertal - 3.OG rechts",
+              "id": "01VLEBENHH2WVKA7Q6NBFI7A44DNODRD4Z",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11-05 WE November - Remscheid Mühlheim Wuppertal",
+              "id": "01VLEBENH554ENTLIRG5F3NC3NMQ3UIUVN",
+              "item_count": 1
+            },
+            {
+              "name": "ATBS-223 Forte Capital - Muhrenkamp 105 Mülheim - 2OG",
+              "id": "01VLEBENDZG4Z62SWBW5GZJCDJIFKKWRZG",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-224 Forte Capital - Muhrenkamp 105 Mülheim - 3OG",
+              "id": "01VLEBENDVIEYN6JI53VB37RSA4B65UT5Y",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-225 Forte Capital - Muhrenkamp 105, Mülheim - UG",
+              "id": "01VLEBENGHQTNEPBFSXNCYWRII3ZPE4JQ4",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-242 Forte Capital - Tiergartenstr. 265, Wuppertal - 3. OG rechts",
+              "id": "01VLEBENA5JPJ6VP7JZZBZD37OHVMZA7D7",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-257 Forte Capital - Teststr 123 Bochum - 12OG Mitte",
+              "id": "01VLEBENAZNFARLCVBPFALMON6T4RGI2Z4",
+              "item_count": 14
+            }
+          ]
+        },
+        {
+          "name": "14 DIM",
+          "id": "01VLEBENCW3HXJUJ3GPNA2DI2COIL4A3UI",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "2024-11 DIM - Duesterstr 7 Dortmund - 1OG",
+              "id": "01VLEBENHBMQDZCTLKNFGIY7E25NR4YNQS",
+              "item_count": 14
+            },
+            {
+              "name": "2024-11 DIM - Duesterstr 7 Dortmund - 2OG rechts",
+              "id": "01VLEBENFAO6V6PY56OZBITCX3ZTOWRQXZ",
+              "item_count": 14
+            }
+          ]
+        },
+        {
+          "name": "15 vonovia",
+          "id": "01VLEBENEUBOLTDUBBNFALN2GBFZUWTG4S",
+          "item_count": 4,
+          "subfolders": [
+            {
+              "name": "Abgeschlossen",
+              "id": "01VLEBENFUSUVSBNFZZ5GZWIHPRUXQJU3J",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-429 vonovia - Im Hudegrund 1 - Iserlohn - 3.OG links",
+              "id": "01VLEBENADJURCNGW4A5BINJMNAYP5BY5C",
+              "item_count": 16
+            },
+            {
+              "name": "ATBS-441 vonovia - Zur Sonnenhöhe 97 - Iserlohn - 2.OG rechts",
+              "id": "01VLEBENAUGMFUZLDAU5FI2VF6XRDVM5VE",
+              "item_count": 15
+            },
+            {
+              "name": "Mängel",
+              "id": "01VLEBENDXTDDG2IYYMBGKI5MACBGSCOXK",
+              "item_count": 1
+            }
+          ]
+        },
+        {
+          "name": "16 VBW",
+          "id": "01VLEBENHIKX2CZQ3IKJH2VFYPWESIYON7",
+          "item_count": 18,
+          "subfolders": [
+            {
+              "name": "Abgeschlossen",
+              "id": "01VLEBENBBFULMZE4D4NHZRWLAKF45T7FH",
+              "item_count": 24
+            },
+            {
+              "name": "ATBS-405 VBW - Lerchenweg 14 Bochum - EG links",
+              "id": "01VLEBENFGWQSS4XC3VNFKJJZTUULYO6RJ",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-417 VBW - Unterstr. 167 - Bochum - 2.OG rechts",
+              "id": "01VLEBENC5V3VX6U7XMJD22RFQKQ3NS45O",
+              "item_count": 16
+            },
+            {
+              "name": "ATBS-418 VBW - Rosenbergstr. 11 - Bochum - 1.OG Mitte",
+              "id": "01VLEBENGRCFJ7NT7AXJHZXFDHDOF47VEJ",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-422 VBW - Hirschgraben 9 - Bochum - 1.OG rechts",
+              "id": "01VLEBENHWO5FDLFA56NFILM72SB4MXQZL",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-432 VBW - Schulenburgstr. 25 - Bochum - EG rechts",
+              "id": "01VLEBENC42WHGJ65UYFHZHAXCJYGR2OAH",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-440 VBW - Havelstr. 6 - Bochum - 2.OG limks",
+              "id": "01VLEBENG75RC3IVKF6FA36Q7KAHNJF5XO",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-442 VBW - In der Delle 6 - Bochum - 1.OG links",
+              "id": "01VLEBENEXK3X4BK7RVJCKO5PWGTLWMCG3",
+              "item_count": 22
+            },
+            {
+              "name": "ATBS-445 VBW - Kulmerstr. 11 - Bochum - 1. OG",
+              "id": "01VLEBENCS6A76MOLYURCKMVPWMFV2AELO",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-446 VBW - Kleffstr. 8 - Bochum - 1. OG mitte",
+              "id": "01VLEBENH7KLU3RCEFHJFZ2LBKQ6RWOC6X",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-447 VBW - Heuweg 1 - Bochum - EG rechts",
+              "id": "01VLEBENGZ5MXAGFJTQVGLFDHTGI4TXA7G",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-448 VBW - Händelstr. 22 - Bochum - 2. OG links",
+              "id": "01VLEBENEFDPY4GVUJANH2HXZCWQ6L6ZDU",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-449 VBW - Kulmerstr. 23 - bOCHUM - 5. OG rechts",
+              "id": "01VLEBENEE2UANWH2L7FGJVL5PRDPRFEW7",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-457 VBW - Wirmerstraße 28 - Bochum - Asbest LV",
+              "id": "01VLEBENDVR7HQBXJFYBDKD6XTHVEPPTZ6",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-468 VBW - Werner Hellweg 114, Bochum - 3. OG links",
+              "id": "01VLEBENFPGPZWC7B54NDYC7OQHPVB3ZJ2",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-469 VBW - Werner Hellweg 94, Bochum - 5. OG",
+              "id": "01VLEBENA3M5SNQWNLHBAK4BI62KGEIBQQ",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-470 VBW - Werner Hellweg 94, Bochum - 3. OG",
+              "id": "01VLEBENCD2VZXDIHMNRBZIRU3EF3BGNW7",
+              "item_count": 18
+            },
+            {
+              "name": "Neue Aufträge",
+              "id": "01VLEBENHZEW7Y5IDZARCK6RF776CAVYZ6",
+              "item_count": 6
+            }
+          ]
+        },
+        {
+          "name": "17 Allbau",
+          "id": "01VLEBENCU5DZPHD2QUBHJA5UQXXIHAR22",
+          "item_count": 1,
+          "subfolders": [
+            {
+              "name": "ATBS-322- Unterlagen Ausschreibung, Dortmund - Test",
+              "id": "01VLEBENACGDFQ3OGX7ZE3IYIRDE5PLNZS",
+              "item_count": 14
+            }
+          ]
+        },
+        {
+          "name": "18 WBG Lünen",
+          "id": "01VLEBENG3HVG2ZLJCBJHZO3FZF4NLSS6F",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "ATBS-321 WBG - Veilchenweg 6, Lünen - EG",
+              "id": "01VLEBENEFC2YG67MQ6JBKUHFMR6OG35W7",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-437 WBG - Veilchenweg 1 - Lünen - 3OG links",
+              "id": "01VLEBENC2R6NC7F44SZEICT3YYXCRF7AK",
+              "item_count": 15
+            }
+          ]
+        },
+        {
+          "name": "19 WVB Centuria",
+          "id": "01VLEBENC6ZJWBNWFUG5EY4R6ZAZSIY5G3",
+          "item_count": 3,
+          "subfolders": [
+            {
+              "name": "ATBS-330 WVB Centuria - Kämpchenstr. 1, Mülheim an der Ruhr - 4.OG links",
+              "id": "01VLEBENG6YLFKFNIXPFFKIBRCVGGWAFT2",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-345 WVB Centuria - Stettiner Str. 25, Krefeld - 4.OG rechts",
+              "id": "01VLEBENF5KAMMNZPUGNBL2BSWHJ3QYZU3",
+              "item_count": 14
+            }
+          ]
+        },
+        {
+          "name": "20 Freundlieb",
+          "id": "01VLEBENAOSJKMRX6CWVEZ5L63CRL2O7QC",
+          "item_count": 1,
+          "subfolders": [
+            {
+              "name": "2025-07-04 Essen - Trockenbau - Ruhrallee 307",
+              "id": "01VLEBEND2FS7N4HVPTJDKHF3SWKX6FDQF",
+              "item_count": 6
+            }
+          ]
+        },
+        {
+          "name": "21 Quadrat",
+          "id": "01VLEBENBM4VF5C3WWGJHZPI6DWWFDBIUM",
+          "item_count": 3,
+          "subfolders": [
+            {
+              "name": "ATBS-403 Quadrat - Rheinische Str. 94 Dortmund - DG",
+              "id": "01VLEBENEMCMYI7FWXQ5HZWE6LCSRDCGUM",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-412 Quadrat - Goethestr. 3 - Wetter - EG rechts",
+              "id": "01VLEBENBGOSY3MWEDHVGKY7GJ64F3DTEX",
+              "item_count": 17
+            },
+            {
+              "name": "Rheinische Str 94",
+              "id": "01VLEBENBSR2FBD2PM4JG3Y4ICOGQD5G7L",
+              "item_count": 0
+            }
+          ]
+        },
+        {
+          "name": "22 Stadtimmobilien Ruhrgebiet",
+          "id": "01VLEBENH2WTC7FBA2GVC2GVBVYIWTT7XN",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "ATBS-404 Stadtimmobilien Ruhrgebiet - Münzstraße 30 Duisburg - Muster",
+              "id": "01VLEBENH37NJILY7PZVCL2WCR7XSFE7IG",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-404 Stadtimmobilien Ruhrgebiet - Münzstraße 30, Duisburg - Muster",
+              "id": "01VLEBENFA7QTNOWWODNFZAB6VACQ5MLIX",
+              "item_count": 11
+            }
+          ]
+        },
+        {
+          "name": "23 ISRichter",
+          "id": "01VLEBENAT3OATRZHCHZF3METBRBDMN57R",
+          "item_count": 2,
+          "subfolders": [
+            {
+              "name": "ATBS-411 ISRichter - Hainallee 6, Dortmund - 1. OG",
+              "id": "01VLEBENGNAX6LCQR5BBE23URWZYWP7XKL",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-452 ISRichter - Hainallee 6 - Dortmund - EG",
+              "id": "01VLEBENG3MVZ6GUBNARH3QO72WVSVFQ3S",
+              "item_count": 15
+            }
+          ]
+        },
+        {
+          "name": "50 _________________",
+          "id": "01VLEBENGSGCGFJK5RL5F3TPJKLM2NY5OS",
+          "item_count": 0,
+          "subfolders": []
+        },
+        {
+          "name": "50 Privat",
+          "id": "01VLEBENDB4P2KUIG6UBB37FJCOMXPZWKW",
+          "item_count": 26,
+          "subfolders": [
+            {
+              "name": "00 abgeschlossen",
+              "id": "01VLEBENFXT2WI47KU7RDL2DQ25CK74ZVE",
+              "item_count": 25
+            },
+            {
+              "name": "2024-11 Holger Neumann - Steinstr 25 Dortmund - 2 OG links TEST",
+              "id": "01VLEBENCTLRUKH3PKNRFL3D3OKTXOZZE5",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-283 Holger - Werner Hellweg 500 Bochum - 2.OG",
+              "id": "01VLEBENDLNZ2PKJEWHRE2PNTMQFRRUJZP",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-299 Holger - Robertstraße 30 - DG rechts",
+              "id": "01VLEBENBXJ44IY2BR7BFYEQY3OU37Z2YR",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-303 privat - Jansen,Bruktererweg 6, Wulfen, 2OG",
+              "id": "01VLEBENHUAJLYMRBJQNALYMX6UD7UROLU",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-307 Privat - Glückaufstraße 10 Kamen - DG",
+              "id": "01VLEBENHHEUUR4FWN4BC3LE5IXASZFSYL",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-338 privat - Michaelstraße 18, Essen - DG",
+              "id": "01VLEBENH2PO5BBP3IRBBLSRFCRQHWKXNW",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-371 Privat - Niesenstrasse 2, Unna  - 3.OG rechts",
+              "id": "01VLEBENHBNDJBHYWHBNH2PCRSECRHE2NU",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-398 Privat - Benninghofer Str. 144 Dortmund - 1.OG links",
+              "id": "01VLEBENGWU2LUMXGR3JHLE7SFLVH2ZX4C",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-398 Privat - Benninghofer Str. 144, Dortmund - 1.OG links",
+              "id": "01VLEBENHWIIQL54XIIRDYOB42S4QOSQJJ",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-413 Privat - Metzgerstr.6 - Dortmund - EG,DG",
+              "id": "01VLEBENBLRN2P54ADUJHZHQOVAOG5O4R4",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-420 privat - Bruktererweg 6 - Dorsten - 3FH",
+              "id": "01VLEBENFZ7AGIHXD6MRE3JXUK4TFDRU3L",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-424 privat - Werner Hellweg 500 - Bochum - DG links",
+              "id": "01VLEBENGHGIP37Q2JUBDLX2X245S3ML5J",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-438 Privat - Asselner Hellweg 174 - Dortmund - 1. OG rechts",
+              "id": "01VLEBENAUWLZZ2UYNGJBLLLCYMTAO5GOD",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-439 Privat - Oberstraße 46 - Bochum - EG",
+              "id": "01VLEBENGL5RAUEYTFD5AIWTV35FVLH2IA",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-450 Privat - Gaudigstr. 15 - Dortmund - RMH",
+              "id": "01VLEBENHRVGC3KK3UHVAZECULQZSGCEMQ",
+              "item_count": 26
+            },
+            {
+              "name": "ATBS-454 Privat - Simrockstraße 92 - Düsseldorf - EG",
+              "id": "01VLEBENH7SJ645B5BZRB3PUMTI7OR5ZJ4",
+              "item_count": 21
+            },
+            {
+              "name": "ATBS-456 privat - Kleyer Weg 40 - Dortmund - Test",
+              "id": "01VLEBENEPJEMZOVVN7BBYIMS4Q3CAJ5MT",
+              "item_count": 22
+            },
+            {
+              "name": "ATBS-459 Schreberstraße 55 - Herne - 2. OG",
+              "id": "01VLEBENFSBY6DZDFQI5G33KESE7ITVBHM",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-460 Davidisstraße 7 - Dortmund - 2. OG",
+              "id": "01VLEBENHOMNN3HYSUHJDYW7Z2L3W3KX66",
+              "item_count": 19
+            },
+            {
+              "name": "ATBS-461 Gerhart-Hauptmann-Straße 2 - Kamen - DHH",
+              "id": "01VLEBENAD7UA762J77JH2AWNDVWYOZDFD",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-463 privat - Steinstr. 25, Essen - 2. OG",
+              "id": "01VLEBENBYEAXU5KXETFC3LZ27HJCBEGF6",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-464 privat - Steinstr. 25, Essen - EG",
+              "id": "01VLEBENG6YMIA2JSIWZHYC65FEPKMFXXQ",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-465 privat - Michaelstr. 18, Essen - 1. OG",
+              "id": "01VLEBENHQZU6QHQMNQ5DKX7TKCWB4HRPP",
+              "item_count": 18
+            },
+            {
+              "name": "ATBS-471 privat - Carolyn Petersen  - An der Kohlenbahn 38, Wetter - DG",
+              "id": "01VLEBENCV4MET72HE4ZFYO3BCNE4TEVZU",
+              "item_count": 21
+            },
+            {
+              "name": "ATBS-474 Carolyn Petersen - An der Kohlenbahn 38, Wetter - DG",
+              "id": "01VLEBENF3XAIBL3MDBNH3JVPH7GNR4TXF",
+              "item_count": 18
+            }
+          ]
+        },
+        {
+          "name": "51 Holger",
+          "id": "01VLEBENCVA7PMJEOFX5CZ2NGXRWNETR4B",
+          "item_count": 8,
+          "subfolders": [
+            {
+              "name": "2024-10 Holger Neumann - Steinstr. 25 - EG links",
+              "id": "01VLEBENHRQNZD6UAI5JDIWNZJSHENRHO6",
+              "item_count": 14
+            },
+            {
+              "name": "ATBS-200 neurealis residential - Schildstr 7 - Gewerbe",
+              "id": "01VLEBENGOCRG6PYABCFDY537XF2XG7V2Q",
+              "item_count": 10
+            },
+            {
+              "name": "Michaelstr. 18, Esse, DG Mieter Blum",
+              "id": "01VLEBENAVLMXXPV32FZG2Q5U2FGS4AATR",
+              "item_count": 43
+            },
+            {
+              "name": "Robertstr. 30, Hamm DG rechts",
+              "id": "01VLEBENBDBRHT3L4BCZHKWDSOWUOOTSBP",
+              "item_count": 18
+            },
+            {
+              "name": "Robertstraße 30-40, Hamm",
+              "id": "01VLEBENHVEWQOY3LJUVGZNWIHCFPSQGLB",
+              "item_count": 7
+            },
+            {
+              "name": "Steinstr. 25, Essen, EG, links",
+              "id": "01VLEBENCETS25Z5WXQBAIEJWM7KVWF3TA",
+              "item_count": 21
+            },
+            {
+              "name": "Vogelsaue 31, Wuppertal",
+              "id": "01VLEBENAC3OWLXDHY7VFJVPWRLE2OBF2B",
+              "item_count": 1
+            },
+            {
+              "name": "Werner Hellweg",
+              "id": "01VLEBENHIMVFADYB2NFFLYGAUX5YKGUGI",
+              "item_count": 2
+            }
+          ]
+        },
+        {
+          "name": "52 neurealis",
+          "id": "01VLEBENBN2M67IAFDZRGLOGKPIQR3PSIH",
+          "item_count": 4,
+          "subfolders": [
+            {
+              "name": "ATBS-351 neurealis - Kleyer Weg 40, Dortmund - 1.OG",
+              "id": "01VLEBENDKFRUHTU2UEFCK7JVQGQW2KADQ",
+              "item_count": 13
+            },
+            {
+              "name": "ATBS-357 neurealis - Robertstraße 30, Hamm - 2.OG rechts",
+              "id": "01VLEBENFVL46PAIEAVVAK5N25YAIP4NAP",
+              "item_count": 16
+            },
+            {
+              "name": "ATBS-451 neurealis - Robertstraße 38 - Hamm - 2.OG li",
+              "id": "01VLEBENFRSRVJ32BAYNDYX2MUUB7M3FED",
+              "item_count": 17
+            },
+            {
+              "name": "ATBS-458 neurealis - Robertstr 34 - Hamm - 1. OG rechts",
+              "id": "01VLEBEND62PS6276ZXZEYA5ZC5RZ4ZJ3Q",
+              "item_count": 17
+            }
+          ]
+        },
+        {
+          "name": "59 _________________",
+          "id": "01VLEBENGLOPKRQ42JYJEYXSAEGYDCS7X6",
+          "item_count": 0,
+          "subfolders": []
+        },
+        {
+          "name": "60 Nachunternehmer",
+          "id": "01VLEBENBE2DPMH5I5R5DJM5F3XCHDIELH",
+          "item_count": 18,
+          "subfolders": [
+            {
+              "name": "_ alt",
+              "id": "01VLEBENHEOP4ADODKAJHJXFNXY2EAZ7M4",
+              "item_count": 14
+            },
+            {
+              "name": "00 Vorlagen für Nachunternehmer",
+              "id": "01VLEBENHQYNJR6F3O5ZFZA53MCPXMW2GW",
+              "item_count": 2
+            },
+            {
+              "name": "08 Leistungsverzeichnisse für NUs",
+              "id": "01VLEBENCIHG6PVBBY3FALGQLK2SIQ3EME",
+              "item_count": 10
+            },
+            {
+              "name": "09 Leistungsverzeichniss - neurealis",
+              "id": "01VLEBENAUYQDFZUG4IRDJKJ6KYXGKJA5W",
+              "item_count": 1
+            },
+            {
+              "name": "10 Verträge Nachunternehmer",
+              "id": "01VLEBENC47BLD4LFSVFAIPAYMFPMQC4Y4",
+              "item_count": 4
+            },
+            {
+              "name": "alt",
+              "id": "01VLEBENGDIOLYO4LLTBHIETBRYJMLLC5I",
+              "item_count": 11
+            },
+            {
+              "name": "Bochumer Baugesellschaft mbH",
+              "id": "01VLEBENBSYKLRGMBVUJEIDNGL6OEJCDJL",
+              "item_count": 4
+            },
+            {
+              "name": "Elektrik - Wladimir Kusnezow",
+              "id": "01VLEBENBAQYVSYZ33A5FYGNIACCZFQBQH",
+              "item_count": 1
+            },
+            {
+              "name": "Fliese - Peter Horbach",
+              "id": "01VLEBENDA4EB2OAOQR5ELOWLJ7QQIFFHV",
+              "item_count": 2
+            },
+            {
+              "name": "Komplett - Damian Kupczak GEMO NRW",
+              "id": "01VLEBENGSKBKK74PUWBALTNPFD4VMTYXU",
+              "item_count": 6
+            },
+            {
+              "name": "Komplett - TOP Handwerker",
+              "id": "01VLEBENANWPS7FXJOFNC22TZQ42NFNSSU",
+              "item_count": 15
+            },
+            {
+              "name": "Komplett - Vitazem Bau - Vitali Balan",
+              "id": "01VLEBENGMH3ATFA3Q4RAJZMC46PN5QXCI",
+              "item_count": 6
+            },
+            {
+              "name": "Komplett - Zengoski (ggf anfragen)",
+              "id": "01VLEBENH5N5RRZQTYKFFIKIKDJQUGK4QG",
+              "item_count": 1
+            },
+            {
+              "name": "Reinigung - RP Gebäudereinigung",
+              "id": "01VLEBENGYYCRESCQC2VDZULTQLKXFXYEJ",
+              "item_count": 4
+            },
+            {
+              "name": "SHK - Tristan Schuh",
+              "id": "01VLEBENEUUV2EDQ3Y55GIPBXYWIJ4D7L7",
+              "item_count": 0
+            },
+            {
+              "name": "SHK - Vlado Drincic Haustechnik e. K",
+              "id": "01VLEBENCDNNIJWAGD4ZH2KQKGACHQ237U",
+              "item_count": 4
+            },
+            {
+              "name": "Weich - Antonio Pepe",
+              "id": "01VLEBENEIFLS3M74O6FC3T24JXDHXWSBY",
+              "item_count": 5
+            },
+            {
+              "name": "Weich - Jurislav Knezevic",
+              "id": "01VLEBENDJDFAF2F23VZEII7AV3V3K7AGK",
+              "item_count": 2
+            }
+          ]
+        },
+        {
+          "name": "61 Abgeschlossen",
+          "id": "01VLEBENFJHQZ27HEBS5G3DTHPSGRMR5GR",
+          "item_count": 37,
+          "subfolders": [
+            {
+              "name": "2023-06 Im Heidegrund 5, DO - Testwohnung",
+              "id": "01VLEBENGSNGAFF3FWVNH3PHFR3NPOQDBV",
+              "item_count": 9
+            },
+            {
+              "name": "2023-07 Höfkerstraße 49, 44149 Dortmund  2. OG links - Testwohnung 2",
+              "id": "01VLEBENC4OP7DRH2WU5B3PCE7VF77MEYT",
+              "item_count": 12
+            },
+            {
+              "name": "2023-08 Friedrich Ebert Str. 1 - 2, OG links",
+              "id": "01VLEBENEZTX44UYK3VJGLD4DZLHEEKS5Z",
+              "item_count": 9
+            },
+            {
+              "name": "2023-11 Friedrich Ebert Str. 1 - 4. OG links",
+              "id": "01VLEBENDHHLDSHVIKHFA2SXH7VQKPU53Q",
+              "item_count": 12
+            },
+            {
+              "name": "2023-11 Vorhölterstr. 5 - 3. OG mitte",
+              "id": "01VLEBENCZ46UANU4KD5B2SQ25YFEKTCZ3",
+              "item_count": 16
+            },
+            {
+              "name": "2024-01 Clarenberg 2 - 1. OG links",
+              "id": "01VLEBENHOA2EHAOUIQ5BK43JJ2CMB73H4",
+              "item_count": 14
+            },
+            {
+              "name": "2024-01 Clarenberg 2 - 1. OG rechts",
+              "id": "01VLEBENEOWD3H6NI6HVAJZM6VXYMBBPOJ",
+              "item_count": 12
+            },
+            {
+              "name": "2024-01 Clarenberg 5 - 3. OG",
+              "id": "01VLEBENFX7YU6TYKLVRDKEVX4VSAWZMQJ",
+              "item_count": 13
+            },
+            {
+              "name": "2024-01 Eleonorestr. 4 - 3. OG links",
+              "id": "01VLEBENEMNZBUNOWDDNE2TQIAT2ZRUB56",
+              "item_count": 13
+            },
+            {
+              "name": "2024-01 Hörder Semerteichstraße 166 - 2. OG links",
+              "id": "01VLEBENF5P4PP7B5PZBGYZ2RW6SOGRFPG",
+              "item_count": 15
+            },
+            {
+              "name": "2024-01 Hörder Semerteichstraße 166 - 2. OG links - UNVOLLSTÄNDIG",
+              "id": "01VLEBENGLEMKDKBSIFFEICDX3WTNDV34T",
+              "item_count": 13
+            },
+            {
+              "name": "2024-02 Niederhofener Str. 37 - EG links 8_37_17",
+              "id": "01VLEBENBUWWSSR4GCDBGIAXVSLBPKOTCH",
+              "item_count": 15
+            },
+            {
+              "name": "2024-02 Teutonenstr. 2 - 1. OG links",
+              "id": "01VLEBENE73OALB4UY5VG3UIM7KH3WRN24",
+              "item_count": 19
+            },
+            {
+              "name": "2024-04 Bollwerkstr. 9 - EG rechts hinten",
+              "id": "01VLEBENC46UNXVF2S45A3JPSM3SEQCQ5C",
+              "item_count": 12
+            },
+            {
+              "name": "2024-04 gws - Hörder Bruch 49 - EG rechts",
+              "id": "01VLEBENBSLUQKBQ3MCJA2RKQWMOHQT7IH",
+              "item_count": 15
+            },
+            {
+              "name": "2024-04 gws - Seekante 13 - 3. OG rechts mitte",
+              "id": "01VLEBENCYBKPSHQEGKVG2OVMWLQQ6I2KJ",
+              "item_count": 15
+            },
+            {
+              "name": "2024-04 Reiner-Daelen-Straße 9 - 1. OG links - 21939",
+              "id": "01VLEBENCB2F2ILBZHL5F25BFDJ6KRQLV3",
+              "item_count": 15
+            },
+            {
+              "name": "2024-05 Bach - Friedensstr. 29 Schwerte - 2.OG links",
+              "id": "01VLEBENCLW3ZVSZB6VBH3YUATUJ4KM7G2",
+              "item_count": 11
+            },
+            {
+              "name": "2024-05 gws - Niederhofener Str- 44 - EG rechts",
+              "id": "01VLEBENDZPT4QLI4QPVAYXSRFLRSPPRIF",
+              "item_count": 10
+            },
+            {
+              "name": "2024-05 gws - Nortkirchenstr. 4 - 1.OG rechts-mitte",
+              "id": "01VLEBENERWV5JWRYAQBD23W4ZKJMHENU4",
+              "item_count": 11
+            },
+            {
+              "name": "2024-06 Jonathan Reich - Dürener Str. 17 - EG",
+              "id": "01VLEBENGQKUEHJGPKNNF33HUGODW432XF",
+              "item_count": 19
+            },
+            {
+              "name": "2024-07 gws - Bruktererstr. 7 - EG links",
+              "id": "01VLEBENFWAT3M7ZPSQZFJ6RHH5ZSCJFEO",
+              "item_count": 11
+            },
+            {
+              "name": "2024-07 gws - Galoppstr. 22 - 1. OG rechts",
+              "id": "01VLEBENDU57OOFHIMVNDIJ3MQP6MMJ37I",
+              "item_count": 12
+            },
+            {
+              "name": "2024-07 gws - Hörder Rathausstr. 32 - 2.OG links hinten",
+              "id": "01VLEBENGXRUWFZGIIDZDLOIE4RRTRME4Q",
+              "item_count": 11
+            },
+            {
+              "name": "2024-07 gws - Hörder Semerteichstr. 182 3.OG rechts",
+              "id": "01VLEBENC467HTIIXM4VFLB7NF3DECU3JD",
+              "item_count": 10
+            },
+            {
+              "name": "2024-07 gws - Nortkirchenstr. 2 - 3. OG rechts hinten",
+              "id": "01VLEBENA77K7RL7PAXBBIFUUCGNG2YBXF",
+              "item_count": 11
+            },
+            {
+              "name": "2024-08 gws - Nortkirchenstr. 4 - 4. OG links mitte",
+              "id": "01VLEBENEMREVZEA3CXZDKUFY4EPIA2K2R",
+              "item_count": 11
+            },
+            {
+              "name": "2024-09 gws - Hörder Semerteichstr. 182 - 1.OG rechts",
+              "id": "01VLEBENFTO25XXDADWBAIJW2LOBFJ2F3U",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-284 Covivio - Köstersfeld 54 Oberhausen - EG 1vl",
+              "id": "01VLEBENFSS47VWPDXBZAYSTSCGVYGZYIB",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-285 Covivio - Leimgardtsfeld 27 45355 Essen - 2OG 1vl",
+              "id": "01VLEBENFOTP6AXFTRNZA2466BMFV7FHDC",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-304 vonovia - Gustavstr. 10 Essen - 1.OG rechts",
+              "id": "01VLEBENHKJGT53CWGZRC22CDPGOIIEHZ4",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-317 vonovia - Drostenhof 13, Essen - 3.OG rechts",
+              "id": "01VLEBENF6ISXTSP6ZNRHZMGZVCYWLFT2C",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-325 WVB Centuria - Tiergartenstraße 267, Wuppertal - 1.OG rechts",
+              "id": "01VLEBENAUQKFZL5P2XJBKJ53RCT56AJRU",
+              "item_count": 15
+            },
+            {
+              "name": "ATBS-328 vonovia - Weserstraße 67, Essen - 2OG links",
+              "id": "01VLEBENGJQHP5JKGE4FAJ5FYXRUPUNOLB",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-339 vonovia - Weiglestraße 57, Essen - 1.OG links",
+              "id": "01VLEBENED6K6TPNC5IZDKDICRXYWAQAKP",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-346 covivio - Am Ringofen 2 , Essen - 1.OG",
+              "id": "01VLEBENGE74PL6OAGUNDYOPSCWICEQVMB",
+              "item_count": 11
+            },
+            {
+              "name": "ATBS-347 covivio - Bischof-Franz-Wolf Str.34, Essen - EG",
+              "id": "01VLEBENGL3UVZUL3MWVBLG6IJXKOGHE3O",
+              "item_count": 11
+            }
+          ]
+        },
+        {
+          "name": "62 Auftrag nicht erhalten",
+          "id": "01VLEBENAE6Q2BCGCM5NEL2RWP44J7P54T",
+          "item_count": 9,
+          "subfolders": [
+            {
+              "name": "00 Stadtimmobilien Ruhrgebiet",
+              "id": "01VLEBENFG5HUWVSDCPZH22N6BFRDAF3NP",
+              "item_count": 0
+            },
+            {
+              "name": "11 LWS Plus",
+              "id": "01VLEBENEXAE7UQ65SORE2PQQHXRGRCK5R",
+              "item_count": 2
+            },
+            {
+              "name": "13 Forte Cap alt",
+              "id": "01VLEBENBH7P3KMAR6D5DZPY33LOEN62O7",
+              "item_count": 0
+            },
+            {
+              "name": "20 Vilico",
+              "id": "01VLEBENGHNHFVG3576BHYWJAULL2F6JXM",
+              "item_count": 1
+            },
+            {
+              "name": "2024-08 gws - Reiner-Daelen-Str. 9 - 1.OG links",
+              "id": "01VLEBENBV4U6E6VIAT5C3USJAE63LVXXC",
+              "item_count": 12
+            },
+            {
+              "name": "2024-08 H+H - Brückstr. 4, Schwerte",
+              "id": "01VLEBENCSMFXYTWARAVFLVZWQN54XBFF6",
+              "item_count": 21
+            },
+            {
+              "name": "2024-11 HV Bach - Am Heedbrink 11 DO - 2. OG",
+              "id": "01VLEBENFN6VBQRUJ7GRCINGNESR6OYKFY",
+              "item_count": 20
+            },
+            {
+              "name": "2024-11 PEN Immo - Rheinische Str. 54a Dortmund - 2 OG Mitte rechts",
+              "id": "01VLEBENEYPHXJ6L7WIFD2PACWHSZ6PKLF",
+              "item_count": 14
+            },
+            {
+              "name": "21 HuG Bochum",
+              "id": "01VLEBENGVBEPUE6N7KFGZXVEFFG357GHC",
+              "item_count": 1
+            }
+          ]
+        },
+        {
+          "name": "70 Einkauf",
+          "id": "01VLEBENG67SEZMIQD2NDLLEV3KWARQVRE",
+          "item_count": 16,
+          "subfolders": [
+            {
+              "name": "2024-07-17 Bestellung Linnenbecker",
+              "id": "01VLEBENA7QRSSKV6I6BBLHMHEDJ4VRQQJ",
+              "item_count": 2
+            },
+            {
+              "name": "Amazon",
+              "id": "01VLEBENHQJP4TDXZYNVHL2HH3DJL3FKEZ",
+              "item_count": 3
+            },
+            {
+              "name": "Bauzentrum Klein - Gevelsberg - Schomburg Abdichtungen",
+              "id": "01VLEBENF3QGWFQCIOEJBYNGEHVHD4BHU5",
+              "item_count": 2
+            },
+            {
+              "name": "Bestelllisten",
+              "id": "01VLEBENCX7OK7VDVYV5CYMBWFI2YY2EPX",
+              "item_count": 2
+            },
+            {
+              "name": "Engelbert Strauss",
+              "id": "01VLEBENBLVTC4DXDAOBCIPZJWGQZFJTL7",
+              "item_count": 5
+            },
+            {
+              "name": "Hellweg",
+              "id": "01VLEBENDS3S3DP2BJAFHLPJAD7ZNWT6BA",
+              "item_count": 19
+            },
+            {
+              "name": "Hornbach",
+              "id": "01VLEBENBOTWPIPVU6MZDIRCN4Q5IJLSKR",
+              "item_count": 8
+            },
+            {
+              "name": "Linnenbecker",
+              "id": "01VLEBENEGWBAAMK53UJDIOBQINRGMW7AQ",
+              "item_count": 7
+            },
+            {
+              "name": "Materiallisten",
+              "id": "01VLEBENG5BHCEVL6H2VDI4JBLYZ4FAX2D",
+              "item_count": 3
+            },
+            {
+              "name": "Mega",
+              "id": "01VLEBENCYYGTCISG7IZC27AYQCVAZG6KE",
+              "item_count": 3
+            },
+            {
+              "name": "Prosol",
+              "id": "01VLEBENCHQ4BPIERDSFCLZRLMDUIAL2BE",
+              "item_count": 13
+            },
+            {
+              "name": "Raab Karcher",
+              "id": "01VLEBENAMWRADGT4MMNDJOFA6RFC2VDHM",
+              "item_count": 4
+            },
+            {
+              "name": "Richter & Frenzel",
+              "id": "01VLEBENBIEK2RETDWU5EKYR3LGLOOEJEP",
+              "item_count": 1
+            },
+            {
+              "name": "Sonstige",
+              "id": "01VLEBENH4WY6HCWNAWRAKN4HSO5YAXI7X",
+              "item_count": 2
+            },
+            {
+              "name": "Zander",
+              "id": "01VLEBENHM3KXXWETUORC2UKHHNLQLZHRP",
+              "item_count": 6
+            },
+            {
+              "name": "Zu bestellen",
+              "id": "01VLEBENDYHK35HLE7GRCLWH2AFK7NJXFH",
+              "item_count": 4
+            }
+          ]
+        },
+        {
+          "name": "71 _________________",
+          "id": "01VLEBENDO7S47QDBFAVG2HBYQKZ73PW53",
+          "item_count": 0,
+          "subfolders": []
+        },
+        {
+          "name": "72 Vorlagen-Dokumente und Checklisten",
+          "id": "01VLEBENC3YJT4BJDMVVGJCGV3OF22MUGE",
+          "item_count": 11,
+          "subfolders": [
+            {
+              "name": "_ alt",
+              "id": "01VLEBENAQBYXSAOKFCNH36LGXOTI2SVVP",
+              "item_count": 8
+            }
+          ]
+        },
+        {
+          "name": "Bilder Telefon Dirk vor 01.10.24",
+          "id": "01VLEBENHJONB453YI2RH3IK7ILBNN5SU2",
+          "item_count": 2231,
+          "subfolders": []
+        },
+        {
+          "name": "E-Book",
+          "id": "01VLEBENES2C2Y5TWRMVHYS2SQOKUUUKPA",
+          "item_count": 3,
+          "subfolders": [
+            {
+              "name": "alt",
+              "id": "01VLEBEND7G6TI6N2XI5AYFRPF7WZ3PK5L",
+              "item_count": 3
+            }
+          ]
+        },
+        {
+          "name": "Präsentation Neurealis",
+          "id": "01VLEBENFX2CHXRFFR7ZG2CXETZTW6PYLA",
+          "item_count": 2,
+          "subfolders": []
+        },
+        {
+          "name": "Trainings",
+          "id": "01VLEBENAU6IQUU5OTN5DZYRD62UNPDBIP",
+          "item_count": 8,
+          "subfolders": []
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-Kunden",
+      "display_name": "Wohnungssanierung - 10 Kunden",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Kunden",
+      "drive_id": "b!hCZaPdpPj0yD9qXEKdOw0ETqBN3gcfxGpSMKRZ96NV3JvEHsrd_xR5S_FjB0gQqL",
+      "folders": [
+        {
+          "name": "10 Kunden",
+          "id": "01VT6OQSWMWEXINRFHIZB2CYSTSRZDVLZW",
+          "item_count": 23,
+          "subfolders": [
+            {
+              "name": "00 Unterlagen für Neukunden",
+              "id": "01VT6OQSTQLBR5F4NSKFB32KRG7XB5W3W4",
+              "item_count": 17
+            },
+            {
+              "name": "00 VORLAGE - Kundenordner",
+              "id": "01VT6OQSQQ3M7RDTK7G5ALU5VTQLQYME7F",
+              "item_count": 9
+            },
+            {
+              "name": "01 Preise & Kalkulationen",
+              "id": "01VT6OQSSMAVDGFGIDIFAJDLGXOIUMBDCH",
+              "item_count": 5
+            },
+            {
+              "name": "02 Checkliste Bedarfsanalyse",
+              "id": "01VT6OQSWZ43P2DGJNGJAJMQXMNXJKS2SM",
+              "item_count": 3
+            },
+            {
+              "name": "10 _________________",
+              "id": "01VT6OQST2USRNDCRBPZG2Y5GPPXINATXK",
+              "item_count": 0
+            },
+            {
+              "name": "10 GWS",
+              "id": "01VT6OQSXGMYVHUO4QVJH25NBXBDPHKXH3",
+              "item_count": 11
+            },
+            {
+              "name": "12 Covivio",
+              "id": "01VT6OQSXXNHMM2YUH5RG264OUVV3OALCB",
+              "item_count": 11
+            },
+            {
+              "name": "13 Forte Capital",
+              "id": "01VT6OQSUXWCIKLENCIJH3HOL3QKWYEST4",
+              "item_count": 4
+            },
+            {
+              "name": "15 vonovia - NEU",
+              "id": "01VT6OQSVV63P5OPIGEJGYKWUMQDNUE3K6",
+              "item_count": 11
+            },
+            {
+              "name": "16 VBW - neu",
+              "id": "01VT6OQSWQRSPH6Z37W5ELXG7RJT546KFB",
+              "item_count": 16
+            },
+            {
+              "name": "17 WBG Lünen",
+              "id": "01VT6OQSQH5JKCI2RUE5G2OEQIZYQSRGGU",
+              "item_count": 8
+            },
+            {
+              "name": "21 Quadrat",
+              "id": "01VT6OQSXZWFU7FY2LRRGYN7VCK7AU5VQ5",
+              "item_count": 1
+            },
+            {
+              "name": "22 Vivawest",
+              "id": "01VT6OQSSZU623W5HEZNF2WSCGZKZCPFNO",
+              "item_count": 9
+            },
+            {
+              "name": "50 _________________",
+              "id": "01VT6OQSXZB7DH7WDEZZFJSCZMTANJF4R5",
+              "item_count": 0
+            },
+            {
+              "name": "50 Privatkunden",
+              "id": "01VT6OQSX7PP3SOOU7SRD35BZ4AEC6X6PS",
+              "item_count": 2
+            },
+            {
+              "name": "51 Holger",
+              "id": "01VT6OQSQNQ2NA2RN7GBBIWEMJ4KDZVJMZ",
+              "item_count": 0
+            },
+            {
+              "name": "59 ________ ANBAHNUNG _________",
+              "id": "01VT6OQSSZ4DO7DUOBMZFKUBFDZXDAUP7E",
+              "item_count": 0
+            },
+            {
+              "name": "60 DOGEWO",
+              "id": "01VT6OQSQWK7LVF2OFWZDYBGEY4653XG6O",
+              "item_count": 2
+            },
+            {
+              "name": "61 Spar & Bauverein",
+              "id": "01VT6OQSWT34ZHXOBWX5DYDRZRUKQARTVL",
+              "item_count": 5
+            },
+            {
+              "name": "79 ________ INAKTIV _________",
+              "id": "01VT6OQSSQWCX633AN3VBYZGBUQSN2I3KQ",
+              "item_count": 0
+            },
+            {
+              "name": "80 Inaktive Kunden",
+              "id": "01VT6OQSUDONG67ZTPMFCYVA4HOAHBQ3RU",
+              "item_count": 4
+            },
+            {
+              "name": "90 _______ ÜBERGEORDNET ______",
+              "id": "01VT6OQSQDT6SS7VYULNE3N3GLJIFXYWI6",
+              "item_count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-Marketing",
+      "display_name": "Wohnungssanierung - 20 Marketing",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Marketing",
+      "drive_id": "b!IQmRnTHdvE-G_e1KnZgVzxn0YrHtR15OvMD0QSuTXuTPCt7HjPhDSJ46tCDGjnDf",
+      "folders": [
+        {
+          "name": "20 Marketing",
+          "id": "01J224POH6IXRWU4S7L5A3X7AXOLPRF3TC",
+          "item_count": 27,
+          "subfolders": [
+            {
+              "name": "00 Strategie & Planung",
+              "id": "01J224PODM7DOKNODSJVDKC2VXQD7VDSVI",
+              "item_count": 16
+            },
+            {
+              "name": "000_Fraenk",
+              "id": "01J224POC6TZIBFOKVEFBLX34NARFNOG7P",
+              "item_count": 10
+            },
+            {
+              "name": "01 Logo",
+              "id": "01J224POGWPYB2WPFSTJHL76EYQPVYTSBY",
+              "item_count": 9
+            },
+            {
+              "name": "02 Geschäftspapier",
+              "id": "01J224POFOQGYB5KAM7ZGJSIKNRMPKZDNM",
+              "item_count": 23
+            },
+            {
+              "name": "03 Website",
+              "id": "01J224POEU225SK5QCVJCJAPDQKJCNWKBU",
+              "item_count": 4
+            },
+            {
+              "name": "04 Anzeigen (z.B. eBay Kleinanzeigen)",
+              "id": "01J224PODOBYUA6VIKEFELLFZ772ZIECXF",
+              "item_count": 2
+            },
+            {
+              "name": "05 Videos",
+              "id": "01J224POETLAZSONXBT5GJQODJTXHZCDNO",
+              "item_count": 4
+            },
+            {
+              "name": "06 Fotos",
+              "id": "01J224POA75EY76BIXXZFKBRKE5I4QEBRG",
+              "item_count": 52
+            },
+            {
+              "name": "07 Content",
+              "id": "01J224POAC7UZW5U6QTBHLSF2PYXN3FL73",
+              "item_count": 19
+            },
+            {
+              "name": "08 Flyer",
+              "id": "01J224POECL5UZOV6PS5AZTQHZXFIEXVKC",
+              "item_count": 18
+            },
+            {
+              "name": "09 SEA & Social Ads",
+              "id": "01J224POAZAVWSOA4GBZGJPWGD3H2AXH3U",
+              "item_count": 2
+            },
+            {
+              "name": "09 SEO",
+              "id": "01J224POB7K2JQ7Q5CM5FICPFFQJ4TXMIM",
+              "item_count": 13
+            },
+            {
+              "name": "10 Marketing - Kunden",
+              "id": "01J224POA4VOS4KBMMI5DLMJ6OJOUOF6PP",
+              "item_count": 8
+            },
+            {
+              "name": "11 Marketing - Personal",
+              "id": "01J224POALW33TL2SIPNH3RVPGQ2M6LW7P",
+              "item_count": 7
+            },
+            {
+              "name": "12 Marketing - NU",
+              "id": "01J224POCC2WK2YDTIAZFLP3CJFHK37HQU",
+              "item_count": 2
+            },
+            {
+              "name": "13 Empfehlungsprogramm",
+              "id": "01J224POATKLUBWPSV3ZC2ATA3UUW74HYG",
+              "item_count": 5
+            },
+            {
+              "name": "20 Präsentationen",
+              "id": "01J224PODOSBLX6RX56VDIPCEEIHJEH3BI",
+              "item_count": 10
+            },
+            {
+              "name": "30 Sonstiges",
+              "id": "01J224POATNHKCPUJLNRDJISGBBTCL6BJ7",
+              "item_count": 1
+            },
+            {
+              "name": "31 Agenturen",
+              "id": "01J224POCEYIUA4PJKM5AKEZTU26FRD3YA",
+              "item_count": 1
+            },
+            {
+              "name": "40 Prozesse",
+              "id": "01J224POBCX3WC7XWUMNFLKXPOATDF36JB",
+              "item_count": 2
+            },
+            {
+              "name": "50 BNI",
+              "id": "01J224POG7JIRXCE67ABB37G2UW7J3TKHX",
+              "item_count": 2
+            },
+            {
+              "name": "60 Wissenstransfer",
+              "id": "01J224POA2JITSBWABAZBJ3MRUH25WWYL4",
+              "item_count": 1
+            },
+            {
+              "name": "99 alt",
+              "id": "01J224POCSTTX3SGXZHBEJAST4CCEHJHSR",
+              "item_count": 11
+            },
+            {
+              "name": "MatterPort Downloads",
+              "id": "01J224POBYMOACGRWR4NA3CCMTEPAOZEB4",
+              "item_count": 3
+            },
+            {
+              "name": "QR Codes",
+              "id": "01J224POEA4FXKUPUC6NBYFFLSAS6KCCTG",
+              "item_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-60Operations",
+      "display_name": "Wohnungssanierung - 60 Operations",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-60Operations",
+      "drive_id": "b!zUdTLLih70av0aqGEDC25yrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "60 Operations",
+          "id": "01PXJ2IB6C6KICM3LGVVAIPACAV4CSA6KT",
+          "item_count": 15,
+          "subfolders": [
+            {
+              "name": "10 Prozesse",
+              "id": "01PXJ2IB7ID34JMVDJEVBIU5JHEXTC2IUQ",
+              "item_count": 8
+            },
+            {
+              "name": "11 Qualitätssicherung Prozesse Checklisten",
+              "id": "01PXJ2IB5VTHZPXYTTNVFJ5YU4KQWXLQNK",
+              "item_count": 15
+            },
+            {
+              "name": "12 ISO 9001",
+              "id": "01PXJ2IB5G5X5APA2IKFCKRNCRW6U3PX6P",
+              "item_count": 8
+            },
+            {
+              "name": "20 Vorlagen",
+              "id": "01PXJ2IB3UBDP5JSP3TNF2HHKMTUZ4DGR4",
+              "item_count": 6
+            },
+            {
+              "name": "30 KfZ",
+              "id": "01PXJ2IB3N2P4DXJFFBRC2WUTN2ET4VDD6",
+              "item_count": 12
+            },
+            {
+              "name": "40 IT & Automatisierung",
+              "id": "01PXJ2IB7D7W6WAGTFYJBIUYEQUCMX2VAA",
+              "item_count": 4
+            },
+            {
+              "name": "50 Werkzeug",
+              "id": "01PXJ2IBZJ5AKADL67J5CZRKNBFLEWJFRB",
+              "item_count": 3
+            },
+            {
+              "name": "60 Lager Inventar",
+              "id": "01PXJ2IB2UNECL6WO6Z5D2GOS24K37BA6C",
+              "item_count": 1
+            },
+            {
+              "name": "66 Rechtliches",
+              "id": "01PXJ2IB573IFYMEG74RCIZFH4PPPYBYZG",
+              "item_count": 5
+            },
+            {
+              "name": "70 Administratives - Ämter",
+              "id": "01PXJ2IB7WNKDM3ZNCBJBIMXQ6X4X7NF2X",
+              "item_count": 1
+            },
+            {
+              "name": "71 Handelsregister + Gewerbeamt",
+              "id": "01PXJ2IB624EUJQNZ5HVDISF5HJPSHE4SR",
+              "item_count": 2
+            },
+            {
+              "name": "72 HWK Dortmund",
+              "id": "01PXJ2IBYU4PRX6ERJRREJLYWGWQMDKQOZ",
+              "item_count": 12
+            },
+            {
+              "name": "73 VBG",
+              "id": "01PXJ2IB7UF5CEY2LNWFBKZFUCKCSSPKUP",
+              "item_count": 1
+            },
+            {
+              "name": "80 Büro & Versorger",
+              "id": "01PXJ2IB2L4UCRI77F2RDZFSPPH5BWVNBQ",
+              "item_count": 14
+            },
+            {
+              "name": "90 Versicherungen",
+              "id": "01PXJ2IB6V3EAPI4J5MRC2HSDH6PMXT3I2",
+              "item_count": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-11Nachunternehmer",
+      "display_name": "Wohnungssanierung - 11 Nachunternehmer",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-11Nachunternehmer",
+      "drive_id": "b!JXjp_8TZ8UqSW5sgqbaLFyrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "11 Nachunternehmer",
+          "id": "01Y2GYHF5CXR4VQRGINBBYID4EILG5HQED",
+          "item_count": 18,
+          "subfolders": [
+            {
+              "name": "_ alt",
+              "id": "01Y2GYHFYUFY3XEOTGX5CZW34FD7ALSRK3",
+              "item_count": 16
+            },
+            {
+              "name": "00 Vorlagen für Nachunternehmer",
+              "id": "01Y2GYHFYFONOPVGTESZHI5NOLQXOIWF6H",
+              "item_count": 2
+            },
+            {
+              "name": "08 Leistungsverzeichnisse für NUs",
+              "id": "01Y2GYHF3Z2C3RD4ESB5BYSHLJNKND6KOZ",
+              "item_count": 10
+            },
+            {
+              "name": "09 Leistungsverzeichniss - neurealis",
+              "id": "01Y2GYHF4ARE37L3QBMNCY3N7KZ3C2YBJW",
+              "item_count": 1
+            },
+            {
+              "name": "09 NUAs für Qualifizierung neuer NU",
+              "id": "01Y2GYHFYQQXEGCWPIFJHIDDYP6OVMG7SS",
+              "item_count": 4
+            },
+            {
+              "name": "10 Verträge Nachunternehmer",
+              "id": "01Y2GYHF7Q46OF2NLEGFDLN2TXJTSWBLB4",
+              "item_count": 4
+            },
+            {
+              "name": "11 Beispie LVs & Preise",
+              "id": "01Y2GYHF7M2SF3ZTPYXRD374CQQDIHSZ6T",
+              "item_count": 3
+            },
+            {
+              "name": "Abriss & Entkernung Becker",
+              "id": "01Y2GYHF6QBHWZF24AHZFI4RGB57TWTQCP",
+              "item_count": 1
+            },
+            {
+              "name": "alt",
+              "id": "01Y2GYHFZIFGWHA6RAIFDYSPDBVJR5KTHM",
+              "item_count": 12
+            },
+            {
+              "name": "Elektrik - Wladimir Kusnezow",
+              "id": "01Y2GYHF4WV4ER6QCGNBAYAPHIETUCSXUY",
+              "item_count": 20
+            },
+            {
+              "name": "Fliese - Peter Horbach",
+              "id": "01Y2GYHFYP3GKZUT2UHBELPVMNEAGM2TH2",
+              "item_count": 2
+            },
+            {
+              "name": "Komplett - Damian Kupczak GEMO NRW",
+              "id": "01Y2GYHF6FWULQTZLPIRDZBCKSJRXRKIPW",
+              "item_count": 6
+            },
+            {
+              "name": "Komplett - TOP Handwerker",
+              "id": "01Y2GYHF5TUKUDE7OCL5AI4BNEVEIAIOAL",
+              "item_count": 14
+            },
+            {
+              "name": "Komplett - Vitazem Bau - Vitali Balan",
+              "id": "01Y2GYHFZ7L335VS6RRZB3QWCYA2E3E2FD",
+              "item_count": 5
+            },
+            {
+              "name": "Komplett - Zengoski (ggf anfragen)",
+              "id": "01Y2GYHF6ZOD7EM7OQRJEITYOZZWS2WRGP",
+              "item_count": 1
+            },
+            {
+              "name": "Reinigung - RP Gebäudereinigung",
+              "id": "01Y2GYHF42VHXPPKSVNNGLAMNDMGQZ4EOO",
+              "item_count": 0
+            },
+            {
+              "name": "SHK - Tristan Schuh",
+              "id": "01Y2GYHF4HYYBYV2TBWVGJHB2XTRSI7IST",
+              "item_count": 0
+            },
+            {
+              "name": "Weich - Antonio Pepe",
+              "id": "01Y2GYHF5LSQG4T3VNZJCY7ZYTZLOXWUD4",
+              "item_count": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-15Grohandel",
+      "display_name": "Wohnungssanierung - 15 Großhandel",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-15Grohandel",
+      "drive_id": "b!X2zKsLwr-02MwL5qSByNySrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "15 Großhandel",
+          "id": "01MRT3MO4FL3E5TCK3SFGL7Y5STBHQELCW",
+          "item_count": 15,
+          "subfolders": [
+            {
+              "name": "10 Bestelllisten",
+              "id": "01MRT3MO5NXJGSWYMAWRHIND563WRHN42N",
+              "item_count": 15
+            },
+            {
+              "name": "Fenster - Büdeker & Richert GbR",
+              "id": "01MRT3MO3MQ7OB6HWX45BLX4MJPPPT2VP5",
+              "item_count": 2
+            },
+            {
+              "name": "Fliesen & Trockenbau - Raab Karcher & Keramundo",
+              "id": "01MRT3MOZRIUNQLD5IM5D2H35Y2AG5NVZB",
+              "item_count": 3
+            },
+            {
+              "name": "Forbo",
+              "id": "01MRT3MO6LARNQ3B4VOBHKXDTYAJO7PIRY",
+              "item_count": 2
+            },
+            {
+              "name": "Hornbach",
+              "id": "01MRT3MO262GXZJD3ZH5BKAFL3B3RITZ5I",
+              "item_count": 1
+            },
+            {
+              "name": "SHK - GUT",
+              "id": "01MRT3MOYLB2E5TZPBKZE2MCG4FNQBGZ2W",
+              "item_count": 6
+            },
+            {
+              "name": "SHK - Zander",
+              "id": "01MRT3MO2X2W6FBLQH5JFZETQZT6AV7PYS",
+              "item_count": 1
+            },
+            {
+              "name": "Sicherheitsdatenblätter",
+              "id": "01MRT3MOZZ5OOHAJ7M6NBZRGUIFWLBEEV4",
+              "item_count": 3
+            },
+            {
+              "name": "Tischler - Becher Holz",
+              "id": "01MRT3MOYYJ2Z4HF63BZHJ6G5QRW7EWQFJ",
+              "item_count": 4
+            },
+            {
+              "name": "WDVS - Ingenbleek",
+              "id": "01MRT3MOZ2IENKYTX4NFEKRKZPIHJIGKP2",
+              "item_count": 1
+            },
+            {
+              "name": "ZERO Profimarkt",
+              "id": "01MRT3MO7U7BHZV6VFYBDICPFM5PQPX6VR",
+              "item_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-00Vertrieb",
+      "display_name": "Wohnungssanierung - 00 Vertrieb",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-00Vertrieb",
+      "drive_id": "b!A6LdakGjU0SYATdV92exCirGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "00 Vertrieb",
+          "id": "017LATQ2A23GT3RE6SNVGLQRMV4XMCYXBZ",
+          "item_count": 5,
+          "subfolders": [
+            {
+              "name": "01 Preise",
+              "id": "017LATQ2HNUE2FPNUMBRB3L6ZDSKO4DVZ2",
+              "item_count": 3
+            },
+            {
+              "name": "10 Interessenten",
+              "id": "017LATQ2BRWTO4Y5OBSFFYXP4WYELUZEI4",
+              "item_count": 2
+            },
+            {
+              "name": "99 BNI",
+              "id": "017LATQ2FSXLLESYSVZRHYEEGY63JT72GE",
+              "item_count": 2
+            },
+            {
+              "name": "Bedarfsermittlung - Formular",
+              "id": "017LATQ2FQNDT6QKKNIFFJLBNOW6XNAKGI",
+              "item_count": 4
+            },
+            {
+              "name": "Vorlage - Besprechnung Angebot",
+              "id": "017LATQ2BR2TLNWVAURBA33BJ2NWYWJHYP",
+              "item_count": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-30Technik",
+      "display_name": "Wohnungssanierung - 30 Technik",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-30Technik",
+      "drive_id": "b!wSsz7J8BpEO-EjzgQx_vlCrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "30 Technik",
+          "id": "01DDBYKBTZMHXJRBFLLFAKF3V4AWD7BHMT",
+          "item_count": 9,
+          "subfolders": [
+            {
+              "name": "Abfallentsorgung DOGA",
+              "id": "01DDBYKBSRWI32Q7FGPBE22KWPMSMGBUAU",
+              "item_count": 1
+            },
+            {
+              "name": "Asbest",
+              "id": "01DDBYKBTTECXTTAUF55A22BP72MHRFEZB",
+              "item_count": 2
+            },
+            {
+              "name": "Brandschutz",
+              "id": "01DDBYKBRL2BMAGN7NQBGJP475CQBW2Y6I",
+              "item_count": 1
+            },
+            {
+              "name": "Kalkulaitonen",
+              "id": "01DDBYKBSM2CHUSRASIFAYBXHKAOWZEDQQ",
+              "item_count": 7
+            },
+            {
+              "name": "Sanitär & Heizung",
+              "id": "01DDBYKBRXEZQXXT34WNE24S4CK7DDFXYC",
+              "item_count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-Finanzen",
+      "display_name": "Wohnungssanierung - 50 Finanzen",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Finanzen",
+      "drive_id": "b!5hbdLWjWs02-7DbHvZTifCrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "50 Finanzen",
+          "id": "01BYDGSAAK46BFHTJIQ5FZMQ2X5EEOSRWS",
+          "item_count": 16,
+          "subfolders": [
+            {
+              "name": "01 Planung",
+              "id": "01BYDGSAG3PH6YGSU7LNHZWFZ3RQ4W6MPV",
+              "item_count": 4
+            },
+            {
+              "name": "10 Kontoauszüge",
+              "id": "01BYDGSAFFXGG5N2QTMJGJPPSHZMKWNPTD",
+              "item_count": 12
+            },
+            {
+              "name": "11 Kreditkartenabrechnungen",
+              "id": "01BYDGSAD4ROCA6BDRWRHL6ZGW47DZD65L",
+              "item_count": 2
+            },
+            {
+              "name": "20 Jahresabschlüsse",
+              "id": "01BYDGSAHPXWO7XE7B7FEJMV4ICUCHHT2D",
+              "item_count": 4
+            },
+            {
+              "name": "21 BWAs",
+              "id": "01BYDGSAAWC3XKTCRJI5FLRAGQFRLKCXI7",
+              "item_count": 3
+            },
+            {
+              "name": "22 Buchhaltung",
+              "id": "01BYDGSACMTKJ72KZ3SRFZ6MDCFHS3GTNZ",
+              "item_count": 11
+            },
+            {
+              "name": "23 USt-Anmeldungen",
+              "id": "01BYDGSAEX332SACLOYJGIJUNGGEOPGUQE",
+              "item_count": 3
+            },
+            {
+              "name": "30 Banking",
+              "id": "01BYDGSAAQZDGRXA2IHFFZYXQA2UKKRQBW",
+              "item_count": 9
+            },
+            {
+              "name": "40 Bonität",
+              "id": "01BYDGSAAOO5IWQUYIWJHYKBL3KPEJQ4DQ",
+              "item_count": 4
+            },
+            {
+              "name": "50 Finanzamt",
+              "id": "01BYDGSAHQLMSRGNUAB5E37LCEBIMKQQNS",
+              "item_count": 15
+            },
+            {
+              "name": "60 Förderungen",
+              "id": "01BYDGSAAVNWBS7MROGRFY355R7ZZ7EM3M",
+              "item_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-Management",
+      "display_name": "Wohnungssanierung - Management",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-Management",
+      "drive_id": "b!svk3l4TNoU6LRZB0tGjuwBn0YrHtR15OvMD0QSuTXuTPCt7HjPhDSJ46tCDGjnDf",
+      "folders": [
+        {
+          "name": "Management",
+          "id": "01QCXNRTHX5X7H2PPJ3VFKHERWSZGJWC2B",
+          "item_count": 13,
+          "subfolders": [
+            {
+              "name": "00 Vertrieb",
+              "id": "01QCXNRTG3K3Y6MA3IPRA3R777QXRGXMWJ",
+              "item_count": 0
+            },
+            {
+              "name": "04 Personal",
+              "id": "01QCXNRTBYTDGPMWSPPVBKXAJH4WFE3ATQ",
+              "item_count": 6
+            },
+            {
+              "name": "15 Großhandel",
+              "id": "01QCXNRTBDFH5OROL4MFGJFEPCXIPWDRIY",
+              "item_count": 1
+            },
+            {
+              "name": "20 Marketing",
+              "id": "01QCXNRTBHZS3UENOO7VHJYUIKXG5ZLTSW",
+              "item_count": 22
+            },
+            {
+              "name": "40 Voxelgrid",
+              "id": "01QCXNRTANU6UUIR35VZFKAN72RGWA2X7G",
+              "item_count": 6
+            },
+            {
+              "name": "50 Finanzen",
+              "id": "01QCXNRTBONIXQZGIVHJEZPKOXMWJ5VREK",
+              "item_count": 7
+            },
+            {
+              "name": "51 Unternehmenswert",
+              "id": "01QCXNRTA72UVUWNUEZ5DICE4Q6ISXW3CN",
+              "item_count": 1
+            },
+            {
+              "name": "60 Operations",
+              "id": "01QCXNRTA7VBJJO6FL7FAYDKX2UO72JOXH",
+              "item_count": 7
+            },
+            {
+              "name": "90 Strategie",
+              "id": "01QCXNRTBJEJNFLTLLO5A264CJ7RQ4UOSI",
+              "item_count": 17
+            },
+            {
+              "name": "91 Nachfolge",
+              "id": "01QCXNRTB3ZAPK6LA2CVDYQSYYKHWGYQZQ",
+              "item_count": 3
+            },
+            {
+              "name": "98 PRIVAT - TEMP",
+              "id": "01QCXNRTFQFCTJIOSHENBL6X22CRPQ7VYL",
+              "item_count": 4
+            },
+            {
+              "name": "neurealis - Notizbuch - intern",
+              "id": "01QCXNRTHEQ24BHTWOEJB355YRGNO7MH4X",
+              "item_count": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wohnungssanierung-04Personal",
+      "display_name": "Wohnungssanierung - 04 Personal",
+      "web_url": "https://neurealisde.sharepoint.com/sites/Wohnungssanierung-04Personal",
+      "drive_id": "b!kolIcfBlaEGFFtMKCmDyByrGtHlZK7NNtWaOVKCDypCbGzApWPvMTIHF6WMi9Jfi",
+      "folders": [
+        {
+          "name": "04 Personal",
+          "id": "01QL3YFKXI6UJDJZL2BFD35QW4Z6FTROS6",
+          "item_count": 14,
+          "subfolders": [
+            {
+              "name": "00 Personal - Neueinstellung Vorlagen",
+              "id": "01QL3YFKVZO3CZVM4XTJHZ2MGEGILI42EY",
+              "item_count": 13
+            },
+            {
+              "name": "01 Personal-Mappen",
+              "id": "01QL3YFKQRHSVO6BJNNZAJU2TY73DC6SEC",
+              "item_count": 9
+            },
+            {
+              "name": "02 Stellenanzeigen",
+              "id": "01QL3YFKSCU5ONIMKF3BFJAHAIQHZ75RPO",
+              "item_count": 8
+            },
+            {
+              "name": "03 Bewerber",
+              "id": "01QL3YFKT34CIBE4FOHVB2CJDOGUABEA7A",
+              "item_count": 1
+            },
+            {
+              "name": "10 Lohnabrechnungen",
+              "id": "01QL3YFKSXIG5PFQYTIBG2ARJDI6EMEJ6U",
+              "item_count": 11
+            },
+            {
+              "name": "20 DRV Deutsche Rentenversicherung",
+              "id": "01QL3YFKTGAQQEKQMNEFBIUNXF4POYK5PU",
+              "item_count": 1
+            },
+            {
+              "name": "30 Krankenversicherung",
+              "id": "01QL3YFKX2LZJVKPN3QVCITFVZ6OAJFO32",
+              "item_count": 1
+            },
+            {
+              "name": "Onboarding",
+              "id": "01QL3YFKSSH5UNWIG7ZNAJTF2RUAJOPP6R",
+              "item_count": 7
+            },
+            {
+              "name": "Praktikanten",
+              "id": "01QL3YFKTNJ4U75JR4RFFJTC77N73HWVW7",
+              "item_count": 1
+            },
+            {
+              "name": "Team- Orga und -Events",
+              "id": "01QL3YFKVZ6DZ5HSKRCZGIZQ2AXOA4QMCS",
+              "item_count": 9
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

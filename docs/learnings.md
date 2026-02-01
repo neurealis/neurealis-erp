@@ -1,6 +1,59 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-01-30
+**Stand:** 2026-02-01
+
+---
+
+## Kritische Feld-Mappings
+
+### L143 - Audio-Generierung NUR auf Edge Functions
+**Datum:** 2026-02-01
+**Regel:** Audio-Briefings werden AUSSCHLIESSLICH über Supabase Edge Functions generiert, NIEMALS lokal.
+**Grund:** OpenAI API Key ist in Supabase Secrets, nicht lokal verfügbar.
+
+### L144 - Präfix-Konvention in monday_bauprozess (WICHTIG!)
+**Datum:** 2026-02-01
+**Kontext:** Eindeutige Spaltennamen mit Präfixen für NU, BL, AG
+
+#### NU (Nachunternehmer) Felder:
+| Monday-Spalte | Supabase-Spalte | Beschreibung |
+|---------------|-----------------|--------------|
+| Nachunternehmer | `nu_firma` | NU Firmenname (z.B. "TOP Handwerker") |
+| Ansprechpartner \| Nachunternehmer (NU) | `nu_ansprechpartner` | NU Ansprechpartner-Name |
+| Telefon \| Nachunternehmer (NU) | `nu_telefon` | NU Handynummer |
+| E-Mail \| Nachunternehmer (NU) | `nu_email` | NU E-Mail |
+
+#### BL (Bauleiter) Felder:
+| Supabase-Spalte | Beschreibung |
+|-----------------|--------------|
+| `bl_name` | Bauleiter Name |
+| `bl_email` | Bauleiter E-Mail |
+| `bl_telefon` | Bauleiter Telefon |
+
+#### AG (Auftraggeber/Kunde) Felder:
+| Supabase-Spalte | Beschreibung |
+|-----------------|--------------|
+| `ag_name` | Kundenname |
+| `ag_nummer` | Kundennummer |
+| `ag_email` | Kunden E-Mail |
+| `ag_telefon` | Kunden Telefon |
+
+**Verwendung im Telegram Bot:**
+```
+🔧 NU: [nu_firma] - [nu_ansprechpartner] ([nu_telefon])
+```
+
+**MERKE:** Bei NU-Anzeige IMMER nu_* Felder nutzen, nicht aus kontakte-Tabelle holen!
+
+### L145 - DB-Spalten mit Präfixen für Eindeutigkeit
+**Datum:** 2026-02-01
+**Regel:** Spalten die zu verschiedenen Entitäten gehören mit Präfix benennen.
+**Beispiel:**
+- `nu_firma`, `nu_email` (Nachunternehmer)
+- `bl_name`, `bl_email` (Bauleiter)
+- `ag_name`, `ag_email` (Auftraggeber)
+**Vorteil:** Keine Verwechslung, eindeutige Queries, bessere Autovervollständigung
+**Ausnahme:** Projekt-Stammdaten ohne Präfix (atbs_nummer, budget, baustart)
 
 ---
 
@@ -2560,6 +2613,45 @@ IF remote.updated_at > local.updated_at THEN UPDATE;
 ```
 **Benötigt:** `last_modified_at` Spalte in allen sync-relevanten Tabellen
 **Risiko:** Clock-Skew zwischen Systemen → UTC überall verwenden
+
+### L160 - SharePoint Sites via MS Graph API katalogisieren
+**Datum:** 2026-02-01
+**Kontext:** Alle SharePoint-Sites scannen und dokumentieren
+**Endpoint:** `GET https://graph.microsoft.com/v1.0/sites?search=*`
+**Ergebnis:**
+- 49 Sites gefunden (neurealis.de Tenant)
+- 12 Wohnungssanierung-Sites relevant
+- Größte: Wohnungssanierung-Projekte (69,66 GB)
+**Edge Function:** `sharepoint-sites` mit `?action=list-sites`
+**Tipp:** Speicherquoten via `/sites/{siteId}/drives` abrufen
+
+### L161 - SharePoint Ordnerstruktur-Muster (Projektordner)
+**Datum:** 2026-02-01
+**Kontext:** Standard-Struktur für Projekt-Dokumentation
+**Erkanntes Muster (00 Vorlage):**
+```
+01 Angebot - SUB
+02 Angebot - Kunde
+03 Auftrag
+05 Nachträge
+06 Rechnung - Kunde
+07 Rechnung - SUB
+10 Fotos
+15 Einkauf
+20 E-Check
+30 Qualitätssicherung
+```
+**Nutzung:** 60% der Projekte mit ATBS-Nummer, 55% mit ISO-Datum
+**Inkonsistenzen:** Auftraggeber-Schreibweise (`gws` vs `GWS`), Projekte ohne ATBS
+
+### L162 - SharePoint Delta-Query braucht Initial-Sync pro Site
+**Datum:** 2026-02-01
+**Kontext:** SharePoint-Sync mit Delta-Queries für inkrementelle Updates
+**Problem:** 11 von 12 Sites hatten keinen `sync_state` → 0% synchronisiert
+**Ursache:** Delta-Query braucht initialen Full-Sync um `delta_link` zu erhalten
+**Lösung:** Pro Site einmal `?action=sync&site=/sites/[SiteName]` aufrufen
+**Warnung:** Bei 112 GB Gesamtvolumen dauert Initial-Sync mehrere Stunden
+**Empfehlung:** Sites nacheinander synchronisieren, nicht alle parallel
 
 ---
 

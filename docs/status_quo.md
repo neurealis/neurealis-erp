@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 14:45 (aktualisiert)
+**Stand:** 2026-02-01 18:15 (aktualisiert)
 
 ---
 
@@ -35,6 +35,37 @@
 
 ---
 
+### monday_bauprozess Spalten-Umbenennung (✅ FERTIG)
+
+**Implementiert:** 2026-02-01 18:00
+
+**Migration:** `rename_monday_bauprozess_columns_with_prefixes` (20260201180404)
+
+**Umbenannte Spalten mit Präfix-Konvention:**
+| Alt | Neu | Kategorie |
+|-----|-----|-----------|
+| `nachunternehmer` | `nu_firma` | NU |
+| `ansprechpartner` | `nu_ansprechpartner` | NU |
+| `telefon_ansprechpartner` | `nu_telefon` | NU |
+| `email_ansprechpartner` | `nu_email` | NU |
+| `bauleiter` | `bl_name` | BL |
+| `bauleiter_email` | `bl_email` | BL |
+| `bauleiter_telefon` | `bl_telefon` | BL |
+| `email_kunde` | `ag_email` | AG |
+| `telefon_kunde` | `ag_telefon` | AG |
+| `kundenname` | `ag_name` | AG |
+| `kundennummer` | `ag_nummer` | AG |
+
+**Aktualisierte Dateien:**
+- `functions/supabase/functions/monday-sync/index.ts`
+- `functions/supabase/functions/monday-push/index.ts`
+- `functions/supabase/functions/telegram-webhook/index.ts`
+- `supabase/functions/telegram-webhook/index.ts`
+- `supabase/functions/audio-briefing-generate/index.ts`
+- `docs/learnings.md` (L144)
+
+---
+
 ### Monday Bidirektional Sync (✅ FERTIG + TRIGGER + LABELS)
 
 **Implementiert:** 2026-02-01
@@ -48,8 +79,8 @@
 **Edge Functions:**
 | Function | Version | Richtung | Spalten |
 |----------|---------|----------|---------|
-| `monday-sync` | v2 (16) | Monday → Supabase | 81 |
-| `monday-push` | v6 (11) | Supabase → Monday | 17 + Label-Mapping |
+| `monday-sync` | v17 | Monday → Supabase | 81 |
+| `monday-push` | v12 | Supabase → Monday | 17 + Label-Mapping |
 | `monday-label-sync` | v1 | Labels laden | 327 Labels |
 
 **Cron-Jobs:**
@@ -285,11 +316,33 @@ ui/src/routes/
 
 ## Nächster Schritt
 
+→ **SharePoint Initial-Sync:** 11 Sites noch nicht synchronisiert (112 GB pending)
 → **monday-sync erweitern:** Automatisches Flattening beim Sync
-→ **monday-push implementieren:** Bidirektionaler Sync fuer status_projekt, budget, baustart, bauende
-→ **Hero-Konflikte manuell korrigieren:** FC.LV25.8.x (6 vertauschte Nummern), GWS Stand/Wand-WC
-→ **Vonovia-LV importieren:** Aktuell 0 Positionen für LV-Typ 'vonovia'
+→ **monday-push implementieren:** Bidirektionaler Sync für status_projekt, budget, baustart, bauende
 → **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
+
+---
+
+### SharePoint Katalogisierung (✅ FERTIG - LOG-065)
+
+**Implementiert:** 2026-02-01 18:00
+
+**49 SharePoint-Sites katalogisiert:**
+- 12 Wohnungssanierung-Sites für Sync konfiguriert
+- `sharepoint-sync` v10 deployed mit allen Sites
+- Dokumentation: `docs/sharepoint_sites.json`, `docs/SHAREPOINT_SITES.md`
+
+**Sync-Status:**
+| Metrik | Wert |
+|--------|------|
+| SharePoint gesamt | 112 GB |
+| Supabase Docs | 45 (0,05%) |
+| Sites mit Sync | 1 von 12 |
+
+**Muster-Analyse:**
+- Erkannt: ATBS-Nummern (60%), ISO-Datum (55%), nummerierte Ordner (01-30)
+- Inkonsistenzen: Schreibweisen, Legacy Google Drive Links (53%)
+- Dokumentation: `docs/SHAREPOINT_MUSTER_ANALYSE.md`
 
 ---
 
