@@ -40,3 +40,34 @@ CON
 .claude/
 *.txt
 softr_docs_mapped.json
+
+# Temporäre Dateien
+temp_*.json
+temp_*.sql
+temp_*.ts
+test.pdf
+
+# Analyse-Scripts (lokal, nicht commiten)
+*.mjs
+analyze-*.mjs
+compare-*.mjs
+find_*.mjs
+hero-*.mjs
+run-*.mjs
+update_*.mjs
+upload-*.mjs
+verify_*.mjs
+generate-*.mjs
+deploy-*.mjs
+
+# Supabase temporär
+supabase/.temp/
+
+# Korrupte Pfadnamen (Windows)
+C*
+Users*
+
+# Temporäre JSON-Exports
+docs/softr_*.json
+docs/restore_final.json
+docs/temp_*.json

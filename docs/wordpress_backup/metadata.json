@@ -1,0 +1,860 @@
+{
+  "backup_date": "2026-01-30T23:25:08.270Z",
+  "site_url": "https://neurealis.de",
+  "posts": [
+    {
+      "id": 12235,
+      "title": "Leerstand Wohnung Kosten pro Monat: So rechnen Vermieter 2026 (inkl. Beispielrechnung)",
+      "slug": "leerstand-wohnung-kosten-pro-monat-so-rechnen-vermieter-2026",
+      "date": "2026-01-31T01:05:09",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/leerstand-wohnung-kosten-pro-monat-so-rechnen-vermieter-2026.md"
+    },
+    {
+      "id": 12234,
+      "title": "Komplettsanierung Bochum 2026: Kosten, Dauer &#038; Ablauf für Vermieter und Wohnungswirtschaft",
+      "slug": "komplettsanierung-bochum-2026-kosten-dauer-ablauf-fuer-vermi",
+      "date": "2026-01-31T01:05:07",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/komplettsanierung-bochum-2026-kosten-dauer-ablauf-fuer-vermi.md"
+    },
+    {
+      "id": 12233,
+      "title": "Badsanierung Dortmund 2026: Kosten, Dauer &#038; Ablauf – mit Fixpreis und Live-Dashboard",
+      "slug": "badsanierung-dortmund-2026-kosten-dauer-ablauf-mit-fixpreis",
+      "date": "2026-01-31T01:05:05",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/badsanierung-dortmund-2026-kosten-dauer-ablauf-mit-fixpreis.md"
+    },
+    {
+      "id": 12232,
+      "title": "GEG Sanierungspflicht für Vermieter 2026: Was gilt, wen betrifft es und welche Maßnahmen sind Pflicht?",
+      "slug": "geg-sanierungspflicht-fuer-vermieter-2026-was-gilt-wen-betri",
+      "date": "2026-01-31T01:05:02",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/geg-sanierungspflicht-fuer-vermieter-2026-was-gilt-wen-betri.md"
+    },
+    {
+      "id": 12231,
+      "title": "Kernsanierung Dortmund: Kosten, Ablauf &#038; Dauer einer Wohnungssanierung (2026)",
+      "slug": "kernsanierung-dortmund-kosten-ablauf-dauer-einer-wohnungssan",
+      "date": "2026-01-31T01:04:59",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/kernsanierung-dortmund-kosten-ablauf-dauer-einer-wohnungssan.md"
+    },
+    {
+      "id": 12230,
+      "title": "Wohnung sanieren: Kosten 2026 – Richtwerte pro m², Beispiele &#038; Ablauf",
+      "slug": "wohnung-sanieren-kosten-2026-richtwerte-pro-m-beispiele-abla",
+      "date": "2026-01-31T01:04:57",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/wohnung-sanieren-kosten-2026-richtwerte-pro-m-beispiele-abla.md"
+    },
+    {
+      "id": 12229,
+      "title": "Wohnungssanierung Dortmund 2026: Kosten, Dauer &#038; Ablauf – Sanieren mit System",
+      "slug": "wohnungssanierung-dortmund-2026-kosten-dauer-ablauf-sanieren",
+      "date": "2026-01-31T01:04:55",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/wohnungssanierung-dortmund-2026-kosten-dauer-ablauf-sanieren.md"
+    },
+    {
+      "id": 12228,
+      "title": "Kernsanierung &#038; Komplettsanierung in Dortmund 2026: Ablauf, Kosten, Förderungen und Praxis-Guide fürs Ruhrgebiet",
+      "slug": "kernsanierung-komplettsanierung-in-dortmund-2026-ablauf-kost",
+      "date": "2026-01-31T01:04:51",
+      "categories": [
+        45
+      ],
+      "tags": [],
+      "filename": "posts/kernsanierung-komplettsanierung-in-dortmund-2026-ablauf-kost.md"
+    },
+    {
+      "id": 7110,
+      "title": "Ablauf einer Wohnungssanierung bei neurealis",
+      "slug": "ablauf-einer-wohnungssanierung-bei-neurealis",
+      "date": "2024-01-12T15:53:28",
+      "categories": [
+        45
+      ],
+      "tags": [
+        179,
+        182,
+        178,
+        181,
+        177,
+        176,
+        175
+      ],
+      "filename": "posts/ablauf-einer-wohnungssanierung-bei-neurealis.md"
+    },
+    {
+      "id": 6900,
+      "title": "Was ist der Unterschied zwischen Renovierung und Sanierung einer Wohnung?",
+      "slug": "unterschiede-renovierung-sanierung-neurealis-dortmund",
+      "date": "2024-01-02T15:56:58",
+      "categories": [
+        45
+      ],
+      "tags": [
+        182,
+        181,
+        177,
+        176,
+        175
+      ],
+      "filename": "posts/unterschiede-renovierung-sanierung-neurealis-dortmund.md"
+    },
+    {
+      "id": 6890,
+      "title": "Kurz vorgestellt: Unser Leistungsangebot zur Wohnungssanierung",
+      "slug": "kurz-vorgestellt-unser-leistungsangebot-zur-wohnungssanierung",
+      "date": "2024-01-02T14:41:17",
+      "categories": [
+        45
+      ],
+      "tags": [
+        180,
+        179,
+        178,
+        177,
+        176,
+        175
+      ],
+      "filename": "posts/kurz-vorgestellt-unser-leistungsangebot-zur-wohnungssanierung.md"
+    }
+  ],
+  "pages": [
+    {
+      "id": 12135,
+      "title": "Kostenrechner für Ihre Sanierung oder Renovierung",
+      "slug": "kostenrechner-sanierung-renovierung-wohnung-eigenheim",
+      "date": "2025-12-15T19:51:24",
+      "parent": 0,
+      "filename": "pages/kostenrechner-sanierung-renovierung-wohnung-eigenheim.md"
+    },
+    {
+      "id": 12061,
+      "title": "Sackrechner",
+      "slug": "sackrechner",
+      "date": "2025-11-18T20:23:49",
+      "parent": 0,
+      "filename": "pages/sackrechner.md"
+    },
+    {
+      "id": 12008,
+      "title": "Modernisierung Ihrer Eigentumswohnung in NRW",
+      "slug": "modernisierung-ihrer-eigentumswohnung-in-nrw",
+      "date": "2025-11-05T13:17:59",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-eigentumswohnung-in-nrw.md"
+    },
+    {
+      "id": 11847,
+      "title": "Heizungs- &#038; Wärmetechnik &#8211; Übersicht unserer Leistungen",
+      "slug": "heizungs-waermetechnik-dortmund",
+      "date": "2025-08-28T16:53:55",
+      "parent": 0,
+      "filename": "pages/heizungs-waermetechnik-dortmund.md"
+    },
+    {
+      "id": 11812,
+      "title": "Stelle Hausmeister / Objektbetreuer",
+      "slug": "stelle-hausmeister-objektbetreuer",
+      "date": "2025-08-04T18:36:36",
+      "parent": 5605,
+      "filename": "pages/stelle-hausmeister-objektbetreuer.md"
+    },
+    {
+      "id": 11786,
+      "title": "Minimierung der Leerstandskosten | Prozessoptimierung von neurealis",
+      "slug": "minimierung-der-leerstandskosten-prozessoptimierung-von-neurealis",
+      "date": "2025-07-19T15:17:40",
+      "parent": 0,
+      "filename": "pages/minimierung-der-leerstandskosten-prozessoptimierung-von-neurealis.md"
+    },
+    {
+      "id": 11171,
+      "title": "Testseite",
+      "slug": "testseite",
+      "date": "2025-04-11T10:13:14",
+      "parent": 0,
+      "filename": "pages/testseite.md"
+    },
+    {
+      "id": 11009,
+      "title": "Kunden-Portal | Ihre Bauvorhaben transparent Mitverfolgen",
+      "slug": "kundenportal",
+      "date": "2025-02-06T16:07:07",
+      "parent": 2936,
+      "filename": "pages/kundenportal.md"
+    },
+    {
+      "id": 10973,
+      "title": "Partner-Portal für einfache Zusammenarbeit als Nachunternehmer | Deutsch",
+      "slug": "partnerportal",
+      "date": "2025-01-18T20:26:07",
+      "parent": 2936,
+      "filename": "pages/partnerportal.md"
+    },
+    {
+      "id": 10782,
+      "title": "Renovierung Ihrer Mietwohnung in Witten",
+      "slug": "renovierung-ihrer-mietwohnung-in-witten",
+      "date": "2024-10-16T09:53:45",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-witten.md"
+    },
+    {
+      "id": 10777,
+      "title": "Renovierung Ihrer Mietwohnung in Unna",
+      "slug": "renovierung-ihrer-mietwohnung-in-unna",
+      "date": "2024-10-16T09:52:31",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-unna.md"
+    },
+    {
+      "id": 10772,
+      "title": "Renovierung Ihrer Mietwohnung in Schwerte",
+      "slug": "renovierung-ihrer-mietwohnung-in-schwerte",
+      "date": "2024-10-16T09:51:21",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-schwerte.md"
+    },
+    {
+      "id": 10767,
+      "title": "Renovierung Ihrer Mietwohnung in Lünen",
+      "slug": "renovierung-ihrer-mietwohnung-in-luenen",
+      "date": "2024-10-16T09:50:11",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-luenen.md"
+    },
+    {
+      "id": 10762,
+      "title": "Renovierung Ihrer Mietwohnung in Kamen",
+      "slug": "renovierung-ihrer-mietwohnung-in-kamen",
+      "date": "2024-10-16T09:48:56",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-kamen.md"
+    },
+    {
+      "id": 10757,
+      "title": "Renovierung Ihrer Mietwohnung in Holzwickede",
+      "slug": "renovierung-ihrer-mietwohnung-in-holzwickede",
+      "date": "2024-10-16T09:47:41",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-holzwickede.md"
+    },
+    {
+      "id": 10752,
+      "title": "Renovierung Ihrer Mietwohnung in Herdecke",
+      "slug": "renovierung-ihrer-mietwohnung-in-herdecke",
+      "date": "2024-10-16T09:46:24",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-herdecke.md"
+    },
+    {
+      "id": 10747,
+      "title": "Renovierung Ihrer Mietwohnung in Hagen",
+      "slug": "renovierung-ihrer-mietwohnung-in-hagen",
+      "date": "2024-10-16T09:45:03",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-hagen.md"
+    },
+    {
+      "id": 10742,
+      "title": "Renovierung Ihrer Mietwohnung in Castrop-Rauxel",
+      "slug": "renovierung-ihrer-mietwohnung-in-castrop-rauxel",
+      "date": "2024-10-16T09:42:55",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-castrop-rauxel.md"
+    },
+    {
+      "id": 10737,
+      "title": "Renovierung Ihrer Mietwohnung in Bochum",
+      "slug": "renovierung-ihrer-mietwohnung-in-bochum",
+      "date": "2024-10-16T09:40:28",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-bochum.md"
+    },
+    {
+      "id": 10732,
+      "title": "Modernisierung Ihrer Mietwohnung in Witten",
+      "slug": "modernisierung-ihrer-mietwohnung-in-witten",
+      "date": "2024-10-16T09:36:51",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-witten.md"
+    },
+    {
+      "id": 10727,
+      "title": "Modernisierung Ihrer Mietwohnung in Unna",
+      "slug": "modernisierung-ihrer-mietwohnung-in-unna",
+      "date": "2024-10-16T09:35:44",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-unna.md"
+    },
+    {
+      "id": 10722,
+      "title": "Modernisierung Ihrer Mietwohnung in Schwerte",
+      "slug": "modernisierung-ihrer-mietwohnung-in-schwerte",
+      "date": "2024-10-16T09:34:25",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-schwerte.md"
+    },
+    {
+      "id": 10717,
+      "title": "Modernisierung Ihrer Mietwohnung in Lünen",
+      "slug": "modernisierung-ihrer-mietwohnung-in-luenen",
+      "date": "2024-10-16T09:33:17",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-luenen.md"
+    },
+    {
+      "id": 10712,
+      "title": "Modernisierung Ihrer Mietwohnung in Kamen",
+      "slug": "modernisierung-ihrer-mietwohnung-in-kamen",
+      "date": "2024-10-16T09:32:04",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-kamen.md"
+    },
+    {
+      "id": 10707,
+      "title": "Modernisierung Ihrer Mietwohnung in Holzwickede",
+      "slug": "modernisierung-ihrer-mietwohnung-in-holzwickede",
+      "date": "2024-10-16T09:30:49",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-holzwickede.md"
+    },
+    {
+      "id": 10702,
+      "title": "Modernisierung Ihrer Mietwohnung in Herdecke",
+      "slug": "modernisierung-ihrer-mietwohnung-in-herdecke",
+      "date": "2024-10-16T09:29:14",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-herdecke.md"
+    },
+    {
+      "id": 10697,
+      "title": "Modernisierung Ihrer Mietwohnung in Hagen",
+      "slug": "modernisierung-ihrer-mietwohnung-in-hagen",
+      "date": "2024-10-16T09:27:46",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-hagen.md"
+    },
+    {
+      "id": 10692,
+      "title": "Modernisierung Ihrer Mietwohnung in Castrop-Rauxel",
+      "slug": "modernisierung-ihrer-mietwohnung-in-castrop-rauxel",
+      "date": "2024-10-16T09:24:17",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-castrop-rauxel.md"
+    },
+    {
+      "id": 10683,
+      "title": "Modernisierung Ihrer Mietwohnung in Bochum",
+      "slug": "modernisierung-ihrer-mietwohnung-in-bochum",
+      "date": "2024-10-16T09:19:13",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-bochum.md"
+    },
+    {
+      "id": 10615,
+      "title": "Sanierung Ihrer Mietwohnung in NRW",
+      "slug": "sanierung-ihrer-mietwohnung-in-nrw",
+      "date": "2024-10-15T23:22:29",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-nrw.md"
+    },
+    {
+      "id": 10613,
+      "title": "Hochwertige Sanierung Ihrer Eigentumswohnung",
+      "slug": "sanierung-ihrer-eigentumswohnung-in-nrw",
+      "date": "2024-10-15T23:21:51",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-eigentumswohnung-in-nrw.md"
+    },
+    {
+      "id": 10607,
+      "title": "Renovierung Ihrer Mietwohnung in NRW",
+      "slug": "renovierung-ihrer-mietwohnung-in-nrw",
+      "date": "2024-10-15T23:19:05",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-nrw.md"
+    },
+    {
+      "id": 10416,
+      "title": "Lösungen für Hausverwalter",
+      "slug": "loesungen-fur-hausverwalter",
+      "date": "2024-10-12T12:54:33",
+      "parent": 0,
+      "filename": "pages/loesungen-fur-hausverwalter.md"
+    },
+    {
+      "id": 10391,
+      "title": "Lösungen für Asset Manager",
+      "slug": "loesungen-fur-asset-manager",
+      "date": "2024-10-12T10:45:41",
+      "parent": 0,
+      "filename": "pages/loesungen-fur-asset-manager.md"
+    },
+    {
+      "id": 10294,
+      "title": "Sanierungs-Ratgeber &#8211; Übersicht",
+      "slug": "sanierungs-ratgeber-ubersicht",
+      "date": "2024-09-05T15:59:38",
+      "parent": 0,
+      "filename": "pages/sanierungs-ratgeber-ubersicht.md"
+    },
+    {
+      "id": 10267,
+      "title": "Sanierungs-Ratgeber &#8211; Elektrik",
+      "slug": "sanierungs-ratgeber-elektrik",
+      "date": "2024-09-05T15:07:27",
+      "parent": 0,
+      "filename": "pages/sanierungs-ratgeber-elektrik.md"
+    },
+    {
+      "id": 10234,
+      "title": "Sanierungs-Ratgeber &#8211; Badezimmer",
+      "slug": "sanierungs-ratgeber-badezimmer",
+      "date": "2024-09-05T13:37:47",
+      "parent": 0,
+      "filename": "pages/sanierungs-ratgeber-badezimmer.md"
+    },
+    {
+      "id": 10085,
+      "title": "Sanierung Ihres Mehrfamilienhauses in NRW",
+      "slug": "sanierung-mehrfamilienhaus-nrw",
+      "date": "2024-09-04T15:34:47",
+      "parent": 0,
+      "filename": "pages/sanierung-mehrfamilienhaus-nrw.md"
+    },
+    {
+      "id": 10044,
+      "title": "Sanierungs-Ratgeber &#8211; Boden",
+      "slug": "sanierungs-ratgeber-boden",
+      "date": "2024-09-04T13:52:47",
+      "parent": 0,
+      "filename": "pages/sanierungs-ratgeber-boden.md"
+    },
+    {
+      "id": 9975,
+      "title": "Sanierungs-Ratgeber &#8211; Wände &#038; Decken",
+      "slug": "ratgeber-waende-decken",
+      "date": "2024-08-28T19:07:32",
+      "parent": 0,
+      "filename": "pages/ratgeber-waende-decken.md"
+    },
+    {
+      "id": 9901,
+      "title": "Sanierung Ihrer Mietwohnung in Schwerte",
+      "slug": "sanierung-ihrer-mietwohnung-in-schwerte",
+      "date": "2024-08-28T17:15:53",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-schwerte.md"
+    },
+    {
+      "id": 9896,
+      "title": "Sanierung Ihrer Mietwohnung in Holzwickede",
+      "slug": "sanierung-ihrer-mietwohnung-in-holzwickede",
+      "date": "2024-08-28T17:13:41",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-holzwickede.md"
+    },
+    {
+      "id": 9891,
+      "title": "Sanierung Ihrer Mietwohnung in Herdecke",
+      "slug": "sanierung-ihrer-mietwohnung-in-herdecke",
+      "date": "2024-08-28T17:12:02",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-herdecke.md"
+    },
+    {
+      "id": 9886,
+      "title": "Sanierung Ihrer Mietwohnung in Witten",
+      "slug": "sanierung-ihrer-mietwohnung-in-witten",
+      "date": "2024-08-28T17:09:31",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-witten.md"
+    },
+    {
+      "id": 9881,
+      "title": "Sanierung Ihrer Mietwohnung in Castrop-Rauxel",
+      "slug": "sanierung-ihrer-mietwohnung-in-castrop-rauxel",
+      "date": "2024-08-28T17:07:38",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-castrop-rauxel.md"
+    },
+    {
+      "id": 9876,
+      "title": "Sanierung Ihrer Mietwohnung in Lünen",
+      "slug": "sanierung-ihrer-mietwohnung-in-luenen",
+      "date": "2024-08-28T17:05:32",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-luenen.md"
+    },
+    {
+      "id": 9871,
+      "title": "Sanierung Ihrer Mietwohnung in Kamen",
+      "slug": "sanierung-ihrer-mietwohnung-in-kamen",
+      "date": "2024-08-28T17:01:51",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-kamen.md"
+    },
+    {
+      "id": 9866,
+      "title": "Sanierung Ihrer Mietwohnung in Hagen",
+      "slug": "sanierung-ihrer-mietwohnung-in-hagen",
+      "date": "2024-08-28T16:59:11",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-hagen.md"
+    },
+    {
+      "id": 9861,
+      "title": "Sanierung Ihrer Mietwohnung in Bochum",
+      "slug": "sanierung-ihrer-mietwohnung-in-bochum",
+      "date": "2024-08-28T16:56:36",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-bochum.md"
+    },
+    {
+      "id": 9852,
+      "title": "Sanierung Ihrer Mietwohnung in Unna",
+      "slug": "sanierung-ihrer-mietwohnung-in-unna",
+      "date": "2024-08-28T16:52:33",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-unna.md"
+    },
+    {
+      "id": 9337,
+      "title": "Сотрудничество по ремонту (арендных) квартир",
+      "slug": "zusammenarbeit-nachunternehmer-sanierung-wohnungen-russisch",
+      "date": "2024-07-19T14:31:29",
+      "parent": 2936,
+      "filename": "pages/zusammenarbeit-nachunternehmer-sanierung-wohnungen-russisch.md"
+    },
+    {
+      "id": 9318,
+      "title": "Regelmäßige Subunternehmer Aufträge: Zusammenarbeit als Nachunternehmer für die Sanierung von Mietwohnungen​",
+      "slug": "regelmaessige-auftraege-fuer-subunternehmer-in-nrw",
+      "date": "2024-07-19T13:52:27",
+      "parent": 2936,
+      "filename": "pages/regelmaessige-auftraege-fuer-subunternehmer-in-nrw.md"
+    },
+    {
+      "id": 9253,
+      "title": "Sanierungs-Beispiel | 45m² Apartment | Kernsanierung Bad",
+      "slug": "sanierungs-beispiel-45qm-apartment-kernsanierung-bad",
+      "date": "2024-07-17T17:19:38",
+      "parent": 0,
+      "filename": "pages/sanierungs-beispiel-45qm-apartment-kernsanierung-bad.md"
+    },
+    {
+      "id": 9127,
+      "title": "Sanierungs-Beispiele Wohnungen | Vorher/Nachher | Übersicht",
+      "slug": "sanierungs-beispiele-wohnungen-vorher-nachher-ubersicht",
+      "date": "2024-07-10T19:34:28",
+      "parent": 0,
+      "filename": "pages/sanierungs-beispiele-wohnungen-vorher-nachher-ubersicht.md"
+    },
+    {
+      "id": 9065,
+      "title": "Sanierungs-Beispiel | Vorher/Nachher | Bad-Modernisierung | 52m²",
+      "slug": "sanierungs-beispiel-vorher-nachher-bad-modernisierung-52qm",
+      "date": "2024-07-10T17:54:12",
+      "parent": 0,
+      "filename": "pages/sanierungs-beispiel-vorher-nachher-bad-modernisierung-52qm.md"
+    },
+    {
+      "id": 9054,
+      "title": "Vielen Dank für Ihre Anfrage",
+      "slug": "vielen-dank-fur-ihre-anfrage",
+      "date": "2024-07-10T17:29:55",
+      "parent": 0,
+      "filename": "pages/vielen-dank-fur-ihre-anfrage.md"
+    },
+    {
+      "id": 8879,
+      "title": "Renovierungs-Rendite Rechner (R³)",
+      "slug": "renovierungs-rendite-rechner",
+      "date": "2024-06-19T22:59:53",
+      "parent": 0,
+      "filename": "pages/renovierungs-rendite-rechner.md"
+    },
+    {
+      "id": 8701,
+      "title": "Renovierung Ihrer Mietwohnung in Dortmund",
+      "slug": "renovierung-ihrer-mietwohnung-in-dortmund",
+      "date": "2024-06-15T11:47:21",
+      "parent": 0,
+      "filename": "pages/renovierung-ihrer-mietwohnung-in-dortmund.md"
+    },
+    {
+      "id": 8680,
+      "title": "Modernisierung Ihrer Mietwohnung in Dortmund",
+      "slug": "modernisierung-ihrer-mietwohnung-in-dortmund",
+      "date": "2024-06-15T11:14:28",
+      "parent": 0,
+      "filename": "pages/modernisierung-ihrer-mietwohnung-in-dortmund.md"
+    },
+    {
+      "id": 8588,
+      "title": "Sanierung Ihrer Mietwohnung in Dortmund",
+      "slug": "sanierung-ihrer-mietwohnung-in-dortmund",
+      "date": "2024-06-12T11:33:57",
+      "parent": 0,
+      "filename": "pages/sanierung-ihrer-mietwohnung-in-dortmund.md"
+    },
+    {
+      "id": 8121,
+      "title": "Renovierung-Beispiel | Vorher/Nachher | Bad-Instandsetzung | 65m²",
+      "slug": "renovierung-beispiel-vorher-nachher-65m",
+      "date": "2024-06-05T22:20:50",
+      "parent": 0,
+      "filename": "pages/renovierung-beispiel-vorher-nachher-65m.md"
+    },
+    {
+      "id": 7889,
+      "title": "Stelle Bauleiter Innenausbau / Wohnungssanierung",
+      "slug": "stelle-bauleiter-innenausbau-wohnungssanierung-dortmund",
+      "date": "2024-04-23T11:24:18",
+      "parent": 5605,
+      "filename": "pages/stelle-bauleiter-innenausbau-wohnungssanierung-dortmund.md"
+    },
+    {
+      "id": 7764,
+      "title": "Stelle Außendienstmitarbeiter Sanierung | Wohnungswirtschaft",
+      "slug": "stelle-aussendienstmitarbeiter-sanierung-wohnungswirtschaft-hausverwaltungen",
+      "date": "2024-04-22T19:46:49",
+      "parent": 0,
+      "filename": "pages/stelle-aussendienstmitarbeiter-sanierung-wohnungswirtschaft-hausverwaltungen.md"
+    },
+    {
+      "id": 6915,
+      "title": "Optimale Aufwertung Ihrer Mietwohnung | Unseren Leistungspakete",
+      "slug": "aufwertung-ihrer-mietwohnung-in-dortmund-unsere-leistungspakete",
+      "date": "2024-01-02T16:07:05",
+      "parent": 0,
+      "filename": "pages/aufwertung-ihrer-mietwohnung-in-dortmund-unsere-leistungspakete.md"
+    },
+    {
+      "id": 6298,
+      "title": "neurealis | Immobiliensanierung mit System: Digital. Effizient. Transparent.",
+      "slug": "neurealis-wohnungssanierung-aus-einer-hand",
+      "date": "2023-07-13T09:52:30",
+      "parent": 0,
+      "filename": "pages/neurealis-wohnungssanierung-aus-einer-hand.md"
+    },
+    {
+      "id": 6278,
+      "title": "Karriere | Unser Bewerbungsprozess",
+      "slug": "karriere-unser-bewerbungsprozess",
+      "date": "2023-05-02T12:26:04",
+      "parent": 0,
+      "filename": "pages/karriere-unser-bewerbungsprozess.md"
+    },
+    {
+      "id": 5605,
+      "title": "Karriere",
+      "slug": "karriere",
+      "date": "2023-03-26T16:31:30",
+      "parent": 0,
+      "filename": "pages/karriere.md"
+    },
+    {
+      "id": 4357,
+      "title": "Sanierungs-Beratung für Ihr Renditeobjekt vereinbaren",
+      "slug": "beratung",
+      "date": "2023-02-07T18:55:13",
+      "parent": 0,
+      "filename": "pages/beratung.md"
+    },
+    {
+      "id": 2936,
+      "title": "Über neurealis",
+      "slug": "ueber-neurealis-wohnungssanierung-in-dortmund",
+      "date": "2023-01-17T12:44:24",
+      "parent": 0,
+      "filename": "pages/ueber-neurealis-wohnungssanierung-in-dortmund.md"
+    },
+    {
+      "id": 3,
+      "title": "Datenschutzerklärung",
+      "slug": "datenschutzerklaerung",
+      "date": "2020-06-10T22:56:06",
+      "parent": 0,
+      "filename": "pages/datenschutzerklaerung.md"
+    },
+    {
+      "id": 2,
+      "title": "Impressum",
+      "slug": "impressum",
+      "date": "2020-06-10T22:56:06",
+      "parent": 0,
+      "filename": "pages/impressum.md"
+    }
+  ],
+  "categories": [
+    {
+      "id": 45,
+      "name": "Allgemein",
+      "slug": "allgemein",
+      "count": 11
+    },
+    {
+      "id": 1,
+      "name": "Uncategorized",
+      "slug": "uncategorized",
+      "count": 0
+    }
+  ],
+  "tags": [
+    {
+      "id": 54,
+      "name": "Betriebskosten",
+      "slug": "betriebskosten",
+      "count": 0
+    },
+    {
+      "id": 180,
+      "name": "Dortmund",
+      "slug": "dortmund",
+      "count": 1
+    },
+    {
+      "id": 53,
+      "name": "Eigentümer",
+      "slug": "eigentuemer",
+      "count": 0
+    },
+    {
+      "id": 44,
+      "name": "Eigentümer-Portal",
+      "slug": "eigentuemer-portal",
+      "count": 0
+    },
+    {
+      "id": 51,
+      "name": "Energiesparen",
+      "slug": "energiesparen",
+      "count": 0
+    },
+    {
+      "id": 42,
+      "name": "Hausverwaltung Dortmund",
+      "slug": "hausverwaltung-dortmund",
+      "count": 0
+    },
+    {
+      "id": 50,
+      "name": "Heizkosten",
+      "slug": "heizkosten",
+      "count": 0
+    },
+    {
+      "id": 52,
+      "name": "Mieter",
+      "slug": "mieter",
+      "count": 0
+    },
+    {
+      "id": 43,
+      "name": "Mieter-Portal",
+      "slug": "mieter-portal",
+      "count": 0
+    },
+    {
+      "id": 46,
+      "name": "Mieter-Service",
+      "slug": "mieter-service",
+      "count": 0
+    },
+    {
+      "id": 55,
+      "name": "Mietrecht",
+      "slug": "mietrecht",
+      "count": 0
+    },
+    {
+      "id": 48,
+      "name": "Rendite",
+      "slug": "rendite",
+      "count": 0
+    },
+    {
+      "id": 179,
+      "name": "Renovierung Wohnung",
+      "slug": "renovierung-wohnung",
+      "count": 2
+    },
+    {
+      "id": 182,
+      "name": "Renovierung Wohnung Dortmund",
+      "slug": "renovierung-wohnung-dortmund",
+      "count": 2
+    },
+    {
+      "id": 178,
+      "name": "Sanierung Wohnung",
+      "slug": "sanierung-wohnung",
+      "count": 2
+    },
+    {
+      "id": 181,
+      "name": "Sanierung Wohnung Dortmund",
+      "slug": "sanierung-wohnung-dortmund",
+      "count": 2
+    },
+    {
+      "id": 47,
+      "name": "Service-Zeiten",
+      "slug": "service-zeiten",
+      "count": 0
+    },
+    {
+      "id": 49,
+      "name": "Vermietung",
+      "slug": "vermietung",
+      "count": 0
+    },
+    {
+      "id": 177,
+      "name": "Wohnungsmodernisierung",
+      "slug": "wohnungsmodernisierung",
+      "count": 3
+    },
+    {
+      "id": 176,
+      "name": "Wohnungsrenovierung",
+      "slug": "wohnungsrenovierung",
+      "count": 3
+    },
+    {
+      "id": 175,
+      "name": "Wohnungssanierung",
+      "slug": "wohnungssanierung",
+      "count": 3
+    }
+  ]
+}

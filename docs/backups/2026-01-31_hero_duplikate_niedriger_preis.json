@@ -1,0 +1,27 @@
+{
+  "datum": "2026-01-30T16:24:20.490Z",
+  "beschreibung": "Gelöschte Hero-Duplikate (niedrigere Preise)",
+  "anzahl_geloescht": 1,
+  "geloeschte_positionen": [
+    {
+      "product_id": "GGScI_DIsAA",
+      "nr": "freie Position",
+      "name": "OSB Platten als erste Lage auf Stenderwerk Küche",
+      "deleted_price": 51,
+      "kept_price": 546,
+      "difference": 495
+    }
+  ],
+  "duplikat_report": [
+    {
+      "artikelnummer": "freie Position",
+      "name": "Rückbau Platten als Unterboden für Vinyl (Flur und Küche)",
+      "behaltener_preis": 546,
+      "geloeschte_preise": [
+        51
+      ],
+      "anzahl_duplikate": 2,
+      "keeper_product_id": "GGScIYSIsAA"
+    }
+  ]
+}

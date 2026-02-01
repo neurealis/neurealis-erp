@@ -1,0 +1,5015 @@
+{
+  "total": 626,
+  "duplikate": [
+    {
+      "product_id": "GRT7qxmfoAA",
+      "nr": "DUPLIKAT-231371008-GRT7",
+      "base_data": {
+        "name": "[DUPLIKAT] 231371008"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GRUAi2g-wAA",
+      "nr": "DUPLIKAT-231370006-GRUA",
+      "base_data": {
+        "name": "[DUPLIKAT] 231370006"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwTXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.21-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRZxXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-12.01.3-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-12.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRcWXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-12.06.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-12.06.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvWXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.1-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvaXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQveXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.3-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvhXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.4-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvnXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.6-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvqXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.7-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvsXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.8-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvvXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.9-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvyXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.10-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQv0XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.11-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQv4XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.12-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQv7XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.13-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQv-XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.14-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwBXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.15-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwDXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.16-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwGXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.17-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwLXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.19-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwQXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.20-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwXXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.22-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3KXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.1-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3PXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3SXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.3-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3VXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.4-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3YXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.5-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3cXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.6-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3fXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.7-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ3hXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.8-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSRXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSXXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.4-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSgXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.7-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSjXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.8-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSlXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.9-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSoXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.10-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSqXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.11-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRStXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.12-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSwXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.13-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRS1XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.14-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRS7XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.15-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTCXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.16-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTGXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.17-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTMXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.18-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTRXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.19-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTVXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.20-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTaXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.1-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTfXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTjXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.3-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTmXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.4-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTsXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.5-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRTwXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.6-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRT3XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.03.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRT-XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.05.1-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.05.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRUCXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.05.2-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.05.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GHWm1clFIAA",
+      "nr": "DUPLIKAT-91016431-GHWm",
+      "base_data": {
+        "name": "[DUPLIKAT] 91016431"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOoMXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0270-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0270"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLl7XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLmMXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLmfXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLmvXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLnBXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLnVXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLnoXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLoNXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLonXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0110-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0110"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLo5XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0120-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0120"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLpLXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0130-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0130"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLpbXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0140-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0140"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLpwXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0150-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0150"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLqBXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0160-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0160"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLqUXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0170-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0170"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLq8XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0190-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0190"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLrRXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0200-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0200"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLrnXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0210-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0210"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLr-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0220-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0220"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLsTXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0230-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0230"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLspXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLtGXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLtbXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLtrXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLt9XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLuOXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLufXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLuuXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLu-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLvRXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLvrXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0110-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0110"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLv-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0120-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0120"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLwQXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0130-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0130"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLwnXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0140-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0140"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLw4XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0150-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0150"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLxIXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0160-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0160"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLxaXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0170-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0170"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLyNXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0200-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0200"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLzCXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.01.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.01.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLzgXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.01.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.01.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LLzxXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL0EXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL0WXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL0mXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL03XgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL1HXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL1YXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL2BXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL2gXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL2yXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL3hXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL34XgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LL4NXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO8TXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO8oXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO9MXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO9gXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO9zXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO-GXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0085-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0085"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO-7XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO_cXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LO_tXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPAUXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPAkXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPA1XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPBEXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPBYXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPCAXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0120-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0120"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPCjXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0140-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0140"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPC0XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0145-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0145"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPDJXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0147-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0147"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPDZXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0150-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0150"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPDvXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0155-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0155"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPEBXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0160-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0160"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPEkXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0170-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0170"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPF6XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0210-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0210"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPGLXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0220-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0220"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOrkXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0440-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0440"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOr9XgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0450-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0450"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOsTXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0460-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0460"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOsmXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0470-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0470"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOs4XgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0480-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0480"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOtLXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0490-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0490"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOtcXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0500-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0500"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOtrXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0510-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0510"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOt8XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOuMXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOulXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0030-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0030"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOu1XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOvHXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOvZXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0060-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0060"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOvoXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOv4XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOwJXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOwcXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOxDXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0120-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0120"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOxXXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0130-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0130"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOxqXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0135-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0135"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOyBXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0140-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0140"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOyTXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0150-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0150"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LOy9XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPGvXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0240-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0240"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPIfXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0300-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0300"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPJBXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0320-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0320"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPJSXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0330-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0330"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPJjXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0340-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0340"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPJyXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0350-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0350"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPKRXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0367-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0367"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPKpXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0370-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0370"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPK9XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0380-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0380"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPLPXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0390-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0390"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPL7XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPMgXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0040-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0040"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPMxXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPNnXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0080-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0080"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPN3XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPOHXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0100-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0100"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPOmXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0120-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0120"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPO5XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0010-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0010"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPPMXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0020-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0020"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPQHXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0050-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0050"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPQwXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0070-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0070"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPRoXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0090-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0090"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIilXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0140-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0140"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIi1XgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0150-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0150"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIjFXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0160-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0160"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIjUXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0170-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0170"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIjjXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0180-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0180"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIj4XgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0190-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0190"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LIkNXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0200-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0200"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR7LXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-21.01.02.3-Ge7L",
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-21.01.02.3"
+      },
+      "is_deleted": false
+    }
+  ],
+  "altMarkiert": [
+    {
+      "product_id": "Ge7LPj3XgAA",
+      "nr": "ALT-GWS.LV23-02.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 48.8351 EUR] GWS.LV23-02.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPsPXgAA",
+      "nr": "ALT-GWS.LV23-02.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.7145 EUR] GWS.LV23-02.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPlyXgAA",
+      "nr": "ALT-GWS.LV23-02.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 152.6096 EUR] GWS.LV23-02.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK_AIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.03.1-GGSc",
+      "base_data": {
+        "name": "[ALT 27.3821 EUR] GWS.LV23-21.01.04.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK_RIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.04.1-GGSc",
+      "base_data": {
+        "name": "[ALT 26.5203 EUR] GWS.LV23-21.01.04.04.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK_iIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.05.1-GGSc",
+      "base_data": {
+        "name": "[ALT 28.6423 EUR] GWS.LV23-21.01.04.05.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK_yIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.06.1-GGSc",
+      "base_data": {
+        "name": "[ALT 28.626 EUR] GWS.LV23-21.01.04.06.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLABIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.07.1-GGSc",
+      "base_data": {
+        "name": "[ALT 28.2927 EUR] GWS.LV23-21.01.04.07.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLARIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.08.1-GGSc",
+      "base_data": {
+        "name": "[ALT 27.8293 EUR] GWS.LV23-21.01.04.08.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPqSXgAA",
+      "nr": "ALT-GWS.LV23-02.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.3186 EUR] GWS.LV23-02.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPxTXgAA",
+      "nr": "ALT-GWS.LV23-04.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.4803 EUR] GWS.LV23-04.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LST_XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 679.5034 EUR] GWS.LV23-21.02.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQiOXgAA",
+      "nr": "ALT-GWS.LV23-08.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 33.9688 EUR] GWS.LV23-08.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLAhIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.09.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25.8455 EUR] GWS.LV23-21.01.04.09.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLAwIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.11.1-GGSc",
+      "base_data": {
+        "name": "[ALT 28.2927 EUR] GWS.LV23-21.01.04.11.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLA_IsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.12.1-GGSc",
+      "base_data": {
+        "name": "[ALT 26.2683 EUR] GWS.LV23-21.01.04.12.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLBTIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.13.1-GGSc",
+      "base_data": {
+        "name": "[ALT 27.8537 EUR] GWS.LV23-21.01.04.13.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLBvIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.14.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25.8455 EUR] GWS.LV23-21.01.04.14.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLB-IsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.15.1-GGSc",
+      "base_data": {
+        "name": "[ALT 24.5203 EUR] GWS.LV23-21.01.04.15.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLCOIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.16.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25.5122 EUR] GWS.LV23-21.01.04.16.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLCdIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.17.1-GGSc",
+      "base_data": {
+        "name": "[ALT 23.7561 EUR] GWS.LV23-21.01.04.17.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLCwIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.18.1-GGSc",
+      "base_data": {
+        "name": "[ALT 24.2927 EUR] GWS.LV23-21.01.04.18.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLDDIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.19.1-GGSc",
+      "base_data": {
+        "name": "[ALT 24.626 EUR] GWS.LV23-21.01.04.19.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLDUIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.20.1-GGSc",
+      "base_data": {
+        "name": "[ALT 26.1057 EUR] GWS.LV23-21.01.04.20.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSMwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSNbXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSN8XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP4PXgAA",
+      "nr": "ALT-GWS.LV23-04.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 49.4287 EUR] GWS.LV23-04.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP4fXgAA",
+      "nr": "ALT-GWS.LV23-04.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 52.4079 EUR] GWS.LV23-04.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP4-XgAA",
+      "nr": "ALT-GWS.LV23-04.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 28.4384 EUR] GWS.LV23-04.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP5SXgAA",
+      "nr": "ALT-GWS.LV23-04.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 36.1574 EUR] GWS.LV23-04.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP5nXgAA",
+      "nr": "ALT-GWS.LV23-04.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 31.8239 EUR] GWS.LV23-04.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP58XgAA",
+      "nr": "ALT-GWS.LV23-04.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.8866 EUR] GWS.LV23-04.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScI7bIsAA",
+      "nr": "ALT-GWS.LV23-04.03.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-04.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP61XgAA",
+      "nr": "ALT-GWS.LV23-05.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 10.6079 EUR] GWS.LV23-05.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP7cXgAA",
+      "nr": "ALT-GWS.LV23-05.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.8799 EUR] GWS.LV23-05.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP7tXgAA",
+      "nr": "ALT-GWS.LV23-05.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.417 EUR] GWS.LV23-05.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP79XgAA",
+      "nr": "ALT-GWS.LV23-05.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 29.0038 EUR] GWS.LV23-05.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJUEIsAA",
+      "nr": "ALT-GWS.LV23-07.01.18-GGSc",
+      "base_data": {
+        "name": "[ALT 8.5417 EUR] GWS.LV23-07.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJUTIsAA",
+      "nr": "ALT-GWS.LV23-07.01.19-GGSc",
+      "base_data": {
+        "name": "[ALT 10.375 EUR] GWS.LV23-07.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQdOXgAA",
+      "nr": "ALT-GWS.LV23-07.01.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.0808 EUR] GWS.LV23-07.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQehXgAA",
+      "nr": "ALT-GWS.LV23-07.01.24-Ge7L",
+      "base_data": {
+        "name": "[ALT 33.3645 EUR] GWS.LV23-07.01.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJWlIsAA",
+      "nr": "ALT-GWS.LV23-07.02.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-07.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQhpXgAA",
+      "nr": "ALT-GWS.LV23-08.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 74.5982 EUR] GWS.LV23-08.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQh5XgAA",
+      "nr": "ALT-GWS.LV23-08.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 59.2789 EUR] GWS.LV23-08.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQieXgAA",
+      "nr": "ALT-GWS.LV23-08.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 74.5982 EUR] GWS.LV23-08.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQjEXgAA",
+      "nr": "ALT-GWS.LV23-08.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.9697 EUR] GWS.LV23-08.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJjMIsAA",
+      "nr": "ALT-GWS.LV23-08.02.2-GGSc",
+      "base_data": {
+        "name": "[ALT 41.6667 EUR] GWS.LV23-08.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQjzXgAA",
+      "nr": "ALT-GWS.LV23-08.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 51.6024 EUR] GWS.LV23-08.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQkDXgAA",
+      "nr": "ALT-GWS.LV23-08.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 59.9557 EUR] GWS.LV23-08.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQkTXgAA",
+      "nr": "ALT-GWS.LV23-08.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 63.9977 EUR] GWS.LV23-08.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQlkXgAA",
+      "nr": "ALT-GWS.LV23-08.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 75.4499 EUR] GWS.LV23-08.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQl4XgAA",
+      "nr": "ALT-GWS.LV23-08.02.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 49.8508 EUR] GWS.LV23-08.02.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQmRXgAA",
+      "nr": "ALT-GWS.LV23-08.02.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.3357 EUR] GWS.LV23-08.02.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPV1XgAA",
+      "nr": "ALT-GWS.LV23-01.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 13.4732 EUR] GWS.LV23-01.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSOlXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQgkXgAA",
+      "nr": "ALT-GWS.LV23-08.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 19.3156 EUR] GWS.LV23-08.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRPFXgAA",
+      "nr": "ALT-GWS.LV23-09.05.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 8.066 EUR] GWS.LV23-09.05.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQNaXgAA",
+      "nr": "ALT-GWS.LV23-06.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.5749 EUR] GWS.LV23-06.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPToXgAA",
+      "nr": "ALT-GWS.LV23-01.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 309.8836 EUR] GWS.LV23-01.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPT7XgAA",
+      "nr": "ALT-GWS.LV23-01.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 390.7228 EUR] GWS.LV23-01.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPWqXgAA",
+      "nr": "ALT-GWS.LV23-01.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 21.8266 EUR] GWS.LV23-01.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPXOXgAA",
+      "nr": "ALT-GWS.LV23-01.01.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.4942 EUR] GWS.LV23-01.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPZHXgAA",
+      "nr": "ALT-GWS.LV23-01.01.26-Ge7L",
+      "base_data": {
+        "name": "[ALT 64.6714 EUR] GWS.LV23-01.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPhsXgAA",
+      "nr": "ALT-GWS.LV23-01.01.27-Ge7L",
+      "base_data": {
+        "name": "[ALT 56.5874 EUR] GWS.LV23-01.01.27"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPh9XgAA",
+      "nr": "ALT-GWS.LV23-01.01.28-Ge7L",
+      "base_data": {
+        "name": "[ALT 92.2914 EUR] GWS.LV23-01.01.28"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPiQXgAA",
+      "nr": "ALT-GWS.LV23-01.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 54.5665 EUR] GWS.LV23-01.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScIf8IsAA",
+      "nr": "ALT-GWS.LV23-01.02.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-01.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPkKXgAA",
+      "nr": "ALT-GWS.LV23-02.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 61.3092 EUR] GWS.LV23-02.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPkeXgAA",
+      "nr": "ALT-GWS.LV23-02.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 56.3992 EUR] GWS.LV23-02.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPmJXgAA",
+      "nr": "ALT-GWS.LV23-02.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 43.7923 EUR] GWS.LV23-02.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPm1XgAA",
+      "nr": "ALT-GWS.LV23-02.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 67.679 EUR] GWS.LV23-02.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPoUXgAA",
+      "nr": "ALT-GWS.LV23-02.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 58.1244 EUR] GWS.LV23-02.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPqnXgAA",
+      "nr": "ALT-GWS.LV23-02.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.0696 EUR] GWS.LV23-02.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPrWXgAA",
+      "nr": "ALT-GWS.LV23-02.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.7583 EUR] GWS.LV23-02.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPrpXgAA",
+      "nr": "ALT-GWS.LV23-02.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.9913 EUR] GWS.LV23-02.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPsgXgAA",
+      "nr": "ALT-GWS.LV23-02.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 14.8005 EUR] GWS.LV23-02.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScIo7IsAA",
+      "nr": "ALT-GWS.LV23-02.02.11-GGSc",
+      "base_data": {
+        "name": "[ALT 1.7708 EUR] GWS.LV23-02.02.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPuCXgAA",
+      "nr": "ALT-GWS.LV23-02.02.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.2066 EUR] GWS.LV23-02.02.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScIqRIsAA",
+      "nr": "ALT-GWS.LV23-02.03.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-02.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPx6XgAA",
+      "nr": "ALT-GWS.LV23-04.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 18.9589 EUR] GWS.LV23-04.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPyOXgAA",
+      "nr": "ALT-GWS.LV23-04.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 26.1363 EUR] GWS.LV23-04.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPzjXgAA",
+      "nr": "ALT-GWS.LV23-04.01.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.5074 EUR] GWS.LV23-04.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPz1XgAA",
+      "nr": "ALT-GWS.LV23-04.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.5887 EUR] GWS.LV23-04.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP0HXgAA",
+      "nr": "ALT-GWS.LV23-04.01.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.1892 EUR] GWS.LV23-04.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP0YXgAA",
+      "nr": "ALT-GWS.LV23-04.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.347 EUR] GWS.LV23-04.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP0pXgAA",
+      "nr": "ALT-GWS.LV23-04.01.21-Ge7L",
+      "base_data": {
+        "name": "[ALT 28.5738 EUR] GWS.LV23-04.01.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP07XgAA",
+      "nr": "ALT-GWS.LV23-04.01.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.2302 EUR] GWS.LV23-04.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP1QXgAA",
+      "nr": "ALT-GWS.LV23-04.01.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 27.7613 EUR] GWS.LV23-04.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP1jXgAA",
+      "nr": "ALT-GWS.LV23-04.01.24-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.2095 EUR] GWS.LV23-04.01.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP2hXgAA",
+      "nr": "ALT-GWS.LV23-04.01.27-Ge7L",
+      "base_data": {
+        "name": "[ALT 61.0749 EUR] GWS.LV23-04.01.27"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP2yXgAA",
+      "nr": "ALT-GWS.LV23-04.01.28-Ge7L",
+      "base_data": {
+        "name": "[ALT 64.0541 EUR] GWS.LV23-04.01.28"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP3FXgAA",
+      "nr": "ALT-GWS.LV23-04.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 69.8772 EUR] GWS.LV23-04.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP3XXgAA",
+      "nr": "ALT-GWS.LV23-04.01.30-Ge7L",
+      "base_data": {
+        "name": "[ALT 75.1587 EUR] GWS.LV23-04.01.30"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP3rXgAA",
+      "nr": "ALT-GWS.LV23-04.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 43.3347 EUR] GWS.LV23-04.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP3-XgAA",
+      "nr": "ALT-GWS.LV23-04.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 44.2827 EUR] GWS.LV23-04.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSOXgAA",
+      "nr": "ALT-GWS.LV23-10.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKMzIsAA",
+      "nr": "ALT-GWS.LV23-10.01.1-GGSc",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKNFIsAA",
+      "nr": "ALT-GWS.LV23-10.01.5-GGSc",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSaXgAA",
+      "nr": "ALT-GWS.LV23-10.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKNJIsAA",
+      "nr": "ALT-GWS.LV23-10.01.6-GGSc",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSdXgAA",
+      "nr": "ALT-GWS.LV23-10.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKOXIsAA",
+      "nr": "ALT-GWS.LV23-10.03.1-GGSc",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQklXgAA",
+      "nr": "ALT-GWS.LV23-08.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 92.9651 EUR] GWS.LV23-08.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQd9XgAA",
+      "nr": "ALT-GWS.LV23-07.01.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 36.3006 EUR] GWS.LV23-07.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP2PXgAA",
+      "nr": "ALT-GWS.LV23-04.01.26-Ge7L",
+      "base_data": {
+        "name": "[ALT 38.8658 EUR] GWS.LV23-04.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPkwXgAA",
+      "nr": "ALT-GWS.LV23-02.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 61.9728 EUR] GWS.LV23-02.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPYzXgAA",
+      "nr": "ALT-GWS.LV23-01.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 51.0634 EUR] GWS.LV23-01.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP8xXgAA",
+      "nr": "ALT-GWS.LV23-05.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.3852 EUR] GWS.LV23-05.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP9HXgAA",
+      "nr": "ALT-GWS.LV23-05.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.2651 EUR] GWS.LV23-05.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP9aXgAA",
+      "nr": "ALT-GWS.LV23-05.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.706 EUR] GWS.LV23-05.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP9vXgAA",
+      "nr": "ALT-GWS.LV23-05.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 8.0566 EUR] GWS.LV23-05.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP-VXgAA",
+      "nr": "ALT-GWS.LV23-05.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.3562 EUR] GWS.LV23-05.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJBCIsAA",
+      "nr": "ALT-GWS.LV23-05.02.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-05.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP_dXgAA",
+      "nr": "ALT-GWS.LV23-06.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 40.4703 EUR] GWS.LV23-06.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRLdXgAA",
+      "nr": "ALT-GWS.LV23-09.04.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 5.6462 EUR] GWS.LV23-09.04.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRLxXgAA",
+      "nr": "ALT-GWS.LV23-09.05.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 50.5199 EUR] GWS.LV23-09.05.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRMCXgAA",
+      "nr": "ALT-GWS.LV23-09.05.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 28.2309 EUR] GWS.LV23-09.05.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRMmXgAA",
+      "nr": "ALT-GWS.LV23-09.05.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 25.2734 EUR] GWS.LV23-09.05.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRM6XgAA",
+      "nr": "ALT-GWS.LV23-09.05.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 58.6128 EUR] GWS.LV23-09.05.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRNSXgAA",
+      "nr": "ALT-GWS.LV23-09.05.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 56.4619 EUR] GWS.LV23-09.05.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LROEXgAA",
+      "nr": "ALT-GWS.LV23-09.05.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 11.0235 EUR] GWS.LV23-09.05.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LROVXgAA",
+      "nr": "ALT-GWS.LV23-09.05.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.0565 EUR] GWS.LV23-09.05.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRO3XgAA",
+      "nr": "ALT-GWS.LV23-09.05.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.033 EUR] GWS.LV23-09.05.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRPWXgAA",
+      "nr": "ALT-GWS.LV23-09.06.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 57.134 EUR] GWS.LV23-09.06.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRPmXgAA",
+      "nr": "ALT-GWS.LV23-09.06.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 42.4808 EUR] GWS.LV23-09.06.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRP7XgAA",
+      "nr": "ALT-GWS.LV23-09.06.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 63.8557 EUR] GWS.LV23-09.06.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRQgXgAA",
+      "nr": "ALT-GWS.LV23-09.06.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.7641 EUR] GWS.LV23-09.06.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKLDIsAA",
+      "nr": "ALT-GWS.LV23-09.06.6-GGSc",
+      "base_data": {
+        "name": "[ALT 28.3333 EUR] GWS.LV23-09.06.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRRHXgAA",
+      "nr": "ALT-GWS.LV23-09.06.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.3929 EUR] GWS.LV23-09.06.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKMdIsAA",
+      "nr": "ALT-GWS.LV23-09.07.2-GGSc",
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-09.07.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRSUXgAA",
+      "nr": "ALT-GWS.LV23-10.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKPQIsAA",
+      "nr": "ALT-GWS.LV23-11.02.1-GGSc",
+      "base_data": {
+        "name": "[ALT 125 EUR] GWS.LV23-11.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRU3XgAA",
+      "nr": "ALT-GWS.LV23-11.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 137.4266 EUR] GWS.LV23-11.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKQOIsAA",
+      "nr": "ALT-GWS.LV23-11.02.3-GGSc",
+      "base_data": {
+        "name": "[ALT 147.9167 EUR] GWS.LV23-11.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRVnXgAA",
+      "nr": "ALT-GWS.LV23-11.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 151.5735 EUR] GWS.LV23-11.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRV6XgAA",
+      "nr": "ALT-GWS.LV23-11.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 165.0467 EUR] GWS.LV23-11.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRWOXgAA",
+      "nr": "ALT-GWS.LV23-11.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 173.1306 EUR] GWS.LV23-11.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRWeXgAA",
+      "nr": "ALT-GWS.LV23-11.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 133.3847 EUR] GWS.LV23-11.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRWvXgAA",
+      "nr": "ALT-GWS.LV23-11.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 140.7949 EUR] GWS.LV23-11.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRXSXgAA",
+      "nr": "ALT-GWS.LV23-11.02.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 181.2145 EUR] GWS.LV23-11.02.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRXlXgAA",
+      "nr": "ALT-GWS.LV23-11.02.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 185.9302 EUR] GWS.LV23-11.02.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRX4XgAA",
+      "nr": "ALT-GWS.LV23-11.02.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 189.2985 EUR] GWS.LV23-11.02.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRYZXgAA",
+      "nr": "ALT-GWS.LV23-11.02.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 220.9605 EUR] GWS.LV23-11.02.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRYqXgAA",
+      "nr": "ALT-GWS.LV23-11.02.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 192.6668 EUR] GWS.LV23-11.02.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRY9XgAA",
+      "nr": "ALT-GWS.LV23-11.02.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 223.6551 EUR] GWS.LV23-11.02.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRZOXgAA",
+      "nr": "ALT-GWS.LV23-12.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5200.6552 EUR] GWS.LV23-12.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRZhXgAA",
+      "nr": "ALT-GWS.LV23-12.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 5402.7532 EUR] GWS.LV23-12.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRZ1XgAA",
+      "nr": "ALT-GWS.LV23-12.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5321.914 EUR] GWS.LV23-12.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRaEXgAA",
+      "nr": "ALT-GWS.LV23-12.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 5564.4316 EUR] GWS.LV23-12.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRaWXgAA",
+      "nr": "ALT-GWS.LV23-12.03.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5510.5388 EUR] GWS.LV23-12.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRaqXgAA",
+      "nr": "ALT-GWS.LV23-12.03.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 5699.1636 EUR] GWS.LV23-12.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRa_XgAA",
+      "nr": "ALT-GWS.LV23-12.04.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5645.2708 EUR] GWS.LV23-12.04.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRbRXgAA",
+      "nr": "ALT-GWS.LV23-12.04.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 5833.8956 EUR] GWS.LV23-12.04.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRbkXgAA",
+      "nr": "ALT-GWS.LV23-12.05.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5968.6276 EUR] GWS.LV23-12.05.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKfZIsAA",
+      "nr": "ALT-GWS.LV23-12.06.1-GGSc",
+      "base_data": {
+        "name": "[ALT 2000 EUR] GWS.LV23-12.06.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRcqXgAA",
+      "nr": "ALT-GWS.LV23-20.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 146.147 EUR] GWS.LV23-20.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRdKXgAA",
+      "nr": "ALT-GWS.LV23-20.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 50.1471 EUR] GWS.LV23-20.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ-bXgAA",
+      "nr": "ALT-GWS.LV23-09.03.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.8686 EUR] GWS.LV23-09.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSOAXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 95.7047 EUR] GWS.LV23-21.02.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJWWIsAA",
+      "nr": "ALT-GWS.LV23-07.01.26-GGSc",
+      "base_data": {
+        "name": "[ALT 12 EUR] GWS.LV23-07.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRAtXgAA",
+      "nr": "ALT-GWS.LV23-09.03.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.4094 EUR] GWS.LV23-09.03.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPWZXgAA",
+      "nr": "ALT-GWS.LV23-01.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 21.8266 EUR] GWS.LV23-01.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRweXgAA",
+      "nr": "ALT-GWS.LV23-20.03.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 48.4848 EUR] GWS.LV23-20.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRLMXgAA",
+      "nr": "ALT-GWS.LV23-09.04.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.033 EUR] GWS.LV23-09.04.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRXAXgAA",
+      "nr": "ALT-GWS.LV23-11.02.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 159.6574 EUR] GWS.LV23-11.02.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ6VXgAA",
+      "nr": "ALT-GWS.LV23-09.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.2759 EUR] GWS.LV23-09.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPxmXgAA",
+      "nr": "ALT-GWS.LV23-04.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.8866 EUR] GWS.LV23-04.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRlIXgAA",
+      "nr": "ALT-GWS.LV23-20.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 58.1818 EUR] GWS.LV23-20.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSaaXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 628.9166 EUR] GWS.LV23-21.02.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQjWXgAA",
+      "nr": "ALT-GWS.LV23-08.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 25.9359 EUR] GWS.LV23-08.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ8AXgAA",
+      "nr": "ALT-GWS.LV23-09.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 33.2722 EUR] GWS.LV23-09.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSRTXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.30-Ge7L",
+      "base_data": {
+        "name": "[ALT 109.3768 EUR] GWS.LV23-21.02.01.30"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRA8XgAA",
+      "nr": "ALT-GWS.LV23-09.03.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 5.9151 EUR] GWS.LV23-09.03.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJU4IsAA",
+      "nr": "ALT-GWS.LV23-07.01.21-GGSc",
+      "base_data": {
+        "name": "[ALT 12.9167 EUR] GWS.LV23-07.01.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRBvXgAA",
+      "nr": "ALT-GWS.LV23-09.04.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.4363 EUR] GWS.LV23-09.04.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSZkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.24-Ge7L",
+      "base_data": {
+        "name": "[ALT 183.2061 EUR] GWS.LV23-21.02.02.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR2LXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.21-Ge7L",
+      "base_data": {
+        "name": "[ALT 581.9483 EUR] GWS.LV23-21.01.01.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRADXgAA",
+      "nr": "ALT-GWS.LV23-09.03.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.3535 EUR] GWS.LV23-09.03.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQaWXgAA",
+      "nr": "ALT-GWS.LV23-07.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.1496 EUR] GWS.LV23-07.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPigXgAA",
+      "nr": "ALT-GWS.LV23-01.01.30-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.1574 EUR] GWS.LV23-01.01.30"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ1XXgAA",
+      "nr": "ALT-GWS.LV23-08.05.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 63.324 EUR] GWS.LV23-08.05.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRKSXgAA",
+      "nr": "ALT-GWS.LV23-09.04.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.9367 EUR] GWS.LV23-09.04.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQzMXgAA",
+      "nr": "ALT-GWS.LV23-08.04.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 24.2518 EUR] GWS.LV23-08.04.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRYJXgAA",
+      "nr": "ALT-GWS.LV23-11.02.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 208.8346 EUR] GWS.LV23-11.02.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQZeXgAA",
+      "nr": "ALT-GWS.LV23-07.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 24.8232 EUR] GWS.LV23-07.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQk3XgAA",
+      "nr": "ALT-GWS.LV23-08.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 27.6201 EUR] GWS.LV23-08.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPlGXgAA",
+      "nr": "ALT-GWS.LV23-02.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 98.201 EUR] GWS.LV23-02.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQgGXgAA",
+      "nr": "ALT-GWS.LV23-08.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.5857 EUR] GWS.LV23-08.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR2eXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 1040.6604 EUR] GWS.LV23-21.01.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSOoXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 957.047 EUR] GWS.LV23-21.02.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQbeXgAA",
+      "nr": "ALT-GWS.LV23-07.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.6071 EUR] GWS.LV23-07.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ0SXgAA",
+      "nr": "ALT-GWS.LV23-08.04.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 82.1865 EUR] GWS.LV23-08.04.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ2bXgAA",
+      "nr": "ALT-GWS.LV23-08.05.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 73.4289 EUR] GWS.LV23-08.05.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJthIsAA",
+      "nr": "ALT-GWS.LV23-08.05.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20.8333 EUR] GWS.LV23-08.05.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQYJXgAA",
+      "nr": "ALT-GWS.LV23-07.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.5003 EUR] GWS.LV23-07.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQbMXgAA",
+      "nr": "ALT-GWS.LV23-07.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.4755 EUR] GWS.LV23-07.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP14XgAA",
+      "nr": "ALT-GWS.LV23-04.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 36.8345 EUR] GWS.LV23-04.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQhYXgAA",
+      "nr": "ALT-GWS.LV23-08.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 63.2752 EUR] GWS.LV23-08.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPoAXgAA",
+      "nr": "ALT-GWS.LV23-02.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 39.8112 EUR] GWS.LV23-02.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPnGXgAA",
+      "nr": "ALT-GWS.LV23-02.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 40.4747 EUR] GWS.LV23-02.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP_MXgAA",
+      "nr": "ALT-GWS.LV23-06.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.376 EUR] GWS.LV23-06.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP7LXgAA",
+      "nr": "ALT-GWS.LV23-05.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 26.8554 EUR] GWS.LV23-05.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQlPXgAA",
+      "nr": "ALT-GWS.LV23-08.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 31.9315 EUR] GWS.LV23-08.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQSmXgAA",
+      "nr": "ALT-GWS.LV23-06.01.36-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.1126 EUR] GWS.LV23-06.01.36"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKENIsAA",
+      "nr": "ALT-GWS.LV23-09.04.2-GGSc",
+      "base_data": {
+        "name": "[ALT 3 EUR] GWS.LV23-09.04.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPy8XgAA",
+      "nr": "ALT-GWS.LV23-04.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 41.5742 EUR] GWS.LV23-04.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPnaXgAA",
+      "nr": "ALT-GWS.LV23-02.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 62.3709 EUR] GWS.LV23-02.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LP8WXgAA",
+      "nr": "ALT-GWS.LV23-05.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.3767 EUR] GWS.LV23-05.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQmkXgAA",
+      "nr": "ALT-GWS.LV23-08.02.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 10.1049 EUR] GWS.LV23-08.02.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQe1XgAA",
+      "nr": "ALT-GWS.LV23-07.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 17.0826 EUR] GWS.LV23-07.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPUeXgAA",
+      "nr": "ALT-GWS.LV23-01.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.3639 EUR] GWS.LV23-01.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSXqXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 55.0986 EUR] GWS.LV23-21.02.02.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJIBIsAA",
+      "nr": "ALT-GWS.LV23-06.01.23-GGSc",
+      "base_data": {
+        "name": "[ALT 4.0833 EUR] GWS.LV23-06.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSRkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.31-Ge7L",
+      "base_data": {
+        "name": "[ALT 45.8015 EUR] GWS.LV23-21.02.01.31"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRRYXgAA",
+      "nr": "ALT-GWS.LV23-09.06.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 33.6083 EUR] GWS.LV23-09.06.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQT-XgAA",
+      "nr": "ALT-GWS.LV23-06.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.5435 EUR] GWS.LV23-06.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQQeXgAA",
+      "nr": "ALT-GWS.LV23-06.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.4957 EUR] GWS.LV23-06.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQTrXgAA",
+      "nr": "ALT-GWS.LV23-06.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 5.9956 EUR] GWS.LV23-06.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSZSXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 69.4543 EUR] GWS.LV23-21.02.02.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSWUXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 148.3423 EUR] GWS.LV23-21.02.02.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSW-XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 125.3732 EUR] GWS.LV23-21.02.02.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPiwXgAA",
+      "nr": "ALT-GWS.LV23-01.01.31-Ge7L",
+      "base_data": {
+        "name": "[ALT 19.1993 EUR] GWS.LV23-01.01.31"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPlgXgAA",
+      "nr": "ALT-GWS.LV23-02.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 110.1443 EUR] GWS.LV23-02.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQtpXgAA",
+      "nr": "ALT-GWS.LV23-08.02.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 54.5665 EUR] GWS.LV23-08.02.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQt7XgAA",
+      "nr": "ALT-GWS.LV23-08.02.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 56.5874 EUR] GWS.LV23-08.02.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQuMXgAA",
+      "nr": "ALT-GWS.LV23-08.02.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 54.4317 EUR] GWS.LV23-08.02.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQueXgAA",
+      "nr": "ALT-GWS.LV23-08.02.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 52.5455 EUR] GWS.LV23-08.02.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQuyXgAA",
+      "nr": "ALT-GWS.LV23-08.02.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 126.6481 EUR] GWS.LV23-08.02.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQvDXgAA",
+      "nr": "ALT-GWS.LV23-08.02.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 11.6543 EUR] GWS.LV23-08.02.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQxDXgAA",
+      "nr": "ALT-GWS.LV23-08.04.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 279.5689 EUR] GWS.LV23-08.04.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwJXgAA",
+      "nr": "ALT-GWS.LV23-08.03.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-08.03.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQxXXgAA",
+      "nr": "ALT-GWS.LV23-08.04.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 306.5153 EUR] GWS.LV23-08.04.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQxqXgAA",
+      "nr": "ALT-GWS.LV23-08.04.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 102.3963 EUR] GWS.LV23-08.04.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQyBXgAA",
+      "nr": "ALT-GWS.LV23-08.04.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 188.6248 EUR] GWS.LV23-08.04.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQyUXgAA",
+      "nr": "ALT-GWS.LV23-08.04.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 249.2542 EUR] GWS.LV23-08.04.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQzxXgAA",
+      "nr": "ALT-GWS.LV23-08.04.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 656.8185 EUR] GWS.LV23-08.04.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQykXgAA",
+      "nr": "ALT-GWS.LV23-08.04.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 191.3194 EUR] GWS.LV23-08.04.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJsUIsAA",
+      "nr": "ALT-GWS.LV23-08.04.12-GGSc",
+      "base_data": {
+        "name": "[ALT -56.9106 EUR] GWS.LV23-08.04.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ0zXgAA",
+      "nr": "ALT-GWS.LV23-08.05.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 31.662 EUR] GWS.LV23-08.05.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ1nXgAA",
+      "nr": "ALT-GWS.LV23-08.05.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 66.6923 EUR] GWS.LV23-08.05.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ22XgAA",
+      "nr": "ALT-GWS.LV23-08.05.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 94.9861 EUR] GWS.LV23-08.05.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ14XgAA",
+      "nr": "ALT-GWS.LV23-08.05.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 77.4709 EUR] GWS.LV23-08.05.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJx6IsAA",
+      "nr": "ALT-GWS.LV23-08.07.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-08.07.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJyMIsAA",
+      "nr": "ALT-GWS.LV23-08.07.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-08.07.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ4IXgAA",
+      "nr": "ALT-GWS.LV23-09.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.3847 EUR] GWS.LV23-09.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ4ZXgAA",
+      "nr": "ALT-GWS.LV23-09.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.4528 EUR] GWS.LV23-09.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ4rXgAA",
+      "nr": "ALT-GWS.LV23-09.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 30.2474 EUR] GWS.LV23-09.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ6GXgAA",
+      "nr": "ALT-GWS.LV23-09.01.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.8096 EUR] GWS.LV23-09.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ63XgAA",
+      "nr": "ALT-GWS.LV23-09.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 4.5707 EUR] GWS.LV23-09.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ6mXgAA",
+      "nr": "ALT-GWS.LV23-09.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 5.9823 EUR] GWS.LV23-09.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ7KXgAA",
+      "nr": "ALT-GWS.LV23-09.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.4103 EUR] GWS.LV23-09.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ7cXgAA",
+      "nr": "ALT-GWS.LV23-09.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.4103 EUR] GWS.LV23-09.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ8RXgAA",
+      "nr": "ALT-GWS.LV23-09.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 57.4701 EUR] GWS.LV23-09.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ8kXgAA",
+      "nr": "ALT-GWS.LV23-09.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 106.2021 EUR] GWS.LV23-09.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ81XgAA",
+      "nr": "ALT-GWS.LV23-09.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 66.2083 EUR] GWS.LV23-09.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ9GXgAA",
+      "nr": "ALT-GWS.LV23-09.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 106.2021 EUR] GWS.LV23-09.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ9ZXgAA",
+      "nr": "ALT-GWS.LV23-09.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 131.0722 EUR] GWS.LV23-09.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ9oXgAA",
+      "nr": "ALT-GWS.LV23-09.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.6 EUR] GWS.LV23-09.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ94XgAA",
+      "nr": "ALT-GWS.LV23-09.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 59.8227 EUR] GWS.LV23-09.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ-IXgAA",
+      "nr": "ALT-GWS.LV23-09.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 67.2165 EUR] GWS.LV23-09.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ-tXgAA",
+      "nr": "ALT-GWS.LV23-09.03.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.4953 EUR] GWS.LV23-09.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRAaXgAA",
+      "nr": "ALT-GWS.LV23-09.03.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.0382 EUR] GWS.LV23-09.03.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRBMXgAA",
+      "nr": "ALT-GWS.LV23-09.03.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.3184 EUR] GWS.LV23-09.03.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRBdXgAA",
+      "nr": "ALT-GWS.LV23-09.03.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.1249 EUR] GWS.LV23-09.03.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRCmXgAA",
+      "nr": "ALT-GWS.LV23-09.04.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.5356 EUR] GWS.LV23-09.04.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRC4XgAA",
+      "nr": "ALT-GWS.LV23-09.04.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.7745 EUR] GWS.LV23-09.04.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRDLXgAA",
+      "nr": "ALT-GWS.LV23-09.04.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.5282 EUR] GWS.LV23-09.04.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSKvXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 191.4094 EUR] GWS.LV23-21.02.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSLTXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 447.0777 EUR] GWS.LV23-21.02.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSLkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 479.8907 EUR] GWS.LV23-21.02.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSLCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 396.4909 EUR] GWS.LV23-21.02.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSL9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 541.4152 EUR] GWS.LV23-21.02.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLFaIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.8-GGSc",
+      "base_data": {
+        "name": "[ALT 370.8333 EUR] GWS.LV23-21.02.01.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSNFXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 27.3442 EUR] GWS.LV23-21.02.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSMhXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 31.4458 EUR] GWS.LV23-21.02.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLHCIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.14-GGSc",
+      "base_data": {
+        "name": "[ALT 43.75 EUR] GWS.LV23-21.02.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSOVXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 27.3442 EUR] GWS.LV23-21.02.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLJCIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.22-GGSc",
+      "base_data": {
+        "name": "[ALT 208.3333 EUR] GWS.LV23-21.02.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScLJnIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.24-GGSc",
+      "base_data": {
+        "name": "[ALT 127.0833 EUR] GWS.LV23-21.02.01.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSP8XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 451.1793 EUR] GWS.LV23-21.02.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSQuXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.28-Ge7L",
+      "base_data": {
+        "name": "[ALT 117.5801 EUR] GWS.LV23-21.02.01.28"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSR1XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.32-Ge7L",
+      "base_data": {
+        "name": "[ALT 69.0441 EUR] GWS.LV23-21.02.01.32"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSS9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 555.0873 EUR] GWS.LV23-21.02.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSTNXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 572.861 EUR] GWS.LV23-21.02.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSThXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 623.4478 EUR] GWS.LV23-21.02.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSTwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 674.7181 EUR] GWS.LV23-21.02.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSUPXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 697.2771 EUR] GWS.LV23-21.02.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSUgXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 765.6376 EUR] GWS.LV23-21.02.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSUwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 861.3423 EUR] GWS.LV23-21.02.02.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSVCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 929.7028 EUR] GWS.LV23-21.02.02.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSVWXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 451.1793 EUR] GWS.LV23-21.02.02.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSVuXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 130.5686 EUR] GWS.LV23-21.02.02.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSWBXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 141.7797 EUR] GWS.LV23-21.02.02.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSWlXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 130.1584 EUR] GWS.LV23-21.02.02.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSXXXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 121.6817 EUR] GWS.LV23-21.02.02.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSX9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 123.7325 EUR] GWS.LV23-21.02.02.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSYOXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 157.2292 EUR] GWS.LV23-21.02.02.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSYiXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 46.075 EUR] GWS.LV23-21.02.02.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSYzXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.21-Ge7L",
+      "base_data": {
+        "name": "[ALT 59.8838 EUR] GWS.LV23-21.02.02.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSZBXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 55.7822 EUR] GWS.LV23-21.02.02.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSZ1XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 159.9636 EUR] GWS.LV23-21.02.02.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSaJXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 526.3759 EUR] GWS.LV23-21.02.03.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSarXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 642.5887 EUR] GWS.LV23-21.02.03.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSa-XgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 658.9952 EUR] GWS.LV23-21.02.03.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSbVXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 669.9329 EUR] GWS.LV23-21.02.03.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSboXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 704.1132 EUR] GWS.LV23-21.02.03.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSb7XgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 731.4574 EUR] GWS.LV23-21.02.03.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LScMXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 772.4737 EUR] GWS.LV23-21.02.03.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LScfXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 806.6539 EUR] GWS.LV23-21.02.03.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSSYXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.34-Ge7L",
+      "base_data": {
+        "name": "[ALT 201.6635 EUR] GWS.LV23-21.02.01.34"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQTLXgAA",
+      "nr": "ALT-GWS.LV23-06.01.38-Ge7L",
+      "base_data": {
+        "name": "[ALT 44.3824 EUR] GWS.LV23-06.01.38"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRbyXgAA",
+      "nr": "ALT-GWS.LV23-12.05.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 6197.672 EUR] GWS.LV23-12.05.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQwcXgAA",
+      "nr": "ALT-GWS.LV23-08.04.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 215.5712 EUR] GWS.LV23-08.04.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQy6XgAA",
+      "nr": "ALT-GWS.LV23-08.04.8-Ge7L",
+      "base_data": {
+        "name": "[ALT 78.8182 EUR] GWS.LV23-08.04.8"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSPZXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 514.071 EUR] GWS.LV23-21.02.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRovXgAA",
+      "nr": "ALT-GWS.LV23-20.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.3723 EUR] GWS.LV23-20.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRm4XgAA",
+      "nr": "ALT-GWS.LV23-20.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 20.0866 EUR] GWS.LV23-20.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRnHXgAA",
+      "nr": "ALT-GWS.LV23-20.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 24.935 EUR] GWS.LV23-20.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRnXXgAA",
+      "nr": "ALT-GWS.LV23-20.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.5541 EUR] GWS.LV23-20.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRnmXgAA",
+      "nr": "ALT-GWS.LV23-20.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 5.1255 EUR] GWS.LV23-20.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRn5XgAA",
+      "nr": "ALT-GWS.LV23-20.01.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 15.6537 EUR] GWS.LV23-20.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRoIXgAA",
+      "nr": "ALT-GWS.LV23-20.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.0225 EUR] GWS.LV23-20.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRocXgAA",
+      "nr": "ALT-GWS.LV23-20.01.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.7013 EUR] GWS.LV23-20.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRpDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.21-Ge7L",
+      "base_data": {
+        "name": "[ALT 13.5757 EUR] GWS.LV23-20.01.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRpcXgAA",
+      "nr": "ALT-GWS.LV23-20.01.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.7402 EUR] GWS.LV23-20.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRpzXgAA",
+      "nr": "ALT-GWS.LV23-20.01.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 22.5801 EUR] GWS.LV23-20.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRqsXgAA",
+      "nr": "ALT-GWS.LV23-20.01.26-Ge7L",
+      "base_data": {
+        "name": "[ALT 445.3675 EUR] GWS.LV23-20.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRriXgAA",
+      "nr": "ALT-GWS.LV23-20.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 254.8915 EUR] GWS.LV23-20.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRsDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.31-Ge7L",
+      "base_data": {
+        "name": "[ALT 42.5281 EUR] GWS.LV23-20.01.31"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRsVXgAA",
+      "nr": "ALT-GWS.LV23-20.01.32-Ge7L",
+      "base_data": {
+        "name": "[ALT 955.8432 EUR] GWS.LV23-20.01.32"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRsrXgAA",
+      "nr": "ALT-GWS.LV23-20.01.33-Ge7L",
+      "base_data": {
+        "name": "[ALT 1080.5184 EUR] GWS.LV23-20.01.33"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRtJXgAA",
+      "nr": "ALT-GWS.LV23-20.01.34-Ge7L",
+      "base_data": {
+        "name": "[ALT 1219.0464 EUR] GWS.LV23-20.01.34"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRtbXgAA",
+      "nr": "ALT-GWS.LV23-20.01.35-Ge7L",
+      "base_data": {
+        "name": "[ALT 1357.5744 EUR] GWS.LV23-20.01.35"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRtsXgAA",
+      "nr": "ALT-GWS.LV23-20.01.36-Ge7L",
+      "base_data": {
+        "name": "[ALT 1496.1024 EUR] GWS.LV23-20.01.36"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRvAXgAA",
+      "nr": "ALT-GWS.LV23-20.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 127.3217 EUR] GWS.LV23-20.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKsRIsAA",
+      "nr": "ALT-GWS.LV23-20.01.38-GGSc",
+      "base_data": {
+        "name": "[ALT 30 EUR] GWS.LV23-20.01.38"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRvUXgAA",
+      "nr": "ALT-GWS.LV23-20.02.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 272.1586 EUR] GWS.LV23-20.02.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRv4XgAA",
+      "nr": "ALT-GWS.LV23-20.02.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRwMXgAA",
+      "nr": "ALT-GWS.LV23-20.02.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRxhXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 46.5559 EUR] GWS.LV23-21.01.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKvUIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.4-GGSc",
+      "base_data": {
+        "name": "[ALT 229.1667 EUR] GWS.LV23-21.01.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRyAXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 197.8624 EUR] GWS.LV23-21.01.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRyhXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 247.1568 EUR] GWS.LV23-21.01.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRz6XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.13-Ge7L",
+      "base_data": {
+        "name": "[ALT 347.7997 EUR] GWS.LV23-21.01.01.13"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR0LXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 22.0456 EUR] GWS.LV23-21.01.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKxzIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.15-GGSc",
+      "base_data": {
+        "name": "[ALT 31.6667 EUR] GWS.LV23-21.01.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKyBIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.16-GGSc",
+      "base_data": {
+        "name": "[ALT 37.9167 EUR] GWS.LV23-21.01.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR0_XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 33.4107 EUR] GWS.LV23-21.01.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR1VXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 35.7385 EUR] GWS.LV23-21.01.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR1pXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.19-Ge7L",
+      "base_data": {
+        "name": "[ALT 49.9791 EUR] GWS.LV23-21.01.01.19"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR16XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 156.7837 EUR] GWS.LV23-21.01.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKz3IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.23-GGSc",
+      "base_data": {
+        "name": "[ALT 37.9167 EUR] GWS.LV23-21.01.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR3hXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 106.8046 EUR] GWS.LV23-21.01.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK0GIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.24-GGSc",
+      "base_data": {
+        "name": "[ALT 895.8333 EUR] GWS.LV23-21.01.01.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK09IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.27-GGSc",
+      "base_data": {
+        "name": "[ALT 22.9167 EUR] GWS.LV23-21.01.01.27"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK0pIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.26-GGSc",
+      "base_data": {
+        "name": "[ALT 22.9167 EUR] GWS.LV23-21.01.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR4oXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.28-Ge7L",
+      "base_data": {
+        "name": "[ALT 44.5019 EUR] GWS.LV23-21.01.01.28"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR46XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 45.1866 EUR] GWS.LV23-21.01.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK16IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.30-GGSc",
+      "base_data": {
+        "name": "[ALT 33.75 EUR] GWS.LV23-21.01.01.30"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR5eXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.32-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.3152 EUR] GWS.LV23-21.01.01.32"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR6FXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.36-Ge7L",
+      "base_data": {
+        "name": "[ALT 32.1783 EUR] GWS.LV23-21.01.01.36"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScK3IIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.37-GGSc",
+      "base_data": {
+        "name": "[ALT 35.4167 EUR] GWS.LV23-21.01.01.37"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR5xXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.34-Ge7L",
+      "base_data": {
+        "name": "[ALT 38.614 EUR] GWS.LV23-21.01.01.34"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR6mXgAA",
+      "nr": "ALT-GWS.LV23-21.01.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 2560.5723 EUR] GWS.LV23-21.01.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR64XgAA",
+      "nr": "ALT-GWS.LV23-21.01.02.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 2423.6433 EUR] GWS.LV23-21.01.02.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR7uXgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 538.131 EUR] GWS.LV23-21.01.03.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR7fXgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 2615.3439 EUR] GWS.LV23-21.01.03.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LR78XgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 219.0864 EUR] GWS.LV23-21.01.03.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSBZXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 258.4027 EUR] GWS.LV23-21.02.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPv4XgAA",
+      "nr": "ALT-GWS.LV23-04.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 46.9911 EUR] GWS.LV23-04.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQMrXgAA",
+      "nr": "ALT-GWS.LV23-06.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 55.849 EUR] GWS.LV23-06.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQJsXgAA",
+      "nr": "ALT-GWS.LV23-06.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.6575 EUR] GWS.LV23-06.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPUuXgAA",
+      "nr": "ALT-GWS.LV23-01.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.3639 EUR] GWS.LV23-01.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRmDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 390.649 EUR] GWS.LV23-20.01.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ_RXgAA",
+      "nr": "ALT-GWS.LV23-09.03.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.036 EUR] GWS.LV23-09.03.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ0iXgAA",
+      "nr": "ALT-GWS.LV23-08.04.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 75.4499 EUR] GWS.LV23-08.04.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSQNXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.26-Ge7L",
+      "base_data": {
+        "name": "[ALT 252.9339 EUR] GWS.LV23-21.02.01.26"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSRCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.29-Ge7L",
+      "base_data": {
+        "name": "[ALT 123.0489 EUR] GWS.LV23-21.02.01.29"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRrQXgAA",
+      "nr": "ALT-GWS.LV23-20.01.28-Ge7L",
+      "base_data": {
+        "name": "[ALT 45.8528 EUR] GWS.LV23-20.01.28"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRzjXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 277.9659 EUR] GWS.LV23-21.01.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ5OXgAA",
+      "nr": "ALT-GWS.LV23-09.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.9441 EUR] GWS.LV23-09.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ5zXgAA",
+      "nr": "ALT-GWS.LV23-09.01.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.2398 EUR] GWS.LV23-09.01.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRqDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.24-Ge7L",
+      "base_data": {
+        "name": "[ALT 90.7358 EUR] GWS.LV23-20.01.24"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRqYXgAA",
+      "nr": "ALT-GWS.LV23-20.01.25-Ge7L",
+      "base_data": {
+        "name": "[ALT 419.7398 EUR] GWS.LV23-20.01.25"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPVQXgAA",
+      "nr": "ALT-GWS.LV23-01.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 8.9866 EUR] GWS.LV23-01.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPXeXgAA",
+      "nr": "ALT-GWS.LV23-01.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 19.1319 EUR] GWS.LV23-01.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKuvIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.2-GGSc",
+      "base_data": {
+        "name": "[ALT 16.6667 EUR] GWS.LV23-21.01.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSNtXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 31.4458 EUR] GWS.LV23-21.02.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPr6XgAA",
+      "nr": "ALT-GWS.LV23-02.02.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 13.0514 EUR] GWS.LV23-02.02.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ--XgAA",
+      "nr": "ALT-GWS.LV23-09.03.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.3929 EUR] GWS.LV23-09.03.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRvnXgAA",
+      "nr": "ALT-GWS.LV23-20.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQRGXgAA",
+      "nr": "ALT-GWS.LV23-06.01.31-Ge7L",
+      "base_data": {
+        "name": "[ALT 44.5173 EUR] GWS.LV23-06.01.31"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPo6XgAA",
+      "nr": "ALT-GWS.LV23-02.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 67.679 EUR] GWS.LV23-02.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKEkIsAA",
+      "nr": "ALT-GWS.LV23-09.04.3-GGSc",
+      "base_data": {
+        "name": "[ALT 0.01 EUR] GWS.LV23-09.04.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPonXgAA",
+      "nr": "ALT-GWS.LV23-02.01.17-Ge7L",
+      "base_data": {
+        "name": "[ALT 53.7451 EUR] GWS.LV23-02.01.17"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRQMXgAA",
+      "nr": "ALT-GWS.LV23-09.06.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 75.2825 EUR] GWS.LV23-09.06.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPSsXgAA",
+      "nr": "ALT-GWS.LV23-01.01.2-Ge7L",
+      "base_data": {
+        "name": "[ALT 98.3544 EUR] GWS.LV23-01.01.2"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQzhXgAA",
+      "nr": "ALT-GWS.LV23-08.04.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 28.2937 EUR] GWS.LV23-08.04.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKMDIsAA",
+      "nr": "ALT-GWS.LV23-09.07.1-GGSc",
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-09.07.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPTDXgAA",
+      "nr": "ALT-GWS.LV23-01.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 222.3078 EUR] GWS.LV23-01.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKF_IsAA",
+      "nr": "ALT-GWS.LV23-09.04.9-GGSc",
+      "base_data": {
+        "name": "[ALT 12.9167 EUR] GWS.LV23-09.04.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRcZXgAA",
+      "nr": "ALT-GWS.LV23-20.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 90.7358 EUR] GWS.LV23-20.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScKr9IsAA",
+      "nr": "ALT-GWS.LV23-20.01.37-GGSc",
+      "base_data": {
+        "name": "[ALT 250 EUR] GWS.LV23-20.01.37"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPjlXgAA",
+      "nr": "ALT-GWS.LV23-02.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 44.0577 EUR] GWS.LV23-02.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ_wXgAA",
+      "nr": "ALT-GWS.LV23-09.03.7-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.2915 EUR] GWS.LV23-09.03.7"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQiyXgAA",
+      "nr": "ALT-GWS.LV23-08.01.15-Ge7L",
+      "base_data": {
+        "name": "[ALT 39.9633 EUR] GWS.LV23-08.01.15"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ5hXgAA",
+      "nr": "ALT-GWS.LV23-09.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.5811 EUR] GWS.LV23-09.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPW-XgAA",
+      "nr": "ALT-GWS.LV23-01.01.18-Ge7L",
+      "base_data": {
+        "name": "[ALT 9.2965 EUR] GWS.LV23-01.01.18"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRlxXgAA",
+      "nr": "ALT-GWS.LV23-20.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 335.2378 EUR] GWS.LV23-20.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPX_XgAA",
+      "nr": "ALT-GWS.LV23-01.01.22-Ge7L",
+      "base_data": {
+        "name": "[ALT 41.9017 EUR] GWS.LV23-01.01.22"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPxCXgAA",
+      "nr": "ALT-GWS.LV23-04.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 37.2408 EUR] GWS.LV23-04.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPymXgAA",
+      "nr": "ALT-GWS.LV23-04.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 6.6356 EUR] GWS.LV23-04.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPzRXgAA",
+      "nr": "ALT-GWS.LV23-04.01.16-Ge7L",
+      "base_data": {
+        "name": "[ALT 3.3991 EUR] GWS.LV23-04.01.16"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSM0XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.11-Ge7L",
+      "base_data": {
+        "name": "[ALT 65.6261 EUR] GWS.LV23-21.02.01.11"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQYpXgAA",
+      "nr": "ALT-GWS.LV23-07.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.6071 EUR] GWS.LV23-07.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPtbXgAA",
+      "nr": "ALT-GWS.LV23-02.02.12-Ge7L",
+      "base_data": {
+        "name": "[ALT 17.6261 EUR] GWS.LV23-02.02.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPrCXgAA",
+      "nr": "ALT-GWS.LV23-02.02.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 13.9932 EUR] GWS.LV23-02.02.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSO3XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.21-Ge7L",
+      "base_data": {
+        "name": "[ALT 196.8782 EUR] GWS.LV23-21.02.01.21"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LSBJXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 95.7047 EUR] GWS.LV23-21.02.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPWJXgAA",
+      "nr": "ALT-GWS.LV23-01.01.14-Ge7L",
+      "base_data": {
+        "name": "[ALT 16.8415 EUR] GWS.LV23-01.01.14"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPsxXgAA",
+      "nr": "ALT-GWS.LV23-02.02.10-Ge7L",
+      "base_data": {
+        "name": "[ALT 14.8005 EUR] GWS.LV23-02.02.10"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRw-XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 41.0787 EUR] GWS.LV23-21.01.01.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRMWXgAA",
+      "nr": "ALT-GWS.LV23-09.05.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 22.047 EUR] GWS.LV23-09.05.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQ_gXgAA",
+      "nr": "ALT-GWS.LV23-09.03.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 7.6627 EUR] GWS.LV23-09.03.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQg4XgAA",
+      "nr": "ALT-GWS.LV23-08.01.4-Ge7L",
+      "base_data": {
+        "name": "[ALT 18.916 EUR] GWS.LV23-08.01.4"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPYRXgAA",
+      "nr": "ALT-GWS.LV23-01.01.23-Ge7L",
+      "base_data": {
+        "name": "[ALT 64.6714 EUR] GWS.LV23-01.01.23"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LRyRXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.6-Ge7L",
+      "base_data": {
+        "name": "[ALT 247.1568 EUR] GWS.LV23-21.01.01.6"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScIa_IsAA",
+      "nr": "ALT-GWS.LV23-01.01.12-GGSc",
+      "base_data": {
+        "name": "[ALT 6.6667 EUR] GWS.LV23-01.01.12"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LPp4XgAA",
+      "nr": "ALT-GWS.LV23-02.02.1-Ge7L",
+      "base_data": {
+        "name": "[ALT 1.1168 EUR] GWS.LV23-02.02.1"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQcnXgAA",
+      "nr": "ALT-GWS.LV23-07.01.20-Ge7L",
+      "base_data": {
+        "name": "[ALT 11.3439 EUR] GWS.LV23-07.01.20"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQhIXgAA",
+      "nr": "ALT-GWS.LV23-08.01.5-Ge7L",
+      "base_data": {
+        "name": "[ALT 22.2462 EUR] GWS.LV23-08.01.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJoGIsAA",
+      "nr": "ALT-GWS.LV23-08.03.5-GGSc",
+      "base_data": {
+        "name": "[ALT 40 EUR] GWS.LV23-08.03.5"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQJbXgAA",
+      "nr": "ALT-GWS.LV23-06.01.3-Ge7L",
+      "base_data": {
+        "name": "[ALT 2.8059 EUR] GWS.LV23-06.01.3"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "Ge7LQZxXgAA",
+      "nr": "ALT-GWS.LV23-07.01.9-Ge7L",
+      "base_data": {
+        "name": "[ALT 23.4886 EUR] GWS.LV23-07.01.9"
+      },
+      "is_deleted": false
+    },
+    {
+      "product_id": "GGScJeHIsAA",
+      "nr": "ALT-GWS.LV23-07.02.2-GGSc",
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-07.02.2"
+      },
+      "is_deleted": false
+    }
+  ]
+}

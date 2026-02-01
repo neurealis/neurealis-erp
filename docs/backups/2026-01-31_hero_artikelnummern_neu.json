@@ -1,0 +1,60 @@
+{
+  "datum": "2026-01-31",
+  "durchfuehrung": "2026-01-30T16:47:27Z",
+  "status": "ERFOLGREICH - 7/7 Artikel aktualisiert",
+  "beschreibung": "Ersetzung generischer Artikelnummern in Hero durch neue nach Schema {GEWERK}-{BAUTEIL}-{ASPEKT}",
+  "aktion": "UPDATE nr in supply_product_versions via GraphQL Mutation",
+  "rollback_hinweis": "Für jeden Eintrag die alte Artikelnummer (old_nr) wiederherstellen via update_supply_product_version Mutation",
+  "rollback_mutation": "mutation { update_supply_product_version(supply_product_version: { product_id: \"PRODUCT_ID\", nr: \"OLD_NR\", base_data: { name: \"NAME\" } }) { product_id nr } }",
+  "artikel": [
+    {
+      "product_id": "Ge7LThSXgAA",
+      "old_nr": "",
+      "new_nr": "SANITAER-DUSCHE-ZULAGE",
+      "name": "Zulage für größere Duschtasse 1200/800/65",
+      "category": "Sanitärinstallation"
+    },
+    {
+      "product_id": "GXBgrN1ikAA",
+      "old_nr": "",
+      "new_nr": "ALLGEMEIN-ANFAHRT-PAUSCHALE",
+      "name": "Anfahrt",
+      "category": ""
+    },
+    {
+      "product_id": "GGScIYSIsAA",
+      "old_nr": "freie Position",
+      "new_nr": "BODEN-PLATTEN-RUECKBAU",
+      "name": "Rückbau Platten als Unterboden für Vinyl (Flur und Küche)",
+      "category": " Rückbauarbeiten"
+    },
+    {
+      "product_id": "Gn7wfCkngAA",
+      "old_nr": "0",
+      "new_nr": "ALLGEMEIN-LEER-POSITION",
+      "name": "Leerposition",
+      "category": ""
+    },
+    {
+      "product_id": "Ge7LSzjXgAA",
+      "old_nr": "rei",
+      "new_nr": "SANITAER-SILIKON-ERNEUERUNG",
+      "name": "Erneuerung Silikonverfugung",
+      "category": "Teilarbeiten Silikon"
+    },
+    {
+      "product_id": "Ge7LRucXgAA",
+      "old_nr": "frei",
+      "new_nr": "ELEKTRIK-SAT-ANSCHLUSS",
+      "name": "SAT-Anschluss",
+      "category": "Elektroarbeiten"
+    },
+    {
+      "product_id": "GSeSLdo5cAA",
+      "old_nr": "Trenner",
+      "new_nr": "TRENNER-MAURER-LINIE",
+      "name": "______________ MAURER ________________",
+      "category": ""
+    }
+  ]
+}
