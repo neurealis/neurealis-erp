@@ -35,6 +35,12 @@
       padding: 20mm;
     }
 
+    .titelseite .logo {
+      width: 60mm;
+      height: auto;
+      margin-bottom: 15mm;
+    }
+
     .titelseite h1 {
       font-size: 32pt;
       color: #c41e3a;
@@ -63,20 +69,7 @@
       margin-top: 30mm;
     }
 
-    .titelseite .logo-placeholder {
-      width: 40mm;
-      height: 40mm;
-      background: #c41e3a;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 24pt;
-      margin-bottom: 15mm;
-    }
-
-    /* SEITEN-HEADER MIT DATUM */
+    /* SEITEN-HEADER MIT LOGO UND DATUM */
     .seite {
       padding: 10mm 15mm;
       min-height: 257mm;
@@ -92,6 +85,17 @@
       margin-bottom: 8mm;
     }
 
+    .seiten-header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+    }
+
+    .seiten-header .header-logo {
+      height: 8mm;
+      width: auto;
+    }
+
     .seiten-header .titel {
       font-size: 10pt;
       color: #c41e3a;
@@ -105,8 +109,9 @@
 
     h1 {
       color: #c41e3a;
-      font-size: 20pt;
+      font-size: 18pt;
       margin-bottom: 5mm;
+      margin-top: 8mm;
       border-bottom: 3px solid #c41e3a;
       padding-bottom: 3mm;
     }
@@ -114,7 +119,7 @@
     h2 {
       color: #c41e3a;
       font-size: 14pt;
-      margin-top: 8mm;
+      margin-top: 6mm;
       margin-bottom: 3mm;
       background: #f5f5f5;
       padding: 2mm 4mm;
@@ -123,7 +128,7 @@
 
     h3 {
       font-size: 12pt;
-      margin-top: 5mm;
+      margin-top: 4mm;
       margin-bottom: 2mm;
       color: #555;
     }
@@ -188,6 +193,25 @@
       background: #f9f9f9;
     }
 
+    .status-tabelle th {
+      background: #c41e3a;
+      color: white;
+      padding: 3mm;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .status-tabelle td {
+      padding: 2.5mm 3mm;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .status-tabelle td:first-child {
+      text-align: left;
+      font-weight: 500;
+    }
+
     .zwei-spalten {
       display: flex;
       gap: 5mm;
@@ -246,24 +270,60 @@
       font-size: 9pt;
       color: #666;
       text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer .footer-logo {
+      height: 6mm;
+      width: auto;
     }
 
     .page-break {
       page-break-before: always;
     }
 
-    .uebersicht-liste {
+    /* INHALTSVERZEICHNIS */
+    .toc {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      padding: 5mm;
+      margin: 5mm 0;
+      border-radius: 2mm;
+    }
+
+    .toc-list {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
-    .uebersicht-liste li {
-      padding: 2mm 0;
-      border-bottom: 1px dotted #ddd;
+    .toc-list li {
+      padding: 1.5mm 0;
+      border-bottom: 1px dotted #ccc;
     }
 
-    .uebersicht-liste li:last-child {
+    .toc-list li:last-child {
       border-bottom: none;
+    }
+
+    .toc-list a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .toc-list a:hover {
+      color: #c41e3a;
+    }
+
+    .toc-level-1 {
+      font-weight: bold;
+    }
+
+    .toc-level-2 {
+      padding-left: 5mm;
+      font-weight: normal;
     }
 
     .feature-grid {
@@ -291,6 +351,15 @@
       color: #666;
     }
 
+    .legende {
+      font-size: 9pt;
+      color: #666;
+      margin-top: 3mm;
+      padding: 2mm;
+      background: #f9f9f9;
+      border-radius: 2mm;
+    }
+
     @media print {
       .page-break {
         page-break-before: always;
@@ -302,7 +371,7 @@
 
 <!-- ==================== TITELSEITE ==================== -->
 <div class="titelseite">
-  <div class="logo-placeholder">🤖</div>
+  <img src="logo-neurealis.png" alt="neurealis Logo" class="logo">
   <h1>Telegram-Bot<br>Anleitung für Bauleiter</h1>
   <div class="subtitle">neurealis GmbH - Wohnungssanierung</div>
   <div class="bot-badge">@neurealis_bedarfsanalyse_bot</div>
@@ -312,16 +381,43 @@
   </div>
 </div>
 
-<!-- ==================== SEITE 2: EINLEITUNG & ÜBERSICHT ==================== -->
+<!-- ==================== SEITE 2: INHALTSVERZEICHNIS ==================== -->
 <div class="seite">
   <div class="seiten-header">
-    <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    <div class="header-left">
+      <img src="logo-neurealis.png" alt="neurealis" class="header-logo">
+      <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    </div>
     <span class="datum" id="header-date-1"></span>
   </div>
 
-  <h1>Einleitung & Übersicht</h1>
+  <h1 style="margin-top: 0;">Inhaltsverzeichnis</h1>
 
-  <h2>Was ist der neurealis Telegram-Bot?</h2>
+  <div class="toc">
+    <ul class="toc-list">
+      <li class="toc-level-1"><a href="#kap1">1. Hauptmenü</a></li>
+      <li class="toc-level-2"><a href="#kap1-1">1.1 Letzte Projekte</a></li>
+      <li class="toc-level-2"><a href="#kap1-2">1.2 ATBS direkt eingeben</a></li>
+      <li class="toc-level-2"><a href="#kap1-3">1.3 Baustelle öffnen</a></li>
+      <li class="toc-level-2"><a href="#kap1-4">1.4 Aufmaß erstellen</a></li>
+      <li class="toc-level-2"><a href="#kap1-5">1.5 Audio-Briefing</a></li>
+      <li class="toc-level-2"><a href="#kap1-6">1.6 Bedarfsanalyse</a></li>
+      <li class="toc-level-1"><a href="#kap2">2. Projekt-Menü</a></li>
+      <li class="toc-level-2"><a href="#kap2-1">2.1 Mängel erfassen</a></li>
+      <li class="toc-level-2"><a href="#kap2-2">2.2 Nachträge erfassen</a></li>
+      <li class="toc-level-2"><a href="#kap2-3">2.3 Nachweise hochladen</a></li>
+      <li class="toc-level-2"><a href="#kap2-4">2.4 Berichte erstellen</a></li>
+      <li class="toc-level-2"><a href="#kap2-5">2.5 Abnahmeprotokoll</a></li>
+      <li class="toc-level-2"><a href="#kap2-6">2.6 Status & Gewerke</a></li>
+      <li class="toc-level-1"><a href="#kap3">3. Sprachbefehle</a></li>
+      <li class="toc-level-1"><a href="#kap4">4. Referenz</a></li>
+      <li class="toc-level-2"><a href="#kap4-1">4.1 Menübaum</a></li>
+      <li class="toc-level-2"><a href="#kap4-2">4.2 Datum-Formate</a></li>
+    </ul>
+  </div>
+
+  <h1>Einleitung</h1>
+
   <p>
     Der Telegram-Bot ist dein digitaler Assistent auf der Baustelle. Mit ihm kannst du
     <strong>schnell und einfach</strong> Mängel melden, Nachträge erfassen, Nachweise hochladen
@@ -368,87 +464,266 @@
       <p>Tägliche Zusammenfassung als Sprachnachricht</p>
     </div>
   </div>
-
-  <h2>Menü-Struktur (Hauptmenü)</h2>
-
-  <ol class="uebersicht-liste">
-    <li><strong>⭐ Letzte Projekte</strong> – Deine Top 3 aktiven Projekte</li>
-    <li><strong>🔍 ATBS direkt eingeben</strong> – Schnellster Weg zum Projekt</li>
-    <li><strong>🏗️ Baustelle öffnen</strong> – Nach Phase filtern oder alle anzeigen</li>
-    <li><strong>📊 Aufmaß erstellen</strong> – Matterport CSV zu Excel</li>
-    <li><strong>🎙️ Audio-Briefing</strong> – Nur für Bauleiter</li>
-    <li><strong>📝 Bedarfsanalyse</strong> – Foto zu Angebot (selten genutzt)</li>
-  </ol>
 </div>
 
-<!-- ==================== SEITE 3: PROJEKT ÖFFNEN ==================== -->
+<!-- ==================== SEITE 3: HAUPTMENÜ ==================== -->
 <div class="seite page-break">
   <div class="seiten-header">
-    <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    <div class="header-left">
+      <img src="logo-neurealis.png" alt="neurealis" class="header-logo">
+      <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    </div>
     <span class="datum" id="header-date-2"></span>
   </div>
 
-  <h1>1. Projekt öffnen</h1>
+  <h1 id="kap1">1. Hauptmenü</h1>
 
-  <p>Bevor du Mängel, Nachträge oder Status ändern kannst, musst du ein Projekt auswählen.</p>
+  <p>Nach <code>/start</code> siehst du das Hauptmenü mit folgenden Optionen:</p>
+
+  <h2 id="kap1-1">1.1 Letzte Projekte</h2>
+  <p>Zeigt deine <strong>Top 3 aktiven Projekte</strong> für schnellen Zugriff. Tippe auf ein Projekt, um es direkt zu öffnen.</p>
+
+  <h2 id="kap1-2">1.2 ATBS direkt eingeben</h2>
+  <p>Der <strong>schnellste Weg</strong> zum Projekt, wenn du die ATBS-Nummer kennst.</p>
+  <div class="schritt"><span class="schritt-nr">1</span> Tippe "🔍 ATBS direkt eingeben"</div>
+  <div class="schritt"><span class="schritt-nr">2</span> Gib die Nummer ein (z.B. "456" oder "ATBS-456")</div>
+  <div class="schritt"><span class="schritt-nr">3</span> Projekt öffnet sich direkt</div>
+
+  <h2 id="kap1-3">1.3 Baustelle öffnen</h2>
+  <p>Projekte nach Phase filtern oder alle anzeigen.</p>
+  <div class="zwei-spalten">
+    <div>
+      <h3>📁 Nach Phase filtern</h3>
+      <ul>
+        <li>Phase 0-2: Vorbereitung</li>
+        <li>Phase 3-4: Umsetzung</li>
+        <li>Phase 5-9: Abschluss</li>
+      </ul>
+    </div>
+    <div>
+      <h3>🔍 Suchen</h3>
+      <ul>
+        <li>ATBS-Nummer eingeben</li>
+        <li>Adresse/Name suchen</li>
+        <li>Alle aktiven anzeigen</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 id="kap1-4">1.4 Aufmaß erstellen</h2>
+  <p>Matterport-CSV zu Excel-Aufmaß konvertieren.</p>
+  <div class="schritt"><span class="schritt-nr">1</span> ATBS-Nummer eingeben</div>
+  <div class="schritt"><span class="schritt-nr">2</span> Matterport-Link wird abgerufen</div>
+  <div class="schritt"><span class="schritt-nr">3</span> CSV-Daten werden zu Excel verarbeitet</div>
+
+  <h2 id="kap1-5">1.5 Audio-Briefing</h2>
+  <p><strong>Nur für Bauleiter:</strong> Generiert eine Audio-Zusammenfassung deiner aktuellen Aufgaben.</p>
+  <div class="info-box">
+    <strong>Inhalt:</strong> Überfällige Mängel, offene Nachträge, Termine heute
+  </div>
+
+  <h2 id="kap1-6">1.6 Bedarfsanalyse</h2>
+  <p>Foto(s) von Bedarfslisten hochladen → OCR → automatisches Angebot erstellen.</p>
+</div>
+
+<!-- ==================== SEITE 4: PROJEKT-MENÜ ==================== -->
+<div class="seite page-break">
+  <div class="seiten-header">
+    <div class="header-left">
+      <img src="logo-neurealis.png" alt="neurealis" class="header-logo">
+      <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    </div>
+    <span class="datum" id="header-date-3"></span>
+  </div>
+
+  <h1 id="kap2">2. Projekt-Menü</h1>
+
+  <p>Nach dem Öffnen eines Projekts stehen diese Funktionen zur Verfügung:</p>
+
+  <h2 id="kap2-1">2.1 Mängel erfassen</h2>
 
   <div class="zwei-spalten">
     <div>
-      <h3>Option A: ATBS direkt eingeben</h3>
-      <div class="schritt"><span class="schritt-nr">1</span> Tippe "🔍 ATBS direkt eingeben"</div>
-      <div class="schritt"><span class="schritt-nr">2</span> Gib die ATBS-Nummer ein (z.B. "456")</div>
-      <div class="schritt"><span class="schritt-nr">3</span> Projekt öffnet sich direkt</div>
-      <div class="wichtig">
-        <strong>💡 Schnellster Weg!</strong> Perfekt wenn du die ATBS-Nummer kennst.
+      <h3>Über Menü</h3>
+      <div class="schritt"><span class="schritt-nr">1</span> "🔧 Mangel melden" tippen</div>
+      <div class="schritt"><span class="schritt-nr">2</span> Beschreibung eingeben oder diktieren</div>
+      <div class="schritt"><span class="schritt-nr">3</span> Optional: Foto hinzufügen</div>
+    </div>
+    <div>
+      <h3>Per Sprache</h3>
+      <div class="beispiel">
+        Mangel Elektrik Steckdose locker<br>
+        Mangel Sanitär WC tropft<br>
+        Mangel: Riss in Fliese Küche
       </div>
-    </div>
-    <div>
-      <h3>Option B: Über Menü</h3>
-      <div class="schritt"><span class="schritt-nr">1</span> Tippe "🏗️ Baustelle öffnen"</div>
-      <div class="schritt"><span class="schritt-nr">2</span> Wähle Phase (0-9) oder alle Projekte</div>
-      <div class="schritt"><span class="schritt-nr">3</span> Wähle Projekt aus Liste</div>
+      <p style="font-size: 9pt; color: #666;">→ Gewerk wird automatisch erkannt!</p>
     </div>
   </div>
 
-  <h3>Option C: Per Sprachbefehl (ohne Menü)</h3>
-  <div class="beispiel">
-    <div class="beispiel-label">Einfach eintippen oder diktieren:</div>
-    Öffne Bollwerkstraße<br>
-    Zeige 456<br>
-    Status ATBS-472
+  <div class="wichtig">
+    <strong>💡 Tipp:</strong> Du kannst mehrere Mängel in einer Nachricht diktieren. Der Bot splittet sie automatisch auf!
   </div>
 
-  <h2>2. Tages-Dashboard</h2>
-
-  <p>Beim <code>/start</code> zeigt der Bot automatisch ein Dashboard mit:</p>
+  <h2 id="kap2-2">2.2 Nachträge erfassen</h2>
 
   <div class="zwei-spalten">
     <div>
-      <h3>🔴 Überfällige Mängel</h3>
-      <ul>
-        <li>Mängel mit abgelaufenem Erledigungstermin</li>
-        <li>Sortiert nach Dringlichkeit</li>
-        <li>Direkt-Link zum Projekt</li>
-      </ul>
+      <h3>Über Menü</h3>
+      <div class="schritt"><span class="schritt-nr">1</span> "📋 Nachtrag erfassen" tippen</div>
+      <div class="schritt"><span class="schritt-nr">2</span> Beschreibung eingeben</div>
+      <div class="schritt"><span class="schritt-nr">3</span> Optional: Foto hinzufügen</div>
     </div>
     <div>
-      <h3>📋 Offene Nachträge</h3>
-      <ul>
-        <li>Nachträge ohne Freigabe</li>
-        <li>Wartend auf Auftraggeber</li>
-        <li>Schnellzugriff zur Bearbeitung</li>
-      </ul>
+      <h3>Per Sprache</h3>
+      <div class="beispiel">
+        Nachtrag Sanitär zusätzlicher Anschluss<br>
+        Nachtrag: 2 Steckdosen mehr im Flur
+      </div>
+      <p style="font-size: 9pt; color: #666;">→ LV-Positionen werden automatisch zugeordnet!</p>
     </div>
   </div>
 
-  <h2>3. Sprachbefehle</h2>
+  <h2 id="kap2-3">2.3 Nachweise hochladen</h2>
 
-  <p>Du kannst Befehle direkt eintippen oder diktieren – auch ohne vorher ein Projekt zu öffnen!</p>
+  <div class="schritt"><span class="schritt-nr">1</span> "📸 Nachweis hochladen" tippen</div>
+  <div class="schritt"><span class="schritt-nr">2</span> Nachweis-Typ wählen</div>
+  <div class="schritt"><span class="schritt-nr">3</span> Foto hochladen</div>
 
   <table>
     <tr>
-      <th style="width: 40%">Was du sagst/tippst</th>
+      <th>Typ</th>
+      <th>Wann hochladen?</th>
+    </tr>
+    <tr><td>⚡ Rohinstallation Elektrik</td><td>Nach Abschluss Schlitze & Leitungen</td></tr>
+    <tr><td>🚿 Rohinstallation Sanitär</td><td>Nach Abschluss Leitungen</td></tr>
+    <tr><td>💧 Abdichtung Bad</td><td>Nach Abdichtungsarbeiten</td></tr>
+    <tr><td>✅ E-Check Protokoll</td><td>Nach Feininstallation</td></tr>
+    <tr><td>🔥 Brandschutz</td><td>Falls erforderlich</td></tr>
+  </table>
+</div>
+
+<!-- ==================== SEITE 5: PROJEKT-MENÜ FORTSETZUNG ==================== -->
+<div class="seite page-break">
+  <div class="seiten-header">
+    <div class="header-left">
+      <img src="logo-neurealis.png" alt="neurealis" class="header-logo">
+      <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    </div>
+    <span class="datum" id="header-date-4"></span>
+  </div>
+
+  <h2 id="kap2-4">2.4 Berichte erstellen</h2>
+
+  <div class="zwei-spalten">
+    <div>
+      <h3>Über Menü</h3>
+      <div class="schritt"><span class="schritt-nr">1</span> "📝 Bericht erstellen" tippen</div>
+      <div class="schritt"><span class="schritt-nr">2</span> Text eingeben oder diktieren</div>
+    </div>
+    <div>
+      <h3>Was gehört rein?</h3>
+      <ul>
+        <li>Tagesfortschritt</li>
+        <li>Besondere Vorkommnisse</li>
+        <li>Materialbedarf</li>
+        <li>Koordinationsbedarf</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 id="kap2-5">2.5 Abnahmeprotokoll</h2>
+
+  <p>Zwei Arten von Abnahmen dokumentieren:</p>
+  <ul>
+    <li><strong>👷 NU-Abnahme (intern):</strong> Abnahme der Nachunternehmer-Leistung</li>
+    <li><strong>🏠 Kunden-Abnahme:</strong> Finale Abnahme mit dem Auftraggeber</li>
+  </ul>
+
+  <h2 id="kap2-6">2.6 Status & Gewerke</h2>
+
+  <p>Zeigt eine kombinierte Übersicht mit <strong>Plan</strong> (Ausführungsart) und <strong>Ist</strong> (aktueller Status):</p>
+
+  <p style="margin-top: 4mm; margin-bottom: 2mm;"><strong>Beispiel-Ausgabe:</strong></p>
+
+  <table class="status-tabelle">
+    <tr>
+      <th style="width: 30%;">Gewerk</th>
+      <th style="width: 35%;">Plan</th>
+      <th style="width: 35%;">Ist</th>
+    </tr>
+    <tr>
+      <td>🔨 Abbruch</td>
+      <td>–</td>
+      <td>✅ Fertig</td>
+    </tr>
+    <tr>
+      <td>⚡ Elektrik</td>
+      <td>Komplett</td>
+      <td>🔨 Läuft</td>
+    </tr>
+    <tr>
+      <td>🚿 Sanitär</td>
+      <td>Komplett</td>
+      <td>⏳ Geplant</td>
+    </tr>
+    <tr>
+      <td>🔥 Heizung</td>
+      <td>Neue Therm</td>
+      <td>➖ –</td>
+    </tr>
+    <tr>
+      <td>🖌️ Maler</td>
+      <td>Q2 & Anstr</td>
+      <td>⏳ Geplant</td>
+    </tr>
+    <tr>
+      <td>🏠 Boden</td>
+      <td>Vinyl</td>
+      <td>⏳ Geplant</td>
+    </tr>
+    <tr>
+      <td>🚪 Türen</td>
+      <td>Wohnungstür</td>
+      <td>➖ –</td>
+    </tr>
+  </table>
+
+  <p style="margin-top: 2mm;">
+    🔧 <strong>Mängel:</strong> 2 offen / 5 ges. &nbsp;&nbsp;
+    📋 <strong>Nachträge:</strong> 1 offen / 3 ges.
+  </p>
+
+  <div class="legende">
+    <strong>Legende:</strong> ✅ Fertig | 🔨 Läuft | ⏳ Geplant | ➖ Ohne/Nicht geplant
+  </div>
+</div>
+
+<!-- ==================== SEITE 6: SPRACHBEFEHLE & REFERENZ ==================== -->
+<div class="seite page-break">
+  <div class="seiten-header">
+    <div class="header-left">
+      <img src="logo-neurealis.png" alt="neurealis" class="header-logo">
+      <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
+    </div>
+    <span class="datum" id="header-date-5"></span>
+  </div>
+
+  <h1 id="kap3">3. Sprachbefehle</h1>
+
+  <p>Du kannst Befehle direkt eintippen oder diktieren – auch <strong>ohne vorher ein Projekt zu öffnen!</strong></p>
+
+  <table>
+    <tr>
+      <th style="width: 45%">Was du sagst/tippst</th>
       <th>Was passiert</th>
+    </tr>
+    <tr>
+      <td><code>Öffne Bollwerkstraße</code></td>
+      <td>Sucht und öffnet Projekt per Name</td>
+    </tr>
+    <tr>
+      <td><code>Zeige 456</code> / <code>Status ATBS-472</code></td>
+      <td>Öffnet Projekt direkt per ATBS</td>
     </tr>
     <tr>
       <td><code>456 Elektrik fertig</code></td>
@@ -467,212 +742,32 @@
       <td>Setzt Bauende auf Montag der KW 15</td>
     </tr>
   </table>
-</div>
 
-<!-- ==================== SEITE 4: MÄNGEL & NACHTRÄGE ==================== -->
-<div class="seite page-break">
-  <div class="seiten-header">
-    <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
-    <span class="datum" id="header-date-3"></span>
-  </div>
+  <h1 id="kap4">4. Referenz</h1>
 
-  <h1>4. Mängel erfassen</h1>
-
-  <div class="zwei-spalten">
-    <div>
-      <h3>Über Menü</h3>
-      <div class="schritt"><span class="schritt-nr">1</span> Projekt öffnen</div>
-      <div class="schritt"><span class="schritt-nr">2</span> "🔧 Mangel melden" tippen</div>
-      <div class="schritt"><span class="schritt-nr">3</span> Beschreibung eingeben oder diktieren</div>
-      <div class="schritt"><span class="schritt-nr">4</span> Optional: Foto hinzufügen</div>
-    </div>
-    <div>
-      <h3>Per Sprache</h3>
-      <div class="beispiel">
-        Mangel Elektrik Steckdose locker<br>
-        Mangel Sanitär WC tropft<br>
-        Mangel: Riss in Fliese Küche
-      </div>
-      <p style="font-size: 9pt; color: #666;">→ Gewerk wird automatisch erkannt!</p>
-    </div>
-  </div>
-
-  <div class="wichtig">
-    <strong>💡 Tipp:</strong> Du kannst mehrere Mängel in einer Nachricht diktieren. Der Bot splittet sie automatisch auf!
-  </div>
-
-  <h1>5. Nachträge erfassen</h1>
-
-  <div class="zwei-spalten">
-    <div>
-      <h3>Über Menü</h3>
-      <div class="schritt"><span class="schritt-nr">1</span> Projekt öffnen</div>
-      <div class="schritt"><span class="schritt-nr">2</span> "📋 Nachtrag erfassen" tippen</div>
-      <div class="schritt"><span class="schritt-nr">3</span> Beschreibung eingeben</div>
-      <div class="schritt"><span class="schritt-nr">4</span> Optional: Foto hinzufügen</div>
-    </div>
-    <div>
-      <h3>Per Sprache</h3>
-      <div class="beispiel">
-        Nachtrag Sanitär zusätzlicher Anschluss<br>
-        Nachtrag: 2 Steckdosen mehr im Flur<br>
-        Nachtrag Elektrik SAT-Dose Wohnzimmer
-      </div>
-      <p style="font-size: 9pt; color: #666;">→ LV-Positionen werden automatisch zugeordnet!</p>
-    </div>
-  </div>
-
-  <h1>6. Baustellenberichte</h1>
-
-  <div class="zwei-spalten">
-    <div>
-      <h3>Über Menü</h3>
-      <div class="schritt"><span class="schritt-nr">1</span> Projekt öffnen</div>
-      <div class="schritt"><span class="schritt-nr">2</span> "📝 Bericht erstellen" tippen</div>
-      <div class="schritt"><span class="schritt-nr">3</span> Text eingeben oder diktieren</div>
-    </div>
-    <div>
-      <h3>Was gehört rein?</h3>
-      <ul>
-        <li>Tagesfortschritt</li>
-        <li>Besondere Vorkommnisse</li>
-        <li>Materialbedarf</li>
-        <li>Koordinationsbedarf</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== SEITE 5: NACHWEISE & STATUS ==================== -->
-<div class="seite page-break">
-  <div class="seiten-header">
-    <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
-    <span class="datum" id="header-date-4"></span>
-  </div>
-
-  <h1>7. Nachweise hochladen</h1>
-
-  <div class="schritt"><span class="schritt-nr">1</span> Projekt öffnen</div>
-  <div class="schritt"><span class="schritt-nr">2</span> "📸 Nachweis hochladen" tippen</div>
-  <div class="schritt"><span class="schritt-nr">3</span> Nachweis-Typ wählen</div>
-  <div class="schritt"><span class="schritt-nr">4</span> Foto hochladen</div>
-
-  <table>
-    <tr>
-      <th>Typ</th>
-      <th>Wann hochladen?</th>
-    </tr>
-    <tr><td>⚡ Rohinstallation Elektrik</td><td>Nach Abschluss Schlitze & Leitungen</td></tr>
-    <tr><td>🚿 Rohinstallation Sanitär</td><td>Nach Abschluss Leitungen</td></tr>
-    <tr><td>💧 Abdichtung Bad</td><td>Nach Abdichtungsarbeiten</td></tr>
-    <tr><td>✅ E-Check Protokoll</td><td>Nach Feininstallation</td></tr>
-    <tr><td>🔥 Brandschutz</td><td>Falls erforderlich</td></tr>
-  </table>
-
-  <h1>8. Status & Gewerke</h1>
-
-  <p>Zeigt eine kombinierte Übersicht mit <strong>Plan</strong> (Ausführungsart) und <strong>Ist</strong> (aktueller Status):</p>
-
-  <div class="schritt"><span class="schritt-nr">1</span> Projekt öffnen</div>
-  <div class="schritt"><span class="schritt-nr">2</span> "📊 Status & Gewerke" tippen</div>
-
-  <div class="beispiel">
-<div class="beispiel-label">Beispiel-Ausgabe:</div>
-┌────────┬───────────┬──────────┐
-│Gewerk  │Plan       │Ist       │
-├────────┼───────────┼──────────┤
-│🔨Abbru │-          │✅ Fertig │
-│⚡Elekt │Komplett   │🔨 Läuft  │
-│🚿Sanit │Komplett   │⏳ Geplant│
-│🔥Heizu │Neue Therm │➖ -      │
-│🖌️Maler │Q2 & Anstr │⏳ Geplant│
-└────────┴───────────┴──────────┘
-
-🔧 Mängel: 2 offen / 5 ges.
-📋 Nachträge: 1 offen / 3 ges.
-  </div>
-
-  <p style="font-size: 9pt; color: #666;">
-    <strong>Legende:</strong> ✅ Fertig | 🔨 Läuft | ⏳ Geplant | ➖ Ohne
-  </p>
-
-  <h1>9. Audio-Briefing</h1>
-
-  <p>Nur für Bauleiter: Generiert eine Audio-Zusammenfassung deiner aktuellen Aufgaben.</p>
-
-  <div class="schritt"><span class="schritt-nr">1</span> Tippe "🎙️ Audio-Briefing abrufen"</div>
-  <div class="schritt"><span class="schritt-nr">2</span> Bot generiert Audio-Nachricht</div>
-  <div class="schritt"><span class="schritt-nr">3</span> Höre die Zusammenfassung an</div>
-
-  <div class="info-box">
-    <strong>Inhalt:</strong> Überfällige Mängel, offene Nachträge, Termine heute
-  </div>
-</div>
-
-<!-- ==================== SEITE 6: MENÜBAUM & REFERENZ ==================== -->
-<div class="seite page-break">
-  <div class="seiten-header">
-    <span class="titel">Telegram-Bot Anleitung für Bauleiter</span>
-    <span class="datum" id="header-date-5"></span>
-  </div>
-
-  <h1>10. Menübaum (Referenz)</h1>
+  <h2 id="kap4-1">4.1 Menübaum</h2>
 
   <div class="menubaum">/start → HAUPTMENÜ
-│
-├── ⭐ Letzte Projekte (Top 3)
-│   └── [Projekt öffnen] ──────────────────────→ PROJEKT-MENÜ
-│
-├── 🔍 ATBS direkt eingeben
-│   └── "456" oder "ATBS-456" ─────────────────→ PROJEKT-MENÜ
-│
+├── ⭐ Letzte Projekte (Top 3) ─────────────→ PROJEKT-MENÜ
+├── 🔍 ATBS direkt eingeben ────────────────→ PROJEKT-MENÜ
 ├── 🏗️ Baustelle öffnen
-│   ├── 📁 Nach Phase filtern (0-9)
-│   │   └── Phase wählen → Projekt wählen ─────→ PROJEKT-MENÜ
-│   ├── 🔍 ATBS-Nummer suchen
-│   │   └── ATBS eingeben → Projekt wählen ────→ PROJEKT-MENÜ
-│   └── 📋 Alle aktiven Projekte
-│       └── Projekt wählen ────────────────────→ PROJEKT-MENÜ
-│
+│   ├── 📁 Nach Phase filtern (0-9) ────────→ PROJEKT-MENÜ
+│   ├── 🔍 ATBS-Nummer suchen ──────────────→ PROJEKT-MENÜ
+│   └── 📋 Alle aktiven Projekte ───────────→ PROJEKT-MENÜ
 ├── 📊 Aufmaß erstellen/ansehen
-│   └── ATBS → Matterport → CSV → Excel
-│
-├── 🎙️ Audio-Briefing abrufen (nur Bauleiter)
-│   └── Generiert Audio-Zusammenfassung
-│
+├── 🎙️ Audio-Briefing abrufen (nur BL)
 └── 📝 Bedarfsanalyse → Angebot
-    └── Foto(s) → OCR → Angebot
 
-
-PROJEKT-MENÜ (nach Projekt öffnen)
-│
-├── 🔧 Mangel melden
-│   └── Text/Sprache → [📷 Foto] → Gespeichert
-│
-├── 📋 Nachtrag erfassen
-│   └── Text → LV-Matching → [📷 Foto] → Gespeichert
-│
-├── 📸 Nachweis hochladen
-│   ├── ⚡ Rohinstallation Elektrik
-│   ├── 🚿 Rohinstallation Sanitär
-│   ├── 💧 Abdichtung Bad
-│   ├── ✅ E-Check Protokoll
-│   └── 🔥 Brandschutz
-│
+PROJEKT-MENÜ
+├── 🔧 Mangel melden → [📷 Foto]
+├── 📋 Nachtrag erfassen → LV-Matching → [📷 Foto]
+├── 📸 Nachweis hochladen (5 Typen)
 ├── 📝 Bericht erstellen
-│   └── Text/Sprache → Gespeichert
-│
-├── 📄 Abnahmeprotokoll
-│   ├── 👷 NU-Abnahme (intern)
-│   └── 🏠 Kunden-Abnahme
-│
+├── 📄 Abnahmeprotokoll (NU / Kunde)
 ├── 📊 Status & Gewerke
-│   └── Plan/Ist-Tabelle + Mängel + Nachträge + Nachweise
-│
-└── ❌ Projekt schließen
-  </div>
+└── ❌ Projekt schließen</div>
 
-  <h2>Datum-Formate (Referenz)</h2>
+  <h2 id="kap4-2">4.2 Datum-Formate</h2>
 
   <table>
     <tr><th>Format</th><th>Beispiel</th><th>Ergebnis</th></tr>
@@ -680,11 +775,12 @@ PROJEKT-MENÜ (nach Projekt öffnen)
     <tr><td>In X Tagen</td><td>in 5 Tagen</td><td>5 Tage ab heute</td></tr>
     <tr><td>In X Wochen</td><td>in 2 Wochen</td><td>14 Tage ab heute</td></tr>
     <tr><td>Kalenderwoche</td><td>KW 12</td><td>Montag der KW</td></tr>
-    <tr><td>Monat</td><td>Ende März</td><td>31. März</td></tr>
+    <tr><td>Monat</td><td>Ende März, Mitte April</td><td>31. März, 15. April</td></tr>
   </table>
 
   <div class="footer">
-    <p><strong>neurealis GmbH</strong> · Telegram-Bot v74 · holger.neumann@neurealis.de</p>
+    <img src="logo-neurealis.png" alt="neurealis" class="footer-logo">
+    <span><strong>neurealis GmbH</strong> · Telegram-Bot v74 · holger.neumann@neurealis.de</span>
   </div>
 </div>
 

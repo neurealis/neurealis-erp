@@ -80,6 +80,47 @@
 | LOG-066 | 2026-02-01 | Monday-Sync Initial + verify_jwt Fix | Abgeschlossen |
 | LOG-067 | 2026-02-01 | Telegram-Bot v74: Status/Gewerke kombiniert + Menü-Optimierung + PDF | Abgeschlossen |
 | LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
+| LOG-068 | 2026-02-01 | SharePoint Initial-Sync: Rate-Limiting-Fix v13 | Abgeschlossen |
+
+---
+
+## LOG-068 - SharePoint Initial-Sync: Rate-Limiting-Fix v13
+**Datum:** 2026-02-01 19:15
+**Status:** Abgeschlossen
+
+### Ausgangslage
+- SharePoint-Sync für 12 Sites sollte Initial-Sync starten
+- 49 SharePoint Sites katalogisiert, 12 für Wohnungssanierung konfiguriert
+- Bisheriger Stand: 45 Dokumente synchronisiert (aus früherer Session)
+
+### Problem erkannt
+3 parallele Subagenten (T1, T2, T3) synchronisierten Sites:
+- **Alle Downloads schlugen fehl** trotz korrekter Delta-Query
+- Root Cause: **Microsoft Graph API Rate-Limiting (429)**
+- ~2.500 Download-Fehler insgesamt
+
+### Analyse (T1-T3 Ergebnisse)
+| Agent | Sites | Erkannte Dateien | Download-Fehler |
+|-------|-------|-----------------|-----------------|
+| T1 | Projekte, Kunden, Marketing, Operations | 780+ | 780 (429) |
+| T2 | Nachunternehmer, Großhandel, Vertrieb, Finanzen | 946+ | 946 (429) |
+| T3 | Management, Personal, Wohnungssanierung (2x) | 797+ | 797 (429) |
+
+### Lösung: sharepoint-sync v13
+| Änderung | v11 | v13 |
+|----------|-----|-----|
+| ITEM_CONCURRENCY | 3 (parallel) | 1 (sequentiell) |
+| REQUEST_DELAY_MS | 0 | 500 |
+| 429-Handling | Fehler | Retry mit Exponential Backoff |
+| Max Retries | - | 3 |
+
+### Deployment
+- sharepoint-sync v13 deployed
+- Download-Funktion mit Retry-Logik bei 429
+- Sequentielle Verarbeitung mit 500ms Delay
+
+### Nächster Schritt
+Test mit v13 auf kleiner Site (00Vertrieb)
 
 ---
 

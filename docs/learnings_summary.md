@@ -280,6 +280,8 @@
 | L160 | SharePoint Sites via MS Graph API katalogisieren | sites?search=* für alle Sites |
 | L161 | SharePoint Ordnerstruktur-Muster | 01 Angebot-SUB bis 30 Qualitätssicherung |
 | L162 | SharePoint Delta-Query braucht Initial-Sync | Erst Full-Sync für delta_link |
+| L163 | Microsoft Graph API Rate-Limiting (429) | Sequentiell, 500ms Delay, Retry-After Header |
+| L164 | SharePoint Delta-Query bei Full-Sync | delta_link=NULL für Full-Sync, items_synced=0 normal |
 
 ---
 

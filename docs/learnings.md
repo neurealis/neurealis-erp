@@ -6,6 +6,26 @@
 
 ## Kritische Feld-Mappings
 
+### L163 - Microsoft Graph API Rate-Limiting (429)
+**Datum:** 2026-02-01
+**Kontext:** SharePoint-Sync mit vielen parallelen Downloads
+**Problem:** Graph API gibt 429 (activityLimitReached, throttledRequest, quota) bei zu vielen Requests
+**Lösung:**
+1. Sequentielle Verarbeitung statt parallel (ITEM_CONCURRENCY = 1)
+2. Delay zwischen Downloads (500ms)
+3. Retry mit Exponential Backoff (max 3 Versuche)
+4. `Retry-After` Header auslesen und warten
+**Wichtig:** Bei großen Sync-Jobs Sites einzeln verarbeiten, nicht alle auf einmal
+
+### L164 - SharePoint Delta-Query bei Full-Sync
+**Datum:** 2026-02-01
+**Kontext:** Initial-Sync für SharePoint Sites
+**Verhalten:**
+- Erster Sync OHNE delta_link → Alle Dateien (Full-Sync)
+- Folge-Syncs MIT delta_link → Nur neue/geänderte Dateien
+- `items_synced: 0` ist NORMAL nach initialem Sync wenn keine Änderungen
+**Tipp:** Für Full-Sync: `delta_link = NULL` setzen vor Sync-Aufruf
+
 ### L148 - Telegram-Bot Menü: ATBS-Schnellzugriff nach Favoriten
 **Datum:** 2026-02-01
 **Kontext:** Hauptmenü-Reihenfolge für Bauleiter optimiert

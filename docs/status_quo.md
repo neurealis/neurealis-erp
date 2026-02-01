@@ -317,10 +317,28 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **SharePoint Initial-Sync:** 11 Sites noch nicht synchronisiert (112 GB pending)
+→ **SharePoint v13 Test:** Rate-Limiting-Fix mit kleiner Site testen (00Vertrieb)
 → **monday-sync erweitern:** Automatisches Flattening beim Sync
-→ **monday-push implementieren:** Bidirektionaler Sync für status_projekt, budget, baustart, bauende
 → **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
+
+---
+
+### SharePoint Initial-Sync Rate-Limiting-Fix (✅ FERTIG - LOG-068)
+
+**Implementiert:** 2026-02-01 19:15
+
+**Problem erkannt:** Microsoft Graph API Rate-Limiting (429)
+- 3 parallele Subagenten synchronisierten 12 Sites
+- ~2.500 Download-Fehler wegen Rate-Limiting (activityLimitReached)
+
+**Lösung: sharepoint-sync v13:**
+| Änderung | v11 | v13 |
+|----------|-----|-----|
+| ITEM_CONCURRENCY | 3 | 1 (sequentiell) |
+| REQUEST_DELAY_MS | 0 | 500 |
+| 429-Handling | Fehler | Retry mit Backoff |
+
+**Bestehende Daten:** 45 SharePoint-Dokumente (44 mit Download)
 
 ---
 
@@ -330,7 +348,7 @@ ui/src/routes/
 
 **49 SharePoint-Sites katalogisiert:**
 - 12 Wohnungssanierung-Sites für Sync konfiguriert
-- `sharepoint-sync` v10 deployed mit allen Sites
+- `sharepoint-sync` v13 deployed mit Rate-Limiting-Fix
 - Dokumentation: `docs/sharepoint_sites.json`, `docs/SHAREPOINT_SITES.md`
 
 **Sync-Status:**
