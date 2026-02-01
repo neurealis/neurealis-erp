@@ -1,11 +1,12 @@
 {
   "devDependencies": {
+    "openai": "^6.17.0",
     "pdfkit": "^0.17.2",
+    "puppeteer": "^24.36.1",
     "xlsx": "^0.18.5"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.93.1",
-    "docx": "^9.5.1",
-    "puppeteer": "^24.36.1"
+    "docx": "^9.5.1"
   }
 }

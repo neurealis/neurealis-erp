@@ -77,6 +77,7 @@
 | LOG-063 | 2026-02-01 | Audio-Briefing v2.1 + Telegram-Bot v73 BV-Anzeige | Abgeschlossen |
 | LOG-064 | 2026-02-01 | monday_bauprozess Spalten-Umbenennung mit Präfixen | Abgeschlossen |
 | LOG-065 | 2026-02-01 | SharePoint Sites Katalogisierung + Muster-Analyse | Abgeschlossen |
+| LOG-066 | 2026-02-01 | Monday-Sync Initial + verify_jwt Fix | Abgeschlossen |
 
 ---
 
@@ -3766,4 +3767,40 @@ Spalten in `monday_bauprozess` mit eindeutigen Präfixen umbenannt für bessere 
 
 ---
 
-*Aktualisiert: 2026-02-01 18:15*
+## LOG-066 - Monday-Sync Initial + verify_jwt Fix
+
+**Datum:** 2026-02-01 ~18:30
+**Dauer:** ~10 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Monday-Sync initial ausgeführt und `verify_jwt` Problem für Cron-Jobs behoben.
+
+### Durchgeführte Arbeiten
+
+**1. Problem identifiziert:**
+- `monday-sync` v17 hatte `verify_jwt: true`
+- pg_net/Cron-Calls schlugen fehl: `401 Missing authorization header`
+
+**2. Fix:**
+- `monday-sync` v18 deployed mit `verify_jwt: false`
+- Initial-Sync erfolgreich ausgeführt
+
+**3. Sync-Ergebnis:**
+| Spalte | Befüllt | Prozent |
+|--------|---------|---------|
+| `nu_firma` | 201/201 | 100% |
+| `nu_ansprechpartner` | 201/201 | 100% |
+| `bl_name` | 201/201 | 100% |
+| `bl_email` | 197/201 | 98% |
+| `ag_name` | 201/201 | 100% |
+| `ag_email` | 201/201 | 100% |
+
+### Learnings
+
+- L146: Edge Functions mit `verify_jwt: false` für Cron/Trigger-basierte Calls
+
+---
+
+*Aktualisiert: 2026-02-01 18:45*

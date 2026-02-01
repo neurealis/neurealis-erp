@@ -55,6 +55,15 @@
 **Vorteil:** Keine Verwechslung, eindeutige Queries, bessere Autovervollständigung
 **Ausnahme:** Projekt-Stammdaten ohne Präfix (atbs_nummer, budget, baustart)
 
+### L146 - Edge Functions: verify_jwt für Cron-Jobs
+**Datum:** 2026-02-01
+**Problem:** Edge Functions mit `verify_jwt: true` können nicht von pg_net/Cron aufgerufen werden (401 Missing authorization header)
+**Lösung:** Für Cron-basierte Functions `verify_jwt: false` setzen
+**Regel:**
+- `verify_jwt: true` → Nur für User-aufgerufene Functions (mit Auth-Token)
+- `verify_jwt: false` → Für Cron-Jobs, DB-Trigger, interne Calls
+**Beispiel:** `monday-sync` muss `verify_jwt: false` haben da es vom Cron-Job aufgerufen wird
+
 ---
 
 ## UX/Design

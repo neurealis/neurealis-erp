@@ -3,6 +3,15 @@
     "supabase": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp?project_ref=mfpuijttdgkllnvhvjlu&features=docs,account,database,debugging,development,functions,branching,storage"
+    },
+    "postgres-erp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@bytebase/dbhub",
+        "--dsn",
+        "postgresql://postgres.mfpuijttdgkllnvhvjlu:50sshbWpycYDMQHMBFlww7r6VVrQKXYY@aws-0-eu-central-1.pooler.supabase.com:6543/postgres"
+      ]
     }
   }
 }

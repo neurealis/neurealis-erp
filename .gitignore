@@ -12,6 +12,9 @@ dist/
 .env.local
 .env.*.local
 
+# MCP Config (enthält DB-Passwörter!)
+.mcp.json
+
 # Logs
 *.log
 npm-debug.log*

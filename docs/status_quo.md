@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 18:15 (aktualisiert)
+**Stand:** 2026-02-01 18:45 (aktualisiert)
 
 ---
 
