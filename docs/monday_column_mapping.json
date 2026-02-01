@@ -1,0 +1,709 @@
+{
+  "meta": {
+    "board_id": "1545426536",
+    "board_name": "Bauprozess",
+    "total_monday_columns": 338,
+    "total_supabase_columns": 97,
+    "created_at": "2026-02-01",
+    "strategy": "D039 - Nur wichtige Spalten flattenen, Rest bleibt in column_values JSONB"
+  },
+  "mapped_columns": {
+    "core_identification": [
+      {
+        "monday_id": "text49__1",
+        "monday_title": "ATBS-Nummer",
+        "monday_type": "text",
+        "supabase_column": "atbs_nummer",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text49__1'->>'text'"
+      },
+      {
+        "monday_id": "status06__1",
+        "monday_title": "Status Projekt (Phase 0-9)",
+        "monday_type": "status",
+        "supabase_column": "status_projekt",
+        "supabase_type": "TEXT",
+        "sync_direction": "bidirectional",
+        "transformation": "column_values->>'status06__1'->>'text'",
+        "sample_values": ["(0) Lead", "(1) Erstbegehung", "(2) Angebot", "(3) Vorbereitung", "(4) Umsetzung", "(5) Abnahme", "(6) Abrechnungsphase", "(9) Auftrag nicht erhalten"]
+      },
+      {
+        "monday_id": "text_mkm11jca",
+        "monday_title": "Auftraggeber",
+        "monday_type": "text",
+        "supabase_column": "auftraggeber",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text_mkm11jca'->>'text'",
+        "sample_values": ["VBW", "GWS", "Covivio", "Privat", "HV Bach"]
+      },
+      {
+        "monday_id": "text51__1",
+        "monday_title": "Adresse",
+        "monday_type": "text",
+        "supabase_column": "adresse",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text51__1'->>'text'"
+      },
+      {
+        "monday_id": "text_mkn8ggev",
+        "monday_title": "Bauleiter",
+        "monday_type": "text",
+        "supabase_column": "bauleiter",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text_mkn8ggev'->>'text'"
+      },
+      {
+        "monday_id": "text57__1",
+        "monday_title": "Nachunternehmer (Name)",
+        "monday_type": "text",
+        "supabase_column": "nachunternehmer",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text57__1'->>'text'"
+      }
+    ],
+    "financial": [
+      {
+        "monday_id": "zahlen1__1",
+        "monday_title": "Budget (Netto)",
+        "monday_type": "numeric",
+        "supabase_column": "budget",
+        "supabase_type": "NUMERIC",
+        "sync_direction": "bidirectional",
+        "transformation": "(column_values->>'zahlen1__1'->>'text')::numeric"
+      },
+      {
+        "monday_id": "zahlen77__1",
+        "monday_title": "Budget (Brutto)",
+        "monday_type": "numeric",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "Berechnet aus Netto, nicht separat gespeichert"
+      },
+      {
+        "monday_id": "zahlen4__1",
+        "monday_title": "Wohnflaeche (qm)",
+        "monday_type": "numeric",
+        "supabase_column": "wohnflaeche",
+        "supabase_type": "NUMERIC",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'zahlen4__1'->>'text')::numeric"
+      },
+      {
+        "monday_id": "zahlen2__1",
+        "monday_title": "Anzahl Zimmer",
+        "monday_type": "numeric",
+        "supabase_column": "anzahl_zimmer",
+        "supabase_type": "NUMERIC",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'zahlen2__1'->>'text')::numeric"
+      }
+    ],
+    "dates": [
+      {
+        "monday_id": "datum2__1",
+        "monday_title": "Baustart",
+        "monday_type": "date",
+        "supabase_column": "baustart",
+        "supabase_type": "DATE",
+        "sync_direction": "bidirectional",
+        "transformation": "(column_values->>'datum2__1'->>'text')::date"
+      },
+      {
+        "monday_id": "datum7__1",
+        "monday_title": "Bauende",
+        "monday_type": "date",
+        "supabase_column": "bauende",
+        "supabase_type": "DATE",
+        "sync_direction": "bidirectional",
+        "transformation": "(column_values->>'datum7__1'->>'text')::date"
+      },
+      {
+        "monday_id": "date_mkna2sbd",
+        "monday_title": "Datum Erstbegehung",
+        "monday_type": "date",
+        "supabase_column": "datum_erstbegehung",
+        "supabase_type": "DATE",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'date_mkna2sbd'->>'text')::date"
+      },
+      {
+        "monday_id": "date_mkna9vad",
+        "monday_title": "Datum Auszug",
+        "monday_type": "date",
+        "supabase_column": "datum_auszug",
+        "supabase_type": "DATE",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'date_mkna9vad'->>'text')::date"
+      },
+      {
+        "monday_id": "date_mknaefc4",
+        "monday_title": "Datum Uebergabe",
+        "monday_type": "date",
+        "supabase_column": "datum_uebergabe",
+        "supabase_type": "DATE",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'date_mknaefc4'->>'text')::date"
+      },
+      {
+        "monday_id": "date_mkpg9y5s",
+        "monday_title": "Datum Endbegehung",
+        "monday_type": "date",
+        "supabase_column": "datum_endbegehung",
+        "supabase_type": "DATE",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'date_mkpg9y5s'->>'text')::date"
+      }
+    ],
+    "links": [
+      {
+        "monday_id": "link__1",
+        "monday_title": "Hero Link",
+        "monday_type": "link",
+        "supabase_column": "hero_link",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'link__1'->>'value')::jsonb->>'url'"
+      },
+      {
+        "monday_id": "link_mkn3rkcq",
+        "monday_title": "OneDrive Link",
+        "monday_type": "link",
+        "supabase_column": "onedrive_link",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'link_mkn3rkcq'->>'value')::jsonb->>'url'"
+      },
+      {
+        "monday_id": "link_mknhrdg0",
+        "monday_title": "Matterport Link",
+        "monday_type": "link",
+        "supabase_column": "matterport_link",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'link_mknhrdg0'->>'value')::jsonb->>'url'"
+      }
+    ],
+    "gewerk_status": [
+      {
+        "monday_id": "color58__1",
+        "monday_title": "Status Elektrik",
+        "monday_type": "color/status",
+        "supabase_column": "status_elektrik",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color58__1'->>'text'",
+        "sample_values": ["Geplant", "In Arbeit (Rohinstallation)", "Fertig (Feininstallation)", "Verspätet"]
+      },
+      {
+        "monday_id": "color65__1",
+        "monday_title": "Status Sanitaer",
+        "monday_type": "color/status",
+        "supabase_column": "status_sanitaer",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color65__1'->>'text'",
+        "sample_values": ["Geplant", "In Arbeit (Rohinstallation)", "Fertig (Feininstallation)", "Verspätet"]
+      },
+      {
+        "monday_id": "color63__1",
+        "monday_title": "Status Maler",
+        "monday_type": "color/status",
+        "supabase_column": "status_maler",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color63__1'->>'text'",
+        "sample_values": ["Geplant", "In Arbeit", "Fertig", "Verspätet"]
+      },
+      {
+        "monday_id": "color8__1",
+        "monday_title": "Status Boden",
+        "monday_type": "color/status",
+        "supabase_column": "status_boden",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color8__1'->>'text'",
+        "sample_values": ["Geplant", "Fertig", "Verspätet"]
+      },
+      {
+        "monday_id": "color98__1",
+        "monday_title": "Status Tischler",
+        "monday_type": "color/status",
+        "supabase_column": "status_tischler",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color98__1'->>'text'",
+        "sample_values": ["Geplant", "In Arbeit", "Fertig"]
+      },
+      {
+        "monday_id": "color05__1",
+        "monday_title": "Status Abbruch/Entkernung",
+        "monday_type": "color/status",
+        "supabase_column": "status_abbruch",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color05__1'->>'text'",
+        "sample_values": ["Geplant", "In Arbeit", "Fertig", "Verspätet"]
+      }
+    ],
+    "ausfuehrungsart": [
+      {
+        "monday_id": "color590__1",
+        "monday_title": "Ausfuehrung Elektrik",
+        "monday_type": "color/status",
+        "supabase_column": "ausfuehrung_elektrik",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color590__1'->>'text'",
+        "sample_values": ["Komplett", "Teil-Mod", "Nur E-Check", "Austausch Feininstallation", "Ohne"]
+      },
+      {
+        "monday_id": "color49__1",
+        "monday_title": "Ausfuehrung Heizung/Therme",
+        "monday_type": "color/status",
+        "supabase_column": "ausfuehrung_sanitaer",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color49__1'->>'text'",
+        "sample_values": ["Neue Therme", "Therme versetzen", "Ohne Therme", "Offen"]
+      },
+      {
+        "monday_id": "color427__1",
+        "monday_title": "Ausfuehrung Waende",
+        "monday_type": "color/status",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "In column_values verfuegbar",
+        "sample_values": ["Raufaser & Anstrich", "Q2 & Anstrich", "2x Anstrich", "Nur Spachteln", "Ohne"]
+      },
+      {
+        "monday_id": "color78__1",
+        "monday_title": "Ausfuehrung Boden",
+        "monday_type": "color/status",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "In column_values verfuegbar",
+        "sample_values": ["Laminat", "Vinyl (Click)", "Vinyl (Planken)", "Fliesen", "Holz schleifen", "Ausgleich", "Ohne"]
+      },
+      {
+        "monday_id": "color97__1",
+        "monday_title": "Ausfuehrung Tueren",
+        "monday_type": "color/status",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "In column_values verfuegbar",
+        "sample_values": ["Türblätter: neu | Zarge: neu", "Türblätter: lackieren | Zarge: lackieren", "Ohne"]
+      }
+    ],
+    "dokument_status": [
+      {
+        "monday_id": "status__1",
+        "monday_title": "Status Vorabfrage",
+        "monday_type": "status",
+        "supabase_column": "status_vorabfrage",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'status__1'->>'text'"
+      },
+      {
+        "monday_id": "color6__1",
+        "monday_title": "Status Abschlag",
+        "monday_type": "color/status",
+        "supabase_column": "status_abschlag",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color6__1'->>'text'",
+        "sample_values": ["(0) Offen", "(2) Erstellt & verschickt", "(3) Überfällig", "(4) Bezahlt"]
+      },
+      {
+        "monday_id": "color2__1",
+        "monday_title": "Status Schlussrechnung",
+        "monday_type": "color/status",
+        "supabase_column": "status_schlussrechnung",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color2__1'->>'text'",
+        "sample_values": ["(0) Noch erstellen", "(6) Unbezahlt, verschickt", "(8) Bezahlt"]
+      },
+      {
+        "monday_id": "color4__1",
+        "monday_title": "Status NUA",
+        "monday_type": "color/status",
+        "supabase_column": "status_nua",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'color4__1'->>'text'",
+        "sample_values": ["Offen", "An NU geschickt", "Unterzeichnet", "In Abstimmung"]
+      }
+    ],
+    "kontakt": [
+      {
+        "monday_id": "e_mail4__1",
+        "monday_title": "E-Mail Kunde",
+        "monday_type": "email",
+        "supabase_column": "email_kunde",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'e_mail4__1'->>'value')::jsonb->>'email'"
+      },
+      {
+        "monday_id": "telefon___kunde__1",
+        "monday_title": "Telefon Kunde",
+        "monday_type": "phone",
+        "supabase_column": "telefon_kunde",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'telefon___kunde__1'->>'value')::jsonb->>'phone'"
+      },
+      {
+        "monday_id": "text573__1",
+        "monday_title": "Ansprechpartner Vorname",
+        "monday_type": "text",
+        "supabase_column": "ansprechpartner",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'text573__1'->>'text'"
+      },
+      {
+        "monday_id": "text_1__1",
+        "monday_title": "Anrede Kunde",
+        "monday_type": "text",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "In column_values verfuegbar",
+        "sample_values": ["Herr", "Frau"]
+      }
+    ],
+    "notizen": [
+      {
+        "monday_id": "text27__1",
+        "monday_title": "Leistungsbeschreibung (LV)",
+        "monday_type": "text",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "Lange Texte bleiben in column_values"
+      },
+      {
+        "monday_id": "text71__1",
+        "monday_title": "Zusammenfassung (KI)",
+        "monday_type": "text",
+        "supabase_column": null,
+        "supabase_type": null,
+        "sync_direction": "none",
+        "note": "Lange Texte bleiben in column_values"
+      },
+      {
+        "monday_id": "long_text_mkkz5xzc",
+        "monday_title": "Notizen",
+        "monday_type": "long_text",
+        "supabase_column": "notizen",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "(column_values->>'long_text_mkkz5xzc'->>'value')::jsonb->>'text'"
+      }
+    ],
+    "dateien": [
+      {
+        "monday_id": "datei1__1",
+        "monday_title": "Datei Angebot",
+        "monday_type": "file",
+        "supabase_column": "datei_angebot",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'datei1__1'->>'text'"
+      },
+      {
+        "monday_id": "datei0__1",
+        "monday_title": "Datei Aufmass",
+        "monday_type": "file",
+        "supabase_column": "datei_aufmass",
+        "supabase_type": "TEXT",
+        "sync_direction": "monday_to_supabase",
+        "transformation": "column_values->>'datei0__1'->>'text'"
+      }
+    ]
+  },
+  "unmapped_supabase_columns": [
+    {
+      "column": "bauleiter_email",
+      "type": "TEXT",
+      "note": "Muss manuell oder via Kontakt-Lookup befuellt werden"
+    },
+    {
+      "column": "bauleiter_telefon",
+      "type": "TEXT",
+      "note": "Muss manuell oder via Kontakt-Lookup befuellt werden"
+    },
+    {
+      "column": "hero_projekt_id",
+      "type": "TEXT",
+      "note": "Wird aus Hero Link extrahiert"
+    },
+    {
+      "column": "sharepoint_link",
+      "type": "TEXT",
+      "note": "Alias fuer OneDrive Link"
+    },
+    {
+      "column": "status_heizung",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_fliesen",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_putz",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_kuechenmontage",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_rolladen",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_fenster",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_brandschutz",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ausfuehrung_bad",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ausfuehrung_kueche",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ausfuehrung_flur",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ausfuehrung_wohnzimmer",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ausfuehrung_schlafzimmer",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "status_nachtraege",
+      "type": "TEXT",
+      "note": "Berechnet aus nachtraege Tabelle"
+    },
+    {
+      "column": "status_maengel",
+      "type": "TEXT",
+      "note": "Berechnet aus maengel_fertigstellung Tabelle"
+    },
+    {
+      "column": "status_abnahme",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datum_kundenabnahme",
+      "type": "DATE",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datum_angebot",
+      "type": "DATE",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datum_ab",
+      "type": "DATE",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datum_schlussrechnung",
+      "type": "DATE",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datum_nua",
+      "type": "DATE",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "anzahl_nachtraege",
+      "type": "NUMERIC",
+      "note": "Berechnet aus nachtraege Tabelle"
+    },
+    {
+      "column": "summe_nachtraege",
+      "type": "NUMERIC",
+      "note": "Berechnet aus nachtraege Tabelle"
+    },
+    {
+      "column": "anzahl_maengel_offen",
+      "type": "NUMERIC",
+      "note": "Berechnet aus maengel_fertigstellung Tabelle"
+    },
+    {
+      "column": "nua_netto",
+      "type": "NUMERIC",
+      "note": "Berechnet als 75% von Budget"
+    },
+    {
+      "column": "abschlag_summe",
+      "type": "NUMERIC",
+      "note": "Berechnet aus softr_dokumente"
+    },
+    {
+      "column": "offen_summe",
+      "type": "NUMERIC",
+      "note": "Berechnet"
+    },
+    {
+      "column": "projektname_komplett",
+      "type": "TEXT",
+      "note": "Entspricht name Spalte"
+    },
+    {
+      "column": "kundenname",
+      "type": "TEXT",
+      "note": "Extrahiert aus name (vor |)"
+    },
+    {
+      "column": "kundennummer",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "bemerkungen",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "angebot_link",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "ab_link",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "nua_link",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "bautagebuch_link",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "fortschritt_gesamt",
+      "type": "INTEGER",
+      "note": "Berechnet aus Gewerk-Status"
+    },
+    {
+      "column": "fortschritt_elektrik",
+      "type": "INTEGER",
+      "note": "fortschritt__1 oder fortschritt6__1"
+    },
+    {
+      "column": "fortschritt_sanitaer",
+      "type": "INTEGER",
+      "note": "fortschritt8__1 oder fortschritt_2__1"
+    },
+    {
+      "column": "fortschritt_maler",
+      "type": "INTEGER",
+      "note": "fortschritt_15__1"
+    },
+    {
+      "column": "email_ansprechpartner",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "telefon_ansprechpartner",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datei_bedarfsanalyse",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datei_lv",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datei_ab",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datei_nua",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    },
+    {
+      "column": "datei_schlussrechnung",
+      "type": "TEXT",
+      "note": "Noch nicht identifiziert in Monday"
+    }
+  ],
+  "column_types_summary": {
+    "board_relation": 2,
+    "button": 13,
+    "date": 46,
+    "duplicate": 16,
+    "email": 3,
+    "file": 5,
+    "formula": 26,
+    "link": 26,
+    "long_text": 5,
+    "lookup": 7,
+    "numeric": 35,
+    "other": 9,
+    "phone": 3,
+    "progress": 5,
+    "status": 23,
+    "status_color": 48,
+    "text": 46
+  },
+  "sync_implementation_notes": {
+    "extraction_pattern": "column_values->>'{column_id}'->>'text' fuer einfache Werte",
+    "json_extraction": "(column_values->>'{column_id}'->>'value')::jsonb->>'{nested_key}' fuer komplexe Werte (links, emails, phones)",
+    "loop_prevention": "sync_source Spalte nutzen: 'monday' vs 'supabase'",
+    "bidirectional_columns": ["status_projekt", "budget", "baustart", "bauende"],
+    "monday_to_supabase_only": "Alle anderen gemappten Spalten"
+  }
+}

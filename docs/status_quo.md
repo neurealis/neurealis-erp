@@ -1,32 +1,89 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-01-31 22:30 (aktualisiert)
+**Stand:** 2026-02-01 12:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
 
-### Telegram-Bot v54 (✅ CODE FERTIG - Deployment ausstehend)
+### Monday Bidirektional Sync (✅ FERTIG + TRIGGER)
 
-**Implementiert:** 2026-01-31 (4 parallele Subagenten)
+**Implementiert:** 2026-02-01
 
-**Neue Features:**
-| Feature | Status |
-|---------|--------|
-| Phasen-Filter (0-4) beim Projekt-Öffnen | ✅ |
-| ATBS-Schnellzugriff im Hauptmenü | ✅ |
-| Vollständige Projektnamen (Wohnungsnummer sichtbar) | ✅ |
-| Kompakte Projekt-Info (Phase, BL, NU, Termine, offene Mängel) | ✅ |
-| Gewerk-Status-Tabelle (9 Gewerke mit Emojis) | ✅ |
-| Ausführungsarten-Tabelle (kombiniert: Gewerk/Ausführung/Status) | ✅ |
-| Brandschutz-Nachweis (neu) | ✅ |
-| Multi-Foto-Upload (media_group_id Gruppierung) | ✅ |
-| Abnahmeprotokolle (QM-ABN-NU, QM-ABN-KU) | ✅ |
+**Architektur (NEU: Trigger für Push):**
+| Richtung | Mechanismus | Details |
+|----------|-------------|---------|
+| Monday → Supabase | Cron (5 Min) | `monday-sync-job` |
+| Supabase → Monday | **DB-Trigger** | `trg_monday_push` (sofort!) |
 
-**Nächster Schritt:** Deployment! Dann Phase 3+4 (Termine, Sprach-Befehle)
+**Edge Functions:**
+| Function | Version | Richtung | Spalten |
+|----------|---------|----------|---------|
+| `monday-sync` | v2 (16) | Monday → Supabase | 81 |
+| `monday-push` | v5 (10) | Supabase → Monday | 17 |
+
+**Cron-Jobs:**
+- `monday-sync-job`: Alle 5 Min ✅ aktiv
+- `monday-push-job`: ❌ **deaktiviert** (ersetzt durch Trigger)
+
+**DB-Trigger:**
+- `trg_monday_push`: Feuert bei UPDATE von budget, baustart, bauende, etc.
+- Loop-Vermeidung: `WHEN (NEW.sync_source IS DISTINCT FROM 'monday')`
+- Nutzt `pg_net.http_post` für asynchronen Call
+
+**Test-Ergebnisse:**
+- Budget-Änderung → Trigger → Edge Function → Monday aktualisiert
+- Response: `{"mode":"trigger","items_pushed":1,"duration_ms":1736}`
+
+**Dokumentation:** `docs/implementation/monday_bidirektional_koordination.md`
+
+---
+
+### Telegram-Bot v58 (✅ DEPLOYED - Universelle Sprachbefehle)
+
+**Implementiert:** 2026-02-01
+
+**NEU: Sprachbefehle aus Hauptmenü (ohne offenes Projekt):**
+- "456 Elektrik fertig" → Status direkt ändern
+- "Öffne Bollwerkstraße" → Projekt per Name suchen
+- "Status 456" / "Zeige 472" → Projekt direkt öffnen
+
+**Korrigierte Gewerk-Spalten-IDs:**
+- GEWERK_SPALTEN nutzt jetzt korrekte Monday-IDs (`color58__1` für Elektrik, etc.)
+- STATUS_MAPPING für alle 7 Gewerke erweitert
+- GEWERK_ALIASES für flexible Eingabe ("Elektro" → "Elektrik")
+
+**Erweiterte Datum-Formate:**
+- "in 2 Wochen", "KW 12", "Ende März", "Mitte April"
+
+**Phasen-Bug (v57) bleibt gefixt:**
+- Problem: "Keine Projekte gefunden" bei allen Phasen
+- Ursache: Falsches Monday-Feld (`dropdown0__1` statt `status06__1`)
+- Lösung: Echte Spalten in `monday_bauprozess` + vereinfachter Code
+
+**DB-Schema erweitert:**
+| Neue Spalte | Typ | Quelle |
+|-------------|-----|--------|
+| `atbs_nummer` | TEXT | text49__1 |
+| `status_projekt` | TEXT | status06__1 |
+| `auftraggeber` | TEXT | text_mkm11jca |
+| `bauleiter` | TEXT | text_mkn8ggev |
+| `adresse` | TEXT | text51__1 |
+| `nachunternehmer` | TEXT | text57__1 |
+| `budget` | NUMERIC | zahlen1__1 |
+| `baustart` | DATE | datum2__1 |
+| `bauende` | DATE | datum7__1 |
+| `sync_source` | TEXT | Loop-Vermeidung |
+
+**Alle v54-Features weiterhin aktiv:**
+- Phasen-Filter (jetzt korrekt: 0-9)
+- ATBS-Schnellzugriff
+- Kompakte Projekt-Info
+- Gewerk-Status-Tabelle
+- Multi-Foto-Upload
+- Abnahmeprotokolle
 
 **Konzept-Dokument:** `docs/TELEGRAM_BOT_ERWEITERUNG_KONZEPT.md`
-**Nacht-Plan:** `docs/implementation/telegram_phase3_4_nachtplan.md`
 
 ---
 
@@ -176,11 +233,32 @@ ui/src/routes/
 
 ---
 
+### Monday Column Mapping (NEU - LOG-056)
+
+**Vollstaendige Dokumentation erstellt:**
+- `docs/MONDAY_COLUMN_MAPPING.md` - Menschenlesbar
+- `docs/monday_column_mapping.json` - Maschinenlesbar fuer Sync-Agents
+
+**Statistiken:**
+| Metrik | Wert |
+|--------|------|
+| Monday-Spalten Total | 338 |
+| Supabase-Spalten Total | 97 |
+| Gemappte Spalten | ~45 |
+
+**Migration `monday_column_flattening_sync_v2` ausgefuehrt:**
+- 197 Projekte geflattent
+- 100% mit ATBS-Nummer, Status, Auftraggeber
+- 97% mit Budget, 90% mit Baustart
+
+---
+
 ## Nächster Schritt
 
+→ **monday-sync erweitern:** Automatisches Flattening beim Sync
+→ **monday-push implementieren:** Bidirektionaler Sync fuer status_projekt, budget, baustart, bauende
 → **Hero-Konflikte manuell korrigieren:** FC.LV25.8.x (6 vertauschte Nummern), GWS Stand/Wand-WC
 → **Vonovia-LV importieren:** Aktuell 0 Positionen für LV-Typ 'vonovia'
-→ **AHREFS-Analyse:** Wenn Keywords verfügbar, SEO-Optimierung durchführen
 → **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
 
 ---

@@ -2,9 +2,16 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v57 - Verbessertes Fehler-Handling & Hilfe
+ * telegram-webhook v58 - Sprach-Befehle aus Hauptmenü
  *
- * NEU in v57: Fehler-Handling & Hilfe-System
+ * NEU in v58: Sprach-Befehle ohne offenes Projekt
+ * - 🎤 Befehle wie "456 Elektrik fertig" direkt aus Hauptmenü
+ * - 🔍 "öffne Bollwerkstraße" - Projekt per Name/Adresse suchen
+ * - 📋 "zeige 456" / "status von ATBS-472" - Projekt direkt öffnen
+ * - 🔧 Verbesserte ATBS-Extraktion (3-4 Ziffern, diverse Formate)
+ * - 🗄️ Automatisches Laden des Projekts wenn ATBS erkannt
+ *
+ * v57: Fehler-Handling & Hilfe-System
  * - ❓ showSprachBefehlHilfe: Ausführliche Hilfe für Sprach-Befehle
  * - 🔘 Hilfe-Button im Hauptmenü: "❓ Hilfe Sprach-Befehle"
  * - 📝 Verbessertes Fehler-Handling: Hilfe-Button bei nicht erkannten Befehlen
@@ -229,6 +236,57 @@ function parseDatum(text: string): Date | null {
     return d;
   }
 
+  // In X Wochen: "in 2 wochen", "in 3 Wochen"
+  const inWochenMatch = input.match(/^in\s+(\d+)\s*wochen?$/i);
+  if (inWochenMatch) {
+    const wochen = parseInt(inWochenMatch[1], 10);
+    const d = new Date(heute);
+    d.setDate(d.getDate() + (wochen * 7));
+    return d;
+  }
+
+  // Kalenderwoche: "kw 12", "KW12", "kalenderwoche 12"
+  const kwMatch = input.match(/^(?:kw|kalenderwoche)\s*(\d{1,2})$/i);
+  if (kwMatch) {
+    const kw = parseInt(kwMatch[1], 10);
+    const jahr = heute.getFullYear();
+    // Ersten Donnerstag des Jahres finden (ISO 8601)
+    const jan4 = new Date(jahr, 0, 4);
+    const dayOfWeek = jan4.getDay() || 7;
+    const ersterMontag = new Date(jan4);
+    ersterMontag.setDate(jan4.getDate() - dayOfWeek + 1);
+    // Zur gewünschten KW springen
+    const d = new Date(ersterMontag);
+    d.setDate(d.getDate() + (kw - 1) * 7);
+    return d;
+  }
+
+  // Ende/Anfang Monat: "ende märz", "anfang april", "mitte mai"
+  const monate: Record<string, number> = {
+    'januar': 0, 'februar': 1, 'märz': 2, 'maerz': 2, 'april': 3,
+    'mai': 4, 'juni': 5, 'juli': 6, 'august': 7,
+    'september': 8, 'oktober': 9, 'november': 10, 'dezember': 11
+  };
+  const monatMatch = input.match(/^(anfang|mitte|ende)\s+(januar|februar|m[äa]rz|april|mai|juni|juli|august|september|oktober|november|dezember)$/i);
+  if (monatMatch) {
+    const position = monatMatch[1].toLowerCase();
+    const monatName = monatMatch[2].toLowerCase().replace('ä', 'a');
+    const monat = monate[monatName] ?? monate[monatName.replace('ae', 'a')];
+    if (monat !== undefined) {
+      const jahr = heute.getFullYear();
+      const d = new Date(jahr, monat, 1);
+      if (position === 'mitte') {
+        d.setDate(15);
+      } else if (position === 'ende') {
+        d.setMonth(d.getMonth() + 1);
+        d.setDate(0); // Letzter Tag des Monats
+      }
+      // Falls Monat in Vergangenheit, nächstes Jahr
+      if (d < heute) d.setFullYear(d.getFullYear() + 1);
+      return d;
+    }
+  }
+
   return null;
 }
 
@@ -315,24 +373,42 @@ function extractATBS(columnValues: any): string | null {
 const MONDAY_API_KEY = Deno.env.get('MONDAY_API_KEY');
 const MONDAY_BOARD_ID = '1750073517'; // Bauprozess-Board
 
-// Gewerk zu Monday Spalten-ID Mapping
+// Gewerk zu Monday Spalten-ID Mapping (korrigierte IDs)
 const GEWERK_SPALTEN: Record<string, string> = {
-  'entkernung': 'gg2On',
-  'maurer': '67n4J',
-  'elektrik': '06reu',
-  'sanitär': 'GnADf',
-  'bad': 'GnADf',
-  'bad & sanitär': 'GnADf',
-  'heizung': 'aJKmD',
-  'tischler': 'tSYWD',
-  'wände': 'Fl8Za',
-  'decken': 'Fl8Za',
-  'wände & decken': 'Fl8Za',
-  'trockenbau': 'Fl8Za',
-  'maler': 'Fl8Za',
-  'boden': 'qAUvS',
-  'endreinigung': 'Nygjn',
+  'entkernung': 'color05__1',  // Status Abbruch
+  'abbruch': 'color05__1',
+  'elektrik': 'color58__1',    // Status Elektrik
+  'sanitär': 'color65__1',     // Status Sanitär
+  'bad': 'color65__1',
+  'maler': 'color63__1',       // Status Maler
+  'boden': 'color8__1',        // Status Boden
+  'tischler': 'color98__1',    // Status Tischler
+  // Küche, Reinigung, Schlüssel haben keine Status-Spalte in Monday
 };
+
+// Gewerk-Aliase für Normalisierung
+const GEWERK_ALIASES: Record<string, string> = {
+  'elektro': 'elektrik',
+  'strom': 'elektrik',
+  'wasser': 'sanitär',
+  'heizung': 'sanitär',
+  'anstrich': 'maler',
+  'malen': 'maler',
+  'fußboden': 'boden',
+  'fussboden': 'boden',
+  'parkett': 'boden',
+  'laminat': 'boden',
+  'türen': 'tischler',
+  'tueren': 'tischler',
+  'fenster': 'tischler',
+  'abriss': 'entkernung',
+};
+
+// Normalisiert Gewerk-Eingabe auf Standard-Namen
+function normalizeGewerk(input: string): string {
+  const lower = input.toLowerCase().trim();
+  return GEWERK_ALIASES[lower] || lower;
+}
 
 // Termin-Typen zu Monday Spalten-ID Mapping
 const TERMIN_SPALTEN: Record<string, string> = {
@@ -342,23 +418,58 @@ const TERMIN_SPALTEN: Record<string, string> = {
   'kunde': '8pRus',        // BV Ende Kunde
 };
 
-// Status-Mapping: Vereinfachter Status → Monday Status-Label
+// Status-Mapping: Vereinfachter Status → Monday Status-Label (erweitert für alle Gewerke)
 const STATUS_MAPPING: Record<string, Record<string, string>> = {
   elektrik: {
     'fertig': 'Fertig (Feininstallation)',
-    'läuft': 'In Arbeit (Schlitze & Rohinstallation)',
+    'läuft': 'In Arbeit (Rohinstallation)',
+    'in arbeit': 'In Arbeit (Rohinstallation)',
     'geplant': 'Geplant',
     'verspätet': 'Verspätet',
   },
   sanitär: {
     'fertig': 'Fertig (Feininstallation)',
     'läuft': 'In Arbeit (Rohinstallation)',
+    'in arbeit': 'In Arbeit (Rohinstallation)',
+    'geplant': 'Geplant',
+    'verspätet': 'Verspätet',
+  },
+  maler: {
+    'fertig': 'Fertig',
+    'läuft': 'In Arbeit',
+    'in arbeit': 'In Arbeit',
+    'geplant': 'Geplant',
+    'verspätet': 'Verspätet',
+  },
+  boden: {
+    'fertig': 'Fertig',
+    'geplant': 'Geplant',
+    'verspätet': 'Verspätet',
+  },
+  tischler: {
+    'fertig': 'Fertig',
+    'läuft': 'In Arbeit',
+    'in arbeit': 'In Arbeit',
+    'geplant': 'Geplant',
+  },
+  entkernung: {
+    'fertig': 'Fertig',
+    'läuft': 'In Arbeit',
+    'in arbeit': 'In Arbeit',
+    'geplant': 'Geplant',
+    'verspätet': 'Verspätet',
+  },
+  abbruch: {
+    'fertig': 'Fertig',
+    'läuft': 'In Arbeit',
+    'in arbeit': 'In Arbeit',
     'geplant': 'Geplant',
     'verspätet': 'Verspätet',
   },
   _default: {
     'fertig': 'Fertig',
     'läuft': 'In Arbeit',
+    'in arbeit': 'In Arbeit',
     'geplant': 'Geplant',
     'verspätet': 'Verspätet',
   }
@@ -416,22 +527,15 @@ async function pushToMonday(mondayItemId: string, changes: Record<string, any>):
 }
 
 /**
- * Mapped vereinfachten Status auf Monday Status-Label
+ * Mapped vereinfachten Status auf Monday Status-Label (alle Gewerke)
  */
 function mapStatusToMonday(gewerk: string, status: string): string {
-  const gewerkLower = gewerk.toLowerCase();
+  const gewerkLower = normalizeGewerk(gewerk);
   const statusLower = status.toLowerCase();
 
-  // Spezifisches Mapping für Elektrik/Sanitär
-  if (gewerkLower === 'elektrik' && STATUS_MAPPING.elektrik[statusLower]) {
-    return STATUS_MAPPING.elektrik[statusLower];
-  }
-  if ((gewerkLower === 'sanitär' || gewerkLower === 'bad') && STATUS_MAPPING.sanitär[statusLower]) {
-    return STATUS_MAPPING.sanitär[statusLower];
-  }
-
-  // Default Mapping
-  return STATUS_MAPPING._default[statusLower] || status;
+  // Gewerk-spezifisches Mapping
+  const gewerkMapping = STATUS_MAPPING[gewerkLower] || STATUS_MAPPING._default;
+  return gewerkMapping[statusLower] || STATUS_MAPPING._default[statusLower] || status;
 }
 
 function extractProjectName(columnValues: any): string | null {
@@ -545,13 +649,14 @@ function gewerkStatusEmoji(status: string): string {
 // ============================================
 
 interface SprachBefehl {
-  typ: 'status' | 'termin' | 'nachtrag' | 'mangel';
+  typ: 'status' | 'termin' | 'nachtrag' | 'mangel' | 'projekt_oeffnen' | 'projekt_suchen' | 'status_abfrage';
   atbs?: string;          // z.B. "456"
   gewerk?: string;        // z.B. "Elektrik"
   status?: string;        // z.B. "Fertig"
   terminTyp?: string;     // z.B. "plan", "maengelfrei"
   datum?: Date;
   beschreibung?: string;  // Für Nachtrag/Mangel
+  suchtext?: string;      // Für Projekt-Suche (Name, Adresse, Auftraggeber)
   raw: string;            // Original-Text
 }
 
@@ -570,8 +675,8 @@ const STATUS_WERTE = [
   'verspätet', 'verspatet', 'verzug', 'verzögert', 'verzogert'
 ];
 
-// Termin-Typen für Pattern-Matching
-const TERMIN_TYPEN = [
+// Termin-Typen für Pattern-Matching (Sprach-Befehl-Parser)
+const TERMIN_PATTERN_MATCHING = [
   { pattern: /ende\s*(nu\s*)?plan/i, typ: 'plan' },
   { pattern: /mängelfrei|maengelfrei|mangelfrei/i, typ: 'maengelfrei' },
   { pattern: /ende\s*kunde|kundenübergabe|kundenubergabe/i, typ: 'kunde' },
@@ -584,85 +689,84 @@ const TERMIN_TYPEN = [
  */
 function siehtAusWieBefehl(text: string): boolean {
   const t = text.toLowerCase().trim();
-  // Beginnt mit ATBS oder 3-stelliger Zahl
-  if (/^(atbs[- ]?)?\d{3}\b/i.test(t)) return true;
+  // Beginnt mit ATBS oder 3-4-stelliger Zahl
+  if (/^(atbs[- ]?)?\d{3,4}\b/i.test(t)) return true;
   // Enthält Schlüsselwörter
   if (/\b(nachtrag|mangel|status|termin|setze|verschiebe|melde|erstelle)\b/i.test(t)) return true;
+  // NEU v58: Projekt öffnen/suchen Befehle
+  if (/^(öffne|oeffne|zeige?|gehe?\s*zu|status\s+von)\b/i.test(t)) return true;
   return false;
 }
 
+
 /**
- * Parst ein Datum aus verschiedenen Formaten
+ * Extrahiert ATBS-Nummer aus Text (verbessert v58)
+ * Erkennt verschiedene Formate: ATBS-456, ATBS 456, ATBS456, 456, Projekt 456
  */
-function parseDatum(text: string): Date | null {
-  const heute = new Date();
-  const t = text.toLowerCase();
+function extractAtbsFromText(text: string): string | null {
+  // Verschiedene ATBS-Formate erkennen
+  const patterns = [
+    /ATBS[- ]?(\d{3,4})/i,           // ATBS-456, ATBS 456, ATBS456
+    /Projekt\s*(\d{3,4})/i,          // "Projekt 456"
+    /(?:^|\s)(\d{3,4})(?:\s|$)/,     // Nur Nummer: "456" (am Wortanfang/-ende)
+  ];
 
-  // "heute"
-  if (t.includes('heute')) return heute;
-
-  // "morgen"
-  if (t.includes('morgen')) {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 1);
-    return d;
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) return match[1];
   }
-
-  // "übermorgen"
-  if (t.includes('übermorgen') || t.includes('ubermorgen')) {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 2);
-    return d;
-  }
-
-  // "in X Tagen/Wochen"
-  const relMatch = t.match(/in\s+(\d+)\s+(tag|tage|woche|wochen)/i);
-  if (relMatch) {
-    const anzahl = parseInt(relMatch[1]);
-    const einheit = relMatch[2].toLowerCase();
-    const d = new Date(heute);
-    if (einheit.startsWith('woche')) {
-      d.setDate(d.getDate() + anzahl * 7);
-    } else {
-      d.setDate(d.getDate() + anzahl);
-    }
-    return d;
-  }
-
-  // "um X Tage"
-  const umMatch = t.match(/um\s+(\d+)\s+(tag|tage)/i);
-  if (umMatch) {
-    const anzahl = parseInt(umMatch[1]);
-    const d = new Date(heute);
-    d.setDate(d.getDate() + anzahl);
-    return d;
-  }
-
-  // Deutsche Datumsformate: 17.03., 17.03.2026, 17.3.26
-  const deMatch = text.match(/(\d{1,2})\.(\d{1,2})\.?(\d{2,4})?/);
-  if (deMatch) {
-    const tag = parseInt(deMatch[1]);
-    const monat = parseInt(deMatch[2]) - 1;
-    let jahr = deMatch[3] ? parseInt(deMatch[3]) : heute.getFullYear();
-    if (jahr < 100) jahr += 2000;
-    const d = new Date(jahr, monat, tag);
-    // Wenn Datum in Vergangenheit liegt und kein Jahr angegeben, nächstes Jahr nehmen
-    if (!deMatch[3] && d < heute) {
-      d.setFullYear(d.getFullYear() + 1);
-    }
-    return d;
-  }
-
   return null;
 }
 
 /**
- * Extrahiert ATBS-Nummer aus Text
+ * Lädt ein Projekt anhand der ATBS-Nummer aus der Datenbank (NEU v58)
  */
-function extractAtbsFromText(text: string): string | null {
-  // "ATBS-456", "ATBS 456", "atbs456", "456" am Anfang
-  const match = text.match(/(?:atbs[- ]?)?(\d{3})\b/i);
-  return match ? match[1] : null;
+async function loadProjektByAtbs(atbs: string): Promise<any | null> {
+  // Versuche mit verschiedenen Formaten
+  const searchPatterns = [`ATBS-${atbs}`, `ATBS ${atbs}`, atbs];
+
+  for (const pattern of searchPatterns) {
+    const { data, error } = await supabase
+      .from('monday_bauprozess')
+      .select('id, name, monday_item_id, atbs_nummer, status_projekt, auftraggeber, bauleiter, adresse')
+      .or(`atbs_nummer.ilike.%${pattern}%,name.ilike.%${pattern}%`)
+      .limit(1)
+      .single();
+
+    if (data && !error) return data;
+  }
+  return null;
+}
+
+/**
+ * Sucht Projekte per Name, Adresse oder Auftraggeber (NEU v58)
+ */
+async function searchProjektByName(suchtext: string): Promise<any[]> {
+  const { data, error } = await supabase
+    .from('monday_bauprozess')
+    .select('id, name, monday_item_id, atbs_nummer, status_projekt, auftraggeber, adresse')
+    .or(`name.ilike.%${suchtext}%,adresse.ilike.%${suchtext}%,auftraggeber.ilike.%${suchtext}%`)
+    .limit(5);
+
+  if (error) {
+    console.error('Fehler bei Projekt-Suche:', error);
+    return [];
+  }
+  return data || [];
+}
+
+/**
+ * Zeigt Projekt-Auswahl bei mehreren Treffern (NEU v58)
+ */
+async function showProjektAuswahl(chatId: number, projekte: any[], title: string) {
+  const buttons = projekte.map(p => [{
+    text: `${p.atbs_nummer || ''} ${p.adresse || p.name}`.substring(0, 40),
+    callback_data: `bau:open:${p.id}`
+  }]);
+
+  await sendMessage(chatId, `📋 <b>${title}</b>\n\nMehrere Projekte gefunden:`, {
+    reply_markup: { inline_keyboard: buttons }
+  });
 }
 
 /**
@@ -708,7 +812,7 @@ function extractStatusFromText(text: string): string | null {
  * Extrahiert Termin-Typ aus Text
  */
 function extractTerminTypFromText(text: string): string | null {
-  for (const { pattern, typ } of TERMIN_TYPEN) {
+  for (const { pattern, typ } of TERMIN_PATTERN_MATCHING) {
     if (pattern.test(text)) return typ;
   }
   return null;
@@ -722,6 +826,20 @@ function parseSprachBefehl(text: string): SprachBefehl | null {
 
   // ATBS extrahieren (optional, kann fehlen wenn Projekt bereits offen)
   const atbs = extractAtbsFromText(text);
+
+  // NEU v58: PROJEKT ÖFFNEN/SUCHEN Befehle
+  // Patterns: "öffne Bollwerkstraße", "zeige 456", "gehe zu ATBS-456", "status von 472"
+  const oeffneMatch = t.match(/^(?:öffne|oeffne|zeige?|gehe?\s*zu|status\s+von)\s+(.+)$/i);
+  if (oeffneMatch) {
+    const suchtext = oeffneMatch[1].trim();
+    const gefundenesAtbs = extractAtbsFromText(suchtext);
+    return {
+      typ: gefundenesAtbs ? 'projekt_oeffnen' : 'projekt_suchen',
+      atbs: gefundenesAtbs || undefined,
+      suchtext: gefundenesAtbs ? undefined : suchtext,
+      raw: text
+    };
+  }
 
   // STATUS-BEFEHLE
   // Patterns: "ATBS 450 setze Status Elektrik auf Fertig", "450 Elektrik fertig", "Sanitär ist fertig"
@@ -804,6 +922,17 @@ function parseSprachBefehl(text: string): SprachBefehl | null {
     };
   }
 
+  // STATUS-ABFRAGE (v58)
+  // Patterns: "status 456", "wie steht 456", "stand von ATBS-456"
+  const statusAbfrageMatch = t.match(/^(?:status|wie\s+steht|stand)\s+(?:von\s+)?(?:atbs[- ]?)?(\d{3,4})$/i);
+  if (statusAbfrageMatch) {
+    return {
+      typ: 'status_abfrage',
+      atbs: statusAbfrageMatch[1],
+      raw: text
+    };
+  }
+
   return null;
 }
 
@@ -825,13 +954,18 @@ async function parseWithGPT(text: string): Promise<SprachBefehl | null> {
           {
             role: 'system',
             content: `Du bist ein Parser für Baustellen-Befehle. Extrahiere:
-- typ: status | termin | nachtrag | mangel
+- typ: status | termin | nachtrag | mangel | status_abfrage | projekt_oeffnen | projekt_suchen
 - atbs: ATBS-Nummer (nur die Zahl, z.B. "456")
 - gewerk: Falls Status-Änderung (Elektrik, Sanitär, Maler, Boden, Heizung, Trockenbau, Türen, Fenster, Entkernung, Endreinigung)
 - status: Zielstatus (Fertig, Läuft, Geplant, Verspätet)
 - terminTyp: start | plan | maengelfrei | kunde
-- datum: Falls Termin (ISO-Format YYYY-MM-DD)
+- datum: Falls Termin (ISO-Format YYYY-MM-DD). Beachte: "in 2 Wochen", "KW 12", "Ende März", "Mitte April" sind gültig.
 - beschreibung: Falls Nachtrag/Mangel
+- suchtext: Falls Projekt-Suche nach Name/Adresse
+
+typ=status_abfrage: Wenn jemand nach Status fragt ("Status 456", "Wie steht 456")
+typ=projekt_oeffnen: Wenn jemand ein Projekt per ATBS öffnen will ("Öffne 456", "Zeige ATBS-456")
+typ=projekt_suchen: Wenn jemand nach Projekt-Name/Adresse sucht ("Öffne Bollwerkstraße")
 
 Wenn du den Befehl nicht verstehst, antworte mit {"typ": null}.
 Antworte NUR mit JSON.`
@@ -865,6 +999,7 @@ Antworte NUR mit JSON.`
         terminTyp: parsed.terminTyp || undefined,
         datum: parsed.datum ? new Date(parsed.datum) : undefined,
         beschreibung: parsed.beschreibung || undefined,
+        suchtext: parsed.suchtext || undefined,
         raw: text
       };
     }
@@ -924,20 +1059,32 @@ async function showSprachBefehlHilfe(chatId: number) {
 Beispiele für Sprach-Befehle:
 
 📊 <b>Status ändern:</b>
-   "ATBS 450 setze Status Elektrik auf Fertig"
-   "ATBS-456 Sanitär ist fertig"
+• "ATBS 450 Elektrik auf Fertig setzen"
+• "456 Sanitär ist fertig"
 
 📅 <b>Termin ändern:</b>
-   "ATBS 450 BV Ende Plan auf 17.03."
-   "ATBS-456 verschiebe Ende um 2 Tage"
+• "ATBS 450 Ende Plan auf 17.03."
+• "456 verschiebe Ende um in 2 Wochen"
 
 📋 <b>Nachtrag erstellen:</b>
-   "ATBS 450 erstelle Nachtrag: 2 Heizkörper tauschen"
+• "Nachtrag Sanitär zusätzlicher Anschluss"
+• "ATBS 450 Nachtrag: 2 Heizkörper tauschen"
 
 🔧 <b>Mangel melden:</b>
-   "ATBS 456 melde Mangel: Riss in Badezimmerfliese"
+• "Mangel Elektrik Steckdose locker"
+• "ATBS 456 Mangel: Riss in Fliese"
 
-💡 <b>Tipp:</b> Immer mit ATBS-Nummer beginnen!`;
+🔍 <b>Status & Suche:</b>
+• "Status 456"
+• "Öffne Bollwerkstraße"
+• "Zeige 472"
+
+📅 <b>Datum-Formate:</b>
+• "in 2 Wochen", "KW 12"
+• "Ende März", "Mitte April"
+• "morgen", "nächsten Montag"
+
+💡 <b>Tipp:</b> Bei geöffnetem Projekt ist ATBS optional!`;
 
   await sendMessage(chatId, hilfeText, {
     reply_markup: { inline_keyboard: [
@@ -952,6 +1099,27 @@ Beispiele für Sprach-Befehle:
 async function handleSprachBefehl(chatId: number, session: any, befehl: SprachBefehl) {
   // ATBS aus Session holen wenn nicht im Befehl
   const atbs = befehl.atbs || session?.modus_daten?.projekt_nr?.replace(/^ATBS[- ]?/i, '');
+
+  // Status-Abfrage braucht ATBS im Befehl
+  if (befehl.typ === 'status_abfrage' && befehl.atbs) {
+    await searchAndOpenProjekt(chatId, befehl.atbs);
+    await logSprachBefehl(chatId, befehl, true, `Projekt ATBS-${befehl.atbs} geöffnet`);
+    return;
+  }
+
+  // Projekt-Suche: Suche nach Name/Adresse
+  if (befehl.typ === 'projekt_suchen' && befehl.suchtext) {
+    await searchAndOpenProjekt(chatId, befehl.suchtext);
+    await logSprachBefehl(chatId, befehl, true, `Suche: ${befehl.suchtext}`);
+    return;
+  }
+
+  // Projekt öffnen: Direkt per ATBS
+  if (befehl.typ === 'projekt_oeffnen' && befehl.atbs) {
+    await searchAndOpenProjekt(chatId, befehl.atbs);
+    await logSprachBefehl(chatId, befehl, true, `Projekt ATBS-${befehl.atbs} geöffnet`);
+    return;
+  }
 
   if (!atbs) {
     await sendMessage(chatId,
@@ -1215,16 +1383,16 @@ async function executeStatusBefehl(chatId: number, befehl: SprachBefehl, atbs: s
     throw new Error(`Projekt ATBS-${atbs} nicht gefunden`);
   }
 
-  // Finde die Monday-Spalten-ID für das Gewerk
-  const gewerkLower = (befehl.gewerk || '').toLowerCase();
-  const spalteId = GEWERK_SPALTEN[gewerkLower];
+  // Finde die Monday-Spalten-ID für das Gewerk (mit Alias-Normalisierung)
+  const gewerkNormalized = normalizeGewerk(befehl.gewerk || '');
+  const spalteId = GEWERK_SPALTEN[gewerkNormalized];
 
   if (!spalteId) {
     throw new Error(`Gewerk "${befehl.gewerk}" nicht zugeordnet`);
   }
 
   // Map Status zu Monday-Label
-  const mondayStatus = mapStatusToMonday(gewerkLower, befehl.status || 'geplant');
+  const mondayStatus = mapStatusToMonday(gewerkNormalized, befehl.status || 'geplant');
 
   // 1. Supabase: column_values updaten
   const updatedColumnValues = { ...match.column_values };
@@ -4051,7 +4219,7 @@ async function handleCallbackQuery(update: any) {
 
 Deno.serve(async (req) => {
   if (req.method === 'GET') {
-    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v57-hilfe-system' }), {
+    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v58-sprach-befehle' }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }

@@ -66,6 +66,255 @@
 | LOG-052 | 2026-01-31 | CPQ-Workflow Fix: Fehlerbehandlung + transcription-parse v7 | Abgeschlossen |
 | LOG-053 | 2026-02-01 | CPQ-Test + UI-Verbesserungen dokumentiert | Abgeschlossen |
 | LOG-054 | 2026-01-31 | CPQ-Verbesserungen: 7 Features implementiert (T1-T4) | Abgeschlossen |
+| LOG-055 | 2026-02-01 | Telegram-Bot v71: Phasen-Bug-Fix + monday_bauprozess Flattening | Abgeschlossen |
+| LOG-056 | 2026-02-01 | Monday Board Column Mapping: 338 Spalten dokumentiert | Abgeschlossen |
+| LOG-057 | 2026-02-01 | Monday Bidirektional Sync: 3-Agenten-Implementierung | Abgeschlossen |
+| LOG-058 | 2026-02-01 | Monday Push: Trigger statt Cron | Abgeschlossen |
+| LOG-059 | 2026-02-01 | Telegram-Bot v58: Universelle Sprachbefehle | Abgeschlossen |
+
+---
+
+## LOG-057 - Monday Bidirektional Sync: 3-Agenten-Implementierung
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+Vollständigen bidirektionalen Sync zwischen Monday.com und Supabase implementieren mit 3-Agenten-Modell (Schema, Sync, Trigger).
+
+### Ergebnis
+
+**Edge Functions deployed:**
+| Function | Version | Richtung | Spalten |
+|----------|---------|----------|---------|
+| `monday-sync` | v2 (16) | Monday → Supabase | 81 |
+| `monday-push` | v3 (8) | Supabase → Monday | 17 |
+
+**Cron-Jobs aktiv:**
+- `monday-sync-job`: Alle 5 Min (Monday → Supabase)
+- `monday-push-job`: Alle 5 Min versetzt (Supabase → Monday)
+
+**Loop-Vermeidung:**
+- `sync_source` Spalte: 'monday' vs 'supabase'
+- Trigger `trg_monday_bauprozess_change` setzt automatisch `sync_source = 'supabase'`
+
+**Test-Ergebnisse:**
+- monday-sync: 201 Items, 0 Fehler, 43s
+- monday-push: 50 Items, 0 Fehler, 105s
+
+**Bekannte Einschränkungen:**
+- Status-Spalten nur Monday → Supabase (Label-Mismatch-Probleme)
+- 17 von 81 Spalten bidirektional (nur Text, Number, Date, Link)
+
+### Neue Dateien
+
+- `docs/MONDAY_COLUMN_MAPPING.md`
+- `docs/monday_column_mapping.json`
+- `docs/implementation/monday_bidirektional_koordination.md`
+- `functions/supabase/functions/monday-push/index.ts`
+
+### Neue Learnings
+
+- L151: Monday Status-Spalten nicht bidirektional
+- L152: Supabase .or() mit Spaltenvergleich problematisch
+
+---
+
+## LOG-058 - Monday Push: Trigger statt Cron
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+monday-push von Cron-Job auf DB-Trigger umstellen für sofortige Reaktion bei Supabase-Änderungen.
+
+### Ergebnis
+
+**Neue Architektur:**
+| Richtung | Mechanismus | Details |
+|----------|-------------|---------|
+| Monday → Supabase | Cron (5 Min) | `monday-sync-job` bleibt |
+| Supabase → Monday | **Trigger** | `trg_monday_push` feuert sofort |
+
+**Implementierung:**
+- `trigger_monday_push()`: PL/pgSQL Function mit pg_net.http_post
+- `trg_monday_push`: AFTER UPDATE Trigger auf relevanten Spalten
+- `monday-push` v5: Unterstützt Trigger-Modus mit einzelner `item_id`
+- `monday-push-job`: Cron **deaktiviert**
+
+**Überwachte Spalten:**
+- atbs_nummer, status_projekt, auftraggeber, bauleiter
+- adresse, nachunternehmer, budget, baustart, bauende
+- hero_projekt_id, sharepoint_link, matterport_link
+
+**Loop-Vermeidung:**
+- WHEN-Klausel: `NEW.sync_source IS DISTINCT FROM 'monday'`
+- Trigger ignoriert Änderungen von monday-sync
+
+**Test erfolgreich:**
+- Budget-Änderung → Trigger feuert → Edge Function aufgerufen → Monday aktualisiert
+- Response: `{"success":true,"mode":"trigger","items_pushed":1,"duration_ms":1736}`
+
+### Neue Learnings
+
+- L153: pg_net Trigger ohne Auth bei verify_jwt=false
+- L153: 3-Agenten-Modell für komplexe Implementierungen
+
+---
+
+## LOG-059 - Telegram-Bot v58: Universelle Sprachbefehle
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+Sprachbefehle für ALLE Aspekte (außer Bedarfsanalyse/Aufmaß) aus Haupt- und Untermenüs ermöglichen. User sollen Befehle wie "456 Elektrik fertig" direkt eingeben können, ohne erst ein Projekt zu öffnen.
+
+### Ergebnis
+
+**4 parallele Subagenten:**
+| Agent | Aufgabe | Ergebnis |
+|-------|---------|----------|
+| T1 | STATUS_MAPPING + GEWERK_SPALTEN | 6 Monday-IDs korrigiert, 7 Gewerke gemappt |
+| T2 | Sprach-Befehle aus Hauptmenü | ATBS-Extraktion, Projekt-Suche |
+| T3 | Erweiterte Parser | Datum (Wochen, KW, Monat), Mängel/Nachträge |
+| T4 | QA-Review | 2 Bugs gefixt (Version, TERMIN_TYPEN-Duplikat) |
+
+**Korrigierte Monday-Spalten-IDs:**
+| Gewerk | Alte ID (falsch) | Neue ID (korrekt) |
+|--------|------------------|-------------------|
+| Elektrik | `06reu` | `color58__1` |
+| Sanitär | `GnADf` | `color65__1` |
+| Maler | `uJfDu` | `color63__1` |
+| Boden | `SqOwb` | `color8__1` |
+| Tischler | `xhsH6` | `color98__1` |
+| Entkernung | `gg2On` | `color05__1` |
+
+**Neue Features:**
+- "456 Elektrik fertig" → Status ohne offenes Projekt ändern
+- "Öffne Bollwerkstraße" → Projekt per Name suchen
+- "Status 456" → Projekt direkt öffnen
+- "in 2 Wochen", "KW 12", "Ende März" → Erweiterte Datum-Formate
+- GEWERK_ALIASES: "Elektro" → "Elektrik", "Bad" → "Sanitär"
+
+**Deployment:**
+- `telegram-webhook` v58 deployed
+- Koordinationsdatei: `docs/implementation/telegram_sprachbefehle_universal_koordination.md`
+
+### Neue Learnings
+
+- L152: Monday Gewerk-Status-Spalten haben andere IDs als erwartet
+- L153: Sprach-Befehle ohne Projekt-Kontext ermöglichen
+
+---
+
+## LOG-056 - Monday Board Column Mapping: 338 Spalten dokumentiert
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+Vollstaendiges Mapping aller Monday.com Board-Spalten (Board ID: 1545426536) erstellen und dokumentieren.
+
+### Ergebnis
+
+**Statistiken:**
+| Metrik | Wert |
+|--------|------|
+| Monday-Spalten Total | 338 |
+| Supabase-Spalten Total | 97 |
+| Gemappte Spalten | ~45 |
+| Bidirektionale Spalten | 4 |
+
+**Erstellte Dateien:**
+1. `docs/MONDAY_COLUMN_MAPPING.md` - Vollstaendige Dokumentation
+2. `docs/monday_column_mapping.json` - Maschinenlesbares Mapping
+
+**Monday Spalten-Typen:**
+- text: 46
+- status/color: 71
+- date: 46
+- numeric: 35
+- link: 26
+- formula: 26
+- file: 5
+- button: 13
+- andere: 70
+
+**Wichtige Mappings:**
+| Monday ID | Supabase | Typ |
+|-----------|----------|-----|
+| `text49__1` | `atbs_nummer` | text |
+| `status06__1` | `status_projekt` | status |
+| `text_mkm11jca` | `auftraggeber` | text |
+| `zahlen1__1` | `budget` | numeric |
+| `datum2__1` | `baustart` | date |
+| `datum7__1` | `bauende` | date |
+| `link__1` | `hero_link` | link |
+
+**Migration ausgefuehrt:**
+- `monday_column_flattening_sync_v2`: Alle 197 Projekte mit column_values Daten in echte Spalten geflattent
+- 100% atbs_nummer, status_projekt, auftraggeber befuellt
+- 97% budget, 90% baustart befuellt
+
+### Strategie (D039)
+
+Nur wichtige Spalten werden als echte Supabase-Spalten synchronisiert. Der Rest bleibt im `column_values` JSONB-Feld verfuegbar.
+
+---
+
+## LOG-055 - Telegram-Bot v71: Phasen-Bug-Fix + monday_bauprozess Flattening
+
+**Datum:** 2026-02-01 09:30
+**Status:** Abgeschlossen
+
+### Problem
+
+Telegram-Bot zeigte "Keine Projekte gefunden" bei allen Phasen-Auswahlen.
+
+### Ursache
+
+1. **Falsches Feld:** `extractPhase()` las `dropdown0__1` statt `status06__1`
+2. **Falsche Labels:** PHASE_LABELS stimmten nicht mit Monday überein
+3. **Echte Phasen:** "(0) Bedarfsanalyse", "(1) Angebotsphase", etc. (nicht "Offen", "Geplant")
+
+### Lösung: monday_bauprozess Flattening
+
+**Migration `monday_bauprozess_flatten_columns`:**
+14 neue echte Spalten statt nur JSONB:
+- `atbs_nummer`, `status_projekt`, `auftraggeber`, `adresse`
+- `bauleiter`, `bauleiter_email`, `bauleiter_telefon`
+- `nachunternehmer`, `budget`, `baustart`, `bauende`
+- `hero_projekt_id`, `sharepoint_link`, `matterport_link`
+
+**Migration `monday_bauprozess_sync_source`:**
+Bidirektionaler Sync Support:
+- `sync_source` ('monday'|'supabase'|'pending'|'synced')
+- `last_supabase_change_at`, `last_monday_push_at`, `push_error_count`
+
+### Code-Änderungen (telegram-webhook v71)
+
+- `extractPhase()` → Direkt `projekt.status_projekt`
+- `listProjekteByPhase()` → DB-Filter mit `LIKE` statt JS-Filter
+- `openProjekt()` → Nutzt echte Spalten statt column_values
+- Queries selektieren echte Spalten, nicht mehr column_values JSONB
+
+### Ergebnis
+
+| Vorher | Nachher |
+|--------|---------|
+| 0 Projekte gefunden | 5 Projekte in Phase 0 |
+| JS-Filter auf 200 Rows | DB-Filter direkt |
+| `column_values->'status06__1'->>'text'` | `status_projekt` |
+
+### Offene Punkte
+
+- monday-sync noch nicht angepasst (befüllt neue Spalten noch nicht automatisch)
+- 338 Monday-Spalten insgesamt, nur 14 wichtigste als echte Spalten
 
 ---
 

@@ -2344,6 +2344,153 @@ async function istBerechtigt(chatId: number): Promise<boolean> {
 ```
 **Regel:** Bei kritischen Aktionen IMMER Berechtigung prüfen
 
+### L146 - Monday "Status | Projekt" ist status06__1 (nicht status__1)
+**Datum:** 2026-02-01
+**Problem:** Telegram-Bot fand keine Projekte bei Phasen-Auswahl
+**Ursache:**
+- Code las `status__1` ("(0) Offen") - das ist ein anderes Status-Feld!
+- Richtig ist `status06__1` ("(0) Bedarfsanalyse", "(1) Angebotsphase", etc.)
+**Monday hat 338 column_value Keys!** Viele haben ähnliche Namen.
+**Regel:** Monday-Spalten immer in DB verifizieren, nicht raten
+**Debugging:**
+```sql
+SELECT DISTINCT column_values->'status06__1'->>'text', COUNT(*)
+FROM monday_bauprozess
+GROUP BY 1;
+```
+
+### L147 - JSONB-Felder in echte Spalten flattenen für Performance
+**Datum:** 2026-02-01
+**Problem:** JSONB-Zugriff `column_values->'key'->>'text'` ist umständlich und langsam
+**Lösung:** Wichtige Felder als echte Spalten anlegen + bei Sync befüllen
+```sql
+ALTER TABLE monday_bauprozess
+ADD COLUMN atbs_nummer TEXT,
+ADD COLUMN status_projekt TEXT;
+
+UPDATE monday_bauprozess SET
+  atbs_nummer = column_values->'text49__1'->>'text',
+  status_projekt = column_values->'status06__1'->>'text';
+
+CREATE INDEX idx_monday_status ON monday_bauprozess(status_projekt);
+```
+**Vorteile:**
+- Einfachere Queries: `WHERE status_projekt LIKE '(2)%'`
+- Index-Nutzung möglich
+- Code wird lesbarer: `projekt.atbs_nummer` statt `extractATBS(projekt.column_values)`
+**Regel:** Bei > 5 JSONB-Zugriffen → Flattening erwägen
+
+### L148 - sync_source Spalte für bidirektionalen Sync
+**Datum:** 2026-02-01
+**Problem:** Bei bidirektionalem Sync (Monday ↔ Supabase) entstehen Loops
+**Lösung:** `sync_source` Spalte mit Werten:
+- `'monday'` - Daten kamen von Monday (Pull)
+- `'supabase'` - Lokale Änderung, noch nicht gepusht
+- `'pending'` - Push gesendet, warte auf Bestätigung
+- `'synced'` - Bestätigt synchron
+**Logic:**
+```typescript
+// Pull: Nur updaten wenn nicht lokal geändert
+if (existing.sync_source !== 'supabase') {
+  await update(item, { sync_source: 'monday' });
+}
+
+// Push: Nur Items mit lokalen Änderungen
+const pending = await supabase
+  .from('monday_bauprozess')
+  .select('*')
+  .eq('sync_source', 'supabase');
+```
+
+### L149 - Monday Status-Spalten nicht bidirektional pushen
+**Datum:** 2026-02-01
+**Problem:** Monday Status-Spalten haben strikt definierte Labels (z.B. "Raufaser & Anstrich", "Q2 & Anstrich")
+**Fehler:** `ColumnValueException: This status label doesn't exist`
+**Ursache:** Supabase-Werte wie "Keine" oder "Fertig" stimmen nicht mit Monday-Labels überein
+**Lösung:** Status-Spalten NUR Monday → Supabase synchronisieren, nicht zurück
+**Sichere Spalten für Push:** Text, Number, Date, Link
+**Unsichere Spalten:** Status/Color (color*, status*)
+
+### L150 - Supabase .or() mit Spaltenvergleich funktioniert nicht
+**Datum:** 2026-02-01
+**Problem:** `.or('col_a.gt.col_b')` (Vergleich zweier Spalten) wird nicht unterstützt
+**Versuch:**
+```typescript
+.or('sync_status.eq.pending_push,last_supabase_change_at.gt.last_monday_push_at')
+```
+**Ergebnis:** Kein Fehler, aber findet keine Ergebnisse
+**Lösung:** Einfache Bedingung + JS-Filter:
+```typescript
+const { data } = await supabase
+  .from('table')
+  .select('*')
+  .eq('sync_source', 'supabase');
+
+const filtered = data.filter(item => {
+  if (!item.last_monday_push_at) return true;
+  return new Date(item.last_supabase_change_at) > new Date(item.last_monday_push_at);
+});
+```
+
+### L151 - 3-Agenten-Modell für komplexe Implementierungen
+**Datum:** 2026-02-01
+**Kontext:** Monday Bidirektional Sync mit 3 parallelen Subagenten
+**Architektur:**
+- T1: Schema-Agent (Analyse, Mapping, Migration)
+- T2: Sync-Agent (Edge Functions, Logik)
+- T3: Trigger-Agent (DB-Trigger, Cron-Jobs)
+**Vorteile:**
+- Parallele Arbeit beschleunigt Implementierung
+- Klare Zuständigkeiten
+- Einzelne Agent-Fehler blockieren nicht das Gesamtprojekt
+**Lessons Learned:**
+- Koordinationsdatei als Single Source of Truth
+- Agent-Outputs prüfen - manche Arbeit wurde trotz Crash fertig
+- Manuelle Nacharbeit einplanen
+
+### L152 - Monday Gewerk-Status-Spalten haben andere IDs als erwartet
+**Datum:** 2026-02-01
+**Problem:** Telegram-Bot Status-Änderungen funktionierten nicht für manche Gewerke
+**Ursache:** GEWERK_SPALTEN im Code hatte falsche Monday-Spalten-IDs (gg2On, 67n4J, etc.)
+**Lösung:** Korrekte IDs aus MONDAY_COLUMN_MAPPING.md verwenden:
+| Gewerk | Korrekte ID |
+|--------|-------------|
+| Elektrik | `color58__1` |
+| Sanitär | `color65__1` |
+| Maler | `color63__1` |
+| Boden | `color8__1` |
+| Tischler | `color98__1` |
+| Entkernung | `color05__1` |
+**Learning:** Immer docs/MONDAY_COLUMN_MAPPING.md als Referenz für Monday-Spalten-IDs verwenden!
+
+### L153 - Sprach-Befehle ohne Projekt-Kontext ermöglichen
+**Datum:** 2026-02-01
+**Problem:** User mussten erst Projekt öffnen bevor Sprach-Befehle funktionierten
+**Lösung:** ATBS-Nummer aus Spracheingabe extrahieren und Projekt automatisch laden
+**Implementierung:**
+- `extractAtbsFromText()` erkennt ATBS-456, "456", "Projekt 456"
+- `loadProjektByAtbs()` lädt Projekt aus DB
+- `handleSprachBefehl()` nutzt Projekt aus Session ODER lädt es on-demand
+**Benutzerfreundlichkeit:** "456 Elektrik fertig" funktioniert jetzt direkt aus Hauptmenü
+
+### L154 - pg_net Trigger ohne Auth bei verify_jwt=false
+**Datum:** 2026-02-01
+**Kontext:** DB-Trigger soll Edge Function aufrufen
+**Problem:** Vault-Secret `service_role_key` existiert nicht → Trigger-Funktion scheitert
+**Lösung:** Wenn Edge Function `verify_jwt: false` hat, braucht pg_net keinen Auth-Header
+**Implementierung:**
+```sql
+-- Vereinfachter Trigger OHNE Auth
+PERFORM net.http_post(
+  url := 'https://xxx.supabase.co/functions/v1/monday-push',
+  headers := '{"Content-Type": "application/json"}'::jsonb,
+  body := jsonb_build_object('item_id', NEW.id, 'triggered_by', 'db_trigger'),
+  timeout_milliseconds := 30000
+);
+```
+**Regel:** Bei internen Edge Functions (Trigger, Cron) immer `verify_jwt: false` + kein Auth-Header
+**Vorteil:** Kein Vault-Secret nötig, einfachere Konfiguration
+
 ---
 
-*Aktualisiert: 2026-01-31*
+*Aktualisiert: 2026-02-01*

@@ -382,6 +382,46 @@
 **Grund:** Beschleunigt Workflow auf Baustelle, LV-Matching ist gut genug
 **Nachbearbeitung:** User kann im ERP korrigieren falls nötig
 
+### D039 - monday_bauprozess Flattening: 14 wichtige Spalten
+**Datum:** 2026-02-01
+**Entscheidung:** Nur die 14 wichtigsten Monday-Spalten als echte Supabase-Spalten
+**Spalten:**
+- Identifikation: `atbs_nummer`, `status_projekt`, `auftraggeber`
+- Personen: `bauleiter`, `bauleiter_email`, `bauleiter_telefon`, `nachunternehmer`
+- Projekt: `adresse`, `budget`, `baustart`, `bauende`
+- Links: `hero_projekt_id`, `sharepoint_link`, `matterport_link`
+- Sync: `sync_source`, `last_supabase_change_at`, `last_monday_push_at`
+**Alternative verworfen:** Alle 338 Monday-Spalten replizieren (zu aufwendig, schwer wartbar)
+**Grund:** Pragmatischer Ansatz - wichtigste Felder für Bot/ERP, Rest bleibt in `column_values` JSONB
+
+### D040 - Monday Status-Spalten nur unidirektional (Monday → Supabase)
+**Datum:** 2026-02-01
+**Entscheidung:** Status/Color-Spalten werden nur von Monday nach Supabase synchronisiert, nicht zurück
+**Grund:** Monday Status-Labels sind strikt definiert und stimmen nicht mit Supabase-Werten überein
+**Fehler bei Push:** `ColumnValueException: This status label doesn't exist`
+**Sichere Spalten für bidirektionalen Sync:** Text, Number, Date, Link (17 Spalten)
+**Nur Monday → Supabase:** Status/Color (64 Spalten)
+**Alternative verworfen:** Label-Mapping aufbauen (zu aufwendig, fehleranfällig)
+
+### D041 - Monday Push: Trigger statt Cron
+**Datum:** 2026-02-01
+**Entscheidung:** Supabase→Monday Push per DB-Trigger statt Cron-Job
+**Mechanismus:**
+| Richtung | Alt | Neu |
+|----------|-----|-----|
+| Monday → Supabase | Cron 5 Min | Cron 5 Min (unverändert) |
+| Supabase → Monday | Cron 5 Min | **DB-Trigger** (sofort) |
+**Implementierung:**
+- `trg_monday_push`: AFTER UPDATE Trigger auf relevanten Spalten
+- `trigger_monday_push()`: PL/pgSQL mit pg_net.http_post
+- `monday-push-job`: Cron **deaktiviert**
+**Vorteile:**
+- Änderungen werden sofort (< 2s) nach Monday gepusht
+- Kein Warten auf nächsten Cron-Slot
+- Schnelleres Feedback für Bauleiter
+**Überwachte Spalten:** budget, baustart, bauende, bauleiter, adresse, etc.
+**Loop-Vermeidung:** WHEN-Klausel: `NEW.sync_source IS DISTINCT FROM 'monday'`
+
 ---
 
-*Aktualisiert: 2026-01-31*
+*Aktualisiert: 2026-02-01*

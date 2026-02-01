@@ -2,27 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v57 - Verbessertes Fehler-Handling & Hilfe
- *
- * NEU in v57: Fehler-Handling & Hilfe-System
- * - ❓ showSprachBefehlHilfe: Ausführliche Hilfe für Sprach-Befehle
- * - 🔘 Hilfe-Button im Hauptmenü: "❓ Hilfe Sprach-Befehle"
- * - 📝 Verbessertes Fehler-Handling: Hilfe-Button bei nicht erkannten Befehlen
- * - 📊 Vollständiges Logging in telegram_befehle_log
- *
- * v56: Monday-Sync Integration
- * - 🔄 pushToMonday: GraphQL API für Spalten-Updates
- * - 📊 executeStatusBefehl: Gewerk-Status ändern (Supabase + Monday)
- * - 📅 executeTerminBefehl: Termine ändern (Supabase + Monday)
- *
- * v55: Sprach-Befehl-Parser + Termine-Menü
- * - 🎤 Natürliche Spracheingabe für Befehle
- * - Pattern-Matching für Status, Termine, Nachträge, Mängel
- * - GPT-5.2 Fallback für komplexe Befehle
- * - Termine-Menü: BV Start, BV Ende NU Plan, BV Ende Mängelfrei, BV Ende Kunde
- * - Berechtigungsprüfung: Nur BL/GF können Termine ändern
- *
- * v54: Kompakte Projekt-Info & Gewerk-Status-Tabelle
+ * telegram-webhook v54 - Kompakte Projekt-Info & Gewerk-Status-Tabelle
  *
  * KOMPLETT NEUER Bot: @neurealis_bedarfsanalyse_bot
  *
@@ -141,138 +121,6 @@ async function downloadTelegramFile(fileId: string): Promise<{base64: string, mi
 }
 
 // ============================================
-// Datum & Berechtigungs-Helper
-// ============================================
-
-/**
- * Flexibler Datum-Parser für natürliche Eingaben
- * Unterstützt: "17.03.", "heute", "morgen", "in 2 Tagen", "nächsten Montag", "ende der woche"
- */
-function parseDatum(text: string): Date | null {
-  if (!text) return null;
-  const input = text.toLowerCase().trim();
-  const heute = new Date();
-  heute.setHours(0, 0, 0, 0);
-
-  // Relativ: "heute"
-  if (input === 'heute') {
-    return heute;
-  }
-
-  // Relativ: "morgen"
-  if (input === 'morgen') {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 1);
-    return d;
-  }
-
-  // Relativ: "übermorgen"
-  if (input === 'übermorgen' || input === 'uebermorgen') {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 2);
-    return d;
-  }
-
-  // Relativ mit Zahl: "in 2 tagen", "in 5 Tagen"
-  const inTageMatch = input.match(/^in\s+(\d+)\s*tage?n?$/);
-  if (inTageMatch) {
-    const tage = parseInt(inTageMatch[1], 10);
-    const d = new Date(heute);
-    d.setDate(d.getDate() + tage);
-    return d;
-  }
-
-  // Wochentag: "nächsten montag", "nächster dienstag"
-  const wochentage: Record<string, number> = {
-    'sonntag': 0, 'montag': 1, 'dienstag': 2, 'mittwoch': 3,
-    'donnerstag': 4, 'freitag': 5, 'samstag': 6
-  };
-  const wochentagMatch = input.match(/^n[äa]chste[rn]?\s+(sonntag|montag|dienstag|mittwoch|donnerstag|freitag|samstag)$/);
-  if (wochentagMatch) {
-    const zielTag = wochentage[wochentagMatch[1]];
-    const aktuellerTag = heute.getDay();
-    let diff = zielTag - aktuellerTag;
-    if (diff <= 0) diff += 7; // Nächste Woche
-    const d = new Date(heute);
-    d.setDate(d.getDate() + diff);
-    return d;
-  }
-
-  // Spezial: "ende der woche" (Sonntag)
-  if (input === 'ende der woche' || input === 'wochenende') {
-    const d = new Date(heute);
-    const diff = 7 - d.getDay(); // Tage bis Sonntag
-    d.setDate(d.getDate() + (diff === 7 ? 0 : diff));
-    return d;
-  }
-
-  // Spezial: "ende des monats"
-  if (input === 'ende des monats' || input === 'monatsende') {
-    const d = new Date(heute.getFullYear(), heute.getMonth() + 1, 0); // Letzter Tag des Monats
-    return d;
-  }
-
-  // Explizit: "17.03.", "17.03.2026", "17.3.", "17.3.2026"
-  const datumMatch = input.match(/^(\d{1,2})\.(\d{1,2})\.?(\d{4})?$/);
-  if (datumMatch) {
-    const tag = parseInt(datumMatch[1], 10);
-    const monat = parseInt(datumMatch[2], 10) - 1; // 0-basiert
-    let jahr = datumMatch[3] ? parseInt(datumMatch[3], 10) : heute.getFullYear();
-
-    const d = new Date(jahr, monat, tag);
-
-    // Wenn Datum in der Vergangenheit, nächstes Jahr nehmen
-    if (d < heute && !datumMatch[3]) {
-      d.setFullYear(d.getFullYear() + 1);
-    }
-
-    return d;
-  }
-
-  return null;
-}
-
-/**
- * Prüft ob ein User für kritische Aktionen berechtigt ist
- * Lookup über telegram_chat_id in kontakte-Tabelle
- */
-async function istBerechtigt(chatId: number): Promise<boolean> {
-  const berechtigteEmails = [
-    'holger.neumann@neurealis.de',
-    'dirk.jansen@neurealis.de'
-  ];
-
-  try {
-    const { data, error } = await supabase
-      .from('kontakte')
-      .select('email')
-      .eq('telegram_chat_id', chatId)
-      .single();
-
-    if (error || !data) {
-      console.log(`istBerechtigt: Kein Kontakt für chat_id ${chatId} gefunden`);
-      return false;
-    }
-
-    const email = data.email?.toLowerCase();
-    return berechtigteEmails.includes(email);
-  } catch (e) {
-    console.error('istBerechtigt error:', e);
-    return false;
-  }
-}
-
-/**
- * Formatiert ein Datum als "DD.MM.YYYY" für Anzeige
- */
-function formatDatum(date: Date): string {
-  const tag = date.getDate().toString().padStart(2, '0');
-  const monat = (date.getMonth() + 1).toString().padStart(2, '0');
-  const jahr = date.getFullYear();
-  return `${tag}.${monat}.${jahr}`;
-}
-
-// ============================================
 // Session Management
 // ============================================
 
@@ -295,7 +143,21 @@ async function updateSession(chatId: number, updates: Record<string, any>) {
 }
 
 // ============================================
-// Helper: Extract ATBS from Monday column_values
+// Helper: Datum formatieren
+// ============================================
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return '-';
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  } catch {
+    return dateStr;
+  }
+}
+
+// ============================================
+// Helper: Extract ATBS from Monday column_values (Legacy - kann entfernt werden)
 // ============================================
 
 function extractATBS(columnValues: any): string | null {
@@ -308,132 +170,6 @@ function extractATBS(columnValues: any): string | null {
   return null;
 }
 
-// ============================================
-// Monday.com API Integration
-// ============================================
-
-const MONDAY_API_KEY = Deno.env.get('MONDAY_API_KEY');
-const MONDAY_BOARD_ID = '1750073517'; // Bauprozess-Board
-
-// Gewerk zu Monday Spalten-ID Mapping
-const GEWERK_SPALTEN: Record<string, string> = {
-  'entkernung': 'gg2On',
-  'maurer': '67n4J',
-  'elektrik': '06reu',
-  'sanitär': 'GnADf',
-  'bad': 'GnADf',
-  'bad & sanitär': 'GnADf',
-  'heizung': 'aJKmD',
-  'tischler': 'tSYWD',
-  'wände': 'Fl8Za',
-  'decken': 'Fl8Za',
-  'wände & decken': 'Fl8Za',
-  'trockenbau': 'Fl8Za',
-  'maler': 'Fl8Za',
-  'boden': 'qAUvS',
-  'endreinigung': 'Nygjn',
-};
-
-// Termin-Typen zu Monday Spalten-ID Mapping
-const TERMIN_SPALTEN: Record<string, string> = {
-  'start': 'f55yA',        // BV Start
-  'plan': '25nEy',         // BV Ende NU Plan
-  'maengelfrei': '7hwYG',  // BV Ende Mängelfrei
-  'kunde': '8pRus',        // BV Ende Kunde
-};
-
-// Status-Mapping: Vereinfachter Status → Monday Status-Label
-const STATUS_MAPPING: Record<string, Record<string, string>> = {
-  elektrik: {
-    'fertig': 'Fertig (Feininstallation)',
-    'läuft': 'In Arbeit (Schlitze & Rohinstallation)',
-    'geplant': 'Geplant',
-    'verspätet': 'Verspätet',
-  },
-  sanitär: {
-    'fertig': 'Fertig (Feininstallation)',
-    'läuft': 'In Arbeit (Rohinstallation)',
-    'geplant': 'Geplant',
-    'verspätet': 'Verspätet',
-  },
-  _default: {
-    'fertig': 'Fertig',
-    'läuft': 'In Arbeit',
-    'geplant': 'Geplant',
-    'verspätet': 'Verspätet',
-  }
-};
-
-/**
- * Pusht Änderungen zu Monday.com via GraphQL API
- */
-async function pushToMonday(mondayItemId: string, changes: Record<string, any>): Promise<boolean> {
-  if (!MONDAY_API_KEY) {
-    console.error('MONDAY_API_KEY nicht konfiguriert');
-    return false;
-  }
-
-  try {
-    // Konvertiere changes zu Monday column_values Format
-    const columnValues = JSON.stringify(changes);
-
-    const mutation = `
-      mutation {
-        change_multiple_column_values(
-          board_id: ${MONDAY_BOARD_ID},
-          item_id: ${mondayItemId},
-          column_values: ${JSON.stringify(columnValues)}
-        ) {
-          id
-          name
-        }
-      }
-    `;
-
-    const response = await fetch('https://api.monday.com/v2', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': MONDAY_API_KEY,
-        'API-Version': '2024-01'
-      },
-      body: JSON.stringify({ query: mutation })
-    });
-
-    const result = await response.json();
-
-    if (result.errors) {
-      console.error('Monday API Fehler:', result.errors);
-      return false;
-    }
-
-    console.log('Monday Update erfolgreich:', result.data);
-    return true;
-  } catch (error) {
-    console.error('Monday API Fehler:', error);
-    return false;
-  }
-}
-
-/**
- * Mapped vereinfachten Status auf Monday Status-Label
- */
-function mapStatusToMonday(gewerk: string, status: string): string {
-  const gewerkLower = gewerk.toLowerCase();
-  const statusLower = status.toLowerCase();
-
-  // Spezifisches Mapping für Elektrik/Sanitär
-  if (gewerkLower === 'elektrik' && STATUS_MAPPING.elektrik[statusLower]) {
-    return STATUS_MAPPING.elektrik[statusLower];
-  }
-  if ((gewerkLower === 'sanitär' || gewerkLower === 'bad') && STATUS_MAPPING.sanitär[statusLower]) {
-    return STATUS_MAPPING.sanitär[statusLower];
-  }
-
-  // Default Mapping
-  return STATUS_MAPPING._default[statusLower] || status;
-}
-
 function extractProjectName(columnValues: any): string | null {
   if (!columnValues) return null;
   const text23 = columnValues.text23__1;
@@ -444,9 +180,10 @@ function extractProjectName(columnValues: any): string | null {
 
 function extractPhase(columnValues: any): string | null {
   if (!columnValues) return null;
-  const dropdown = columnValues.dropdown0__1;
-  if (typeof dropdown === 'object' && dropdown.text) return dropdown.text;
-  if (typeof dropdown === 'string') return dropdown;
+  // "Status | Projekt" ist in status06__1!
+  const status = columnValues.status06__1;
+  if (typeof status === 'object' && status.text) return status.text;
+  if (typeof status === 'string') return status;
   return null;
 }
 
@@ -458,16 +195,32 @@ function extractPhaseNumber(columnValues: any): number | null {
   return null;
 }
 
-// Phase-Labels für die Anzeige
+// Phase-Labels für die Anzeige (Monday "Status | Projekt" = status06__1)
 const PHASE_LABELS: Record<number, string> = {
   0: '(0) Bedarfsanalyse',
-  1: '(1) Angebotsstellung',
+  1: '(1) Angebotsphase',
   2: '(2) Auftrag erhalten',
   3: '(3) Vorbereitung',
-  4: '(4) Umsetzung'
+  4: '(4) Umsetzung',
+  5: '(5) Rechnungsstellung',
+  7: '(7) Abgeschlossen',
+  9: '(9) Nicht erhalten'
 };
 
-// Monday-Spalten für Projekt-Info (GEWERK_SPALTEN ist oben im Monday-API-Bereich definiert)
+// Gewerk-Spalten-Mapping (Monday column IDs)
+const GEWERK_SPALTEN: Record<string, string> = {
+  'Entkernung': 'gg2On',
+  'Maurer': '67n4J',
+  'Elektrik': '06reu',
+  'Bad & Sanitär': 'GnADf',
+  'Heizung': 'aJKmD',
+  'Tischler': 'tSYWD',
+  'Wände & Decken': 'Fl8Za',
+  'Boden': 'qAUvS',
+  'Endreinigung': 'Nygjn',
+};
+
+// Monday-Spalten für Projekt-Info
 const PROJEKT_SPALTEN = {
   bauleiter: ['people__1', 'FPlQB'],
   nachunternehmer: ['mirror__1', 'sQkwj'],
@@ -538,922 +291,6 @@ function gewerkStatusEmoji(status: string): string {
   if (s.includes('geplant') || s.includes('offen')) return '⏳';
   if (s.includes('verspätet') || s.includes('verzug')) return '⚠️';
   return '-';
-}
-
-// ============================================
-// Sprach-Befehl-Parser (NEU v55)
-// ============================================
-
-interface SprachBefehl {
-  typ: 'status' | 'termin' | 'nachtrag' | 'mangel';
-  atbs?: string;          // z.B. "456"
-  gewerk?: string;        // z.B. "Elektrik"
-  status?: string;        // z.B. "Fertig"
-  terminTyp?: string;     // z.B. "plan", "maengelfrei"
-  datum?: Date;
-  beschreibung?: string;  // Für Nachtrag/Mangel
-  raw: string;            // Original-Text
-}
-
-// Gewerke für Pattern-Matching
-const GEWERK_NAMEN = [
-  'elektrik', 'elektro', 'sanitär', 'sanitar', 'bad', 'heizung', 'maler', 'malerarbeiten',
-  'boden', 'bodenbelag', 'fliesen', 'trockenbau', 'wände', 'wande', 'decken',
-  'türen', 'turen', 'fenster', 'tischler', 'entkernung', 'endreinigung', 'reinigung'
-];
-
-// Status-Werte für Pattern-Matching
-const STATUS_WERTE = [
-  'fertig', 'erledigt', 'abgeschlossen', 'komplett',
-  'läuft', 'lauft', 'arbeit', 'in arbeit', 'begonnen',
-  'geplant', 'offen', 'ausstehend',
-  'verspätet', 'verspatet', 'verzug', 'verzögert', 'verzogert'
-];
-
-// Termin-Typen für Pattern-Matching
-const TERMIN_TYPEN = [
-  { pattern: /ende\s*(nu\s*)?plan/i, typ: 'plan' },
-  { pattern: /mängelfrei|maengelfrei|mangelfrei/i, typ: 'maengelfrei' },
-  { pattern: /ende\s*kunde|kundenübergabe|kundenubergabe/i, typ: 'kunde' },
-  { pattern: /start|beginn|anfang/i, typ: 'start' },
-  { pattern: /bv\s*ende/i, typ: 'plan' }
-];
-
-/**
- * Prüft ob ein Text wie ein Sprach-Befehl aussieht
- */
-function siehtAusWieBefehl(text: string): boolean {
-  const t = text.toLowerCase().trim();
-  // Beginnt mit ATBS oder 3-stelliger Zahl
-  if (/^(atbs[- ]?)?\d{3}\b/i.test(t)) return true;
-  // Enthält Schlüsselwörter
-  if (/\b(nachtrag|mangel|status|termin|setze|verschiebe|melde|erstelle)\b/i.test(t)) return true;
-  return false;
-}
-
-/**
- * Parst ein Datum aus verschiedenen Formaten
- */
-function parseDatum(text: string): Date | null {
-  const heute = new Date();
-  const t = text.toLowerCase();
-
-  // "heute"
-  if (t.includes('heute')) return heute;
-
-  // "morgen"
-  if (t.includes('morgen')) {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 1);
-    return d;
-  }
-
-  // "übermorgen"
-  if (t.includes('übermorgen') || t.includes('ubermorgen')) {
-    const d = new Date(heute);
-    d.setDate(d.getDate() + 2);
-    return d;
-  }
-
-  // "in X Tagen/Wochen"
-  const relMatch = t.match(/in\s+(\d+)\s+(tag|tage|woche|wochen)/i);
-  if (relMatch) {
-    const anzahl = parseInt(relMatch[1]);
-    const einheit = relMatch[2].toLowerCase();
-    const d = new Date(heute);
-    if (einheit.startsWith('woche')) {
-      d.setDate(d.getDate() + anzahl * 7);
-    } else {
-      d.setDate(d.getDate() + anzahl);
-    }
-    return d;
-  }
-
-  // "um X Tage"
-  const umMatch = t.match(/um\s+(\d+)\s+(tag|tage)/i);
-  if (umMatch) {
-    const anzahl = parseInt(umMatch[1]);
-    const d = new Date(heute);
-    d.setDate(d.getDate() + anzahl);
-    return d;
-  }
-
-  // Deutsche Datumsformate: 17.03., 17.03.2026, 17.3.26
-  const deMatch = text.match(/(\d{1,2})\.(\d{1,2})\.?(\d{2,4})?/);
-  if (deMatch) {
-    const tag = parseInt(deMatch[1]);
-    const monat = parseInt(deMatch[2]) - 1;
-    let jahr = deMatch[3] ? parseInt(deMatch[3]) : heute.getFullYear();
-    if (jahr < 100) jahr += 2000;
-    const d = new Date(jahr, monat, tag);
-    // Wenn Datum in Vergangenheit liegt und kein Jahr angegeben, nächstes Jahr nehmen
-    if (!deMatch[3] && d < heute) {
-      d.setFullYear(d.getFullYear() + 1);
-    }
-    return d;
-  }
-
-  return null;
-}
-
-/**
- * Extrahiert ATBS-Nummer aus Text
- */
-function extractAtbsFromText(text: string): string | null {
-  // "ATBS-456", "ATBS 456", "atbs456", "456" am Anfang
-  const match = text.match(/(?:atbs[- ]?)?(\d{3})\b/i);
-  return match ? match[1] : null;
-}
-
-/**
- * Extrahiert Gewerk aus Text
- */
-function extractGewerkFromText(text: string): string | null {
-  const t = text.toLowerCase();
-  for (const g of GEWERK_NAMEN) {
-    if (t.includes(g)) {
-      // Normalisiere Gewerk-Namen
-      if (g === 'elektro') return 'Elektrik';
-      if (g === 'sanitar' || g === 'bad') return 'Sanitär';
-      if (g === 'malerarbeiten') return 'Maler';
-      if (g === 'bodenbelag') return 'Boden';
-      if (g === 'wande') return 'Wände';
-      if (g === 'turen') return 'Türen';
-      if (g === 'reinigung') return 'Endreinigung';
-      // Kapitalisiere ersten Buchstaben
-      return g.charAt(0).toUpperCase() + g.slice(1);
-    }
-  }
-  return null;
-}
-
-/**
- * Extrahiert Status aus Text
- */
-function extractStatusFromText(text: string): string | null {
-  const t = text.toLowerCase();
-  for (const s of STATUS_WERTE) {
-    if (t.includes(s)) {
-      // Normalisiere Status-Werte
-      if (['fertig', 'erledigt', 'abgeschlossen', 'komplett'].includes(s)) return 'Fertig';
-      if (['läuft', 'lauft', 'arbeit', 'in arbeit', 'begonnen'].includes(s)) return 'Läuft';
-      if (['geplant', 'offen', 'ausstehend'].includes(s)) return 'Geplant';
-      if (['verspätet', 'verspatet', 'verzug', 'verzögert', 'verzogert'].includes(s)) return 'Verspätet';
-    }
-  }
-  return null;
-}
-
-/**
- * Extrahiert Termin-Typ aus Text
- */
-function extractTerminTypFromText(text: string): string | null {
-  for (const { pattern, typ } of TERMIN_TYPEN) {
-    if (pattern.test(text)) return typ;
-  }
-  return null;
-}
-
-/**
- * Hauptfunktion: Parst Sprach-Befehl via Pattern-Matching
- */
-function parseSprachBefehl(text: string): SprachBefehl | null {
-  const t = text.toLowerCase().trim();
-
-  // ATBS extrahieren (optional, kann fehlen wenn Projekt bereits offen)
-  const atbs = extractAtbsFromText(text);
-
-  // STATUS-BEFEHLE
-  // Patterns: "ATBS 450 setze Status Elektrik auf Fertig", "450 Elektrik fertig", "Sanitär ist fertig"
-  if (/\b(status|setze|ist|auf)\b.*\b(fertig|erledigt|läuft|lauft|geplant|verspätet|verspatet)\b/i.test(t) ||
-      /\b(fertig|erledigt|läuft|lauft|geplant|verspätet|verspatet)\b.*\b(status|setze)\b/i.test(t) ||
-      (extractGewerkFromText(text) && extractStatusFromText(text))) {
-    const gewerk = extractGewerkFromText(text);
-    const status = extractStatusFromText(text);
-    if (gewerk && status) {
-      return {
-        typ: 'status',
-        atbs: atbs || undefined,
-        gewerk,
-        status,
-        raw: text
-      };
-    }
-  }
-
-  // TERMIN-BEFEHLE
-  // Patterns: "ATBS 450 BV Ende Plan auf 17.03.", "verschiebe Ende um 2 Tage", "setze Mängelfrei auf heute"
-  const terminTyp = extractTerminTypFromText(text);
-  if (terminTyp || /\b(termin|verschiebe|setze.*auf|ende|datum)\b/i.test(t)) {
-    const datum = parseDatum(text);
-    if (terminTyp || datum) {
-      return {
-        typ: 'termin',
-        atbs: atbs || undefined,
-        terminTyp: terminTyp || 'plan',
-        datum: datum || undefined,
-        raw: text
-      };
-    }
-  }
-
-  // NACHTRAG-BEFEHLE
-  // Patterns: "ATBS 450 erstelle Nachtrag: 2 Heizkörper tauschen", "Nachtrag für 456: Bad neu fliesen"
-  if (/\b(nachtrag|nachträge|nachtrage)\b/i.test(t)) {
-    // Beschreibung extrahieren (nach : oder nach "Nachtrag")
-    let beschreibung = '';
-    const colonMatch = text.match(/(?:nachtrag[^:]*:\s*)(.+)/i);
-    if (colonMatch) {
-      beschreibung = colonMatch[1].trim();
-    } else {
-      // Alles nach "Nachtrag" nehmen
-      const nachMatch = text.match(/nachtrag\s+(?:für\s+\d+\s*)?(.+)/i);
-      if (nachMatch) beschreibung = nachMatch[1].trim();
-    }
-
-    return {
-      typ: 'nachtrag',
-      atbs: atbs || undefined,
-      beschreibung: beschreibung || text,
-      raw: text
-    };
-  }
-
-  // MANGEL-BEFEHLE
-  // Patterns: "ATBS 456 melde Mangel: Riss in Fliese", "Mangel bei 450: Steckdose locker"
-  if (/\b(mangel|mängel|maengel|melde)\b/i.test(t)) {
-    // Beschreibung extrahieren
-    let beschreibung = '';
-    const colonMatch = text.match(/(?:mangel[^:]*:\s*)(.+)/i);
-    if (colonMatch) {
-      beschreibung = colonMatch[1].trim();
-    } else {
-      const mangelMatch = text.match(/(?:melde\s+)?mangel\s+(?:bei\s+\d+\s*)?(.+)/i);
-      if (mangelMatch) beschreibung = mangelMatch[1].trim();
-    }
-
-    // Gewerk aus Beschreibung extrahieren
-    const gewerk = extractGewerkFromText(beschreibung || text);
-
-    return {
-      typ: 'mangel',
-      atbs: atbs || undefined,
-      gewerk: gewerk || undefined,
-      beschreibung: beschreibung || text,
-      raw: text
-    };
-  }
-
-  return null;
-}
-
-/**
- * GPT-Fallback für komplexe Befehle
- */
-async function parseWithGPT(text: string): Promise<SprachBefehl | null> {
-  try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-5.2',
-        max_completion_tokens: 500,
-        messages: [
-          {
-            role: 'system',
-            content: `Du bist ein Parser für Baustellen-Befehle. Extrahiere:
-- typ: status | termin | nachtrag | mangel
-- atbs: ATBS-Nummer (nur die Zahl, z.B. "456")
-- gewerk: Falls Status-Änderung (Elektrik, Sanitär, Maler, Boden, Heizung, Trockenbau, Türen, Fenster, Entkernung, Endreinigung)
-- status: Zielstatus (Fertig, Läuft, Geplant, Verspätet)
-- terminTyp: start | plan | maengelfrei | kunde
-- datum: Falls Termin (ISO-Format YYYY-MM-DD)
-- beschreibung: Falls Nachtrag/Mangel
-
-Wenn du den Befehl nicht verstehst, antworte mit {"typ": null}.
-Antworte NUR mit JSON.`
-          },
-          {
-            role: 'user',
-            content: text
-          }
-        ]
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('GPT parse error:', await response.text());
-      return null;
-    }
-
-    const result = await response.json();
-    const content = result.choices?.[0]?.message?.content || '';
-
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      const parsed = JSON.parse(jsonMatch[0]);
-      if (!parsed.typ) return null;
-
-      return {
-        typ: parsed.typ,
-        atbs: parsed.atbs || undefined,
-        gewerk: parsed.gewerk || undefined,
-        status: parsed.status || undefined,
-        terminTyp: parsed.terminTyp || undefined,
-        datum: parsed.datum ? new Date(parsed.datum) : undefined,
-        beschreibung: parsed.beschreibung || undefined,
-        raw: text
-      };
-    }
-
-    return null;
-  } catch (e) {
-    console.error('GPT parse error:', e);
-    return null;
-  }
-}
-
-/**
- * Haupt-Parser: Versucht erst Pattern-Matching, dann GPT-Fallback
- */
-async function parseSprachBefehlMitFallback(text: string): Promise<SprachBefehl | null> {
-  // Erst Pattern-Matching versuchen
-  const befehl = parseSprachBefehl(text);
-  if (befehl) {
-    console.log('Sprach-Befehl via Pattern erkannt:', JSON.stringify(befehl));
-    return befehl;
-  }
-
-  // GPT-Fallback für komplexe Befehle
-  console.log('Pattern-Matching fehlgeschlagen, versuche GPT...');
-  const gptBefehl = await parseWithGPT(text);
-  if (gptBefehl) {
-    console.log('Sprach-Befehl via GPT erkannt:', JSON.stringify(gptBefehl));
-  }
-  return gptBefehl;
-}
-
-/**
- * Loggt Sprach-Befehl in die Datenbank
- */
-async function logSprachBefehl(chatId: number, befehl: SprachBefehl | null, erfolg: boolean, fehlerMeldung?: string) {
-  try {
-    await supabase.from('telegram_befehle_log').insert({
-      chat_id: chatId,
-      befehl_typ: befehl?.typ || 'unbekannt',
-      atbs_nummer: befehl?.atbs || null,
-      raw_text: befehl?.raw || '',
-      parsed_data: befehl ? JSON.stringify(befehl) : null,
-      erfolg,
-      fehler_meldung: fehlerMeldung || null
-    });
-  } catch (e) {
-    console.error('Fehler beim Logging:', e);
-  }
-}
-
-/**
- * Zeigt die Hilfe für Sprach-Befehle an
- */
-async function showSprachBefehlHilfe(chatId: number) {
-  const hilfeText = `❓ <b>Sprach-Befehle Hilfe</b>
-
-Beispiele für Sprach-Befehle:
-
-📊 <b>Status ändern:</b>
-   "ATBS 450 setze Status Elektrik auf Fertig"
-   "ATBS-456 Sanitär ist fertig"
-
-📅 <b>Termin ändern:</b>
-   "ATBS 450 BV Ende Plan auf 17.03."
-   "ATBS-456 verschiebe Ende um 2 Tage"
-
-📋 <b>Nachtrag erstellen:</b>
-   "ATBS 450 erstelle Nachtrag: 2 Heizkörper tauschen"
-
-🔧 <b>Mangel melden:</b>
-   "ATBS 456 melde Mangel: Riss in Badezimmerfliese"
-
-💡 <b>Tipp:</b> Immer mit ATBS-Nummer beginnen!`;
-
-  await sendMessage(chatId, hilfeText, {
-    reply_markup: { inline_keyboard: [
-      [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
-    ] }
-  });
-}
-
-/**
- * Verarbeitet einen erkannten Sprach-Befehl
- */
-async function handleSprachBefehl(chatId: number, session: any, befehl: SprachBefehl) {
-  // ATBS aus Session holen wenn nicht im Befehl
-  const atbs = befehl.atbs || session?.modus_daten?.projekt_nr?.replace(/^ATBS[- ]?/i, '');
-
-  if (!atbs) {
-    await sendMessage(chatId,
-      `⚠️ Keine ATBS-Nummer erkannt.\n\n` +
-      `Bitte öffne zuerst ein Projekt oder gib die ATBS-Nummer an:\n` +
-      `z.B. "ATBS 450 Elektrik fertig"`,
-      { reply_markup: { inline_keyboard: [
-        [{ text: "🏗️ Projekt öffnen", callback_data: "mode_baustelle" }]
-      ] } }
-    );
-    await logSprachBefehl(chatId, befehl, false, 'Keine ATBS-Nummer');
-    return;
-  }
-
-  switch (befehl.typ) {
-    case 'status':
-      await handleStatusBefehl(chatId, session, befehl, atbs);
-      break;
-    case 'termin':
-      await handleTerminBefehl(chatId, session, befehl, atbs);
-      break;
-    case 'nachtrag':
-      await handleNachtragBefehl(chatId, session, befehl, atbs);
-      break;
-    case 'mangel':
-      await handleMangelBefehl(chatId, session, befehl, atbs);
-      break;
-  }
-}
-
-/**
- * Verarbeitet Status-Änderungen
- */
-async function handleStatusBefehl(chatId: number, session: any, befehl: SprachBefehl, atbs: string) {
-  if (!befehl.gewerk || !befehl.status) {
-    await sendMessage(chatId, `⚠️ Gewerk oder Status nicht erkannt.\n\nBeispiel: "ATBS ${atbs} Elektrik auf Fertig setzen"`);
-    await logSprachBefehl(chatId, befehl, false, 'Gewerk/Status fehlt');
-    return;
-  }
-
-  // Bestätigung anfordern
-  await updateSession(chatId, {
-    aktueller_modus: 'befehl_bestaetigung',
-    modus_daten: {
-      ...session?.modus_daten,
-      pending_befehl: befehl,
-      pending_atbs: atbs
-    }
-  });
-
-  await sendMessage(chatId,
-    `<b>📝 Status-Änderung bestätigen</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `Gewerk: ${befehl.gewerk}\n` +
-    `Neuer Status: ${befehl.status}\n\n` +
-    `Soll ich diese Änderung durchführen?`,
-    { reply_markup: { inline_keyboard: [
-      [
-        { text: "✅ Ja, ändern", callback_data: "befehl:bestaetigen" },
-        { text: "❌ Abbrechen", callback_data: "befehl:abbrechen" }
-      ]
-    ] } }
-  );
-}
-
-/**
- * Verarbeitet Termin-Änderungen
- */
-async function handleTerminBefehl(chatId: number, session: any, befehl: SprachBefehl, atbs: string) {
-  const terminTypNamen: Record<string, string> = {
-    'start': 'Start',
-    'plan': 'Ende NU Plan',
-    'maengelfrei': 'Ende Mängelfrei',
-    'kunde': 'Ende Kunde'
-  };
-
-  const terminName = terminTypNamen[befehl.terminTyp || 'plan'] || befehl.terminTyp;
-  const datumStr = befehl.datum
-    ? befehl.datum.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
-    : '(nicht angegeben)';
-
-  if (!befehl.datum) {
-    await sendMessage(chatId,
-      `⚠️ Kein Datum erkannt.\n\n` +
-      `Beispiele:\n` +
-      `• "ATBS ${atbs} Ende Plan auf 17.03."\n` +
-      `• "ATBS ${atbs} verschiebe Mängelfrei um 3 Tage"\n` +
-      `• "ATBS ${atbs} setze Kunde auf morgen"`
-    );
-    await logSprachBefehl(chatId, befehl, false, 'Datum fehlt');
-    return;
-  }
-
-  // Bestätigung anfordern
-  await updateSession(chatId, {
-    aktueller_modus: 'befehl_bestaetigung',
-    modus_daten: {
-      ...session?.modus_daten,
-      pending_befehl: befehl,
-      pending_atbs: atbs
-    }
-  });
-
-  await sendMessage(chatId,
-    `<b>📅 Termin-Änderung bestätigen</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `Termin: ${terminName}\n` +
-    `Neues Datum: ${datumStr}\n\n` +
-    `Soll ich diesen Termin setzen?`,
-    { reply_markup: { inline_keyboard: [
-      [
-        { text: "✅ Ja, setzen", callback_data: "befehl:bestaetigen" },
-        { text: "❌ Abbrechen", callback_data: "befehl:abbrechen" }
-      ]
-    ] } }
-  );
-}
-
-/**
- * Verarbeitet Nachtrag-Erfassung
- */
-async function handleNachtragBefehl(chatId: number, session: any, befehl: SprachBefehl, atbs: string) {
-  if (!befehl.beschreibung || befehl.beschreibung.length < 5) {
-    await sendMessage(chatId,
-      `⚠️ Beschreibung zu kurz.\n\n` +
-      `Beispiel: "ATBS ${atbs} Nachtrag: 2 zusätzliche Heizkörper einbauen"`
-    );
-    await logSprachBefehl(chatId, befehl, false, 'Beschreibung zu kurz');
-    return;
-  }
-
-  // Bestätigung anfordern
-  await updateSession(chatId, {
-    aktueller_modus: 'befehl_bestaetigung',
-    modus_daten: {
-      ...session?.modus_daten,
-      pending_befehl: befehl,
-      pending_atbs: atbs
-    }
-  });
-
-  await sendMessage(chatId,
-    `<b>📋 Nachtrag erfassen</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `Beschreibung: ${befehl.beschreibung}\n\n` +
-    `Soll ich diesen Nachtrag anlegen?`,
-    { reply_markup: { inline_keyboard: [
-      [
-        { text: "✅ Ja, anlegen", callback_data: "befehl:bestaetigen" },
-        { text: "❌ Abbrechen", callback_data: "befehl:abbrechen" }
-      ]
-    ] } }
-  );
-}
-
-/**
- * Verarbeitet Mangel-Meldung
- */
-async function handleMangelBefehl(chatId: number, session: any, befehl: SprachBefehl, atbs: string) {
-  if (!befehl.beschreibung || befehl.beschreibung.length < 5) {
-    await sendMessage(chatId,
-      `⚠️ Beschreibung zu kurz.\n\n` +
-      `Beispiel: "ATBS ${atbs} Mangel: Riss in Badezimmerfliese"`
-    );
-    await logSprachBefehl(chatId, befehl, false, 'Beschreibung zu kurz');
-    return;
-  }
-
-  // Bestätigung anfordern
-  await updateSession(chatId, {
-    aktueller_modus: 'befehl_bestaetigung',
-    modus_daten: {
-      ...session?.modus_daten,
-      pending_befehl: befehl,
-      pending_atbs: atbs
-    }
-  });
-
-  const gewerkStr = befehl.gewerk ? `\nGewerk: ${befehl.gewerk}` : '';
-
-  await sendMessage(chatId,
-    `<b>🔧 Mangel melden</b>\n\n` +
-    `Projekt: ATBS-${atbs}${gewerkStr}\n` +
-    `Beschreibung: ${befehl.beschreibung}\n\n` +
-    `Soll ich diesen Mangel anlegen?`,
-    { reply_markup: { inline_keyboard: [
-      [
-        { text: "✅ Ja, melden", callback_data: "befehl:bestaetigen" },
-        { text: "❌ Abbrechen", callback_data: "befehl:abbrechen" }
-      ]
-    ] } }
-  );
-}
-
-/**
- * Führt einen bestätigten Sprach-Befehl aus
- */
-async function executeSprachBefehl(chatId: number, session: any) {
-  const befehl = session?.modus_daten?.pending_befehl as SprachBefehl | undefined;
-  const atbs = session?.modus_daten?.pending_atbs as string | undefined;
-
-  if (!befehl || !atbs) {
-    await sendMessage(chatId, '⚠️ Kein Befehl zum Ausführen gefunden.');
-    return;
-  }
-
-  try {
-    switch (befehl.typ) {
-      case 'status':
-        await executeStatusBefehl(chatId, befehl, atbs);
-        break;
-      case 'termin':
-        await executeTerminBefehl(chatId, befehl, atbs);
-        break;
-      case 'nachtrag':
-        await executeNachtragBefehl(chatId, befehl, atbs);
-        break;
-      case 'mangel':
-        await executeMangelBefehl(chatId, befehl, atbs);
-        break;
-    }
-
-    await logSprachBefehl(chatId, befehl, true);
-
-    // Session zurücksetzen
-    await updateSession(chatId, {
-      aktueller_modus: session?.aktuelles_bv_id ? 'baustelle' : null,
-      modus_daten: {
-        projekt_nr: session?.modus_daten?.projekt_nr,
-        projekt_name: session?.modus_daten?.projekt_name
-      }
-    });
-
-  } catch (error) {
-    console.error('Fehler bei Befehl-Ausführung:', error);
-    await sendMessage(chatId, `❌ Fehler: ${(error as Error).message}`);
-    await logSprachBefehl(chatId, befehl, false, (error as Error).message);
-  }
-}
-
-/**
- * Führt Status-Änderung aus
- */
-async function executeStatusBefehl(chatId: number, befehl: SprachBefehl, atbs: string) {
-  // Finde das Projekt in Monday
-  const { data: projekte } = await supabase
-    .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .limit(200);
-
-  if (!projekte) {
-    throw new Error('Projekt nicht gefunden');
-  }
-
-  const match = projekte.find(p => {
-    const pAtbs = extractATBS(p.column_values);
-    return pAtbs === atbs || pAtbs === `ATBS-${atbs}`;
-  });
-
-  if (!match) {
-    throw new Error(`Projekt ATBS-${atbs} nicht gefunden`);
-  }
-
-  // Finde die Monday-Spalten-ID für das Gewerk
-  const gewerkLower = (befehl.gewerk || '').toLowerCase();
-  const spalteId = GEWERK_SPALTEN[gewerkLower];
-
-  if (!spalteId) {
-    throw new Error(`Gewerk "${befehl.gewerk}" nicht zugeordnet`);
-  }
-
-  // Map Status zu Monday-Label
-  const mondayStatus = mapStatusToMonday(gewerkLower, befehl.status || 'geplant');
-
-  // 1. Supabase: column_values updaten
-  const updatedColumnValues = { ...match.column_values };
-  updatedColumnValues[spalteId] = { label: mondayStatus };
-
-  const { error: dbError } = await supabase
-    .from('monday_bauprozess')
-    .update({
-      column_values: updatedColumnValues,
-      updated_at: new Date().toISOString()
-    })
-    .eq('id', match.id);
-
-  if (dbError) {
-    throw new Error(`Supabase Update fehlgeschlagen: ${dbError.message}`);
-  }
-
-  // 2. Monday: Status-Spalte via API ändern
-  const mondayChanges: Record<string, any> = {};
-  mondayChanges[spalteId] = { label: mondayStatus };
-
-  const mondaySuccess = await pushToMonday(match.id, mondayChanges);
-
-  // Erfolgsmeldung
-  const syncStatus = mondaySuccess ? '✅ Monday synchronisiert' : '⚠️ Monday-Sync fehlgeschlagen (lokal gespeichert)';
-
-  await sendMessage(chatId,
-    `✅ <b>Status geändert</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `Gewerk: ${befehl.gewerk}\n` +
-    `Neuer Status: ${mondayStatus}\n\n` +
-    `${syncStatus}`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "🏗️ Zurück zur Baustelle", callback_data: "bau:menu" }]
-    ] } }
-  );
-}
-
-/**
- * Führt Termin-Änderung aus
- */
-async function executeTerminBefehl(chatId: number, befehl: SprachBefehl, atbs: string) {
-  // Finde das Projekt
-  const { data: projekte } = await supabase
-    .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .limit(200);
-
-  if (!projekte) {
-    throw new Error('Keine Projekte gefunden');
-  }
-
-  const match = projekte.find(p => {
-    const pAtbs = extractATBS(p.column_values);
-    return pAtbs === atbs || pAtbs === `ATBS-${atbs}`;
-  });
-
-  if (!match) {
-    throw new Error(`Projekt ATBS-${atbs} nicht gefunden`);
-  }
-
-  const terminTypNamen: Record<string, string> = {
-    'start': 'BV Start',
-    'plan': 'BV Ende NU Plan',
-    'maengelfrei': 'BV Ende Mängelfrei',
-    'kunde': 'BV Ende Kunde'
-  };
-
-  // Finde die Monday-Spalten-ID für den Termin-Typ
-  const terminTyp = befehl.terminTyp || 'plan';
-  const spalteId = TERMIN_SPALTEN[terminTyp];
-
-  if (!spalteId) {
-    throw new Error(`Termin-Typ "${terminTyp}" nicht zugeordnet`);
-  }
-
-  if (!befehl.datum) {
-    throw new Error('Kein Datum angegeben');
-  }
-
-  // Datum als ISO-String formatieren für Monday (YYYY-MM-DD)
-  const isoDate = befehl.datum.toISOString().split('T')[0];
-  const datumStr = befehl.datum.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-  // 1. Supabase: column_values updaten
-  const updatedColumnValues = { ...match.column_values };
-  updatedColumnValues[spalteId] = { date: isoDate };
-
-  const { error: dbError } = await supabase
-    .from('monday_bauprozess')
-    .update({
-      column_values: updatedColumnValues,
-      updated_at: new Date().toISOString()
-    })
-    .eq('id', match.id);
-
-  if (dbError) {
-    throw new Error(`Supabase Update fehlgeschlagen: ${dbError.message}`);
-  }
-
-  // 2. Monday: Datum-Spalte via API ändern
-  const mondayChanges: Record<string, any> = {};
-  mondayChanges[spalteId] = { date: isoDate };
-
-  const mondaySuccess = await pushToMonday(match.id, mondayChanges);
-
-  // Erfolgsmeldung
-  const syncStatus = mondaySuccess ? '✅ Monday synchronisiert' : '⚠️ Monday-Sync fehlgeschlagen (lokal gespeichert)';
-
-  await sendMessage(chatId,
-    `✅ <b>Termin geändert</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `Termin: ${terminTypNamen[terminTyp]}\n` +
-    `Neues Datum: ${datumStr}\n\n` +
-    `${syncStatus}`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "🏗️ Zurück zur Baustelle", callback_data: "bau:menu" }]
-    ] } }
-  );
-}
-
-/**
- * Führt Nachtrag-Erfassung aus
- */
-async function executeNachtragBefehl(chatId: number, befehl: SprachBefehl, atbs: string) {
-  // Ermittle gemeldet_von basierend auf chat_id
-  let gemeldetVon = 'telegram';
-  const { data: kontakt } = await supabase
-    .from('kontakte')
-    .select('kontakt_typ, nachname, vorname')
-    .eq('telegram_chat_id', chatId.toString())
-    .single();
-
-  if (kontakt) {
-    if (kontakt.kontakt_typ === 'NU') {
-      gemeldetVon = 'nu';
-    } else if (kontakt.kontakt_typ === 'BL' || kontakt.nachname === 'Neumann') {
-      gemeldetVon = 'bauleiter';
-    }
-  }
-
-  // Nachtrag in DB anlegen
-  const { data: nachtrag, error } = await supabase
-    .from('nachtraege')
-    .insert({
-      atbs_nummer: `ATBS-${atbs}`,
-      beschreibung: befehl.beschreibung,
-      status: 'Gemeldet',
-      gemeldet_von: gemeldetVon,
-      gemeldet_am: new Date().toISOString()
-    })
-    .select()
-    .single();
-
-  if (error) {
-    throw new Error(`Fehler beim Anlegen: ${error.message}`);
-  }
-
-  await sendMessage(chatId,
-    `✅ <b>Nachtrag angelegt</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `ID: ${nachtrag.id}\n` +
-    `Beschreibung: ${befehl.beschreibung}\n` +
-    `Gemeldet von: ${gemeldetVon}\n\n` +
-    `<i>Möchtest du ein Foto hinzufügen?</i>`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "📷 Foto hinzufügen", callback_data: "nachtrag:add_foto" }],
-      [{ text: "✅ Fertig", callback_data: "bau:menu" }]
-    ] } }
-  );
-
-  // Session aktualisieren für Foto-Upload
-  await updateSession(chatId, {
-    modus_daten: {
-      ...befehl,
-      nachtrag_id: nachtrag.id,
-      projekt_nr: `ATBS-${atbs}`
-    }
-  });
-}
-
-/**
- * Führt Mangel-Meldung aus
- */
-async function executeMangelBefehl(chatId: number, befehl: SprachBefehl, atbs: string) {
-  const frist = new Date();
-  frist.setDate(frist.getDate() + 7);
-
-  // Mangel in DB anlegen
-  const { data: mangel, error } = await supabase
-    .from('maengel_fertigstellung')
-    .insert({
-      projekt_nr: `ATBS-${atbs}`,
-      beschreibung_mangel: befehl.beschreibung,
-      art_des_mangels: befehl.gewerk || 'Sonstiges',
-      status_mangel: 'Offen',
-      datum_meldung: new Date().toISOString(),
-      datum_frist: frist.toISOString(),
-      erinnerung_status: 'Aktiv'
-    })
-    .select('id, mangel_id')
-    .single();
-
-  if (error) {
-    throw new Error(`Fehler beim Anlegen: ${error.message}`);
-  }
-
-  await sendMessage(chatId,
-    `✅ <b>Mangel gemeldet</b>\n\n` +
-    `Projekt: ATBS-${atbs}\n` +
-    `ID: ${mangel.mangel_id || mangel.id}\n` +
-    `Gewerk: ${befehl.gewerk || 'Sonstiges'}\n` +
-    `Beschreibung: ${befehl.beschreibung}\n` +
-    `Frist: ${frist.toLocaleDateString('de-DE')}\n\n` +
-    `<i>Möchtest du ein Foto hinzufügen?</i>`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "📷 Foto hinzufügen", callback_data: "mangel:add_foto" }],
-      [{ text: "✅ Fertig", callback_data: "bau:menu" }]
-    ] } }
-  );
-
-  // Session aktualisieren für Foto-Upload
-  await updateSession(chatId, {
-    aktueller_modus: 'mangel_foto',
-    modus_daten: {
-      created_maengel: [{ id: mangel.id, mangel_id: mangel.mangel_id, beschreibung: befehl.beschreibung, gewerk: befehl.gewerk }],
-      projekt_nr: `ATBS-${atbs}`
-    }
-  });
 }
 
 // ============================================
@@ -1608,40 +445,34 @@ async function showPhaseSelection(chatId: number) {
     `<b>📁 Phase auswählen</b>\n\n` +
     `Welche Phase möchtest du filtern?`,
     { reply_markup: { inline_keyboard: [
-      [{ text: "(0) Bedarfsanalyse", callback_data: "phase:0" }],
-      [{ text: "(1) Angebotsstellung", callback_data: "phase:1" }],
-      [{ text: "(2) Auftrag erhalten", callback_data: "phase:2" }],
-      [{ text: "(3) Vorbereitung", callback_data: "phase:3" }],
-      [{ text: "(4) Umsetzung", callback_data: "phase:4" }],
+      [{ text: "🔍 (0) Bedarfsanalyse", callback_data: "phase:0" }],
+      [{ text: "📝 (1) Angebotsphase", callback_data: "phase:1" }],
+      [{ text: "✅ (2) Auftrag erhalten", callback_data: "phase:2" }],
+      [{ text: "🔧 (3) Vorbereitung", callback_data: "phase:3" }],
+      [{ text: "🏗️ (4) Umsetzung", callback_data: "phase:4" }],
+      [{ text: "💰 (5) Rechnungsstellung", callback_data: "phase:5" }],
+      [{ text: "🏁 (7) Abgeschlossen", callback_data: "phase:7" }],
+      [{ text: "❌ (9) Nicht erhalten", callback_data: "phase:9" }],
       [{ text: "⬅️ Zurück", callback_data: "mode_baustelle" }]
     ] } }
   );
 }
 
-// NEU v51: Projekte nach Phase filtern
+// NEU v71: Projekte nach Phase filtern (mit echten DB-Spalten)
 async function listProjekteByPhase(chatId: number, phaseNumber: number, page: number = 0) {
   const PAGE_SIZE = 15;
+  const phaseLabel = PHASE_LABELS[phaseNumber] || `(${phaseNumber})`;
 
-  const { data: projekte, error } = await supabase
+  // Direkt in DB filtern mit LIKE auf Phase-Nummer
+  const { data: projekte, error, count } = await supabase
     .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .order('updated_at', { ascending: false })
-    .limit(200);
+    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse', { count: 'exact' })
+    .like('status_projekt', `(${phaseNumber})%`)
+    .order('updated_at', { ascending: false });
 
   if (error || !projekte || projekte.length === 0) {
-    await sendMessage(chatId, 'Keine Projekte gefunden.');
-    return;
-  }
-
-  // Nach Phase filtern
-  const gefiltert = projekte.filter(p => {
-    const pNum = extractPhaseNumber(p.column_values);
-    return pNum === phaseNumber;
-  });
-
-  if (gefiltert.length === 0) {
     await sendMessage(chatId,
-      `Keine Projekte in Phase ${PHASE_LABELS[phaseNumber] || phaseNumber} gefunden.`,
+      `Keine Projekte in Phase ${phaseLabel} gefunden.`,
       { reply_markup: { inline_keyboard: [
         [{ text: "⬅️ Andere Phase wählen", callback_data: "bau:select_method:phase" }],
         [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
@@ -1651,14 +482,13 @@ async function listProjekteByPhase(chatId: number, phaseNumber: number, page: nu
   }
 
   // Pagination
-  const totalPages = Math.ceil(gefiltert.length / PAGE_SIZE);
+  const totalPages = Math.ceil(projekte.length / PAGE_SIZE);
   const startIdx = page * PAGE_SIZE;
-  const pageItems = gefiltert.slice(startIdx, startIdx + PAGE_SIZE);
+  const pageItems = projekte.slice(startIdx, startIdx + PAGE_SIZE);
 
   const buttons: any[][] = pageItems.map(p => {
-    const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
-    // VOLLSTÄNDIGER Name - nicht abschneiden!
-    const name = p.name || extractProjectName(p.column_values) || '';
+    const atbs = p.atbs_nummer || p.id.substring(0, 8);
+    const name = p.name || p.adresse || '';
     return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
   });
 
@@ -1679,8 +509,8 @@ async function listProjekteByPhase(chatId: number, phaseNumber: number, page: nu
 
   const pageInfo = totalPages > 1 ? ` (Seite ${page + 1}/${totalPages})` : '';
   await sendMessage(chatId,
-    `<b>${PHASE_LABELS[phaseNumber] || `Phase ${phaseNumber}`}</b>\n` +
-    `${gefiltert.length} Projekte${pageInfo}:`,
+    `<b>${phaseLabel}</b>\n` +
+    `${projekte.length} Projekte${pageInfo}:`,
     { reply_markup: { inline_keyboard: buttons } }
   );
 }
@@ -1700,37 +530,26 @@ async function startAtbsDirectInput(chatId: number) {
 async function listActiveProjekte(chatId: number, page: number = 0) {
   const PAGE_SIZE = 15;
 
+  // Aktive Phasen: (2) Auftrag, (3) Vorbereitung, (4) Umsetzung - direkt in DB filtern
   const { data: projekte, error } = await supabase
     .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .order('updated_at', { ascending: false })
-    .limit(200);
+    .select('id, name, atbs_nummer, status_projekt, adresse')
+    .or('status_projekt.like.(2)%,status_projekt.like.(3)%,status_projekt.like.(4)%')
+    .order('updated_at', { ascending: false });
 
   if (error || !projekte || projekte.length === 0) {
-    await sendMessage(chatId, 'Keine aktiven Projekte gefunden.');
-    return;
-  }
-
-  // Filter auf aktive Phasen (2, 3, 4)
-  const aktiveProjekte = projekte.filter(p => {
-    const phaseNum = extractPhaseNumber(p.column_values);
-    return phaseNum !== null && [2, 3, 4].includes(phaseNum);
-  });
-
-  if (aktiveProjekte.length === 0) {
     await sendMessage(chatId, 'Keine aktiven Baustellen gefunden.');
     return;
   }
 
   // Pagination
-  const totalPages = Math.ceil(aktiveProjekte.length / PAGE_SIZE);
+  const totalPages = Math.ceil(projekte.length / PAGE_SIZE);
   const startIdx = page * PAGE_SIZE;
-  const pageItems = aktiveProjekte.slice(startIdx, startIdx + PAGE_SIZE);
+  const pageItems = projekte.slice(startIdx, startIdx + PAGE_SIZE);
 
   const buttons: any[][] = pageItems.map(p => {
-    const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
-    // VOLLSTÄNDIGER Name - nicht abschneiden!
-    const name = p.name || extractProjectName(p.column_values) || '';
+    const atbs = p.atbs_nummer || p.id.substring(0, 8);
+    const name = p.name || p.adresse || '';
     return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
   });
 
@@ -1751,35 +570,25 @@ async function listActiveProjekte(chatId: number, page: number = 0) {
 
   const pageInfo = totalPages > 1 ? ` (Seite ${page + 1}/${totalPages})` : '';
   await sendMessage(chatId,
-    `<b>Aktive Baustellen (${aktiveProjekte.length})${pageInfo}:</b>`,
+    `<b>Aktive Baustellen (${projekte.length})${pageInfo}:</b>`,
     { reply_markup: { inline_keyboard: buttons } }
   );
 }
 
 async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
-  // Normalisiere Suchbegriff: "448", "ATBS-448", "ATBS 448" -> "448"
+  // Normalisiere Suchbegriff: "448", "ATBS-448", "ATBS 448" -> "ATBS-448"
   let term = searchTerm.trim().toUpperCase();
   term = term.replace(/^ATBS[- ]?/i, '');
+  const atbsSearch = `ATBS-${term}`;
 
-  const { data: projekte } = await supabase
+  // Direkt in DB suchen nach ATBS oder Name
+  const { data: matches } = await supabase
     .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .limit(200);
+    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse, bauleiter, nachunternehmer, budget, baustart, bauende, bauleiter_email, bauleiter_telefon, sharepoint_link, hero_projekt_id')
+    .or(`atbs_nummer.ilike.%${term}%,name.ilike.%${term}%`)
+    .limit(20);
 
-  if (!projekte) {
-    await sendMessage(chatId, 'Fehler bei der Projektsuche.');
-    return;
-  }
-
-  const matches = projekte.filter(p => {
-    const atbs = (extractATBS(p.column_values) || '').toUpperCase();
-    const name = (p.name || '').toUpperCase();
-    // Suche auch nach reiner Nummer im ATBS
-    const atbsNum = atbs.replace(/^ATBS[- ]?/i, '');
-    return atbs.includes(term) || atbsNum === term || name.includes(term);
-  });
-
-  if (matches.length === 0) {
+  if (!matches || matches.length === 0) {
     await sendMessage(chatId,
       `Kein Projekt gefunden für "${searchTerm}".\n\nVersuche eine ATBS-Nummer (z.B. ATBS-448 oder 448).`,
       { reply_markup: { inline_keyboard: [
@@ -1793,10 +602,9 @@ async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
   if (matches.length === 1) {
     await openProjekt(chatId, matches[0]);
   } else {
-    // VOLLSTÄNDIGER Name - nicht abschneiden!
     const buttons = matches.slice(0, 15).map(p => {
-      const atbs = extractATBS(p.column_values) || p.id.substring(0, 8);
-      const name = p.name || extractProjectName(p.column_values) || '';
+      const atbs = p.atbs_nummer || p.id.substring(0, 8);
+      const name = p.name || p.adresse || '';
       return [{ text: `${atbs}: ${name}`, callback_data: `bau:open:${p.id}` }];
     });
     buttons.push([{ text: "⬅️ Abbrechen", callback_data: "mode_baustelle" }]);
@@ -1809,20 +617,14 @@ async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
 }
 
 async function openProjekt(chatId: number, projekt: any) {
-  const atbs = extractATBS(projekt.column_values) || projekt.id.substring(0, 8);
-  const projektName = projekt.name || extractProjectName(projekt.column_values) || '';
-  const phase = extractPhase(projekt.column_values) || '?';
-  const columnValues = projekt.column_values || {};
-
-  // Extrahiere zusätzliche Projekt-Infos aus Monday
-  const bauleiter = extractFieldText(columnValues, ...PROJEKT_SPALTEN.bauleiter) || '-';
-  const nachunternehmer = extractFieldText(columnValues, ...PROJEKT_SPALTEN.nachunternehmer) || '-';
-  const bvStart = extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0]) !== '-'
-    ? extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0])
-    : extractDate(columnValues, PROJEKT_SPALTEN.bv_start[1]);
-  const bvEndePlan = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_plan);
-  const bvEndeMaengelfrei = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_maengelfrei);
-  const bvEndeKunde = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_kunde);
+  // v71: Nutze direkt die neuen Spalten statt column_values
+  const atbs = projekt.atbs_nummer || projekt.id.substring(0, 8);
+  const projektName = projekt.name || projekt.adresse || '';
+  const phase = projekt.status_projekt || '?';
+  const bauleiter = projekt.bauleiter || '-';
+  const nachunternehmer = projekt.nachunternehmer || '-';
+  const bvStart = projekt.baustart ? formatDate(projekt.baustart) : '-';
+  const bvEnde = projekt.bauende ? formatDate(projekt.bauende) : '-';
 
   // Zähle offene Mängel und Nachträge
   const { count: mangelCount } = await supabase
@@ -1856,9 +658,7 @@ async function openProjekt(chatId: number, projekt: any) {
   infoText += `🔧 NU: ${nachunternehmer}\n\n`;
   infoText += `📅 Termine:\n`;
   infoText += `   Start: ${bvStart}\n`;
-  infoText += `   Ende NU Plan: ${bvEndePlan}\n`;
-  infoText += `   Ende Mängelfrei: ${bvEndeMaengelfrei}\n`;
-  infoText += `   Ende Kunde: ${bvEndeKunde}\n\n`;
+  infoText += `   Ende: ${bvEnde}\n\n`;
   infoText += `⚠️ Offen: ${mangelCount || 0} Mängel | ${nachtragCount || 0} Nachträge\n`;
   infoText += `━━━━━━━━━━━━━━━━━━━━`;
 
@@ -1870,253 +670,9 @@ async function openProjekt(chatId: number, projekt: any) {
       [{ text: "🏗️ Gewerk-Status", callback_data: `bau:gewerke:${projekt.id}` }],
       [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
       [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
-      [{ text: "📅 Termine", callback_data: `bau:termine:${projekt.id}` }],
       [{ text: "❌ Projekt schließen", callback_data: "bau:close" }]
     ] }
   });
-}
-
-// ============================================
-// Baustellen-Features: Termine anpassen (NEU v55)
-// ============================================
-
-// Termin-Typen Konfiguration
-const TERMIN_TYPEN: Record<string, { label: string; mondayField: string }> = {
-  start: { label: 'BV Start', mondayField: 'bv_start_plan' },
-  plan: { label: 'BV Ende NU Plan', mondayField: 'bv_ende_nu_plan' },
-  maengelfrei: { label: 'BV Ende Mängelfrei', mondayField: 'bv_ende_maengelfrei' },
-  kunde: { label: 'BV Ende Kunde', mondayField: 'bv_ende_kunde' },
-};
-
-// Termine-Menü anzeigen
-async function showTermineMenu(chatId: number, projektId: string) {
-  const { data: projekt } = await supabase
-    .from('monday_bauprozess')
-    .select('id, name, column_values')
-    .eq('id', projektId)
-    .single();
-
-  if (!projekt) {
-    await sendMessage(chatId, '⚠️ Projekt nicht gefunden.');
-    return;
-  }
-
-  const atbs = extractATBS(projekt.column_values) || projektId.substring(0, 8);
-  const columnValues = projekt.column_values || {};
-
-  // Termine aus Monday extrahieren
-  const bvStart = extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0]) !== '-'
-    ? extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0])
-    : extractDate(columnValues, PROJEKT_SPALTEN.bv_start[1]);
-  const bvEndePlan = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_plan);
-  const bvEndeMaengelfrei = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_maengelfrei);
-  const bvEndeKunde = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_kunde);
-
-  let text = `<b>📅 Termine anpassen ${atbs}</b>\n\n`;
-  text += `<b>Aktuelle Termine:</b>\n`;
-  text += `• BV Start: ${bvStart}\n`;
-  text += `• BV Ende NU Plan: ${bvEndePlan}\n`;
-  text += `• BV Ende Mängelfrei: ${bvEndeMaengelfrei}\n`;
-  text += `• BV Ende Kunde: ${bvEndeKunde}\n`;
-
-  await sendMessage(chatId, text, {
-    reply_markup: { inline_keyboard: [
-      [{ text: "📅 BV Start ändern", callback_data: `termin:start:${projektId}` }],
-      [{ text: "📅 BV Ende NU Plan ändern", callback_data: `termin:plan:${projektId}` }],
-      [{ text: "📅 BV Ende Mängelfrei ändern", callback_data: `termin:maengelfrei:${projektId}` }],
-      [{ text: "📅 BV Ende Kunde ändern", callback_data: `termin:kunde:${projektId}` }],
-      [{ text: "⬅️ Zurück", callback_data: `bau:open:${projektId}` }]
-    ] }
-  });
-}
-
-// Termin-Eingabe starten
-async function startTerminEingabe(chatId: number, session: any, terminTyp: string, projektId: string) {
-  // Berechtigungsprüfung
-  const berechtigt = await istBerechtigt(chatId);
-  if (!berechtigt) {
-    await sendMessage(chatId,
-      '⚠️ <b>Keine Berechtigung</b>\n\n' +
-      'Nur Bauleiter und Geschäftsführung können Termine ändern.',
-      { reply_markup: { inline_keyboard: [
-        [{ text: "⬅️ Zurück", callback_data: `bau:termine:${projektId}` }]
-      ] } }
-    );
-    return;
-  }
-
-  const config = TERMIN_TYPEN[terminTyp];
-  if (!config) {
-    await sendMessage(chatId, '⚠️ Unbekannter Termin-Typ.');
-    return;
-  }
-
-  await updateSession(chatId, {
-    aktueller_modus: `await_termin_${terminTyp}_${projektId}`,
-    modus_daten: {
-      ...session?.modus_daten,
-      termin_typ: terminTyp,
-      termin_projekt_id: projektId
-    }
-  });
-
-  await sendMessage(chatId,
-    `<b>📅 ${config.label} ändern</b>\n\n` +
-    `Neues Datum eingeben:\n\n` +
-    `<i>Beispiele:</i>\n` +
-    `• "17.03." oder "17.03.2026"\n` +
-    `• "in 2 tagen", "in 1 woche"\n` +
-    `• "heute", "morgen", "übermorgen"`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "❌ Abbrechen", callback_data: `termin:cancel:${projektId}` }]
-    ] } }
-  );
-}
-
-// Termin-Eingabe verarbeiten
-async function handleTerminEingabe(chatId: number, session: any, text: string) {
-  const modus = session?.aktueller_modus || '';
-  const match = modus.match(/^await_termin_(\w+)_(.+)$/);
-
-  if (!match) {
-    await sendMessage(chatId, '⚠️ Ungültiger Modus.');
-    return;
-  }
-
-  const terminTyp = match[1];
-  const projektId = match[2];
-  const config = TERMIN_TYPEN[terminTyp];
-
-  if (!config) {
-    await sendMessage(chatId, '⚠️ Unbekannter Termin-Typ.');
-    return;
-  }
-
-  // Datum parsen
-  const neuesDatum = parseDatum(text);
-
-  if (!neuesDatum) {
-    await sendMessage(chatId,
-      '⚠️ <b>Ungültiges Datum</b>\n\n' +
-      `"${text}" konnte nicht als Datum erkannt werden.\n\n` +
-      `Bitte verwende:\n` +
-      `• "17.03." oder "17.03.2026"\n` +
-      `• "in 2 tagen", "in 1 woche"\n` +
-      `• "heute", "morgen"`,
-      { reply_markup: { inline_keyboard: [
-        [{ text: "❌ Abbrechen", callback_data: `termin:cancel:${projektId}` }]
-      ] } }
-    );
-    return;
-  }
-
-  // Alten Wert laden für Vorschau
-  const { data: projekt } = await supabase
-    .from('monday_bauprozess')
-    .select('column_values')
-    .eq('id', projektId)
-    .single();
-
-  const columnValues = projekt?.column_values || {};
-  let alterWert = '-';
-
-  // Passenden alten Wert basierend auf Termin-Typ extrahieren
-  if (terminTyp === 'start') {
-    alterWert = extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0]) !== '-'
-      ? extractDate(columnValues, PROJEKT_SPALTEN.bv_start[0])
-      : extractDate(columnValues, PROJEKT_SPALTEN.bv_start[1]);
-  } else if (terminTyp === 'plan') {
-    alterWert = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_plan);
-  } else if (terminTyp === 'maengelfrei') {
-    alterWert = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_maengelfrei);
-  } else if (terminTyp === 'kunde') {
-    alterWert = extractDate(columnValues, PROJEKT_SPALTEN.bv_ende_kunde);
-  }
-
-  const neuerWert = neuesDatum.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const datumIso = neuesDatum.toISOString().split('T')[0]; // YYYY-MM-DD
-
-  await sendMessage(chatId,
-    `<b>📅 Termin ändern</b>\n\n` +
-    `${config.label}: ${alterWert} → <b>${neuerWert}</b>\n\n` +
-    `Änderung speichern?`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "✅ Speichern", callback_data: `termin:confirm:${terminTyp}:${projektId}:${datumIso}` }],
-      [{ text: "❌ Abbrechen", callback_data: `termin:cancel:${projektId}` }]
-    ] } }
-  );
-}
-
-// Termin bestätigen und speichern
-async function confirmTerminAenderung(chatId: number, terminTyp: string, projektId: string, datumIso: string) {
-  const config = TERMIN_TYPEN[terminTyp];
-  if (!config) {
-    await sendMessage(chatId, '⚠️ Unbekannter Termin-Typ.');
-    return;
-  }
-
-  // Projekt laden
-  const { data: projekt } = await supabase
-    .from('monday_bauprozess')
-    .select('id, column_values')
-    .eq('id', projektId)
-    .single();
-
-  if (!projekt) {
-    await sendMessage(chatId, '⚠️ Projekt nicht gefunden.');
-    return;
-  }
-
-  // Monday-Spalten-IDs für Termine
-  const MONDAY_TERMIN_SPALTEN: Record<string, string> = {
-    start: PROJEKT_SPALTEN.bv_start[1], // f55yA
-    plan: PROJEKT_SPALTEN.bv_ende_plan, // 25nEy
-    maengelfrei: PROJEKT_SPALTEN.bv_ende_maengelfrei, // 7hwYG
-    kunde: PROJEKT_SPALTEN.bv_ende_kunde, // 8pRus
-  };
-
-  const mondaySpalteId = MONDAY_TERMIN_SPALTEN[terminTyp];
-  if (!mondaySpalteId) {
-    await sendMessage(chatId, '⚠️ Spalten-ID nicht gefunden.');
-    return;
-  }
-
-  // column_values aktualisieren
-  const columnValues = projekt.column_values || {};
-  columnValues[mondaySpalteId] = { date: datumIso, text: datumIso };
-
-  const { error } = await supabase
-    .from('monday_bauprozess')
-    .update({
-      column_values: columnValues,
-      updated_at: new Date().toISOString()
-    })
-    .eq('id', projektId);
-
-  if (error) {
-    console.error('Error updating termin:', error);
-    await sendMessage(chatId, `⚠️ Fehler beim Speichern: ${error.message}`);
-    return;
-  }
-
-  const neuerWert = new Date(datumIso).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const atbs = extractATBS(projekt.column_values) || projektId.substring(0, 8);
-
-  // Session zurücksetzen
-  await updateSession(chatId, {
-    aktueller_modus: 'baustelle',
-    modus_daten: {}
-  });
-
-  await sendMessage(chatId,
-    `✅ <b>Termin gespeichert!</b>\n\n` +
-    `${config.label}: <b>${neuerWert}</b>\n\n` +
-    `<i>Hinweis: Die Änderung wird beim nächsten Monday-Sync übertragen.</i>`,
-    { reply_markup: { inline_keyboard: [
-      [{ text: "📅 Weitere Termine ändern", callback_data: `bau:termine:${projektId}` }],
-      [{ text: "⬅️ Zurück zum Projekt", callback_data: `bau:open:${projektId}` }]
-    ] } }
-  );
 }
 
 // NEU: Gewerk-Status-Tabelle anzeigen
@@ -3546,7 +2102,6 @@ async function handleStart(chatId: number, session: any) {
       [{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }],
       [{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }],
       [{ text: "🔍 ATBS direkt eingeben", callback_data: "mode_atbs_direkt" }],
-      [{ text: "❓ Hilfe Sprach-Befehle", callback_data: "hilfe:sprachbefehle" }],
     ] } }
   );
 }
@@ -3625,13 +2180,6 @@ async function handleCallbackQuery(update: any) {
   if (data === 'main_menu') {
     await answerCallbackQuery(callbackId);
     await handleStart(chatId, session);
-    return;
-  }
-
-  // NEU v55: Hilfe Sprach-Befehle
-  if (data === 'hilfe:sprachbefehle') {
-    await answerCallbackQuery(callbackId);
-    await showSprachBefehlHilfe(chatId);
     return;
   }
 
@@ -3792,73 +2340,6 @@ async function handleCallbackQuery(update: any) {
     const projektId = data.replace('bau:ausfuehrung:', '');
     await answerCallbackQuery(callbackId, 'Lade Ausführungsarten...');
     await showAusfuehrungsarten(chatId, session, projektId);
-    return;
-  }
-
-  // NEU v55: Termine-Menü
-  if (data.startsWith('bau:termine:')) {
-    const projektId = data.replace('bau:termine:', '');
-    await answerCallbackQuery(callbackId, 'Lade Termine...');
-    await showTermineMenu(chatId, projektId);
-    return;
-  }
-
-  // NEU v55: Termin-Typ gewählt (start, plan, maengelfrei, kunde)
-  if (data.match(/^termin:(start|plan|maengelfrei|kunde):/)) {
-    const parts = data.split(':');
-    const terminTyp = parts[1];
-    const projektId = parts[2];
-    await answerCallbackQuery(callbackId);
-    await startTerminEingabe(chatId, session, terminTyp, projektId);
-    return;
-  }
-
-  // NEU v55: Termin bestätigen
-  if (data.match(/^termin:confirm:/)) {
-    const parts = data.split(':');
-    // termin:confirm:typ:projektId:datum
-    const terminTyp = parts[2];
-    const projektId = parts[3];
-    const datumIso = parts[4];
-    await answerCallbackQuery(callbackId, 'Speichere...');
-    await confirmTerminAenderung(chatId, terminTyp, projektId, datumIso);
-    return;
-  }
-
-  // NEU v55: Termin abbrechen
-  if (data.match(/^termin:cancel:/)) {
-    const projektId = data.replace('termin:cancel:', '');
-    await answerCallbackQuery(callbackId, 'Abgebrochen');
-    await updateSession(chatId, { aktueller_modus: 'baustelle', modus_daten: {} });
-    await showTermineMenu(chatId, projektId);
-    return;
-  }
-
-  // NEU v55: Sprach-Befehl bestätigen
-  if (data === 'befehl:bestaetigen') {
-    await answerCallbackQuery(callbackId, 'Wird ausgeführt...');
-    await executeSprachBefehl(chatId, session);
-    return;
-  }
-
-  // NEU v55: Sprach-Befehl abbrechen
-  if (data === 'befehl:abbrechen') {
-    await answerCallbackQuery(callbackId, 'Abgebrochen');
-    const pendingBefehl = session?.modus_daten?.pending_befehl;
-    await logSprachBefehl(chatId, pendingBefehl, false, 'Vom Benutzer abgebrochen');
-    await updateSession(chatId, {
-      aktueller_modus: session?.aktuelles_bv_id ? 'baustelle' : null,
-      modus_daten: {
-        projekt_nr: session?.modus_daten?.projekt_nr,
-        projekt_name: session?.modus_daten?.projekt_name
-      }
-    });
-    await sendMessage(chatId, '❌ Befehl abgebrochen.',
-      { reply_markup: { inline_keyboard: [
-        [{ text: "🏗️ Baustelle", callback_data: "mode_baustelle" }],
-        [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
-      ] } }
-    );
     return;
   }
 
@@ -4051,7 +2532,7 @@ async function handleCallbackQuery(update: any) {
 
 Deno.serve(async (req) => {
   if (req.method === 'GET') {
-    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v57-hilfe-system' }), {
+    return new Response(JSON.stringify({ status: 'ok', bot: 'neurealis-bot', version: 'v53-multi-foto-abnahme' }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -4165,10 +2646,6 @@ Deno.serve(async (req) => {
         else if (modus === 'nachtrag_erfassen') {
           await handleNachtragText(chatId, session, text);
         }
-        // NEU v55: Termin-Eingabe
-        else if (modus?.startsWith('await_termin_')) {
-          await handleTerminEingabe(chatId, session, text);
-        }
         else if (modus === 'aufmass') {
           await searchMatterportProject(chatId, text);
         }
@@ -4182,32 +2659,9 @@ Deno.serve(async (req) => {
           }
         }
         else {
-          // NEU v55: Sprach-Befehl-Erkennung
-          if (siehtAusWieBefehl(text)) {
-            await sendMessage(chatId, '⏳ Befehl wird analysiert...');
-            const befehl = await parseSprachBefehlMitFallback(text);
-            if (befehl) {
-              await handleSprachBefehl(chatId, session, befehl);
-            } else {
-              // Befehl nicht erkannt - zeige Hilfe-Button
-              await sendMessage(chatId,
-                `❓ <b>Befehl nicht erkannt</b>\n\n` +
-                `Ich konnte deinen Befehl leider nicht verstehen.\n\n` +
-                `<b>Kurze Beispiele:</b>\n` +
-                `• "ATBS 450 Elektrik fertig"\n` +
-                `• "Mangel bei 450: Riss in Fliese"`,
-                { reply_markup: { inline_keyboard: [
-                  [{ text: "❓ Ausführliche Hilfe", callback_data: "hilfe:sprachbefehle" }],
-                  [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
-                ] } }
-              );
-              await logSprachBefehl(chatId, null, false, 'Befehl nicht erkannt: ' + text);
-            }
-          } else {
-            await sendMessage(chatId,
-              `Ich habe deine Nachricht nicht verstanden.\n\n` +
-              `/start - Hauptmenü\n/hilfe - Alle Befehle`);
-          }
+          await sendMessage(chatId,
+            `Ich habe deine Nachricht nicht verstanden.\n\n` +
+            `/start - Hauptmenü\n/hilfe - Alle Befehle`);
         }
       }
     }
