@@ -2,7 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
 
 /**
- * SharePoint-Sync Edge Function
+ * SharePoint-Sync Edge Function v11
  *
  * Synchronisiert Dateien von SharePoint Sites nach Supabase Storage.
  * Nutzt Delta-Queries für inkrementellen Sync.
@@ -12,6 +12,9 @@ import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-
  * - MP4, MOV → Nur Link speichern (keine Download)
  * - Sicherheitsstufen basierend auf Site
  * - Delta-Query Support für effizientes Polling
+ * - v11: Parallele Verarbeitung (3 Items concurrent, Sites nacheinander)
+ * - v11: Batch-Upserts für DB-Operationen
+ * - v11: lastModified-Check - unveränderte Dateien überspringen
  *
  * Aufruf:
  * - GET ?action=sync - Synchronisiert alle konfigurierten Sites
@@ -207,8 +210,21 @@ interface SyncResult {
   linksStored: number;
   foldersSkipped: number;
   deletedItems: number;
+  skipped: number;  // v11: Unveränderte Dateien
   errors: number;
   errorDetails: string[];
+}
+
+// v11: Concurrency-Limits
+const ITEM_CONCURRENCY = 3;   // Parallele Item-Verarbeitung (reduziert wegen Worker-Limit)
+const SITE_CONCURRENCY = 1;   // Sites nacheinander (große Sites brauchen viel RAM)
+const BATCH_SIZE = 20;        // DB Batch-Upsert Größe (reduziert für Stabilität)
+
+// v11: Pending Records für Batch-Upsert
+interface PendingRecord {
+  record: Record<string, unknown>;
+  isUpdate: boolean;
+  existingId?: string;
 }
 
 // ============================================================================
@@ -300,6 +316,54 @@ function extractATBS(path: string): string | null {
 }
 
 // ============================================================================
+// v11: Batch-Upsert Funktion für DB-Operationen
+// ============================================================================
+
+/**
+ * Führt Batch-Upsert für gesammelte Records aus
+ */
+async function flushBatchUpsert(pendingRecords: PendingRecord[], result: SyncResult): Promise<void> {
+  if (pendingRecords.length === 0) return;
+
+  // Gruppiere nach Insert/Update
+  const inserts = pendingRecords.filter(p => !p.isUpdate).map(p => ({
+    ...p.record,
+    created_at: new Date().toISOString(),
+  }));
+  const updates = pendingRecords.filter(p => p.isUpdate);
+
+  // Batch-Insert
+  if (inserts.length > 0) {
+    const { error } = await supabase
+      .from('dokumente')
+      .insert(inserts);
+
+    if (error) {
+      console.error(`Batch-Insert fehlgeschlagen für ${inserts.length} Records:`, error);
+      result.errors += inserts.length;
+      result.errorDetails.push(`Batch-Insert: ${error.message}`);
+    }
+  }
+
+  // Updates einzeln (wegen verschiedener IDs)
+  for (const upd of updates) {
+    const { error } = await supabase
+      .from('dokumente')
+      .update(upd.record)
+      .eq('id', upd.existingId);
+
+    if (error) {
+      console.error(`Update fehlgeschlagen:`, error);
+      result.errors++;
+      result.errorDetails.push(`Update: ${error.message}`);
+    }
+  }
+
+  // Leeren
+  pendingRecords.length = 0;
+}
+
+// ============================================================================
 // Graph API Funktionen
 // ============================================================================
 
@@ -366,27 +430,45 @@ async function fetchDelta(
  * WICHTIG: Bei SharePoint funktioniert @microsoft.graph.downloadUrl nicht immer!
  * Stattdessen direkt /content verwenden mit redirect:manual um Download-URL zu bekommen.
  */
-async function downloadFile(accessToken: string, driveId: string, itemId: string): Promise<ArrayBuffer | null> {
+async function downloadFile(accessToken: string, driveId: string, itemId: string, fileName: string): Promise<ArrayBuffer | null> {
   // /content Endpoint gibt einen 302 Redirect zur Download-URL zurück
-  // Mit redirect:manual bekommen wir die URL aus dem Location-Header
   const url = `${GRAPH_API_URL}/drives/${driveId}/items/${itemId}/content`;
 
   try {
-    // Erster Versuch: Redirect folgen und Datei direkt bekommen
+    // Erster Versuch: Redirect manuell behandeln für bessere Kontrolle
     const response = await fetch(url, {
       headers: { 'Authorization': `Bearer ${accessToken}` },
-      redirect: 'follow',
+      redirect: 'manual',
     });
 
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => 'Kein Error-Body');
-      console.error(`Download /content fehlgeschlagen für ${itemId}: ${response.status} - ${errorText.substring(0, 200)}`);
-      return null;
+    // 302 = Redirect zur Download-URL
+    if (response.status === 302) {
+      const downloadUrl = response.headers.get('Location');
+      if (!downloadUrl) {
+        console.error(`[Download] Kein Location-Header für ${fileName}`);
+        return null;
+      }
+
+      // Download von der Redirect-URL (ohne Auth, da temporäre URL)
+      const downloadResponse = await fetch(downloadUrl);
+      if (!downloadResponse.ok) {
+        console.error(`[Download] Redirect-URL fehlgeschlagen für ${fileName}: ${downloadResponse.status}`);
+        return null;
+      }
+      return await downloadResponse.arrayBuffer();
     }
 
-    return await response.arrayBuffer();
+    // Direkte Antwort (kein Redirect)
+    if (response.ok) {
+      return await response.arrayBuffer();
+    }
+
+    // Fehler
+    const errorText = await response.text().catch(() => 'Kein Error-Body');
+    console.error(`[Download] Fehlgeschlagen für ${fileName}: ${response.status} - ${errorText.substring(0, 300)}`);
+    return null;
   } catch (error) {
-    console.error(`Download-Exception für ${itemId}:`, error);
+    console.error(`[Download] Exception für ${fileName}:`, error);
     return null;
   }
 }
@@ -446,9 +528,9 @@ async function downloadAndStore(
 ): Promise<string | null> {
   try {
     // Datei direkt über /content herunterladen
-    const fileData = await downloadFile(accessToken, driveId, item.id);
+    const fileData = await downloadFile(accessToken, driveId, item.id, item.name);
     if (!fileData) {
-      console.error(`Download fehlgeschlagen für: ${item.name} (itemId: ${item.id})`);
+      console.error(`[Sync] Download fehlgeschlagen für: ${item.name}`);
       return null;
     }
 
@@ -488,13 +570,15 @@ async function downloadAndStore(
 
 /**
  * Verarbeitet ein einzelnes Item (Datei oder Ordner)
+ * v11: Nutzt pendingRecords für Batch-Upsert und lastModified-Check
  */
 async function processItem(
   accessToken: string,
   driveId: string,
   item: DriveItem,
   sitePath: string,
-  result: SyncResult
+  result: SyncResult,
+  pendingRecords: PendingRecord[]
 ): Promise<void> {
   // Gelöschte Items
   if (item.deleted) {
@@ -521,6 +605,23 @@ async function processItem(
   const ext = item.name.toLowerCase().substring(item.name.lastIndexOf('.'));
   if (!DOWNLOAD_EXTENSIONS.includes(ext) && !LINK_ONLY_EXTENSIONS.includes(ext)) {
     return;
+  }
+
+  // v11: lastModified-Check - Existierendes Dokument prüfen
+  const { data: existing } = await supabase
+    .from('dokumente')
+    .select('id, onedrive_synced_at')
+    .eq('onedrive_item_id', item.id)
+    .single();
+
+  // v11: Überspringe wenn Datei unverändert (bei vorhandenem Sync)
+  if (existing?.onedrive_synced_at) {
+    const lastSyncedAt = new Date(existing.onedrive_synced_at);
+    const lastModifiedAt = new Date(item.lastModifiedDateTime);
+    if (lastSyncedAt >= lastModifiedAt) {
+      result.skipped++;
+      return;
+    }
   }
 
   const path = extractPath(item);
@@ -579,44 +680,19 @@ async function processItem(
     record.atbs_nummer = atbsNummer;
   }
 
-  // Upsert basierend auf onedrive_item_id
-  const { data: existing } = await supabase
-    .from('dokumente')
-    .select('id')
-    .eq('onedrive_item_id', item.id)
-    .single();
-
-  if (existing) {
-    const { error } = await supabase
-      .from('dokumente')
-      .update(record)
-      .eq('id', existing.id);
-
-    if (error) {
-      console.error(`Update fehlgeschlagen für ${item.name}:`, error);
-      result.errors++;
-      result.errorDetails.push(`Update: ${item.name} - ${error.message}`);
-    }
-  } else {
-    const { error } = await supabase
-      .from('dokumente')
-      .insert({
-        ...record,
-        created_at: new Date().toISOString(),
-      });
-
-    if (error) {
-      console.error(`Insert fehlgeschlagen für ${item.name}:`, error);
-      result.errors++;
-      result.errorDetails.push(`Insert: ${item.name} - ${error.message}`);
-    }
-  }
+  // v11: Zu Batch hinzufügen statt sofort schreiben
+  pendingRecords.push({
+    record,
+    isUpdate: !!existing,
+    existingId: existing?.id,
+  });
 
   result.itemsProcessed++;
 }
 
 /**
  * Synchronisiert eine einzelne SharePoint Site
+ * v11: Parallele Item-Verarbeitung + Batch-Upserts
  */
 async function syncSite(accessToken: string, sitePath: string): Promise<SyncResult> {
   const result: SyncResult = {
@@ -627,9 +703,13 @@ async function syncSite(accessToken: string, sitePath: string): Promise<SyncResu
     linksStored: 0,
     foldersSkipped: 0,
     deletedItems: 0,
+    skipped: 0,  // v11: Unveränderte Dateien
     errors: 0,
     errorDetails: [],
   };
+
+  // v11: Pending Records für Batch-Upsert
+  const pendingRecords: PendingRecord[] = [];
 
   try {
     // Site-ID und Drive-ID holen
@@ -641,19 +721,35 @@ async function syncSite(accessToken: string, sitePath: string): Promise<SyncResu
     const state = await getSyncState(sitePath);
     let deltaLink = state.deltaLink;
 
-    console.log(`Sync starte für ${sitePath}, Delta-Link: ${deltaLink ? 'vorhanden' : 'neu'}`);
+    console.log(`[${sitePath}] Sync starte, Delta-Link: ${deltaLink ? 'vorhanden' : 'neu'}`);
 
     // Delta-Query ausführen (mit Pagination)
     let hasMore = true;
     let nextLink: string | null = null;
     let newDeltaLink: string | null = null;
+    let pageCount = 0;
 
     while (hasMore) {
       const deltaResponse = await fetchDelta(accessToken, driveId, nextLink || deltaLink);
+      pageCount++;
+      const items = deltaResponse.value;
 
-      // Items verarbeiten
-      for (const item of deltaResponse.value) {
-        await processItem(accessToken, driveId, item, sitePath, result);
+      console.log(`[${sitePath}] Seite ${pageCount}: ${items.length} Items`);
+
+      // v11: Parallele Verarbeitung mit Chunk-basiertem Concurrency
+      for (let i = 0; i < items.length; i += ITEM_CONCURRENCY) {
+        const chunk = items.slice(i, i + ITEM_CONCURRENCY);
+
+        // Parallel verarbeiten
+        await Promise.allSettled(
+          chunk.map(item => processItem(accessToken, driveId, item, sitePath, result, pendingRecords))
+        );
+
+        // v11: Batch-Upsert wenn genug Records gesammelt
+        if (pendingRecords.length >= BATCH_SIZE) {
+          console.log(`[${sitePath}] Batch-Upsert: ${pendingRecords.length} Records`);
+          await flushBatchUpsert(pendingRecords, result);
+        }
       }
 
       // Pagination
@@ -665,15 +761,21 @@ async function syncSite(accessToken: string, sitePath: string): Promise<SyncResu
       }
     }
 
+    // v11: Restliche Records flushen
+    if (pendingRecords.length > 0) {
+      console.log(`[${sitePath}] Finale Batch-Upsert: ${pendingRecords.length} Records`);
+      await flushBatchUpsert(pendingRecords, result);
+    }
+
     // Neuen Delta-Link speichern
     if (newDeltaLink) {
       await saveSyncState(sitePath, driveId, newDeltaLink, result.itemsProcessed);
     }
 
-    console.log(`Sync abgeschlossen für ${sitePath}: ${result.itemsProcessed} Items, ${result.filesDownloaded} Downloads, ${result.errors} Fehler`);
+    console.log(`[${sitePath}] Sync abgeschlossen: ${result.itemsProcessed} verarbeitet, ${result.filesDownloaded} Downloads, ${result.skipped} übersprungen, ${result.errors} Fehler`);
 
   } catch (error) {
-    console.error(`Sync fehlgeschlagen für ${sitePath}:`, error);
+    console.error(`[${sitePath}] Sync fehlgeschlagen:`, error);
     result.errors++;
     result.errorDetails.push(`Site-Fehler: ${String(error)}`);
   }
@@ -704,18 +806,48 @@ Deno.serve(async (req: Request) => {
           ? [siteParam]
           : SYNC_SITES.filter(s => !EXCLUDED_SITES.includes(s));
 
-        for (const site of sitesToSync) {
-          const result = await syncSite(accessToken, site);
-          results.push(result);
+        console.log(`[SharePoint-Sync v11] Starte Sync für ${sitesToSync.length} Sites (${SITE_CONCURRENCY} parallel)`);
+
+        // v11: Parallele Site-Verarbeitung mit Chunk-basiertem Concurrency
+        for (let i = 0; i < sitesToSync.length; i += SITE_CONCURRENCY) {
+          const chunk = sitesToSync.slice(i, i + SITE_CONCURRENCY);
+          console.log(`[SharePoint-Sync v11] Site-Chunk ${Math.floor(i / SITE_CONCURRENCY) + 1}: ${chunk.map(s => s.replace('/sites/', '')).join(', ')}`);
+
+          const chunkResults = await Promise.allSettled(
+            chunk.map(site => syncSite(accessToken, site))
+          );
+
+          // Erfolgreiche Ergebnisse sammeln
+          for (const r of chunkResults) {
+            if (r.status === 'fulfilled') {
+              results.push(r.value);
+            } else {
+              console.error('[SharePoint-Sync v11] Site-Sync Fehler:', r.reason);
+              // Dummy-Result für fehlgeschlagene Sites
+              results.push({
+                site: 'unknown',
+                driveId: '',
+                itemsProcessed: 0,
+                filesDownloaded: 0,
+                linksStored: 0,
+                foldersSkipped: 0,
+                deletedItems: 0,
+                skipped: 0,
+                errors: 1,
+                errorDetails: [String(r.reason)],
+              });
+            }
+          }
         }
 
-        // Gesamtstatistik
+        // Gesamtstatistik (v11: mit skipped)
         const totals = results.reduce((acc, r) => ({
           itemsProcessed: acc.itemsProcessed + r.itemsProcessed,
           filesDownloaded: acc.filesDownloaded + r.filesDownloaded,
           linksStored: acc.linksStored + r.linksStored,
           foldersSkipped: acc.foldersSkipped + r.foldersSkipped,
           deletedItems: acc.deletedItems + r.deletedItems,
+          skipped: acc.skipped + r.skipped,
           errors: acc.errors + r.errors,
         }), {
           itemsProcessed: 0,
@@ -723,12 +855,17 @@ Deno.serve(async (req: Request) => {
           linksStored: 0,
           foldersSkipped: 0,
           deletedItems: 0,
+          skipped: 0,
           errors: 0,
         });
 
+        const duration = Date.now() - startTime;
+        console.log(`[SharePoint-Sync v11] Fertig in ${duration}ms: ${totals.itemsProcessed} verarbeitet, ${totals.skipped} übersprungen, ${totals.filesDownloaded} Downloads`);
+
         return new Response(JSON.stringify({
           success: true,
-          duration_ms: Date.now() - startTime,
+          version: 'v11',
+          duration_ms: duration,
           sites_synced: results.length,
           totals,
           details: results,

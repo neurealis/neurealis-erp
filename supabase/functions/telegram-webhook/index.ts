@@ -2,11 +2,24 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * telegram-webhook v60 - Audio-Briefing für Bauleiter
+ * telegram-webhook v74 - Optimiertes Hauptmenü
  *
  * KOMPLETT NEUER Bot: @neurealis_bedarfsanalyse_bot
  *
- * NEU in v60: Audio-Briefing Feature
+ * NEU in v74: Optimierte Menü-Reihenfolge für Bauleiter
+ * - Favoriten → ATBS direkt → Baustelle → Aufmaß → Audio-Briefing → Bedarfsanalyse
+ * - Präfix-Konvention: nu_*, bl_*, ag_* für eindeutige Spalten
+ *
+ * v71: Phasenfilter mit echten DB-Spalten
+ * - Projekte nach Phase filtern mit direktem DB-Query
+ *
+ * v61: Kombinierter Status-View
+ * - 📊 Status & Gewerke: Kombiniert alle Infos in einer Ansicht
+ *   - Gewerk-Tabelle mit Plan (Ausführungsart) + Ist (aktueller Status)
+ *   - Mängel, Nachträge, Nachweise-Zähler
+ * - 📨 Nachricht an NU: Ausgeblendet (Backend bleibt erhalten)
+ *
+ * v60: Audio-Briefing Feature
  * - 🎙️ /briefing Befehl: Generiert Audio-Briefing für Bauleiter
  *   - Nur für Bauleiter (Rolle BL) oder Holger Neumann verfügbar
  *   - Ruft audio-briefing-generate Edge Function auf
@@ -17,10 +30,7 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
  * - 📝 Bericht erstellen: Baustellenbegehungsberichte via Text/Sprache
  *   - Speicherung in dokumente-Tabelle (Dokumenttyp: BERICHT)
  *   - Session-State für Bericht-Eingabe
- * - 📨 Nachricht an NU: Schnell-Nachrichten an Nachunternehmer
- *   - Vordefinierte Templates (Termin, Material, Dringend)
- *   - Eigene Nachricht schreiben
- *   - NU-Chat-ID aus monday_bauprozess → kontakte ermitteln
+ * - 📨 Nachricht an NU: Backend-Logik (aktuell ausgeblendet)
  *
  * v58: Tages-Dashboard, ATBS-Nummerierung, Favoriten
  * - 📊 Tages-Dashboard: Bei /start für Bauleiter überfällige Mängel + offene Nachträge
@@ -30,8 +40,6 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
  * v54: Kompakte Projekt-Info & Gewerk-Status-Tabelle
  * - Beim Öffnen: BL, NU, Termine (Start, Ende NU Plan, Mängelfrei, Kunde)
  * - Zählt offene Mängel und Nachträge
- * - 🏗️ Gewerk-Status: Tabelle mit allen 9 Gewerken und Status-Emojis
- * - Callback: bau:gewerke:{projektId}
  *
  * v53: Multi-Foto-Upload & Abnahmeprotokolle
  * - Multi-Foto-Upload: Erkennt media_group_id und sammelt alle Fotos einer Gruppe
@@ -622,9 +630,8 @@ async function showBaustellenMenu(chatId: number, session: any) {
         [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
         [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
         [{ text: "📝 Bericht erstellen", callback_data: "bau:bericht" }],
-        [{ text: "📨 Nachricht an NU", callback_data: "bau:nachricht:nu" }],
         [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
-        [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
+        [{ text: "📊 Status & Gewerke", callback_data: "bau:status" }],
         [{ text: "❌ Projekt schließen", callback_data: "bau:close" }],
         [{ text: "⬅️ Hauptmenü", callback_data: "main_menu" }]
       ] } }
@@ -908,10 +915,8 @@ async function openProjekt(chatId: number, projekt: any) {
       [{ text: "📋 Nachtrag erfassen", callback_data: "bau:nachtrag" }],
       [{ text: "📸 Nachweis hochladen", callback_data: "bau:nachweis" }],
       [{ text: "📝 Bericht erstellen", callback_data: "bau:bericht" }],
-      [{ text: "📨 Nachricht an NU", callback_data: "bau:nachricht:nu" }],
-      [{ text: "🏗️ Gewerk-Status", callback_data: `bau:gewerke:${projekt.id}` }],
       [{ text: "📄 Abnahmeprotokoll", callback_data: "bau:abnahme" }],
-      [{ text: "📊 Status anzeigen", callback_data: "bau:status" }],
+      [{ text: "📊 Status & Gewerke", callback_data: "bau:status" }],
       [{ text: "❌ Projekt schließen", callback_data: "bau:close" }]
     ] }
   });
@@ -1708,6 +1713,7 @@ async function showProjektStatus(chatId: number, session: any) {
     return;
   }
 
+  // Mängel, Nachträge, Nachweise zählen
   const { count: maengelOffen } = await supabase
     .from('maengel_fertigstellung')
     .select('id', { count: 'exact', head: true })
@@ -1736,22 +1742,50 @@ async function showProjektStatus(chatId: number, session: any) {
     .eq('atbs_nummer', projektNr)
     .eq('kategorie', 'nachweis');
 
+  // Monday-Daten für Gewerk-Status laden
+  const { data: projekt } = await supabase
+    .from('monday_bauprozess')
+    .select('column_values')
+    .eq('id', bvId)
+    .single();
+
+  const columnValues = projekt?.column_values as Record<string, unknown> || {};
   const projektName = session?.modus_daten?.projekt_name || '';
   const phase = session?.modus_daten?.projekt_phase || '?';
+
+  // Gewerk-Tabelle erstellen (Plan + Ist)
+  let gewerkTable = `<pre>`;
+  gewerkTable += `┌────────┬───────────┬──────────┐\n`;
+  gewerkTable += `│Gewerk  │Plan       │Ist       │\n`;
+  gewerkTable += `├────────┼───────────┼──────────┤\n`;
+
+  for (const [_key, config] of Object.entries(GEWERK_KOMBINIERT)) {
+    const planRaw = config.ausfuehrungId ? extractMondayText(columnValues[config.ausfuehrungId]) : '-';
+    const istRaw = config.statusId ? extractMondayText(columnValues[config.statusId]) : '-';
+
+    // Kürzen und Status-Emoji hinzufügen
+    const istStatus = getAusfuehrungStatus(istRaw);
+    const planDisplay = (planRaw === '-' ? '-' : planRaw.substring(0, 9)).padEnd(9);
+    const istDisplay = (istStatus.emoji + ' ' + istRaw.substring(0, 6)).padEnd(8);
+    const gewerkDisplay = (config.icon + config.label.substring(0, 5)).padEnd(6);
+
+    gewerkTable += `│${gewerkDisplay}│${planDisplay}│${istDisplay}│\n`;
+  }
+
+  gewerkTable += `└────────┴───────────┴──────────┘`;
+  gewerkTable += `</pre>`;
 
   await sendMessage(chatId,
     `<b>📊 Status: ${projektNr}</b>\n` +
     `${projektName}\n\n` +
     `<b>Phase:</b> ${phase}\n\n` +
-    `<b>🔧 Mängel:</b>\n` +
-    `• Offen: ${maengelOffen || 0}\n` +
-    `• Gesamt: ${maengelGesamt || 0}\n\n` +
-    `<b>📋 Nachträge:</b>\n` +
-    `• Offen: ${nachtraegeOffen || 0}\n` +
-    `• Gesamt: ${nachtraegeGesamt || 0}\n\n` +
-    `<b>📸 Nachweise:</b> ${nachweiseCount || 0}`,
+    `<b>🏗️ Gewerke:</b>\n` +
+    gewerkTable + `\n\n` +
+    `<b>🔧 Mängel:</b> ${maengelOffen || 0} offen / ${maengelGesamt || 0} ges.\n` +
+    `<b>📋 Nachträge:</b> ${nachtraegeOffen || 0} offen / ${nachtraegeGesamt || 0} ges.\n` +
+    `<b>📸 Nachweise:</b> ${nachweiseCount || 0}\n\n` +
+    `<i>Legende: ✅Fertig 🔨Läuft ⏳Geplant ➖Ohne</i>`,
     { reply_markup: { inline_keyboard: [
-      [{ text: "📐 Ausführungsarten", callback_data: `bau:ausfuehrung:${bvId}` }],
       [{ text: "⬅️ Zurück zum Menü", callback_data: "bau:menu" }]
     ] } }
   );
@@ -1761,16 +1795,20 @@ async function showProjektStatus(chatId: number, session: any) {
 // Baustellen-Features: Ausführungsarten anzeigen (NEU v52)
 // ============================================
 
-// Monday.com Spalten-IDs für Ausführungsarten
-const AUSFUEHRUNGSART_SPALTEN: Record<string, { id: string; label: string; icon: string }> = {
-  bad: { id: 'status23__1', label: 'Bad', icon: '🛁' },
-  elektrik: { id: 'color590__1', label: 'Elektrik', icon: '⚡' },
-  // Weitere Spalten können ergänzt werden wenn die IDs in Monday bekannt sind:
-  // waende: { id: 'XXX', label: 'Wände', icon: '🧱' },
-  // decken: { id: 'XXX', label: 'Decken', icon: '📐' },
-  // boden: { id: 'XXX', label: 'Boden', icon: '🪵' },
-  // tueren: { id: 'XXX', label: 'Türen', icon: '🚪' },
-  // gastherme: { id: 'XXX', label: 'Gastherme', icon: '🔥' },
+// Monday.com Spalten-IDs: Kombiniert Gewerk-Status (IST) + Ausführungsart (PLAN)
+const GEWERK_KOMBINIERT: Record<string, {
+  label: string;
+  icon: string;
+  statusId: string;      // IST-Status (Fertig, In Arbeit, etc.)
+  ausfuehrungId: string; // PLAN/SOLL (Komplett, Teil-Mod, Ohne, etc.)
+}> = {
+  abbruch:   { label: 'Abbruch',   icon: '🔨', statusId: 'color05__1', ausfuehrungId: '' },
+  elektrik:  { label: 'Elektrik',  icon: '⚡', statusId: 'color58__1', ausfuehrungId: 'color590__1' },
+  sanitaer:  { label: 'Sanitär',   icon: '🚿', statusId: 'color65__1', ausfuehrungId: 'status23__1' },
+  heizung:   { label: 'Heizung',   icon: '🔥', statusId: '',           ausfuehrungId: 'color49__1' },
+  maler:     { label: 'Maler',     icon: '🖌️', statusId: 'color63__1', ausfuehrungId: 'color427__1' },
+  boden:     { label: 'Boden',     icon: '🪵', statusId: 'color8__1',  ausfuehrungId: 'color78__1' },
+  tischler:  { label: 'Tischler',  icon: '🚪', statusId: 'color98__1', ausfuehrungId: 'color97__1' },
 };
 
 function extractMondayText(jsonValue: unknown): string {
@@ -2591,16 +2629,18 @@ async function handleStart(chatId: number, session: any) {
     }
   }
 
-  // Standard-Menü-Buttons
-  buttons.push([{ text: "📊 Aufmaß erstellen/ansehen", callback_data: "mode_aufmass" }]);
-  buttons.push([{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }]);
-  buttons.push([{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }]);
+  // Standard-Menü-Buttons (Reihenfolge optimiert für Bauleiter)
   buttons.push([{ text: "🔍 ATBS direkt eingeben", callback_data: "mode_atbs_direkt" }]);
+  buttons.push([{ text: "🏗️ Baustelle öffnen", callback_data: "mode_baustelle" }]);
+  buttons.push([{ text: "📊 Aufmaß erstellen/ansehen", callback_data: "mode_aufmass" }]);
 
   // NEU v60: Audio-Briefing Button (nur für Bauleiter - wenn Dashboard angezeigt wird)
   if (dashboard) {
     buttons.push([{ text: "🎙️ Audio-Briefing abrufen", callback_data: "briefing:generate" }]);
   }
+
+  // Bedarfsanalyse ans Ende (seltener genutzt)
+  buttons.push([{ text: "📝 Bedarfsanalyse → Angebot", callback_data: "mode_bedarfsanalyse" }]);
 
   // Nachricht zusammenbauen
   let messageText = `<b>Willkommen beim neurealis Bot!</b>\n\n`;
