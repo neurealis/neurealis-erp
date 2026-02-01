@@ -78,6 +78,38 @@
 | LOG-064 | 2026-02-01 | monday_bauprozess Spalten-Umbenennung mit Präfixen | Abgeschlossen |
 | LOG-065 | 2026-02-01 | SharePoint Sites Katalogisierung + Muster-Analyse | Abgeschlossen |
 | LOG-066 | 2026-02-01 | Monday-Sync Initial + verify_jwt Fix | Abgeschlossen |
+| LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
+
+---
+
+## LOG-067 - Learnings Summary: Kompakter Index für Preflight
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Problem
+- `docs/learnings.md` hat 164 Learnings (~2.600 Zeilen, >25.000 Tokens)
+- Read-Tool überschreitet Token-Limit
+- Preflight konnte Learnings nicht vollständig laden
+
+### Lösung (Option C: Kompakt-Index)
+1. `learnings_summary.md` generiert (kompakte Tabellen mit Titel + 1-Zeiler)
+2. CLAUDE.md angepasst: Preflight liest Summary statt Volltext
+3. `/pre` Skill-Definition aktualisiert (global + projekt)
+4. Volltext bleibt verfügbar bei Bedarf (mit offset/limit)
+
+### Geänderte Dateien
+| Datei | Änderung |
+|-------|----------|
+| `docs/learnings_summary.md` | **NEU** - 162 Learnings als kompakter Index |
+| `C:\Users\holge\docs\learnings_summary.md` | **NEU** - 78 globale Learnings |
+| `C:\Users\holge\CLAUDE.md` | Preflight-Anweisung aktualisiert |
+| `C:\Users\holge\.claude\commands\pre.md` | Summary statt Volltext |
+| `.claude\commands\pre.md` | Summary statt Volltext |
+
+### Ergebnis
+- Preflight lädt jetzt ~500 Zeilen statt ~2.600 Zeilen
+- Alle Learnings bleiben erhalten (keine Archivierung)
+- Volltext bei Bedarf mit `offset/limit` lesbar
 
 ---
 

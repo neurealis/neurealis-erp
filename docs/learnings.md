@@ -6,6 +6,16 @@
 
 ## Kritische Feld-Mappings
 
+### L147 - Learnings Summary für Preflight (PFLICHT!)
+**Datum:** 2026-02-01
+**Problem:** `learnings.md` mit 160+ Einträgen überschreitet 25k Token-Limit
+**Lösung:** `learnings_summary.md` als kompakter Index (Tabellen mit Titel + 1-Zeiler)
+**Workflow:**
+1. Preflight liest `learnings_summary.md` (schnell, kompakt)
+2. Bei Bedarf Volltext `learnings.md` mit offset/limit lesen
+3. Neue Learnings IMMER in beiden Dateien ergänzen!
+**Vorteil:** Kein Wissensverlust, schnellerer Preflight, alle Learnings zugänglich
+
 ### L143 - Audio-Generierung NUR auf Edge Functions
 **Datum:** 2026-02-01
 **Regel:** Audio-Briefings werden AUSSCHLIESSLICH über Supabase Edge Functions generiert, NIEMALS lokal.
