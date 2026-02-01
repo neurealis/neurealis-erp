@@ -71,6 +71,109 @@
 | LOG-057 | 2026-02-01 | Monday Bidirektional Sync: 3-Agenten-Implementierung | Abgeschlossen |
 | LOG-058 | 2026-02-01 | Monday Push: Trigger statt Cron | Abgeschlossen |
 | LOG-059 | 2026-02-01 | Telegram-Bot v58: Universelle Sprachbefehle | Abgeschlossen |
+| LOG-060 | 2026-02-01 | Telegram-Bot User Guide PDF + Feature-Analyse + Roadmap-Planung | Abgeschlossen |
+| LOG-061 | 2026-02-01 | Sync-Optimierung Konzept: Bidirektional + Last-Write-Wins | Abgeschlossen |
+| LOG-062 | 2026-02-01 | Sync P1-Tasks: SharePoint Debug, Monday Labels, Softr Push | Abgeschlossen |
+
+---
+
+## LOG-062 - Sync P1-Tasks: SharePoint Debug, Monday Labels, Softr Push
+
+**Datum:** 2026-02-01 14:00-14:45
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+3 parallele P1-Tasks aus dem Sync-Optimierung-Konzept implementieren:
+1. SharePoint Token-Problem debuggen
+2. Monday Label-Mapping aufbauen
+3. Softr bidirektionalen Push implementieren
+
+### Ergebnisse
+
+**T1: SharePoint Debug**
+- Problem: Delegated Access Token abgelaufen (28. Januar)
+- Lösung: `sharepoint-debug` Edge Function deployed
+- Function erneuert Token automatisch via Refresh Token
+- Sync läuft wieder: 1643 Dateien synchronisiert
+
+**T2: Monday Label-Mapping**
+- `monday_label_mapping` Tabelle erstellt
+- `monday-label-sync` Edge Function v1 deployed
+- **327 Labels** aus 76 Status/Color-Spalten geladen
+- `monday-push` v6 (Version 11) mit `getLabelIndex()` Lookup
+- Test erfolgreich: Keine "label doesn't exist" Fehler mehr
+
+**T3: Softr Bidirektional Push**
+- Problem: Falsche API-URL (`studio-api` statt `tables-api`)
+- `softr-push` v3 (Version 13) korrigiert mit Fallback-Credentials
+- Trigger aktiv auf 5 Tabellen: nachtraege, kontakte, maengel_fertigstellung, tasks, leads
+- Test erfolgreich: 14 Felder in 818ms synchronisiert
+
+### Neue Edge Functions
+
+| Function | Version | Status |
+|----------|---------|--------|
+| `sharepoint-debug` | v1 | ACTIVE |
+| `monday-label-sync` | v1 | ACTIVE |
+| `monday-push` | v6 (11) | ACTIVE |
+| `softr-push` | v3 (13) | ACTIVE |
+
+### Koordination
+
+- 3-Agenten-Modell: T1, T2, T3 parallel gestartet
+- PM (Hauptagent) koordinierte und fixte Softr API-Problem
+- Koordinationsdatei: `docs/implementation/sync_p1_koordination.md`
+
+---
+
+## LOG-061 - Sync-Optimierung Konzept: Bidirektional + Last-Write-Wins
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+Komplette Analyse und Konzepterstellung für die Optimierung aller Daten-Synchronisierungen im neurealis ERP.
+
+### Analyse durchgeführt
+
+**8 Sync-Systeme analysiert:**
+| System | Aktuell | Ziel |
+|--------|---------|------|
+| Monday ↔ Supabase | 81↓/17↑ Spalten | Alle 338 bidirektional |
+| Softr ↔ Supabase | Unidirektional | Bidirektional (16 Tabellen) |
+| Hero LV | 22↓/6↑ | Aktueller Stand reicht |
+| E-Mail Sync | Täglich 03:00 | Stündlich 7-19 Uhr |
+| SharePoint | Blockiert | Debugging nötig |
+| Kontakte | 3 Quellen chaotisch | Hybrid Auto+Manual |
+
+### User-Entscheidungen (Dialog)
+
+| Bereich | Entscheidung |
+|---------|--------------|
+| SharePoint | Credentials OK, Admin Consent OK → Problem woanders |
+| Softr | Alle 16 Tabellen bidirektional |
+| Konflikte | Last-Write-Wins (neuester Timestamp) |
+| Monday Labels | Label-Mapping erstellen für 64 Status-Spalten |
+| Kontakte | Hybrid: Auto nach Rolle + manuelle Überschreibung |
+| E-Mail | Auto-Match + Review-Queue (<80% Confidence) |
+| WordPress | Portfolio + Services + regionale Landingpages |
+| Hero LV | Nicht weiter ausbauen |
+
+### Ergebnis
+
+**Konzept-Dokument erstellt:** `docs/SYNC_OPTIMIERUNG_KONZEPT.md`
+
+**Roadmap (4 Wochen, ~60h):**
+- Woche 1: SharePoint Debugging + Monday Labels
+- Woche 2: Softr Bidirektional
+- Woche 3: Kontakte + E-Mail Queue
+- Woche 4: WordPress/Elementor
+
+### Neue Decisions
+
+D042-D047 dokumentiert (Softr, Monday Labels, Kontakte, E-Mail, WordPress, Grundprinzip)
 
 ---
 
@@ -208,6 +311,62 @@ Sprachbefehle für ALLE Aspekte (außer Bedarfsanalyse/Aufmaß) aus Haupt- und U
 
 - L152: Monday Gewerk-Status-Spalten haben andere IDs als erwartet
 - L153: Sprach-Befehle ohne Projekt-Kontext ermöglichen
+
+---
+
+## LOG-060 - Telegram-Bot User Guide PDF + Feature-Analyse + Roadmap-Planung
+
+**Datum:** 2026-02-01
+**Status:** Abgeschlossen
+
+### Aufgabe
+
+1. User Guide PDF für Bauleiter erstellen (druckfertig)
+2. Vollständige Feature-Analyse des Telegram-Bots (implementiert vs. offen)
+3. Roadmap-Planung mit Klärungsfragen für nächste Entwicklungsphase
+
+### Ergebnis
+
+**PDF User Guide:**
+- `docs/TELEGRAM_BOT_USER_GUIDE.html` - HTML-Quelle
+- `docs/TELEGRAM_BOT_USER_GUIDE.pdf` - Druckfertiges PDF (2 Seiten A4)
+- Inhalt: Projekt öffnen, Sprachbefehle, Mängel, Nachträge, Nachweise, Termine
+
+**Feature-Analyse (3 parallele Agenten):**
+| Agent | Aufgabe | Ergebnis |
+|-------|---------|----------|
+| T1 | Implementierte Features | 43 von 47 Features vollständig implementiert |
+| T2 | Offene/geplante Features | Nummerierung, Tages-Dashboard, Admin-Section |
+| T3 | Produktivitäts-Features | 15 neue Feature-Vorschläge für Bauleiter |
+
+**Identifizierte Gaps:**
+| Problem | Status |
+|---------|--------|
+| Mängel-Nummerierung fehlt | ❌ Nicht implementiert |
+| Nachtrag-Format falsch | ❌ `NT-456-1` statt `ATBS-456-N1` |
+| Admin-Section fehlt | ❌ Nicht implementiert |
+| Tages-Dashboard fehlt | ❌ Nicht implementiert |
+
+**Geplante Features (Backlog):**
+- Tages-Dashboard mit Terminen und überfälligen Mängeln
+- NU-Anbindung per Telegram (Konzept erstellen)
+- Baustellenbegehungsberichte als Dokument
+- Admin-Section mit CRUD-Berechtigungen
+- Erinnerungen per Sprache (Backlog)
+
+**Klärungsfragen gestellt:** 9 Themenblöcke für nächste Session
+
+### Neue Learnings
+
+- L154: Telegram-Bot User Guide als HTML→PDF für schnelle Dokumentation
+- L155: Feature-Analyse mit 3 parallelen Subagenten (implementiert/offen/neu)
+
+### Nächste Schritte
+
+1. Klärungsfragen beantworten
+2. `docs/TELEGRAM_BOT_ROADMAP.md` erstellen
+3. `docs/NU_ANBINDUNG_KONZEPT.md` erstellen
+4. `docs/ADMIN_BERECHTIGUNGEN_KONZEPT.md` erstellen
 
 ---
 

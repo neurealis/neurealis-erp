@@ -2491,6 +2491,76 @@ PERFORM net.http_post(
 **Regel:** Bei internen Edge Functions (Trigger, Cron) immer `verify_jwt: false` + kein Auth-Header
 **Vorteil:** Kein Vault-Secret nötig, einfachere Konfiguration
 
+### L155 - HTML→PDF mit Puppeteer für User Guides
+**Datum:** 2026-02-01
+**Kontext:** Druckfertiger User Guide für Bauleiter erstellen
+**Workflow:**
+1. HTML mit CSS für Print erstellen (`@page`, `page-break-before`)
+2. Puppeteer in Projekt installieren: `npm install puppeteer --save-dev`
+3. PDF generieren:
+```javascript
+const page = await browser.newPage();
+await page.goto('file://' + htmlPath);
+await page.pdf({ path: 'output.pdf', format: 'A4', printBackground: true });
+```
+**Ergebnis:** `docs/TELEGRAM_BOT_USER_GUIDE.pdf` (2 Seiten A4, druckfertig)
+**Tipp:** CSS `@media print` für saubere Seitenumbrüche
+
+### L156 - Feature-Analyse mit 3 parallelen Subagenten
+**Datum:** 2026-02-01
+**Kontext:** Vollständige Telegram-Bot Feature-Analyse
+**Architektur:**
+- T1: Implementierte Features (Code analysieren)
+- T2: Offene/geplante Features (Konzept-Dokumente vergleichen)
+- T3: Neue Produktivitäts-Features (Business-Perspektive)
+**Ergebnis:** Übersichtliche Tabelle mit ✅/❌ Status + 15 neue Feature-Vorschläge
+**Learning:** 3 Perspektiven (Code, Konzept, Business) ergeben vollständiges Bild
+
+### L157 - Nummerierungsformat für Mängel/Nachträge
+**Datum:** 2026-02-01
+**Kontext:** User-Feedback zu Dokumentennummern
+**Gewünscht:**
+- Mängel: `ATBS-456-M1`, `ATBS-456-M2`
+- Nachträge: `ATBS-456-N1`, `ATBS-456-N2`
+**Aktuell (falsch):**
+- Mängel: Keine automatische Nummer
+- Nachträge: `NT-456-1` (falsches Präfix)
+**TODO:** Format korrigieren für konsistente Dokumentation
+
+### L158 - Schritt-für-Schritt Dialog für User-Präferenzen
+**Datum:** 2026-02-01
+**Kontext:** Sync-Optimierung Konzept mit vielen Entscheidungen
+**Problem:** Viele Fragen auf einmal überfordern User (ADHS-freundlich!)
+**Lösung:** AskUserQuestion mit einer Frage pro Bereich, sequentiell
+**Workflow:**
+1. Themenbereich identifizieren (SharePoint, Softr, Monday, etc.)
+2. Eine Frage mit 3-4 Optionen stellen
+3. Antwort speichern, nächste Frage
+4. Am Ende: Alle Entscheidungen zusammenfassen
+**Vorteile:**
+- User bleibt fokussiert
+- Klare Entscheidungspunkte
+- Keine Überladung
+**Anwendung:** Komplexe Architektur-Entscheidungen, Konzeptplanung, Feature-Priorisierung
+
+### L159 - Last-Write-Wins für bidirektionalen Sync
+**Datum:** 2026-02-01
+**Kontext:** Softr ↔ Supabase Konfliktlösung
+**Problem:** Beide Systeme können gleichzeitig Daten ändern
+**Lösungsoptionen:**
+1. Master gewinnt (einfach, aber unfair)
+2. Last-Write-Wins (fair, braucht Timestamps)
+3. Merge (komplex, fehleranfällig)
+**Gewählt:** Last-Write-Wins
+**Implementierung:**
+```sql
+-- Bei Pull: Nur überschreiben wenn remote neuer
+IF remote.updated_at > local.updated_at THEN UPDATE;
+-- Bei Push: Immer pushen, remote prüft Timestamp
+```
+**Benötigt:** `last_modified_at` Spalte in allen sync-relevanten Tabellen
+**Risiko:** Clock-Skew zwischen Systemen → UTC überall verwenden
+
 ---
 
 *Aktualisiert: 2026-02-01*

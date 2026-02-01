@@ -1,12 +1,41 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 12:30 (aktualisiert)
+**Stand:** 2026-02-01 14:45 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
 
-### Monday Bidirektional Sync (✅ FERTIG + TRIGGER)
+### Sync P1-Tasks (✅ ALLE FERTIG)
+
+**Implementiert:** 2026-02-01 14:00-14:45
+
+| Task | Status | Ergebnis |
+|------|--------|----------|
+| SharePoint Debug | ✅ | Token erneuert, Sync läuft (1643 Dateien) |
+| Monday Label-Mapping | ✅ | 327 Labels, monday-push v6 mit Lookup |
+| Softr Bidirektionaler Push | ✅ | softr-push v3, 5 Tabellen mit Trigger |
+
+**SharePoint:**
+- Problem war abgelaufener Delegated Token
+- `sharepoint-debug` Function deployed, erneuert Token automatisch
+- Sync läuft wieder
+
+**Monday Labels:**
+- `monday_label_mapping` Tabelle mit 327 Labels aus 76 Spalten
+- monday-push v6 (Version 11) nutzt Label-Index statt Text
+- Keine "label doesn't exist" Fehler mehr
+
+**Softr Push:**
+- Problem: Falsche API-URL (studio-api statt tables-api)
+- softr-push v3 (Version 13) korrigiert mit Fallback-Credentials
+- Trigger aktiv auf: nachtraege, kontakte, maengel_fertigstellung, tasks, leads
+
+**Dokumentation:** `docs/implementation/sync_p1_koordination.md`
+
+---
+
+### Monday Bidirektional Sync (✅ FERTIG + TRIGGER + LABELS)
 
 **Implementiert:** 2026-02-01
 
@@ -20,7 +49,8 @@
 | Function | Version | Richtung | Spalten |
 |----------|---------|----------|---------|
 | `monday-sync` | v2 (16) | Monday → Supabase | 81 |
-| `monday-push` | v5 (10) | Supabase → Monday | 17 |
+| `monday-push` | v6 (11) | Supabase → Monday | 17 + Label-Mapping |
+| `monday-label-sync` | v1 | Labels laden | 327 Labels |
 
 **Cron-Jobs:**
 - `monday-sync-job`: Alle 5 Min ✅ aktiv

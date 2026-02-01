@@ -424,4 +424,63 @@
 
 ---
 
+## Sync-Optimierung (2026-02-01)
+
+### D042 - Softr ↔ Supabase: Bidirektional mit Last-Write-Wins
+**Datum:** 2026-02-01
+**Entscheidung:** Alle 16 Softr-Tabellen bidirektional synchronisieren
+**Konfliktlösung:** Last-Write-Wins (neuester Timestamp gewinnt)
+**Implementierung:**
+- `sync_source` + `last_modified_at` Spalten für alle Tabellen
+- DB-Trigger für Supabase→Softr Push
+- Cron für Softr→Supabase Pull (alle 5 Min)
+**Grund:** Softr ist aktuell Master-UI, Supabase wird schrittweise übernehmen
+
+### D043 - Monday Status-Spalten: Label-Mapping erstellen
+**Datum:** 2026-02-01
+**Entscheidung:** D040 aufheben - stattdessen Label-Mapping für bidirektionalen Sync
+**Implementierung:**
+- `monday_label_mapping` Tabelle mit allen 64 Status-Spalten
+- Supabase-Wert → Monday-Label Index Lookup
+- Edge Function lädt Labels automatisch bei Deploy
+**Grund:** User benötigt bidirektionalen Status-Sync für Workflow
+**Alternative verworfen (D040):** "Nur unidirektional" reicht nicht aus
+
+### D044 - Kontakte: Hybrid Auto + Manual Override
+**Datum:** 2026-02-01
+**Entscheidung:** Automatische Zuweisung nach Rolle + manuelle Überschreibung möglich
+**Regeln:**
+- Bauleiter → NU + Kunden-Kontakte
+- Buchhaltung → Lieferanten + Finanz-Kontakte
+- GF → Alle Kontakte
+**Override:** Admin kann pro Mitarbeiter anpassen
+**Grund:** Balance zwischen Automatisierung und Kontrolle
+
+### D045 - E-Mail Matching: Auto + Review-Queue
+**Datum:** 2026-02-01
+**Entscheidung:** Automatisches Matching mit Review-Queue für unsichere Zuordnungen
+**Schwellwert:** < 80% Confidence → Review-Queue
+**UI:** Review-Liste für manuelle Bestätigung/Korrektur
+**Grund:** Reduziert manuelle Arbeit, fängt Fehler ab
+
+### D046 - WordPress: Portfolio + Services + Landingpages
+**Datum:** 2026-02-01
+**Entscheidung:** Drei Seitentypen automatisch generieren mit Elementor
+**Typen:**
+1. Portfolio: Abgeschlossene Projekte mit Vorher/Nachher
+2. Services: Leistungsseiten pro Gewerk (Bad, Küche, Elektrik, etc.)
+3. Landingpages: Regionale Seiten (Dortmund, Bochum, Essen, etc.)
+**Template-Basis:** Bestehende Elementor-Templates klonen und anpassen
+**Grund:** SEO-Skalierung für B2C-Markt
+
+### D047 - Sync-Grundprinzip: Trigger + Cron
+**Datum:** 2026-02-01
+**Entscheidung:** Einheitliches Sync-Muster für alle Systeme
+**Regel:**
+- **Supabase-Änderung** → Sofort per DB-Trigger pushen
+- **Externe Systeme** → Regelmäßig per Cron pullen
+**Grund:** Schnelle Reaktion auf lokale Änderungen, kontrollierter Import von extern
+
+---
+
 *Aktualisiert: 2026-02-01*
