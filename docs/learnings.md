@@ -6,6 +6,18 @@
 
 ## Kritische Feld-Mappings
 
+### L148 - Telegram-Bot Menü: ATBS-Schnellzugriff nach Favoriten
+**Datum:** 2026-02-01
+**Kontext:** Hauptmenü-Reihenfolge für Bauleiter optimiert
+**Beste Reihenfolge:**
+1. ⭐ Favoriten (Top 3 Projekte)
+2. 🔍 ATBS direkt eingeben (schnellster Weg)
+3. 🏗️ Baustelle öffnen (Phasen-Filter)
+4. 📊 Aufmaß erstellen
+5. 🎙️ Audio-Briefing (nur Bauleiter)
+6. 📝 Bedarfsanalyse (ans Ende, selten genutzt)
+**Grund:** Bauleiter kennt meist die ATBS-Nummer, braucht schnellen Zugriff
+
 ### L147 - Learnings Summary für Preflight (PFLICHT!)
 **Datum:** 2026-02-01
 **Problem:** `learnings.md` mit 160+ Einträgen überschreitet 25k Token-Limit

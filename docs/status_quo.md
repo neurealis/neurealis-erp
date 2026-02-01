@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 18:45 (aktualisiert)
+**Stand:** 2026-02-01 19:45 (aktualisiert)
 
 ---
 
@@ -100,27 +100,28 @@
 
 ---
 
-### Telegram-Bot v58 (✅ DEPLOYED - Universelle Sprachbefehle)
+### Telegram-Bot v74 (✅ DEPLOYED - Status/Gewerke kombiniert)
 
 **Implementiert:** 2026-02-01
 
-**NEU: Sprachbefehle aus Hauptmenü (ohne offenes Projekt):**
+**NEU in v74: Kombinierter Status-View + Menü-Optimierung**
+- 📊 Status & Gewerke: Ein Menüpunkt mit Plan (Ausführungsart) + Ist (Status)
+- Menü-Reihenfolge: Favoriten → ATBS direkt → Baustelle → Aufmaß → Audio → Bedarfsanalyse
+- 📨 Nachricht an NU: Ausgeblendet (Backend bleibt)
+- PDF User Guide: 6 Seiten mit Titelseite
+
+**Sprachbefehle aus Hauptmenü (ohne offenes Projekt):**
 - "456 Elektrik fertig" → Status direkt ändern
 - "Öffne Bollwerkstraße" → Projekt per Name suchen
 - "Status 456" / "Zeige 472" → Projekt direkt öffnen
 
 **Korrigierte Gewerk-Spalten-IDs:**
-- GEWERK_SPALTEN nutzt jetzt korrekte Monday-IDs (`color58__1` für Elektrik, etc.)
+- GEWERK_KOMBINIERT: Kombiniert Plan (Ausführungsart) + Ist (Status)
 - STATUS_MAPPING für alle 7 Gewerke erweitert
 - GEWERK_ALIASES für flexible Eingabe ("Elektro" → "Elektrik")
 
 **Erweiterte Datum-Formate:**
 - "in 2 Wochen", "KW 12", "Ende März", "Mitte April"
-
-**Phasen-Bug (v57) bleibt gefixt:**
-- Problem: "Keine Projekte gefunden" bei allen Phasen
-- Ursache: Falsches Monday-Feld (`dropdown0__1` statt `status06__1`)
-- Lösung: Echte Spalten in `monday_bauprozess` + vereinfachter Code
 
 **DB-Schema erweitert:**
 | Neue Spalte | Typ | Quelle |

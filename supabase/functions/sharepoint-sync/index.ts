@@ -2,7 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
 
 /**
- * SharePoint-Sync Edge Function v11
+ * SharePoint-Sync Edge Function v13
  *
  * Synchronisiert Dateien von SharePoint Sites nach Supabase Storage.
  * Nutzt Delta-Queries für inkrementellen Sync.
@@ -12,9 +12,9 @@ import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-
  * - MP4, MOV → Nur Link speichern (keine Download)
  * - Sicherheitsstufen basierend auf Site
  * - Delta-Query Support für effizientes Polling
- * - v11: Parallele Verarbeitung (3 Items concurrent, Sites nacheinander)
  * - v11: Batch-Upserts für DB-Operationen
  * - v11: lastModified-Check - unveränderte Dateien überspringen
+ * - v13: Rate-Limiting-Schutz (sequentiell, 500ms Delay, Retry bei 429)
  *
  * Aufruf:
  * - GET ?action=sync - Synchronisiert alle konfigurierten Sites
@@ -215,10 +215,11 @@ interface SyncResult {
   errorDetails: string[];
 }
 
-// v11: Concurrency-Limits
-const ITEM_CONCURRENCY = 3;   // Parallele Item-Verarbeitung (reduziert wegen Worker-Limit)
-const SITE_CONCURRENCY = 1;   // Sites nacheinander (große Sites brauchen viel RAM)
-const BATCH_SIZE = 20;        // DB Batch-Upsert Größe (reduziert für Stabilität)
+// v13: Concurrency-Limits (reduziert wegen Rate-Limiting)
+const ITEM_CONCURRENCY = 1;   // Sequentiell wegen Graph API Rate-Limiting (429)
+const SITE_CONCURRENCY = 1;   // Sites nacheinander
+const BATCH_SIZE = 20;        // DB Batch-Upsert Größe
+const REQUEST_DELAY_MS = 500; // Pause zwischen Downloads (Rate-Limiting-Schutz)
 
 // v11: Pending Records für Batch-Upsert
 interface PendingRecord {
@@ -426,51 +427,77 @@ async function fetchDelta(
 }
 
 /**
+ * Helper: Verzögert die Ausführung (Rate-Limiting-Schutz)
+ */
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
  * Lädt Datei direkt herunter über /content Endpoint
- * WICHTIG: Bei SharePoint funktioniert @microsoft.graph.downloadUrl nicht immer!
- * Stattdessen direkt /content verwenden mit redirect:manual um Download-URL zu bekommen.
+ * v13: Rate-Limiting-Schutz mit Retry bei 429
  */
 async function downloadFile(accessToken: string, driveId: string, itemId: string, fileName: string): Promise<ArrayBuffer | null> {
-  // /content Endpoint gibt einen 302 Redirect zur Download-URL zurück
   const url = `${GRAPH_API_URL}/drives/${driveId}/items/${itemId}/content`;
+  const MAX_RETRIES = 3;
 
-  try {
-    // Erster Versuch: Redirect manuell behandeln für bessere Kontrolle
-    const response = await fetch(url, {
-      headers: { 'Authorization': `Bearer ${accessToken}` },
-      redirect: 'manual',
-    });
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const response = await fetch(url, {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+        redirect: 'follow',
+      });
 
-    // 302 = Redirect zur Download-URL
-    if (response.status === 302) {
-      const downloadUrl = response.headers.get('Location');
-      if (!downloadUrl) {
-        console.error(`[Download] Kein Location-Header für ${fileName}`);
+      // v13: Rate-Limiting (429) - Warten und Retry
+      if (response.status === 429) {
+        const retryAfter = parseInt(response.headers.get('Retry-After') || '30', 10);
+        console.log(`[Download] Rate-Limited (429), warte ${retryAfter}s... (Versuch ${attempt}/${MAX_RETRIES})`);
+        await delay(retryAfter * 1000);
+        continue;
+      }
+
+      if (response.ok) {
+        const data = await response.arrayBuffer();
+        if (data.byteLength > 0) {
+          console.log(`[Download] OK: ${fileName} (${Math.round(data.byteLength / 1024)} KB)`);
+          return data;
+        }
+        console.error(`[Download] Leere Datei: ${fileName}`);
         return null;
       }
 
-      // Download von der Redirect-URL (ohne Auth, da temporäre URL)
-      const downloadResponse = await fetch(downloadUrl);
-      if (!downloadResponse.ok) {
-        console.error(`[Download] Redirect-URL fehlgeschlagen für ${fileName}: ${downloadResponse.status}`);
-        return null;
+      // Bei 302/307 (sollte nicht passieren mit follow)
+      if (response.status === 302 || response.status === 307) {
+        const downloadUrl = response.headers.get('Location');
+        if (!downloadUrl) {
+          console.error(`[Download] Kein Location-Header für ${fileName}`);
+          return null;
+        }
+        const downloadResponse = await fetch(downloadUrl);
+        if (!downloadResponse.ok) {
+          console.error(`[Download] Redirect Status ${downloadResponse.status} für ${fileName}`);
+          return null;
+        }
+        return await downloadResponse.arrayBuffer();
       }
-      return await downloadResponse.arrayBuffer();
-    }
 
-    // Direkte Antwort (kein Redirect)
-    if (response.ok) {
-      return await response.arrayBuffer();
-    }
+      // Andere Fehler
+      const errorText = await response.text().catch(() => '');
+      console.error(`[Download] HTTP ${response.status} für ${fileName}: ${errorText.substring(0, 150)}`);
+      return null;
 
-    // Fehler
-    const errorText = await response.text().catch(() => 'Kein Error-Body');
-    console.error(`[Download] Fehlgeschlagen für ${fileName}: ${response.status} - ${errorText.substring(0, 300)}`);
-    return null;
-  } catch (error) {
-    console.error(`[Download] Exception für ${fileName}:`, error);
-    return null;
+    } catch (error) {
+      console.error(`[Download] Exception für ${fileName}:`, error);
+      if (attempt < MAX_RETRIES) {
+        await delay(2000 * attempt); // Exponential backoff
+        continue;
+      }
+      return null;
+    }
   }
+
+  console.error(`[Download] Max Retries erreicht für ${fileName}`);
+  return null;
 }
 
 // ============================================================================
@@ -736,14 +763,18 @@ async function syncSite(accessToken: string, sitePath: string): Promise<SyncResu
 
       console.log(`[${sitePath}] Seite ${pageCount}: ${items.length} Items`);
 
-      // v11: Parallele Verarbeitung mit Chunk-basiertem Concurrency
+      // v13: Sequentielle Verarbeitung mit Delay (Rate-Limiting-Schutz)
       for (let i = 0; i < items.length; i += ITEM_CONCURRENCY) {
         const chunk = items.slice(i, i + ITEM_CONCURRENCY);
 
-        // Parallel verarbeiten
-        await Promise.allSettled(
-          chunk.map(item => processItem(accessToken, driveId, item, sitePath, result, pendingRecords))
-        );
+        // Sequentiell verarbeiten mit Delay
+        for (const item of chunk) {
+          await processItem(accessToken, driveId, item, sitePath, result, pendingRecords);
+          // Delay nur nach Downloads (nicht für Ordner)
+          if (item.file && !item.deleted) {
+            await delay(REQUEST_DELAY_MS);
+          }
+        }
 
         // v11: Batch-Upsert wenn genug Records gesammelt
         if (pendingRecords.length >= BATCH_SIZE) {
@@ -806,12 +837,12 @@ Deno.serve(async (req: Request) => {
           ? [siteParam]
           : SYNC_SITES.filter(s => !EXCLUDED_SITES.includes(s));
 
-        console.log(`[SharePoint-Sync v11] Starte Sync für ${sitesToSync.length} Sites (${SITE_CONCURRENCY} parallel)`);
+        console.log(`[SharePoint-Sync v13] Starte Sync für ${sitesToSync.length} Sites (${SITE_CONCURRENCY} parallel)`);
 
         // v11: Parallele Site-Verarbeitung mit Chunk-basiertem Concurrency
         for (let i = 0; i < sitesToSync.length; i += SITE_CONCURRENCY) {
           const chunk = sitesToSync.slice(i, i + SITE_CONCURRENCY);
-          console.log(`[SharePoint-Sync v11] Site-Chunk ${Math.floor(i / SITE_CONCURRENCY) + 1}: ${chunk.map(s => s.replace('/sites/', '')).join(', ')}`);
+          console.log(`[SharePoint-Sync v13] Site-Chunk ${Math.floor(i / SITE_CONCURRENCY) + 1}: ${chunk.map(s => s.replace('/sites/', '')).join(', ')}`);
 
           const chunkResults = await Promise.allSettled(
             chunk.map(site => syncSite(accessToken, site))
@@ -822,7 +853,7 @@ Deno.serve(async (req: Request) => {
             if (r.status === 'fulfilled') {
               results.push(r.value);
             } else {
-              console.error('[SharePoint-Sync v11] Site-Sync Fehler:', r.reason);
+              console.error('[SharePoint-Sync v13] Site-Sync Fehler:', r.reason);
               // Dummy-Result für fehlgeschlagene Sites
               results.push({
                 site: 'unknown',
@@ -860,11 +891,11 @@ Deno.serve(async (req: Request) => {
         });
 
         const duration = Date.now() - startTime;
-        console.log(`[SharePoint-Sync v11] Fertig in ${duration}ms: ${totals.itemsProcessed} verarbeitet, ${totals.skipped} übersprungen, ${totals.filesDownloaded} Downloads`);
+        console.log(`[SharePoint-Sync v13] Fertig in ${duration}ms: ${totals.itemsProcessed} verarbeitet, ${totals.skipped} übersprungen, ${totals.filesDownloaded} Downloads`);
 
         return new Response(JSON.stringify({
           success: true,
-          version: 'v11',
+          version: 'v13',
           duration_ms: duration,
           sites_synced: results.length,
           totals,

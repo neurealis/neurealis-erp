@@ -78,6 +78,7 @@
 | LOG-064 | 2026-02-01 | monday_bauprozess Spalten-Umbenennung mit Präfixen | Abgeschlossen |
 | LOG-065 | 2026-02-01 | SharePoint Sites Katalogisierung + Muster-Analyse | Abgeschlossen |
 | LOG-066 | 2026-02-01 | Monday-Sync Initial + verify_jwt Fix | Abgeschlossen |
+| LOG-067 | 2026-02-01 | Telegram-Bot v74: Status/Gewerke kombiniert + Menü-Optimierung + PDF | Abgeschlossen |
 | LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
 
 ---
@@ -3835,4 +3836,56 @@ Monday-Sync initial ausgeführt und `verify_jwt` Problem für Cron-Jobs behoben.
 
 ---
 
-*Aktualisiert: 2026-02-01 18:45*
+## LOG-067 - Telegram-Bot v74: Status/Gewerke kombiniert + Menü-Optimierung + PDF
+
+**Datum:** 2026-02-01 ~19:30
+**Dauer:** ~45 Minuten
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Telegram-Bot v74: Status und Gewerk-Status zu einem Menüpunkt kombiniert, Hauptmenü-Reihenfolge für Bauleiter optimiert, User Guide PDF mit Titelseite aktualisiert.
+
+### Durchgeführte Arbeiten
+
+**1. Status & Gewerke kombiniert:**
+- `showProjektStatus()` erweitert: Zeigt jetzt Gewerk-Tabelle mit Plan (Ausführungsart) + Ist (Status)
+- Neue Konstante `GEWERK_KOMBINIERT` mit Monday-Spalten-IDs für Plan + Ist
+- Buttons "🏗️ Gewerk-Status" und "📐 Ausführungsarten" entfernt → Alles in "📊 Status & Gewerke"
+
+**2. Menü-Reihenfolge optimiert (für Bauleiter):**
+| Vorher | Nachher |
+|--------|---------|
+| Aufmaß | ⭐ Favoriten |
+| Bedarfsanalyse | 🔍 ATBS direkt |
+| Baustelle | 🏗️ Baustelle |
+| ATBS direkt | 📊 Aufmaß |
+| Audio-Briefing | 🎙️ Audio-Briefing |
+| - | 📝 Bedarfsanalyse |
+
+**3. "Nachricht an NU" ausgeblendet:**
+- Button aus Projekt-Menü entfernt
+- Backend-Logik bleibt erhalten (bau:nachricht:nu Callback funktioniert weiterhin)
+
+**4. PDF User Guide aktualisiert:**
+- 6 Seiten: Titelseite → Einleitung → Projekt öffnen → Mängel/Nachträge → Nachweise/Status → Menübaum
+- Datum und Uhrzeit auf jeder Seite oben rechts
+- Version 74 durchgehend
+
+**5. Version korrigiert:**
+- Im Code waren v71 und v74 Features, aber Header sagte v61
+- Korrigiert auf v74 im Header
+
+### Geänderte Dateien
+
+- `supabase/functions/telegram-webhook/index.ts` (v74)
+- `docs/TELEGRAM_BOT_USER_GUIDE.html`
+- `docs/TELEGRAM_BOT_USER_GUIDE.pdf`
+
+### Learnings
+
+- L147: Menü-Reihenfolge für Bauleiter: ATBS-Schnellzugriff direkt nach Favoriten
+
+---
+
+*Aktualisiert: 2026-02-01 19:45*
