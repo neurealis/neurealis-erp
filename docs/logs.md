@@ -81,11 +81,11 @@
 | LOG-067 | 2026-02-01 | Telegram-Bot v74: Status/Gewerke kombiniert + Menü-Optimierung + PDF | Abgeschlossen |
 | LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
 | LOG-068 | 2026-02-01 | SharePoint Initial-Sync: Rate-Limiting-Fix v13 | Abgeschlossen |
-| LOG-069 | 2026-02-01 | Telegram User Guide: Menü-Struktur + Logo-Integration | Abgeschlossen |
+| LOG-069 | 2026-02-01 | Telegram User Guide: Menü-Struktur + Logo + Hilfe-Seite | Abgeschlossen |
 
 ---
 
-## LOG-069 - Telegram User Guide: Menü-Struktur + Logo-Integration
+## LOG-069 - Telegram User Guide: Menü-Struktur + Logo + Hilfe-Seite
 **Datum:** 2026-02-01 20:20
 **Status:** Abgeschlossen
 
@@ -122,13 +122,31 @@
 - ASCII-Art durch echte HTML-Tabelle ersetzt
 - Bessere Darstellung im PDF
 
+### Hilfe-Seite im ERP
+
+**Neue Route:** `/hilfe` für alle Rollen zugänglich
+
+**Features:**
+- User Guide online lesen (HTML)
+- PDF Download für Offline-Nutzung
+- Schnelllinks: Telegram-Bot öffnen, Support kontaktieren
+
 **Dateien:**
-- `docs/logo-neurealis.png` - Logo kopiert aus `ui/static/`
-- `docs/TELEGRAM_BOT_USER_GUIDE.html` - Neue Struktur
-- `docs/TELEGRAM_BOT_USER_GUIDE.pdf` - Regeneriert mit Puppeteer
+- `ui/src/routes/hilfe/+page.svelte` - Hilfe-Seite
+- `ui/static/docs/` - HTML + PDF für Web-Zugriff
+- Sidebar: Neuer "Hilfe" Menüpunkt mit ?-Icon
+
+### Neue Regel (CLAUDE.md)
+
+**PFLICHT bei Feature-Änderungen:**
+1. `docs/TELEGRAM_BOT_USER_GUIDE.html` aktualisieren
+2. PDF neu generieren
+3. Nach `ui/static/docs/` kopieren
+4. Commit
 
 ### Learnings
-- L163: Logo-Pfad für PDF-Generierung in docs/ bereithalten
+- L165: Logo-Pfad für PDF-Generierung in docs/ bereithalten
+- L166: PFLICHT: Hilfe-Doku bei Feature-Änderungen aktualisieren
 
 ---
 

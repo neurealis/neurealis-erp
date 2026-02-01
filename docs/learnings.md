@@ -18,6 +18,17 @@
 - Puppeteer PDF: `page.goto('file:///.../docs/DOCUMENT.html')`
 **Vorteil:** Ein Ort für alle PDF-Assets, konsistente CI
 
+### L166 - PFLICHT: Hilfe-Dokumentation bei Feature-Änderungen aktualisieren
+**Datum:** 2026-02-01
+**Kontext:** User Guide für Telegram-Bot muss aktuell bleiben
+**Regel:** Bei JEDER Änderung am Telegram-Bot oder ERP-Features:
+1. `docs/TELEGRAM_BOT_USER_GUIDE.html` aktualisieren
+2. PDF neu generieren mit Puppeteer
+3. Nach `ui/static/docs/` kopieren für Web-Zugriff
+4. Commit mit "docs:" Präfix
+**Hilfe-Seite:** `/hilfe` im ERP (für alle Rollen sichtbar)
+**Grund:** Bauleiter brauchen aktuelle Anleitungen, veraltete Doku = Support-Aufwand
+
 ### L163 - Microsoft Graph API Rate-Limiting (429)
 **Datum:** 2026-02-01
 **Kontext:** SharePoint-Sync mit vielen parallelen Downloads

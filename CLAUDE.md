@@ -13,7 +13,7 @@
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
-**Letzte Aktualisierung:** 2026-01-27
+**Letzte Aktualisierung:** 2026-02-01
 **Projekt:** neurealis ERP - Wohnungssanierung
 **Portal:** https://neurealis.softr.app
 
@@ -154,6 +154,40 @@ cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 - Nutzer verwenden Google-Tastatur-Spracheingabe am Handy
 - Mehrsprachige Texte (DE, HU, RU, RO) werden im Backend geparst
 - Edge Function `parse-bestellung` nutzt gpt-5.2 für KI-Parsing
+
+---
+
+## ⚠️ PFLICHT: Dokumentation & Hilfe aktuell halten ⚠️
+
+```
+╔════════════════════════════════════════════════════════════════╗
+║  📖 BEI NEUENTWICKLUNGEN: HILFE-SEITE AKTUALISIEREN!          ║
+║                                                                ║
+║  Wenn Telegram-Bot, UI oder Prozesse geändert werden:         ║
+║  1. docs/TELEGRAM_BOT_USER_GUIDE.html aktualisieren           ║
+║  2. PDF neu generieren (Puppeteer)                            ║
+║  3. Nach ui/static/docs/ kopieren                             ║
+║  4. Commit mit "docs:" Präfix                                 ║
+║                                                                ║
+║  Hilfe-Seite im ERP: /hilfe (für alle Rollen sichtbar)        ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+**Hilfe-Dokumentation Pfade:**
+| Quelle | Ziel | Zweck |
+|--------|------|-------|
+| `docs/TELEGRAM_BOT_USER_GUIDE.html` | Bearbeitung | Master-Dokument |
+| `docs/TELEGRAM_BOT_USER_GUIDE.pdf` | PDF-Export | Offline-Nutzung |
+| `ui/static/docs/` | Web-Zugriff | Im ERP unter /hilfe |
+| `docs/logo-neurealis.png` | PDF-Assets | Logo für PDFs |
+
+**PDF-Generierung:**
+```bash
+node -e "const puppeteer = require('puppeteer'); ..."
+# Siehe LOG-069 für vollständiges Script
+```
+
+**Regel:** Jede Feature-Änderung am Bot → User Guide aktualisieren!
 
 ---
 
