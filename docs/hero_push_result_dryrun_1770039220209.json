@@ -1,0 +1,824 @@
+{
+  "timestamp": "2026-02-02T13:33:40.209Z",
+  "mode": "dry-run",
+  "stats": {
+    "total": 210,
+    "wouldUpdate": 162,
+    "wouldSkip": 48,
+    "updated": 0,
+    "errors": 0,
+    "totalDelta": 4818.061299999999
+  },
+  "results": [
+    {
+      "artikelnummer": "GWS.LV23-09.06.6",
+      "status": "dry-run",
+      "delta": 1.8119000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.01.9",
+      "status": "dry-run",
+      "delta": 1.0199999999999996
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.2",
+      "status": "dry-run",
+      "delta": 1.6799999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.09.1",
+      "status": "dry-run",
+      "delta": 85.68000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.1",
+      "status": "dry-run",
+      "delta": 80.72
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.12",
+      "status": "dry-run",
+      "delta": 20.370000000000005
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.15",
+      "status": "dry-run",
+      "delta": 19.329999999999984
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.17",
+      "status": "dry-run",
+      "delta": 24.50999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.10",
+      "status": "dry-run",
+      "delta": 132.5
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.1",
+      "status": "dry-run",
+      "delta": 0.06000000000000005
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.6",
+      "status": "dry-run",
+      "delta": 70.48000000000002
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.10",
+      "status": "dry-run",
+      "delta": 17.49000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.16",
+      "status": "dry-run",
+      "delta": 2.3900000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.18",
+      "status": "dry-run",
+      "delta": 0.4300000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.10",
+      "status": "dry-run",
+      "delta": 5.849999999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.05.2",
+      "status": "dry-run",
+      "delta": 0.9116
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.2",
+      "status": "dry-run",
+      "delta": 1.1836999999999982
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.7",
+      "status": "dry-run",
+      "delta": 0.7161999999999971
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.9",
+      "status": "dry-run",
+      "delta": 7.359999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.23",
+      "status": "dry-run",
+      "delta": 3.3500000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.15",
+      "status": "dry-run",
+      "delta": 0.5999999999999996
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.03.1",
+      "status": "dry-run",
+      "delta": 223.82999999999993
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.15",
+      "status": "dry-run",
+      "delta": 18.409999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.13",
+      "status": "dry-run",
+      "delta": 0.541400000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.3",
+      "status": "dry-run",
+      "delta": 0.14000000000000012
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.30",
+      "status": "dry-run",
+      "delta": 9.079999999999998
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.8",
+      "status": "dry-run",
+      "delta": 10.7
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.14",
+      "status": "dry-run",
+      "delta": 40.77110000000005
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.5",
+      "status": "dry-run",
+      "delta": 1.9416999999999973
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.26",
+      "status": "dry-run",
+      "delta": 0.3899999999999988
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.3",
+      "status": "dry-run",
+      "delta": 1.1799999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.2",
+      "status": "dry-run",
+      "delta": 0.21899999999999942
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.18",
+      "status": "dry-run",
+      "delta": 233.48000000000002
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.06.3",
+      "status": "dry-run",
+      "delta": 7.030000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.1",
+      "status": "dry-run",
+      "delta": 7.18119999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.30",
+      "status": "dry-run",
+      "delta": 16.060000000000002
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.38",
+      "status": "dry-run",
+      "delta": 2.5080000000000027
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.19",
+      "status": "dry-run",
+      "delta": 23.090000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.11",
+      "status": "dry-run",
+      "delta": 5.1148000000000025
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.11",
+      "status": "dry-run",
+      "delta": 64.04999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.03.1",
+      "status": "dry-run",
+      "delta": 44.349999999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.11",
+      "status": "dry-run",
+      "delta": 0.9620999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.3",
+      "status": "dry-run",
+      "delta": 3.280000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.02.1",
+      "status": "dry-run",
+      "delta": 1.0305000000000035
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.3",
+      "status": "dry-run",
+      "delta": 3.4599999999999937
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.4",
+      "status": "dry-run",
+      "delta": 3.180000000000007
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.22",
+      "status": "dry-run",
+      "delta": 5.93
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.4",
+      "status": "dry-run",
+      "delta": 20.425599999999918
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.15",
+      "status": "dry-run",
+      "delta": 2.3900000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.19",
+      "status": "dry-run",
+      "delta": 1.6999999999999993
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.6",
+      "status": "dry-run",
+      "delta": 42.809999999999945
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.9",
+      "status": "dry-run",
+      "delta": 2.469999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.13",
+      "status": "dry-run",
+      "delta": 3.1599999999999966
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.24",
+      "status": "dry-run",
+      "delta": 0.6099999999999852
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.4",
+      "status": "dry-run",
+      "delta": 3.102400000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.27",
+      "status": "dry-run",
+      "delta": 7.3799999999999955
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.02.1",
+      "status": "dry-run",
+      "delta": 1.9699999999999989
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.29",
+      "status": "dry-run",
+      "delta": 5.980000000000004
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.17",
+      "status": "dry-run",
+      "delta": 0.41999999999999993
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.24",
+      "status": "dry-run",
+      "delta": 4.25
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.6",
+      "status": "dry-run",
+      "delta": 4.724000000000004
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.11",
+      "status": "dry-run",
+      "delta": 3.1499999999999986
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.02.4",
+      "status": "dry-run",
+      "delta": 18.180000000000007
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.14",
+      "status": "dry-run",
+      "delta": 1.8500000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.23",
+      "status": "dry-run",
+      "delta": 2.8500000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.27",
+      "status": "dry-run",
+      "delta": 6.200000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.16",
+      "status": "dry-run",
+      "delta": 510.88
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.8",
+      "status": "dry-run",
+      "delta": 3.8400000000000034
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.11",
+      "status": "dry-run",
+      "delta": 3.819999999999993
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.14",
+      "status": "dry-run",
+      "delta": 4.999999999999986
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.14",
+      "status": "dry-run",
+      "delta": 0.2100000000000004
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.5",
+      "status": "dry-run",
+      "delta": 33.94999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.22",
+      "status": "dry-run",
+      "delta": 1.1799999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.16",
+      "status": "dry-run",
+      "delta": 3.25
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.12",
+      "status": "dry-run",
+      "delta": 3.3500000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.13",
+      "status": "dry-run",
+      "delta": 0.5275999999999996
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.4",
+      "status": "dry-run",
+      "delta": 6.329999999999998
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.14",
+      "status": "dry-run",
+      "delta": 7.359999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.3",
+      "status": "dry-run",
+      "delta": 5.030000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.4",
+      "status": "dry-run",
+      "delta": 5.849999999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.24",
+      "status": "dry-run",
+      "delta": 9.401899999999983
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.35",
+      "status": "dry-run",
+      "delta": 3.942299999999989
+    },
+    {
+      "artikelnummer": "GWS.LV23-12.01.1",
+      "status": "dry-run",
+      "delta": 569.8400000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.8",
+      "status": "dry-run",
+      "delta": 6.599799999999988
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.4",
+      "status": "dry-run",
+      "delta": 4.030000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.17",
+      "status": "dry-run",
+      "delta": 418.42
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.7",
+      "status": "dry-run",
+      "delta": 0.41000000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.9",
+      "status": "dry-run",
+      "delta": 1.4699999999999989
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.7",
+      "status": "dry-run",
+      "delta": 0.5700000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.19",
+      "status": "dry-run",
+      "delta": 0.3899999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.29",
+      "status": "dry-run",
+      "delta": 8.439999999999998
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.8",
+      "status": "dry-run",
+      "delta": 1.0299999999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.02.2",
+      "status": "dry-run",
+      "delta": 0.35000000000000053
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.28",
+      "status": "dry-run",
+      "delta": 10.110000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.5",
+      "status": "dry-run",
+      "delta": 0.2600000000000007
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.31",
+      "status": "dry-run",
+      "delta": 2.1000000000000014
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.6",
+      "status": "dry-run",
+      "delta": 0.18999999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.22",
+      "status": "dry-run",
+      "delta": 3.8900000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.18",
+      "status": "dry-run",
+      "delta": 0.28000000000000025
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.12",
+      "status": "dry-run",
+      "delta": 2.289999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.7",
+      "status": "dry-run",
+      "delta": 10.180000000000007
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.3",
+      "status": "dry-run",
+      "delta": 8.37639999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.27",
+      "status": "dry-run",
+      "delta": 18.11760000000004
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.18",
+      "status": "dry-run",
+      "delta": 18.169999999999987
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.5",
+      "status": "dry-run",
+      "delta": 6.450000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.38",
+      "status": "dry-run",
+      "delta": 4.409999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.25",
+      "status": "dry-run",
+      "delta": 5.6000000000000085
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.7",
+      "status": "dry-run",
+      "delta": 20.63
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.8",
+      "status": "dry-run",
+      "delta": 4.799999999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.3",
+      "status": "dry-run",
+      "delta": 0.13999999999999968
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.2",
+      "status": "dry-run",
+      "delta": 1.2542000000000009
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.7",
+      "status": "dry-run",
+      "delta": 0.6900000000000013
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.1",
+      "status": "dry-run",
+      "delta": 15.879999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.1",
+      "status": "dry-run",
+      "delta": 0.050000000000000044
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.1",
+      "status": "dry-run",
+      "delta": 2.530000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.4",
+      "status": "dry-run",
+      "delta": 1.3200000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.10",
+      "status": "dry-run",
+      "delta": 1.3999999999999986
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.6",
+      "status": "dry-run",
+      "delta": 0.8399999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.22",
+      "status": "dry-run",
+      "delta": 154.18000000000006
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.23",
+      "status": "dry-run",
+      "delta": 103.09
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.10",
+      "status": "dry-run",
+      "delta": 632.37
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.5",
+      "status": "dry-run",
+      "delta": 35.59
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.11",
+      "status": "dry-run",
+      "delta": 4.340000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.1",
+      "status": "dry-run",
+      "delta": 7.09
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.2",
+      "status": "dry-run",
+      "delta": 5.469999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.13",
+      "status": "dry-run",
+      "delta": 3.519999999999996
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.03.1",
+      "status": "dry-run",
+      "delta": 8.489999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.20",
+      "status": "dry-run",
+      "delta": 1.120000000000001
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.26",
+      "status": "dry-run",
+      "delta": 1.6844999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.8",
+      "status": "dry-run",
+      "delta": 0.23370000000000068
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.6",
+      "status": "dry-run",
+      "delta": 9.060000000000002
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.02.2",
+      "status": "dry-run",
+      "delta": 0.7539999999999978
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.26",
+      "status": "dry-run",
+      "delta": 4.700000000000003
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.14",
+      "status": "dry-run",
+      "delta": 0.7400000000000002
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.7",
+      "status": "dry-run",
+      "delta": 4.3700000000000045
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.9",
+      "status": "dry-run",
+      "delta": 45.11799999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.6",
+      "status": "dry-run",
+      "delta": 5.539999999999992
+    },
+    {
+      "artikelnummer": "GWS.LV23-12.02.1",
+      "status": "dry-run",
+      "delta": 295.5699999999988
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.20",
+      "status": "dry-run",
+      "delta": 0.4400000000000013
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.8",
+      "status": "dry-run",
+      "delta": 3.1099999999999994
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.6",
+      "status": "dry-run",
+      "delta": 17.379999999999995
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.01.2",
+      "status": "dry-run",
+      "delta": 0.9762999999999984
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.21",
+      "status": "dry-run",
+      "delta": 28.910000000000025
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.27",
+      "status": "dry-run",
+      "delta": 12.6832
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.33",
+      "status": "dry-run",
+      "delta": 99.03999999999999
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.1",
+      "status": "dry-run",
+      "delta": 2.1948000000000008
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.5",
+      "status": "dry-run",
+      "delta": 3.5
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.11",
+      "status": "dry-run",
+      "delta": 0.6499999999999986
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.6",
+      "status": "dry-run",
+      "delta": 0.6778000000000013
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.19",
+      "status": "dry-run",
+      "delta": 2.3663999999999987
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.12",
+      "status": "dry-run",
+      "delta": 2.0933999999999955
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.8",
+      "status": "dry-run",
+      "delta": 1.7759999999999962
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.4",
+      "status": "dry-run",
+      "delta": 8.010400000000004
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.4",
+      "status": "dry-run",
+      "delta": 0.09949999999999992
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.04.2",
+      "status": "dry-run",
+      "delta": 2.4350000000000023
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.30",
+      "status": "dry-run",
+      "delta": 22.6952
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.04.1",
+      "status": "dry-run",
+      "delta": 3.6525000000000034
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.01.14",
+      "status": "dry-run",
+      "delta": 0.34609999999999985
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.21",
+      "status": "dry-run",
+      "delta": 1.885399999999997
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.3",
+      "status": "dry-run",
+      "delta": 3.333999999999996
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.20",
+      "status": "dry-run",
+      "delta": 3.3700999999999794
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.02.1",
+      "status": "dry-run",
+      "delta": 178
+    }
+  ]
+}

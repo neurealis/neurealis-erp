@@ -84,6 +84,7 @@
 | LOG-069 | 2026-02-01 | Telegram User Guide: Menü-Struktur + Logo + Hilfe-Seite | Abgeschlossen |
 | LOG-070 | 2026-02-01 | SharePoint Sync gestartet + Ingest Status-Seite geplant | Abgeschlossen |
 | LOG-071 | 2026-02-02 | GWS LV-Preisimport 2026: Excel→Supabase + Hero-Vergleich | Abgeschlossen |
+| LOG-072 | 2026-02-02 | ER-NU-* Analyse: Fehlende NU-Rechnungen identifiziert | Abgeschlossen |
 
 ---
 
@@ -136,8 +137,82 @@ GWS hat aktualisierte Preise für 2026 (Baupreisindex August 2025) in Excel bere
 - L168: Preishistorie-Trigger protokolliert automatisch alle Änderungen
 - L169: Hero-Sync deaktiviert (D048) - nur noch manuell
 
+### Hero Push (Nachtrag)
+**Datum:** 2026-02-02 12:30
+
+**Hero-Push erfolgreich durchgeführt:**
+- Dry-Run: 162 Positionen mit Preisdifferenz identifiziert
+- Live-Push: **162/162 erfolgreich, 0 Fehler**
+- Gesamte Preiskorrektur: **4.818,06 €**
+- Script: `scripts/hero_price_push.js`
+
+**Kritische Korrekturen in Hero:**
+| Position | Alt | Neu | Diff |
+|----------|-----|-----|------|
+| 21.02.01.16 | 90 € | 600,88 € | +510,88 € |
+| 21.02.01.17 | 154 € | 572,48 € | +418,42 € |
+| 12.01.1 | 7.720 € | 8.289,84 € | +569,84 € |
+| 20.01.10 | 0 € | 632,37 € | +632,37 € |
+
 ### Nächster Schritt
-274 Hero-Positionen mit fehlenden/niedrigeren Preisen manuell in Hero Software aktualisieren.
+~~274 Hero-Positionen mit fehlenden/niedrigeren Preisen manuell in Hero Software aktualisieren.~~ ✅ **162 gepusht, 48 bereits aktuell**
+
+---
+
+## LOG-072 - ER-NU-* Analyse: Fehlende NU-Rechnungen identifiziert
+**Datum:** 2026-02-02
+**Status:** Abgeschlossen
+
+### Ausgangslage
+Prüfung ob alle Projekte aus 2025 mit ER-NU-* (Eingangsrechnungen Nachunternehmer) versehen sind.
+
+### Durchgeführt
+
+**1. ER-NU-* Vollständigkeit:**
+- 114 ER-NU-* Dokumente - ALLE mit ATBS-Nummer ✅
+
+**2. Projekte 2025 nach Status:**
+| Status | Total | Ohne ER-NU | Mit ER-NU |
+|--------|-------|------------|-----------|
+| (5) Rechnungsstellung | 35 | 7 | 28 |
+| (5) Zahlung erhalten | 39 | 2 | 37 |
+| (7) Abgeschlossen | 31 | 9 | 22 |
+| (9) Auftrag nicht erhalten | 23 | 23 | 0 |
+
+**3. Kritisch: Zahlungen OHNE Rechnungsbeleg:**
+| ATBS | ReNr | Rechnungssteller | Bezahlt | Status |
+|------|------|------------------|---------|--------|
+| ATBS-437 | RE20250111 | MENNZA GMBH | 22.078 € | PDF fehlt |
+| ATBS-449 | RE20250137 | MENNZA GMBH | 18.968 € | PDF fehlt |
+| ATBS-429 | 1189 | Antonio Pepe | 7.525 € | PDF fehlt |
+| ATBS-429 | 1191 | Antonio Pepe | 500 € | PDF fehlt |
+| ATBS-405 | 59-2025 | ION WEBER | 5.850 € | PDF fehlt |
+| ATBS-303 | RE0334 | TOP HANDWERKER | 9.800 € | PDF fehlt |
+| **TOTAL** | | | **64.721 €** | |
+
+**4. E-Mail-Sync getriggert:**
+- Vorher: 77 E-Mails
+- Nachher: 625 E-Mails (02.02.2026 13:20)
+- Befund: NUs senden Rechnungen NICHT per E-Mail mit PDF
+
+**5. SharePoint-Analyse:**
+- Nur 45 Dokumente synchronisiert (Screenshots, Marketing)
+- Finanzen-Site (1,81 GB) noch NICHT synchronisiert
+- NU-Rechnungen wahrscheinlich dort
+
+### Erkenntnisse
+- Rechnungsnummern stehen im Verwendungszweck (notizen) der ER-Zahl
+- Softr API Table ID für Dokumente: `kNjsEhYYcNjAsj`
+- NUs (MENNZA, Pepe, Weber) senden keine E-Mail-Anhänge
+
+### Neue Learnings
+- L170: ER-NU-* Vollständigkeitsprüfung (Query-Pattern)
+- L171: Rechnungsnummern aus Verwendungszweck extrahieren
+- L172: NUs senden Rechnungen NICHT per E-Mail mit PDF
+- L173: SharePoint Finanzen-Site für Eingangsrechnungen
+
+### Nächster Schritt
+SharePoint Finanzen-Site synchronisieren und NU-Rechnungen importieren.
 
 ---
 

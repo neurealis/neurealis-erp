@@ -23,10 +23,11 @@
 - Nur noch manueller Aufruf bei Bedarf
 - Supabase ist jetzt LV-Master
 
-**Hero-Abgleich (manuell nötig):**
-- 305 Preise identisch (52%)
-- **274 Hero niedriger/fehlt (48%)** - manuell aktualisieren!
-- Diskrepanzen in `docs/hero_gws_price_comparison.json`
+**Hero-Push (✅ ERLEDIGT):**
+- 162 Positionen erfolgreich nach Hero gepusht
+- 0 Fehler
+- Gesamte Preiskorrektur: **4.818,06 €**
+- Script: `scripts/hero_price_push.js`
 
 **Neue Learnings:** L167-L169
 
@@ -343,18 +344,19 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **Hero-Preise manuell aktualisieren** (WICHTIG)
+→ **NU-Rechnungen aus SharePoint importieren** (DRINGEND)
+  - 6 Rechnungen (64.721 €) bezahlt OHNE Beleg im System
+  - ATBS-437, 449, 429, 405, 303 betroffen
+  - SharePoint Finanzen-Site synchronisieren
+  - Oder: Tobias bittet NUs um erneute Zusendung
+
+→ **Hero-Preise manuell aktualisieren**
   - 274 GWS-Positionen haben in Hero niedrigere/fehlende Preise
   - Diskrepanzen in `docs/hero_gws_price_comparison.json`
-  - Besonders: Gewerk 10 (Asbestsanierung) komplett ohne Preise
 
 → **SharePoint Ingest Status-Seite erstellen** (User Request)
   - Neue Seite `/ingest` im neurealis ERP (wie LifeOps)
-  - Tabelle mit allen SharePoint Sites als Zeilen
-  - Spalten: Site | Kopiert | Analysiert | Summarized | Embedded
-  - Vorlage: `C:\Users\holge\lifeops\ui\src\routes\ingest\+page.svelte`
 
-→ **SharePoint Sync läuft** - v13 mit Rate-Limiting-Fix aktiv
 → **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
 
 ---
