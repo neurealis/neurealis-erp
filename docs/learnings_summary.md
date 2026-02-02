@@ -7,6 +7,15 @@
 
 ---
 
+## UI / Rollen / Zugriffsrechte
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L175 | WIP-Badge für Admin-only Seiten-Status | releasedPages Set, isWorkInProgress(), nur für Admin sichtbar |
+| L176 | Sidebar Rollen-System mit roles-Array | navItems mit roles[], Filter per userRole |
+
+---
+
 ## Marketing / Ads APIs
 
 | # | Titel | Kurzfassung |
@@ -419,6 +428,9 @@
 | L132 | Elementor speichert in _elementor_data | JSON-Array mit Sections/Columns/Widgets |
 | L133 | Yoast SEO Meta via _yoast_wpseo_* | title, metadesc, focuskw als Post-Meta |
 | L174 | Markdown→Elementor Konvertierung | Edge Function für automatische Seiten-Befüllung |
+| L175 | JWT Auth vs. Application Passwords | JWT braucht normales WP-Passwort, nicht App Password |
+| L176 | Elementor Backup PFLICHT | _elementor_data VOR Updates sichern |
+| L177 | Edge Functions Redeploy für Secrets | Nach Secret-Änderung Function redeployen |
 
 ---
 
@@ -450,6 +462,6 @@
 
 ---
 
-**Anzahl Learnings:** 174 (L001-L174, ohne Duplikate bei L053/L143/L144)
+**Anzahl Learnings:** 176 (L001-L176, ohne Duplikate bei L053/L143/L144/L170-L172)
 
-*Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values). Die zweiten Vorkommen sollten umnummeriert werden.*
+*Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values), L170-L172 existiert zweimal (Meta Ads + Finanzen). Die zweiten Vorkommen sollten umnummeriert werden.*

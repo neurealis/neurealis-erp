@@ -4,6 +4,46 @@
 
 ---
 
+## UI / Rollen / Zugriffsrechte
+
+### L175 - WIP-Badge für Admin-only Seiten-Status
+**Datum:** 2026-02-02
+**Kontext:** Übersicht welche Seiten noch in Arbeit sind
+**Lösung:**
+- `releasedPages` Set definiert freigegebene Seiten
+- `isWorkInProgress(href)` prüft ob Badge angezeigt wird
+- `isHolger` derived state prüft User-E-Mail
+- Badge: 8x8px gelb (#f59e0b), border-radius: 2px
+**Code-Pattern:**
+```svelte
+{#if isHolger && isWorkInProgress(entry.href)}
+  <span class="wip-badge"></span>
+{/if}
+```
+**Vorteil:** Nur Admin sieht Entwicklungsstatus, User werden nicht verwirrt
+
+### L176 - Sidebar Rollen-System mit roles-Array
+**Datum:** 2026-02-02
+**Kontext:** Unterschiedliche Menüs für admin/mitarbeiter/kunde/nachunternehmer
+**Struktur:**
+```typescript
+navItems = [
+  { label: 'Seite', href: '/seite', roles: ['admin', 'mitarbeiter'] },
+  // ...
+]
+```
+**Rollen-Mapping:**
+- `admin` → ADM (Vollzugriff)
+- `mitarbeiter` → BL, HW (Bauleiter, Handwerker)
+- `kunde` → KU (Externe Kunden)
+- `nachunternehmer` → NU (Subunternehmer)
+**Filter:**
+```typescript
+const visibleItems = navItems.filter(item => item.roles.includes(userRole));
+```
+
+---
+
 ## Marketing / Ads APIs
 
 ### L172 - Meta System User Token: App-Permissions erforderlich
@@ -2883,6 +2923,43 @@ SELECT z.* FROM zahlungen z LEFT JOIN er_nu_docs e ON z.atbs_nummer = e.atbs_num
 }]
 ```
 **Anwendung:** `node scripts/update_elementor.mjs update`
+
+### L175 - JWT Auth vs. Application Passwords in WordPress
+**Datum:** 2026-02-02
+**Problem:** WordPress REST API Auth schlägt fehl mit "incorrect_password"
+**Ursache:** JWT Auth Plugin erwartet das **normale WordPress Login-Passwort**, NICHT Application Passwords
+**Application Passwords sind für:**
+- Basic Auth Header (`Authorization: Basic base64(user:app_password)`)
+- Nicht für JWT Token Requests
+**JWT Auth ist für:**
+- Token-basierte Auth mit normalem Login-Passwort
+- Endpoint: `/wp-json/jwt-auth/v1/token`
+**Regel:**
+- Für JWT: Normales WordPress-Passwort in `WORDPRESS_APP_PASSWORD` speichern
+- Für Basic Auth: Application Password verwenden
+- IONOS: X-WP-Auth Header statt Authorization (L130)
+
+### L176 - Elementor _elementor_data Backup vor Änderungen (PFLICHT!)
+**Datum:** 2026-02-02
+**Problem:** Elementor-Template wurde durch API-Update überschrieben
+**Ursache:** Neuer Content ersetzte komplette `_elementor_data` statt Texte zu aktualisieren
+**Regel:**
+1. **VOR** jedem WordPress-Update: `wordpress-get-post` ausführen
+2. `meta._elementor_data` in `docs/backups/` speichern
+3. Dateiname: `YYYY-MM-DD_elementor_backup_{post_id}.json`
+4. **DANN ERST** Updates durchführen
+**Wiederherstellung:**
+- Backup-JSON lesen
+- Via API in `meta._elementor_data` zurückschreiben
+**Anwendung:** Immer bei WordPress/Elementor-Automatisierung
+
+### L177 - Edge Functions brauchen Redeploy für neue Secrets
+**Datum:** 2026-02-02
+**Problem:** Neues Supabase Secret wird von Edge Function nicht erkannt
+**Ursache:** Edge Functions cachen Environment Variables beim Deploy
+**Lösung:** Nach Hinzufügen eines Secrets die betroffene Function redeployen
+**Befehl:** `mcp__supabase__deploy_edge_function` erneut ausführen
+**Regel:** Bei Secret-Änderungen immer Redeploy!
 
 ---
 

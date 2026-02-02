@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-01
+**Stand:** 2026-02-02
 
 ---
 
@@ -87,6 +87,90 @@
 | LOG-072 | 2026-02-02 | ER-NU-* Analyse: Fehlende NU-Rechnungen identifiziert | Abgeschlossen |
 | LOG-073 | 2026-02-02 | WordPress Elementor-Update: Eigenheim-Content automatisiert | Abgeschlossen |
 | LOG-074 | 2026-02-02 | Marketing-Integration: Google Ads + Meta Ads Konzept + DB-Schema | In Arbeit |
+| LOG-075 | 2026-02-02 | Eigenheim-Sanierung SEO-Content + WordPress Elementor-Restore | Offen |
+| LOG-076 | 2026-02-02 | WIP-Badge System + Rollen-Anpassung Sidebar | Abgeschlossen |
+
+---
+
+## LOG-076 - WIP-Badge System + Rollen-Anpassung Sidebar
+**Datum:** 2026-02-02
+**Status:** Abgeschlossen
+
+### Durchgeführt
+1. **WIP-Badge System implementiert**
+   - Gelbes Kästchen (8x8px) neben Menüpunkten die "in Arbeit" sind
+   - Nur für Admin (holger.neumann@neurealis.de) sichtbar
+   - `isWorkInProgress()` Funktion prüft gegen `releasedPages` Set
+
+2. **Freigegebene Seiten definiert**
+   - `/lv-export` - LV-Export
+   - `/bestellungen` - Bestellungsliste
+   - `/bestellung` - Bestellformular
+   - `/angebote` - Angebotsliste
+   - `/angebote/neu` - CPQ-Wizard
+
+3. **Rollen-Anpassung**
+   - Nachträge jetzt auch für `nachunternehmer` Rolle zugänglich
+
+4. **Seiten-Status analysiert**
+   - 10 Seiten voll funktional (✅)
+   - 11 Seiten fast fertig (🟡)
+   - 1 Seite in Arbeit (🔄)
+
+5. **User-Übersicht erstellt**
+   - 2 registrierte User (Holger ADM, Dirk BL)
+   - Rollen-Matrix für alle Seiten dokumentiert
+
+### Dateien geändert
+- `ui/src/lib/components/layout/Sidebar.svelte`
+
+### Git
+- Commit: `86e7a11`
+- Push: origin/main ✅
+- Netlify: Auto-Deploy aktiv
+
+---
+
+## LOG-075 - Eigenheim-Sanierung SEO-Content + WordPress Elementor-Restore
+**Datum:** 2026-02-02
+**Status:** Offen (WordPress Auth-Problem)
+
+### Durchgeführt
+1. **WordPress Post 12089 analysiert** via REST API
+   - Elementor-Page im Draft-Status
+   - Original-Content: Kopie der Eigentumswohnung-Seite
+   - 116.024 Zeichen Elementor-JSON gesichert
+
+2. **SEO-Content erstellt** für Keyword "eigenheim sanieren"
+   - 2.230 Wörter, B2C-optimiert
+   - 5 Gewerke: Innen, Fassade, Fenster, Heizung, Dach
+   - Marken integriert: Schüco, Veka, Hörmann, Sto, Braas, Viessmann
+   - Neue Fördermittel-Section (KfW, BAFA, Steuerbonus)
+   - Gespeichert: `docs/content_eigenheim_sanieren.md`
+
+3. **Elementor-Template überschrieben** (Fehler!)
+   - Neuer Content wurde eingefügt
+   - Original-Template dabei überschrieben
+   - Backup vorhanden: `docs/backups/2026-02-02_elementor_backup_12089.json`
+
+4. **Wiederherstellung versucht**
+   - Edge Function `wordpress-restore-elementor` v6 deployed
+   - JWT Auth schlägt fehl: "incorrect_password"
+   - Problem: JWT Auth erwartet normales WP-Passwort, nicht Application Password
+
+### Neue Edge Functions
+- `wordpress-restore-elementor` v6
+- `wordpress-update-elementor` (vom Subagent erstellt)
+
+### Offene Punkte
+- [ ] WordPress JWT Auth mit korrektem Passwort konfigurieren
+- [ ] Elementor-Template wiederherstellen
+- [ ] Content manuell in wiederhergestelltes Template übernehmen
+
+### Dateien
+- `docs/content_eigenheim_sanieren.md` - Fertiger SEO-Content
+- `docs/backups/2026-02-02_elementor_backup_12089.json` - Original-Template
+- `docs/wordpress_post_12089.json` - Post-Metadaten
 
 ---
 
