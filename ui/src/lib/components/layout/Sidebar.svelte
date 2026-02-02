@@ -31,6 +31,22 @@
 
 	let { userRole = 'mitarbeiter', userName, userEmail, isCollapsed = false, onToggle }: Props = $props();
 
+	// WIP-Badge System: Nur für Holger sichtbar
+	const isHolger = $derived(userEmail === 'holger.neumann@neurealis.de');
+
+	// Freigegebene Seiten (kein WIP-Badge)
+	const releasedPages = new Set([
+		'/lv-export',
+		'/bestellungen',
+		'/bestellung',
+		'/angebote',
+		'/angebote/neu'
+	]);
+
+	function isWorkInProgress(href: string): boolean {
+		return !releasedPages.has(href);
+	}
+
 	// Offene Submenues verwalten
 	let openSubmenus = $state<Set<string>>(new Set(['Einkauf']));
 
@@ -57,7 +73,7 @@
 		{ icon: 'calendar', label: 'Kalender', href: '/kalender', roles: ['admin', 'mitarbeiter'] },
 		{ icon: 'file-text', label: 'Angebote', href: '/angebote', roles: ['admin', 'mitarbeiter'] },
 		{ icon: 'alert', label: 'Maengel', href: '/maengel', roles: ['admin', 'mitarbeiter', 'nachunternehmer'] },
-		{ icon: 'file-plus', label: 'Nachtraege', href: '/nachtraege', roles: ['admin', 'mitarbeiter'] },
+		{ icon: 'file-plus', label: 'Nachtraege', href: '/nachtraege', roles: ['admin', 'mitarbeiter', 'nachunternehmer'] },
 		{ icon: 'euro', label: 'Finanzen', href: '/finanzen', roles: ['admin', 'mitarbeiter'] },
 
 		// Einkauf als Gruppe mit Untermenü
@@ -214,6 +230,9 @@
 										{@html icons[child.icon] || icons.home}
 									</svg>
 									<span class="nav-label">{child.label}</span>
+									{#if isHolger && isWorkInProgress(child.href)}
+										<span class="wip-badge" title="Work in Progress"></span>
+									{/if}
 								</a>
 							{/each}
 						</div>
@@ -232,6 +251,9 @@
 					</svg>
 					{#if !isCollapsed}
 						<span class="nav-label">{entry.label}</span>
+						{#if isHolger && isWorkInProgress(entry.href)}
+							<span class="wip-badge" title="Work in Progress"></span>
+						{/if}
 					{/if}
 				</a>
 			{/if}
@@ -441,6 +463,17 @@
 		color: var(--color-sidebar-active-text);
 		font-weight: 600;
 		border-radius: var(--radius-md);
+	}
+
+	/* WIP Badge - Work in Progress Indikator */
+	.wip-badge {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		background-color: #f59e0b;
+		border-radius: 2px;
+		margin-left: 6px;
+		flex-shrink: 0;
 	}
 
 	/* Footer / User */
