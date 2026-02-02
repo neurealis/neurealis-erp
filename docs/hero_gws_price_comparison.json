@@ -1,0 +1,3693 @@
+{
+  "timestamp": "2026-02-02T11:20:38.031Z",
+  "statistik": {
+    "hero_gws_produkte": 585,
+    "supabase_gws_positionen": 704,
+    "identisch": 305,
+    "diskrepanzen": 280,
+    "hero_hoeher": 6,
+    "supabase_hoeher": 274,
+    "nur_in_hero": 0,
+    "nur_in_supabase": 119
+  },
+  "diskrepanzen": [
+    {
+      "artikelnummer": "GWS.LV23-10.01.17",
+      "bezeichnung": "5 Zi Wohnung mit Küche, Diele >100m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 4562.03,
+      "delta_vk": -4562.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.15",
+      "bezeichnung": "4 Zi Wohnung mit Küche, Diele > 100m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 4467.54,
+      "delta_vk": -4467.54,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.16",
+      "bezeichnung": "5 Zi Wohnung mit Küche, Diele bis 100m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 4173.24,
+      "delta_vk": -4173.24,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.14",
+      "bezeichnung": "4 Zi Wohnung mit Küche, Diele bis 100m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 4051.25,
+      "delta_vk": -4051.25,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.12",
+      "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 85m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 3596.18,
+      "delta_vk": -3596.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.13",
+      "bezeichnung": "4 Zi Wohnung mit Küche, Diele bis 75m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 3376.35,
+      "delta_vk": -3376.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.11",
+      "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 75m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 3311.92,
+      "delta_vk": -3311.92,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.7",
+      "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 75m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 3237.18,
+      "delta_vk": -3237.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.10",
+      "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 65m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 2969.55,
+      "delta_vk": -2969.55,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.9",
+      "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 55m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 2583.02,
+      "delta_vk": -2583.02,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.8",
+      "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 50m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 2362.76,
+      "delta_vk": -2362.76,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.4",
+      "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 50m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 2288.02,
+      "delta_vk": -2288.02,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.2",
+      "bezeichnung": "1 Zi Wohnung mit Küche, Diele bis 45m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 2111.74,
+      "delta_vk": -2111.74,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.5",
+      "bezeichnung": "Bad/ Wc > 7,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 964.74,
+      "delta_vk": -964.74,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.20",
+      "bezeichnung": "Einzelflächen bis 15 m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 897.74,
+      "delta_vk": -897.74,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.4",
+      "bezeichnung": "Bad/ Wc bis 7,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 789.63,
+      "delta_vk": -789.63,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.19",
+      "bezeichnung": "Einzelflächen bis 10 m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 698.57,
+      "delta_vk": -698.57,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.3",
+      "bezeichnung": "Bad/ Wc bis 6 m² -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 673.26,
+      "delta_vk": -673.26,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-12.01.1",
+      "bezeichnung": "Duschbad Gr. bis 3,5 m² Grundfl.",
+      "hero_ek": 5833.3333,
+      "supa_ek": 5833.33,
+      "delta_ek": 0,
+      "hero_vk": 7720,
+      "supa_vk": 8289.84,
+      "delta_vk": -569.84,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.2",
+      "bezeichnung": "Bad/ Wc bis 4,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 562.69,
+      "delta_vk": -562.69,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.6",
+      "bezeichnung": "Asbestsanierung: 2 Zi Wohnung mit Küche, Diele bis 65m²",
+      "hero_ek": 1972,
+      "supa_ek": 1972,
+      "delta_ek": 0,
+      "hero_vk": 2320,
+      "supa_vk": 2867.32,
+      "delta_vk": -547.32,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.16",
+      "bezeichnung": "Zulage Duschtasse Duschplan 1000 mm x 1400 mm",
+      "hero_ek": 75,
+      "supa_ek": 75,
+      "delta_ek": 0,
+      "hero_vk": 90,
+      "supa_vk": 600.88,
+      "delta_vk": -510.88,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.18",
+      "bezeichnung": "Einzelflächen bis 5 m²",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 496.69,
+      "delta_vk": -496.69,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.1",
+      "bezeichnung": "Bad/ Wc bis 3,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 491.83,
+      "delta_vk": -491.83,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.3",
+      "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 45m²",
+      "hero_ek": 1433.3333,
+      "supa_ek": 1433.33,
+      "delta_ek": 0,
+      "hero_vk": 1720,
+      "supa_vk": 2154.52,
+      "delta_vk": -434.52,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.19",
+      "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1400 mm",
+      "hero_ek": 225,
+      "supa_ek": 225,
+      "delta_ek": 0,
+      "hero_vk": 270,
+      "supa_vk": 701.94,
+      "delta_vk": -431.94,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.17",
+      "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1000 mm",
+      "hero_ek": 104.1667,
+      "supa_ek": 104.17,
+      "delta_ek": 0,
+      "hero_vk": 154.06,
+      "supa_vk": 572.48,
+      "delta_vk": -418.42,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.02.6",
+      "bezeichnung": "Gäste WC -Spachtelmassen u asbesthaltigen Kleber",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 376.36,
+      "delta_vk": -376.36,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.10",
+      "bezeichnung": "Zulage Türfutter erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 300.91,
+      "delta_vk": -300.91,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-12.02.1",
+      "bezeichnung": "Duschbad Gr. bis 4,5 m² Grundfl.",
+      "hero_ek": 6208.3333,
+      "supa_ek": 6208.33,
+      "delta_ek": 0,
+      "hero_vk": 8187.56,
+      "supa_vk": 8483.13,
+      "delta_vk": -295.57,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.13",
+      "bezeichnung": "Blendrahmen Tür erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 282.89,
+      "delta_vk": -282.89,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.18",
+      "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1200 mm",
+      "hero_ek": 155.17,
+      "supa_ek": 155.17,
+      "delta_ek": 0,
+      "hero_vk": 339,
+      "supa_vk": 572.48,
+      "delta_vk": -233.48,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.03.1",
+      "bezeichnung": "Ausführung Brennwertgerät mit Speicher",
+      "hero_ek": 3650,
+      "supa_ek": 3183.6,
+      "delta_ek": 466.4,
+      "hero_vk": 4897.85,
+      "supa_vk": 5121.68,
+      "delta_vk": -223.83,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.02.1",
+      "bezeichnung": "Elektroneuinstallation (ohne Unterverteilung, Mieterkeller, Balkon, Bäder, Nachputzarbeiten)",
+      "hero_ek": 2500,
+      "supa_ek": 2500,
+      "delta_ek": 0,
+      "hero_vk": 3409.92,
+      "supa_vk": 3587.92,
+      "delta_vk": -178,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.7",
+      "bezeichnung": "Treppenstufe erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 170.53,
+      "delta_vk": -170.53,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.1",
+      "bezeichnung": "Handlauf erneuern, nach Originalmuster",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 163.2,
+      "delta_vk": -163.2,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.22",
+      "bezeichnung": "Verlegung Kombitherme in Keller",
+      "hero_ek": 1166.6667,
+      "supa_ek": 1166.67,
+      "delta_ek": 0,
+      "hero_vk": 1520,
+      "supa_vk": 1674.18,
+      "delta_vk": -154.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.10",
+      "bezeichnung": "Zulage Duschtasse Superplan 1000 mm x 1400 mm",
+      "hero_ek": 56.25,
+      "supa_ek": 56.25,
+      "delta_ek": 0,
+      "hero_vk": 80,
+      "supa_vk": 212.5,
+      "delta_vk": -132.5,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.12",
+      "bezeichnung": "Türblatt Rahmenstück ausbessern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 114.11,
+      "delta_vk": -114.11,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.33",
+      "bezeichnung": "Wand-WC",
+      "hero_ek": 230,
+      "supa_ek": 230,
+      "delta_ek": 0,
+      "hero_vk": 253.09,
+      "supa_vk": 352.13,
+      "delta_vk": -99.04,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.14",
+      "bezeichnung": "Schlossbereich erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 89.58,
+      "delta_vk": -89.58,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.03.2",
+      "bezeichnung": "Ausbau schadstoffhaltiger Fensterbänke",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 88.83,
+      "delta_vk": -88.83,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.21",
+      "bezeichnung": "Verlegung Kombitherme innerhalb WE",
+      "hero_ek": 645.8333,
+      "supa_ek": 645.83,
+      "delta_ek": 0,
+      "hero_vk": 850,
+      "supa_vk": 936.22,
+      "delta_vk": -86.22,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.09.1",
+      "bezeichnung": "Rohrlängen75",
+      "hero_ek": 1218.6395,
+      "supa_ek": 1218.64,
+      "delta_ek": 0,
+      "hero_vk": 1874.83,
+      "supa_vk": 1960.51,
+      "delta_vk": -85.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.11",
+      "bezeichnung": "Türfüllung erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 80.41,
+      "delta_vk": -80.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.8",
+      "bezeichnung": "Zulage für Setzstufe an auzutauschender Treppenstufe",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 75.97,
+      "delta_vk": -75.97,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.6",
+      "bezeichnung": "Rechteck-Badewanne mit Duschzone 170/80/38",
+      "hero_ek": 525,
+      "supa_ek": 525,
+      "delta_ek": 0,
+      "hero_vk": 702,
+      "supa_vk": 772.48,
+      "delta_vk": -70.48,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.15",
+      "bezeichnung": "Verleistung erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 69.53,
+      "delta_vk": -69.53,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.25",
+      "bezeichnung": "Duschabtrennung",
+      "hero_ek": 462.5,
+      "supa_ek": 462.5,
+      "delta_ek": 0,
+      "hero_vk": 660,
+      "supa_vk": 726.26,
+      "delta_vk": -66.26,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.11",
+      "bezeichnung": "Wohnungstür RC 2 inkl. Zarge liefern, einbauen",
+      "hero_ek": 792.6829,
+      "supa_ek": 792.68,
+      "delta_ek": 0,
+      "hero_vk": 975,
+      "supa_vk": 1039.05,
+      "delta_vk": -64.05,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.6",
+      "bezeichnung": "Trittkante reparieren",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 63.09,
+      "delta_vk": -63.09,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.3",
+      "bezeichnung": "Trittblech erneuern (Sockelblech)",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 58.29,
+      "delta_vk": -58.29,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.9",
+      "bezeichnung": "Zulage Türfutter richten",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 50.73,
+      "delta_vk": -50.73,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.05.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 50.39,
+      "delta_vk": -50.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.1",
+      "bezeichnung": "Türblatt  verlängern.",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 49.3,
+      "delta_vk": -49.3,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.2",
+      "bezeichnung": "Türsockelbrett erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 46.52,
+      "delta_vk": -46.52,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.9",
+      "bezeichnung": "Nachputzarbeiten, WE 30- 90m² o. Bad, Kalkulation: i-M- 60 m²",
+      "hero_ek": 383.3333,
+      "supa_ek": 383.33,
+      "delta_ek": 0,
+      "hero_vk": 497.552,
+      "supa_vk": 542.67,
+      "delta_vk": -45.12,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.03.1",
+      "bezeichnung": "Floor Flex -Analyse",
+      "hero_ek": 150,
+      "supa_ek": 150,
+      "delta_ek": 0,
+      "hero_vk": 180,
+      "supa_vk": 224.35,
+      "delta_vk": -44.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.6",
+      "bezeichnung": "Türbekleidung reparieren, Massivholz",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 43.43,
+      "delta_vk": -43.43,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.6",
+      "bezeichnung": "Containerstellung 7 m³",
+      "hero_ek": 458.3333,
+      "supa_ek": 458.33,
+      "delta_ek": 0,
+      "hero_vk": 580,
+      "supa_vk": 622.81,
+      "delta_vk": -42.81,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.4",
+      "bezeichnung": "Trittblech richten (Sockelblech)",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 41.5,
+      "delta_vk": -41.5,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.14",
+      "bezeichnung": "Duschtasse Duschplan, h 65 mm",
+      "hero_ek": 572.3893,
+      "supa_ek": 572.39,
+      "delta_ek": 0,
+      "hero_vk": 880.5989,
+      "supa_vk": 921.37,
+      "delta_vk": -40.77,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.7",
+      "bezeichnung": "Zulage Türbekleidung profiliert",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 39.41,
+      "delta_vk": -39.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.13",
+      "bezeichnung": "Zulage Duschtasse Superplan 800 mm x 1400 mm",
+      "hero_ek": 370.8333,
+      "supa_ek": 370.83,
+      "delta_ek": 0,
+      "hero_vk": 445,
+      "supa_vk": 406.67,
+      "delta_vk": 38.33,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.5",
+      "bezeichnung": "Losen Treppengeländerstab, Treppenpfosten,",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 36.63,
+      "delta_vk": -36.63,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.16",
+      "bezeichnung": "Zulage Verleistung",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 36.5,
+      "delta_vk": -36.5,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.5",
+      "bezeichnung": "Containerstellung 3 m³",
+      "hero_ek": 370.8333,
+      "supa_ek": 370.83,
+      "delta_ek": 0,
+      "hero_vk": 460,
+      "supa_vk": 493.95,
+      "delta_vk": -33.95,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.5",
+      "bezeichnung": "Türschwelle aufdoppeln / erneuern (mit und ohne Falz",
+      "hero_ek": 60,
+      "supa_ek": 60,
+      "delta_ek": 0,
+      "hero_vk": 90,
+      "supa_vk": 57.83,
+      "delta_vk": 32.17,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.8",
+      "bezeichnung": "Zulage Türbekleidungssockelstück",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 29.87,
+      "delta_vk": -29.87,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.21",
+      "bezeichnung": "Wasseranschluss Küche versetzen",
+      "hero_ek": 225,
+      "supa_ek": 225,
+      "delta_ek": 0,
+      "hero_vk": 288,
+      "supa_vk": 316.91,
+      "delta_vk": -28.91,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.17",
+      "bezeichnung": "Bauschluss/- Feinreinigung > 100m², 5 Zi",
+      "hero_ek": 254.1667,
+      "supa_ek": 254.17,
+      "delta_ek": 0,
+      "hero_vk": 332,
+      "supa_vk": 356.51,
+      "delta_vk": -24.51,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.04.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 25,
+      "supa_ek": 37.1,
+      "delta_ek": -12.1,
+      "hero_vk": 82.53,
+      "supa_vk": 58.68,
+      "delta_vk": 23.85,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.19",
+      "bezeichnung": "Wand-WC",
+      "hero_ek": 191.6667,
+      "supa_ek": 191.67,
+      "delta_ek": 0,
+      "hero_vk": 230,
+      "supa_vk": 253.09,
+      "delta_vk": -23.09,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.14",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 100m², 4 Zi",
+      "hero_ek": 233.3333,
+      "supa_ek": 233.33,
+      "delta_ek": 0,
+      "hero_vk": 310,
+      "supa_vk": 332.88,
+      "delta_vk": -22.88,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.30",
+      "bezeichnung": "Demontage und Entsorgung NSP-Ofen 5 -6KW",
+      "hero_ek": 282.5971,
+      "supa_ek": 287.5,
+      "delta_ek": -4.9,
+      "hero_vk": 434.7648,
+      "supa_vk": 457.46,
+      "delta_vk": -22.7,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.4",
+      "bezeichnung": "Rückbau Altbelag, fest verbaut, WE 30- 90m² o. Bad, Kalkulation: i-M-\n 60 m²",
+      "hero_ek": 367.8184,
+      "supa_ek": 367.82,
+      "delta_ek": 0,
+      "hero_vk": 565.8744,
+      "supa_vk": 586.3,
+      "delta_vk": -20.43,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.17",
+      "bezeichnung": "Abdichtleiste erneuern",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 20.41,
+      "delta_vk": -20.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.12",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 85m², 3 Zi",
+      "hero_ek": 200,
+      "supa_ek": 200,
+      "delta_ek": 0,
+      "hero_vk": 276,
+      "supa_vk": 296.37,
+      "delta_vk": -20.37,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.15",
+      "bezeichnung": "Bauschluss/- Feinreinigung > 100m², 4 Zi",
+      "hero_ek": 252.0833,
+      "supa_ek": 252.08,
+      "delta_ek": 0,
+      "hero_vk": 332.88,
+      "supa_vk": 352.21,
+      "delta_vk": -19.33,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.06.4",
+      "bezeichnung": "Zulage Hartholzstäbe",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 19.01,
+      "delta_vk": -19.01,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.15",
+      "bezeichnung": "Waschtischarmatur",
+      "hero_ek": 132.0833,
+      "supa_ek": 132.08,
+      "delta_ek": 0,
+      "hero_vk": 183.4,
+      "supa_vk": 201.81,
+      "delta_vk": -18.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.19",
+      "bezeichnung": "Dichtung erneuern, Fenster",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 18.39,
+      "delta_vk": -18.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.02.4",
+      "bezeichnung": "Elektroneuinstallation Balkon / Terrasse",
+      "hero_ek": 125,
+      "supa_ek": 125,
+      "delta_ek": 0,
+      "hero_vk": 150,
+      "supa_vk": 168.18,
+      "delta_vk": -18.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.18",
+      "bezeichnung": "Handbrause-Set Dusche",
+      "hero_ek": 127.0833,
+      "supa_ek": 127.08,
+      "delta_ek": 0,
+      "hero_vk": 181,
+      "supa_vk": 199.17,
+      "delta_vk": -18.17,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.27",
+      "bezeichnung": "Handwaschbecken",
+      "hero_ek": 254.3011,
+      "supa_ek": 254.3,
+      "delta_ek": 0,
+      "hero_vk": 391.2324,
+      "supa_vk": 409.35,
+      "delta_vk": -18.12,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.10",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 65m², 3 Zi",
+      "hero_ek": 168.75,
+      "supa_ek": 168.75,
+      "delta_ek": 0,
+      "hero_vk": 237,
+      "supa_vk": 254.49,
+      "delta_vk": -17.49,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.6",
+      "bezeichnung": "Kompaktheizkörper, neu",
+      "hero_ek": 264,
+      "supa_ek": 264,
+      "delta_ek": 0,
+      "hero_vk": 380.24,
+      "supa_vk": 397.62,
+      "delta_vk": -17.38,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.4",
+      "bezeichnung": "Ventilheizkörper Typ 22, neu",
+      "hero_ek": 231.41,
+      "supa_ek": 231.41,
+      "delta_ek": 0,
+      "hero_vk": 356.0154,
+      "supa_vk": 372.29,
+      "delta_vk": -16.27,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.30",
+      "bezeichnung": "Brausebatterie",
+      "hero_ek": 133.3333,
+      "supa_ek": 133.33,
+      "delta_ek": 0,
+      "hero_vk": 160,
+      "supa_vk": 176.06,
+      "delta_vk": -16.06,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.1",
+      "bezeichnung": "Elektrozähler Alt/ Neu",
+      "hero_ek": 300,
+      "supa_ek": 300,
+      "delta_ek": 0,
+      "hero_vk": 131,
+      "supa_vk": 146.88,
+      "delta_vk": -15.88,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.2",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 45m², 1 Zi",
+      "hero_ek": 137.5,
+      "supa_ek": 137.5,
+      "delta_ek": 0,
+      "hero_vk": 204,
+      "supa_vk": 219.06,
+      "delta_vk": -15.06,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02.20",
+      "bezeichnung": "WC-Sitz",
+      "hero_ek": 54.7967,
+      "supa_ek": 54.8,
+      "delta_ek": 0,
+      "hero_vk": 89.13,
+      "supa_vk": 74.17,
+      "delta_vk": 14.96,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.1",
+      "bezeichnung": "Zimmertür inkl Holzzarge  liefern, einbauen(Badezimmer nach außen öffnend)",
+      "hero_ek": 308.3333,
+      "supa_ek": 308.33,
+      "delta_ek": 0,
+      "hero_vk": 327.9,
+      "supa_vk": 341.02,
+      "delta_vk": -13.12,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.27",
+      "bezeichnung": "Niederdruckspeicher",
+      "hero_ek": 157.9219,
+      "supa_ek": 175,
+      "delta_ek": -17.08,
+      "hero_vk": 242.9568,
+      "supa_vk": 255.64,
+      "delta_vk": -12.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.34",
+      "bezeichnung": "Wand-WC( incl. Sitz mit Deckel)",
+      "hero_ek": 218.7536,
+      "supa_ek": 210,
+      "delta_ek": 8.75,
+      "hero_vk": 336.544,
+      "supa_vk": 324.62,
+      "delta_vk": 11.92,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.7",
+      "bezeichnung": "FI/ LS Schalter Waschmaschine",
+      "hero_ek": 62.5,
+      "supa_ek": 62.5,
+      "delta_ek": 0,
+      "hero_vk": 84,
+      "supa_vk": 94.18,
+      "delta_vk": -10.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.28",
+      "bezeichnung": "Ausbau Fenster, > 2,5 m²",
+      "hero_ek": 97.9167,
+      "supa_ek": 97.92,
+      "delta_ek": 0,
+      "hero_vk": 137,
+      "supa_vk": 147.11,
+      "delta_vk": -10.11,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.24",
+      "bezeichnung": "Brausevorhangstange",
+      "hero_ek": 131.9358,
+      "supa_ek": 131.94,
+      "delta_ek": 0,
+      "hero_vk": 202.9781,
+      "supa_vk": 212.38,
+      "delta_vk": -9.4,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.21",
+      "bezeichnung": "Anschlussfuge elastisch verfugen",
+      "hero_ek": 0,
+      "supa_ek": 0,
+      "delta_ek": 0,
+      "hero_vk": 0,
+      "supa_vk": 9.39,
+      "delta_vk": -9.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.30",
+      "bezeichnung": "Revisionsklappe, GK Einlage,F90  40/40",
+      "hero_ek": 81.25,
+      "supa_ek": 81.25,
+      "delta_ek": 0,
+      "hero_vk": 111,
+      "supa_vk": 120.08,
+      "delta_vk": -9.08,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.6",
+      "bezeichnung": "Hebetürbeschlag erneuern",
+      "hero_ek": 106.25,
+      "supa_ek": 106.25,
+      "delta_ek": 0,
+      "hero_vk": 138,
+      "supa_vk": 147.06,
+      "delta_vk": -9.06,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.03.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 60,
+      "supa_ek": 60,
+      "delta_ek": 0,
+      "hero_vk": 70,
+      "supa_vk": 78.49,
+      "delta_vk": -8.49,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.29",
+      "bezeichnung": "Revisionsklappe, GK Einlage,F90  20/20",
+      "hero_ek": 77.5,
+      "supa_ek": 77.5,
+      "delta_ek": 0,
+      "hero_vk": 103.2,
+      "supa_vk": 111.64,
+      "delta_vk": -8.44,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.3",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 45m², 2 Zi",
+      "hero_ek": 150.8998,
+      "supa_ek": 150.9,
+      "delta_ek": 0,
+      "hero_vk": 232.1536,
+      "supa_vk": 240.53,
+      "delta_vk": -8.38,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.4",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 50m², 2 Zi",
+      "hero_ek": 144.1632,
+      "supa_ek": 145.83,
+      "delta_ek": -1.67,
+      "hero_vk": 221.7896,
+      "supa_vk": 229.8,
+      "delta_vk": -8.01,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.27",
+      "bezeichnung": "Revisionsklappe, GK Einlage,F30  20/20",
+      "hero_ek": 69.1667,
+      "supa_ek": 69.17,
+      "delta_ek": 0,
+      "hero_vk": 90.2,
+      "supa_vk": 97.58,
+      "delta_vk": -7.38,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.9",
+      "bezeichnung": "Wellenlager (Fertigkastenlager) erneuern",
+      "hero_ek": 83.3333,
+      "supa_ek": 83.33,
+      "delta_ek": 0,
+      "hero_vk": 112,
+      "supa_vk": 119.36,
+      "delta_vk": -7.36,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.9",
+      "bezeichnung": "Drehkippbeschlag erneuern, komplett",
+      "hero_ek": 83.3333,
+      "supa_ek": 83.33,
+      "delta_ek": 0,
+      "hero_vk": 112,
+      "supa_vk": 119.36,
+      "delta_vk": -7.36,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.14",
+      "bezeichnung": "Schall-EX-Element erneuern",
+      "hero_ek": 83.3333,
+      "supa_ek": 83.33,
+      "delta_ek": 0,
+      "hero_vk": 112,
+      "supa_vk": 119.36,
+      "delta_vk": -7.36,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.02.1",
+      "bezeichnung": "Bauschluss/- Feinreinigung bis 35m², 1 Zi",
+      "hero_ek": 129.3427,
+      "supa_ek": 129.34,
+      "delta_ek": 0,
+      "hero_vk": 198.9888,
+      "supa_vk": 206.17,
+      "delta_vk": -7.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.06.3",
+      "bezeichnung": "Renovierungsanstrich, beidseitig, Holzfenstern, 2flg <2,5m2",
+      "hero_ek": 72.9167,
+      "supa_ek": 72.92,
+      "delta_ek": 0,
+      "hero_vk": 95,
+      "supa_vk": 102.03,
+      "delta_vk": -7.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.8",
+      "bezeichnung": "Elektroinstallation Waschmaschinenanschluss",
+      "hero_ek": 82.1471,
+      "supa_ek": 82.15,
+      "delta_ek": 0,
+      "hero_vk": 126.3802,
+      "supa_vk": 132.98,
+      "delta_vk": -6.6,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.5",
+      "bezeichnung": "Lackierung Rohrrahmentür",
+      "hero_ek": 69.1667,
+      "supa_ek": 69.17,
+      "delta_ek": 0,
+      "hero_vk": 87.2,
+      "supa_vk": 93.65,
+      "delta_vk": -6.45,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.4",
+      "bezeichnung": "Dachboden-Dämmplatte 120 mm mit Verbundplatte 19mm",
+      "hero_ek": 61.25,
+      "supa_ek": 61.25,
+      "delta_ek": 0,
+      "hero_vk": 77.4,
+      "supa_vk": 83.73,
+      "delta_vk": -6.33,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.5",
+      "bezeichnung": "Balkontürheber erneuern",
+      "hero_ek": 72.9167,
+      "supa_ek": 72.92,
+      "delta_ek": 0,
+      "hero_vk": 95,
+      "supa_vk": 101.24,
+      "delta_vk": -6.24,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.27",
+      "bezeichnung": "Ausbau Fenster, < 2,5 m²",
+      "hero_ek": 62.5,
+      "supa_ek": 62.5,
+      "delta_ek": 0,
+      "hero_vk": 84,
+      "supa_vk": 90.2,
+      "delta_vk": -6.2,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.29",
+      "bezeichnung": "Ausbau Rollladenkasten",
+      "hero_ek": 56.25,
+      "supa_ek": 56.25,
+      "delta_ek": 0,
+      "hero_vk": 81,
+      "supa_vk": 86.98,
+      "delta_vk": -5.98,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.3",
+      "bezeichnung": "Dachboden-Dämmplatte 100 mm mit Verbundplatte 19mm",
+      "hero_ek": 58.3333,
+      "supa_ek": 58.33,
+      "delta_ek": 0,
+      "hero_vk": 73,
+      "supa_vk": 78.97,
+      "delta_vk": -5.97,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.10",
+      "bezeichnung": "Rollladenwelle erneuern",
+      "hero_ek": 66.6667,
+      "supa_ek": 66.67,
+      "delta_ek": 0,
+      "hero_vk": 89,
+      "supa_vk": 94.85,
+      "delta_vk": -5.85,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.4",
+      "bezeichnung": "Beschlagsteile erneuern, groß",
+      "hero_ek": 66.6667,
+      "supa_ek": 66.67,
+      "delta_ek": 0,
+      "hero_vk": 89,
+      "supa_vk": 94.85,
+      "delta_vk": -5.85,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.5",
+      "bezeichnung": "Metallständerwand = 4,00 m, GKBI 2x 12,5 mm, d = 100 mm, MW 40 mm, F30",
+      "hero_ek": 54.5833,
+      "supa_ek": 54.58,
+      "delta_ek": 0,
+      "hero_vk": 69.4,
+      "supa_vk": 75.08,
+      "delta_vk": -5.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.25",
+      "bezeichnung": "Ausbau Stahl-/Alu-Glas-Rahmentür, 1 flg.",
+      "hero_ek": 57.9167,
+      "supa_ek": 57.92,
+      "delta_ek": 0,
+      "hero_vk": 75.8,
+      "supa_vk": 81.4,
+      "delta_vk": -5.6,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.6",
+      "bezeichnung": "Öffnungen für Türen und Fenster < 2,5m²",
+      "hero_ek": 120.8333,
+      "supa_ek": 120.83,
+      "delta_ek": 0,
+      "hero_vk": 148,
+      "supa_vk": 153.54,
+      "delta_vk": -5.54,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.2",
+      "bezeichnung": "Demontage Sockelleisten, WE 30- 90m² o. Bad,Kalkulation: i-M- 60 m²",
+      "hero_ek": 119,
+      "supa_ek": 119,
+      "delta_ek": 0,
+      "hero_vk": 151.31,
+      "supa_vk": 156.78,
+      "delta_vk": -5.47,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.2",
+      "bezeichnung": "Dachboden-Dämmplatte 80 mm mit Verbundplatte 19mm (www.ais-online.de/f\nirma/brillux/produkt/variante/dachboden-daemmplatte-3819-eps-032-deo-100mm-inkl-spanpl/42731253/?p=1&pid=42667944)",
+      "hero_ek": 52.5,
+      "supa_ek": 52.5,
+      "delta_ek": 0,
+      "hero_vk": 65.4,
+      "supa_vk": 70.75,
+      "delta_vk": -5.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.11",
+      "bezeichnung": "Wechselsprechanlage Ritto/ STR",
+      "hero_ek": 63.7229,
+      "supa_ek": 63.72,
+      "delta_ek": 0,
+      "hero_vk": 98.0352,
+      "supa_vk": 103.15,
+      "delta_vk": -5.11,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.3",
+      "bezeichnung": "Beschlagsteile erneuern, klein",
+      "hero_ek": 59.5833,
+      "supa_ek": 59.58,
+      "delta_ek": 0,
+      "hero_vk": 76.6,
+      "supa_vk": 81.63,
+      "delta_vk": -5.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.14",
+      "bezeichnung": "Zulage Türöffnung anpassen (Türsturz Küche)",
+      "hero_ek": 91.6667,
+      "supa_ek": 91.67,
+      "delta_ek": 0,
+      "hero_vk": 125.01,
+      "supa_vk": 130.01,
+      "delta_vk": -5,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.8",
+      "bezeichnung": "Zulage Lichtausschnitt (Wohnzimmer)",
+      "hero_ek": 87.5,
+      "supa_ek": 87.5,
+      "delta_ek": 0,
+      "hero_vk": 119.89,
+      "supa_vk": 124.69,
+      "delta_vk": -4.8,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.6",
+      "bezeichnung": "Aufputz-Wanne für Unterverteiler",
+      "hero_ek": 58.8744,
+      "supa_ek": 58.87,
+      "delta_ek": 0,
+      "hero_vk": 90.576,
+      "supa_vk": 95.3,
+      "delta_vk": -4.72,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.26",
+      "bezeichnung": "Revisionsklappe, GK Einlage,  40/40",
+      "hero_ek": 44.5833,
+      "supa_ek": 44.58,
+      "delta_ek": 0,
+      "hero_vk": 57.4,
+      "supa_vk": 62.1,
+      "delta_vk": -4.7,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.38",
+      "bezeichnung": "Austausch von Wandfliesen",
+      "hero_ek": 49.5833,
+      "supa_ek": 49.58,
+      "delta_ek": 0,
+      "hero_vk": 65.8,
+      "supa_vk": 70.21,
+      "delta_vk": -4.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.7",
+      "bezeichnung": "Revisionsklappe, Stahlblech, weiß 40/40",
+      "hero_ek": 42.5,
+      "supa_ek": 42.5,
+      "delta_ek": 0,
+      "hero_vk": 53.4,
+      "supa_vk": 57.77,
+      "delta_vk": -4.37,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.11",
+      "bezeichnung": "Türöffnung anlegen, 1 flg, > 1010mm",
+      "hero_ek": 41.6667,
+      "supa_ek": 41.67,
+      "delta_ek": 0,
+      "hero_vk": 53,
+      "supa_vk": 57.34,
+      "delta_vk": -4.34,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.24",
+      "bezeichnung": "Revisionsklappe, Stahlblech, weiß 40/40",
+      "hero_ek": 39.5833,
+      "supa_ek": 39.58,
+      "delta_ek": 0,
+      "hero_vk": 52,
+      "supa_vk": 56.25,
+      "delta_vk": -4.25,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.4",
+      "bezeichnung": "Zuleitungsverbindung  5*16 mm² je weitere Etage (je Meter, inkl. Kernbohrungen & Verschluss mit Brandschutzmörtel, ohne Brandschutzkanal, ab dem EG)",
+      "hero_ek": 50.8333,
+      "supa_ek": 50.83,
+      "delta_ek": 0,
+      "hero_vk": 77.15,
+      "supa_vk": 81.18,
+      "delta_vk": -4.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.35",
+      "bezeichnung": "WC-Sitz",
+      "hero_ek": 55.372,
+      "supa_ek": 56.25,
+      "delta_ek": -0.88,
+      "hero_vk": 85.1877,
+      "supa_vk": 89.13,
+      "delta_vk": -3.94,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.22",
+      "bezeichnung": "Traverse zur Wandverstärkung, Stahlblech",
+      "hero_ek": 35.4167,
+      "supa_ek": 35.42,
+      "delta_ek": 0,
+      "hero_vk": 47.6,
+      "supa_vk": 51.49,
+      "delta_vk": -3.89,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.8",
+      "bezeichnung": "Revisionsklappe, GK Einlage,  20/20",
+      "hero_ek": 35.4167,
+      "supa_ek": 35.42,
+      "delta_ek": 0,
+      "hero_vk": 47,
+      "supa_vk": 50.84,
+      "delta_vk": -3.84,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.11",
+      "bezeichnung": "Flachsturz, 24",
+      "hero_ek": 81.25,
+      "supa_ek": 81.25,
+      "delta_ek": 0,
+      "hero_vk": 102,
+      "supa_vk": 105.82,
+      "delta_vk": -3.82,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.04.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 51.2704,
+      "supa_ek": 51.27,
+      "delta_ek": 0,
+      "hero_vk": 78.8775,
+      "supa_vk": 82.53,
+      "delta_vk": -3.65,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.13",
+      "bezeichnung": "Öffnungen schließen, > 400cm² bis 1 m²",
+      "hero_ek": 70.8333,
+      "supa_ek": 70.83,
+      "delta_ek": 0,
+      "hero_vk": 94,
+      "supa_vk": 97.52,
+      "delta_vk": -3.52,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.5",
+      "bezeichnung": "Wohnungstrennwand D=24cm",
+      "hero_ek": 72.0833,
+      "supa_ek": 72.08,
+      "delta_ek": 0,
+      "hero_vk": 93.4,
+      "supa_vk": 96.9,
+      "delta_vk": -3.5,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.3",
+      "bezeichnung": "Innenwand  D=24cm",
+      "hero_ek": 76.25,
+      "supa_ek": 76.25,
+      "delta_ek": 0,
+      "hero_vk": 92.4,
+      "supa_vk": 95.86,
+      "delta_vk": -3.46,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.20",
+      "bezeichnung": "Nische/Heizkörpernische schließen, 1,5m² bis 2,5 m² (inkl. Putz)",
+      "hero_ek": 134.2964,
+      "supa_ek": 134.3,
+      "delta_ek": 0,
+      "hero_vk": 206.6099,
+      "supa_vk": 209.98,
+      "delta_vk": -3.37,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.12",
+      "bezeichnung": "Vorhandenes Schließblech erneuern",
+      "hero_ek": 37.5,
+      "supa_ek": 37.5,
+      "delta_ek": 0,
+      "hero_vk": 51,
+      "supa_vk": 54.35,
+      "delta_vk": -3.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.23",
+      "bezeichnung": "Revisionsklappe, Stahlblech, weiß 20/20",
+      "hero_ek": 32.9167,
+      "supa_ek": 32.92,
+      "delta_ek": 0,
+      "hero_vk": 41,
+      "supa_vk": 44.35,
+      "delta_vk": -3.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.3",
+      "bezeichnung": "Zuleitungsverbindung  5*16 mm² (vom Zähler im Keller bis zur UV im EG)",
+      "hero_ek": 41.5584,
+      "supa_ek": 41.56,
+      "delta_ek": 0,
+      "hero_vk": 63.936,
+      "supa_vk": 67.27,
+      "delta_vk": -3.33,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.3",
+      "bezeichnung": "Heizkörper demontieren/ Entsorgung",
+      "hero_ek": 47.9167,
+      "supa_ek": 47.92,
+      "delta_ek": 0,
+      "hero_vk": 71.62,
+      "supa_vk": 74.9,
+      "delta_vk": -3.28,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.16",
+      "bezeichnung": "Zylinder für WE-Tür liefern, einbauen",
+      "hero_ek": 40.2439,
+      "supa_ek": 40.24,
+      "delta_ek": 0,
+      "hero_vk": 49.5,
+      "supa_vk": 52.75,
+      "delta_vk": -3.25,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.4",
+      "bezeichnung": "Wohnungstrennwand D=20cm",
+      "hero_ek": 64.5833,
+      "supa_ek": 64.58,
+      "delta_ek": 0,
+      "hero_vk": 85,
+      "supa_vk": 88.18,
+      "delta_vk": -3.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.13",
+      "bezeichnung": "freies Wandende, d = bis 300 mm",
+      "hero_ek": 29.1667,
+      "supa_ek": 29.17,
+      "delta_ek": 0,
+      "hero_vk": 38.6,
+      "supa_vk": 41.76,
+      "delta_vk": -3.16,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.11",
+      "bezeichnung": "Fensterband erneuern",
+      "hero_ek": 37.5,
+      "supa_ek": 37.5,
+      "delta_ek": 0,
+      "hero_vk": 48,
+      "supa_vk": 51.15,
+      "delta_vk": -3.15,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.8",
+      "bezeichnung": "Fenstergriff abschließbar - RC 2 (WK2) liefern, einbauen",
+      "hero_ek": 36.25,
+      "supa_ek": 36.25,
+      "delta_ek": 0,
+      "hero_vk": 47.4,
+      "supa_vk": 50.51,
+      "delta_vk": -3.11,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.4",
+      "bezeichnung": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =150 mm, F30",
+      "hero_ek": 52.4079,
+      "supa_ek": 52.41,
+      "delta_ek": 0,
+      "hero_vk": 80.6276,
+      "supa_vk": 83.73,
+      "delta_vk": -3.1,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.23",
+      "bezeichnung": "Holzboden ausbessern",
+      "hero_ek": 44.5833,
+      "supa_ek": 44.58,
+      "delta_ek": 0,
+      "hero_vk": 54.4,
+      "supa_vk": 57.25,
+      "delta_vk": -2.85,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.2",
+      "bezeichnung": "Innenwand  D=17,5cm",
+      "hero_ek": 59.5833,
+      "supa_ek": 59.58,
+      "delta_ek": 0,
+      "hero_vk": 73.6,
+      "supa_vk": 76.36,
+      "delta_vk": -2.76,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.3",
+      "bezeichnung": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =125 mm, F30",
+      "hero_ek": 46.5848,
+      "supa_ek": 46.58,
+      "delta_ek": 0,
+      "hero_vk": 71.669,
+      "supa_vk": 74.43,
+      "delta_vk": -2.76,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.36",
+      "bezeichnung": "Nivellierausgleich",
+      "hero_ek": 9.3958,
+      "supa_ek": 9.4,
+      "delta_ek": 0,
+      "hero_vk": 11.83,
+      "supa_vk": 14.41,
+      "delta_vk": -2.58,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.16",
+      "bezeichnung": "Dauerelastische Verfugung",
+      "hero_ek": 4.0417,
+      "supa_ek": 3.66,
+      "delta_ek": 0.38,
+      "hero_vk": 8.32,
+      "supa_vk": 5.77,
+      "delta_vk": 2.55,
+      "hero_hoeher": true
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.02.1",
+      "bezeichnung": "Beschlagsteile verstezen, klein",
+      "hero_ek": 53.3333,
+      "supa_ek": 53.33,
+      "delta_ek": 0,
+      "hero_vk": 38.5,
+      "supa_vk": 41.03,
+      "delta_vk": -2.53,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.38",
+      "bezeichnung": "Thermostatkopf erneuern",
+      "hero_ek": 31.1688,
+      "supa_ek": 31.17,
+      "delta_ek": 0,
+      "hero_vk": 47.952,
+      "supa_vk": 50.46,
+      "delta_vk": -2.51,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.9",
+      "bezeichnung": "Flachsturz, 11,5",
+      "hero_ek": 50,
+      "supa_ek": 50,
+      "delta_ek": 0,
+      "hero_vk": 66,
+      "supa_vk": 68.47,
+      "delta_vk": -2.47,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.04.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 34.1803,
+      "supa_ek": 34.18,
+      "delta_ek": 0,
+      "hero_vk": 52.585,
+      "supa_vk": 55.02,
+      "delta_vk": -2.44,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.16",
+      "bezeichnung": "Rückbau Bodenfliesen, Werkstein",
+      "hero_ek": 25,
+      "supa_ek": 25,
+      "delta_ek": 0,
+      "hero_vk": 32.4,
+      "supa_vk": 34.79,
+      "delta_vk": -2.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.15",
+      "bezeichnung": "Rückbau Bodenfliesen",
+      "hero_ek": 25,
+      "supa_ek": 25,
+      "delta_ek": 0,
+      "hero_vk": 32.4,
+      "supa_vk": 34.79,
+      "delta_vk": -2.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.19",
+      "bezeichnung": "Nische/Heizkörpernische schließen, bis 1,5m² (inkl. Putz)",
+      "hero_ek": 94.2198,
+      "supa_ek": 94.22,
+      "delta_ek": 0,
+      "hero_vk": 144.9536,
+      "supa_vk": 147.32,
+      "delta_vk": -2.37,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.12",
+      "bezeichnung": "freies Wandende, d = bis 150 mm",
+      "hero_ek": 21.4583,
+      "supa_ek": 21.46,
+      "delta_ek": 0,
+      "hero_vk": 28,
+      "supa_vk": 30.29,
+      "delta_vk": -2.29,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.1",
+      "bezeichnung": "Vorsatzschale, direkt befestigt, CD 60/27, GKBI 2x12,5 mm",
+      "hero_ek": 37.1054,
+      "supa_ek": 37.11,
+      "delta_ek": 0,
+      "hero_vk": 57.0852,
+      "supa_vk": 59.28,
+      "delta_vk": -2.19,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.39",
+      "bezeichnung": "Austausch von Bodenfliesen",
+      "hero_ek": 49.9134,
+      "supa_ek": 60.42,
+      "delta_ek": -10.51,
+      "hero_vk": 76.7898,
+      "supa_vk": 78.96,
+      "delta_vk": -2.17,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.31",
+      "bezeichnung": "Rückbau Fensterbank, innen >1,5m bis 2,5m",
+      "hero_ek": 22.75,
+      "supa_ek": 22.75,
+      "delta_ek": 0,
+      "hero_vk": 28.5,
+      "supa_vk": 30.6,
+      "delta_vk": -2.1,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.12",
+      "bezeichnung": "Tür Gong",
+      "hero_ek": 26.0433,
+      "supa_ek": 26.04,
+      "delta_ek": 0,
+      "hero_vk": 40.0666,
+      "supa_vk": 42.16,
+      "delta_vk": -2.09,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.2",
+      "bezeichnung": "Zementestrich",
+      "hero_ek": 32.0833,
+      "supa_ek": 32.08,
+      "delta_ek": 0,
+      "hero_vk": 40,
+      "supa_vk": 42.07,
+      "delta_vk": -2.07,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.02.1",
+      "bezeichnung": "Risse in Balkonbrüstung schließen,< 5 m",
+      "hero_ek": 40.2439,
+      "supa_ek": 40.24,
+      "delta_ek": 0,
+      "hero_vk": 51.19,
+      "supa_vk": 53.16,
+      "delta_vk": -1.97,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.02.5",
+      "bezeichnung": "Abhangdecke, GKB 1x 12,5 mm, o.BS, Tragprofil CD60/27",
+      "hero_ek": 32.7719,
+      "supa_ek": 32.77,
+      "delta_ek": 0,
+      "hero_vk": 50.4183,
+      "supa_vk": 52.36,
+      "delta_vk": -1.94,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.21",
+      "bezeichnung": "Ausbau Innentüren , 1 flg.",
+      "hero_ek": 33.9525,
+      "supa_ek": 33.95,
+      "delta_ek": 0,
+      "hero_vk": 52.2346,
+      "supa_vk": 54.12,
+      "delta_vk": -1.89,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.14",
+      "bezeichnung": "Rückbau Wandfliesen",
+      "hero_ek": 19.5833,
+      "supa_ek": 19.58,
+      "delta_ek": 0,
+      "hero_vk": 25,
+      "supa_vk": 26.85,
+      "delta_vk": -1.85,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.06.6",
+      "bezeichnung": "Renovierungsanstrich, Holzfensterbänke",
+      "hero_ek": 30.5163,
+      "supa_ek": 30.52,
+      "delta_ek": 0,
+      "hero_vk": 46.9481,
+      "supa_vk": 48.76,
+      "delta_vk": -1.81,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.8",
+      "bezeichnung": "Lackierung Plattenheizkörper",
+      "hero_ek": 29.8441,
+      "supa_ek": 29.84,
+      "delta_ek": 0,
+      "hero_vk": 45.914,
+      "supa_vk": 47.69,
+      "delta_vk": -1.78,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.19",
+      "bezeichnung": "Abbruch Estrich d= bis 7cm",
+      "hero_ek": 17.9167,
+      "supa_ek": 17.92,
+      "delta_ek": 0,
+      "hero_vk": 23,
+      "supa_vk": 24.7,
+      "delta_vk": -1.7,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.26",
+      "bezeichnung": "Dämmung an Rohrleitungen reparieren",
+      "hero_ek": 23.9626,
+      "supa_ek": 23.96,
+      "delta_ek": 0,
+      "hero_vk": 36.8655,
+      "supa_vk": 38.55,
+      "delta_vk": -1.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.2",
+      "bezeichnung": "Lackierung Umfassungszarge",
+      "hero_ek": 40,
+      "supa_ek": 40,
+      "delta_ek": 0,
+      "hero_vk": 43.43,
+      "supa_vk": 45.11,
+      "delta_vk": -1.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.07.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 26.8866,
+      "supa_ek": 26.89,
+      "delta_ek": 0,
+      "hero_vk": 41.364,
+      "supa_vk": 42.96,
+      "delta_vk": -1.6,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.1",
+      "bezeichnung": "Fenster/ Balkontüren herrichten",
+      "hero_ek": 17.5,
+      "supa_ek": 17.5,
+      "delta_ek": 0,
+      "hero_vk": 23.4,
+      "supa_vk": 24.94,
+      "delta_vk": -1.54,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.9",
+      "bezeichnung": "Zulage Lüftungsgitter (Bad, Abstellraum)",
+      "hero_ek": 30,
+      "supa_ek": 30,
+      "delta_ek": 0,
+      "hero_vk": 36.89,
+      "supa_vk": 38.36,
+      "delta_vk": -1.47,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.10",
+      "bezeichnung": "Gips-Leichtputz als Deckenputz, Q2",
+      "hero_ek": 17.0833,
+      "supa_ek": 17.08,
+      "delta_ek": 0,
+      "hero_vk": 22,
+      "supa_vk": 23.4,
+      "delta_vk": -1.4,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.4",
+      "bezeichnung": "Beiputzarbeiten",
+      "hero_ek": 15.8333,
+      "supa_ek": 15.83,
+      "delta_ek": 0,
+      "hero_vk": 20.8,
+      "supa_vk": 22.12,
+      "delta_vk": -1.32,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.2",
+      "bezeichnung": "Zulage, Breite ab 2 m",
+      "hero_ek": 17.8008,
+      "supa_ek": 17.8,
+      "delta_ek": 0,
+      "hero_vk": 27.3858,
+      "supa_vk": 28.64,
+      "delta_vk": -1.25,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.22",
+      "bezeichnung": "Bewegungsfugenprofil , PVC Einlage",
+      "hero_ek": 17.0833,
+      "supa_ek": 17.08,
+      "delta_ek": 0,
+      "hero_vk": 22.6,
+      "supa_vk": 23.78,
+      "delta_vk": -1.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.3",
+      "bezeichnung": "Fenster- /Balkontürbauteile gang- und schließbar machen",
+      "hero_ek": 22.9167,
+      "supa_ek": 22.92,
+      "delta_ek": 0,
+      "hero_vk": 29.72,
+      "supa_vk": 30.9,
+      "delta_vk": -1.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.2",
+      "bezeichnung": "Zimmer-, Wohnungs-, Haus- oder Hoftür herrichten",
+      "hero_ek": 19.3156,
+      "supa_ek": 19.32,
+      "delta_ek": 0,
+      "hero_vk": 29.7163,
+      "supa_vk": 30.9,
+      "delta_vk": -1.18,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.20",
+      "bezeichnung": "Kunststoffpanzerrohr M 40",
+      "hero_ek": 6.6667,
+      "supa_ek": 6.67,
+      "delta_ek": 0,
+      "hero_vk": 9.2,
+      "supa_vk": 10.32,
+      "delta_vk": -1.12,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.02.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 36.9262,
+      "supa_ek": 36.93,
+      "delta_ek": 0,
+      "hero_vk": 56.8095,
+      "supa_vk": 57.84,
+      "delta_vk": -1.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.8",
+      "bezeichnung": "Rückbau von Wänden, GK, d=< 20cm",
+      "hero_ek": 11.2083,
+      "supa_ek": 11.21,
+      "delta_ek": 0,
+      "hero_vk": 13.9,
+      "supa_vk": 14.93,
+      "delta_vk": -1.03,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.01.9",
+      "bezeichnung": "Schimmelpilz Flächen reinigen und desinfizieren",
+      "hero_ek": 10,
+      "supa_ek": 10,
+      "delta_ek": 0,
+      "hero_vk": 13.8,
+      "supa_vk": 14.82,
+      "delta_vk": -1.02,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-11.01.2",
+      "bezeichnung": "Reinigung jede weitere Etage (je Woche)",
+      "hero_ek": 17.6499,
+      "supa_ek": 17.65,
+      "delta_ek": 0,
+      "hero_vk": 27.1537,
+      "supa_vk": 28.13,
+      "delta_vk": -0.98,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.11",
+      "bezeichnung": "Trockenestrich",
+      "hero_ek": 34.2406,
+      "supa_ek": 34.24,
+      "delta_ek": 0,
+      "hero_vk": 52.6779,
+      "supa_vk": 53.64,
+      "delta_vk": -0.96,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.8",
+      "bezeichnung": "Gips-Leichtputz Laibungen verputzen, Q2 - geglättet",
+      "hero_ek": 10.9583,
+      "supa_ek": 10.96,
+      "delta_ek": 0,
+      "hero_vk": 14.44,
+      "supa_vk": 15.36,
+      "delta_vk": -0.92,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.05.2",
+      "bezeichnung": "Zulage Ornamentglasscheibe",
+      "hero_ek": 20.8835,
+      "supa_ek": 20.88,
+      "delta_ek": 0,
+      "hero_vk": 32.1284,
+      "supa_vk": 33.04,
+      "delta_vk": -0.91,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.6",
+      "bezeichnung": "Wandspachtel, Q3",
+      "hero_ek": 8.75,
+      "supa_ek": 8.75,
+      "delta_ek": 0,
+      "hero_vk": 11.4,
+      "supa_vk": 12.24,
+      "delta_vk": -0.84,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.1",
+      "bezeichnung": "Ausgleichsschüttung",
+      "hero_ek": 12.9167,
+      "supa_ek": 12.92,
+      "delta_ek": 0,
+      "hero_vk": 15.8,
+      "supa_vk": 16.62,
+      "delta_vk": -0.82,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.02.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 26.8554,
+      "supa_ek": 26.86,
+      "delta_ek": 0,
+      "hero_vk": 41.316,
+      "supa_vk": 42.07,
+      "delta_vk": -0.75,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.14",
+      "bezeichnung": "Sockelleiste HZ, Kunststoff",
+      "hero_ek": 10.8333,
+      "supa_ek": 10.83,
+      "delta_ek": 0,
+      "hero_vk": 14.2,
+      "supa_vk": 14.94,
+      "delta_vk": -0.74,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.7",
+      "bezeichnung": "Lackierung HK Anbindung",
+      "hero_ek": 12.099,
+      "supa_ek": 12.1,
+      "delta_ek": 0,
+      "hero_vk": 18.6138,
+      "supa_vk": 19.33,
+      "delta_vk": -0.72,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.7",
+      "bezeichnung": "Deckenspachtel, Q2",
+      "hero_ek": 7,
+      "supa_ek": 7,
+      "delta_ek": 0,
+      "hero_vk": 9.36,
+      "supa_vk": 10.05,
+      "delta_vk": -0.69,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.6",
+      "bezeichnung": "Bauspanplatten liefern und verlegen, bis 22 mm",
+      "hero_ek": 17.6165,
+      "supa_ek": 22,
+      "delta_ek": -4.38,
+      "hero_vk": 27.1022,
+      "supa_vk": 27.78,
+      "delta_vk": -0.68,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.11",
+      "bezeichnung": "Leibungsspachtel, Q3",
+      "hero_ek": 7.0833,
+      "supa_ek": 7.08,
+      "delta_ek": 0,
+      "hero_vk": 8.8,
+      "supa_vk": 9.45,
+      "delta_vk": -0.65,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.24",
+      "bezeichnung": "Rückbau Einbauschrank, 120 x 250",
+      "hero_ek": 115.8695,
+      "supa_ek": 115.87,
+      "delta_ek": 0,
+      "hero_vk": 184.09,
+      "supa_vk": 184.7,
+      "delta_vk": -0.61,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.15",
+      "bezeichnung": "Sockelleiste Hohlkehlleiste, Kiefer",
+      "hero_ek": 8.75,
+      "supa_ek": 8.75,
+      "delta_ek": 0,
+      "hero_vk": 11.4,
+      "supa_vk": 12,
+      "delta_vk": -0.6,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.7",
+      "bezeichnung": "Nivellierausgleich",
+      "hero_ek": 7.9167,
+      "supa_ek": 7.92,
+      "delta_ek": 0,
+      "hero_vk": 11,
+      "supa_vk": 11.57,
+      "delta_vk": -0.57,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.13",
+      "bezeichnung": "Sockelleiste HZ, Holz",
+      "hero_ek": 14.0131,
+      "supa_ek": 16.25,
+      "delta_ek": -2.24,
+      "hero_vk": 21.5586,
+      "supa_vk": 22.1,
+      "delta_vk": -0.54,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.20",
+      "bezeichnung": "Aussparungen., rechteck, > 25cm² bis 100 cm²",
+      "hero_ek": 4.75,
+      "supa_ek": 4.75,
+      "delta_ek": 0,
+      "hero_vk": 6.42,
+      "supa_vk": 6.95,
+      "delta_vk": -0.53,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.13",
+      "bezeichnung": "KZP Laibungen verputzen, Q2 - gefilzt",
+      "hero_ek": 12.5401,
+      "supa_ek": 14.08,
+      "delta_ek": -1.54,
+      "hero_vk": 19.2924,
+      "supa_vk": 19.82,
+      "delta_vk": -0.53,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.11",
+      "bezeichnung": "Untergrundvorbehandlung",
+      "hero_ek": 5,
+      "supa_ek": 5,
+      "delta_ek": 0,
+      "hero_vk": 6,
+      "supa_vk": 6.44,
+      "delta_vk": -0.44,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.20",
+      "bezeichnung": "Übergangsschienen",
+      "hero_ek": 14.1667,
+      "supa_ek": 14.17,
+      "delta_ek": 0,
+      "hero_vk": 17.45,
+      "supa_vk": 17.89,
+      "delta_vk": -0.44,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.18",
+      "bezeichnung": "Ausschn., rund, bis d= > 50mm  bis 100 mm",
+      "hero_ek": 4.1667,
+      "supa_ek": 4.17,
+      "delta_ek": 0,
+      "hero_vk": 5.3,
+      "supa_vk": 5.73,
+      "delta_vk": -0.43,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.02.3",
+      "bezeichnung": "Spachtel zuvor grundierter Flächen.",
+      "hero_ek": 9.4312,
+      "supa_ek": 10.42,
+      "delta_ek": -0.99,
+      "hero_vk": 14.5096,
+      "supa_vk": 14.94,
+      "delta_vk": -0.43,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.17",
+      "bezeichnung": "Ausschn., rund, < d= 50 mm",
+      "hero_ek": 3.9167,
+      "supa_ek": 3.92,
+      "delta_ek": 0,
+      "hero_vk": 5.18,
+      "supa_vk": 5.6,
+      "delta_vk": -0.42,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.7",
+      "bezeichnung": "Balkon Grundierauftrag Aussenflächen",
+      "hero_ek": 8.6,
+      "supa_ek": 8.6,
+      "delta_ek": 0,
+      "hero_vk": 10.67,
+      "supa_vk": 11.08,
+      "delta_vk": -0.41,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.01.19",
+      "bezeichnung": "Aussparungen., rechteck, < 25cm²",
+      "hero_ek": 3.3125,
+      "supa_ek": 3.31,
+      "delta_ek": 0,
+      "hero_vk": 4.71,
+      "supa_vk": 5.1,
+      "delta_vk": -0.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.26",
+      "bezeichnung": "Grundierung /Schlussanstrich Massivholzboden",
+      "hero_ek": 22.0206,
+      "supa_ek": 22.02,
+      "delta_ek": 0,
+      "hero_vk": 15.4,
+      "supa_vk": 15.79,
+      "delta_vk": -0.39,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.01.14",
+      "bezeichnung": "Leimfarbe, entfernen",
+      "hero_ek": 5.7941,
+      "supa_ek": 5.79,
+      "delta_ek": 0,
+      "hero_vk": 8.9139,
+      "supa_vk": 9.26,
+      "delta_vk": -0.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.02.2",
+      "bezeichnung": "Grundierung",
+      "hero_ek": 3.9583,
+      "supa_ek": 3.96,
+      "delta_ek": 0,
+      "hero_vk": 5.26,
+      "supa_vk": 5.61,
+      "delta_vk": -0.35,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.18",
+      "bezeichnung": "Dichtung erneuern, Zargen",
+      "hero_ek": 5,
+      "supa_ek": 5,
+      "delta_ek": 0,
+      "hero_vk": 7.01,
+      "supa_vk": 7.29,
+      "delta_vk": -0.28,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.5",
+      "bezeichnung": "Putzhaftbrücke auf Beton - Betokontakt",
+      "hero_ek": 2.9167,
+      "supa_ek": 2.92,
+      "delta_ek": 0,
+      "hero_vk": 4.1,
+      "supa_vk": 4.36,
+      "delta_vk": -0.26,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.4",
+      "bezeichnung": "Haftgrund, nicht saugende Untergründe",
+      "hero_ek": 2.8333,
+      "supa_ek": 2.83,
+      "delta_ek": 0,
+      "hero_vk": 3.94,
+      "supa_vk": 4.2,
+      "delta_vk": -0.26,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.8",
+      "bezeichnung": "Abdichten von Rand-, Anschluss- u, Bewegungsfugen",
+      "hero_ek": 5.3016,
+      "supa_ek": 5.13,
+      "delta_ek": 0.17,
+      "hero_vk": 8.1563,
+      "supa_vk": 8.39,
+      "delta_vk": -0.23,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.2",
+      "bezeichnung": "Dispersionsanstrich, matt, NAB 2",
+      "hero_ek": 3.7641,
+      "supa_ek": 3.76,
+      "delta_ek": 0,
+      "hero_vk": 5.791,
+      "supa_vk": 6.01,
+      "delta_vk": -0.22,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.14",
+      "bezeichnung": "Zulage für Mehrputzstärke",
+      "hero_ek": 2.3333,
+      "supa_ek": 2.33,
+      "delta_ek": 0,
+      "hero_vk": 3.28,
+      "supa_vk": 3.49,
+      "delta_vk": -0.21,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.4",
+      "bezeichnung": "Zulage Abbindebeschleuniger",
+      "hero_ek": 2.5,
+      "supa_ek": 2.5,
+      "delta_ek": 0,
+      "hero_vk": 3.6,
+      "supa_vk": 3.79,
+      "delta_vk": -0.19,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.6",
+      "bezeichnung": "Aufbrennsperre",
+      "hero_ek": 2.1667,
+      "supa_ek": 2.17,
+      "delta_ek": 0,
+      "hero_vk": 2.96,
+      "supa_vk": 3.15,
+      "delta_vk": -0.19,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-05.01.3",
+      "bezeichnung": "Mehr/- Minder Estrichstärken",
+      "hero_ek": 2.0833,
+      "supa_ek": 2.08,
+      "delta_ek": 0,
+      "hero_vk": 2.8,
+      "supa_vk": 2.94,
+      "delta_vk": -0.14,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.3",
+      "bezeichnung": "Haftgrund aufbringen",
+      "hero_ek": 2.4167,
+      "supa_ek": 2.42,
+      "delta_ek": 0,
+      "hero_vk": 3.68,
+      "supa_vk": 3.82,
+      "delta_vk": -0.14,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.2",
+      "bezeichnung": "Abklebearbeiten",
+      "hero_ek": 1.4583,
+      "supa_ek": 1.46,
+      "delta_ek": 0,
+      "hero_vk": 1.96,
+      "supa_vk": 2.08,
+      "delta_vk": -0.12,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.4",
+      "bezeichnung": "Dampfbremse, PE Folie. D 0,2 mm",
+      "hero_ek": 2.5224,
+      "supa_ek": 2.52,
+      "delta_ek": 0,
+      "hero_vk": 3.8805,
+      "supa_vk": 3.98,
+      "delta_vk": -0.1,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.1",
+      "bezeichnung": "Reinigen des Untergrunds von grober Verschmutzung",
+      "hero_ek": 1.69,
+      "supa_ek": 1.69,
+      "delta_ek": 0,
+      "hero_vk": 2.12,
+      "supa_vk": 2.18,
+      "delta_vk": -0.06,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.1",
+      "bezeichnung": "Verunreinigungen entfernen",
+      "hero_ek": 1.3333,
+      "supa_ek": 1.33,
+      "delta_ek": 0,
+      "hero_vk": 1.72,
+      "supa_vk": 1.77,
+      "delta_vk": -0.05,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.7",
+      "bezeichnung": "Containerstellung 10 m³",
+      "hero_ek": 617.0726,
+      "supa_ek": 720.83,
+      "delta_ek": -103.76,
+      "hero_vk": 983.61,
+      "supa_vk": 983.61,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.02.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 26.9464,
+      "supa_ek": 20,
+      "delta_ek": 6.95,
+      "hero_vk": 42.95,
+      "supa_vk": 42.95,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.01.10",
+      "bezeichnung": "Flachsturz, 17,5",
+      "hero_ek": 53.7451,
+      "supa_ek": 62.5,
+      "delta_ek": -8.75,
+      "hero_vk": 84.03,
+      "supa_vk": 84.03,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.03.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 36.4936,
+      "supa_ek": 25,
+      "delta_ek": 11.49,
+      "hero_vk": 57.06,
+      "supa_vk": 57.06,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-04.03.1",
+      "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+      "hero_ek": 37.2408,
+      "supa_ek": 25,
+      "delta_ek": 12.24,
+      "hero_vk": 59.5,
+      "supa_vk": 59.5,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.10",
+      "bezeichnung": "Abdichten von Rohrdurchführungen, DN32",
+      "hero_ek": 6,
+      "supa_ek": 4.86,
+      "delta_ek": 1.14,
+      "hero_vk": 7.68,
+      "supa_vk": 7.68,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.11",
+      "bezeichnung": "Abdichten von Rohrdurchführungen, DN 100",
+      "hero_ek": 7.2083,
+      "supa_ek": 6.1,
+      "delta_ek": 1.11,
+      "hero_vk": 9.65,
+      "supa_vk": 9.65,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.12",
+      "bezeichnung": "Abdichten Bodenablauf",
+      "hero_ek": 25,
+      "supa_ek": 20.24,
+      "delta_ek": 4.76,
+      "hero_vk": 32.01,
+      "supa_vk": 32.01,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.14",
+      "bezeichnung": "Entkopplungsmatte",
+      "hero_ek": 55,
+      "supa_ek": 46.14,
+      "delta_ek": 8.86,
+      "hero_vk": 72.98,
+      "supa_vk": 72.98,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.19",
+      "bezeichnung": "Fliesen, Löcher herstellen",
+      "hero_ek": 15.8333,
+      "supa_ek": 14.03,
+      "delta_ek": 1.8,
+      "hero_vk": 22.19,
+      "supa_vk": 22.19,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.20",
+      "bezeichnung": "Abschlussprofile V2A",
+      "hero_ek": 10,
+      "supa_ek": 9.31,
+      "delta_ek": 0.69,
+      "hero_vk": 14.72,
+      "supa_vk": 14.72,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.24",
+      "bezeichnung": "Aufmauerung/ Einmauern Badewanne, 2 seitig",
+      "hero_ek": 45,
+      "supa_ek": 37.77,
+      "delta_ek": 7.23,
+      "hero_vk": 59.75,
+      "supa_vk": 59.75,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.25",
+      "bezeichnung": "Aufmauerung/ Einmauern Badewanne, 3 seitig",
+      "hero_ek": 80,
+      "supa_ek": 64.75,
+      "delta_ek": 15.25,
+      "hero_vk": 102.43,
+      "supa_vk": 102.43,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.26",
+      "bezeichnung": "Aufmauerung/ Einmauern Duschwanne, 2 seitig",
+      "hero_ek": 30,
+      "supa_ek": 24.28,
+      "delta_ek": 5.72,
+      "hero_vk": 38.41,
+      "supa_vk": 38.41,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.27",
+      "bezeichnung": "Aufmauerung/ Einmauern Duschwanne, 3 seitig",
+      "hero_ek": 29.2683,
+      "supa_ek": 24.28,
+      "delta_ek": 4.99,
+      "hero_vk": 38.41,
+      "supa_vk": 38.41,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.28",
+      "bezeichnung": "Kristallspiegel",
+      "hero_ek": 62.9268,
+      "supa_ek": 52.21,
+      "delta_ek": 10.72,
+      "hero_vk": 82.58,
+      "supa_vk": 82.58,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.30",
+      "bezeichnung": "Marmorfensterbank bis 100cm",
+      "hero_ek": 50,
+      "supa_ek": 40.47,
+      "delta_ek": 9.53,
+      "hero_vk": 64.02,
+      "supa_vk": 64.02,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.33",
+      "bezeichnung": "Verschluss v Rohrdurchführungen",
+      "hero_ek": 65,
+      "supa_ek": 59.9,
+      "delta_ek": 5.1,
+      "hero_vk": 94.75,
+      "supa_vk": 94.75,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.34",
+      "bezeichnung": "Risse im Estrich schließen",
+      "hero_ek": 11.125,
+      "supa_ek": 10.08,
+      "delta_ek": 1.05,
+      "hero_vk": 15.94,
+      "supa_vk": 15.94,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.35",
+      "bezeichnung": "Untergrundvorbereitung, Fräsen",
+      "hero_ek": 14.5833,
+      "supa_ek": 12.01,
+      "delta_ek": 2.57,
+      "hero_vk": 18.99,
+      "supa_vk": 18.99,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.5",
+      "bezeichnung": "Bodenabdichtung, W2-I",
+      "hero_ek": 20,
+      "supa_ek": 16.19,
+      "delta_ek": 3.81,
+      "hero_vk": 25.61,
+      "supa_vk": 25.61,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.7",
+      "bezeichnung": "Schnittschutzband für Verbundabdichtungen",
+      "hero_ek": 4.7917,
+      "supa_ek": 4.38,
+      "delta_ek": 0.41,
+      "hero_vk": 6.94,
+      "supa_vk": 6.94,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.6",
+      "bezeichnung": "Wandabdichtung, W1-I",
+      "hero_ek": 13.6585,
+      "supa_ek": 11.33,
+      "delta_ek": 2.33,
+      "hero_vk": 17.92,
+      "supa_vk": 17.92,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.9",
+      "bezeichnung": "Abdichten von Außenecken u. Innenecken",
+      "hero_ek": 5.7917,
+      "supa_ek": 5.52,
+      "delta_ek": 0.27,
+      "hero_vk": 8.73,
+      "supa_vk": 8.73,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.02.4",
+      "bezeichnung": "Grundierung als Sperrgrund",
+      "hero_ek": 2.625,
+      "supa_ek": 2.3,
+      "delta_ek": 0.33,
+      "hero_vk": 3.65,
+      "supa_vk": 3.65,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.1",
+      "bezeichnung": "Wandbefliesung, Vitra",
+      "hero_ek": 53.3333,
+      "supa_ek": 45.14,
+      "delta_ek": 8.19,
+      "hero_vk": 71.49,
+      "supa_vk": 71.49,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.2",
+      "bezeichnung": "Wandbefliesung, Meißen Keramik",
+      "hero_ek": 53.75,
+      "supa_ek": 45.67,
+      "delta_ek": 8.08,
+      "hero_vk": 72.34,
+      "supa_vk": 72.34,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.3",
+      "bezeichnung": "Bodenbefliesung, Vitra",
+      "hero_ek": 55,
+      "supa_ek": 48.5,
+      "delta_ek": 6.5,
+      "hero_vk": 76.82,
+      "supa_vk": 76.82,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.4",
+      "bezeichnung": "Bodenbefliesung, Meißen Keramik",
+      "hero_ek": 55,
+      "supa_ek": 48.5,
+      "delta_ek": 6.5,
+      "hero_vk": 76.82,
+      "supa_vk": 76.82,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.5",
+      "bezeichnung": "Bodenbefliesung, Holzoptik, Meißen Keramik",
+      "hero_ek": 55,
+      "supa_ek": 48.5,
+      "delta_ek": 6.5,
+      "hero_vk": 76.82,
+      "supa_vk": 76.82,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.6",
+      "bezeichnung": "Mosaikbefliesung Wand/ Boden, Vitra",
+      "hero_ek": 61.25,
+      "supa_ek": 54.16,
+      "delta_ek": 7.09,
+      "hero_vk": 85.78,
+      "supa_vk": 85.78,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.03.7",
+      "bezeichnung": "Mosaikbefliesung Wand/ Boden, Meißen Keramik",
+      "hero_ek": 63.3333,
+      "supa_ek": 56.86,
+      "delta_ek": 6.47,
+      "hero_vk": 90.05,
+      "supa_vk": 90.05,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.04.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 20,
+      "supa_ek": 26.98,
+      "delta_ek": -6.98,
+      "hero_vk": 42.68,
+      "supa_vk": 42.68,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.1",
+      "bezeichnung": "Abfräsen/ Abtragen von Beschichtungen / Kleber",
+      "hero_ek": 6.625,
+      "supa_ek": 5.73,
+      "delta_ek": 0.89,
+      "hero_vk": 9.03,
+      "supa_vk": 9.03,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.7",
+      "bezeichnung": "Bauspanplatten liefern und verlegen, 2-lagig",
+      "hero_ek": 36.25,
+      "supa_ek": 30.43,
+      "delta_ek": 5.82,
+      "hero_vk": 47.99,
+      "supa_vk": 47.99,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.17",
+      "bezeichnung": "Fensterleibungen/ Fensterbänke",
+      "hero_ek": 16.625,
+      "supa_ek": 15.5,
+      "delta_ek": 1.13,
+      "hero_vk": 24.52,
+      "supa_vk": 24.52,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.32",
+      "bezeichnung": "Verschluss v Bodenentwässerung",
+      "hero_ek": 76.25,
+      "supa_ek": 63.54,
+      "delta_ek": 12.71,
+      "hero_vk": 100.51,
+      "supa_vk": 100.51,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.2",
+      "bezeichnung": "Schwind-/Scheinfugen schließen",
+      "hero_ek": 8.3333,
+      "supa_ek": 7.47,
+      "delta_ek": 0.86,
+      "hero_vk": 11.79,
+      "supa_vk": 11.79,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.16",
+      "bezeichnung": "Bodenbefliesung inkl. Flexmörtel",
+      "hero_ek": 30,
+      "supa_ek": 24.28,
+      "delta_ek": 5.72,
+      "hero_vk": 38.41,
+      "supa_vk": 38.41,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.03.2",
+      "bezeichnung": "Stundenlohnarbeiten Helfer",
+      "hero_ek": 34.63,
+      "supa_ek": 45,
+      "delta_ek": -10.37,
+      "hero_vk": 56.06,
+      "supa_vk": 56.06,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-07.01.10",
+      "bezeichnung": "Bodenbelag, Vinyl,  Bahnen",
+      "hero_ek": 28.33,
+      "supa_ek": 23.49,
+      "delta_ek": 4.84,
+      "hero_vk": 37.04,
+      "supa_vk": 37.04,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.37",
+      "bezeichnung": "Gefällespachtel bis 2%",
+      "hero_ek": 16.25,
+      "supa_ek": 14.16,
+      "delta_ek": 2.09,
+      "hero_vk": 22.41,
+      "supa_vk": 22.41,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    },
+    {
+      "artikelnummer": "GWS.LV23-06.01.21",
+      "bezeichnung": "Verfugung Wandfliesenbelag",
+      "hero_ek": 10,
+      "supa_ek": 9.31,
+      "delta_ek": 0.69,
+      "hero_vk": 14.72,
+      "supa_vk": 14.72,
+      "delta_vk": 0,
+      "hero_hoeher": false
+    }
+  ],
+  "nur_in_hero": [],
+  "nur_in_supabase": [
+    {
+      "artikelnummer": "GWS.LV23-01.01.17",
+      "supa_ek": 0,
+      "supa_vk": 34.79
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.01.23",
+      "supa_ek": 75,
+      "supa_vk": 103.09
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.1",
+      "supa_ek": 0,
+      "supa_vk": 24.35
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.10",
+      "supa_ek": 0,
+      "supa_vk": 108.79
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.11",
+      "supa_ek": 0,
+      "supa_vk": 222.76
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.12",
+      "supa_ek": 0,
+      "supa_vk": 253.84
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.13",
+      "supa_ek": 0,
+      "supa_vk": 77.91
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.14",
+      "supa_ek": 0,
+      "supa_vk": 86.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.15",
+      "supa_ek": 0,
+      "supa_vk": 38.08
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.16",
+      "supa_ek": 0,
+      "supa_vk": 2.02
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.17",
+      "supa_ek": 0,
+      "supa_vk": 77.71
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.18",
+      "supa_ek": 0,
+      "supa_vk": 113.97
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.19",
+      "supa_ek": 0,
+      "supa_vk": 37.46
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.2",
+      "supa_ek": 0,
+      "supa_vk": 24.35
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.20",
+      "supa_ek": 0,
+      "supa_vk": 88.07
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.21",
+      "supa_ek": 0,
+      "supa_vk": 10.36
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.22",
+      "supa_ek": 0,
+      "supa_vk": 127.44
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.23",
+      "supa_ek": 0,
+      "supa_vk": 88.07
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.24",
+      "supa_ek": 0,
+      "supa_vk": 59.26
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.25",
+      "supa_ek": 0,
+      "supa_vk": 29.01
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.26",
+      "supa_ek": 0,
+      "supa_vk": 38.44
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.27",
+      "supa_ek": 0,
+      "supa_vk": 8.5
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.28",
+      "supa_ek": 0,
+      "supa_vk": 139.87
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.29",
+      "supa_ek": 0,
+      "supa_vk": 90.66
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.3",
+      "supa_ek": 0,
+      "supa_vk": 24.35
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.30",
+      "supa_ek": 0,
+      "supa_vk": 52.1
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.31",
+      "supa_ek": 0,
+      "supa_vk": 57.2
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.32",
+      "supa_ek": 0,
+      "supa_vk": 50.65
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.33",
+      "supa_ek": 0,
+      "supa_vk": 162.67
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.4",
+      "supa_ek": 0,
+      "supa_vk": 176.14
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.5",
+      "supa_ek": 0,
+      "supa_vk": 77.71
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.6",
+      "supa_ek": 0,
+      "supa_vk": 150.23
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.7",
+      "supa_ek": 0,
+      "supa_vk": 241.41
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.8",
+      "supa_ek": 0,
+      "supa_vk": 217.58
+    },
+    {
+      "artikelnummer": "GWS.LV23-01.99.05.9",
+      "supa_ek": 0,
+      "supa_vk": 129.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-02.02.7",
+      "supa_ek": 15.42,
+      "supa_vk": 20.63
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.1",
+      "supa_ek": 0,
+      "supa_vk": 514.78
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.2",
+      "supa_ek": 0,
+      "supa_vk": 52.99
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.3",
+      "supa_ek": 0,
+      "supa_vk": 123.94
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.4",
+      "supa_ek": 0,
+      "supa_vk": 105.08
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.5",
+      "supa_ek": 0,
+      "supa_vk": 48.81
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.6",
+      "supa_ek": 0,
+      "supa_vk": 52.7
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.7",
+      "supa_ek": 0,
+      "supa_vk": 76.54
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.01.8",
+      "supa_ek": 0,
+      "supa_vk": 85.15
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.1",
+      "supa_ek": 0,
+      "supa_vk": 2288.47
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.2",
+      "supa_ek": 0,
+      "supa_vk": 63.53
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.3",
+      "supa_ek": 0,
+      "supa_vk": 318.97
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.4",
+      "supa_ek": 0,
+      "supa_vk": 87.06
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.5",
+      "supa_ek": 0,
+      "supa_vk": 118.45
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.6",
+      "supa_ek": 0,
+      "supa_vk": 56.41
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.7",
+      "supa_ek": 0,
+      "supa_vk": 80.27
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.02.8",
+      "supa_ek": 0,
+      "supa_vk": 88.89
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.1",
+      "supa_ek": 0,
+      "supa_vk": 727
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.2",
+      "supa_ek": 0,
+      "supa_vk": 1056.01
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.3",
+      "supa_ek": 0,
+      "supa_vk": 781.21
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.4",
+      "supa_ek": 0,
+      "supa_vk": 1107.18
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.5",
+      "supa_ek": 0,
+      "supa_vk": 1049.82
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.6",
+      "supa_ek": 0,
+      "supa_vk": 1084.88
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.7",
+      "supa_ek": 0,
+      "supa_vk": 30.17
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.8",
+      "supa_ek": 0,
+      "supa_vk": 49.15
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.03.9",
+      "supa_ek": 0,
+      "supa_vk": 68.12
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.1",
+      "supa_ek": 0,
+      "supa_vk": 107.78
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.10",
+      "supa_ek": 0,
+      "supa_vk": 23.02
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.11",
+      "supa_ek": 0,
+      "supa_vk": 68.33
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.12",
+      "supa_ek": 0,
+      "supa_vk": 29.55
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.2",
+      "supa_ek": 0,
+      "supa_vk": 50.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.3",
+      "supa_ek": 0,
+      "supa_vk": 69.13
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.4",
+      "supa_ek": 0,
+      "supa_vk": 154.02
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.5",
+      "supa_ek": 0,
+      "supa_vk": 67.04
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.6",
+      "supa_ek": 0,
+      "supa_vk": 83.01
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.7",
+      "supa_ek": 0,
+      "supa_vk": 34.12
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.8",
+      "supa_ek": 0,
+      "supa_vk": 22.81
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.04.9",
+      "supa_ek": 0,
+      "supa_vk": 23.02
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.05.1",
+      "supa_ek": 0,
+      "supa_vk": 56.88
+    },
+    {
+      "artikelnummer": "GWS.LV23-03.05.2",
+      "supa_ek": 0,
+      "supa_vk": 46.34
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.11",
+      "supa_ek": 0,
+      "supa_vk": 38.63
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.13",
+      "supa_ek": 0,
+      "supa_vk": 50.68
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.5",
+      "supa_ek": 25.83,
+      "supa_vk": 35.59
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.6",
+      "supa_ek": 0,
+      "supa_vk": 61.95
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.01.7",
+      "supa_ek": 0,
+      "supa_vk": 165.59
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.03.23",
+      "supa_ek": 0,
+      "supa_vk": 10.81
+    },
+    {
+      "artikelnummer": "GWS.LV23-08.04.13",
+      "supa_ek": 0,
+      "supa_vk": 85.38
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.03.1",
+      "supa_ek": 1.92,
+      "supa_vk": 2.99
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.1",
+      "supa_ek": 4.75,
+      "supa_vk": 7.09
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.10",
+      "supa_ek": 0,
+      "supa_vk": 4.27
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.13",
+      "supa_ek": 0,
+      "supa_vk": 20.21
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.04.8",
+      "supa_ek": 6.69,
+      "supa_vk": 10.7
+    },
+    {
+      "artikelnummer": "GWS.LV23-09.05.1",
+      "supa_ek": 70,
+      "supa_vk": 80.72
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.10",
+      "supa_ek": 450,
+      "supa_vk": 632.37
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.01.39",
+      "supa_ek": 1332,
+      "supa_vk": 140.15
+    },
+    {
+      "artikelnummer": "GWS.LV23-20.02.7",
+      "supa_ek": 0,
+      "supa_vk": 500.17
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01",
+      "supa_ek": 0,
+      "supa_vk": 8364.08
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.11",
+      "supa_ek": 0,
+      "supa_vk": 215.07
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.31",
+      "supa_ek": 0,
+      "supa_vk": 5.99
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.33",
+      "supa_ek": 0,
+      "supa_vk": 25.48
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.01.35",
+      "supa_ek": 0,
+      "supa_vk": 15.55
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.02",
+      "supa_ek": 0,
+      "supa_vk": 8018.45
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.03",
+      "supa_ek": 0,
+      "supa_vk": 10547.35
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04",
+      "supa_ek": 0,
+      "supa_vk": 33802.7
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.03",
+      "supa_ek": 0,
+      "supa_vk": 1409.83
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.04",
+      "supa_ek": 0,
+      "supa_vk": 1508.97
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.05",
+      "supa_ek": 0,
+      "supa_vk": 1707.21
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.06",
+      "supa_ek": 0,
+      "supa_vk": 1861.4
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.07",
+      "supa_ek": 0,
+      "supa_vk": 1916.5
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.08",
+      "supa_ek": 0,
+      "supa_vk": 1960.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.09",
+      "supa_ek": 0,
+      "supa_vk": 1960.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.11",
+      "supa_ek": 0,
+      "supa_vk": 1916.5
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.12",
+      "supa_ek": 0,
+      "supa_vk": 1850.37
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.13",
+      "supa_ek": 0,
+      "supa_vk": 2037.65
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.14",
+      "supa_ek": 0,
+      "supa_vk": 1960.51
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.15",
+      "supa_ek": 0,
+      "supa_vk": 2059.66
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.16",
+      "supa_ek": 0,
+      "supa_vk": 2004.59
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.17",
+      "supa_ek": 0,
+      "supa_vk": 2059.63
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.18",
+      "supa_ek": 0,
+      "supa_vk": 2632.43
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.19",
+      "supa_ek": 0,
+      "supa_vk": 2268.95
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.01.04.20",
+      "supa_ek": 0,
+      "supa_vk": 2687.48
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01",
+      "supa_ek": 0,
+      "supa_vk": 12500.05
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.02",
+      "supa_ek": 0,
+      "supa_vk": 13713.11
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.03",
+      "supa_ek": 0,
+      "supa_vk": 9885.94
+    }
+  ]
+}

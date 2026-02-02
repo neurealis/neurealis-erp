@@ -1,0 +1,1922 @@
+[
+  {
+    "artikelnummer": "GWS.LV23-01.01.2",
+    "name": "Demontage Sockelleisten, WE 30- 90m² o. Bad,Kalkul",
+    "alter_preis": 151.31,
+    "neuer_preis": 156.78,
+    "diff": 5.469999999999999,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.4",
+    "name": "Rückbau Altbelag, fest verbaut, WE 30- 90m² o. Bad",
+    "alter_preis": 565.8744,
+    "neuer_preis": 586.3,
+    "diff": 20.425599999999918,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.5",
+    "name": "Containerstellung 3 m³",
+    "alter_preis": 460,
+    "neuer_preis": 493.95,
+    "diff": 33.94999999999999,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.6",
+    "name": "Containerstellung 7 m³",
+    "alter_preis": 580,
+    "neuer_preis": 622.81,
+    "diff": 42.809999999999945,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.7",
+    "name": "Containerstellung 10 m³",
+    "alter_preis": 916,
+    "neuer_preis": 983.61,
+    "diff": 67.61000000000001,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.8",
+    "name": "Rückbau von Wänden, GK, d=< 20cm",
+    "alter_preis": 13.9,
+    "neuer_preis": 14.93,
+    "diff": 1.0299999999999994,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.14",
+    "name": "Rückbau Wandfliesen",
+    "alter_preis": 25,
+    "neuer_preis": 26.85,
+    "diff": 1.8500000000000014,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.15",
+    "name": "Rückbau Bodenfliesen",
+    "alter_preis": 32.4,
+    "neuer_preis": 34.79,
+    "diff": 2.3900000000000006,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.16",
+    "name": "Rückbau Bodenfliesen, Werkstein",
+    "alter_preis": 32.4,
+    "neuer_preis": 34.79,
+    "diff": 2.3900000000000006,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.19",
+    "name": "Abbruch Estrich d= bis 7cm",
+    "alter_preis": 23,
+    "neuer_preis": 24.7,
+    "diff": 1.6999999999999993,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.21",
+    "name": "Ausbau Innentüren , 1 flg.",
+    "alter_preis": 52.2346,
+    "neuer_preis": 54.12,
+    "diff": 1.885399999999997,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.23",
+    "name": "Rückbau Einbauschrank, 60 x 250",
+    "alter_preis": 99.49,
+    "neuer_preis": 103.09,
+    "diff": 3.6000000000000085,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.24",
+    "name": "Rückbau Einbauschrank, 120 x 250",
+    "alter_preis": 184.09,
+    "neuer_preis": 184.7,
+    "diff": 0.6099999999999852,
+    "diff_pct": "0.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.25",
+    "name": "Ausbau Stahl-/Alu-Glas-Rahmentür, 1 flg.",
+    "alter_preis": 75.8,
+    "neuer_preis": 81.4,
+    "diff": 5.6000000000000085,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.27",
+    "name": "Ausbau Fenster, < 2,5 m²",
+    "alter_preis": 84,
+    "neuer_preis": 90.2,
+    "diff": 6.200000000000003,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.28",
+    "name": "Ausbau Fenster, > 2,5 m²",
+    "alter_preis": 137,
+    "neuer_preis": 147.11,
+    "diff": 10.110000000000014,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.29",
+    "name": "Ausbau Rollladenkasten",
+    "alter_preis": 81,
+    "neuer_preis": 86.98,
+    "diff": 5.980000000000004,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.31",
+    "name": "Rückbau Fensterbank, innen >1,5m bis 2,5m",
+    "alter_preis": 28.5,
+    "neuer_preis": 30.6,
+    "diff": 2.1000000000000014,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.02.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 40,
+    "neuer_preis": 42.95,
+    "diff": 2.950000000000003,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.2",
+    "name": "Innenwand  D=17,5cm",
+    "alter_preis": 73.6,
+    "neuer_preis": 76.36,
+    "diff": 2.760000000000005,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.3",
+    "name": "Innenwand  D=24cm",
+    "alter_preis": 92.4,
+    "neuer_preis": 95.86,
+    "diff": 3.4599999999999937,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.4",
+    "name": "Wohnungstrennwand D=20cm",
+    "alter_preis": 85,
+    "neuer_preis": 88.18,
+    "diff": 3.180000000000007,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.5",
+    "name": "Wohnungstrennwand D=24cm",
+    "alter_preis": 93.4,
+    "neuer_preis": 96.9,
+    "diff": 3.5,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.6",
+    "name": "Öffnungen für Türen und Fenster < 2,5m²",
+    "alter_preis": 148,
+    "neuer_preis": 153.54,
+    "diff": 5.539999999999992,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.9",
+    "name": "Flachsturz, 11,5",
+    "alter_preis": 66,
+    "neuer_preis": 68.47,
+    "diff": 2.469999999999999,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.10",
+    "name": "Flachsturz, 17,5",
+    "alter_preis": 81,
+    "neuer_preis": 84.03,
+    "diff": 3.030000000000001,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.11",
+    "name": "Flachsturz, 24",
+    "alter_preis": 102,
+    "neuer_preis": 105.82,
+    "diff": 3.819999999999993,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.13",
+    "name": "Öffnungen schließen, > 400cm² bis 1 m²",
+    "alter_preis": 94,
+    "neuer_preis": 97.52,
+    "diff": 3.519999999999996,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.19",
+    "name": "Nische/ Heizkörpernische schließen < 1,5m²",
+    "alter_preis": 144.9536,
+    "neuer_preis": 147.32,
+    "diff": 2.3663999999999987,
+    "diff_pct": "1.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.20",
+    "name": "Nische/ Heizkörpernische schließen > 1,5m²",
+    "alter_preis": 206.6099,
+    "neuer_preis": 209.98,
+    "diff": 3.3700999999999794,
+    "diff_pct": "1.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.1",
+    "name": "Verunreinigungen entfernen",
+    "alter_preis": 1.72,
+    "neuer_preis": 1.77,
+    "diff": 0.050000000000000044,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.2",
+    "name": "Abklebearbeiten",
+    "alter_preis": 1.96,
+    "neuer_preis": 2.08,
+    "diff": 0.1200000000000001,
+    "diff_pct": "6.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.4",
+    "name": "Beiputzarbeiten",
+    "alter_preis": 20.8,
+    "neuer_preis": 22.12,
+    "diff": 1.3200000000000003,
+    "diff_pct": "6.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.5",
+    "name": "Putzhaftbrücke auf Beton - Betokontakt",
+    "alter_preis": 4.1,
+    "neuer_preis": 4.36,
+    "diff": 0.2600000000000007,
+    "diff_pct": "6.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.6",
+    "name": "Aufbrennsperre",
+    "alter_preis": 2.96,
+    "neuer_preis": 3.15,
+    "diff": 0.18999999999999995,
+    "diff_pct": "6.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.7",
+    "name": "Gips-Leichtputz als Wandputz, Q2 -geglättet",
+    "alter_preis": 20.08,
+    "neuer_preis": 20.63,
+    "diff": 0.5500000000000007,
+    "diff_pct": "2.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.8",
+    "name": "Gips-Leichtputz Laibungen verputzen, Q2 - geglätte",
+    "alter_preis": 14.44,
+    "neuer_preis": 15.36,
+    "diff": 0.9199999999999999,
+    "diff_pct": "6.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.10",
+    "name": "Gips-Leichtputz als Deckenputz, Q2",
+    "alter_preis": 22,
+    "neuer_preis": 23.4,
+    "diff": 1.3999999999999986,
+    "diff_pct": "6.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.13",
+    "name": "KZP Laibungen verputzen, Q2 - gefilzt",
+    "alter_preis": 18.64,
+    "neuer_preis": 19.82,
+    "diff": 1.1799999999999997,
+    "diff_pct": "6.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.14",
+    "name": "Zulage für Mehrputzstärke",
+    "alter_preis": 3.28,
+    "neuer_preis": 3.49,
+    "diff": 0.2100000000000004,
+    "diff_pct": "6.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.03.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 55,
+    "neuer_preis": 57.06,
+    "diff": 2.0600000000000023,
+    "diff_pct": "3.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.1",
+    "name": "Vorsatzschale, direkt befestigt, CD 60/27, GKBI 2x",
+    "alter_preis": 57.0852,
+    "neuer_preis": 59.28,
+    "diff": 2.1948000000000008,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.3",
+    "name": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =125",
+    "alter_preis": 71.669,
+    "neuer_preis": 74.43,
+    "diff": 2.76100000000001,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.4",
+    "name": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =150",
+    "alter_preis": 80.6276,
+    "neuer_preis": 83.73,
+    "diff": 3.102400000000003,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.5",
+    "name": "Metallständerwand = 4,00 m, GKBI 2x 12,5 mm, d = 1",
+    "alter_preis": 69.4,
+    "neuer_preis": 75.08,
+    "diff": 5.679999999999993,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.11",
+    "name": "Türöffnung anlegen, 1 flg, > 1010mm",
+    "alter_preis": 53,
+    "neuer_preis": 57.34,
+    "diff": 4.340000000000003,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.12",
+    "name": "freies Wandende, d = bis 150 mm",
+    "alter_preis": 28,
+    "neuer_preis": 30.29,
+    "diff": 2.289999999999999,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.13",
+    "name": "freies Wandende, d = bis 300 mm",
+    "alter_preis": 38.6,
+    "neuer_preis": 41.76,
+    "diff": 3.1599999999999966,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.17",
+    "name": "Ausschn., rund, < d= 50 mm",
+    "alter_preis": 5.18,
+    "neuer_preis": 5.6,
+    "diff": 0.41999999999999993,
+    "diff_pct": "8.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.18",
+    "name": "Ausschn., rund, bis d= > 50mm  bis 100 mm",
+    "alter_preis": 5.3,
+    "neuer_preis": 5.73,
+    "diff": 0.4300000000000006,
+    "diff_pct": "8.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.19",
+    "name": "Aussparungen., rechteck, < 25cm²",
+    "alter_preis": 4.71,
+    "neuer_preis": 5.1,
+    "diff": 0.3899999999999997,
+    "diff_pct": "8.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.20",
+    "name": "Aussparungen., rechteck, > 25cm² bis 100 cm²",
+    "alter_preis": 6.42,
+    "neuer_preis": 6.95,
+    "diff": 0.5300000000000002,
+    "diff_pct": "8.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.22",
+    "name": "Traverse zur Wandverstärkung, Stahlblech",
+    "alter_preis": 47.6,
+    "neuer_preis": 51.49,
+    "diff": 3.8900000000000006,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.23",
+    "name": "Revisionsklappe, Stahlblech, weiß 20/20",
+    "alter_preis": 41,
+    "neuer_preis": 44.35,
+    "diff": 3.3500000000000014,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.24",
+    "name": "Revisionsklappe, Stahlblech, weiß 40/40",
+    "alter_preis": 52,
+    "neuer_preis": 56.25,
+    "diff": 4.25,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.26",
+    "name": "Revisionsklappe, GK Einlage,  40/40",
+    "alter_preis": 57.4,
+    "neuer_preis": 62.1,
+    "diff": 4.700000000000003,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.27",
+    "name": "Revisionsklappe, GK Einlage,F30  20/20",
+    "alter_preis": 90.2,
+    "neuer_preis": 97.58,
+    "diff": 7.3799999999999955,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.29",
+    "name": "Revisionsklappe, GK Einlage,F90  20/20",
+    "alter_preis": 103.2,
+    "neuer_preis": 111.64,
+    "diff": 8.439999999999998,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.30",
+    "name": "Revisionsklappe, GK Einlage,F90  40/40",
+    "alter_preis": 111,
+    "neuer_preis": 120.08,
+    "diff": 9.079999999999998,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.2",
+    "name": "Dachboden-Dämmplatte 80 mm mit Verbundplatte 19mm",
+    "alter_preis": 65.4,
+    "neuer_preis": 70.75,
+    "diff": 5.349999999999994,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.3",
+    "name": "Dachboden-Dämmplatte 100 mm mit Verbundplatte 19mm",
+    "alter_preis": 73,
+    "neuer_preis": 78.97,
+    "diff": 5.969999999999999,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.4",
+    "name": "Dachboden-Dämmplatte 120 mm mit Verbundplatte 19mm",
+    "alter_preis": 77.4,
+    "neuer_preis": 83.73,
+    "diff": 6.329999999999998,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.5",
+    "name": "Abhangdecke, GKB 1x 12,5 mm, o.BS, Tragprofil CD60",
+    "alter_preis": 50.4183,
+    "neuer_preis": 52.36,
+    "diff": 1.9416999999999973,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.7",
+    "name": "Revisionsklappe, Stahlblech, weiß 40/40",
+    "alter_preis": 53.4,
+    "neuer_preis": 57.77,
+    "diff": 4.3700000000000045,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.8",
+    "name": "Revisionsklappe, GK Einlage,  20/20",
+    "alter_preis": 47,
+    "neuer_preis": 50.84,
+    "diff": 3.8400000000000034,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.03.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 55,
+    "neuer_preis": 59.5,
+    "diff": 4.5,
+    "diff_pct": "8.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.1",
+    "name": "Ausgleichsschüttung",
+    "alter_preis": 15.8,
+    "neuer_preis": 16.62,
+    "diff": 0.8200000000000003,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.2",
+    "name": "Zementestrich",
+    "alter_preis": 40,
+    "neuer_preis": 42.07,
+    "diff": 2.0700000000000003,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.3",
+    "name": "Mehr/- Minder Estrichstärken",
+    "alter_preis": 2.8,
+    "neuer_preis": 2.94,
+    "diff": 0.14000000000000012,
+    "diff_pct": "5.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.4",
+    "name": "Zulage Abbindebeschleuniger",
+    "alter_preis": 3.6,
+    "neuer_preis": 3.79,
+    "diff": 0.18999999999999995,
+    "diff_pct": "5.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.7",
+    "name": "Nivellierausgleich",
+    "alter_preis": 11,
+    "neuer_preis": 11.57,
+    "diff": 0.5700000000000003,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.11",
+    "name": "Trockenestrich",
+    "alter_preis": 52.6779,
+    "neuer_preis": 53.64,
+    "diff": 0.9620999999999995,
+    "diff_pct": "1.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.02.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 56.8095,
+    "neuer_preis": 57.84,
+    "diff": 1.0305000000000035,
+    "diff_pct": "1.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.02.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 41.316,
+    "neuer_preis": 42.07,
+    "diff": 0.7539999999999978,
+    "diff_pct": "1.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.1",
+    "name": "Reinigen des Untergrunds von grober Verschmutzung ",
+    "alter_preis": 2.12,
+    "neuer_preis": 2.18,
+    "diff": 0.06000000000000005,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.4",
+    "name": "Haftgrund, nicht saugende Untergründe",
+    "alter_preis": 3.94,
+    "neuer_preis": 4.2,
+    "diff": 0.26000000000000023,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.5",
+    "name": "Bodenabdichtung, W2-I",
+    "alter_preis": 24.9048,
+    "neuer_preis": 25.61,
+    "diff": 0.7051999999999978,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.6",
+    "name": "Wandabdichtung, W1-I",
+    "alter_preis": 17.4334,
+    "neuer_preis": 17.92,
+    "diff": 0.4866000000000028,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.7",
+    "name": "Schnittschutzband für Verbundabdichtungen",
+    "alter_preis": 6.7451,
+    "neuer_preis": 6.94,
+    "diff": 0.19490000000000052,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.8",
+    "name": "Abdichten von Rand-, Anschluss- u, Bewegungsfugen",
+    "alter_preis": 7.86,
+    "neuer_preis": 8.39,
+    "diff": 0.5300000000000002,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.9",
+    "name": "Abdichten von Außenecken u. Innenecken",
+    "alter_preis": 8.4884,
+    "neuer_preis": 8.73,
+    "diff": 0.24160000000000004,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.10",
+    "name": "Abdichten von Rohrdurchführungen, DN32",
+    "alter_preis": 7.4714,
+    "neuer_preis": 7.68,
+    "diff": 0.20859999999999967,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.11",
+    "name": "Abdichten von Rohrdurchführungen, DN 100",
+    "alter_preis": 9.3808,
+    "neuer_preis": 9.65,
+    "diff": 0.26919999999999966,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.12",
+    "name": "Abdichten Bodenablauf",
+    "alter_preis": 31.131,
+    "neuer_preis": 32.01,
+    "diff": 0.8789999999999978,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.14",
+    "name": "Entkopplungsmatte",
+    "alter_preis": 70.9787,
+    "neuer_preis": 72.98,
+    "diff": 2.0013000000000005,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.16",
+    "name": "Bodenbefliesung inkl. Flexmörtel",
+    "alter_preis": 37.3572,
+    "neuer_preis": 38.41,
+    "diff": 1.0527999999999977,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.17",
+    "name": "Fensterleibungen/ Fensterbänke",
+    "alter_preis": 23.8463,
+    "neuer_preis": 24.52,
+    "diff": 0.6737000000000002,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.19",
+    "name": "Fliesen, Löcher herstellen",
+    "alter_preis": 21.5842,
+    "neuer_preis": 22.19,
+    "diff": 0.6058000000000021,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.20",
+    "name": "Abschlussprofile V2A",
+    "alter_preis": 14.3203,
+    "neuer_preis": 14.72,
+    "diff": 0.39970000000000105,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.21",
+    "name": "Verfugung Wandfliesenbelag",
+    "alter_preis": 14.3203,
+    "neuer_preis": 14.72,
+    "diff": 0.39970000000000105,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.22",
+    "name": "Verfugung Bodenfliesenbelag",
+    "alter_preis": 5.56,
+    "neuer_preis": 5.93,
+    "diff": 0.3700000000000001,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.24",
+    "name": "Aufmauerung/ Einmauern Badewanne, 2 seitig",
+    "alter_preis": 58.1112,
+    "neuer_preis": 59.75,
+    "diff": 1.6388000000000034,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.25",
+    "name": "Aufmauerung/ Einmauern Badewanne, 3 seitig",
+    "alter_preis": 99.6192,
+    "neuer_preis": 102.43,
+    "diff": 2.8108000000000004,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.26",
+    "name": "Aufmauerung/ Einmauern Duschwanne, 2 seitig",
+    "alter_preis": 37.3572,
+    "neuer_preis": 38.41,
+    "diff": 1.0527999999999977,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.27",
+    "name": "Aufmauerung/ Einmauern Duschwanne, 3 seitig",
+    "alter_preis": 37.3572,
+    "neuer_preis": 38.41,
+    "diff": 1.0527999999999977,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.28",
+    "name": "Kristallspiegel",
+    "alter_preis": 80.318,
+    "neuer_preis": 82.58,
+    "diff": 2.2620000000000005,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.30",
+    "name": "Marmorfensterbank bis 100cm",
+    "alter_preis": 62.262,
+    "neuer_preis": 64.02,
+    "diff": 1.7579999999999956,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.32",
+    "name": "Verschluss v Bodenentwässerung",
+    "alter_preis": 97.7513,
+    "neuer_preis": 100.51,
+    "diff": 2.7587000000000046,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.33",
+    "name": "Verschluss v Rohrdurchführungen",
+    "alter_preis": 92.1478,
+    "neuer_preis": 94.75,
+    "diff": 2.6021999999999963,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.34",
+    "name": "Risse im Estrich schließen",
+    "alter_preis": 15.5032,
+    "neuer_preis": 15.94,
+    "diff": 0.43679999999999986,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.35",
+    "name": "Untergrundvorbereitung, Fräsen",
+    "alter_preis": 18.4711,
+    "neuer_preis": 18.99,
+    "diff": 0.5188999999999986,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.36",
+    "name": "Nivellierausgleich",
+    "alter_preis": 11.83,
+    "neuer_preis": 14.41,
+    "diff": 2.58,
+    "diff_pct": "21.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.37",
+    "name": "Gefällespachtel bis 2%",
+    "alter_preis": 21.7917,
+    "neuer_preis": 22.41,
+    "diff": 0.6183000000000014,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.38",
+    "name": "Austausch von Wandfliesen",
+    "alter_preis": 65.8,
+    "neuer_preis": 70.21,
+    "diff": 4.409999999999997,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.39",
+    "name": "Austausch von Bodenfliesen",
+    "alter_preis": 74,
+    "neuer_preis": 78.96,
+    "diff": 4.959999999999994,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.2",
+    "name": "Grundierung",
+    "alter_preis": 5.26,
+    "neuer_preis": 5.61,
+    "diff": 0.35000000000000053,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.3",
+    "name": "Spachtel zuvor grundierter Flächen.",
+    "alter_preis": 14,
+    "neuer_preis": 14.94,
+    "diff": 0.9399999999999995,
+    "diff_pct": "6.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.4",
+    "name": "Grundierung als Sperrgrund",
+    "alter_preis": 3.5445,
+    "neuer_preis": 3.65,
+    "diff": 0.1054999999999997,
+    "diff_pct": "3.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.1",
+    "name": "Wandbefliesung, Vitra",
+    "alter_preis": 69.4388,
+    "neuer_preis": 71.49,
+    "diff": 2.0511999999999944,
+    "diff_pct": "3.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.2",
+    "name": "Wandbefliesung, Meißen Keramik",
+    "alter_preis": 70.2679,
+    "neuer_preis": 72.34,
+    "diff": 2.072100000000006,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.3",
+    "name": "Bodenbefliesung, Vitra",
+    "alter_preis": 74.6208,
+    "neuer_preis": 76.82,
+    "diff": 2.1991999999999905,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.4",
+    "name": "Bodenbefliesung, Meißen Keramik",
+    "alter_preis": 74.6208,
+    "neuer_preis": 76.82,
+    "diff": 2.1991999999999905,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.5",
+    "name": "Bodenbefliesung, Holzoptik, Meißen Keramik",
+    "alter_preis": 74.6208,
+    "neuer_preis": 76.82,
+    "diff": 2.1991999999999905,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.6",
+    "name": "Mosaikbefliesung Wand/ Boden, Vitra",
+    "alter_preis": 83.3266,
+    "neuer_preis": 85.78,
+    "diff": 2.453400000000002,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.7",
+    "name": "Mosaikbefliesung Wand/ Boden, Meißen Keramik",
+    "alter_preis": 87.4722,
+    "neuer_preis": 90.05,
+    "diff": 2.5777999999999963,
+    "diff_pct": "2.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.04.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 57.0735,
+    "neuer_preis": 58.68,
+    "diff": 1.606499999999997,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.04.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 41.508,
+    "neuer_preis": 42.68,
+    "diff": 1.171999999999997,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.1",
+    "name": "Abfräsen/ Abtragen von Beschichtungen / Kleber",
+    "alter_preis": 8.8082,
+    "neuer_preis": 9.03,
+    "diff": 0.2218,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.2",
+    "name": "Schwind-/Scheinfugen schließen",
+    "alter_preis": 11.4979,
+    "neuer_preis": 11.79,
+    "diff": 0.2920999999999996,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.4",
+    "name": "Dampfbremse, PE Folie. D 0,2 mm",
+    "alter_preis": 3.8805,
+    "neuer_preis": 3.98,
+    "diff": 0.09949999999999992,
+    "diff_pct": "2.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.6",
+    "name": "Bauspanplatten liefern und verlegen, bis 22 mm",
+    "alter_preis": 26.4,
+    "neuer_preis": 27.78,
+    "diff": 1.3800000000000026,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.7",
+    "name": "Bauspanplatten liefern und verlegen, 2-lagig",
+    "alter_preis": 46.813,
+    "neuer_preis": 47.99,
+    "diff": 1.1769999999999996,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.10",
+    "name": "Bodenbelag, Vinyl,  Bahnen",
+    "alter_preis": 36.1363,
+    "neuer_preis": 37.04,
+    "diff": 0.9037000000000006,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.13",
+    "name": "Sockelleiste HZ, Holz",
+    "alter_preis": 21,
+    "neuer_preis": 22.1,
+    "diff": 1.1000000000000014,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.14",
+    "name": "Sockelleiste HZ, Kunststoff",
+    "alter_preis": 14.2,
+    "neuer_preis": 14.94,
+    "diff": 0.7400000000000002,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.15",
+    "name": "Sockelleiste Hohlkehlleiste, Kiefer",
+    "alter_preis": 11.4,
+    "neuer_preis": 12,
+    "diff": 0.5999999999999996,
+    "diff_pct": "5.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.16",
+    "name": "Dauerelastische Verfugung",
+    "alter_preis": 5.6258,
+    "neuer_preis": 5.77,
+    "diff": 0.14419999999999966,
+    "diff_pct": "2.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.20",
+    "name": "Übergangsschienen",
+    "alter_preis": 17.45,
+    "neuer_preis": 17.89,
+    "diff": 0.4400000000000013,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.22",
+    "name": "Bewegungsfugenprofil , PVC Einlage",
+    "alter_preis": 22.6,
+    "neuer_preis": 23.78,
+    "diff": 1.1799999999999997,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.23",
+    "name": "Holzboden ausbessern",
+    "alter_preis": 54.4,
+    "neuer_preis": 57.25,
+    "diff": 2.8500000000000014,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.26",
+    "name": "Grundierung /Schlussanstrich Massivholzboden",
+    "alter_preis": 15.4,
+    "neuer_preis": 15.79,
+    "diff": 0.3899999999999988,
+    "diff_pct": "2.5"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.1",
+    "name": "Fenster/ Balkontüren herrichten",
+    "alter_preis": 23.4,
+    "neuer_preis": 24.94,
+    "diff": 1.5400000000000027,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.2",
+    "name": "Zimmer-, Wohnungs-, Haus- oder Hoftür herrichten",
+    "alter_preis": 29.7163,
+    "neuer_preis": 30.9,
+    "diff": 1.1836999999999982,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.3",
+    "name": "Fenster- /Balkontürbauteile gang- und schließbar m",
+    "alter_preis": 29.72,
+    "neuer_preis": 30.9,
+    "diff": 1.1799999999999997,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.5",
+    "name": "Einsteckschloss Zimmertür liefern, einbauen",
+    "alter_preis": 34.22,
+    "neuer_preis": 35.59,
+    "diff": 1.3700000000000045,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.9",
+    "name": "Wellenlager (Fertigkastenlager) erneuern",
+    "alter_preis": 112,
+    "neuer_preis": 119.36,
+    "diff": 7.359999999999999,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.10",
+    "name": "Rollladenwelle erneuern",
+    "alter_preis": 89,
+    "neuer_preis": 94.85,
+    "diff": 5.849999999999994,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.12",
+    "name": "Vorhandenes Schließblech erneuern",
+    "alter_preis": 51,
+    "neuer_preis": 54.35,
+    "diff": 3.3500000000000014,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.14",
+    "name": "Schall-EX-Element erneuern",
+    "alter_preis": 112,
+    "neuer_preis": 119.36,
+    "diff": 7.359999999999999,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.16",
+    "name": "Zylinder für WE-Tür liefern, einbauen",
+    "alter_preis": 49.5,
+    "neuer_preis": 52.75,
+    "diff": 3.25,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.1",
+    "name": "Beschlagsteile verstezen, klein",
+    "alter_preis": 38.5,
+    "neuer_preis": 41.03,
+    "diff": 2.530000000000001,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.3",
+    "name": "Beschlagsteile erneuern, klein",
+    "alter_preis": 76.6,
+    "neuer_preis": 81.63,
+    "diff": 5.030000000000001,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.4",
+    "name": "Beschlagsteile erneuern, groß",
+    "alter_preis": 89,
+    "neuer_preis": 94.85,
+    "diff": 5.849999999999994,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.5",
+    "name": "Balkontürheber erneuern",
+    "alter_preis": 95,
+    "neuer_preis": 101.24,
+    "diff": 6.239999999999995,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.6",
+    "name": "Hebetürbeschlag erneuern",
+    "alter_preis": 138,
+    "neuer_preis": 147.06,
+    "diff": 9.060000000000002,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.8",
+    "name": "Fenstergriff abschließbar - RC 2 (WK2) liefern, ei",
+    "alter_preis": 47.4,
+    "neuer_preis": 50.51,
+    "diff": 3.1099999999999994,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.9",
+    "name": "Drehkippbeschlag erneuern, komplett",
+    "alter_preis": 112,
+    "neuer_preis": 119.36,
+    "diff": 7.359999999999999,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.11",
+    "name": "Fensterband erneuern",
+    "alter_preis": 48,
+    "neuer_preis": 51.15,
+    "diff": 3.1499999999999986,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.5",
+    "name": "Türschwelle aufdoppeln/ erneuern",
+    "alter_preis": 90,
+    "neuer_preis": 57.83,
+    "diff": -32.17,
+    "diff_pct": "-35.7"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.18",
+    "name": "Dichtung erneuern, Zargen",
+    "alter_preis": 7.01,
+    "neuer_preis": 7.29,
+    "diff": 0.28000000000000025,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.1",
+    "name": "Zimmertür inkl Holzzarge  liefern, einbauen",
+    "alter_preis": 327.9,
+    "neuer_preis": 341.02,
+    "diff": 13.120000000000005,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.8",
+    "name": "Zulage Lichtausschnitt",
+    "alter_preis": 119.89,
+    "neuer_preis": 124.69,
+    "diff": 4.799999999999997,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.9",
+    "name": "Zulage Lüftungsgitter",
+    "alter_preis": 36.89,
+    "neuer_preis": 38.36,
+    "diff": 1.4699999999999989,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.11",
+    "name": "Wohnungstür RC 2 inkl. Zarge liefern, einbauen",
+    "alter_preis": 975,
+    "neuer_preis": 1039.05,
+    "diff": 64.04999999999995,
+    "diff_pct": "6.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.14",
+    "name": "Zulage Türöffnung anpassen",
+    "alter_preis": 125.01,
+    "neuer_preis": 130.01,
+    "diff": 4.999999999999986,
+    "diff_pct": "4.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.2",
+    "name": "Zulage Ornamentglasscheibe",
+    "alter_preis": 32.1284,
+    "neuer_preis": 33.04,
+    "diff": 0.9116,
+    "diff_pct": "2.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.9",
+    "name": "Schimmelpilz Flächen reinigen und desinfizieren",
+    "alter_preis": 13.8,
+    "neuer_preis": 14.82,
+    "diff": 1.0199999999999996,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.14",
+    "name": "Leimfarbe, entfernen",
+    "alter_preis": 8.9139,
+    "neuer_preis": 9.26,
+    "diff": 0.34609999999999985,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.1",
+    "name": "Tiefengrund aufbringen",
+    "alter_preis": 2.87,
+    "neuer_preis": 2.99,
+    "diff": 0.1200000000000001,
+    "diff_pct": "4.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.3",
+    "name": "Haftgrund aufbringen",
+    "alter_preis": 3.68,
+    "neuer_preis": 3.82,
+    "diff": 0.13999999999999968,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.6",
+    "name": "Wandspachtel, Q3",
+    "alter_preis": 11.4,
+    "neuer_preis": 12.24,
+    "diff": 0.8399999999999999,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.7",
+    "name": "Deckenspachtel, Q2",
+    "alter_preis": 9.36,
+    "neuer_preis": 10.05,
+    "diff": 0.6900000000000013,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.11",
+    "name": "Leibungsspachtel, Q3",
+    "alter_preis": 8.8,
+    "neuer_preis": 9.45,
+    "diff": 0.6499999999999986,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.1",
+    "name": "Raufaser tapezieren",
+    "alter_preis": 6.83,
+    "neuer_preis": 7.09,
+    "diff": 0.2599999999999998,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.2",
+    "name": "Dispersionsanstrich, matt, NAB 2",
+    "alter_preis": 5.791,
+    "neuer_preis": 6.01,
+    "diff": 0.21899999999999942,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.7",
+    "name": "Balkon Grundierauftrag Aussenflächen",
+    "alter_preis": 10.67,
+    "neuer_preis": 11.08,
+    "diff": 0.41000000000000014,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.8",
+    "name": "Balkon Schlussbeschichtung Aussenflächen",
+    "alter_preis": 10.2996,
+    "neuer_preis": 10.7,
+    "diff": 0.4003999999999994,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.11",
+    "name": "Untergrundvorbehandlung",
+    "alter_preis": 6,
+    "neuer_preis": 6.44,
+    "diff": 0.4400000000000004,
+    "diff_pct": "7.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.1",
+    "name": "Lackierung Innentürblatt",
+    "alter_preis": 77.72,
+    "neuer_preis": 80.72,
+    "diff": 3,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.2",
+    "name": "Lackierung Umfassungszarge",
+    "alter_preis": 43.43,
+    "neuer_preis": 45.11,
+    "diff": 1.6799999999999997,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.5",
+    "name": "Lackierung Rohrrahmentür",
+    "alter_preis": 87.2,
+    "neuer_preis": 93.65,
+    "diff": 6.450000000000003,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.7",
+    "name": "Lackierung HK Anbindung",
+    "alter_preis": 18.6138,
+    "neuer_preis": 19.33,
+    "diff": 0.7161999999999971,
+    "diff_pct": "3.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.8",
+    "name": "Lackierung Plattenheizkörper",
+    "alter_preis": 45.914,
+    "neuer_preis": 47.69,
+    "diff": 1.7759999999999962,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.3",
+    "name": "Renovierungsanstrich, beidseitig,  Holzfenstern, 2",
+    "alter_preis": 95,
+    "neuer_preis": 102.03,
+    "diff": 7.030000000000001,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.6",
+    "name": "Renovierungsanstrich, Holzfensterbänke",
+    "alter_preis": 46.9481,
+    "neuer_preis": 48.76,
+    "diff": 1.8119000000000014,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.07.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 41.364,
+    "neuer_preis": 42.96,
+    "diff": 1.5960000000000036,
+    "diff_pct": "3.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.3",
+    "name": "2 Zi Wohnung mit Küche, Diele bis 45m²",
+    "alter_preis": 1720,
+    "neuer_preis": 2154.52,
+    "diff": 434.52,
+    "diff_pct": "25.3"
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.6",
+    "name": "2 Zi Wohnung mit Küche, Diele bis 65m²",
+    "alter_preis": 2320,
+    "neuer_preis": 2867.32,
+    "diff": 547.3200000000002,
+    "diff_pct": "23.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.03.1",
+    "name": "Floor Flex -Analyse",
+    "alter_preis": 180,
+    "neuer_preis": 224.35,
+    "diff": 44.349999999999994,
+    "diff_pct": "24.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.01.2",
+    "name": "Reinigung jede weitere Etage",
+    "alter_preis": 27.1537,
+    "neuer_preis": 28.13,
+    "diff": 0.9762999999999984,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.1",
+    "name": "Bauschluss/- Feinreinigung bis 35m², 1 Zi",
+    "alter_preis": 198.9888,
+    "neuer_preis": 206.17,
+    "diff": 7.18119999999999,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.2",
+    "name": "Bauschluss/- Feinreinigung bis 45m², 1 Zi",
+    "alter_preis": 204,
+    "neuer_preis": 219.06,
+    "diff": 15.060000000000002,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.3",
+    "name": "Bauschluss/- Feinreinigung bis 45m², 2 Zi",
+    "alter_preis": 232.1536,
+    "neuer_preis": 240.53,
+    "diff": 8.37639999999999,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.4",
+    "name": "Bauschluss/- Feinreinigung bis 50m², 2 Zi",
+    "alter_preis": 214,
+    "neuer_preis": 229.8,
+    "diff": 15.800000000000011,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.10",
+    "name": "Bauschluss/- Feinreinigung bis 65m², 3 Zi",
+    "alter_preis": 237,
+    "neuer_preis": 254.49,
+    "diff": 17.49000000000001,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.12",
+    "name": "Bauschluss/- Feinreinigung bis 85m², 3 Zi",
+    "alter_preis": 276,
+    "neuer_preis": 296.37,
+    "diff": 20.370000000000005,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.14",
+    "name": "Bauschluss/- Feinreinigung bis 100m², 4 Zi",
+    "alter_preis": 310,
+    "neuer_preis": 332.88,
+    "diff": 22.879999999999995,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.15",
+    "name": "Bauschluss/- Feinreinigung > 100m², 4 Zi",
+    "alter_preis": 332.88,
+    "neuer_preis": 352.21,
+    "diff": 19.329999999999984,
+    "diff_pct": "5.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.17",
+    "name": "Bauschluss/- Feinreinigung > 100m², 5 Zi",
+    "alter_preis": 332,
+    "neuer_preis": 356.51,
+    "diff": 24.50999999999999,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.01.1",
+    "name": "Duschbad",
+    "alter_preis": 7720,
+    "neuer_preis": 8289.84,
+    "diff": 569.8400000000001,
+    "diff_pct": "7.4"
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.02.1",
+    "name": "Duschbad",
+    "alter_preis": 8187.56,
+    "neuer_preis": 8483.13,
+    "diff": 295.5699999999988,
+    "diff_pct": "3.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.1",
+    "name": "Elektrozähler Alt/ Neu",
+    "alter_preis": 131,
+    "neuer_preis": 146.88,
+    "diff": 15.879999999999995,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.3",
+    "name": "Zuleitungsverbindung  5*16 mm²",
+    "alter_preis": 63.936,
+    "neuer_preis": 67.27,
+    "diff": 3.333999999999996,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.4",
+    "name": "Zuleitungsverbindung  5*16 mm² je weitere Etage",
+    "alter_preis": 77.15,
+    "neuer_preis": 81.18,
+    "diff": 4.030000000000001,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.6",
+    "name": "Aufputz-Wanne für Unterverteiler",
+    "alter_preis": 90.576,
+    "neuer_preis": 95.3,
+    "diff": 4.724000000000004,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.7",
+    "name": "FI/ LS Schalter Waschmaschine",
+    "alter_preis": 84,
+    "neuer_preis": 94.18,
+    "diff": 10.180000000000007,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.8",
+    "name": "Elektroinstallation Waschmaschinenanschluss",
+    "alter_preis": 126.3802,
+    "neuer_preis": 132.98,
+    "diff": 6.599799999999988,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.9",
+    "name": "Nachputzarbeiten, WE 30- 90m² o. Bad, Kalkulation:",
+    "alter_preis": 497.552,
+    "neuer_preis": 542.67,
+    "diff": 45.11799999999994,
+    "diff_pct": "9.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.10",
+    "name": "Erneuerung Schalter-/Steckdosen WE 30- 90m² o. Bad",
+    "alter_preis": 601,
+    "neuer_preis": 632.37,
+    "diff": 31.370000000000005,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.11",
+    "name": "Wechselsprechanlage Ritto/ STR",
+    "alter_preis": 98.0352,
+    "neuer_preis": 103.15,
+    "diff": 5.1148000000000025,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.12",
+    "name": "Tür Gong",
+    "alter_preis": 40.0666,
+    "neuer_preis": 42.16,
+    "diff": 2.0933999999999955,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.20",
+    "name": "Kunststoffpanzerrohr M 40",
+    "alter_preis": 9.2,
+    "neuer_preis": 10.32,
+    "diff": 1.120000000000001,
+    "diff_pct": "12.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.27",
+    "name": "Niederdruckspeicher",
+    "alter_preis": 228,
+    "neuer_preis": 255.64,
+    "diff": 27.639999999999986,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.30",
+    "name": "Demontage und Entsorgung NSP-Ofen 5 -6KW",
+    "alter_preis": 408,
+    "neuer_preis": 457.46,
+    "diff": 49.45999999999998,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.38",
+    "name": "Thermostatkopf erneuern",
+    "alter_preis": 47.952,
+    "neuer_preis": 50.46,
+    "diff": 2.5080000000000027,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.1",
+    "name": "Elektroneuinstallation",
+    "alter_preis": 3409.92,
+    "neuer_preis": 3587.92,
+    "diff": 178,
+    "diff_pct": "5.2"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.4",
+    "name": "Elektroneuinstallation Balkon / Terrasse",
+    "alter_preis": 150,
+    "neuer_preis": 168.18,
+    "diff": 18.180000000000007,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.03.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 70,
+    "neuer_preis": 78.49,
+    "diff": 8.489999999999995,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.03.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 50,
+    "neuer_preis": 56.06,
+    "diff": 6.060000000000002,
+    "diff_pct": "12.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.2",
+    "name": "Zulage, Breite ab 2 m",
+    "alter_preis": 27.3858,
+    "neuer_preis": 28.64,
+    "diff": 1.2542000000000009,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.3",
+    "name": "Heizkörper demontieren/ Entsorgung",
+    "alter_preis": 71.62,
+    "neuer_preis": 74.9,
+    "diff": 3.280000000000001,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.4",
+    "name": "Ventilheizkörper Typ 22, neu",
+    "alter_preis": 356.0154,
+    "neuer_preis": 372.29,
+    "diff": 16.27460000000002,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.6",
+    "name": "Kompaktheizkörper, neu",
+    "alter_preis": 380.24,
+    "neuer_preis": 397.62,
+    "diff": 17.379999999999995,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.21",
+    "name": "Verlegung Kombitherme innerhalb WE",
+    "alter_preis": 850,
+    "neuer_preis": 936.22,
+    "diff": 86.22000000000003,
+    "diff_pct": "10.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.22",
+    "name": "Verlegung Kombitherme in Keller",
+    "alter_preis": 1520,
+    "neuer_preis": 1674.18,
+    "diff": 154.18000000000006,
+    "diff_pct": "10.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.26",
+    "name": "Dämmung an Rohrleitungen reparieren",
+    "alter_preis": 36.8655,
+    "neuer_preis": 38.55,
+    "diff": 1.6844999999999999,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.03.1",
+    "name": "Ausführung Brennwertgerät mit Speicher",
+    "alter_preis": 4897.845,
+    "neuer_preis": 5121.68,
+    "diff": 223.83500000000004,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.09.1",
+    "name": "Rohrlängen75",
+    "alter_preis": 1874.83,
+    "neuer_preis": 1960.51,
+    "diff": 85.68000000000006,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.6",
+    "name": "Rechteck-Badewanne mit Duschzone 170/80/38",
+    "alter_preis": 702,
+    "neuer_preis": 772.48,
+    "diff": 70.48000000000002,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.10",
+    "name": "Zulage Duschtasse Superplan 1000 mm x 1400 mm",
+    "alter_preis": 80,
+    "neuer_preis": 212.5,
+    "diff": 132.5,
+    "diff_pct": "165.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.13",
+    "name": "Zulage Duschtasse Superplan 800 mm x 1400 mm",
+    "alter_preis": 445,
+    "neuer_preis": 406.67,
+    "diff": -38.329999999999984,
+    "diff_pct": "-8.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.14",
+    "name": "Duschtasse Duschplan, h 65 mm",
+    "alter_preis": 880.5989,
+    "neuer_preis": 921.37,
+    "diff": 40.77110000000005,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.16",
+    "name": "Zulage Duschtasse Duschplan 1000 mm x 1400 mm",
+    "alter_preis": 90,
+    "neuer_preis": 600.88,
+    "diff": 510.88,
+    "diff_pct": "567.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.17",
+    "name": "Zulage Duschtasse Duschplan 800 mm x 1000 mm",
+    "alter_preis": 154.06,
+    "neuer_preis": 572.48,
+    "diff": 418.42,
+    "diff_pct": "271.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.18",
+    "name": "Zulage Duschtasse Duschplan 800 mm x 1200 mm",
+    "alter_preis": 339,
+    "neuer_preis": 572.48,
+    "diff": 233.48000000000002,
+    "diff_pct": "68.9"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.19",
+    "name": "Zulage Duschtasse Duschplan 800 mm x 1400 mm",
+    "alter_preis": 270,
+    "neuer_preis": 701.94,
+    "diff": 431.94000000000005,
+    "diff_pct": "160.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.21",
+    "name": "Wasseranschluss Küche versetzen",
+    "alter_preis": 288,
+    "neuer_preis": 316.91,
+    "diff": 28.910000000000025,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.24",
+    "name": "Brausevorhangstange",
+    "alter_preis": 202.9781,
+    "neuer_preis": 212.38,
+    "diff": 9.401899999999983,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.25",
+    "name": "Duschabtrennung",
+    "alter_preis": 660,
+    "neuer_preis": 726.26,
+    "diff": 66.25999999999999,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.27",
+    "name": "Handwaschbecken",
+    "alter_preis": 391.2324,
+    "neuer_preis": 409.35,
+    "diff": 18.11760000000004,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.30",
+    "name": "Brausebatterie",
+    "alter_preis": 160,
+    "neuer_preis": 176.06,
+    "diff": 16.060000000000002,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.33",
+    "name": "Wand-WC",
+    "alter_preis": 253.09,
+    "neuer_preis": 352.13,
+    "diff": 99.03999999999999,
+    "diff_pct": "39.1"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.34",
+    "name": "Stand-WC",
+    "alter_preis": 295,
+    "neuer_preis": 324.62,
+    "diff": 29.620000000000005,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.35",
+    "name": "WC-Sitz",
+    "alter_preis": 81,
+    "neuer_preis": 89.13,
+    "diff": 8.129999999999995,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.15",
+    "name": "Waschtischarmatur",
+    "alter_preis": 183.4,
+    "neuer_preis": 201.81,
+    "diff": 18.409999999999997,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.18",
+    "name": "Handbrause-Set Dusche",
+    "alter_preis": 181,
+    "neuer_preis": 199.17,
+    "diff": 18.169999999999987,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.19",
+    "name": "Wand-WC",
+    "alter_preis": 230,
+    "neuer_preis": 253.09,
+    "diff": 23.090000000000003,
+    "diff_pct": "10.0"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.20",
+    "name": "WC-Sitz",
+    "alter_preis": 89.13,
+    "neuer_preis": 74.17,
+    "diff": -14.959999999999994,
+    "diff_pct": "-16.8"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.04.1",
+    "name": "Stundenlohnarbeiten Facharbeiter",
+    "alter_preis": 78.8775,
+    "neuer_preis": 82.53,
+    "diff": 3.6525000000000034,
+    "diff_pct": "4.6"
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.04.2",
+    "name": "Stundenlohnarbeiten Helfer",
+    "alter_preis": 52.585,
+    "neuer_preis": 55.02,
+    "diff": 2.4350000000000023,
+    "diff_pct": "4.6"
+  }
+]

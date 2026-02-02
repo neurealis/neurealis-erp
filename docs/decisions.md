@@ -481,6 +481,32 @@
 - **Externe Systeme** → Regelmäßig per Cron pullen
 **Grund:** Schnelle Reaktion auf lokale Änderungen, kontrollierter Import von extern
 
+### D048 - Hero→Supabase LV-Sync nur noch manuell
+**Datum:** 2026-02-02
+**Entscheidung:** Der tägliche Cron-Job `hero-lv-sync-daily` wird deaktiviert
+**Grund:** LV-Positionen sind stabil, nur bei Hero-LV-Updates manuelle Synchronisation nötig
+**Vorheriger Schedule:** War täglich automatisch
+**Manueller Aufruf:**
+```bash
+# Vollständiger Sync (alle Services + Products)
+curl https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync
+
+# Nur Services synchronisieren
+curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync?type=services"
+
+# Nur Products mit Pagination
+curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync?type=products&offset=0&limit=500"
+
+# Dry-Run (zeigt was synchronisiert würde)
+curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync?dry_run=true"
+```
+**Edge Function:** `hero-lv-sync` v10 (verify_jwt: false, kann ohne Auth aufgerufen werden)
+**Alternative:** Bei Bedarf Cron wieder aktivieren mit:
+```sql
+SELECT cron.schedule('hero-lv-sync-daily', '0 3 * * *',
+  $$SELECT net.http_post('https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync')$$);
+```
+
 ---
 
-*Aktualisiert: 2026-02-01*
+*Aktualisiert: 2026-02-02*

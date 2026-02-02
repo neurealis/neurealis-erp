@@ -1,10 +1,36 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-01 19:45 (aktualisiert)
+**Stand:** 2026-02-02 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### GWS LV-Preisimport 2026 (✅ FERTIG)
+
+**Implementiert:** 2026-02-02
+
+**Excel→Supabase Import:**
+| Metrik | Wert |
+|--------|------|
+| Preise aktualisiert | 240 |
+| Duschtassen korrigiert | 4 (bis +567%!) |
+| Asbest korrigiert | 2 |
+| Bezeichnung korrigiert | 1 |
+
+**Hero-Sync deaktiviert (D048):**
+- `hero-lv-sync-daily` Cron deaktiviert
+- Nur noch manueller Aufruf bei Bedarf
+- Supabase ist jetzt LV-Master
+
+**Hero-Abgleich (manuell nötig):**
+- 305 Preise identisch (52%)
+- **274 Hero niedriger/fehlt (48%)** - manuell aktualisieren!
+- Diskrepanzen in `docs/hero_gws_price_comparison.json`
+
+**Neue Learnings:** L167-L169
+
+---
 
 ### Sync P1-Tasks (✅ ALLE FERTIG)
 
@@ -317,8 +343,18 @@ ui/src/routes/
 
 ## Nächster Schritt
 
-→ **SharePoint v13 Test:** Rate-Limiting-Fix mit kleiner Site testen (00Vertrieb)
-→ **monday-sync erweitern:** Automatisches Flattening beim Sync
+→ **Hero-Preise manuell aktualisieren** (WICHTIG)
+  - 274 GWS-Positionen haben in Hero niedrigere/fehlende Preise
+  - Diskrepanzen in `docs/hero_gws_price_comparison.json`
+  - Besonders: Gewerk 10 (Asbestsanierung) komplett ohne Preise
+
+→ **SharePoint Ingest Status-Seite erstellen** (User Request)
+  - Neue Seite `/ingest` im neurealis ERP (wie LifeOps)
+  - Tabelle mit allen SharePoint Sites als Zeilen
+  - Spalten: Site | Kopiert | Analysiert | Summarized | Embedded
+  - Vorlage: `C:\Users\holge\lifeops\ui\src\routes\ingest\+page.svelte`
+
+→ **SharePoint Sync läuft** - v13 mit Rate-Limiting-Fix aktiv
 → **CPQ End-to-End Test:** Manueller Test mit echter Transkription empfohlen
 
 ---

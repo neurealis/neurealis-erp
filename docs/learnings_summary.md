@@ -1,6 +1,6 @@
 # Learnings Summary - neurealis ERP
 
-**Generiert:** 2026-02-01
+**Generiert:** 2026-02-02
 **Volltext:** docs/learnings.md
 
 > Diese Datei ist ein kompakter Index. Bei Bedarf Volltext lesen.
@@ -11,6 +11,9 @@
 
 | # | Titel | Kurzfassung |
 |---|-------|-------------|
+| L169 | Hero-LV-Sync nur noch manuell (D048) | Cron deaktiviert, Supabase ist LV-Master |
+| L168 | Preishistorie-Trigger protokolliert automatisch | trg_lv_preis_historie bei UPDATE auf lv_positionen |
+| L167 | GWS Preisimport-Workflow | Excel→Supabase→Hero, Artikelnummer-Mapping GWS.LV23- |
 | L147 | Learnings Summary für Preflight (PFLICHT!) | Summary als kompakter Index, Volltext bei Bedarf mit offset/limit |
 | L143 | Audio-Generierung NUR auf Edge Functions | OpenAI Key nur in Supabase Secrets, niemals lokal |
 | L144 | Präfix-Konvention in monday_bauprozess | nu_*, bl_*, ag_* für eindeutige Felder (NU/BL/AG) |
@@ -425,6 +428,6 @@
 
 ---
 
-**Anzahl Learnings:** 166 (L001-L166, ohne Duplikate bei L053/L143/L144)
+**Anzahl Learnings:** 169 (L001-L169, ohne Duplikate bei L053/L143/L144)
 
 *Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values). Die zweiten Vorkommen sollten umnummeriert werden.*

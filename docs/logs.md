@@ -82,6 +82,88 @@
 | LOG-067 | 2026-02-01 | Learnings Summary: Kompakter Index für Preflight | Abgeschlossen |
 | LOG-068 | 2026-02-01 | SharePoint Initial-Sync: Rate-Limiting-Fix v13 | Abgeschlossen |
 | LOG-069 | 2026-02-01 | Telegram User Guide: Menü-Struktur + Logo + Hilfe-Seite | Abgeschlossen |
+| LOG-070 | 2026-02-01 | SharePoint Sync gestartet + Ingest Status-Seite geplant | Abgeschlossen |
+| LOG-071 | 2026-02-02 | GWS LV-Preisimport 2026: Excel→Supabase + Hero-Vergleich | Abgeschlossen |
+
+---
+
+## LOG-071 - GWS LV-Preisimport 2026: Excel→Supabase + Hero-Vergleich
+**Datum:** 2026-02-02
+**Status:** Abgeschlossen
+
+### Ausgangslage
+GWS hat aktualisierte Preise für 2026 (Baupreisindex August 2025) in Excel bereitgestellt. Diese sollten in Supabase importiert und mit Hero abgeglichen werden.
+
+### Durchgeführt
+
+**Vergleich Excel vs. Supabase:**
+| Metrik | Wert |
+|--------|------|
+| Excel-Positionen | 770 |
+| Supabase GWS | 712 |
+| Preise korrekt | 426 |
+| **Preisabweichungen** | **240** |
+| Namen-Mismatch | 38 |
+| Überschriften (ignoriert) | 66 |
+
+**Supabase-Updates (4 parallele Subagenten):**
+1. **T1:** 240 eindeutige Preise importiert (Excel→Supabase)
+2. **T2:** 7 kritische Korrekturen (4 Duschtassen +567%, 2 Asbest +25%, 1 Bezeichnung)
+3. **T3:** `hero-lv-sync-daily` Cron deaktiviert (D048)
+4. **T4:** Hero-Vergleich: 280 Diskrepanzen dokumentiert
+
+**Kritische Duschtassen-Fehler behoben:**
+| Position | Alt | Neu | Diff |
+|----------|-----|-----|------|
+| 21.02.01.16 | 90 € | 600,88 € | +567% |
+| 21.02.01.17 | 154 € | 572,48 € | +272% |
+| 21.02.01.10 | 80 € | 212,50 € | +166% |
+| 21.02.01.19 | 270 € | 701,94 € | +160% |
+
+**Hero-Status nach Supabase-Update:**
+- 305 Preise identisch (52%)
+- 274 Hero niedriger/fehlt (48%) - manuell aktualisieren!
+- 6 Hero höher
+
+### Erstellte Dateien
+- `docs/backups/2026-02-02_gws_price_updates.json` - 240 Preisänderungen
+- `docs/backups/2026-02-02_lv_duschtassen_asbest_korrektur.json`
+- `docs/hero_gws_price_comparison.json` - Hero-Diskrepanzen
+- `docs/gws_price_comparison.json` - Vollständiger Vergleich
+
+### Neue Learnings
+- L167: GWS Preisimport-Workflow (Excel→Supabase→Hero)
+- L168: Preishistorie-Trigger protokolliert automatisch alle Änderungen
+- L169: Hero-Sync deaktiviert (D048) - nur noch manuell
+
+### Nächster Schritt
+274 Hero-Positionen mit fehlenden/niedrigeren Preisen manuell in Hero Software aktualisieren.
+
+---
+
+## LOG-070 - SharePoint Sync gestartet + Ingest Status-Seite geplant
+**Datum:** 2026-02-01 20:35
+**Status:** Abgeschlossen
+
+### Durchgeführt
+
+**Git Commit & Push:**
+- `docs: SharePoint Rate-Limiting Fix + Learnings Update`
+- 7 Dateien, Telegram User Guide mit Logo, Learnings L160-L164
+
+**SharePoint Sync gestartet:**
+- Edge Function `sharepoint-sync` v13 mit `?action=sync` aufgerufen
+- 12 Sites konfiguriert, 5 bereits in `sharepoint_sync_state`
+- Rate-Limiting-Schutz aktiv (sequentiell, 500ms Delay)
+
+### Geplant für nächste Session
+
+**SharePoint Ingest Status-Seite:**
+- Neue Route `/ingest` im neurealis ERP
+- Tabelle mit SharePoint Sites als Zeilen
+- Spalten: Site | Kopiert | Analysiert | Summarized | Embedded
+- Vorlage: LifeOps `ui/src/routes/ingest/+page.svelte`
+- DB-Abfrage: `sharepoint_sync_state` + `dokumente` Stats
 
 ---
 

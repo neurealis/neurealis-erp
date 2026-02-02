@@ -1,0 +1,4578 @@
+{
+  "matched_equal": [
+    {
+      "artikelnummer": "01.01.1",
+      "preis": 73.02
+    },
+    {
+      "artikelnummer": "01.01.3",
+      "preis": 354.36
+    },
+    {
+      "artikelnummer": "01.01.9",
+      "preis": 14.93
+    },
+    {
+      "artikelnummer": "01.01.10",
+      "preis": 22.12
+    },
+    {
+      "artikelnummer": "01.01.11",
+      "preis": 14.32
+    },
+    {
+      "artikelnummer": "01.01.12",
+      "preis": 11.17
+    },
+    {
+      "artikelnummer": "01.01.13",
+      "preis": 21.48
+    },
+    {
+      "artikelnummer": "01.01.17",
+      "preis": 34.79
+    },
+    {
+      "artikelnummer": "01.01.18",
+      "preis": 14.82
+    },
+    {
+      "artikelnummer": "01.01.20",
+      "preis": 30.5
+    },
+    {
+      "artikelnummer": "01.01.22",
+      "preis": 66.79
+    },
+    {
+      "artikelnummer": "01.01.26",
+      "preis": 103.09
+    },
+    {
+      "artikelnummer": "01.01.30",
+      "preis": 24.16
+    },
+    {
+      "artikelnummer": "01.02.1",
+      "preis": 59.06
+    },
+    {
+      "artikelnummer": "02.01.1",
+      "preis": 68.89
+    },
+    {
+      "artikelnummer": "02.01.7",
+      "preis": 172.21
+    },
+    {
+      "artikelnummer": "02.01.8",
+      "preis": 238.61
+    },
+    {
+      "artikelnummer": "02.01.12",
+      "preis": 63.28
+    },
+    {
+      "artikelnummer": "02.01.14",
+      "preis": 102.71
+    },
+    {
+      "artikelnummer": "02.01.15",
+      "preis": 62.25
+    },
+    {
+      "artikelnummer": "02.01.16",
+      "preis": 90.88
+    },
+    {
+      "artikelnummer": "02.01.17",
+      "preis": 84.03
+    },
+    {
+      "artikelnummer": "02.01.18",
+      "preis": 105.82
+    },
+    {
+      "artikelnummer": "02.02.3",
+      "preis": 23.82
+    },
+    {
+      "artikelnummer": "02.02.9",
+      "preis": 23.4
+    },
+    {
+      "artikelnummer": "02.02.11",
+      "preis": 3.46
+    },
+    {
+      "artikelnummer": "02.02.12",
+      "preis": 27.86
+    },
+    {
+      "artikelnummer": "02.03.2",
+      "preis": 41.5
+    },
+    {
+      "artikelnummer": "03.01.1",
+      "preis": 514.78
+    },
+    {
+      "artikelnummer": "03.01.2",
+      "preis": 52.99
+    },
+    {
+      "artikelnummer": "03.01.3",
+      "preis": 123.94
+    },
+    {
+      "artikelnummer": "03.01.4",
+      "preis": 105.08
+    },
+    {
+      "artikelnummer": "03.01.5",
+      "preis": 48.81
+    },
+    {
+      "artikelnummer": "03.01.6",
+      "preis": 52.7
+    },
+    {
+      "artikelnummer": "03.01.7",
+      "preis": 76.54
+    },
+    {
+      "artikelnummer": "03.01.8",
+      "preis": 85.15
+    },
+    {
+      "artikelnummer": "03.02.1",
+      "preis": 2288.47
+    },
+    {
+      "artikelnummer": "03.02.2",
+      "preis": 63.53
+    },
+    {
+      "artikelnummer": "03.02.3",
+      "preis": 318.97
+    },
+    {
+      "artikelnummer": "03.02.4",
+      "preis": 87.06
+    },
+    {
+      "artikelnummer": "03.02.5",
+      "preis": 118.45
+    },
+    {
+      "artikelnummer": "03.02.6",
+      "preis": 56.41
+    },
+    {
+      "artikelnummer": "03.02.7",
+      "preis": 80.27
+    },
+    {
+      "artikelnummer": "03.02.8",
+      "preis": 88.89
+    },
+    {
+      "artikelnummer": "03.03.1",
+      "preis": 727
+    },
+    {
+      "artikelnummer": "03.03.2",
+      "preis": 1056.01
+    },
+    {
+      "artikelnummer": "03.03.3",
+      "preis": 781.21
+    },
+    {
+      "artikelnummer": "03.03.4",
+      "preis": 1107.18
+    },
+    {
+      "artikelnummer": "03.03.5",
+      "preis": 1049.82
+    },
+    {
+      "artikelnummer": "03.03.6",
+      "preis": 1084.88
+    },
+    {
+      "artikelnummer": "03.03.7",
+      "preis": 30.17
+    },
+    {
+      "artikelnummer": "03.03.8",
+      "preis": 49.15
+    },
+    {
+      "artikelnummer": "03.03.9",
+      "preis": 68.12
+    },
+    {
+      "artikelnummer": "03.04.1",
+      "preis": 107.78
+    },
+    {
+      "artikelnummer": "03.04.2",
+      "preis": 50.51
+    },
+    {
+      "artikelnummer": "03.04.3",
+      "preis": 69.13
+    },
+    {
+      "artikelnummer": "03.04.4",
+      "preis": 154.02
+    },
+    {
+      "artikelnummer": "03.04.5",
+      "preis": 67.04
+    },
+    {
+      "artikelnummer": "03.04.6",
+      "preis": 83.01
+    },
+    {
+      "artikelnummer": "03.04.7",
+      "preis": 34.12
+    },
+    {
+      "artikelnummer": "03.04.8",
+      "preis": 22.81
+    },
+    {
+      "artikelnummer": "03.04.9",
+      "preis": 23.02
+    },
+    {
+      "artikelnummer": "03.04.10",
+      "preis": 23.02
+    },
+    {
+      "artikelnummer": "03.04.11",
+      "preis": 68.33
+    },
+    {
+      "artikelnummer": "03.04.12",
+      "preis": 29.55
+    },
+    {
+      "artikelnummer": "03.05.1",
+      "preis": 56.88
+    },
+    {
+      "artikelnummer": "03.05.2",
+      "preis": 46.34
+    },
+    {
+      "artikelnummer": "04.01.2",
+      "preis": 72.05
+    },
+    {
+      "artikelnummer": "04.01.6",
+      "preis": 78.11
+    },
+    {
+      "artikelnummer": "04.01.7",
+      "preis": 80.49
+    },
+    {
+      "artikelnummer": "04.01.8",
+      "preis": 107.1
+    },
+    {
+      "artikelnummer": "04.01.9",
+      "preis": 59.5
+    },
+    {
+      "artikelnummer": "04.01.10",
+      "preis": 56.69
+    },
+    {
+      "artikelnummer": "04.01.14",
+      "preis": 10.6
+    },
+    {
+      "artikelnummer": "04.01.15",
+      "preis": 66.42
+    },
+    {
+      "artikelnummer": "04.01.16",
+      "preis": 5.43
+    },
+    {
+      "artikelnummer": "04.01.21",
+      "preis": 45.65
+    },
+    {
+      "artikelnummer": "04.01.25",
+      "preis": 58.85
+    },
+    {
+      "artikelnummer": "04.01.28",
+      "preis": 102.34
+    },
+    {
+      "artikelnummer": "04.02.1",
+      "preis": 69.24
+    },
+    {
+      "artikelnummer": "04.02.6",
+      "preis": 45.44
+    },
+    {
+      "artikelnummer": "04.02.9",
+      "preis": 57.34
+    },
+    {
+      "artikelnummer": "04.03.2",
+      "preis": 43.27
+    },
+    {
+      "artikelnummer": "05.01.5",
+      "preis": 45.43
+    },
+    {
+      "artikelnummer": "05.01.6",
+      "preis": 3.72
+    },
+    {
+      "artikelnummer": "05.01.8",
+      "preis": 14.51
+    },
+    {
+      "artikelnummer": "05.01.9",
+      "preis": 5.81
+    },
+    {
+      "artikelnummer": "05.01.10",
+      "preis": 12.62
+    },
+    {
+      "artikelnummer": "05.01.12",
+      "preis": 2.12
+    },
+    {
+      "artikelnummer": "06.01.2",
+      "preis": 64.02
+    },
+    {
+      "artikelnummer": "06.01.3",
+      "preis": 4.44
+    },
+    {
+      "artikelnummer": "06.01.15",
+      "preis": 88.34
+    },
+    {
+      "artikelnummer": "06.01.18",
+      "preis": 5.65
+    },
+    {
+      "artikelnummer": "06.01.23",
+      "preis": 8.32
+    },
+    {
+      "artikelnummer": "06.01.29",
+      "preis": 3.95
+    },
+    {
+      "artikelnummer": "06.01.31",
+      "preis": 70.42
+    },
+    {
+      "artikelnummer": "06.02.1",
+      "preis": 9.5
+    },
+    {
+      "artikelnummer": "07.01.3",
+      "preis": 11.83
+    },
+    {
+      "artikelnummer": "07.01.5",
+      "preis": 12
+    },
+    {
+      "artikelnummer": "07.01.8",
+      "preis": 39.15
+    },
+    {
+      "artikelnummer": "07.01.9",
+      "preis": 37.04
+    },
+    {
+      "artikelnummer": "07.01.11",
+      "preis": 4.97
+    },
+    {
+      "artikelnummer": "07.01.12",
+      "preis": 8.1
+    },
+    {
+      "artikelnummer": "07.01.18",
+      "preis": 14.65
+    },
+    {
+      "artikelnummer": "07.01.19",
+      "preis": 17.89
+    },
+    {
+      "artikelnummer": "07.01.21",
+      "preis": 23.78
+    },
+    {
+      "artikelnummer": "07.01.24",
+      "preis": 52.62
+    },
+    {
+      "artikelnummer": "07.01.25",
+      "preis": 26.94
+    },
+    {
+      "artikelnummer": "07.02.1",
+      "preis": 57.88
+    },
+    {
+      "artikelnummer": "07.02.2",
+      "preis": 42.09
+    },
+    {
+      "artikelnummer": "08.01.4",
+      "preis": 30.27
+    },
+    {
+      "artikelnummer": "08.01.6",
+      "preis": 61.95
+    },
+    {
+      "artikelnummer": "08.01.7",
+      "preis": 165.59
+    },
+    {
+      "artikelnummer": "08.01.8",
+      "preis": 101.24
+    },
+    {
+      "artikelnummer": "08.01.11",
+      "preis": 38.63
+    },
+    {
+      "artikelnummer": "08.01.13",
+      "preis": 50.68
+    },
+    {
+      "artikelnummer": "08.01.15",
+      "preis": 63.94
+    },
+    {
+      "artikelnummer": "08.02.2",
+      "preis": 66.07
+    },
+    {
+      "artikelnummer": "08.02.7",
+      "preis": 43.69
+    },
+    {
+      "artikelnummer": "08.02.10",
+      "preis": 78.86
+    },
+    {
+      "artikelnummer": "08.02.12",
+      "preis": 15.99
+    },
+    {
+      "artikelnummer": "08.02.13",
+      "preis": 86.32
+    },
+    {
+      "artikelnummer": "08.02.14",
+      "preis": 89.52
+    },
+    {
+      "artikelnummer": "08.02.15",
+      "preis": 86.11
+    },
+    {
+      "artikelnummer": "08.02.16",
+      "preis": 83.12
+    },
+    {
+      "artikelnummer": "08.02.17",
+      "preis": 200.35
+    },
+    {
+      "artikelnummer": "08.02.18",
+      "preis": 18.44
+    },
+    {
+      "artikelnummer": "08.03.1",
+      "preis": 49.3
+    },
+    {
+      "artikelnummer": "08.03.2",
+      "preis": 46.52
+    },
+    {
+      "artikelnummer": "08.03.3",
+      "preis": 58.29
+    },
+    {
+      "artikelnummer": "08.03.4",
+      "preis": 41.5
+    },
+    {
+      "artikelnummer": "08.03.6",
+      "preis": 43.43
+    },
+    {
+      "artikelnummer": "08.03.7",
+      "preis": 39.41
+    },
+    {
+      "artikelnummer": "08.03.8",
+      "preis": 29.87
+    },
+    {
+      "artikelnummer": "08.03.9",
+      "preis": 50.73
+    },
+    {
+      "artikelnummer": "08.03.10",
+      "preis": 300.91
+    },
+    {
+      "artikelnummer": "08.03.11",
+      "preis": 80.41
+    },
+    {
+      "artikelnummer": "08.03.12",
+      "preis": 114.11
+    },
+    {
+      "artikelnummer": "08.03.13",
+      "preis": 282.89
+    },
+    {
+      "artikelnummer": "08.03.14",
+      "preis": 89.58
+    },
+    {
+      "artikelnummer": "08.03.15",
+      "preis": 69.53
+    },
+    {
+      "artikelnummer": "08.03.16",
+      "preis": 36.5
+    },
+    {
+      "artikelnummer": "08.03.17",
+      "preis": 20.41
+    },
+    {
+      "artikelnummer": "08.03.19",
+      "preis": 18.39
+    },
+    {
+      "artikelnummer": "08.03.20",
+      "preis": 9.61
+    },
+    {
+      "artikelnummer": "08.03.21",
+      "preis": 9.39
+    },
+    {
+      "artikelnummer": "08.03.22",
+      "preis": 13.65
+    },
+    {
+      "artikelnummer": "08.03.23",
+      "preis": 10.81
+    },
+    {
+      "artikelnummer": "08.04.2",
+      "preis": 442.26
+    },
+    {
+      "artikelnummer": "08.04.3",
+      "preis": 484.89
+    },
+    {
+      "artikelnummer": "08.04.4",
+      "preis": 161.98
+    },
+    {
+      "artikelnummer": "08.04.5",
+      "preis": 298.39
+    },
+    {
+      "artikelnummer": "08.04.6",
+      "preis": 394.3
+    },
+    {
+      "artikelnummer": "08.04.7",
+      "preis": 302.66
+    },
+    {
+      "artikelnummer": "08.04.10",
+      "preis": 44.76
+    },
+    {
+      "artikelnummer": "08.04.12",
+      "preis": -74.6
+    },
+    {
+      "artikelnummer": "08.04.13",
+      "preis": 85.38
+    },
+    {
+      "artikelnummer": "08.04.15",
+      "preis": 119.36
+    },
+    {
+      "artikelnummer": "08.05.1",
+      "preis": 50.09
+    },
+    {
+      "artikelnummer": "08.05.3",
+      "preis": 100.17
+    },
+    {
+      "artikelnummer": "08.05.4",
+      "preis": 105.5
+    },
+    {
+      "artikelnummer": "08.05.5",
+      "preis": 122.55
+    },
+    {
+      "artikelnummer": "08.05.6",
+      "preis": 116.16
+    },
+    {
+      "artikelnummer": "08.05.7",
+      "preis": 150.26
+    },
+    {
+      "artikelnummer": "08.06.1",
+      "preis": 163.2
+    },
+    {
+      "artikelnummer": "08.06.2",
+      "preis": 122.25
+    },
+    {
+      "artikelnummer": "08.06.3",
+      "preis": 41.99
+    },
+    {
+      "artikelnummer": "08.06.4",
+      "preis": 19.01
+    },
+    {
+      "artikelnummer": "08.06.5",
+      "preis": 36.63
+    },
+    {
+      "artikelnummer": "08.06.6",
+      "preis": 63.09
+    },
+    {
+      "artikelnummer": "08.06.7",
+      "preis": 170.53
+    },
+    {
+      "artikelnummer": "08.06.8",
+      "preis": 75.97
+    },
+    {
+      "artikelnummer": "08.07.1",
+      "preis": 58.61
+    },
+    {
+      "artikelnummer": "08.07.2",
+      "preis": 42.63
+    },
+    {
+      "artikelnummer": "09.01.1",
+      "preis": 2.21
+    },
+    {
+      "artikelnummer": "09.01.2",
+      "preis": 10.31
+    },
+    {
+      "artikelnummer": "09.01.3",
+      "preis": 48.33
+    },
+    {
+      "artikelnummer": "09.01.4",
+      "preis": 3.87
+    },
+    {
+      "artikelnummer": "09.01.5",
+      "preis": 4.7
+    },
+    {
+      "artikelnummer": "09.01.6",
+      "preis": 4.12
+    },
+    {
+      "artikelnummer": "09.01.7",
+      "preis": 5.18
+    },
+    {
+      "artikelnummer": "09.01.8",
+      "preis": 4.49
+    },
+    {
+      "artikelnummer": "09.01.10",
+      "preis": 9.56
+    },
+    {
+      "artikelnummer": "09.01.11",
+      "preis": 7.3
+    },
+    {
+      "artikelnummer": "09.01.12",
+      "preis": 15.04
+    },
+    {
+      "artikelnummer": "09.01.13",
+      "preis": 15.04
+    },
+    {
+      "artikelnummer": "09.02.2",
+      "preis": 91.83
+    },
+    {
+      "artikelnummer": "09.02.3",
+      "preis": 169.69
+    },
+    {
+      "artikelnummer": "09.02.4",
+      "preis": 105.79
+    },
+    {
+      "artikelnummer": "09.02.5",
+      "preis": 169.69
+    },
+    {
+      "artikelnummer": "09.02.6",
+      "preis": 209.43
+    },
+    {
+      "artikelnummer": "09.02.7",
+      "preis": 52.09
+    },
+    {
+      "artikelnummer": "09.02.8",
+      "preis": 95.59
+    },
+    {
+      "artikelnummer": "09.02.9",
+      "preis": 107.4
+    },
+    {
+      "artikelnummer": "09.03.2",
+      "preis": 5.58
+    },
+    {
+      "artikelnummer": "09.03.5",
+      "preis": 9.64
+    },
+    {
+      "artikelnummer": "09.03.8",
+      "preis": 11.75
+    },
+    {
+      "artikelnummer": "09.03.9",
+      "preis": 4.85
+    },
+    {
+      "artikelnummer": "09.03.12",
+      "preis": 10.1
+    },
+    {
+      "artikelnummer": "09.03.13",
+      "preis": 11.38
+    },
+    {
+      "artikelnummer": "09.04.3",
+      "preis": 3.89
+    },
+    {
+      "artikelnummer": "09.04.4",
+      "preis": 5.65
+    },
+    {
+      "artikelnummer": "09.04.5",
+      "preis": 2.84
+    },
+    {
+      "artikelnummer": "09.04.6",
+      "preis": 12.03
+    },
+    {
+      "artikelnummer": "09.04.9",
+      "preis": 20.84
+    },
+    {
+      "artikelnummer": "09.04.10",
+      "preis": 4.27
+    },
+    {
+      "artikelnummer": "09.04.12",
+      "preis": 9.02
+    },
+    {
+      "artikelnummer": "09.04.13",
+      "preis": 20.21
+    },
+    {
+      "artikelnummer": "09.05.3",
+      "preis": 35.23
+    },
+    {
+      "artikelnummer": "09.05.4",
+      "preis": 40.38
+    },
+    {
+      "artikelnummer": "09.05.6",
+      "preis": 90.22
+    },
+    {
+      "artikelnummer": "09.05.11",
+      "preis": 66.59
+    },
+    {
+      "artikelnummer": "09.06.1",
+      "preis": 91.29
+    },
+    {
+      "artikelnummer": "09.06.2",
+      "preis": 67.88
+    },
+    {
+      "artikelnummer": "09.06.4",
+      "preis": 120.29
+    },
+    {
+      "artikelnummer": "09.06.5",
+      "preis": 6.01
+    },
+    {
+      "artikelnummer": "09.06.7",
+      "preis": 3.82
+    },
+    {
+      "artikelnummer": "09.07.1",
+      "preis": 59.07
+    },
+    {
+      "artikelnummer": "10.01.1",
+      "preis": 1815.38
+    },
+    {
+      "artikelnummer": "10.01.2",
+      "preis": 2111.74
+    },
+    {
+      "artikelnummer": "10.01.4",
+      "preis": 2288.02
+    },
+    {
+      "artikelnummer": "10.01.7",
+      "preis": 3237.18
+    },
+    {
+      "artikelnummer": "10.01.8",
+      "preis": 2362.76
+    },
+    {
+      "artikelnummer": "10.01.9",
+      "preis": 2583.02
+    },
+    {
+      "artikelnummer": "10.01.10",
+      "preis": 2969.55
+    },
+    {
+      "artikelnummer": "10.01.11",
+      "preis": 3311.92
+    },
+    {
+      "artikelnummer": "10.01.12",
+      "preis": 3596.18
+    },
+    {
+      "artikelnummer": "10.01.13",
+      "preis": 3376.35
+    },
+    {
+      "artikelnummer": "10.01.14",
+      "preis": 4051.25
+    },
+    {
+      "artikelnummer": "10.01.15",
+      "preis": 4467.54
+    },
+    {
+      "artikelnummer": "10.01.16",
+      "preis": 4173.24
+    },
+    {
+      "artikelnummer": "10.01.17",
+      "preis": 4562.03
+    },
+    {
+      "artikelnummer": "10.01.18",
+      "preis": 496.69
+    },
+    {
+      "artikelnummer": "10.01.19",
+      "preis": 698.57
+    },
+    {
+      "artikelnummer": "10.01.20",
+      "preis": 897.74
+    },
+    {
+      "artikelnummer": "10.02.1",
+      "preis": 491.83
+    },
+    {
+      "artikelnummer": "10.02.2",
+      "preis": 562.69
+    },
+    {
+      "artikelnummer": "10.02.3",
+      "preis": 673.26
+    },
+    {
+      "artikelnummer": "10.02.4",
+      "preis": 789.63
+    },
+    {
+      "artikelnummer": "10.02.5",
+      "preis": 964.74
+    },
+    {
+      "artikelnummer": "10.02.6",
+      "preis": 376.36
+    },
+    {
+      "artikelnummer": "10.03.2",
+      "preis": 88.83
+    },
+    {
+      "artikelnummer": "10.05.1",
+      "preis": 60.61
+    },
+    {
+      "artikelnummer": "10.05.2",
+      "preis": 50.39
+    },
+    {
+      "artikelnummer": "11.01.1",
+      "preis": 48.32
+    },
+    {
+      "artikelnummer": "11.02.5",
+      "preis": 241.61
+    },
+    {
+      "artikelnummer": "11.02.6",
+      "preis": 263.08
+    },
+    {
+      "artikelnummer": "11.02.7",
+      "preis": 275.97
+    },
+    {
+      "artikelnummer": "11.02.8",
+      "preis": 212.62
+    },
+    {
+      "artikelnummer": "11.02.9",
+      "preis": 224.43
+    },
+    {
+      "artikelnummer": "11.02.11",
+      "preis": 288.86
+    },
+    {
+      "artikelnummer": "11.02.13",
+      "preis": 301.74
+    },
+    {
+      "artikelnummer": "11.02.16",
+      "preis": 307.11
+    },
+    {
+      "artikelnummer": "12.03.1",
+      "preis": 8783.8
+    },
+    {
+      "artikelnummer": "12.04.1",
+      "preis": 8998.56
+    },
+    {
+      "artikelnummer": "12.05.1",
+      "preis": 9513.99
+    },
+    {
+      "artikelnummer": "12.06.2",
+      "preis": 0
+    },
+    {
+      "artikelnummer": "20.01.2",
+      "preis": 236.58
+    },
+    {
+      "artikelnummer": "20.01.5",
+      "preis": 742.25
+    },
+    {
+      "artikelnummer": "20.01.13",
+      "preis": 32.52
+    },
+    {
+      "artikelnummer": "20.01.14",
+      "preis": 40.36
+    },
+    {
+      "artikelnummer": "20.01.15",
+      "preis": 52.7
+    },
+    {
+      "artikelnummer": "20.01.16",
+      "preis": 8.3
+    },
+    {
+      "artikelnummer": "20.01.17",
+      "preis": 25.34
+    },
+    {
+      "artikelnummer": "20.01.18",
+      "preis": 3.27
+    },
+    {
+      "artikelnummer": "20.01.19",
+      "preis": 4.37
+    },
+    {
+      "artikelnummer": "20.01.21",
+      "preis": 21.98
+    },
+    {
+      "artikelnummer": "20.01.22",
+      "preis": 57.86
+    },
+    {
+      "artikelnummer": "20.01.23",
+      "preis": 36.55
+    },
+    {
+      "artikelnummer": "20.01.24",
+      "preis": 146.88
+    },
+    {
+      "artikelnummer": "20.01.25",
+      "preis": 679.46
+    },
+    {
+      "artikelnummer": "20.01.26",
+      "preis": 720.95
+    },
+    {
+      "artikelnummer": "20.01.28",
+      "preis": 74.23
+    },
+    {
+      "artikelnummer": "20.01.29",
+      "preis": 412.61
+    },
+    {
+      "artikelnummer": "20.01.31",
+      "preis": 68.84
+    },
+    {
+      "artikelnummer": "20.01.32",
+      "preis": 1547.29
+    },
+    {
+      "artikelnummer": "20.01.33",
+      "preis": 1749.11
+    },
+    {
+      "artikelnummer": "20.01.34",
+      "preis": 1973.35
+    },
+    {
+      "artikelnummer": "20.01.35",
+      "preis": 2197.6
+    },
+    {
+      "artikelnummer": "20.01.36",
+      "preis": 2421.84
+    },
+    {
+      "artikelnummer": "20.01.37",
+      "preis": 538.19
+    },
+    {
+      "artikelnummer": "20.01.39",
+      "preis": 140.15
+    },
+    {
+      "artikelnummer": "20.02.2",
+      "preis": 211.91
+    },
+    {
+      "artikelnummer": "20.02.3",
+      "preis": 452.97
+    },
+    {
+      "artikelnummer": "20.02.5",
+      "preis": 168.18
+    },
+    {
+      "artikelnummer": "20.02.6",
+      "preis": 168.18
+    },
+    {
+      "artikelnummer": "20.02.7",
+      "preis": 500.17
+    },
+    {
+      "artikelnummer": "21.01.01",
+      "preis": 8364.08
+    },
+    {
+      "artikelnummer": "21.01.01.1",
+      "preis": 66.09
+    },
+    {
+      "artikelnummer": "21.01.01.5",
+      "preis": 318.31
+    },
+    {
+      "artikelnummer": "21.01.01.7",
+      "preis": 397.62
+    },
+    {
+      "artikelnummer": "21.01.01.11",
+      "preis": 215.07
+    },
+    {
+      "artikelnummer": "21.01.01.12",
+      "preis": 447.18
+    },
+    {
+      "artikelnummer": "21.01.01.13",
+      "preis": 559.53
+    },
+    {
+      "artikelnummer": "21.01.01.14",
+      "preis": 35.47
+    },
+    {
+      "artikelnummer": "21.01.01.15",
+      "preis": 53.09
+    },
+    {
+      "artikelnummer": "21.01.01.16",
+      "preis": 63
+    },
+    {
+      "artikelnummer": "21.01.01.17",
+      "preis": 53.75
+    },
+    {
+      "artikelnummer": "21.01.01.18",
+      "preis": 57.49
+    },
+    {
+      "artikelnummer": "21.01.01.19",
+      "preis": 80.4
+    },
+    {
+      "artikelnummer": "21.01.01.20",
+      "preis": 252.23
+    },
+    {
+      "artikelnummer": "21.01.01.23",
+      "preis": 63
+    },
+    {
+      "artikelnummer": "21.01.01.24",
+      "preis": 1464.91
+    },
+    {
+      "artikelnummer": "21.01.01.25",
+      "preis": 171.82
+    },
+    {
+      "artikelnummer": "21.01.01.27",
+      "preis": 38.55
+    },
+    {
+      "artikelnummer": "21.01.01.28",
+      "preis": 71.59
+    },
+    {
+      "artikelnummer": "21.01.01.29",
+      "preis": 72.69
+    },
+    {
+      "artikelnummer": "21.01.01.30",
+      "preis": 60.8
+    },
+    {
+      "artikelnummer": "21.01.01.31",
+      "preis": 5.99
+    },
+    {
+      "artikelnummer": "21.01.01.32",
+      "preis": 51.99
+    },
+    {
+      "artikelnummer": "21.01.01.33",
+      "preis": 25.48
+    },
+    {
+      "artikelnummer": "21.01.01.34",
+      "preis": 62.12
+    },
+    {
+      "artikelnummer": "21.01.01.35",
+      "preis": 15.55
+    },
+    {
+      "artikelnummer": "21.01.01.36",
+      "preis": 51.77
+    },
+    {
+      "artikelnummer": "21.01.01.37",
+      "preis": 67.19
+    },
+    {
+      "artikelnummer": "21.01.02",
+      "preis": 8018.45
+    },
+    {
+      "artikelnummer": "21.01.02.1",
+      "preis": 4119.37
+    },
+    {
+      "artikelnummer": "21.01.02.2",
+      "preis": 3899.08
+    },
+    {
+      "artikelnummer": "21.01.02.3",
+      "preis": 0
+    },
+    {
+      "artikelnummer": "21.01.03",
+      "preis": 10547.35
+    },
+    {
+      "artikelnummer": "21.01.03.2",
+      "preis": 4207.48
+    },
+    {
+      "artikelnummer": "21.01.03.3",
+      "preis": 865.73
+    },
+    {
+      "artikelnummer": "21.01.03.4",
+      "preis": 352.46
+    },
+    {
+      "artikelnummer": "21.01.04",
+      "preis": 33802.7
+    },
+    {
+      "artikelnummer": "21.01.04.03",
+      "preis": 1409.83
+    },
+    {
+      "artikelnummer": "21.01.04.04",
+      "preis": 1508.97
+    },
+    {
+      "artikelnummer": "21.01.04.05",
+      "preis": 1707.21
+    },
+    {
+      "artikelnummer": "21.01.04.06",
+      "preis": 1861.4
+    },
+    {
+      "artikelnummer": "21.01.04.07",
+      "preis": 1916.5
+    },
+    {
+      "artikelnummer": "21.01.04.08",
+      "preis": 1960.51
+    },
+    {
+      "artikelnummer": "21.01.04.09",
+      "preis": 1960.51
+    },
+    {
+      "artikelnummer": "21.01.04.11",
+      "preis": 1916.5
+    },
+    {
+      "artikelnummer": "21.01.04.12",
+      "preis": 1850.37
+    },
+    {
+      "artikelnummer": "21.01.04.13",
+      "preis": 2037.65
+    },
+    {
+      "artikelnummer": "21.01.04.14",
+      "preis": 1960.51
+    },
+    {
+      "artikelnummer": "21.01.04.15",
+      "preis": 2059.66
+    },
+    {
+      "artikelnummer": "21.01.04.16",
+      "preis": 2004.59
+    },
+    {
+      "artikelnummer": "21.01.04.17",
+      "preis": 2059.63
+    },
+    {
+      "artikelnummer": "21.01.04.18",
+      "preis": 2632.43
+    },
+    {
+      "artikelnummer": "21.01.04.19",
+      "preis": 2268.95
+    },
+    {
+      "artikelnummer": "21.01.04.20",
+      "preis": 2687.48
+    },
+    {
+      "artikelnummer": "21.02.01",
+      "preis": 12500.05
+    },
+    {
+      "artikelnummer": "21.02.01.1",
+      "preis": 154.06
+    },
+    {
+      "artikelnummer": "21.02.01.2",
+      "preis": 415.95
+    },
+    {
+      "artikelnummer": "21.02.01.3",
+      "preis": 308.11
+    },
+    {
+      "artikelnummer": "21.02.01.4",
+      "preis": 638.23
+    },
+    {
+      "artikelnummer": "21.02.01.5",
+      "preis": 719.66
+    },
+    {
+      "artikelnummer": "21.02.01.7",
+      "preis": 871.51
+    },
+    {
+      "artikelnummer": "21.02.01.8",
+      "preis": 921.37
+    },
+    {
+      "artikelnummer": "21.02.01.9",
+      "preis": 50.62
+    },
+    {
+      "artikelnummer": "21.02.01.11",
+      "preis": 105.64
+    },
+    {
+      "artikelnummer": "21.02.01.12",
+      "preis": 44.02
+    },
+    {
+      "artikelnummer": "21.02.01.15",
+      "preis": 491.82
+    },
+    {
+      "artikelnummer": "21.02.01.20",
+      "preis": 1540.55
+    },
+    {
+      "artikelnummer": "21.02.01.22",
+      "preis": 374.13
+    },
+    {
+      "artikelnummer": "21.02.01.23",
+      "preis": 827.5
+    },
+    {
+      "artikelnummer": "21.02.01.26",
+      "preis": 407.15
+    },
+    {
+      "artikelnummer": "21.02.01.28",
+      "preis": 189.27
+    },
+    {
+      "artikelnummer": "21.02.01.29",
+      "preis": 198.07
+    },
+    {
+      "artikelnummer": "21.02.01.31",
+      "preis": 73.73
+    },
+    {
+      "artikelnummer": "21.02.01.32",
+      "preis": 111.14
+    },
+    {
+      "artikelnummer": "21.02.02",
+      "preis": 13713.11
+    },
+    {
+      "artikelnummer": "21.02.02.1",
+      "preis": 893.52
+    },
+    {
+      "artikelnummer": "21.02.02.2",
+      "preis": 922.13
+    },
+    {
+      "artikelnummer": "21.02.02.3",
+      "preis": 1003.56
+    },
+    {
+      "artikelnummer": "21.02.02.4",
+      "preis": 1086.09
+    },
+    {
+      "artikelnummer": "21.02.02.5",
+      "preis": 1093.79
+    },
+    {
+      "artikelnummer": "21.02.02.6",
+      "preis": 1122.4
+    },
+    {
+      "artikelnummer": "21.02.02.7",
+      "preis": 1232.44
+    },
+    {
+      "artikelnummer": "21.02.02.8",
+      "preis": 1386.5
+    },
+    {
+      "artikelnummer": "21.02.02.9",
+      "preis": 1496.54
+    },
+    {
+      "artikelnummer": "21.02.02.10",
+      "preis": 726.26
+    },
+    {
+      "artikelnummer": "21.02.02.11",
+      "preis": 210.18
+    },
+    {
+      "artikelnummer": "21.02.02.12",
+      "preis": 228.22
+    },
+    {
+      "artikelnummer": "21.02.02.13",
+      "preis": 238.79
+    },
+    {
+      "artikelnummer": "21.02.02.14",
+      "preis": 209.51
+    },
+    {
+      "artikelnummer": "21.02.02.16",
+      "preis": 195.87
+    },
+    {
+      "artikelnummer": "21.02.02.17",
+      "preis": 88.69
+    },
+    {
+      "artikelnummer": "21.02.02.21",
+      "preis": 96.39
+    },
+    {
+      "artikelnummer": "21.02.02.22",
+      "preis": 89.79
+    },
+    {
+      "artikelnummer": "21.02.02.23",
+      "preis": 111.8
+    },
+    {
+      "artikelnummer": "21.02.02.24",
+      "preis": 294.91
+    },
+    {
+      "artikelnummer": "21.02.02.25",
+      "preis": 257.49
+    },
+    {
+      "artikelnummer": "21.02.03",
+      "preis": 9885.94
+    },
+    {
+      "artikelnummer": "21.02.03.1",
+      "preis": 847.3
+    },
+    {
+      "artikelnummer": "21.02.03.2",
+      "preis": 1012.36
+    },
+    {
+      "artikelnummer": "21.02.03.3",
+      "preis": 1034.37
+    },
+    {
+      "artikelnummer": "21.02.03.4",
+      "preis": 1060.78
+    },
+    {
+      "artikelnummer": "21.02.03.5",
+      "preis": 1078.39
+    },
+    {
+      "artikelnummer": "21.02.03.6",
+      "preis": 1133.41
+    },
+    {
+      "artikelnummer": "21.02.03.7",
+      "preis": 1177.42
+    },
+    {
+      "artikelnummer": "21.02.03.8",
+      "preis": 1243.44
+    },
+    {
+      "artikelnummer": "21.02.03.9",
+      "preis": 1298.46
+    },
+    {
+      "artikelnummer": "01.99.05.1",
+      "preis": 24.35
+    },
+    {
+      "artikelnummer": "01.99.05.2",
+      "preis": 24.35
+    },
+    {
+      "artikelnummer": "01.99.05.3",
+      "preis": 24.35
+    },
+    {
+      "artikelnummer": "01.99.05.4",
+      "preis": 176.14
+    },
+    {
+      "artikelnummer": "01.99.05.5",
+      "preis": 77.71
+    },
+    {
+      "artikelnummer": "01.99.05.6",
+      "preis": 150.23
+    },
+    {
+      "artikelnummer": "01.99.05.7",
+      "preis": 241.41
+    },
+    {
+      "artikelnummer": "01.99.05.8",
+      "preis": 217.58
+    },
+    {
+      "artikelnummer": "01.99.05.9",
+      "preis": 129.51
+    },
+    {
+      "artikelnummer": "01.99.05.10",
+      "preis": 108.79
+    },
+    {
+      "artikelnummer": "01.99.05.11",
+      "preis": 222.76
+    },
+    {
+      "artikelnummer": "01.99.05.12",
+      "preis": 253.84
+    },
+    {
+      "artikelnummer": "01.99.05.13",
+      "preis": 77.91
+    },
+    {
+      "artikelnummer": "01.99.05.14",
+      "preis": 86.51
+    },
+    {
+      "artikelnummer": "01.99.05.15",
+      "preis": 38.08
+    },
+    {
+      "artikelnummer": "01.99.05.16",
+      "preis": 2.02
+    },
+    {
+      "artikelnummer": "01.99.05.17",
+      "preis": 77.71
+    },
+    {
+      "artikelnummer": "01.99.05.18",
+      "preis": 113.97
+    },
+    {
+      "artikelnummer": "01.99.05.19",
+      "preis": 37.46
+    },
+    {
+      "artikelnummer": "01.99.05.20",
+      "preis": 88.07
+    },
+    {
+      "artikelnummer": "01.99.05.21",
+      "preis": 10.36
+    },
+    {
+      "artikelnummer": "01.99.05.22",
+      "preis": 127.44
+    },
+    {
+      "artikelnummer": "01.99.05.23",
+      "preis": 88.07
+    },
+    {
+      "artikelnummer": "01.99.05.24",
+      "preis": 59.26
+    },
+    {
+      "artikelnummer": "01.99.05.25",
+      "preis": 29.01
+    },
+    {
+      "artikelnummer": "01.99.05.26",
+      "preis": 38.44
+    },
+    {
+      "artikelnummer": "01.99.05.27",
+      "preis": 8.5
+    },
+    {
+      "artikelnummer": "01.99.05.28",
+      "preis": 139.87
+    },
+    {
+      "artikelnummer": "01.99.05.29",
+      "preis": 90.66
+    },
+    {
+      "artikelnummer": "01.99.05.30",
+      "preis": 52.1
+    },
+    {
+      "artikelnummer": "01.99.05.31",
+      "preis": 57.2
+    },
+    {
+      "artikelnummer": "01.99.05.32",
+      "preis": 50.65
+    },
+    {
+      "artikelnummer": "01.99.05.33",
+      "preis": 162.67
+    }
+  ],
+  "matched_diff": [
+    {
+      "artikelnummer": "01.01.2",
+      "excel_preis": 156.78,
+      "sb_preis": 151.31,
+      "diff": 5.469999999999999,
+      "diff_pct": "3.6",
+      "name": "Demontage Sockelleisten, WE 30- 90m² o. Bad,Kalkul",
+      "sb_original_nr": "GWS.LV23-01.01.2"
+    },
+    {
+      "artikelnummer": "01.01.4",
+      "excel_preis": 586.3,
+      "sb_preis": 565.8744,
+      "diff": 20.425599999999918,
+      "diff_pct": "3.6",
+      "name": "Rückbau Altbelag, fest verbaut, WE 30- 90m² o. Bad",
+      "sb_original_nr": "GWS.LV23-01.01.4"
+    },
+    {
+      "artikelnummer": "01.01.5",
+      "excel_preis": 493.95,
+      "sb_preis": 460,
+      "diff": 33.94999999999999,
+      "diff_pct": "7.4",
+      "name": "Containerstellung 3 m³",
+      "sb_original_nr": "GWS.LV23-01.01.5"
+    },
+    {
+      "artikelnummer": "01.01.6",
+      "excel_preis": 622.81,
+      "sb_preis": 580,
+      "diff": 42.809999999999945,
+      "diff_pct": "7.4",
+      "name": "Containerstellung 7 m³",
+      "sb_original_nr": "GWS.LV23-01.01.6"
+    },
+    {
+      "artikelnummer": "01.01.7",
+      "excel_preis": 983.61,
+      "sb_preis": 916,
+      "diff": 67.61000000000001,
+      "diff_pct": "7.4",
+      "name": "Containerstellung 10 m³",
+      "sb_original_nr": "GWS.LV23-01.01.7"
+    },
+    {
+      "artikelnummer": "01.01.8",
+      "excel_preis": 14.93,
+      "sb_preis": 13.9,
+      "diff": 1.0299999999999994,
+      "diff_pct": "7.4",
+      "name": "Rückbau von Wänden, GK, d=< 20cm",
+      "sb_original_nr": "GWS.LV23-01.01.8"
+    },
+    {
+      "artikelnummer": "01.01.14",
+      "excel_preis": 26.85,
+      "sb_preis": 25,
+      "diff": 1.8500000000000014,
+      "diff_pct": "7.4",
+      "name": "Rückbau Wandfliesen",
+      "sb_original_nr": "GWS.LV23-01.01.14"
+    },
+    {
+      "artikelnummer": "01.01.15",
+      "excel_preis": 34.79,
+      "sb_preis": 32.4,
+      "diff": 2.3900000000000006,
+      "diff_pct": "7.4",
+      "name": "Rückbau Bodenfliesen",
+      "sb_original_nr": "GWS.LV23-01.01.15"
+    },
+    {
+      "artikelnummer": "01.01.16",
+      "excel_preis": 34.79,
+      "sb_preis": 32.4,
+      "diff": 2.3900000000000006,
+      "diff_pct": "7.4",
+      "name": "Rückbau Bodenfliesen, Werkstein",
+      "sb_original_nr": "GWS.LV23-01.01.16"
+    },
+    {
+      "artikelnummer": "01.01.19",
+      "excel_preis": 24.7,
+      "sb_preis": 23,
+      "diff": 1.6999999999999993,
+      "diff_pct": "7.4",
+      "name": "Abbruch Estrich d= bis 7cm",
+      "sb_original_nr": "GWS.LV23-01.01.19"
+    },
+    {
+      "artikelnummer": "01.01.21",
+      "excel_preis": 54.12,
+      "sb_preis": 52.2346,
+      "diff": 1.885399999999997,
+      "diff_pct": "3.6",
+      "name": "Ausbau Innentüren , 1 flg.",
+      "sb_original_nr": "GWS.LV23-01.01.21"
+    },
+    {
+      "artikelnummer": "01.01.23",
+      "excel_preis": 103.09,
+      "sb_preis": 99.49,
+      "diff": 3.6000000000000085,
+      "diff_pct": "3.6",
+      "name": "Rückbau Einbauschrank, 60 x 250",
+      "sb_original_nr": "GWS.LV23-01.01.23"
+    },
+    {
+      "artikelnummer": "01.01.24",
+      "excel_preis": 184.7,
+      "sb_preis": 184.09,
+      "diff": 0.6099999999999852,
+      "diff_pct": "0.3",
+      "name": "Rückbau Einbauschrank, 120 x 250",
+      "sb_original_nr": "GWS.LV23-01.01.24"
+    },
+    {
+      "artikelnummer": "01.01.25",
+      "excel_preis": 81.4,
+      "sb_preis": 75.8,
+      "diff": 5.6000000000000085,
+      "diff_pct": "7.4",
+      "name": "Ausbau Stahl-/Alu-Glas-Rahmentür, 1 flg.",
+      "sb_original_nr": "GWS.LV23-01.01.25"
+    },
+    {
+      "artikelnummer": "01.01.27",
+      "excel_preis": 90.2,
+      "sb_preis": 84,
+      "diff": 6.200000000000003,
+      "diff_pct": "7.4",
+      "name": "Ausbau Fenster, < 2,5 m²",
+      "sb_original_nr": "GWS.LV23-01.01.27"
+    },
+    {
+      "artikelnummer": "01.01.28",
+      "excel_preis": 147.11,
+      "sb_preis": 137,
+      "diff": 10.110000000000014,
+      "diff_pct": "7.4",
+      "name": "Ausbau Fenster, > 2,5 m²",
+      "sb_original_nr": "GWS.LV23-01.01.28"
+    },
+    {
+      "artikelnummer": "01.01.29",
+      "excel_preis": 86.98,
+      "sb_preis": 81,
+      "diff": 5.980000000000004,
+      "diff_pct": "7.4",
+      "name": "Ausbau Rollladenkasten",
+      "sb_original_nr": "GWS.LV23-01.01.29"
+    },
+    {
+      "artikelnummer": "01.01.31",
+      "excel_preis": 30.6,
+      "sb_preis": 28.5,
+      "diff": 2.1000000000000014,
+      "diff_pct": "7.4",
+      "name": "Rückbau Fensterbank, innen >1,5m bis 2,5m",
+      "sb_original_nr": "GWS.LV23-01.01.31"
+    },
+    {
+      "artikelnummer": "01.02.2",
+      "excel_preis": 42.95,
+      "sb_preis": 40,
+      "diff": 2.950000000000003,
+      "diff_pct": "7.4",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-01.02.2"
+    },
+    {
+      "artikelnummer": "02.01.2",
+      "excel_preis": 76.36,
+      "sb_preis": 73.6,
+      "diff": 2.760000000000005,
+      "diff_pct": "3.8",
+      "name": "Innenwand  D=17,5cm",
+      "sb_original_nr": "GWS.LV23-02.01.2"
+    },
+    {
+      "artikelnummer": "02.01.3",
+      "excel_preis": 95.86,
+      "sb_preis": 92.4,
+      "diff": 3.4599999999999937,
+      "diff_pct": "3.7",
+      "name": "Innenwand  D=24cm",
+      "sb_original_nr": "GWS.LV23-02.01.3"
+    },
+    {
+      "artikelnummer": "02.01.4",
+      "excel_preis": 88.18,
+      "sb_preis": 85,
+      "diff": 3.180000000000007,
+      "diff_pct": "3.7",
+      "name": "Wohnungstrennwand D=20cm",
+      "sb_original_nr": "GWS.LV23-02.01.4"
+    },
+    {
+      "artikelnummer": "02.01.5",
+      "excel_preis": 96.9,
+      "sb_preis": 93.4,
+      "diff": 3.5,
+      "diff_pct": "3.7",
+      "name": "Wohnungstrennwand D=24cm",
+      "sb_original_nr": "GWS.LV23-02.01.5"
+    },
+    {
+      "artikelnummer": "02.01.6",
+      "excel_preis": 153.54,
+      "sb_preis": 148,
+      "diff": 5.539999999999992,
+      "diff_pct": "3.7",
+      "name": "Öffnungen für Türen und Fenster < 2,5m²",
+      "sb_original_nr": "GWS.LV23-02.01.6"
+    },
+    {
+      "artikelnummer": "02.01.9",
+      "excel_preis": 68.47,
+      "sb_preis": 66,
+      "diff": 2.469999999999999,
+      "diff_pct": "3.7",
+      "name": "Flachsturz, 11,5",
+      "sb_original_nr": "GWS.LV23-02.01.9"
+    },
+    {
+      "artikelnummer": "02.01.10",
+      "excel_preis": 84.03,
+      "sb_preis": 81,
+      "diff": 3.030000000000001,
+      "diff_pct": "3.7",
+      "name": "Flachsturz, 17,5",
+      "sb_original_nr": "GWS.LV23-02.01.10"
+    },
+    {
+      "artikelnummer": "02.01.11",
+      "excel_preis": 105.82,
+      "sb_preis": 102,
+      "diff": 3.819999999999993,
+      "diff_pct": "3.7",
+      "name": "Flachsturz, 24",
+      "sb_original_nr": "GWS.LV23-02.01.11"
+    },
+    {
+      "artikelnummer": "02.01.13",
+      "excel_preis": 97.52,
+      "sb_preis": 94,
+      "diff": 3.519999999999996,
+      "diff_pct": "3.7",
+      "name": "Öffnungen schließen, > 400cm² bis 1 m²",
+      "sb_original_nr": "GWS.LV23-02.01.13"
+    },
+    {
+      "artikelnummer": "02.01.19",
+      "excel_preis": 147.32,
+      "sb_preis": 144.9536,
+      "diff": 2.3663999999999987,
+      "diff_pct": "1.6",
+      "name": "Nische/ Heizkörpernische schließen < 1,5m²",
+      "sb_original_nr": "GWS.LV23-02.01.19"
+    },
+    {
+      "artikelnummer": "02.01.20",
+      "excel_preis": 209.98,
+      "sb_preis": 206.6099,
+      "diff": 3.3700999999999794,
+      "diff_pct": "1.6",
+      "name": "Nische/ Heizkörpernische schließen > 1,5m²",
+      "sb_original_nr": "GWS.LV23-02.01.20"
+    },
+    {
+      "artikelnummer": "02.02.1",
+      "excel_preis": 1.77,
+      "sb_preis": 1.72,
+      "diff": 0.050000000000000044,
+      "diff_pct": "2.9",
+      "name": "Verunreinigungen entfernen",
+      "sb_original_nr": "GWS.LV23-02.02.1"
+    },
+    {
+      "artikelnummer": "02.02.2",
+      "excel_preis": 2.08,
+      "sb_preis": 1.96,
+      "diff": 0.1200000000000001,
+      "diff_pct": "6.1",
+      "name": "Abklebearbeiten",
+      "sb_original_nr": "GWS.LV23-02.02.2"
+    },
+    {
+      "artikelnummer": "02.02.4",
+      "excel_preis": 22.12,
+      "sb_preis": 20.8,
+      "diff": 1.3200000000000003,
+      "diff_pct": "6.3",
+      "name": "Beiputzarbeiten",
+      "sb_original_nr": "GWS.LV23-02.02.4"
+    },
+    {
+      "artikelnummer": "02.02.5",
+      "excel_preis": 4.36,
+      "sb_preis": 4.1,
+      "diff": 0.2600000000000007,
+      "diff_pct": "6.3",
+      "name": "Putzhaftbrücke auf Beton - Betokontakt",
+      "sb_original_nr": "GWS.LV23-02.02.5"
+    },
+    {
+      "artikelnummer": "02.02.6",
+      "excel_preis": 3.15,
+      "sb_preis": 2.96,
+      "diff": 0.18999999999999995,
+      "diff_pct": "6.4",
+      "name": "Aufbrennsperre",
+      "sb_original_nr": "GWS.LV23-02.02.6"
+    },
+    {
+      "artikelnummer": "02.02.7",
+      "excel_preis": 20.63,
+      "sb_preis": 20.08,
+      "diff": 0.5500000000000007,
+      "diff_pct": "2.7",
+      "name": "Gips-Leichtputz als Wandputz, Q2 -geglättet",
+      "sb_original_nr": "GWS.LV23-02.02.7"
+    },
+    {
+      "artikelnummer": "02.02.8",
+      "excel_preis": 15.36,
+      "sb_preis": 14.44,
+      "diff": 0.9199999999999999,
+      "diff_pct": "6.4",
+      "name": "Gips-Leichtputz Laibungen verputzen, Q2 - geglätte",
+      "sb_original_nr": "GWS.LV23-02.02.8"
+    },
+    {
+      "artikelnummer": "02.02.10",
+      "excel_preis": 23.4,
+      "sb_preis": 22,
+      "diff": 1.3999999999999986,
+      "diff_pct": "6.4",
+      "name": "Gips-Leichtputz als Deckenputz, Q2",
+      "sb_original_nr": "GWS.LV23-02.02.10"
+    },
+    {
+      "artikelnummer": "02.02.13",
+      "excel_preis": 19.82,
+      "sb_preis": 18.64,
+      "diff": 1.1799999999999997,
+      "diff_pct": "6.3",
+      "name": "KZP Laibungen verputzen, Q2 - gefilzt",
+      "sb_original_nr": "GWS.LV23-02.02.13"
+    },
+    {
+      "artikelnummer": "02.02.14",
+      "excel_preis": 3.49,
+      "sb_preis": 3.28,
+      "diff": 0.2100000000000004,
+      "diff_pct": "6.4",
+      "name": "Zulage für Mehrputzstärke",
+      "sb_original_nr": "GWS.LV23-02.02.14"
+    },
+    {
+      "artikelnummer": "02.03.1",
+      "excel_preis": 57.06,
+      "sb_preis": 55,
+      "diff": 2.0600000000000023,
+      "diff_pct": "3.7",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-02.03.1"
+    },
+    {
+      "artikelnummer": "04.01.1",
+      "excel_preis": 59.28,
+      "sb_preis": 57.0852,
+      "diff": 2.1948000000000008,
+      "diff_pct": "3.8",
+      "name": "Vorsatzschale, direkt befestigt, CD 60/27, GKBI 2x",
+      "sb_original_nr": "GWS.LV23-04.01.1"
+    },
+    {
+      "artikelnummer": "04.01.3",
+      "excel_preis": 74.43,
+      "sb_preis": 71.669,
+      "diff": 2.76100000000001,
+      "diff_pct": "3.9",
+      "name": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =125",
+      "sb_original_nr": "GWS.LV23-04.01.3"
+    },
+    {
+      "artikelnummer": "04.01.4",
+      "excel_preis": 83.73,
+      "sb_preis": 80.6276,
+      "diff": 3.102400000000003,
+      "diff_pct": "3.8",
+      "name": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =150",
+      "sb_original_nr": "GWS.LV23-04.01.4"
+    },
+    {
+      "artikelnummer": "04.01.5",
+      "excel_preis": 75.08,
+      "sb_preis": 69.4,
+      "diff": 5.679999999999993,
+      "diff_pct": "8.2",
+      "name": "Metallständerwand = 4,00 m, GKBI 2x 12,5 mm, d = 1",
+      "sb_original_nr": "GWS.LV23-04.01.5"
+    },
+    {
+      "artikelnummer": "04.01.11",
+      "excel_preis": 57.34,
+      "sb_preis": 53,
+      "diff": 4.340000000000003,
+      "diff_pct": "8.2",
+      "name": "Türöffnung anlegen, 1 flg, > 1010mm",
+      "sb_original_nr": "GWS.LV23-04.01.11"
+    },
+    {
+      "artikelnummer": "04.01.12",
+      "excel_preis": 30.29,
+      "sb_preis": 28,
+      "diff": 2.289999999999999,
+      "diff_pct": "8.2",
+      "name": "freies Wandende, d = bis 150 mm",
+      "sb_original_nr": "GWS.LV23-04.01.12"
+    },
+    {
+      "artikelnummer": "04.01.13",
+      "excel_preis": 41.76,
+      "sb_preis": 38.6,
+      "diff": 3.1599999999999966,
+      "diff_pct": "8.2",
+      "name": "freies Wandende, d = bis 300 mm",
+      "sb_original_nr": "GWS.LV23-04.01.13"
+    },
+    {
+      "artikelnummer": "04.01.17",
+      "excel_preis": 5.6,
+      "sb_preis": 5.18,
+      "diff": 0.41999999999999993,
+      "diff_pct": "8.1",
+      "name": "Ausschn., rund, < d= 50 mm",
+      "sb_original_nr": "GWS.LV23-04.01.17"
+    },
+    {
+      "artikelnummer": "04.01.18",
+      "excel_preis": 5.73,
+      "sb_preis": 5.3,
+      "diff": 0.4300000000000006,
+      "diff_pct": "8.1",
+      "name": "Ausschn., rund, bis d= > 50mm  bis 100 mm",
+      "sb_original_nr": "GWS.LV23-04.01.18"
+    },
+    {
+      "artikelnummer": "04.01.19",
+      "excel_preis": 5.1,
+      "sb_preis": 4.71,
+      "diff": 0.3899999999999997,
+      "diff_pct": "8.3",
+      "name": "Aussparungen., rechteck, < 25cm²",
+      "sb_original_nr": "GWS.LV23-04.01.19"
+    },
+    {
+      "artikelnummer": "04.01.20",
+      "excel_preis": 6.95,
+      "sb_preis": 6.42,
+      "diff": 0.5300000000000002,
+      "diff_pct": "8.3",
+      "name": "Aussparungen., rechteck, > 25cm² bis 100 cm²",
+      "sb_original_nr": "GWS.LV23-04.01.20"
+    },
+    {
+      "artikelnummer": "04.01.22",
+      "excel_preis": 51.49,
+      "sb_preis": 47.6,
+      "diff": 3.8900000000000006,
+      "diff_pct": "8.2",
+      "name": "Traverse zur Wandverstärkung, Stahlblech",
+      "sb_original_nr": "GWS.LV23-04.01.22"
+    },
+    {
+      "artikelnummer": "04.01.23",
+      "excel_preis": 44.35,
+      "sb_preis": 41,
+      "diff": 3.3500000000000014,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, Stahlblech, weiß 20/20",
+      "sb_original_nr": "GWS.LV23-04.01.23"
+    },
+    {
+      "artikelnummer": "04.01.24",
+      "excel_preis": 56.25,
+      "sb_preis": 52,
+      "diff": 4.25,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, Stahlblech, weiß 40/40",
+      "sb_original_nr": "GWS.LV23-04.01.24"
+    },
+    {
+      "artikelnummer": "04.01.26",
+      "excel_preis": 62.1,
+      "sb_preis": 57.4,
+      "diff": 4.700000000000003,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, GK Einlage,  40/40",
+      "sb_original_nr": "GWS.LV23-04.01.26"
+    },
+    {
+      "artikelnummer": "04.01.27",
+      "excel_preis": 97.58,
+      "sb_preis": 90.2,
+      "diff": 7.3799999999999955,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, GK Einlage,F30  20/20",
+      "sb_original_nr": "GWS.LV23-04.01.27"
+    },
+    {
+      "artikelnummer": "04.01.29",
+      "excel_preis": 111.64,
+      "sb_preis": 103.2,
+      "diff": 8.439999999999998,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, GK Einlage,F90  20/20",
+      "sb_original_nr": "GWS.LV23-04.01.29"
+    },
+    {
+      "artikelnummer": "04.01.30",
+      "excel_preis": 120.08,
+      "sb_preis": 111,
+      "diff": 9.079999999999998,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, GK Einlage,F90  40/40",
+      "sb_original_nr": "GWS.LV23-04.01.30"
+    },
+    {
+      "artikelnummer": "04.02.2",
+      "excel_preis": 70.75,
+      "sb_preis": 65.4,
+      "diff": 5.349999999999994,
+      "diff_pct": "8.2",
+      "name": "Dachboden-Dämmplatte 80 mm mit Verbundplatte 19mm",
+      "sb_original_nr": "GWS.LV23-04.02.2"
+    },
+    {
+      "artikelnummer": "04.02.3",
+      "excel_preis": 78.97,
+      "sb_preis": 73,
+      "diff": 5.969999999999999,
+      "diff_pct": "8.2",
+      "name": "Dachboden-Dämmplatte 100 mm mit Verbundplatte 19mm",
+      "sb_original_nr": "GWS.LV23-04.02.3"
+    },
+    {
+      "artikelnummer": "04.02.4",
+      "excel_preis": 83.73,
+      "sb_preis": 77.4,
+      "diff": 6.329999999999998,
+      "diff_pct": "8.2",
+      "name": "Dachboden-Dämmplatte 120 mm mit Verbundplatte 19mm",
+      "sb_original_nr": "GWS.LV23-04.02.4"
+    },
+    {
+      "artikelnummer": "04.02.5",
+      "excel_preis": 52.36,
+      "sb_preis": 50.4183,
+      "diff": 1.9416999999999973,
+      "diff_pct": "3.9",
+      "name": "Abhangdecke, GKB 1x 12,5 mm, o.BS, Tragprofil CD60",
+      "sb_original_nr": "GWS.LV23-04.02.5"
+    },
+    {
+      "artikelnummer": "04.02.7",
+      "excel_preis": 57.77,
+      "sb_preis": 53.4,
+      "diff": 4.3700000000000045,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, Stahlblech, weiß 40/40",
+      "sb_original_nr": "GWS.LV23-04.02.7"
+    },
+    {
+      "artikelnummer": "04.02.8",
+      "excel_preis": 50.84,
+      "sb_preis": 47,
+      "diff": 3.8400000000000034,
+      "diff_pct": "8.2",
+      "name": "Revisionsklappe, GK Einlage,  20/20",
+      "sb_original_nr": "GWS.LV23-04.02.8"
+    },
+    {
+      "artikelnummer": "04.03.1",
+      "excel_preis": 59.5,
+      "sb_preis": 55,
+      "diff": 4.5,
+      "diff_pct": "8.2",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-04.03.1"
+    },
+    {
+      "artikelnummer": "05.01.1",
+      "excel_preis": 16.62,
+      "sb_preis": 15.8,
+      "diff": 0.8200000000000003,
+      "diff_pct": "5.2",
+      "name": "Ausgleichsschüttung",
+      "sb_original_nr": "GWS.LV23-05.01.1"
+    },
+    {
+      "artikelnummer": "05.01.2",
+      "excel_preis": 42.07,
+      "sb_preis": 40,
+      "diff": 2.0700000000000003,
+      "diff_pct": "5.2",
+      "name": "Zementestrich",
+      "sb_original_nr": "GWS.LV23-05.01.2"
+    },
+    {
+      "artikelnummer": "05.01.3",
+      "excel_preis": 2.94,
+      "sb_preis": 2.8,
+      "diff": 0.14000000000000012,
+      "diff_pct": "5.0",
+      "name": "Mehr/- Minder Estrichstärken",
+      "sb_original_nr": "GWS.LV23-05.01.3"
+    },
+    {
+      "artikelnummer": "05.01.4",
+      "excel_preis": 3.79,
+      "sb_preis": 3.6,
+      "diff": 0.18999999999999995,
+      "diff_pct": "5.3",
+      "name": "Zulage Abbindebeschleuniger",
+      "sb_original_nr": "GWS.LV23-05.01.4"
+    },
+    {
+      "artikelnummer": "05.01.7",
+      "excel_preis": 11.57,
+      "sb_preis": 11,
+      "diff": 0.5700000000000003,
+      "diff_pct": "5.2",
+      "name": "Nivellierausgleich",
+      "sb_original_nr": "GWS.LV23-05.01.7"
+    },
+    {
+      "artikelnummer": "05.01.11",
+      "excel_preis": 53.64,
+      "sb_preis": 52.6779,
+      "diff": 0.9620999999999995,
+      "diff_pct": "1.8",
+      "name": "Trockenestrich",
+      "sb_original_nr": "GWS.LV23-05.01.11"
+    },
+    {
+      "artikelnummer": "05.02.1",
+      "excel_preis": 57.84,
+      "sb_preis": 56.8095,
+      "diff": 1.0305000000000035,
+      "diff_pct": "1.8",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-05.02.1"
+    },
+    {
+      "artikelnummer": "05.02.2",
+      "excel_preis": 42.07,
+      "sb_preis": 41.316,
+      "diff": 0.7539999999999978,
+      "diff_pct": "1.8",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-05.02.2"
+    },
+    {
+      "artikelnummer": "06.01.1",
+      "excel_preis": 2.18,
+      "sb_preis": 2.12,
+      "diff": 0.06000000000000005,
+      "diff_pct": "2.8",
+      "name": "Reinigen des Untergrunds von grober Verschmutzung ",
+      "sb_original_nr": "GWS.LV23-06.01.1"
+    },
+    {
+      "artikelnummer": "06.01.4",
+      "excel_preis": 4.2,
+      "sb_preis": 3.94,
+      "diff": 0.26000000000000023,
+      "diff_pct": "6.6",
+      "name": "Haftgrund, nicht saugende Untergründe",
+      "sb_original_nr": "GWS.LV23-06.01.4"
+    },
+    {
+      "artikelnummer": "06.01.5",
+      "excel_preis": 25.61,
+      "sb_preis": 24.9048,
+      "diff": 0.7051999999999978,
+      "diff_pct": "2.8",
+      "name": "Bodenabdichtung, W2-I",
+      "sb_original_nr": "GWS.LV23-06.01.5"
+    },
+    {
+      "artikelnummer": "06.01.6",
+      "excel_preis": 17.92,
+      "sb_preis": 17.4334,
+      "diff": 0.4866000000000028,
+      "diff_pct": "2.8",
+      "name": "Wandabdichtung, W1-I",
+      "sb_original_nr": "GWS.LV23-06.01.6"
+    },
+    {
+      "artikelnummer": "06.01.7",
+      "excel_preis": 6.94,
+      "sb_preis": 6.7451,
+      "diff": 0.19490000000000052,
+      "diff_pct": "2.9",
+      "name": "Schnittschutzband für Verbundabdichtungen",
+      "sb_original_nr": "GWS.LV23-06.01.7"
+    },
+    {
+      "artikelnummer": "06.01.8",
+      "excel_preis": 8.39,
+      "sb_preis": 7.86,
+      "diff": 0.5300000000000002,
+      "diff_pct": "6.7",
+      "name": "Abdichten von Rand-, Anschluss- u, Bewegungsfugen",
+      "sb_original_nr": "GWS.LV23-06.01.8"
+    },
+    {
+      "artikelnummer": "06.01.9",
+      "excel_preis": 8.73,
+      "sb_preis": 8.4884,
+      "diff": 0.24160000000000004,
+      "diff_pct": "2.8",
+      "name": "Abdichten von Außenecken u. Innenecken",
+      "sb_original_nr": "GWS.LV23-06.01.9"
+    },
+    {
+      "artikelnummer": "06.01.10",
+      "excel_preis": 7.68,
+      "sb_preis": 7.4714,
+      "diff": 0.20859999999999967,
+      "diff_pct": "2.8",
+      "name": "Abdichten von Rohrdurchführungen, DN32",
+      "sb_original_nr": "GWS.LV23-06.01.10"
+    },
+    {
+      "artikelnummer": "06.01.11",
+      "excel_preis": 9.65,
+      "sb_preis": 9.3808,
+      "diff": 0.26919999999999966,
+      "diff_pct": "2.9",
+      "name": "Abdichten von Rohrdurchführungen, DN 100",
+      "sb_original_nr": "GWS.LV23-06.01.11"
+    },
+    {
+      "artikelnummer": "06.01.12",
+      "excel_preis": 32.01,
+      "sb_preis": 31.131,
+      "diff": 0.8789999999999978,
+      "diff_pct": "2.8",
+      "name": "Abdichten Bodenablauf",
+      "sb_original_nr": "GWS.LV23-06.01.12"
+    },
+    {
+      "artikelnummer": "06.01.14",
+      "excel_preis": 72.98,
+      "sb_preis": 70.9787,
+      "diff": 2.0013000000000005,
+      "diff_pct": "2.8",
+      "name": "Entkopplungsmatte",
+      "sb_original_nr": "GWS.LV23-06.01.14"
+    },
+    {
+      "artikelnummer": "06.01.16",
+      "excel_preis": 38.41,
+      "sb_preis": 37.3572,
+      "diff": 1.0527999999999977,
+      "diff_pct": "2.8",
+      "name": "Bodenbefliesung inkl. Flexmörtel",
+      "sb_original_nr": "GWS.LV23-06.01.16"
+    },
+    {
+      "artikelnummer": "06.01.17",
+      "excel_preis": 24.52,
+      "sb_preis": 23.8463,
+      "diff": 0.6737000000000002,
+      "diff_pct": "2.8",
+      "name": "Fensterleibungen/ Fensterbänke",
+      "sb_original_nr": "GWS.LV23-06.01.17"
+    },
+    {
+      "artikelnummer": "06.01.19",
+      "excel_preis": 22.19,
+      "sb_preis": 21.5842,
+      "diff": 0.6058000000000021,
+      "diff_pct": "2.8",
+      "name": "Fliesen, Löcher herstellen",
+      "sb_original_nr": "GWS.LV23-06.01.19"
+    },
+    {
+      "artikelnummer": "06.01.20",
+      "excel_preis": 14.72,
+      "sb_preis": 14.3203,
+      "diff": 0.39970000000000105,
+      "diff_pct": "2.8",
+      "name": "Abschlussprofile V2A",
+      "sb_original_nr": "GWS.LV23-06.01.20"
+    },
+    {
+      "artikelnummer": "06.01.21",
+      "excel_preis": 14.72,
+      "sb_preis": 14.3203,
+      "diff": 0.39970000000000105,
+      "diff_pct": "2.8",
+      "name": "Verfugung Wandfliesenbelag",
+      "sb_original_nr": "GWS.LV23-06.01.21"
+    },
+    {
+      "artikelnummer": "06.01.22",
+      "excel_preis": 5.93,
+      "sb_preis": 5.56,
+      "diff": 0.3700000000000001,
+      "diff_pct": "6.7",
+      "name": "Verfugung Bodenfliesenbelag",
+      "sb_original_nr": "GWS.LV23-06.01.22"
+    },
+    {
+      "artikelnummer": "06.01.24",
+      "excel_preis": 59.75,
+      "sb_preis": 58.1112,
+      "diff": 1.6388000000000034,
+      "diff_pct": "2.8",
+      "name": "Aufmauerung/ Einmauern Badewanne, 2 seitig",
+      "sb_original_nr": "GWS.LV23-06.01.24"
+    },
+    {
+      "artikelnummer": "06.01.25",
+      "excel_preis": 102.43,
+      "sb_preis": 99.6192,
+      "diff": 2.8108000000000004,
+      "diff_pct": "2.8",
+      "name": "Aufmauerung/ Einmauern Badewanne, 3 seitig",
+      "sb_original_nr": "GWS.LV23-06.01.25"
+    },
+    {
+      "artikelnummer": "06.01.26",
+      "excel_preis": 38.41,
+      "sb_preis": 37.3572,
+      "diff": 1.0527999999999977,
+      "diff_pct": "2.8",
+      "name": "Aufmauerung/ Einmauern Duschwanne, 2 seitig",
+      "sb_original_nr": "GWS.LV23-06.01.26"
+    },
+    {
+      "artikelnummer": "06.01.27",
+      "excel_preis": 38.41,
+      "sb_preis": 37.3572,
+      "diff": 1.0527999999999977,
+      "diff_pct": "2.8",
+      "name": "Aufmauerung/ Einmauern Duschwanne, 3 seitig",
+      "sb_original_nr": "GWS.LV23-06.01.27"
+    },
+    {
+      "artikelnummer": "06.01.28",
+      "excel_preis": 82.58,
+      "sb_preis": 80.318,
+      "diff": 2.2620000000000005,
+      "diff_pct": "2.8",
+      "name": "Kristallspiegel",
+      "sb_original_nr": "GWS.LV23-06.01.28"
+    },
+    {
+      "artikelnummer": "06.01.30",
+      "excel_preis": 64.02,
+      "sb_preis": 62.262,
+      "diff": 1.7579999999999956,
+      "diff_pct": "2.8",
+      "name": "Marmorfensterbank bis 100cm",
+      "sb_original_nr": "GWS.LV23-06.01.30"
+    },
+    {
+      "artikelnummer": "06.01.32",
+      "excel_preis": 100.51,
+      "sb_preis": 97.7513,
+      "diff": 2.7587000000000046,
+      "diff_pct": "2.8",
+      "name": "Verschluss v Bodenentwässerung",
+      "sb_original_nr": "GWS.LV23-06.01.32"
+    },
+    {
+      "artikelnummer": "06.01.33",
+      "excel_preis": 94.75,
+      "sb_preis": 92.1478,
+      "diff": 2.6021999999999963,
+      "diff_pct": "2.8",
+      "name": "Verschluss v Rohrdurchführungen",
+      "sb_original_nr": "GWS.LV23-06.01.33"
+    },
+    {
+      "artikelnummer": "06.01.34",
+      "excel_preis": 15.94,
+      "sb_preis": 15.5032,
+      "diff": 0.43679999999999986,
+      "diff_pct": "2.8",
+      "name": "Risse im Estrich schließen",
+      "sb_original_nr": "GWS.LV23-06.01.34"
+    },
+    {
+      "artikelnummer": "06.01.35",
+      "excel_preis": 18.99,
+      "sb_preis": 18.4711,
+      "diff": 0.5188999999999986,
+      "diff_pct": "2.8",
+      "name": "Untergrundvorbereitung, Fräsen",
+      "sb_original_nr": "GWS.LV23-06.01.35"
+    },
+    {
+      "artikelnummer": "06.01.36",
+      "excel_preis": 14.41,
+      "sb_preis": 11.83,
+      "diff": 2.58,
+      "diff_pct": "21.8",
+      "name": "Nivellierausgleich",
+      "sb_original_nr": "GWS.LV23-06.01.36"
+    },
+    {
+      "artikelnummer": "06.01.37",
+      "excel_preis": 22.41,
+      "sb_preis": 21.7917,
+      "diff": 0.6183000000000014,
+      "diff_pct": "2.8",
+      "name": "Gefällespachtel bis 2%",
+      "sb_original_nr": "GWS.LV23-06.01.37"
+    },
+    {
+      "artikelnummer": "06.01.38",
+      "excel_preis": 70.21,
+      "sb_preis": 65.8,
+      "diff": 4.409999999999997,
+      "diff_pct": "6.7",
+      "name": "Austausch von Wandfliesen",
+      "sb_original_nr": "GWS.LV23-06.01.38"
+    },
+    {
+      "artikelnummer": "06.01.39",
+      "excel_preis": 78.96,
+      "sb_preis": 74,
+      "diff": 4.959999999999994,
+      "diff_pct": "6.7",
+      "name": "Austausch von Bodenfliesen",
+      "sb_original_nr": "GWS.LV23-06.01.39"
+    },
+    {
+      "artikelnummer": "06.02.2",
+      "excel_preis": 5.61,
+      "sb_preis": 5.26,
+      "diff": 0.35000000000000053,
+      "diff_pct": "6.7",
+      "name": "Grundierung",
+      "sb_original_nr": "GWS.LV23-06.02.2"
+    },
+    {
+      "artikelnummer": "06.02.3",
+      "excel_preis": 14.94,
+      "sb_preis": 14,
+      "diff": 0.9399999999999995,
+      "diff_pct": "6.7",
+      "name": "Spachtel zuvor grundierter Flächen.",
+      "sb_original_nr": "GWS.LV23-06.02.3"
+    },
+    {
+      "artikelnummer": "06.02.4",
+      "excel_preis": 3.65,
+      "sb_preis": 3.5445,
+      "diff": 0.1054999999999997,
+      "diff_pct": "3.0",
+      "name": "Grundierung als Sperrgrund",
+      "sb_original_nr": "GWS.LV23-06.02.4"
+    },
+    {
+      "artikelnummer": "06.03.1",
+      "excel_preis": 71.49,
+      "sb_preis": 69.4388,
+      "diff": 2.0511999999999944,
+      "diff_pct": "3.0",
+      "name": "Wandbefliesung, Vitra",
+      "sb_original_nr": "GWS.LV23-06.03.1"
+    },
+    {
+      "artikelnummer": "06.03.2",
+      "excel_preis": 72.34,
+      "sb_preis": 70.2679,
+      "diff": 2.072100000000006,
+      "diff_pct": "2.9",
+      "name": "Wandbefliesung, Meißen Keramik",
+      "sb_original_nr": "GWS.LV23-06.03.2"
+    },
+    {
+      "artikelnummer": "06.03.3",
+      "excel_preis": 76.82,
+      "sb_preis": 74.6208,
+      "diff": 2.1991999999999905,
+      "diff_pct": "2.9",
+      "name": "Bodenbefliesung, Vitra",
+      "sb_original_nr": "GWS.LV23-06.03.3"
+    },
+    {
+      "artikelnummer": "06.03.4",
+      "excel_preis": 76.82,
+      "sb_preis": 74.6208,
+      "diff": 2.1991999999999905,
+      "diff_pct": "2.9",
+      "name": "Bodenbefliesung, Meißen Keramik",
+      "sb_original_nr": "GWS.LV23-06.03.4"
+    },
+    {
+      "artikelnummer": "06.03.5",
+      "excel_preis": 76.82,
+      "sb_preis": 74.6208,
+      "diff": 2.1991999999999905,
+      "diff_pct": "2.9",
+      "name": "Bodenbefliesung, Holzoptik, Meißen Keramik",
+      "sb_original_nr": "GWS.LV23-06.03.5"
+    },
+    {
+      "artikelnummer": "06.03.6",
+      "excel_preis": 85.78,
+      "sb_preis": 83.3266,
+      "diff": 2.453400000000002,
+      "diff_pct": "2.9",
+      "name": "Mosaikbefliesung Wand/ Boden, Vitra",
+      "sb_original_nr": "GWS.LV23-06.03.6"
+    },
+    {
+      "artikelnummer": "06.03.7",
+      "excel_preis": 90.05,
+      "sb_preis": 87.4722,
+      "diff": 2.5777999999999963,
+      "diff_pct": "2.9",
+      "name": "Mosaikbefliesung Wand/ Boden, Meißen Keramik",
+      "sb_original_nr": "GWS.LV23-06.03.7"
+    },
+    {
+      "artikelnummer": "06.04.1",
+      "excel_preis": 58.68,
+      "sb_preis": 57.0735,
+      "diff": 1.606499999999997,
+      "diff_pct": "2.8",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-06.04.1"
+    },
+    {
+      "artikelnummer": "06.04.2",
+      "excel_preis": 42.68,
+      "sb_preis": 41.508,
+      "diff": 1.171999999999997,
+      "diff_pct": "2.8",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-06.04.2"
+    },
+    {
+      "artikelnummer": "07.01.1",
+      "excel_preis": 9.03,
+      "sb_preis": 8.8082,
+      "diff": 0.2218,
+      "diff_pct": "2.5",
+      "name": "Abfräsen/ Abtragen von Beschichtungen / Kleber",
+      "sb_original_nr": "GWS.LV23-07.01.1"
+    },
+    {
+      "artikelnummer": "07.01.2",
+      "excel_preis": 11.79,
+      "sb_preis": 11.4979,
+      "diff": 0.2920999999999996,
+      "diff_pct": "2.5",
+      "name": "Schwind-/Scheinfugen schließen",
+      "sb_original_nr": "GWS.LV23-07.01.2"
+    },
+    {
+      "artikelnummer": "07.01.4",
+      "excel_preis": 3.98,
+      "sb_preis": 3.8805,
+      "diff": 0.09949999999999992,
+      "diff_pct": "2.6",
+      "name": "Dampfbremse, PE Folie. D 0,2 mm",
+      "sb_original_nr": "GWS.LV23-07.01.4"
+    },
+    {
+      "artikelnummer": "07.01.6",
+      "excel_preis": 27.78,
+      "sb_preis": 26.4,
+      "diff": 1.3800000000000026,
+      "diff_pct": "5.2",
+      "name": "Bauspanplatten liefern und verlegen, bis 22 mm",
+      "sb_original_nr": "GWS.LV23-07.01.6"
+    },
+    {
+      "artikelnummer": "07.01.7",
+      "excel_preis": 47.99,
+      "sb_preis": 46.813,
+      "diff": 1.1769999999999996,
+      "diff_pct": "2.5",
+      "name": "Bauspanplatten liefern und verlegen, 2-lagig",
+      "sb_original_nr": "GWS.LV23-07.01.7"
+    },
+    {
+      "artikelnummer": "07.01.10",
+      "excel_preis": 37.04,
+      "sb_preis": 36.1363,
+      "diff": 0.9037000000000006,
+      "diff_pct": "2.5",
+      "name": "Bodenbelag, Vinyl,  Bahnen",
+      "sb_original_nr": "GWS.LV23-07.01.10"
+    },
+    {
+      "artikelnummer": "07.01.13",
+      "excel_preis": 22.1,
+      "sb_preis": 21,
+      "diff": 1.1000000000000014,
+      "diff_pct": "5.2",
+      "name": "Sockelleiste HZ, Holz",
+      "sb_original_nr": "GWS.LV23-07.01.13"
+    },
+    {
+      "artikelnummer": "07.01.14",
+      "excel_preis": 14.94,
+      "sb_preis": 14.2,
+      "diff": 0.7400000000000002,
+      "diff_pct": "5.2",
+      "name": "Sockelleiste HZ, Kunststoff",
+      "sb_original_nr": "GWS.LV23-07.01.14"
+    },
+    {
+      "artikelnummer": "07.01.15",
+      "excel_preis": 12,
+      "sb_preis": 11.4,
+      "diff": 0.5999999999999996,
+      "diff_pct": "5.3",
+      "name": "Sockelleiste Hohlkehlleiste, Kiefer",
+      "sb_original_nr": "GWS.LV23-07.01.15"
+    },
+    {
+      "artikelnummer": "07.01.16",
+      "excel_preis": 5.77,
+      "sb_preis": 5.6258,
+      "diff": 0.14419999999999966,
+      "diff_pct": "2.6",
+      "name": "Dauerelastische Verfugung",
+      "sb_original_nr": "GWS.LV23-07.01.16"
+    },
+    {
+      "artikelnummer": "07.01.20",
+      "excel_preis": 17.89,
+      "sb_preis": 17.45,
+      "diff": 0.4400000000000013,
+      "diff_pct": "2.5",
+      "name": "Übergangsschienen",
+      "sb_original_nr": "GWS.LV23-07.01.20"
+    },
+    {
+      "artikelnummer": "07.01.22",
+      "excel_preis": 23.78,
+      "sb_preis": 22.6,
+      "diff": 1.1799999999999997,
+      "diff_pct": "5.2",
+      "name": "Bewegungsfugenprofil , PVC Einlage",
+      "sb_original_nr": "GWS.LV23-07.01.22"
+    },
+    {
+      "artikelnummer": "07.01.23",
+      "excel_preis": 57.25,
+      "sb_preis": 54.4,
+      "diff": 2.8500000000000014,
+      "diff_pct": "5.2",
+      "name": "Holzboden ausbessern",
+      "sb_original_nr": "GWS.LV23-07.01.23"
+    },
+    {
+      "artikelnummer": "07.01.26",
+      "excel_preis": 15.79,
+      "sb_preis": 15.4,
+      "diff": 0.3899999999999988,
+      "diff_pct": "2.5",
+      "name": "Grundierung /Schlussanstrich Massivholzboden",
+      "sb_original_nr": "GWS.LV23-07.01.26"
+    },
+    {
+      "artikelnummer": "08.01.1",
+      "excel_preis": 24.94,
+      "sb_preis": 23.4,
+      "diff": 1.5400000000000027,
+      "diff_pct": "6.6",
+      "name": "Fenster/ Balkontüren herrichten",
+      "sb_original_nr": "GWS.LV23-08.01.1"
+    },
+    {
+      "artikelnummer": "08.01.2",
+      "excel_preis": 30.9,
+      "sb_preis": 29.7163,
+      "diff": 1.1836999999999982,
+      "diff_pct": "4.0",
+      "name": "Zimmer-, Wohnungs-, Haus- oder Hoftür herrichten",
+      "sb_original_nr": "GWS.LV23-08.01.2"
+    },
+    {
+      "artikelnummer": "08.01.3",
+      "excel_preis": 30.9,
+      "sb_preis": 29.72,
+      "diff": 1.1799999999999997,
+      "diff_pct": "4.0",
+      "name": "Fenster- /Balkontürbauteile gang- und schließbar m",
+      "sb_original_nr": "GWS.LV23-08.01.3"
+    },
+    {
+      "artikelnummer": "08.01.5",
+      "excel_preis": 35.59,
+      "sb_preis": 34.22,
+      "diff": 1.3700000000000045,
+      "diff_pct": "4.0",
+      "name": "Einsteckschloss Zimmertür liefern, einbauen",
+      "sb_original_nr": "GWS.LV23-08.01.5"
+    },
+    {
+      "artikelnummer": "08.01.9",
+      "excel_preis": 119.36,
+      "sb_preis": 112,
+      "diff": 7.359999999999999,
+      "diff_pct": "6.6",
+      "name": "Wellenlager (Fertigkastenlager) erneuern",
+      "sb_original_nr": "GWS.LV23-08.01.9"
+    },
+    {
+      "artikelnummer": "08.01.10",
+      "excel_preis": 94.85,
+      "sb_preis": 89,
+      "diff": 5.849999999999994,
+      "diff_pct": "6.6",
+      "name": "Rollladenwelle erneuern",
+      "sb_original_nr": "GWS.LV23-08.01.10"
+    },
+    {
+      "artikelnummer": "08.01.12",
+      "excel_preis": 54.35,
+      "sb_preis": 51,
+      "diff": 3.3500000000000014,
+      "diff_pct": "6.6",
+      "name": "Vorhandenes Schließblech erneuern",
+      "sb_original_nr": "GWS.LV23-08.01.12"
+    },
+    {
+      "artikelnummer": "08.01.14",
+      "excel_preis": 119.36,
+      "sb_preis": 112,
+      "diff": 7.359999999999999,
+      "diff_pct": "6.6",
+      "name": "Schall-EX-Element erneuern",
+      "sb_original_nr": "GWS.LV23-08.01.14"
+    },
+    {
+      "artikelnummer": "08.01.16",
+      "excel_preis": 52.75,
+      "sb_preis": 49.5,
+      "diff": 3.25,
+      "diff_pct": "6.6",
+      "name": "Zylinder für WE-Tür liefern, einbauen",
+      "sb_original_nr": "GWS.LV23-08.01.16"
+    },
+    {
+      "artikelnummer": "08.02.1",
+      "excel_preis": 41.03,
+      "sb_preis": 38.5,
+      "diff": 2.530000000000001,
+      "diff_pct": "6.6",
+      "name": "Beschlagsteile verstezen, klein",
+      "sb_original_nr": "GWS.LV23-08.02.1"
+    },
+    {
+      "artikelnummer": "08.02.3",
+      "excel_preis": 81.63,
+      "sb_preis": 76.6,
+      "diff": 5.030000000000001,
+      "diff_pct": "6.6",
+      "name": "Beschlagsteile erneuern, klein",
+      "sb_original_nr": "GWS.LV23-08.02.3"
+    },
+    {
+      "artikelnummer": "08.02.4",
+      "excel_preis": 94.85,
+      "sb_preis": 89,
+      "diff": 5.849999999999994,
+      "diff_pct": "6.6",
+      "name": "Beschlagsteile erneuern, groß",
+      "sb_original_nr": "GWS.LV23-08.02.4"
+    },
+    {
+      "artikelnummer": "08.02.5",
+      "excel_preis": 101.24,
+      "sb_preis": 95,
+      "diff": 6.239999999999995,
+      "diff_pct": "6.6",
+      "name": "Balkontürheber erneuern",
+      "sb_original_nr": "GWS.LV23-08.02.5"
+    },
+    {
+      "artikelnummer": "08.02.6",
+      "excel_preis": 147.06,
+      "sb_preis": 138,
+      "diff": 9.060000000000002,
+      "diff_pct": "6.6",
+      "name": "Hebetürbeschlag erneuern",
+      "sb_original_nr": "GWS.LV23-08.02.6"
+    },
+    {
+      "artikelnummer": "08.02.8",
+      "excel_preis": 50.51,
+      "sb_preis": 47.4,
+      "diff": 3.1099999999999994,
+      "diff_pct": "6.6",
+      "name": "Fenstergriff abschließbar - RC 2 (WK2) liefern, ei",
+      "sb_original_nr": "GWS.LV23-08.02.8"
+    },
+    {
+      "artikelnummer": "08.02.9",
+      "excel_preis": 119.36,
+      "sb_preis": 112,
+      "diff": 7.359999999999999,
+      "diff_pct": "6.6",
+      "name": "Drehkippbeschlag erneuern, komplett",
+      "sb_original_nr": "GWS.LV23-08.02.9"
+    },
+    {
+      "artikelnummer": "08.02.11",
+      "excel_preis": 51.15,
+      "sb_preis": 48,
+      "diff": 3.1499999999999986,
+      "diff_pct": "6.6",
+      "name": "Fensterband erneuern",
+      "sb_original_nr": "GWS.LV23-08.02.11"
+    },
+    {
+      "artikelnummer": "08.03.5",
+      "excel_preis": 57.83,
+      "sb_preis": 90,
+      "diff": -32.17,
+      "diff_pct": "-35.7",
+      "name": "Türschwelle aufdoppeln/ erneuern",
+      "sb_original_nr": "GWS.LV23-08.03.5"
+    },
+    {
+      "artikelnummer": "08.03.18",
+      "excel_preis": 7.29,
+      "sb_preis": 7.01,
+      "diff": 0.28000000000000025,
+      "diff_pct": "4.0",
+      "name": "Dichtung erneuern, Zargen",
+      "sb_original_nr": "GWS.LV23-08.03.18"
+    },
+    {
+      "artikelnummer": "08.04.1",
+      "excel_preis": 341.02,
+      "sb_preis": 327.9,
+      "diff": 13.120000000000005,
+      "diff_pct": "4.0",
+      "name": "Zimmertür inkl Holzzarge  liefern, einbauen",
+      "sb_original_nr": "GWS.LV23-08.04.1"
+    },
+    {
+      "artikelnummer": "08.04.8",
+      "excel_preis": 124.69,
+      "sb_preis": 119.89,
+      "diff": 4.799999999999997,
+      "diff_pct": "4.0",
+      "name": "Zulage Lichtausschnitt",
+      "sb_original_nr": "GWS.LV23-08.04.8"
+    },
+    {
+      "artikelnummer": "08.04.9",
+      "excel_preis": 38.36,
+      "sb_preis": 36.89,
+      "diff": 1.4699999999999989,
+      "diff_pct": "4.0",
+      "name": "Zulage Lüftungsgitter",
+      "sb_original_nr": "GWS.LV23-08.04.9"
+    },
+    {
+      "artikelnummer": "08.04.11",
+      "excel_preis": 1039.05,
+      "sb_preis": 975,
+      "diff": 64.04999999999995,
+      "diff_pct": "6.6",
+      "name": "Wohnungstür RC 2 inkl. Zarge liefern, einbauen",
+      "sb_original_nr": "GWS.LV23-08.04.11"
+    },
+    {
+      "artikelnummer": "08.04.14",
+      "excel_preis": 130.01,
+      "sb_preis": 125.01,
+      "diff": 4.999999999999986,
+      "diff_pct": "4.0",
+      "name": "Zulage Türöffnung anpassen",
+      "sb_original_nr": "GWS.LV23-08.04.14"
+    },
+    {
+      "artikelnummer": "08.05.2",
+      "excel_preis": 33.04,
+      "sb_preis": 32.1284,
+      "diff": 0.9116,
+      "diff_pct": "2.8",
+      "name": "Zulage Ornamentglasscheibe",
+      "sb_original_nr": "GWS.LV23-08.05.2"
+    },
+    {
+      "artikelnummer": "09.01.9",
+      "excel_preis": 14.82,
+      "sb_preis": 13.8,
+      "diff": 1.0199999999999996,
+      "diff_pct": "7.4",
+      "name": "Schimmelpilz Flächen reinigen und desinfizieren",
+      "sb_original_nr": "GWS.LV23-09.01.9"
+    },
+    {
+      "artikelnummer": "09.01.14",
+      "excel_preis": 9.26,
+      "sb_preis": 8.9139,
+      "diff": 0.34609999999999985,
+      "diff_pct": "3.9",
+      "name": "Leimfarbe, entfernen",
+      "sb_original_nr": "GWS.LV23-09.01.14"
+    },
+    {
+      "artikelnummer": "09.03.1",
+      "excel_preis": 2.99,
+      "sb_preis": 2.87,
+      "diff": 0.1200000000000001,
+      "diff_pct": "4.2",
+      "name": "Tiefengrund aufbringen",
+      "sb_original_nr": "GWS.LV23-09.03.1"
+    },
+    {
+      "artikelnummer": "09.03.3",
+      "excel_preis": 3.82,
+      "sb_preis": 3.68,
+      "diff": 0.13999999999999968,
+      "diff_pct": "3.8",
+      "name": "Haftgrund aufbringen",
+      "sb_original_nr": "GWS.LV23-09.03.3"
+    },
+    {
+      "artikelnummer": "09.03.6",
+      "excel_preis": 12.24,
+      "sb_preis": 11.4,
+      "diff": 0.8399999999999999,
+      "diff_pct": "7.4",
+      "name": "Wandspachtel, Q3",
+      "sb_original_nr": "GWS.LV23-09.03.6"
+    },
+    {
+      "artikelnummer": "09.03.7",
+      "excel_preis": 10.05,
+      "sb_preis": 9.36,
+      "diff": 0.6900000000000013,
+      "diff_pct": "7.4",
+      "name": "Deckenspachtel, Q2",
+      "sb_original_nr": "GWS.LV23-09.03.7"
+    },
+    {
+      "artikelnummer": "09.03.11",
+      "excel_preis": 9.45,
+      "sb_preis": 8.8,
+      "diff": 0.6499999999999986,
+      "diff_pct": "7.4",
+      "name": "Leibungsspachtel, Q3",
+      "sb_original_nr": "GWS.LV23-09.03.11"
+    },
+    {
+      "artikelnummer": "09.04.1",
+      "excel_preis": 7.09,
+      "sb_preis": 6.83,
+      "diff": 0.2599999999999998,
+      "diff_pct": "3.8",
+      "name": "Raufaser tapezieren",
+      "sb_original_nr": "GWS.LV23-09.04.1"
+    },
+    {
+      "artikelnummer": "09.04.2",
+      "excel_preis": 6.01,
+      "sb_preis": 5.791,
+      "diff": 0.21899999999999942,
+      "diff_pct": "3.8",
+      "name": "Dispersionsanstrich, matt, NAB 2",
+      "sb_original_nr": "GWS.LV23-09.04.2"
+    },
+    {
+      "artikelnummer": "09.04.7",
+      "excel_preis": 11.08,
+      "sb_preis": 10.67,
+      "diff": 0.41000000000000014,
+      "diff_pct": "3.8",
+      "name": "Balkon Grundierauftrag Aussenflächen",
+      "sb_original_nr": "GWS.LV23-09.04.7"
+    },
+    {
+      "artikelnummer": "09.04.8",
+      "excel_preis": 10.7,
+      "sb_preis": 10.2996,
+      "diff": 0.4003999999999994,
+      "diff_pct": "3.9",
+      "name": "Balkon Schlussbeschichtung Aussenflächen",
+      "sb_original_nr": "GWS.LV23-09.04.8"
+    },
+    {
+      "artikelnummer": "09.04.11",
+      "excel_preis": 6.44,
+      "sb_preis": 6,
+      "diff": 0.4400000000000004,
+      "diff_pct": "7.3",
+      "name": "Untergrundvorbehandlung",
+      "sb_original_nr": "GWS.LV23-09.04.11"
+    },
+    {
+      "artikelnummer": "09.05.1",
+      "excel_preis": 80.72,
+      "sb_preis": 77.72,
+      "diff": 3,
+      "diff_pct": "3.9",
+      "name": "Lackierung Innentürblatt",
+      "sb_original_nr": "GWS.LV23-09.05.1"
+    },
+    {
+      "artikelnummer": "09.05.2",
+      "excel_preis": 45.11,
+      "sb_preis": 43.43,
+      "diff": 1.6799999999999997,
+      "diff_pct": "3.9",
+      "name": "Lackierung Umfassungszarge",
+      "sb_original_nr": "GWS.LV23-09.05.2"
+    },
+    {
+      "artikelnummer": "09.05.5",
+      "excel_preis": 93.65,
+      "sb_preis": 87.2,
+      "diff": 6.450000000000003,
+      "diff_pct": "7.4",
+      "name": "Lackierung Rohrrahmentür",
+      "sb_original_nr": "GWS.LV23-09.05.5"
+    },
+    {
+      "artikelnummer": "09.05.7",
+      "excel_preis": 19.33,
+      "sb_preis": 18.6138,
+      "diff": 0.7161999999999971,
+      "diff_pct": "3.8",
+      "name": "Lackierung HK Anbindung",
+      "sb_original_nr": "GWS.LV23-09.05.7"
+    },
+    {
+      "artikelnummer": "09.05.8",
+      "excel_preis": 47.69,
+      "sb_preis": 45.914,
+      "diff": 1.7759999999999962,
+      "diff_pct": "3.9",
+      "name": "Lackierung Plattenheizkörper",
+      "sb_original_nr": "GWS.LV23-09.05.8"
+    },
+    {
+      "artikelnummer": "09.06.3",
+      "excel_preis": 102.03,
+      "sb_preis": 95,
+      "diff": 7.030000000000001,
+      "diff_pct": "7.4",
+      "name": "Renovierungsanstrich, beidseitig,  Holzfenstern, 2",
+      "sb_original_nr": "GWS.LV23-09.06.3"
+    },
+    {
+      "artikelnummer": "09.06.6",
+      "excel_preis": 48.76,
+      "sb_preis": 46.9481,
+      "diff": 1.8119000000000014,
+      "diff_pct": "3.9",
+      "name": "Renovierungsanstrich, Holzfensterbänke",
+      "sb_original_nr": "GWS.LV23-09.06.6"
+    },
+    {
+      "artikelnummer": "09.07.2",
+      "excel_preis": 42.96,
+      "sb_preis": 41.364,
+      "diff": 1.5960000000000036,
+      "diff_pct": "3.9",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-09.07.2"
+    },
+    {
+      "artikelnummer": "10.01.3",
+      "excel_preis": 2154.52,
+      "sb_preis": 1720,
+      "diff": 434.52,
+      "diff_pct": "25.3",
+      "name": "2 Zi Wohnung mit Küche, Diele bis 45m²",
+      "sb_original_nr": "GWS.LV23-10.01.3"
+    },
+    {
+      "artikelnummer": "10.01.6",
+      "excel_preis": 2867.32,
+      "sb_preis": 2320,
+      "diff": 547.3200000000002,
+      "diff_pct": "23.6",
+      "name": "2 Zi Wohnung mit Küche, Diele bis 65m²",
+      "sb_original_nr": "GWS.LV23-10.01.6"
+    },
+    {
+      "artikelnummer": "10.03.1",
+      "excel_preis": 224.35,
+      "sb_preis": 180,
+      "diff": 44.349999999999994,
+      "diff_pct": "24.6",
+      "name": "Floor Flex -Analyse",
+      "sb_original_nr": "GWS.LV23-10.03.1"
+    },
+    {
+      "artikelnummer": "11.01.2",
+      "excel_preis": 28.13,
+      "sb_preis": 27.1537,
+      "diff": 0.9762999999999984,
+      "diff_pct": "3.6",
+      "name": "Reinigung jede weitere Etage",
+      "sb_original_nr": "GWS.LV23-11.01.2"
+    },
+    {
+      "artikelnummer": "11.02.1",
+      "excel_preis": 206.17,
+      "sb_preis": 198.9888,
+      "diff": 7.18119999999999,
+      "diff_pct": "3.6",
+      "name": "Bauschluss/- Feinreinigung bis 35m², 1 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.1"
+    },
+    {
+      "artikelnummer": "11.02.2",
+      "excel_preis": 219.06,
+      "sb_preis": 204,
+      "diff": 15.060000000000002,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung bis 45m², 1 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.2"
+    },
+    {
+      "artikelnummer": "11.02.3",
+      "excel_preis": 240.53,
+      "sb_preis": 232.1536,
+      "diff": 8.37639999999999,
+      "diff_pct": "3.6",
+      "name": "Bauschluss/- Feinreinigung bis 45m², 2 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.3"
+    },
+    {
+      "artikelnummer": "11.02.4",
+      "excel_preis": 229.8,
+      "sb_preis": 214,
+      "diff": 15.800000000000011,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung bis 50m², 2 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.4"
+    },
+    {
+      "artikelnummer": "11.02.10",
+      "excel_preis": 254.49,
+      "sb_preis": 237,
+      "diff": 17.49000000000001,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung bis 65m², 3 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.10"
+    },
+    {
+      "artikelnummer": "11.02.12",
+      "excel_preis": 296.37,
+      "sb_preis": 276,
+      "diff": 20.370000000000005,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung bis 85m², 3 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.12"
+    },
+    {
+      "artikelnummer": "11.02.14",
+      "excel_preis": 332.88,
+      "sb_preis": 310,
+      "diff": 22.879999999999995,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung bis 100m², 4 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.14"
+    },
+    {
+      "artikelnummer": "11.02.15",
+      "excel_preis": 352.21,
+      "sb_preis": 332.88,
+      "diff": 19.329999999999984,
+      "diff_pct": "5.8",
+      "name": "Bauschluss/- Feinreinigung > 100m², 4 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.15"
+    },
+    {
+      "artikelnummer": "11.02.17",
+      "excel_preis": 356.51,
+      "sb_preis": 332,
+      "diff": 24.50999999999999,
+      "diff_pct": "7.4",
+      "name": "Bauschluss/- Feinreinigung > 100m², 5 Zi",
+      "sb_original_nr": "GWS.LV23-11.02.17"
+    },
+    {
+      "artikelnummer": "12.01.1",
+      "excel_preis": 8289.84,
+      "sb_preis": 7720,
+      "diff": 569.8400000000001,
+      "diff_pct": "7.4",
+      "name": "Duschbad",
+      "sb_original_nr": "GWS.LV23-12.01.1"
+    },
+    {
+      "artikelnummer": "12.02.1",
+      "excel_preis": 8483.13,
+      "sb_preis": 8187.56,
+      "diff": 295.5699999999988,
+      "diff_pct": "3.6",
+      "name": "Duschbad",
+      "sb_original_nr": "GWS.LV23-12.02.1"
+    },
+    {
+      "artikelnummer": "20.01.1",
+      "excel_preis": 146.88,
+      "sb_preis": 131,
+      "diff": 15.879999999999995,
+      "diff_pct": "12.1",
+      "name": "Elektrozähler Alt/ Neu",
+      "sb_original_nr": "GWS.LV23-20.01.1"
+    },
+    {
+      "artikelnummer": "20.01.3",
+      "excel_preis": 67.27,
+      "sb_preis": 63.936,
+      "diff": 3.333999999999996,
+      "diff_pct": "5.2",
+      "name": "Zuleitungsverbindung  5*16 mm²",
+      "sb_original_nr": "GWS.LV23-20.01.3"
+    },
+    {
+      "artikelnummer": "20.01.4",
+      "excel_preis": 81.18,
+      "sb_preis": 77.15,
+      "diff": 4.030000000000001,
+      "diff_pct": "5.2",
+      "name": "Zuleitungsverbindung  5*16 mm² je weitere Etage",
+      "sb_original_nr": "GWS.LV23-20.01.4"
+    },
+    {
+      "artikelnummer": "20.01.6",
+      "excel_preis": 95.3,
+      "sb_preis": 90.576,
+      "diff": 4.724000000000004,
+      "diff_pct": "5.2",
+      "name": "Aufputz-Wanne für Unterverteiler",
+      "sb_original_nr": "GWS.LV23-20.01.6"
+    },
+    {
+      "artikelnummer": "20.01.7",
+      "excel_preis": 94.18,
+      "sb_preis": 84,
+      "diff": 10.180000000000007,
+      "diff_pct": "12.1",
+      "name": "FI/ LS Schalter Waschmaschine",
+      "sb_original_nr": "GWS.LV23-20.01.7"
+    },
+    {
+      "artikelnummer": "20.01.8",
+      "excel_preis": 132.98,
+      "sb_preis": 126.3802,
+      "diff": 6.599799999999988,
+      "diff_pct": "5.2",
+      "name": "Elektroinstallation Waschmaschinenanschluss",
+      "sb_original_nr": "GWS.LV23-20.01.8"
+    },
+    {
+      "artikelnummer": "20.01.9",
+      "excel_preis": 542.67,
+      "sb_preis": 497.552,
+      "diff": 45.11799999999994,
+      "diff_pct": "9.1",
+      "name": "Nachputzarbeiten, WE 30- 90m² o. Bad, Kalkulation:",
+      "sb_original_nr": "GWS.LV23-20.01.9"
+    },
+    {
+      "artikelnummer": "20.01.10",
+      "excel_preis": 632.37,
+      "sb_preis": 601,
+      "diff": 31.370000000000005,
+      "diff_pct": "5.2",
+      "name": "Erneuerung Schalter-/Steckdosen WE 30- 90m² o. Bad",
+      "sb_original_nr": "GWS.LV23-20.01.10"
+    },
+    {
+      "artikelnummer": "20.01.11",
+      "excel_preis": 103.15,
+      "sb_preis": 98.0352,
+      "diff": 5.1148000000000025,
+      "diff_pct": "5.2",
+      "name": "Wechselsprechanlage Ritto/ STR",
+      "sb_original_nr": "GWS.LV23-20.01.11"
+    },
+    {
+      "artikelnummer": "20.01.12",
+      "excel_preis": 42.16,
+      "sb_preis": 40.0666,
+      "diff": 2.0933999999999955,
+      "diff_pct": "5.2",
+      "name": "Tür Gong",
+      "sb_original_nr": "GWS.LV23-20.01.12"
+    },
+    {
+      "artikelnummer": "20.01.20",
+      "excel_preis": 10.32,
+      "sb_preis": 9.2,
+      "diff": 1.120000000000001,
+      "diff_pct": "12.2",
+      "name": "Kunststoffpanzerrohr M 40",
+      "sb_original_nr": "GWS.LV23-20.01.20"
+    },
+    {
+      "artikelnummer": "20.01.27",
+      "excel_preis": 255.64,
+      "sb_preis": 228,
+      "diff": 27.639999999999986,
+      "diff_pct": "12.1",
+      "name": "Niederdruckspeicher",
+      "sb_original_nr": "GWS.LV23-20.01.27"
+    },
+    {
+      "artikelnummer": "20.01.30",
+      "excel_preis": 457.46,
+      "sb_preis": 408,
+      "diff": 49.45999999999998,
+      "diff_pct": "12.1",
+      "name": "Demontage und Entsorgung NSP-Ofen 5 -6KW",
+      "sb_original_nr": "GWS.LV23-20.01.30"
+    },
+    {
+      "artikelnummer": "20.01.38",
+      "excel_preis": 50.46,
+      "sb_preis": 47.952,
+      "diff": 2.5080000000000027,
+      "diff_pct": "5.2",
+      "name": "Thermostatkopf erneuern",
+      "sb_original_nr": "GWS.LV23-20.01.38"
+    },
+    {
+      "artikelnummer": "20.02.1",
+      "excel_preis": 3587.92,
+      "sb_preis": 3409.92,
+      "diff": 178,
+      "diff_pct": "5.2",
+      "name": "Elektroneuinstallation",
+      "sb_original_nr": "GWS.LV23-20.02.1"
+    },
+    {
+      "artikelnummer": "20.02.4",
+      "excel_preis": 168.18,
+      "sb_preis": 150,
+      "diff": 18.180000000000007,
+      "diff_pct": "12.1",
+      "name": "Elektroneuinstallation Balkon / Terrasse",
+      "sb_original_nr": "GWS.LV23-20.02.4"
+    },
+    {
+      "artikelnummer": "20.03.1",
+      "excel_preis": 78.49,
+      "sb_preis": 70,
+      "diff": 8.489999999999995,
+      "diff_pct": "12.1",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-20.03.1"
+    },
+    {
+      "artikelnummer": "20.03.2",
+      "excel_preis": 56.06,
+      "sb_preis": 50,
+      "diff": 6.060000000000002,
+      "diff_pct": "12.1",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-20.03.2"
+    },
+    {
+      "artikelnummer": "21.01.01.2",
+      "excel_preis": 28.64,
+      "sb_preis": 27.3858,
+      "diff": 1.2542000000000009,
+      "diff_pct": "4.6",
+      "name": "Zulage, Breite ab 2 m",
+      "sb_original_nr": "GWS.LV23-21.01.01.2"
+    },
+    {
+      "artikelnummer": "21.01.01.3",
+      "excel_preis": 74.9,
+      "sb_preis": 71.62,
+      "diff": 3.280000000000001,
+      "diff_pct": "4.6",
+      "name": "Heizkörper demontieren/ Entsorgung",
+      "sb_original_nr": "GWS.LV23-21.01.01.3"
+    },
+    {
+      "artikelnummer": "21.01.01.4",
+      "excel_preis": 372.29,
+      "sb_preis": 356.0154,
+      "diff": 16.27460000000002,
+      "diff_pct": "4.6",
+      "name": "Ventilheizkörper Typ 22, neu",
+      "sb_original_nr": "GWS.LV23-21.01.01.4"
+    },
+    {
+      "artikelnummer": "21.01.01.6",
+      "excel_preis": 397.62,
+      "sb_preis": 380.24,
+      "diff": 17.379999999999995,
+      "diff_pct": "4.6",
+      "name": "Kompaktheizkörper, neu",
+      "sb_original_nr": "GWS.LV23-21.01.01.6"
+    },
+    {
+      "artikelnummer": "21.01.01.21",
+      "excel_preis": 936.22,
+      "sb_preis": 850,
+      "diff": 86.22000000000003,
+      "diff_pct": "10.1",
+      "name": "Verlegung Kombitherme innerhalb WE",
+      "sb_original_nr": "GWS.LV23-21.01.01.21"
+    },
+    {
+      "artikelnummer": "21.01.01.22",
+      "excel_preis": 1674.18,
+      "sb_preis": 1520,
+      "diff": 154.18000000000006,
+      "diff_pct": "10.1",
+      "name": "Verlegung Kombitherme in Keller",
+      "sb_original_nr": "GWS.LV23-21.01.01.22"
+    },
+    {
+      "artikelnummer": "21.01.01.26",
+      "excel_preis": 38.55,
+      "sb_preis": 36.8655,
+      "diff": 1.6844999999999999,
+      "diff_pct": "4.6",
+      "name": "Dämmung an Rohrleitungen reparieren",
+      "sb_original_nr": "GWS.LV23-21.01.01.26"
+    },
+    {
+      "artikelnummer": "21.01.03.1",
+      "excel_preis": 5121.68,
+      "sb_preis": 4897.845,
+      "diff": 223.83500000000004,
+      "diff_pct": "4.6",
+      "name": "Ausführung Brennwertgerät mit Speicher",
+      "sb_original_nr": "GWS.LV23-21.01.03.1"
+    },
+    {
+      "artikelnummer": "21.01.04.09.1",
+      "excel_preis": 1960.51,
+      "sb_preis": 1874.83,
+      "diff": 85.68000000000006,
+      "diff_pct": "4.6",
+      "name": "Rohrlängen75",
+      "sb_original_nr": "GWS.LV23-21.01.04.09.1"
+    },
+    {
+      "artikelnummer": "21.02.01.6",
+      "excel_preis": 772.48,
+      "sb_preis": 702,
+      "diff": 70.48000000000002,
+      "diff_pct": "10.0",
+      "name": "Rechteck-Badewanne mit Duschzone 170/80/38",
+      "sb_original_nr": "GWS.LV23-21.02.01.6"
+    },
+    {
+      "artikelnummer": "21.02.01.10",
+      "excel_preis": 212.5,
+      "sb_preis": 80,
+      "diff": 132.5,
+      "diff_pct": "165.6",
+      "name": "Zulage Duschtasse Superplan 1000 mm x 1400 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.10"
+    },
+    {
+      "artikelnummer": "21.02.01.13",
+      "excel_preis": 406.67,
+      "sb_preis": 445,
+      "diff": -38.329999999999984,
+      "diff_pct": "-8.6",
+      "name": "Zulage Duschtasse Superplan 800 mm x 1400 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.13"
+    },
+    {
+      "artikelnummer": "21.02.01.14",
+      "excel_preis": 921.37,
+      "sb_preis": 880.5989,
+      "diff": 40.77110000000005,
+      "diff_pct": "4.6",
+      "name": "Duschtasse Duschplan, h 65 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.14"
+    },
+    {
+      "artikelnummer": "21.02.01.16",
+      "excel_preis": 600.88,
+      "sb_preis": 90,
+      "diff": 510.88,
+      "diff_pct": "567.6",
+      "name": "Zulage Duschtasse Duschplan 1000 mm x 1400 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.16"
+    },
+    {
+      "artikelnummer": "21.02.01.17",
+      "excel_preis": 572.48,
+      "sb_preis": 154.06,
+      "diff": 418.42,
+      "diff_pct": "271.6",
+      "name": "Zulage Duschtasse Duschplan 800 mm x 1000 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.17"
+    },
+    {
+      "artikelnummer": "21.02.01.18",
+      "excel_preis": 572.48,
+      "sb_preis": 339,
+      "diff": 233.48000000000002,
+      "diff_pct": "68.9",
+      "name": "Zulage Duschtasse Duschplan 800 mm x 1200 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.18"
+    },
+    {
+      "artikelnummer": "21.02.01.19",
+      "excel_preis": 701.94,
+      "sb_preis": 270,
+      "diff": 431.94000000000005,
+      "diff_pct": "160.0",
+      "name": "Zulage Duschtasse Duschplan 800 mm x 1400 mm",
+      "sb_original_nr": "GWS.LV23-21.02.01.19"
+    },
+    {
+      "artikelnummer": "21.02.01.21",
+      "excel_preis": 316.91,
+      "sb_preis": 288,
+      "diff": 28.910000000000025,
+      "diff_pct": "10.0",
+      "name": "Wasseranschluss Küche versetzen",
+      "sb_original_nr": "GWS.LV23-21.02.01.21"
+    },
+    {
+      "artikelnummer": "21.02.01.24",
+      "excel_preis": 212.38,
+      "sb_preis": 202.9781,
+      "diff": 9.401899999999983,
+      "diff_pct": "4.6",
+      "name": "Brausevorhangstange",
+      "sb_original_nr": "GWS.LV23-21.02.01.24"
+    },
+    {
+      "artikelnummer": "21.02.01.25",
+      "excel_preis": 726.26,
+      "sb_preis": 660,
+      "diff": 66.25999999999999,
+      "diff_pct": "10.0",
+      "name": "Duschabtrennung",
+      "sb_original_nr": "GWS.LV23-21.02.01.25"
+    },
+    {
+      "artikelnummer": "21.02.01.27",
+      "excel_preis": 409.35,
+      "sb_preis": 391.2324,
+      "diff": 18.11760000000004,
+      "diff_pct": "4.6",
+      "name": "Handwaschbecken",
+      "sb_original_nr": "GWS.LV23-21.02.01.27"
+    },
+    {
+      "artikelnummer": "21.02.01.30",
+      "excel_preis": 176.06,
+      "sb_preis": 160,
+      "diff": 16.060000000000002,
+      "diff_pct": "10.0",
+      "name": "Brausebatterie",
+      "sb_original_nr": "GWS.LV23-21.02.01.30"
+    },
+    {
+      "artikelnummer": "21.02.01.33",
+      "excel_preis": 352.13,
+      "sb_preis": 253.09,
+      "diff": 99.03999999999999,
+      "diff_pct": "39.1",
+      "name": "Wand-WC",
+      "sb_original_nr": "GWS.LV23-21.02.01.33"
+    },
+    {
+      "artikelnummer": "21.02.01.34",
+      "excel_preis": 324.62,
+      "sb_preis": 295,
+      "diff": 29.620000000000005,
+      "diff_pct": "10.0",
+      "name": "Stand-WC",
+      "sb_original_nr": "GWS.LV23-21.02.01.34"
+    },
+    {
+      "artikelnummer": "21.02.01.35",
+      "excel_preis": 89.13,
+      "sb_preis": 81,
+      "diff": 8.129999999999995,
+      "diff_pct": "10.0",
+      "name": "WC-Sitz",
+      "sb_original_nr": "GWS.LV23-21.02.01.35"
+    },
+    {
+      "artikelnummer": "21.02.02.15",
+      "excel_preis": 201.81,
+      "sb_preis": 183.4,
+      "diff": 18.409999999999997,
+      "diff_pct": "10.0",
+      "name": "Waschtischarmatur",
+      "sb_original_nr": "GWS.LV23-21.02.02.15"
+    },
+    {
+      "artikelnummer": "21.02.02.18",
+      "excel_preis": 199.17,
+      "sb_preis": 181,
+      "diff": 18.169999999999987,
+      "diff_pct": "10.0",
+      "name": "Handbrause-Set Dusche",
+      "sb_original_nr": "GWS.LV23-21.02.02.18"
+    },
+    {
+      "artikelnummer": "21.02.02.19",
+      "excel_preis": 253.09,
+      "sb_preis": 230,
+      "diff": 23.090000000000003,
+      "diff_pct": "10.0",
+      "name": "Wand-WC",
+      "sb_original_nr": "GWS.LV23-21.02.02.19"
+    },
+    {
+      "artikelnummer": "21.02.02.20",
+      "excel_preis": 74.17,
+      "sb_preis": 89.13,
+      "diff": -14.959999999999994,
+      "diff_pct": "-16.8",
+      "name": "WC-Sitz",
+      "sb_original_nr": "GWS.LV23-21.02.02.20"
+    },
+    {
+      "artikelnummer": "21.04.1",
+      "excel_preis": 82.53,
+      "sb_preis": 78.8775,
+      "diff": 3.6525000000000034,
+      "diff_pct": "4.6",
+      "name": "Stundenlohnarbeiten Facharbeiter",
+      "sb_original_nr": "GWS.LV23-21.04.1"
+    },
+    {
+      "artikelnummer": "21.04.2",
+      "excel_preis": 55.02,
+      "sb_preis": 52.585,
+      "diff": 2.4350000000000023,
+      "diff_pct": "4.6",
+      "name": "Stundenlohnarbeiten Helfer",
+      "sb_original_nr": "GWS.LV23-21.04.2"
+    }
+  ],
+  "excel_only": [
+    {
+      "artikelnummer": "01.02",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "02",
+      "artikelname": "Erw. Rohbauarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "02.01",
+      "artikelname": "Mauer ,- u. Rohbauarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "02.02",
+      "artikelname": "Innenputzarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "02.03",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03",
+      "artikelname": "Fensterarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03.01",
+      "artikelname": "KS Systeme",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03.02",
+      "artikelname": "Alu Systeme",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03.03",
+      "artikelname": "Holz Systeme",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03.04",
+      "artikelname": "Überarbeitung Holzfenster",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "03.05",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "04",
+      "artikelname": "Trockenbauarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "04.01",
+      "artikelname": "Wandsysteme",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "04.02",
+      "artikelname": "Deckensysteme",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "04.03",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "05",
+      "artikelname": "Estricharbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "05.01",
+      "artikelname": "Allg. Positionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "05.02",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "06",
+      "artikelname": "Fliesen,u. Plattenarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "06.01",
+      "artikelname": "Allg. Positionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "06.01.13",
+      "artikelname": "Ansetzen / Verlegen von keramischen Fliesen",
+      "vk_preis": 0,
+      "einheit": "m²"
+    },
+    {
+      "artikelnummer": "06.02",
+      "artikelname": "Wahlpositionen Fliese/Fliese --- Fliese/ Spachtelung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "06.03",
+      "artikelname": "Wahlpositionen    Altern.Vitra, Meißen Keramik",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "06.04",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "07",
+      "artikelname": "Bodenbelagsarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "07.01",
+      "artikelname": "Allg. Positionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "07.01.17",
+      "artikelname": "Ersteinpflege",
+      "vk_preis": 0,
+      "einheit": "psch"
+    },
+    {
+      "artikelnummer": "07.02",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08",
+      "artikelname": "Tischlerarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.01",
+      "artikelname": "Allg. Positionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.02",
+      "artikelname": "Beschlagserneuerungen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.03",
+      "artikelname": "Holzreparaturen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.04",
+      "artikelname": "Wohnungs- u. Zimmertüren",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.05",
+      "artikelname": "Reparaturverglasung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.06",
+      "artikelname": "Treppeninstandsetzung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "08.07",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09",
+      "artikelname": "Maler- u. Lackierarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.01",
+      "artikelname": "Schutz + Reinigung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.02",
+      "artikelname": "Ausbesserungsarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.03",
+      "artikelname": "Grundier + Spachtelarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.04",
+      "artikelname": "Tapeten + Anstricharbeiten +Streichputz",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.05",
+      "artikelname": "Lackiearbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.06",
+      "artikelname": "Renovierungsanstriche",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "09.07",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "10",
+      "artikelname": "Schadstoffarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "10.01",
+      "artikelname": "Wohnungspauschalen schadstoffhaltige Böden",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "10.03",
+      "artikelname": "Wahlpositionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "10.05",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "11",
+      "artikelname": "Baureinigung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "11.01",
+      "artikelname": "Treppenhausreinigung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "11.02",
+      "artikelname": "Wohnungspauschalen Bauend/- Feinreinigung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12",
+      "artikelname": "Dusch/ Wannenbad/ Gäste WC-pauschal",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.01",
+      "artikelname": "Dusch/ Wannenbad Gr. bis 3,5 m² Grundfl.",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.02",
+      "artikelname": "Dusch/ Wannenbad Gr. bis 4,5m² Grundfl.",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.03",
+      "artikelname": "Dusch/ Wannenbad Gr. bis 6m² Grundfl.",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.04",
+      "artikelname": "Dusch/ Wannenbad Gr. bis 7,5m² Grundfl.",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.05",
+      "artikelname": "Dusch/ Wannenbad Gr. > 7,5m² -ca 9m² Grundfl.",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "12.06",
+      "artikelname": "Gäste WC",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "20",
+      "artikelname": "Elektroarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "20.01",
+      "artikelname": "Allg. Positionen",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "20.02",
+      "artikelname": "Rauminstallation",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "20.03",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "21",
+      "artikelname": "HLS Arbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "21.01",
+      "artikelname": "Heizung",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "21.02",
+      "artikelname": "Sanitär",
+      "vk_preis": 0,
+      "einheit": ""
+    },
+    {
+      "artikelnummer": "21.04",
+      "artikelname": "Stundenlohnarbeiten",
+      "vk_preis": 0,
+      "einheit": ""
+    }
+  ],
+  "supabase_only": [
+    {
+      "artikelnummer": "Elektrik-Sat-Anschluss",
+      "bezeichnung": "SAT-Anschluss",
+      "vk_preis": 133.2
+    },
+    {
+      "artikelnummer": "FLQ-Tischler-Zimmertür",
+      "bezeichnung": "Tischler: Zimmertür inkl. Holzzarge liefern, einbauen",
+      "vk_preis": 365
+    },
+    {
+      "artikelnummer": "GWS-LV24-05.5",
+      "bezeichnung": "Zimmertür, weiß bis:  0.985/2.110",
+      "vk_preis": 145
+    },
+    {
+      "artikelnummer": "LV23-01.01.24",
+      "bezeichnung": "Rückbau Einbauschrank, 120 x 250",
+      "vk_preis": 172
+    },
+    {
+      "artikelnummer": "LV23-02.01.14",
+      "bezeichnung": "Öffnungen schließen, < 1 m²",
+      "vk_preis": 101.06
+    },
+    {
+      "artikelnummer": "LV23-09.01.4",
+      "bezeichnung": "Tapeten ablösen, Wandfl., 2 lagig ",
+      "vk_preis": 3.72
+    },
+    {
+      "artikelnummer": "WBG-Elektro-Zulage-DLE",
+      "bezeichnung": "Elektro: Zuleitung Durchlauferhitzer",
+      "vk_preis": 139.5936
+    },
+    {
+      "artikelnummer": "WBG-Fliesen-Rückbau-Küche",
+      "bezeichnung": "Rückbau Fliesenspiegel und Putz bis aufs Mauerwerk",
+      "vk_preis": 34.24
+    }
+  ],
+  "name_mismatch": [
+    {
+      "artikelnummer": "09.02.1",
+      "excel_name": "Risse in Ptuzfl. schließen,< 5 m",
+      "sb_name": "Risse in Balkonbrüstung schließen,< 5 m",
+      "excel_preis": 53.16,
+      "sb_preis": 51.19
+    },
+    {
+      "artikelnummer": "09.03.10",
+      "excel_name": "Leibungsspachtel, Q2",
+      "sb_name": "Laibungsspachtel, Q2",
+      "excel_preis": 7.05,
+      "sb_preis": 6.56
+    },
+    {
+      "artikelnummer": "09.05.9",
+      "excel_name": "Zulage, Breite bis 1,5 m",
+      "sb_name": "Lackierung Plattenheizkörper, Zulage, Breite bis 1,5 m",
+      "excel_preis": 17.61,
+      "sb_preis": 17.61
+    },
+    {
+      "artikelnummer": "09.05.10",
+      "excel_name": "Zulage, Breite bis 2 m",
+      "sb_name": "Lackierung Plattenheizkörper, Zulage, Breite bis 2 m",
+      "excel_preis": 24.06,
+      "sb_preis": 22.4
+    },
+    {
+      "artikelnummer": "09.05.12",
+      "excel_name": "Zulage, Breite bis 1,5 m",
+      "sb_name": "Lackierung Rippenheizkörper, Zulage, Breite bis 1,5 m",
+      "excel_preis": 6.44,
+      "sb_preis": 6.2
+    },
+    {
+      "artikelnummer": "09.05.13",
+      "excel_name": "Zulage, Breite bis 2 m",
+      "sb_name": "Lackierung Rippenheizkörper, Zulage, Breite bis 2 m",
+      "excel_preis": 12.89,
+      "sb_preis": 12.89
+    },
+    {
+      "artikelnummer": "09.06.8",
+      "excel_name": "Renovierungsanstrich Holzflächen",
+      "sb_name": "Rolladenkästen lackieren",
+      "excel_preis": 53.7,
+      "sb_preis": 50
+    },
+    {
+      "artikelnummer": "10.01.5",
+      "excel_name": "2 Zi Wohnung mit Küche, Diele bis 55m²",
+      "sb_name": "Asbestsanierung: 3 Zi Wohnung mit Küche, Diele bis 75m²",
+      "excel_preis": 2443.85,
+      "sb_preis": 2958
+    },
+    {
+      "artikelnummer": "12.01.2",
+      "excel_name": "Altern. Wannenausführung",
+      "sb_name": "Wannenbad Gr. bis 3,5 m² Grundfl.",
+      "excel_preis": 8611.99,
+      "sb_preis": 8289.84
+    },
+    {
+      "artikelnummer": "12.01.3",
+      "excel_name": "Mehr/ -Minderleistung",
+      "sb_name": "Dusch/ Wannenbad Gr. bis 3,5 m² Grundfl., Mehr/ -Minderleistung",
+      "excel_preis": 0,
+      "sb_preis": 0
+    },
+    {
+      "artikelnummer": "12.02.2",
+      "excel_name": "Altern. Wannenausführung",
+      "sb_name": "Wannenbad Gr. bis 4,5 m² Grundfl. ",
+      "excel_preis": 8869.7,
+      "sb_preis": 8483.13
+    },
+    {
+      "artikelnummer": "12.02.3",
+      "excel_name": "Mehr/ -Minderleistung",
+      "sb_name": "Dusch/ Wannenbad Gr. bis 4,5 m² Grundfl.",
+      "excel_preis": 0,
+      "sb_preis": 0
+    },
+    {
+      "artikelnummer": "12.03.2",
+      "excel_name": "Altern. Wannenausführung",
+      "sb_name": "Wannenbad Gr. bis 6 m² Grundfl.",
+      "excel_preis": 9084.47,
+      "sb_preis": 8783.8
+    },
+    {
+      "artikelnummer": "12.03.3",
+      "excel_name": "Mehr/ -Minderleistung",
+      "sb_name": "Dusch/ Wannenbad Gr. bis 6 m² Grundfl.",
+      "excel_preis": 0,
+      "sb_preis": 0
+    },
+    {
+      "artikelnummer": "12.04.2",
+      "excel_name": "Altern. Wannenausführung",
+      "sb_name": "Wannenbad Gr. bis 7,5 m² Grundfl.",
+      "excel_preis": 9299.23,
+      "sb_preis": 8998.56
+    },
+    {
+      "artikelnummer": "12.04.3",
+      "excel_name": "Mehr/ -Minderleistung",
+      "sb_name": "Dusch/ Wannenbad Gr. bis 7,5 m² Grundfl.",
+      "excel_preis": 0,
+      "sb_preis": 0
+    },
+    {
+      "artikelnummer": "12.05.2",
+      "excel_name": "Altern. Wannenausführung",
+      "sb_name": "Wannenbad Gr. bis >7,5m² - ca. 9 m² Grundfl.",
+      "excel_preis": 9879.09,
+      "sb_preis": 9879.09
+    },
+    {
+      "artikelnummer": "12.05.3",
+      "excel_name": "Mehr/ -Minderleistung",
+      "sb_name": "Dusch/ Wannenbad Gr. bis >7,5m² - ca. 9 m² Grundfl.",
+      "excel_preis": 0,
+      "sb_preis": 0
+    },
+    {
+      "artikelnummer": "12.06.1",
+      "excel_name": "Leistungspaket",
+      "sb_name": "Gäste WC",
+      "excel_preis": 5132.83,
+      "sb_preis": 4953.992
+    },
+    {
+      "artikelnummer": "21.01.01.8",
+      "excel_name": "Zulage, Breite bis 1 m",
+      "sb_name": "Kompaktheizkörper, Zulage, Breite bis 1 m",
+      "excel_preis": 55.07,
+      "sb_preis": 52.665
+    },
+    {
+      "artikelnummer": "21.01.01.9",
+      "excel_name": "Zulage, Breite bis 1,5 m",
+      "sb_name": "Kompaktheizkörper, Zulage, Breite bis 1,5 m",
+      "excel_preis": 99.13,
+      "sb_preis": 94.797
+    },
+    {
+      "artikelnummer": "21.01.01.10",
+      "excel_name": "Zulage, Breite bis 2 m",
+      "sb_name": "Kompaktheizkörper, Zulage, Breite bis 2 m",
+      "excel_preis": 126.89,
+      "sb_preis": 121.3402
+    },
+    {
+      "artikelnummer": "21.01.04.03.1",
+      "excel_name": "Rohrlängen 35",
+      "sb_name": "Zi 1-Wohneinheit bis 35 m², Rohrlängen 35",
+      "excel_preis": 1409.83,
+      "sb_preis": 1409.83
+    },
+    {
+      "artikelnummer": "21.01.04.04.1",
+      "excel_name": "Rohrlängen 45",
+      "sb_name": "Zi 1-Wohneinheit bis 45 m², Rohrlängen 45",
+      "excel_preis": 1508.97,
+      "sb_preis": 1443.02
+    },
+    {
+      "artikelnummer": "21.01.04.05.1",
+      "excel_name": "Rohrlängen 45",
+      "sb_name": "Zi 2-Wohneinheit bis 45 m², Rohrlängen 45",
+      "excel_preis": 1707.21,
+      "sb_preis": 1632.6
+    },
+    {
+      "artikelnummer": "21.01.04.06.1",
+      "excel_name": "Rohrlängen50",
+      "sb_name": "Zi 2-Wohneinheit bis 50 m², Rohrlängen 50",
+      "excel_preis": 1861.4,
+      "sb_preis": 1780.06
+    },
+    {
+      "artikelnummer": "21.01.04.07.1",
+      "excel_name": "Rohrlängen55",
+      "sb_name": "Zi 2-Wohneinheit bis 55 m², Rohrlängen 55",
+      "excel_preis": 1916.5,
+      "sb_preis": 1832.74
+    },
+    {
+      "artikelnummer": "21.01.04.08.1",
+      "excel_name": "Rohrlängen65",
+      "sb_name": "Zi 2-Wohneinheit bis 65 m², Rohrlängen 65",
+      "excel_preis": 1960.51,
+      "sb_preis": 1874.83
+    },
+    {
+      "artikelnummer": "21.01.04.11.1",
+      "excel_name": "Rohrlängen50",
+      "sb_name": "Zi 3-Wohneinheit bis 50 m², Rohrlängen 50",
+      "excel_preis": 1916.5,
+      "sb_preis": 1832.74
+    },
+    {
+      "artikelnummer": "21.01.04.12.1",
+      "excel_name": "Rohrlängen55",
+      "sb_name": "Zi 3-Wohneinheit bis 55 m², Rohrlängen 55",
+      "excel_preis": 1850.37,
+      "sb_preis": 1769.5
+    },
+    {
+      "artikelnummer": "21.01.04.13.1",
+      "excel_name": "Rohrlängen65",
+      "sb_name": "Zi 3-Wohneinheit bis 65 m², Rohrlängen 65",
+      "excel_preis": 2037.65,
+      "sb_preis": 1948.59
+    },
+    {
+      "artikelnummer": "21.01.04.14.1",
+      "excel_name": "Rohrlängen75",
+      "sb_name": "Zi 3-Wohneinheit bis 75 m², Rohrlängen 75",
+      "excel_preis": 1960.51,
+      "sb_preis": 1874.83
+    },
+    {
+      "artikelnummer": "21.01.04.15.1",
+      "excel_name": "Rohrlängen85",
+      "sb_name": "Zi 3-Wohneinheit bis 85 m², Rohrlängen 85",
+      "excel_preis": 2059.66,
+      "sb_preis": 1969.65
+    },
+    {
+      "artikelnummer": "21.01.04.16.1",
+      "excel_name": "Rohrlängen75",
+      "sb_name": "Zi 4-Wohneinheit bis 75 m², Rohrlängen 75",
+      "excel_preis": 2004.59,
+      "sb_preis": 1916.98
+    },
+    {
+      "artikelnummer": "21.01.04.17.1",
+      "excel_name": "Rohrlängen100",
+      "sb_name": "Zi 4-Wohneinheit bis 100 m², Rohrlängen 100",
+      "excel_preis": 2059.63,
+      "sb_preis": 1669.62
+    },
+    {
+      "artikelnummer": "21.01.04.18.1",
+      "excel_name": "Rohrlängen100",
+      "sb_name": "Zi 4-Wohneinheit > 100 m², Rohrlängen 100",
+      "excel_preis": 2632.43,
+      "sb_preis": 2517.39
+    },
+    {
+      "artikelnummer": "21.01.04.19.1",
+      "excel_name": "Rohrlängen100",
+      "sb_name": "Zi 5-Wohneinheit bis 100 m², Rohrlängen 100",
+      "excel_preis": 2268.95,
+      "sb_preis": 2169.79
+    },
+    {
+      "artikelnummer": "21.01.04.20.1",
+      "excel_name": "Rohrlängen100",
+      "sb_name": "Zi 5-Wohneinheit > 100 m², Rohrlängen 100",
+      "excel_preis": 2551.49,
+      "sb_preis": 2570.03
+    }
+  ]
+}

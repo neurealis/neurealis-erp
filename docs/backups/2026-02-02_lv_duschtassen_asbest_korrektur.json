@@ -1,0 +1,69 @@
+{
+  "backup_datum": "2026-02-02",
+  "beschreibung": "Backup vor Duschtassen- und Asbestpreiskorrektur",
+  "positionen": [
+    {
+      "artikelnummer": "GWS.LV23-09.02.1",
+      "bezeichnung": "Risse in Balkonbrüstung schließen,< 5 m",
+      "preis": 40.24,
+      "listenpreis": 51.19,
+      "einheit": null,
+      "gewerk": "Ausbesserungsarbeiten",
+      "aktion": "Bezeichnung korrigieren zu 'Risse in Putzfl. schließen,< 5 m', Preis auf 53.16"
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.3",
+      "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 45m²",
+      "preis": 1433.33,
+      "listenpreis": 1720,
+      "einheit": null,
+      "gewerk": "Wohnungspauschalen schadstoffhaltige Böden",
+      "aktion": "Preis auf 2154.52 aktualisieren"
+    },
+    {
+      "artikelnummer": "GWS.LV23-10.01.6",
+      "bezeichnung": "Asbestsanierung: 2 Zi Wohnung mit Küche, Diele bis 65m²",
+      "preis": 1972.00,
+      "listenpreis": 2320,
+      "einheit": null,
+      "gewerk": "Asbestsanierung",
+      "aktion": "Preis auf 2867.32 aktualisieren"
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.10",
+      "bezeichnung": "Zulage Duschtasse Superplan 1000 mm x 1400 mm",
+      "preis": 56.25,
+      "listenpreis": 80,
+      "einheit": null,
+      "gewerk": "Sanitär",
+      "aktion": "listenpreis auf 212.50 aktualisieren"
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.16",
+      "bezeichnung": "Zulage Duschtasse Duschplan 1000 mm x 1400 mm",
+      "preis": 75.00,
+      "listenpreis": 90,
+      "einheit": null,
+      "gewerk": "Sanitär",
+      "aktion": "listenpreis auf 600.88 aktualisieren"
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.17",
+      "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1000 mm",
+      "preis": 104.17,
+      "listenpreis": 154.06,
+      "einheit": null,
+      "gewerk": "Sanitär",
+      "aktion": "listenpreis auf 572.48 aktualisieren"
+    },
+    {
+      "artikelnummer": "GWS.LV23-21.02.01.19",
+      "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1400 mm",
+      "preis": 225.00,
+      "listenpreis": 270,
+      "einheit": null,
+      "gewerk": "Sanitär",
+      "aktion": "listenpreis auf 701.94 aktualisieren"
+    }
+  ]
+}

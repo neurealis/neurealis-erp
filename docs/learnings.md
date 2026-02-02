@@ -1,10 +1,48 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-02-01
+**Stand:** 2026-02-02
 
 ---
 
 ## Kritische Feld-Mappings
+
+### L169 - Hero-LV-Sync nur noch manuell (D048)
+**Datum:** 2026-02-02
+**Kontext:** Hero überschrieb korrigierte Supabase-Preise mit veralteten Werten
+**Problem:** Automatischer Cron `hero-lv-sync-daily` importierte niedrigere Hero-Preise
+**Lösung:**
+1. Cron deaktiviert: `SELECT cron.unschedule('hero-lv-sync-daily')`
+2. Manueller Aufruf bei Bedarf: `curl .../functions/v1/hero-lv-sync`
+3. Supabase ist jetzt LV-Master, nicht Hero
+**Manueller Sync:**
+```bash
+curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync?dry_run=true"
+```
+**Wichtig:** Vor manuellem Sync IMMER dry_run prüfen!
+
+### L168 - Preishistorie-Trigger protokolliert automatisch
+**Datum:** 2026-02-02
+**Kontext:** LV-Preisänderungen müssen nachvollziehbar sein
+**Lösung:** Trigger `trg_lv_preis_historie` existiert und feuert bei UPDATE auf lv_positionen
+**Tabelle:** `lv_preis_historie` mit:
+- `listenpreis_alt`, `listenpreis_neu` (VK)
+- `preis_alt`, `preis_neu` (EK)
+- `aenderung_prozent`, `gueltig_ab`, `quelle`
+**Vorteil:** Keine manuelle Dokumentation nötig, alle Preisänderungen automatisch protokolliert
+
+### L167 - GWS Preisimport-Workflow (Excel→Supabase→Hero)
+**Datum:** 2026-02-02
+**Kontext:** GWS liefert aktualisierte Preise als Excel (Baupreisindex)
+**Workflow:**
+1. **Excel einlesen:** `xlsx` Package, Spalte "EP netto" = VK-Preis
+2. **Artikelnummer-Mapping:** Excel `01.01.2` → Supabase `GWS.LV23-01.01.2`
+3. **Vergleich erstellen:** `scripts/compare_gws_prices_full.js`
+4. **Supabase aktualisieren:** UPDATE lv_positionen SET listenpreis = [EXCEL_PREIS]
+5. **Hero prüfen:** Manuell in Hero Software aktualisieren
+**Dateien:**
+- `docs/gws_price_comparison.json` - Vergleichsergebnis
+- `docs/hero_gws_price_comparison.json` - Hero-Diskrepanzen
+**Wichtig:** Preishistorie-Trigger protokolliert automatisch (L168)
 
 ### L165 - Logo-Pfad für PDF-Generierung zentral in docs/
 **Datum:** 2026-02-01
