@@ -4,6 +4,37 @@
 
 ---
 
+## Marketing / Ads APIs
+
+### L172 - Meta System User Token: App-Permissions erforderlich
+**Datum:** 2026-02-02
+**Kontext:** System User Token generieren für Meta Marketing API
+**Problem:** "Keine Berechtigungen verfügbar" beim Token generieren
+**Lösung:**
+1. App auf developers.facebook.com öffnen
+2. Marketing API Product hinzufügen/aktivieren
+3. Unter "Anwendungsfälle" → "Anpassen" → Permissions aktivieren
+4. Dann erst System User Token generieren
+**Permissions für Ads:** `ads_read`, `ads_management`, `business_management`
+**Wichtig:** System User braucht "Uneingeschränkte Kontrolle" auf die App
+
+### L171 - Meta Business Verification nicht immer nötig
+**Datum:** 2026-02-02
+**Kontext:** Meta Ads API Integration
+**Erkenntnis:** Business Verification ist NICHT für alle Unternehmen erforderlich
+**Prüfen:** Security Center → "Verifizierung für [Business]"
+**Wenn "nicht erforderlich":** Direkt mit API-Integration starten
+**Wenn erforderlich:** 5+ Werktage einplanen, Dokumente bereithalten
+
+### L170 - Meta App-Struktur: Use Cases statt Products
+**Datum:** 2026-02-02
+**Kontext:** Meta hat App-Dashboard umgestellt
+**Alt:** "Produkte hinzufügen" → Marketing API
+**Neu:** "Anwendungsfälle" (Use Cases) → "Werbeanzeigen erstellen und verwalten"
+**Navigation:** App → Use Cases → Anpassen → Berechtigungen aktivieren
+
+---
+
 ## Kritische Feld-Mappings
 
 ### L169 - Hero-LV-Sync nur noch manuell (D048)
@@ -2767,4 +2798,92 @@ IF remote.updated_at > local.updated_at THEN UPDATE;
 
 ---
 
-*Aktualisiert: 2026-02-01*
+### L170 - ER-NU-* Dokumente Vollständigkeitsprüfung
+**Datum:** 2026-02-02
+**Kontext:** Analyse fehlender NU-Rechnungen in Softr/Supabase
+**Methode:** Vergleich ER-Zahl (Zahlungsausgänge) mit ER-NU (Rechnungsdokumente)
+**Ergebnis:**
+- 114 ER-NU-* alle mit ATBS-Nummer ✅
+- 18 Projekte (Phase 5-7) OHNE ER-NU trotz abgeschlossener Arbeiten
+- 4 Projekte mit 56.302 € bezahlt OHNE Rechnungsdokument
+**Kritische ATBS:** 437, 449, 429, 405
+**Query-Pattern:**
+```sql
+-- Zahlungen ohne zugehörige Rechnung finden
+WITH zahlungen AS (SELECT ... FROM softr_dokumente WHERE art_des_dokuments LIKE 'ER-Zahl%'),
+er_nu_docs AS (SELECT ... FROM softr_dokumente WHERE art_des_dokuments LIKE 'ER-NU-%')
+SELECT z.* FROM zahlungen z LEFT JOIN er_nu_docs e ON z.atbs_nummer = e.atbs_nummer WHERE e.er_nu_nr IS NULL;
+```
+
+### L171 - Rechnungsnummern aus Verwendungszweck extrahieren
+**Datum:** 2026-02-02
+**Kontext:** NU-Rechnungsnummern stehen im Verwendungszweck der Zahlungen
+**Muster:** `ReNr [Nummer]` oder `ReNr: [Nummer]` im `notizen` Feld
+**Regex:** `'ReNr[:\s]*([A-Z0-9\-]+)'`
+**Beispiele aus ER-Zahl:**
+- `ReNr RE20250111` → MENNZA GMBH
+- `ReNr 1189` → Antonio Pepe
+- `ReNr 59-2025` → ION WEBER
+**Anwendung:** Automatische Zuordnung von Zahlungen zu Rechnungen
+
+### L172 - NUs senden Rechnungen NICHT per E-Mail mit PDF
+**Datum:** 2026-02-02
+**Kontext:** E-Mail-Sync mit 625 E-Mails durchsucht
+**Befund:** MENNZA, Antonio Pepe, ION WEBER, TOP HANDWERKER senden keine PDF-Anhänge
+**E-Mails von NUs:** Nur Widersprüche, Mängelrückmeldungen, Support-Anfragen
+**Konsequenz:** NU-Rechnungen müssen in SharePoint oder Hero gesucht werden
+**Alternative Quellen:**
+- SharePoint: `/sites/Wohnungssanierung-Finanzen/50 Eingangsrechnungen/`
+- Hero Software: Dokumenten-Upload im Projekt
+
+### L173 - SharePoint Finanzen-Site für Eingangsrechnungen
+**Datum:** 2026-02-02
+**Kontext:** Wo liegen NU-Rechnungen in SharePoint?
+**Sites:**
+- `Wohnungssanierung-Finanzen` (1,81 GB) - ❌ noch nicht synchronisiert
+- `Wohnungssanierung-Projekte` (69,66 GB) - ❌ noch nicht synchronisiert
+**Ordnerstruktur (erwartet):**
+```
+/sites/Wohnungssanierung-Finanzen/
+└── 50 Eingangsrechnungen/
+    └── 2025/
+        └── [Lieferant]/[ReNr].pdf
+```
+**Aktion:** Finanzen-Site synchronisieren für ER-NU-Import
+
+### L174 - Markdown→Elementor Konvertierung via Edge Function
+**Datum:** 2026-02-02
+**Kontext:** WordPress Elementor-Seiten automatisch aus Markdown befüllen
+**Edge Function:** `wordpress-update-elementor` v2
+**Mapping:**
+| Markdown | Elementor |
+|----------|-----------|
+| `# Titel` | Page Title + Slug |
+| `## Kapitel` | Section + Heading Widget (h2) |
+| `### Abschnitt` | `<h3>` im Text Editor Widget |
+| Absätze | `<p>` Tags im editor-Setting |
+**Wichtig:**
+- Elementor-Daten werden in `meta._elementor_data` als JSON-String gespeichert
+- `_elementor_edit_mode: 'builder'` aktiviert Elementor für die Seite
+- X-WP-Auth Header für IONOS-Kompatibilität (L130)
+- Section-IDs müssen 8 Zeichen hex sein (zufällig generiert)
+**Struktur:**
+```json
+[{
+  "id": "8_zeichen_hex",
+  "elType": "section",
+  "settings": { "layout": "boxed" },
+  "elements": [{
+    "elType": "column",
+    "elements": [
+      { "widgetType": "heading", "settings": { "title": "..." } },
+      { "widgetType": "text-editor", "settings": { "editor": "<p>...</p>" } }
+    ]
+  }]
+}]
+```
+**Anwendung:** `node scripts/update_elementor.mjs update`
+
+---
+
+*Aktualisiert: 2026-02-02*

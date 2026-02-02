@@ -85,6 +85,119 @@
 | LOG-070 | 2026-02-01 | SharePoint Sync gestartet + Ingest Status-Seite geplant | Abgeschlossen |
 | LOG-071 | 2026-02-02 | GWS LV-Preisimport 2026: Excel→Supabase + Hero-Vergleich | Abgeschlossen |
 | LOG-072 | 2026-02-02 | ER-NU-* Analyse: Fehlende NU-Rechnungen identifiziert | Abgeschlossen |
+| LOG-073 | 2026-02-02 | WordPress Elementor-Update: Eigenheim-Content automatisiert | Abgeschlossen |
+| LOG-074 | 2026-02-02 | Marketing-Integration: Google Ads + Meta Ads Konzept + DB-Schema | In Arbeit |
+
+---
+
+## LOG-074 - Marketing-Integration: Google Ads + Meta Ads
+**Datum:** 2026-02-02
+**Status:** In Arbeit
+
+### Ziel
+Vollständige Marketing-Tracking-Integration für:
+- Google Ads + Meta Ads Kampagnen-Management
+- Lead-Funnel-Tracking mit Touchpoints
+- ROI-Berechnung und Attribution
+- Landingpage-Management
+
+### Durchgeführt
+
+**Konzept & Dokumentation:**
+- `docs/implementation/marketing_integration_koordination.md` - Gesamtkonzept
+- `docs/META_ADS_SETUP.md` - Meta Business Manager Setup-Anleitung
+- `docs/GOOGLE_ADS_SETUP.md` - Google MCC + API Setup-Anleitung
+
+**DB-Schema (10 Tabellen migriert):**
+- `ad_platforms` - Google + Meta Konfiguration
+- `target_audiences` - 6 Zielgruppen-Segmente
+- `landingpages` - Landing Pages + A/B-Testing
+- `marketing_campaigns` - Kampagnen normalisiert
+- `campaign_metrics_daily` - Tägliche Performance
+- `marketing_leads` - Leads mit Funnel-Status
+- `touchpoints` - Multi-Touch-Tracking
+- `form_submissions` - Formular-Einreichungen
+- `attribution_models` - 5 Attribution-Typen
+- `campaign_attribution` - Attribution pro Lead
+
+**Materialized Views + RPCs:**
+- `mv_campaign_summary` - Dashboard-KPIs
+- `mv_lead_funnel` - Funnel-Statistiken
+- `get_marketing_kpis()` - KPIs abrufen
+- `get_lead_funnel_stats()` - Funnel-Stats
+- `calculate_icp_score()` - Lead-Scoring
+- `calculate_attribution()` - Attribution berechnen
+
+**Meta API Setup:**
+- Business Verification: Nicht erforderlich ✅
+- Pixel ID: `1305800130475673`
+- System User "Admin" Token: Generiert ✅
+- App Permissions: `ads_read`, `ads_management`, `business_management` aktiviert
+
+### Tracking-Status neurealis.de
+| Tool | Status | ID |
+|------|--------|-----|
+| Google Tag Manager | ✅ | GTM-MPNTT5L6 |
+| Google Analytics 4 | ✅ | G-VMYJ4MYVDG |
+| Google Ads Conversion | ✅ | AW-16693451427 |
+| Meta Pixel | ❌ Im GTM einrichten | 1305800130475673 |
+
+### Nächste Schritte
+1. Ad Account ID erfragen
+2. Meta Token in Supabase Vault speichern
+3. Meta Pixel im GTM einrichten
+4. Edge Function `meta-ads-sync` erstellen
+5. Google MCC Account erstellen
+6. Dashboard UI erweitern
+
+### Neue Learnings
+- L170: Meta App-Struktur (Use Cases statt Products)
+- L171: Business Verification nicht immer nötig
+- L172: System User Token braucht App-Permissions
+
+---
+
+## LOG-073 - WordPress Elementor-Update: Eigenheim-Content automatisiert
+**Datum:** 2026-02-02
+**Status:** Abgeschlossen
+
+### Ausgangslage
+User wollte den Eigenheim-Content (`docs/content_eigenheim_sanieren.md`) direkt in die Elementor-Datenstruktur von WordPress Post 12089 einfügen, ohne manuell in Elementor zu formatieren.
+
+### Durchgeführt
+
+**Neue Edge Function `wordpress-update-elementor` v2:**
+- Konvertiert Markdown zu Elementor-JSON-Struktur
+- H2-Überschriften werden zu Sections mit Heading-Widgets
+- H3-Überschriften werden inline zu `<h3>` Tags
+- Absätze werden zu `<p>` Tags
+- Setzt Slug, Status und Title automatisch
+- Nutzt X-WP-Auth Header (IONOS-Workaround L130)
+
+**Markdown→Elementor Mapping:**
+| Markdown | Elementor |
+|----------|-----------|
+| `# Titel` | Page Title |
+| `## Kapitel` | Section + Heading Widget (h2) |
+| `### Abschnitt` | `<h3>` im Text Editor Widget |
+| Absätze | `<p>` Tags im editor-Setting |
+
+**Ergebnis:**
+- 10 Sections aus Markdown generiert
+- Seite erfolgreich aktualisiert
+- Permalink: https://neurealis.de/eigenheim-sanieren/
+
+**Helper-Script:**
+- `scripts/update_elementor.mjs` für CLI-Nutzung
+- `preview` Modus zeigt Struktur vor Update
+- `update` Modus schreibt nach WordPress
+
+### Dateien
+- `functions/supabase/functions/wordpress-update-elementor/index.ts` (lokal)
+- `scripts/update_elementor.mjs`
+
+### Neues Learning
+L170: Markdown→Elementor Konvertierung via Edge Function
 
 ---
 

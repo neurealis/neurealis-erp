@@ -6,6 +6,44 @@
 
 ## Aktueller Projektstatus
 
+### Marketing-Integration Google Ads + Meta Ads (🔄 IN ARBEIT)
+
+**Gestartet:** 2026-02-02
+
+**Konzept & Dokumentation:**
+- `docs/implementation/marketing_integration_koordination.md` ✅
+- `docs/META_ADS_SETUP.md` ✅
+- `docs/GOOGLE_ADS_SETUP.md` ✅
+
+**DB-Schema (10 Tabellen):** ✅ Migriert
+- `ad_platforms`, `target_audiences`, `landingpages`
+- `marketing_campaigns`, `campaign_metrics_daily`
+- `marketing_leads`, `touchpoints`, `form_submissions`
+- `attribution_models`, `campaign_attribution`
+- Views: `mv_campaign_summary`, `mv_lead_funnel`
+
+**Meta API Credentials:** ✅ Beschafft
+- Pixel ID: `1305800130475673`
+- Ad Account ID: `act_4182076658746483`
+- System User Token: Generiert
+
+**Tracking neurealis.de:**
+| Tool | Status |
+|------|--------|
+| GTM | ✅ GTM-MPNTT5L6 |
+| GA4 | ✅ G-VMYJ4MYVDG |
+| Google Ads | ✅ AW-16693451427 |
+| Meta Pixel | ❌ Noch einrichten |
+
+**Nächste Schritte:**
+- [ ] Meta Pixel im GTM einrichten
+- [ ] Token in Supabase Vault speichern
+- [ ] Edge Function `meta-ads-sync` erstellen
+- [ ] Google MCC Account erstellen
+- [ ] Dashboard UI erweitern
+
+---
+
 ### GWS LV-Preisimport 2026 (✅ FERTIG)
 
 **Implementiert:** 2026-02-02

@@ -1,9 +1,19 @@
 # Learnings Summary - neurealis ERP
 
-**Generiert:** 2026-02-02
+**Generiert:** 2026-02-02 (aktualisiert)
 **Volltext:** docs/learnings.md
 
 > Diese Datei ist ein kompakter Index. Bei Bedarf Volltext lesen.
+
+---
+
+## Marketing / Ads APIs
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L172 | Meta System User Token: App-Permissions erforderlich | Marketing API in App aktivieren, dann Token generieren |
+| L171 | Meta Business Verification nicht immer nötig | Security Center prüfen, oft direkt API-Zugang möglich |
+| L170 | Meta App-Struktur: Use Cases statt Products | "Anwendungsfälle" → "Anpassen" für Permissions |
 
 ---
 
@@ -408,6 +418,7 @@
 | L131 | WordPress API Discovery: 485 Routen | /wp-json/ für vollständiges Schema |
 | L132 | Elementor speichert in _elementor_data | JSON-Array mit Sections/Columns/Widgets |
 | L133 | Yoast SEO Meta via _yoast_wpseo_* | title, metadesc, focuskw als Post-Meta |
+| L174 | Markdown→Elementor Konvertierung | Edge Function für automatische Seiten-Befüllung |
 
 ---
 
@@ -428,6 +439,17 @@
 
 ---
 
-**Anzahl Learnings:** 169 (L001-L169, ohne Duplikate bei L053/L143/L144)
+## Finanzen / Controlling
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L170 | ER-NU-* Vollständigkeitsprüfung | Query-Pattern: ER-Zahl vs ER-NU vergleichen |
+| L171 | Rechnungsnummern aus Verwendungszweck | Regex `ReNr[:\s]*([A-Z0-9\-]+)` aus notizen |
+| L172 | NUs senden keine E-Mail-PDFs | MENNZA, Pepe, Weber - Rechnungen in SharePoint |
+| L173 | SharePoint Finanzen-Site | `/50 Eingangsrechnungen/` für ER-NU |
+
+---
+
+**Anzahl Learnings:** 174 (L001-L174, ohne Duplikate bei L053/L143/L144)
 
 *Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values). Die zweiten Vorkommen sollten umnummeriert werden.*
