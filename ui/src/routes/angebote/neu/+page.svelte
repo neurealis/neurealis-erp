@@ -244,6 +244,22 @@
 					};
 				}
 
+				// FIX: Wenn keine lv_position aber Alternativen vorhanden, beste Alternative nehmen
+				if (!initialPosition && sortedAlternativen.length > 0) {
+					const bestAlt = sortedAlternativen[0];
+					const preis = bestAlt.listenpreis || bestAlt.einzelpreis || 0;
+					initialPosition = {
+						id: bestAlt.id,
+						artikelnummer: bestAlt.artikelnummer,
+						bezeichnung: bestAlt.bezeichnung,
+						einzelpreis: preis,
+						listenpreis: preis,
+						is_fallback: false,
+						lv_typ: bestAlt.lv_typ
+					};
+					console.log(`[CPQ] Keine lv_position, verwende beste Alternative: ${initialPosition.bezeichnung}`);
+				}
+
 				// NEU: Auto-Collapse wenn hohe Konfidenz (similarity > 0.9)
 				const topSimilarity = sortedAlternativen[0]?.similarity || 0;
 				const autoCollapse = topSimilarity > 0.9 && initialPosition !== null;

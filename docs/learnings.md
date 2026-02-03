@@ -6,6 +6,25 @@
 
 ## Telegram Bot
 
+### L202 - Edge Functions: POST+GET Support für Subagenten-Aufrufe
+**Datum:** 2026-02-04
+**Kategorie:** Supabase/Edge Functions
+**Problem:** Subagent konnte `email-search` nicht aufrufen - GET mit mehrteiligen Parametern schlug fehl
+**Ursache:** URL-Encoding von Leerzeichen führt zu Parsing-Fehlern bei komplexen Suchbegriffen
+**Lösung:** Edge Functions sollten BEIDE Methoden unterstützen:
+```typescript
+if (req.method === 'POST') {
+  const body = await req.json();
+  query = body.query;
+} else {
+  query = url.searchParams.get('query');
+}
+```
+**Merkregel:** POST für komplexe Parameter, GET als Fallback für einfache Aufrufe
+**Fix:** `email-search` v4 deployed
+
+---
+
 ### L200 - Intent-Detection: Quick-Check vor GPT spart Tokens
 **Datum:** 2026-02-04
 **Kategorie:** Telegram/KI
@@ -30,6 +49,73 @@ Text → quickIntentCheck() → Intent erkannt? → Action ausfuehren
                                 → Nein → Fallback auf Modus-Routing
 ```
 **Wichtig:** Laufende Workflows (mangel_erfassen, nachtrag_erfassen, etc.) NICHT unterbrechen
+
+---
+
+## CPQ / Angebote
+
+### L203 - transcription-parse: Staffel-Relevanz vor Staffel-Priorisierung prüfen
+**Datum:** 2026-02-04
+**Kategorie:** CPQ/LV-Matching
+**Problem:** Wohnungsgröße-Staffel wurde auf ALLE Positionen angewendet, auch nicht-staffel-relevante
+**Beispiel:**
+- Input: "Zulage Duschabtrennung freistehend"
+- FALSCH gewählt: "HZ-Leisten 45-75 m²" (Staffel-Match, aber schlechte Similarity)
+- RICHTIG wäre: "Zulage Duschabtrennung" (hohe Similarity, keine Staffel)
+**Lösung:** Prüfe ob Artikelname selbst Staffel-Pattern enthält:
+```typescript
+// Staffel NUR wenn Artikelname Pattern enthält
+function hatArtikelStaffelBezug(bezeichnung: string): boolean {
+  const patterns = [/\d+[\s–-]+\d*\s*m[²2]/i, /bis\s*\d+\s*m[²2]/i];
+  return patterns.some(p => p.test(bezeichnung));
+}
+```
+**Korrekte Logik:**
+1. Input OHNE Staffel → Pure Similarity-Sortierung
+2. Input MIT Staffel + Wohnungsgröße bekannt → Staffel-Priorisierung
+3. Finale Auswahl: IMMER höchste Similarity als `lv_position`
+
+---
+
+### L204 - Monday text57__1/text573__1 sind Kunde Vorname/Nachname, nicht NU
+**Datum:** 2026-02-04
+**Kategorie:** Monday/Sync
+**Problem:** `text57__1` wurde als `nu_firma` gemappt, ist aber Kunde Vorname
+**Korrektur:**
+| Spalte | War | Korrekt |
+|--------|-----|---------|
+| `text57__1` | nu_firma | kunde_vorname |
+| `text573__1` | - | kunde_nachname |
+**Merkregel:** Monday-Spalten-IDs prüfen über Board → Column Settings → API ID
+
+### L205 - Monday Connect Boards brauchen separaten API-Lookup
+**Datum:** 2026-02-04
+**Kategorie:** Monday/API
+**Problem:** NU-Daten stecken in Connect Board `subunternehmer_126` (board_relation Typ)
+**Ursache:** Connect Board enthält nur Item-ID, nicht die Daten selbst
+**Lösung:** Separater GraphQL Query mit `linked_items` oder `boards(ids: [CONNECTED_BOARD_ID])`
+**Merkregel:** `board_relation` Spalten enthalten nur Referenzen, Daten müssen nachgeladen werden
+
+### L206 - Svelte 5: Array-Mutation braucht komplette Neuzuweisung
+**Datum:** 2026-02-04
+**Kategorie:** UI/Svelte
+**Problem:** `positionen.push()` oder `.splice()` triggert kein Re-Render in Svelte 5
+**Lösung:** Array komplett neu zuweisen: `positionen = [...positionen, neuesItem]`
+**Merkregel:** Svelte 5 Runes brauchen neue Referenz für Reaktivität
+
+### L207 - VBW-Staffel nur bei Artikeln mit m²-Bezug anwenden
+**Datum:** 2026-02-04
+**Kategorie:** CPQ/LV-Matching
+**Problem:** Wohnungsgröße-Staffel wurde auf alle Positionen angewendet
+**Lösung:** `hatArtikelStaffelBezug()` prüft Staffel-Pattern im Artikelnamen
+**Merkregel:** "45-75 m²" im Namen = Staffel-relevant, sonst ignorieren
+
+### L208 - lv_position null: Beste Alternative als Fallback
+**Datum:** 2026-02-04
+**Kategorie:** CPQ/UI
+**Problem:** Step 4 crashte wenn lv_position null war
+**Lösung:** Automatisch beste Alternative aus alternativen[] wählen
+**Merkregel:** Immer Fallback-Logik für optionale Verknüpfungen
 
 ---
 

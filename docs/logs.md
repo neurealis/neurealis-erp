@@ -104,6 +104,207 @@
 | LOG-089 | 2026-02-03 | Graph API Archive-Suche + email-search Function | Abgeschlossen |
 | LOG-090 | 2026-02-04 | Telegram Universal Voice: Intent-Detection + One-Shot Commands | Abgeschlossen |
 | LOG-091 | 2026-02-04 | Telegram v91-phase2: Bug-Fixes + Korrektur + Followup + Foto-Kontext | Abgeschlossen |
+| LOG-092 | 2026-02-04 | email-search POST+GET Fix + Bach-Abrechnungen Download | Abgeschlossen |
+| LOG-093 | 2026-02-04 | transcription-parse v7: LV-Matching + Staffel-Relevanz Fix | Abgeschlossen |
+| LOG-094 | 2026-02-04 | Monday-Sync Kunden-Mapping Fix: text57/text573 sind Kunde, nicht NU | Abgeschlossen |
+| LOG-095 | 2026-02-04 | CPQ-Wizard Fixes: Preis-Bug, Mülleimer, Einklappbar, Step 4 Fallback | Abgeschlossen |
+
+---
+
+## LOG-095 - CPQ-Wizard Fixes: Preis-Bug, Mülleimer, Einklappbar, Step 4 Fallback
+**Datum:** 2026-02-04
+
+### Anforderung
+Mehrere Bugs und Verbesserungen im CPQ-Wizard (Angebots-Konfigurator) umsetzen.
+
+### Durchgeführte Arbeiten
+
+**1. Preis-Bug gefixt: listenpreis (VK) statt einzelpreis (EK)**
+- Problem: UI zeigte Einkaufspreise statt Verkaufspreise
+- Fix: Alle Funktionen auf `listenpreis` umgestellt
+
+**2. Mülleimer-Icon für Entfernen-Button**
+- Problem: Entfernen-Button hatte kein klares Icon
+- Fix: Korrektes Trash-Icon hinzugefügt
+
+**3. Einklappbare LV-Vorschläge**
+- Problem: Zu viele LV-Vorschläge überforderten die UI
+- Fix: Auto-Collapse bei >90% Match-Confidence
+
+**4. search-lv Edge Function erstellt**
+- Embedding-basierte LV-Suche mit Fallback
+- Deployed und getestet
+
+**5. transcription-parse v7: Matching-Bug**
+- Problem: Position mit niedrigerer Similarity wurde als lv_position gewählt
+- Fix: `waehleBestePositionNachSimilarity()` sortiert nach Similarity DESC
+
+**6. Wohnungsgröße-Kontext**
+- VBW-Staffelpreise nur wenn Artikelname selbst Staffel-Pattern enthält
+- Neue Funktion `hatArtikelStaffelBezug()`
+
+**7. position_dependencies: Alias-Spalten**
+- Neue Spalten für Alias-Matching hinzugefügt
+- UI entsprechend angepasst
+
+**8. Step 4 Fallback**
+- Problem: Crash wenn lv_position null
+- Fix: Beste Alternative wird automatisch gewählt
+
+### Telegram-Bot
+- Intent-Detection v90 committed und gepusht
+- Email-Search Function deployed
+
+### Nutzerverwaltung
+- Implementierungsplan erstellt: `docs/implementation/nutzerverwaltung_plan.md`
+
+### Betroffene Dateien
+- `supabase/functions/transcription-parse/index.ts` → v7 (Version 16)
+- `supabase/functions/search-lv/index.ts` → neu erstellt
+- `ui/src/routes/angebote/neu/+page.svelte`
+- `docs/implementation/nutzerverwaltung_plan.md`
+
+### Learnings
+- L206: Svelte 5 braucht komplette Array-Neuzuweisung
+- L207: VBW-Staffel nur bei Artikeln mit m²-Bezug
+- L208: Beste Alternative als Fallback wenn lv_position null
+
+---
+
+## LOG-094 - Monday-Sync Kunden-Mapping Fix: text57/text573 sind Kunde, nicht NU
+**Datum:** 2026-02-04
+
+### Anforderung
+Monday.com Spalten-Mapping korrigieren - `text57__1` und `text573__1` wurden fälschlich als Nachunternehmer (NU) gemappt, sind aber Kunde Vorname/Nachname.
+
+### Problem
+**Falsches Mapping in monday-sync:**
+| Spalte | War gemappt als | Korrekt |
+|--------|-----------------|---------|
+| `text57__1` | `nu_firma` | `kunde_vorname` |
+| `text573__1` | (nicht gemappt) | `kunde_nachname` |
+
+**Korrektes NU-Mapping aus Connect Boards:**
+| Spalte | Monday-Spalte | Typ |
+|--------|---------------|-----|
+| `subunternehmer_126` | board_relation | Connect Board → NU |
+| `e_mail9__1` | email | NU E-Mail |
+| `telefon_mkn38x15` | phone | NU Telefon |
+| `text47__1` | text | NU Ansprechpartner |
+
+### Lösung
+
+**1. DB-Migration: Neue Spalten hinzugefügt**
+```sql
+ALTER TABLE monday_bauprozess ADD COLUMN IF NOT EXISTS kunde_vorname TEXT;
+ALTER TABLE monday_bauprozess ADD COLUMN IF NOT EXISTS kunde_nachname TEXT;
+ALTER TABLE monday_bauprozess ADD COLUMN IF NOT EXISTS kunde_typ TEXT;
+ALTER TABLE monday_bauprozess ADD COLUMN IF NOT EXISTS kunde_firma TEXT;
+ALTER TABLE monday_bauprozess ADD COLUMN IF NOT EXISTS kunde_adresse TEXT;
+```
+
+**2. monday-sync v4: Mapping korrigiert**
+```typescript
+// ALT (falsch):
+nu_firma: extractTextValue(cv.text57__1),
+
+// NEU (korrekt):
+kunde_vorname: extractTextValue(cv.text57__1),
+kunde_nachname: extractTextValue(cv.text573__1),
+kunde_typ: extractLabelValue(cv.dropdown7__1),
+nu_firma: '', // Aus Connect Board, später via separatem Lookup
+```
+
+**3. DB-Trigger für automatische Extraktion**
+Trigger extrahiert automatisch aus `column_values` JSONB bei Monday-Sync.
+
+### Betroffene Dateien
+- `functions/supabase/functions/monday-sync/index.ts` → v4 deployed
+- DB: `monday_bauprozess` Tabelle (5 neue Spalten)
+
+### Ergebnis
+- Telegram-Bot zeigt jetzt korrekte Kunde/NU-Daten
+- Mängel/Nachträge erhalten richtige Stammdaten aus Monday
+- Connect Board Lookup für NU-Details separat implementieren (TODO)
+
+### Git Commits
+- `0021cd8` - fix(monday-sync): Kunden-Spalten richtig mappen
+- `7073b9e` - feat(monday-sync): DB-Trigger für automatische Extraktion
+
+### Learnings
+- L204: Monday text57/text573 sind Kunde Vorname/Nachname, nicht NU
+- L205: Connect Boards (subunternehmer_126) brauchen separaten API-Lookup
+
+---
+
+## LOG-093 - transcription-parse v7: LV-Matching + Staffel-Relevanz Fix
+**Datum:** 2026-02-04
+
+### Anforderung
+Zwei kritische Bugs in der transcription-parse Edge Function fixen:
+1. Falsches Initial-Matching: Position mit niedrigerer Similarity wurde als lv_position gewählt
+2. Staffel wird auf alle Positionen angewendet, auch wenn nicht relevant
+
+### Bug 1: Falsches Initial-Matching
+
+**Problem:** KI wählte oft falsche Position, obwohl richtige in Alternativen mit höherer Similarity erschien.
+- Beispiel: "Zulage Duschabtrennung freistehend"
+- Gewählt: "HZ-Leisten liefern und montieren von 45–75 m²" (FALSCH)
+- In Alternativen: "Zulage Duschabtrennung freistehend" mit höherer Similarity (RICHTIG)
+
+**Ursache:** Staffel-Sortierung priorisierte Positionen mit Staffel-Match vor Similarity.
+
+**Fix:** Neue Funktion `waehleBestePositionNachSimilarity()` sortiert finale Ergebnisse nach Similarity DESC.
+
+### Bug 2: Staffel falsch angewendet
+
+**Problem:** Wohnungsgröße-Staffel wurde auf ALLE Positionen angewendet, auch wenn Artikelname keine Staffel enthält.
+- "Zulage Duschabtrennung freistehend" hat keine Staffel → sollte ignoriert werden
+- "HZ-Leisten 45-75 m²" hat Staffel → Staffel-Priorisierung sinnvoll
+
+**Fix:** Neue Funktion `hatArtikelStaffelBezug()` prüft ob Artikelname Staffel-Pattern enthält:
+```typescript
+// Patterns: 45-75 m², bis 45 m², über 110 m², von 45-75 m², 45 m²
+const staffelPatterns = [
+  /\d+[\s–-]+\d*\s*m[²2]/i,
+  /bis\s*\d+\s*m[²2]/i,
+  /über\s*\d+\s*m[²2]/i,
+  /von\s*\d+[\s–-]*\d*\s*m[²2]/i,
+  /\d+\s*m[²2]/i
+];
+```
+
+### Implementierte Änderungen
+
+| Änderung | Beschreibung |
+|----------|--------------|
+| `hatArtikelStaffelBezug()` | Prüft ob Bezeichnung Staffel-Pattern enthält |
+| `sortiereUndWaehleBestePosition()` | Sortiert nur mit Staffel wenn Input+Ergebnis staffel-relevant |
+| `waehleBestePositionNachSimilarity()` | Finale Sortierung nach Similarity DESC |
+| Alle 3 Matching-Schritte | Nutzen jetzt korrekte Sortierlogik |
+| Finaler Match | Wird nach Similarity gewählt, nicht nach Staffel |
+
+### Korrekte Logik jetzt
+
+1. **Input OHNE Staffel** (z.B. "Zulage Duschabtrennung"):
+   - Pure Similarity-Sortierung
+   - Keine Staffel-Priorisierung
+
+2. **Input MIT Staffel** (z.B. "HZ-Leisten 45-75 m²"):
+   - Wenn Wohnungsgröße bekannt: Passende Staffel bevorzugen
+   - Innerhalb gleicher Staffel: Nach Similarity sortieren
+
+3. **Finale Auswahl:**
+   - IMMER Position mit höchster Similarity als `lv_position`
+   - Alternativen auch nach Similarity sortiert
+
+### Deployment
+- **Function:** transcription-parse v7 (Version 16)
+- **Deployed:** 2026-02-04
+- **verify_jwt:** true (User-Auth erforderlich)
+
+### Neues Learning
+L200: transcription-parse Staffel-Relevanz prüfen
 
 ---
 
@@ -160,6 +361,78 @@ Status: ✅ Erfolgreich deployed
 
 ### Koordination
 `docs/implementation/telegram_voice_phase2_koordination.md` - Alle 6 Tasks (T1-T6) auf Fertig gesetzt
+
+---
+
+## LOG-092 - email-search POST+GET Fix + Bach-Abrechnungen Download
+**Datum:** 2026-02-04
+
+### Anforderung
+1. email-search Edge Function Bug fixen (Subagenten konnten nicht suchen)
+2. 102 PDF-Abrechnungen von Bach/Immobilienverwaltung herunterladen
+3. Aaron Bach Kontakt mit E-Mail aktualisieren
+
+### Problem: email-search nur GET
+
+**Symptom:** Subagenten schlugen fehl bei `email-search` Aufruf
+**Ursache:** Function akzeptierte nur GET-Requests mit URL-Parametern
+**Problem bei GET:** Mehrteilige Suchbegriffe wie "Abrechnung Mietobjekte" wurden falsch kodiert
+
+### Lösung: POST+GET Support
+
+**email-search v4:**
+```typescript
+// Jetzt beide Methoden unterstützt
+if (req.method === 'POST') {
+  const body = await req.json();
+  query = body.query;
+  // ...
+} else {
+  const url = new URL(req.url);
+  query = url.searchParams.get('query');
+}
+```
+
+**KQL-Formatierung für Phrasen:**
+```typescript
+function formatKqlQuery(field: string, value: string): string {
+  // Mehrteilige Werte in einfache Anführungszeichen
+  if (value.includes(' ')) {
+    return `${field}:'${value}'`;
+  }
+  return `${field}:${value}`;
+}
+```
+
+### Kontakt-Update
+
+**Aaron Bach:**
+- E-Mail hinzugefügt: `a.bach@immobilienverwaltung-bach.de`
+- Kontakt in `kontakte` Tabelle aktualisiert
+
+### Bach-Abrechnungen Download
+
+**Ergebnis:**
+| Metrik | Wert |
+|--------|------|
+| E-Mails gefunden | 59 |
+| PDFs heruntergeladen | 102 |
+| ZIPs zum Löschen | 16 |
+| Zeitraum | 2023-2026 |
+
+**Download-Pfad:** `C:\Users\holge\Downloads\Bach_Abrechnungen\`
+
+**ZIP-Analyse:** 16 ZIPs können gelöscht werden (durch einzelne PDFs ersetzt)
+
+### Commits
+| Hash | Beschreibung |
+|------|--------------|
+| `550afed` | Telegram-Webhook: Learning-System, LV-Override, Cross-LV-Suche |
+| `b6faa78` | email-search: POST+GET Support für mehrteilige Suchbegriffe |
+
+### Neue Learnings
+- L202: email-search POST+GET nötig für Subagenten (GET-Encoding-Probleme)
+- L199: Graph API KQL Phrasen in einfachen Anführungszeichen (bereits dokumentiert)
 
 ---
 

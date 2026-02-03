@@ -1,10 +1,124 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-04 01:30 (aktualisiert)
+**Stand:** 2026-02-04 (aktualisiert nach LOG-095)
 
 ---
 
 ## Aktueller Projektstatus
+
+### CPQ-Wizard Fixes (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**8 Verbesserungen implementiert:**
+| # | Fix | Beschreibung |
+|---|-----|--------------|
+| 1 | Preis-Bug | listenpreis (VK) statt einzelpreis (EK) |
+| 2 | Mülleimer-Icon | Entfernen-Button mit klarem Icon |
+| 3 | Einklappbar | LV-Vorschläge Auto-Collapse bei >90% Match |
+| 4 | search-lv | Embedding-basierte LV-Suche mit Fallback |
+| 5 | Matching-Bug | Beste Similarity als lv_position gewählt |
+| 6 | Staffel-Kontext | VBW nur wenn Artikelname Staffel enthält |
+| 7 | Alias-Spalten | position_dependencies erweitert |
+| 8 | Step 4 Fallback | Beste Alternative wenn lv_position null |
+
+**Weitere Arbeiten:**
+- Telegram Intent-Detection v90 gepusht
+- email-search Function deployed
+- Nutzerverwaltung-Plan erstellt
+
+**Neue Learnings:** L206, L207, L208
+
+---
+
+### Monday-Sync Kunden-Mapping Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**Problem:** `text57__1` und `text573__1` waren falsch als NU gemappt, sind aber Kunde Vorname/Nachname.
+
+**Korrigiertes Mapping:**
+| Spalte | War | Korrekt |
+|--------|-----|---------|
+| `text57__1` | nu_firma | kunde_vorname |
+| `text573__1` | - | kunde_nachname |
+
+**Neue Spalten in monday_bauprozess:**
+- `kunde_vorname`, `kunde_nachname`, `kunde_typ`, `kunde_firma`, `kunde_adresse`
+
+**NU-Mapping korrigiert (Connect Boards):**
+- `subunternehmer_126` → NU Board Relation
+- `e_mail9__1` → NU E-Mail
+- `telefon_mkn38x15` → NU Telefon
+- `text47__1` → NU Ansprechpartner
+
+**Deployments:**
+- monday-sync v4 deployed
+- DB-Trigger für automatische Extraktion
+
+**Git Commits:** `0021cd8`, `7073b9e`
+
+**Ergebnis:** Telegram-Bot zeigt jetzt korrekte Kunde/NU-Daten
+
+**Neue Learnings:** L204, L205
+
+---
+
+### transcription-parse v7: LV-Matching + Staffel Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**Problem 1:** Falsches Initial-Matching - Position mit niedrigerer Similarity wurde gewählt
+- Beispiel: "Zulage Duschabtrennung" → "HZ-Leisten 45-75 m²" (FALSCH)
+- Richtige Position in Alternativen mit höherer Similarity
+
+**Problem 2:** Wohnungsgröße-Staffel auf ALLE Positionen angewendet
+- Staffel nur relevant wenn Artikelname selbst Staffel enthält
+- "Zulage Duschabtrennung" hat keine Staffel → Ignorieren
+- "HZ-Leisten 45-75 m²" hat Staffel → Staffel-Priorisierung OK
+
+**Fixes in v7:**
+| Fix | Beschreibung |
+|-----|--------------|
+| `hatArtikelStaffelBezug()` | Prüft ob Bezeichnung Staffel-Pattern enthält |
+| `waehleBestePositionNachSimilarity()` | Finale Sortierung nach Similarity DESC |
+| Staffel-Logik | NUR wenn Input UND Ergebnis staffel-relevant |
+
+**Deployment:** transcription-parse v7 (Version 16) deployed
+
+**Neues Learning:** L203
+
+---
+
+### email-search POST+GET Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**Problem:** Subagenten konnten `email-search` nicht aufrufen - GET mit mehrteiligen Suchbegriffen schlug fehl
+**Lösung:** POST+GET Support implementiert, POST für komplexe Parameter
+
+**email-search v4 deployed:**
+- POST-Body für komplexe Queries
+- GET-URL-Parameter als Fallback
+- KQL-Phrasen-Formatierung mit einfachen Anführungszeichen
+
+**Commit:** `b6faa78`
+
+---
+
+### Bach-Abrechnungen Download (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**102 PDF-Abrechnungen** von Bach/Immobilienverwaltung heruntergeladen:
+- Zeitraum: 2023-2026
+- Pfad: `C:\Users\holge\Downloads\Bach_Abrechnungen\`
+- 16 ZIPs können gelöscht werden (durch einzelne PDFs ersetzt)
+
+**Kontakt-Update:**
+- Aaron Bach E-Mail: `a.bach@immobilienverwaltung-bach.de`
+
+---
 
 ### Telegram Universal Voice v90 (✅ FERTIG)
 
