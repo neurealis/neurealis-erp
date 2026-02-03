@@ -388,4 +388,6 @@ export interface NachtragPosition {
   einzelpreis?: number;
   gesamtpreis?: number;
   similarity?: number;
+  matched_via?: 'learning' | 'embedding' | 'none' | 'error';  // Wie wurde gematcht?
+  matched_lv_typ?: string;  // Aus welchem LV wurde gematcht?
 }

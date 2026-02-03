@@ -61,13 +61,17 @@ export async function handleNachtragText(chatId: number, session: any, text: str
   let positionen: NachtragPosition[] = [];
   let summeNetto = 0;
   let lvTyp = 'GWS';
+  let originalEingabe = text;  // Original-Spracheingabe speichern
+  let lvOverrideDetected = false;
 
   try {
-    const result = await processNachtragBeschreibung(text, projektNr);
+    const result = await processNachtragBeschreibung(text, projektNr, text);
     positionen = result.positionen;
     summeNetto = result.summe_netto;
     lvTyp = result.lv_typ;
-    console.log(`[Nachtrag] LV-Matching: ${positionen.length} Positionen, Summe: ${summeNetto.toFixed(2)}€, LV-Typ: ${lvTyp}`);
+    originalEingabe = result.original_eingabe || text;
+    lvOverrideDetected = result.lv_override_detected || false;
+    console.log(`[Nachtrag] LV-Matching: ${positionen.length} Positionen, Summe: ${summeNetto.toFixed(2)}€, LV-Typ: ${lvTyp}${lvOverrideDetected ? ' (Override)' : ''}`);
   } catch (e) {
     console.error('[Nachtrag] LV-Matching Fehler:', e);
     // Bei Fehler: Nachtrag trotzdem speichern, aber ohne Positionen
@@ -76,13 +80,14 @@ export async function handleNachtragText(chatId: number, session: any, text: str
   // Projekt-Stammdaten laden (BL, NU, NUA-Nr, Marge, etc.)
   const stammdaten = await getProjektStammdaten(projektNr);
 
-  // Nachtrag in DB speichern
+  // Nachtrag in DB speichern (inkl. original_eingabe)
   const { data: newNachtrag, error } = await supabase
     .from('nachtraege')
     .insert({
       atbs_nummer: projektNr,
       nachtrag_nr: nachtragNr,
       beschreibung: text,
+      original_eingabe: originalEingabe,  // NEU: Original-Spracheingabe
       status: 'Gemeldet',
       gemeldet_von: gemeldet_von,
       melder_name: melder_name,
@@ -116,42 +121,69 @@ export async function handleNachtragText(chatId: number, session: any, text: str
     }
   });
 
-  // Formatierte Antwort mit LV-Positionen
-  let positionenText = '';
+  // Formatierte Antwort mit Original-Eingabe und LV-Positionen
+  let responseText = `<b>✅ Nachtrag erfasst:</b>\n\n`;
+  responseText += `Nr: <b>${nachtragNr}</b>\n\n`;
+
+  // Original-Eingabe anzeigen
+  responseText += `<b>📝 Ihre Eingabe:</b>\n`;
+  responseText += `<i>${originalEingabe.substring(0, 150)}${originalEingabe.length > 150 ? '...' : ''}</i>\n`;
+
+  // LV-Override Info wenn erkannt
+  if (lvOverrideDetected) {
+    responseText += `\n🔄 <i>LV-Override erkannt → Suche in ${lvTyp}</i>\n`;
+  }
+
+  // LV-Positionen anzeigen
   if (positionen.length > 0) {
     const matchedCount = positionen.filter(p => p.lv_position_id).length;
-    positionenText = `\n\n<b>📊 LV-Analyse (${lvTyp}):</b>\n`;
-    positionenText += `Positionen: ${positionen.length} (${matchedCount} mit LV-Match)\n`;
+    const learningCount = positionen.filter(p => p.matched_via === 'learning').length;
 
-    // Positionen auflisten (max. 5) mit Artikelnummer und Einzelpreis
+    responseText += `\n<b>📊 Erkannte Positionen (${lvTyp}):</b>\n`;
+
+    // Positionen auflisten (max. 5) mit Matching-Quelle
     const displayPositionen = positionen.slice(0, 5);
     for (const pos of displayPositionen) {
-      const match = pos.lv_position_id ? '✅' : '⚠️';
-      const artNr = pos.artikelnummer ? `Art: ${pos.artikelnummer}` : '';
-      const ep = pos.einzelpreis ? `EP: ${pos.einzelpreis.toFixed(2)}€` : '';
-      const details = [artNr, ep].filter(Boolean).join(', ');
-      const detailsStr = details ? ` (${details})` : '';
+      // Matching-Icon: 🎓 Learning, ✅ Embedding, ⚠️ kein Match
+      let matchIcon = '⚠️';
+      if (pos.matched_via === 'learning') {
+        matchIcon = '🎓';
+      } else if (pos.lv_position_id) {
+        matchIcon = '✅';
+      }
+
+      // LV-Typ anzeigen wenn Cross-LV-Suche
+      const lvInfo = pos.matched_lv_typ && pos.matched_lv_typ !== lvTyp
+        ? ` [${pos.matched_lv_typ}]`
+        : '';
+
+      const ep = pos.einzelpreis ? ` ${pos.einzelpreis.toFixed(2)}€` : '';
       const gp = pos.gesamtpreis ? ` → ${pos.gesamtpreis.toFixed(2)}€` : '';
-      positionenText += `${match} ${pos.menge} ${pos.einheit} ${pos.beschreibung.substring(0, 25)}${pos.beschreibung.length > 25 ? '...' : ''}${detailsStr}${gp}\n`;
+
+      responseText += `${matchIcon} ${pos.menge} ${pos.einheit} ${pos.beschreibung.substring(0, 22)}${pos.beschreibung.length > 22 ? '...' : ''}${lvInfo}${ep}${gp}\n`;
     }
 
     if (positionen.length > 5) {
-      positionenText += `... und ${positionen.length - 5} weitere\n`;
+      responseText += `<i>... und ${positionen.length - 5} weitere</i>\n`;
     }
 
+    // Statistik
+    responseText += `\n<i>${matchedCount}/${positionen.length} gematcht`;
+    if (learningCount > 0) {
+      responseText += `, ${learningCount}x Learning`;
+    }
+    responseText += `</i>\n`;
+
     if (summeNetto > 0) {
-      positionenText += `\n<b>Geschätzte Netto-Summe: ${summeNetto.toFixed(2)}€</b>`;
+      responseText += `\n<b>Summe netto: ${summeNetto.toFixed(2)}€</b>`;
     } else {
-      positionenText += `\n<i>Keine Preise ermittelt - manuelle Prüfung erforderlich</i>`;
+      responseText += `\n<i>Keine Preise ermittelt</i>`;
     }
   }
 
-  await sendMessage(chatId,
-    `<b>✅ Nachtrag erfasst:</b>\n\n` +
-    `Nr: <b>${nachtragNr}</b>\n` +
-    `Beschreibung: ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}` +
-    positionenText +
-    `\n\nMöchtest du ein Foto hinzufügen?`,
+  responseText += `\n\nMöchtest du ein Foto hinzufügen?`;
+
+  await sendMessage(chatId, responseText,
     { reply_markup: { inline_keyboard: [
       [{ text: "📷 Foto hinzufügen", callback_data: "nachtrag:add_foto" }],
       [{ text: "✅ Fertig (ohne Foto)", callback_data: "bau:menu" }]
@@ -253,11 +285,13 @@ export async function saveNachtrag(chatId: number, session: Session): Promise<vo
   // LV-Matching auch hier durchführen
   let positionen: NachtragPosition[] = [];
   let summeNetto = 0;
+  let originalEingabe = beschreibung;
 
   try {
-    const result = await processNachtragBeschreibung(beschreibung, projektNr);
+    const result = await processNachtragBeschreibung(beschreibung, projektNr, beschreibung);
     positionen = result.positionen;
     summeNetto = result.summe_netto;
+    originalEingabe = result.original_eingabe || beschreibung;
   } catch (e) {
     console.error('[Nachtrag/saveNachtrag] LV-Matching Fehler:', e);
   }
@@ -271,6 +305,7 @@ export async function saveNachtrag(chatId: number, session: Session): Promise<vo
       atbs_nummer: projektNr,
       nachtrag_nr: nachtragNummer,
       beschreibung: beschreibung,
+      original_eingabe: originalEingabe,  // NEU: Original-Spracheingabe
       status: 'Gemeldet',
       gemeldet_von: gemeldetVon,
       positionen: positionen.length > 0 ? positionen : null,
