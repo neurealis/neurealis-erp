@@ -79,7 +79,10 @@ async function getAccessToken(): Promise<string> {
 }
 
 /**
- * Holt E-Mails mit Anhängen aus einem Postfach
+ * Holt E-Mails mit Anhängen aus einem Postfach (ALLE Ordner inkl. Archive)
+ *
+ * HINWEIS: /users/{email}/messages durchsucht automatisch ALLE Ordner:
+ * - Inbox, Sent, Drafts, Archive, Deleted Items, etc.
  */
 async function getEmailsWithAttachments(
   accessToken: string,

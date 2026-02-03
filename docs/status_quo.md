@@ -1,10 +1,23 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-03 23:30 (aktualisiert)
+**Stand:** 2026-02-04 00:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Graph API Archive-Suche (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+- Neue `email-search` Edge Function für Volltextsuche über alle Ordner
+- Neue Shared Library `_shared/graph-mail.ts` mit zentralen E-Mail-Funktionen
+- Bestehende E-Mail-Functions durchsuchen bereits alle Ordner (Archive inkl.)
+- 5 Edge Functions deployed (email-fetch v11, email-list v10, email-invoice-scan v9, email-invoice-import v12, email-search v1)
+
+**Learning:** L198 - Graph API `/messages` durchsucht alle Ordner
+
+---
 
 ### E-Mail-Absender Umstellung (✅ FERTIG)
 

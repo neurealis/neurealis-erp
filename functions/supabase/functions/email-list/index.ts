@@ -66,7 +66,10 @@ async function getAccessToken(): Promise<string> {
 }
 
 /**
- * Holt die neuesten E-Mails aus einem Postfach
+ * Holt die neuesten E-Mails aus einem Postfach (ALLE Ordner inkl. Archive)
+ *
+ * HINWEIS: /users/{email}/messages durchsucht automatisch ALLE Ordner:
+ * - Inbox, Sent, Drafts, Archive, Deleted Items, etc.
  */
 async function getRecentEmails(
   accessToken: string,

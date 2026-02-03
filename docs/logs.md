@@ -100,6 +100,85 @@
 | LOG-085 | 2026-02-03 | Telegram Mängel/Nachträge: Auto-Stammdaten aus Monday | Abgeschlossen |
 | LOG-086 | 2026-02-03 | E-Mail-Absender auf partner@neurealis.de umgestellt | Abgeschlossen |
 | LOG-087 | 2026-02-03 | Graph API E-Mail-Attachments Edge Function | Erstellt |
+| LOG-088 | 2026-02-03 | Telegram Nachtrag CPQ-Verbesserungen: Cross-LV + Learning | Abgeschlossen |
+| LOG-089 | 2026-02-03 | Graph API Archive-Suche + email-search Function | Abgeschlossen |
+
+---
+
+## LOG-089 - Graph API Archive-Suche + email-search Function
+**Datum:** 2026-02-03
+
+### Anforderung
+E-Mail-Suche soll standardmäßig auch archivierte E-Mails finden.
+
+### Erkenntnisse
+1. **Graph API `/messages` durchsucht bereits ALLE Ordner** (Inbox, Sent, Archive, Deleted Items)
+2. **Kein Folder-Filter nötig** für Archive-Suche - der Endpoint ohne Folder-ID gibt alles zurück
+3. **`$search` durchsucht alle Ordner**, kann aber nicht mit `$filter` kombiniert werden
+4. **Online-Archiv ≠ Archive-Ordner**: Exchange verschiebt alte E-Mails (>6 Monate) ins separate Online-Archiv
+
+### Implementierung
+1. **Neue Shared Library:** `_shared/graph-mail.ts`
+   - `fetchMessages()` - scope: 'all' (default), 'inbox', 'archive'
+   - `searchMessages()` - Freitext-Suche über alle Ordner
+   - `fetchMessagesFromAllFolders()` - Kombiniert Inbox + Archive
+   - `fetchAttachments()` / `fetchAttachmentContent()`
+
+2. **Neue Edge Function:** `email-search`
+   - URL: `?q=Suchbegriff&mailbox=email&count=25`
+   - Nutzt `$search` für Volltextsuche
+   - Header: `ConsistencyLevel: eventual` erforderlich
+
+3. **Bestehende Functions aktualisiert:**
+   - `email-fetch`, `email-list`, `email-invoice-scan`, `email-invoice-import`
+   - Dokumentation hinzugefügt: Archive-Suche ist bereits aktiv
+
+### Deployed Functions
+| Function | Version |
+|----------|---------|
+| email-fetch | v11 |
+| email-list | v10 |
+| email-invoice-scan | v9 |
+| email-invoice-import | v12 |
+| email-search | v1 (NEU) |
+
+### Test: Aaron Bach Suche
+- 20 E-Mails gefunden via `email-search?q=Aaron Bach`
+- E-Mail: `a.bach@immobilienverwaltung-bach.de`
+- Firma: Immobilienverwaltung Bach | Bach Deutschland GmbH
+
+### Learnings
+- L198: Graph API `/messages` durchsucht alle Ordner (inkl. Archive)
+
+---
+
+## LOG-088 - Telegram Nachtrag CPQ-Verbesserungen
+**Datum:** 2026-02-03
+
+**Erreicht:**
+
+### 1. DB-Schema erweitert
+- `nachtraege.original_eingabe` (TEXT) - Original-Spracheingabe vor Parsing
+- `position_corrections` erweitert: `quelle`, `gewerk`, `projekt_atbs`
+- RPC: `search_telegram_corrections` (Learning-Suche mit Embedding)
+- RPC: `increment_correction_count` (Anwendungs-Zähler)
+
+### 2. LV-Matching verbessert (`lv_matching.ts`)
+- **LV-Override per Sprache:** "nutze LV der GWS", "such im VBW Katalog"
+- **Cross-LV-Suche:** "in allen LVs suchen" → sucht ohne LV-Filter
+- **Learning-Integration:** Prüft `position_corrections` vor Embedding-Match (Threshold 0.8)
+- **Matching-Tracking:** `matched_via` (learning/embedding/none), `matched_lv_typ`
+
+### 3. Handler verbessert (`nachtrag.ts`)
+- `original_eingabe` wird in DB gespeichert
+- Ausgabe zeigt Original-Eingabe + gematchte Positionen
+- Matching-Icons: 🎓 Learning, ✅ Embedding, ⚠️ kein Match
+- LV-Override Info wenn erkannt
+
+### 4. Deploy
+- `telegram-webhook` Edge Function deployed
+
+**Nächster Schritt:** UI-Konzept (Phase 2) - Nachtragsangebot über bestehende Angebotslogik
 
 ---
 

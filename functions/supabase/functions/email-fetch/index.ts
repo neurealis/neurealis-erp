@@ -6,6 +6,9 @@
  * - Erstellt Dokumente für E-Mails und Anhänge
  * - Speichert Anhänge in Supabase Storage
  *
+ * WICHTIG: Durchsucht ALLE Ordner inkl. Archive (Inbox, Sent, Archive, etc.)
+ * Der /messages Endpoint ohne Folder-ID gibt E-Mails aus allen Ordnern zurück.
+ *
  * Cron: alle 10 Min (6-20 Uhr)
  */
 
@@ -165,7 +168,11 @@ function htmlToText(html: string): string {
 // ============== GRAPH API ==============
 
 /**
- * Holt E-Mails von einem Postfach
+ * Holt E-Mails von einem Postfach (ALLE Ordner inkl. Archive)
+ *
+ * HINWEIS: /users/{email}/messages durchsucht automatisch ALLE Ordner:
+ * - Inbox, Sent, Drafts, Archive, Deleted Items, etc.
+ * Kein Folder-Filter nötig für Archive-Suche.
  */
 async function fetchMessagesFromAccount(
   accessToken: string,

@@ -6,13 +6,23 @@
 
 ## Supabase / Cron / Sync
 
+### L198 - Graph API /messages durchsucht ALLE Ordner (inkl. Archive)
+**Datum:** 2026-02-03
+**Kategorie:** Microsoft/Graph API
+**Problem:** E-Mails im Archive-Ordner wurden nicht gefunden
+**Lösung:** `/users/{email}/messages` durchsucht automatisch ALLE Ordner (Inbox, Sent, Archive, etc.)
+**Merkregel:** Kein Folder-Filter nötig für lokale Archive-Suche
+**Shared Lib:** `_shared/graph-mail.ts` mit `fetchMessages()`, `searchMessages()`
+**WICHTIG:** `$search` durchsucht alle Ordner, aber kann nicht mit `$filter` kombiniert werden
+
 ### L197 - M365 Online-Archiv nicht über mailFolders API
 **Datum:** 2026-02-03
 **Kategorie:** Microsoft/Graph API
-**Problem:** Ältere E-Mails (>6 Monate) im Online-Archiv nicht über normale API erreichbar
-**Ursache:** M365 verschiebt E-Mails automatisch ins Archive-Postfach
+**Problem:** Ältere E-Mails (>6 Monate) im **Online-Archiv** (Exchange-Feature) nicht über normale API erreichbar
+**Ursache:** M365 verschiebt E-Mails automatisch ins **separate Archive-Postfach** (nicht Archive-Ordner!)
 **Lösung:** Archive-Mailbox separat ansprechen oder E-Mail manuell weiterleiten
-**Merkregel:** `/users/{id}/mailFolders` findet nur primäres Postfach, nicht Archive
+**Merkregel:** `/users/{id}/mailFolders` findet nur primäres Postfach, nicht Online-Archiv
+**Unterschied:** Archive-**Ordner** (lokal im Postfach) ≠ Online-**Archiv** (separates Postfach)
 
 ### L196 - Graph API E-Mail-Suche: Lokal filtern statt OData
 **Datum:** 2026-02-03

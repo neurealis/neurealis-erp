@@ -633,7 +633,10 @@ async function uploadToSharePoint(
 }
 
 /**
- * Holt E-Mails mit PDF-Anhängen
+ * Holt E-Mails mit PDF-Anhängen (ALLE Ordner inkl. Archive)
+ *
+ * HINWEIS: /users/{email}/messages durchsucht automatisch ALLE Ordner:
+ * - Inbox, Sent, Drafts, Archive, Deleted Items, etc.
  */
 async function getEmailsWithPdfs(
   accessToken: string,
