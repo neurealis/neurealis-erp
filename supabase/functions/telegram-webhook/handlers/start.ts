@@ -499,9 +499,10 @@ export async function searchAndOpenProjekt(chatId: number, searchTerm: string) {
   const atbsSearch = `ATBS-${term}`;
 
   // Direkt in DB suchen nach ATBS oder Name
+  // NEU v3: kunde_vorname, kunde_nachname, kunde_typ statt falsch gemappte Felder
   const { data: matches } = await supabase
     .from('monday_bauprozess')
-    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse, bl_name, nu_firma, nu_ansprechpartner, nu_telefon, nu_email, ag_telefon, datum_kundenabnahme, budget, baustart, bauende, bl_email, bl_telefon, sharepoint_link, hero_projekt_id')
+    .select('id, name, atbs_nummer, status_projekt, auftraggeber, adresse, bl_name, nu_firma, nu_ansprechpartner, nu_telefon, nu_email, ag_name, ag_email, ag_telefon, datum_kundenabnahme, budget, baustart, bauende, bl_email, bl_telefon, sharepoint_link, hero_projekt_id, kunde_vorname, kunde_nachname, kunde_typ')
     .or(`atbs_nummer.ilike.%${term}%,name.ilike.%${term}%`)
     .limit(20);
 
@@ -556,17 +557,35 @@ export async function openProjekt(chatId: number, projekt: any) {
   const adresseClean = adresse.split('|')[0]?.trim() || adresse;
   const mapsUrl = adresseClean ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adresseClean)}` : '';
 
-  // Kunde-Anzeige: Geschäftskunde vs. Privatkunde
-  let kundeDisplay = '';
-  const isPrivat = auftraggeber === 'privat' || auftraggeber === 'neurealis';
+  // NEU v3: Kundenname aus den korrigierten Feldern
+  // Priorität: kunde_vorname + kunde_nachname > ag_name (falls keine Anrede)
+  const kundeVorname = projekt.kunde_vorname || '';
+  const kundeNachname = projekt.kunde_nachname || '';
+  const kundeAnrede = projekt.ag_name || ''; // ag_name enthält nur Anrede (Herr/Frau)
+
+  // Baue Kundennamen zusammen
+  let kundeNameFull = '';
+  if (kundeVorname || kundeNachname) {
+    // Neue Felder vorhanden - nutzen
+    kundeNameFull = `${kundeVorname} ${kundeNachname}`.trim();
+  } else if (kundeAnrede && !['herr', 'frau', 'hr', 'fr'].includes(kundeAnrede.toLowerCase().trim())) {
+    // ag_name enthält echten Namen (Fallback für alte Daten)
+    kundeNameFull = kundeAnrede;
+  }
+
   const telefonKundeLink = formatPhoneLink(telefonKunde);
+  const isPrivat = auftraggeber === 'privat' || auftraggeber === 'neurealis';
+
+  let kundeDisplay = '';
   if (isPrivat) {
-    const namePart = projektName.split('|')[0]?.trim() || projektName;
-    kundeDisplay = telefonKundeLink ? `${namePart} ${telefonKundeLink}` : namePart;
+    // Privatkunde: [Vorname Nachname] [Telefon]
+    kundeDisplay = kundeNameFull || '(Name fehlt in Monday)';
+    if (telefonKundeLink) kundeDisplay += ` ${telefonKundeLink}`;
   } else {
-    const namePart = projektName.split('|')[0]?.trim() || '';
-    const agDisplay = projekt.auftraggeber || auftraggeber;
-    kundeDisplay = telefonKundeLink ? `${agDisplay} ${namePart} ${telefonKundeLink}` : `${agDisplay} ${namePart}`;
+    // Geschäftskunde: [Auftraggeber] [Vorname Nachname] [Telefon]
+    const agDisplay = projekt.auftraggeber || '';
+    kundeDisplay = kundeNameFull ? `${agDisplay} - ${kundeNameFull}`.trim() : agDisplay;
+    if (telefonKundeLink) kundeDisplay += ` ${telefonKundeLink}`;
   }
 
   // Zähle offene Mängel und Nachträge
@@ -601,11 +620,17 @@ export async function openProjekt(chatId: number, projekt: any) {
   infoText += `\n━━━━━━━━━━━━━━━━━━━━\n`;
   infoText += `📍 Phase: ${phase}\n`;
   infoText += `👤 Kunde: ${kundeDisplay}\n`;
-  // NU: Firma - Ansprechpartner (Telefon)
-  let nuDisplay = nuFirma;
-  if (nuAnsprechpartner) nuDisplay += ` - ${nuAnsprechpartner}`;
-  const nuTelefonLink = formatPhoneLink(nuTelefon);
-  if (nuTelefonLink) nuDisplay += ` ${nuTelefonLink}`;
+  // NU: Firma - Ansprechpartner (Telefon) oder "nicht zugeordnet"
+  let nuDisplay = '';
+  const nuFirmaValid = nuFirma && nuFirma !== '-' && nuFirma.trim() !== '';
+  if (nuFirmaValid) {
+    nuDisplay = nuFirma;
+    if (nuAnsprechpartner) nuDisplay += ` - ${nuAnsprechpartner}`;
+    const nuTelefonLink = formatPhoneLink(nuTelefon);
+    if (nuTelefonLink) nuDisplay += ` ${nuTelefonLink}`;
+  } else {
+    nuDisplay = 'nicht zugeordnet';
+  }
   infoText += `🔧 NU: ${nuDisplay}\n\n`;
   infoText += `📅 Termine:\n`;
   infoText += `   BV Start: ${bvStart}\n`;
