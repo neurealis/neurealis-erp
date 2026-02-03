@@ -1,6 +1,6 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-03 18:30 (aktualisiert)
+**Stand:** 2026-02-03 22:00 (aktualisiert)
 
 ---
 
@@ -108,6 +108,30 @@
 **Git:** Commit `e3c4793`
 
 **Neue Learnings:** L180-L183
+
+---
+
+### Telegram-Bot v91 - Auto-Stammdaten für Mängel/Nachträge (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Problem gelöst:** Bei Telegram-Erstellung blieben Felder leer (NUA-Nr, Marge, BL, NU, Mieter-Daten)
+
+**Lösung:** Neue `getProjektStammdaten()` Funktion lädt automatisch aus `monday_bauprozess`:
+
+| Feld | Mängel | Nachträge | Monday-Quelle |
+|------|--------|-----------|---------------|
+| `projektname_komplett` | ✅ | ✅ | Direkt |
+| `nua_nr` | ✅ | ✅ | `column_values->>'text23__1'` |
+| `marge_prozent` | - | ✅ | `column_values->>'zahlen0__1'` |
+| `bauleiter`/`bauleiter_name` | ✅ | ✅ | `bl_name` |
+| `nachunternehmer`/`nu_name` | ✅ | ✅ | `nu_firma` |
+| `nu_email` | ✅ | ✅ | `nu_email` |
+| `kunde_*` (Name, E-Mail, Tel) | ✅ | - | `ag_*` Felder |
+
+**Deployment:** `npx supabase functions deploy telegram-webhook --no-verify-jwt` → v91
+
+**Neue Learnings:** L194
 
 ---
 

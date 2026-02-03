@@ -6,6 +6,14 @@
 
 ## Supabase / Cron / Sync
 
+### L194 - Monday column_values JSON parsen: cv.field?.text
+**Datum:** 2026-02-03
+**Kategorie:** Monday/Supabase
+**Problem:** NUA-Nr und Marge in `column_values` JSONB, Format `{"text": "NUA-227"}`
+**Lösung:** `column_values->>'text23__1'` gibt JSON-String, dann `.text` extrahieren
+**Code:** `const nua = (cv.text23__1 as {text?: string})?.text?.trim()`
+**Merkregel:** Monday JSONB-Felder haben immer `{text: "...", value: "..."}` Struktur
+
 ### L193 - Cron-Jobs ohne Auth bei verify_jwt: false
 **Datum:** 2026-02-03
 **Kategorie:** Supabase/Cron

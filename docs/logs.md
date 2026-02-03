@@ -97,6 +97,7 @@
 | LOG-082 | 2026-02-03 | E-Mail-Sync Fix: Cron-Job + Token + Status-Reset | Abgeschlossen |
 | LOG-083 | 2026-02-03 | Telegram-Bot v88: LV-Matching + Foto-Commands + /maengel /nachtraege | Abgeschlossen |
 | LOG-084 | 2026-02-03 | /pre Skill Optimierung + Email-Sync Fix neurealis + LifeOps | Abgeschlossen |
+| LOG-085 | 2026-02-03 | Telegram Mängel/Nachträge: Auto-Stammdaten aus Monday | Abgeschlossen |
 
 ---
 
@@ -4666,4 +4667,75 @@ Telegram-Bot v74: Status und Gewerk-Status zu einem Menüpunkt kombiniert, Haupt
 
 ---
 
-*Aktualisiert: 2026-02-01 19:45*
+## LOG-085 - Telegram Mängel/Nachträge: Auto-Stammdaten aus Monday
+
+**Datum:** 2026-02-03
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Telegram-Bot erweitert: Mängel und Nachträge werden jetzt automatisch mit Projekt-Stammdaten aus `monday_bauprozess` befüllt (BL, NU, AG, NUA-Nr, Marge).
+
+### Problem
+
+Bei Erstellung von Mängeln/Nachträgen über Telegram blieben viele Felder leer:
+- `projektname_komplett` - NULL
+- `nua_nr` - NULL
+- `marge_prozent` - NULL (kritisch für Nachtrag-Berechnung!)
+- `bauleiter`, `nachunternehmer`, `nu_email`
+- Mieter-Daten (`kunde_name`, `kunde_email`, `kunde_telefon`)
+
+### Lösung
+
+**1. Neue Utility-Funktion `getProjektStammdaten()`:**
+```typescript
+// utils/helpers.ts
+export async function getProjektStammdaten(atbsNummer: string): Promise<ProjektStammdaten | null> {
+  // Lädt aus monday_bauprozess:
+  // - projektname_komplett, bl_name, bl_email
+  // - nu_firma, nu_email, ag_name, ag_email, ag_telefon
+  // - NUA-Nr aus column_values->>'text23__1'
+  // - Marge aus column_values->>'zahlen0__1'
+}
+```
+
+**2. Handler erweitert:**
+
+| Handler | Neue Felder bei INSERT |
+|---------|----------------------|
+| `nachtrag.ts` | projektname_komplett, nua_nr, marge_prozent, nu_name, nu_email, bauleiter_name, bauleiter_email |
+| `mangel.ts` | projektname_komplett, nua_nr, bauleiter, nachunternehmer, nu_email, kunde_name, kunde_email, kunde_telefon |
+
+**3. Monday column_values Mapping:**
+| Monday-Feld | Supabase-Feld | Hinweis |
+|-------------|---------------|---------|
+| `text23__1` | `nua_nr` | JSON: `{"text": "NUA-227"}` |
+| `zahlen0__1` | `marge_prozent` | JSON: `{"text": "35"}` |
+
+### Deployment
+
+```bash
+npx supabase functions deploy telegram-webhook --no-verify-jwt
+# → v91 deployed, 20 Dateien
+```
+
+### Geänderte Dateien
+
+- `supabase/functions/telegram-webhook/utils/helpers.ts` - Neue Funktion
+- `supabase/functions/telegram-webhook/utils/index.ts` - Export
+- `supabase/functions/telegram-webhook/handlers/nachtrag.ts` - Lookup + INSERT
+- `supabase/functions/telegram-webhook/handlers/mangel.ts` - Lookup + INSERT
+
+### Ergebnis
+
+- `betrag_nu_netto` Formel funktioniert (marge_prozent jetzt gesetzt)
+- Softr zeigt alle Felder korrekt an
+- Keine manuellen Nacharbeiten mehr nötig
+
+### Learnings
+
+- L194: Monday column_values JSON parsen: `cv.text23__1?.text`
+
+---
+
+*Aktualisiert: 2026-02-03 22:00*
