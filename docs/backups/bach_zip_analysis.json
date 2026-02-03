@@ -1,0 +1,121 @@
+{
+  "timestamp": "2026-02-03T20:38:12.389Z",
+  "totalZips": 17,
+  "canDeleteCount": 13,
+  "keepCount": 4,
+  "canDelete": [
+    {
+      "zip": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7.zip",
+      "sizeKB": "901.1",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "pdfCount": 9
+    },
+    {
+      "zip": "Abrechnungen Neumann Juli 2025 Teil 1.zip",
+      "sizeKB": "442.2",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "pdfCount": 5
+    },
+    {
+      "zip": "Neumann_ Abrechnung Mietobjekte 01.04.-30.04.2025.zip",
+      "sizeKB": "532.9",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "pdfCount": 6
+    },
+    {
+      "zip": "Neurealis_ Abrechnung 01.08.-31.08.2025.zip",
+      "sizeKB": "291.1",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "Neurealis_ Abrechnung Mietobjekt 01.09.-30.09.2025.zip",
+      "sizeKB": "292.7",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "Neurealis_ Abrechnung Mietobjekte 01.04.-30.04.2025.zip",
+      "sizeKB": "289.4",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neurealis: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "TEIL 1 _ Neurealis_ Abrechnung Mietobjekt 01.10.-31.10.2025.zip",
+      "sizeKB": "288.8",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "WG_ Neumann_ Abrechnung Mietobjekt 01.09.-30.09.2025.zip",
+      "sizeKB": "442.9",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "pdfCount": 5
+    },
+    {
+      "zip": "WG_ Neumann_ Abrechnung Mietobjekte 01.05.-31.05.2025.zip",
+      "sizeKB": "447.1",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "pdfCount": 5
+    },
+    {
+      "zip": "WG_ Neumann_ Abrechnung Mietobjekte 01.06.-30.06.2025.zip",
+      "sizeKB": "436.4",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "pdfCount": 5
+    },
+    {
+      "zip": "WG_ Neurealis_ Abrechnung 01.07.-31.07.2025.zip",
+      "sizeKB": "290.4",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "WG_ Neurealis_ Abrechnung Mietobjekte 01.05.-31.05.2025.zip",
+      "sizeKB": "290.7",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "pdfCount": 3
+    },
+    {
+      "zip": "WG_ Neurealis_ Abrechnung Mietobjekte 01.06.-30.06.2025.zip",
+      "sizeKB": "281.7",
+      "reason": "PDFs aus zugehöriger E-Mail einzeln heruntergeladen",
+      "matchedEmail": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "pdfCount": 3
+    }
+  ],
+  "keepZips": [
+    {
+      "zip": "AW_ EÜR je Objekt durchgehen - OPos & Aktionen definieren.zip",
+      "sizeKB": "1099.0",
+      "reason": "Keine passende E-Mail gefunden"
+    },
+    {
+      "zip": "Neumann_ Abrechnung Mietobjekte 01.11.-30.11.2025.zip",
+      "sizeKB": "446.3",
+      "reason": "Keine passende E-Mail gefunden"
+    },
+    {
+      "zip": "Neurealis_ Abrechnung Mietobjekte 01.11.-30.11.2025.zip",
+      "sizeKB": "284.8",
+      "reason": "Keine passende E-Mail gefunden"
+    },
+    {
+      "zip": "TEIL 2 Neumann_ Abrechnung Mietobjekte 01.10.-31.10.2025.zip",
+      "sizeKB": "446.9",
+      "reason": "Keine passende E-Mail gefunden"
+    }
+  ]
+}

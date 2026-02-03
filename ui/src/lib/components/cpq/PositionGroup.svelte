@@ -207,7 +207,7 @@
 				</div>
 
 				<DraggableList
-					bind:items={group.positionen}
+					items={group.positionen}
 					onReorder={handlePositionReorder}
 					itemKey={(p) => p.id}
 				>

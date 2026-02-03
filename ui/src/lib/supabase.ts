@@ -1,13 +1,27 @@
 /**
- * neurealis ERP - Supabase Client
+ * neurealis ERP - Supabase Client (Singleton via globalThis)
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://mfpuijttdgkllnvhvjlu.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Singleton via globalThis - überlebt HMR
+const GLOBAL_KEY = '__SUPABASE_CLIENT__';
+
+function getSupabaseClient(): SupabaseClient {
+	if (typeof globalThis !== 'undefined' && (globalThis as Record<string, unknown>)[GLOBAL_KEY]) {
+		return (globalThis as Record<string, unknown>)[GLOBAL_KEY] as SupabaseClient;
+	}
+	const client = createClient(supabaseUrl, supabaseAnonKey);
+	if (typeof globalThis !== 'undefined') {
+		(globalThis as Record<string, unknown>)[GLOBAL_KEY] = client;
+	}
+	return client;
+}
+
+export const supabase = getSupabaseClient();
 
 /**
  * Parst mehrsprachige Artikeleingabe via Edge Function

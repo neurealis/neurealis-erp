@@ -376,7 +376,7 @@
   <div class="subtitle">neurealis GmbH - Wohnungssanierung</div>
   <div class="bot-badge">@neurealis_bedarfsanalyse_bot</div>
   <div class="version-info">
-    <strong>Version 74</strong><br>
+    <strong>Version 90</strong><br>
     <span id="generated-date"></span>
   </div>
 </div>
@@ -409,7 +409,8 @@
       <li class="toc-level-2"><a href="#kap2-4">2.4 Berichte erstellen</a></li>
       <li class="toc-level-2"><a href="#kap2-5">2.5 Abnahmeprotokoll</a></li>
       <li class="toc-level-2"><a href="#kap2-6">2.6 Status & Gewerke</a></li>
-      <li class="toc-level-1"><a href="#kap3">3. Sprachbefehle</a></li>
+      <li class="toc-level-1"><a href="#kap3">3. Sprachbefehle & Intent-Detection</a></li>
+      <li class="toc-level-2"><a href="#kap3">3.1 E-Mail-Suche (NEU)</a></li>
       <li class="toc-level-1"><a href="#kap4">4. Referenz</a></li>
       <li class="toc-level-2"><a href="#kap4-1">4.1 Menübaum</a></li>
       <li class="toc-level-2"><a href="#kap4-2">4.2 Datum-Formate</a></li>
@@ -708,10 +709,15 @@
     <span class="datum" id="header-date-5"></span>
   </div>
 
-  <h1 id="kap3">3. Sprachbefehle</h1>
+  <h1 id="kap3">3. Sprachbefehle (Intent-Detection v90)</h1>
 
-  <p>Du kannst Befehle direkt eintippen oder diktieren – auch <strong>ohne vorher ein Projekt zu öffnen!</strong></p>
+  <p>Du kannst Befehle direkt eintippen oder diktieren – auch <strong>ohne vorher ein Projekt zu öffnen!</strong> Der Bot erkennt automatisch, was du meinst.</p>
 
+  <div class="info-box">
+    <strong>🌍 Mehrsprachig:</strong> Befehle funktionieren auch auf Ungarisch, Rumänisch und Russisch!
+  </div>
+
+  <h3>Projekt öffnen & Status</h3>
   <table>
     <tr>
       <th style="width: 45%">Was du sagst/tippst</th>
@@ -733,6 +739,14 @@
       <td><code>Sanitär läuft bei 472</code></td>
       <td>Setzt Sanitär-Status auf "In Arbeit"</td>
     </tr>
+  </table>
+
+  <h3>Termine setzen</h3>
+  <table>
+    <tr>
+      <th style="width: 45%">Was du sagst/tippst</th>
+      <th>Was passiert</th>
+    </tr>
     <tr>
       <td><code>Baustart in 2 Wochen</code></td>
       <td>Setzt Baustart-Termin (Projekt muss offen sein)</td>
@@ -742,6 +756,30 @@
       <td>Setzt Bauende auf Montag der KW 15</td>
     </tr>
   </table>
+
+  <h3>E-Mail-Suche (NEU in v90)</h3>
+  <table>
+    <tr>
+      <th style="width: 45%">Was du sagst/tippst</th>
+      <th>Was passiert</th>
+    </tr>
+    <tr>
+      <td><code>Suche Mail von Bach</code></td>
+      <td>Findet E-Mails von Absender "Bach"</td>
+    </tr>
+    <tr>
+      <td><code>E-Mail Bollwerkstraße Rechnung</code></td>
+      <td>Sucht E-Mails mit Stichworten</td>
+    </tr>
+    <tr>
+      <td><code>Finde Mail Abnahmeprotokoll</code></td>
+      <td>Durchsucht Betreff und Inhalt</td>
+    </tr>
+  </table>
+
+  <div class="wichtig">
+    <strong>💡 One-Shot-Commands:</strong> Du kannst Befehle jederzeit eingeben, auch wenn du gerade in einem anderen Menü bist. Der Bot erkennt den Intent und führt ihn sofort aus!
+  </div>
 
   <h1 id="kap4">4. Referenz</h1>
 
@@ -780,7 +818,7 @@ PROJEKT-MENÜ
 
   <div class="footer">
     <img src="logo-neurealis.png" alt="neurealis" class="footer-logo">
-    <span><strong>neurealis GmbH</strong> · Telegram-Bot v74 · holger.neumann@neurealis.de</span>
+    <span><strong>neurealis GmbH</strong> · Telegram-Bot v90 · holger.neumann@neurealis.de</span>
   </div>
 </div>
 

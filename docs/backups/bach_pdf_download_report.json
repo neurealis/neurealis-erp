@@ -1,0 +1,1245 @@
+{
+  "timestamp": "2026-02-03T20:36:40.062Z",
+  "targetDir": "C:/Users/holge/neurealis GmbH/Mieter-Service neurealis - Verwaltung/50 Immoverwaltung Bach/Mieteingänge",
+  "emailsProcessed": 26,
+  "pdfsDownloaded": 81,
+  "filesSkipped": 117,
+  "errors": [],
+  "downloadedPdfs": [
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.10.2025 - 31.10.2025).pdf",
+      "sizeBytes": 89520,
+      "sizeKB": 87.4,
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "date": "2025-11-10T16:05:52Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.10.2025 - 31.10.2025).pdf",
+      "sizeBytes": 113362,
+      "sizeKB": 110.7,
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "date": "2025-11-10T16:05:52Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.10.2025 - 31.10.2025).pdf",
+      "sizeBytes": 92262,
+      "sizeKB": 90.1,
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "date": "2025-11-10T16:05:52Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 94306,
+      "sizeKB": 92.1,
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-14T06:47:01Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 88350,
+      "sizeKB": 86.3,
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-14T06:47:01Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 116517,
+      "sizeKB": 113.8,
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-14T06:47:01Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 89407,
+      "sizeKB": 87.3,
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-11T07:26:33Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 89564,
+      "sizeKB": 87.5,
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-11T07:26:33Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 93763,
+      "sizeKB": 91.6,
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-11T07:26:33Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 89469,
+      "sizeKB": 87.4,
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-11T07:26:33Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500_Abrechnung Mietobjekt (01.09.2025 - 30.09.2025).pdf",
+      "sizeBytes": 90323,
+      "sizeKB": 88.2,
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "date": "2025-10-11T07:26:33Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.08.2025 - 31.08.2025) netto + USt..pdf",
+      "sizeBytes": 92144,
+      "sizeKB": 90,
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "date": "2025-09-10T14:12:30Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.08.2025 - 31.08.2025) netto + USt..pdf",
+      "sizeBytes": 117022,
+      "sizeKB": 114.3,
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "date": "2025-09-10T14:12:30Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.08.2025 - 31.08.2025) netto + USt..pdf",
+      "sizeBytes": 88284,
+      "sizeKB": 86.2,
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "date": "2025-09-10T14:12:30Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 115891,
+      "sizeKB": 113.2,
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "date": "2025-08-27T13:26:56Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 88841,
+      "sizeKB": 86.8,
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "date": "2025-08-27T13:26:56Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 91940,
+      "sizeKB": 89.8,
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "date": "2025-08-27T13:26:56Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 88017,
+      "sizeKB": 86,
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "date": "2025-08-21T06:39:44Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 90840,
+      "sizeKB": 88.7,
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "date": "2025-08-21T06:39:44Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 91446,
+      "sizeKB": 89.3,
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "date": "2025-08-21T06:39:44Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 90854,
+      "sizeKB": 88.7,
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "date": "2025-08-21T06:39:44Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.07.2025 - 31.07.2025) netto + USt..pdf",
+      "sizeBytes": 90518,
+      "sizeKB": 88.4,
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "date": "2025-08-21T06:39:44Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 88378,
+      "sizeKB": 86.3,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:28:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 86428,
+      "sizeKB": 84.4,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:28:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 113021,
+      "sizeKB": 110.4,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:28:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 89430,
+      "sizeKB": 87.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:27:55Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 91420,
+      "sizeKB": 89.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:27:55Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 88130,
+      "sizeKB": 86.1,
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:27:55Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 88359,
+      "sizeKB": 86.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:27:55Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.06.2025 - 30.06.2025) netto + USt..pdf",
+      "sizeBytes": 88409,
+      "sizeKB": 86.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "date": "2025-07-01T07:27:55Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 92596,
+      "sizeKB": 90.4,
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:59:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 115972,
+      "sizeKB": 113.3,
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:59:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 88426,
+      "sizeKB": 86.4,
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:59:04Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 89294,
+      "sizeKB": 87.2,
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:58:54Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 91414,
+      "sizeKB": 89.3,
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:58:54Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 91564,
+      "sizeKB": 89.4,
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:58:54Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 90920,
+      "sizeKB": 88.8,
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:58:54Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.05.2025 - 31.05.2025) netto + USt..pdf",
+      "sizeBytes": 93497,
+      "sizeKB": 91.3,
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "date": "2025-06-15T18:58:54Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(7).pdf",
+      "sizeBytes": 92625,
+      "sizeKB": 90.5,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:27:31Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(6).pdf",
+      "sizeBytes": 115015,
+      "sizeKB": 112.3,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:27:31Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(8).pdf",
+      "sizeBytes": 88053,
+      "sizeKB": 86,
+      "email": "Neurealis: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:27:31Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(3).pdf",
+      "sizeBytes": 90699,
+      "sizeKB": 88.6,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "HAU26 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(5).pdf",
+      "sizeBytes": 90436,
+      "sizeKB": 88.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(1).pdf",
+      "sizeBytes": 89871,
+      "sizeKB": 87.8,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(2).pdf",
+      "sizeBytes": 92817,
+      "sizeKB": 90.6,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt..pdf",
+      "sizeBytes": 90080,
+      "sizeKB": 88,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.04.2025 - 30.04.2025) netto + USt.(4).pdf",
+      "sizeBytes": 90423,
+      "sizeKB": 88.3,
+      "email": "Neumann: Abrechnung Mietobjekte 01.04.-30.04.2025",
+      "date": "2025-05-11T14:26:19Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(8).pdf",
+      "sizeBytes": 101740,
+      "sizeKB": 99.4,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "HAU26 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(5).pdf",
+      "sizeBytes": 94561,
+      "sizeKB": 92.3,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(1).pdf",
+      "sizeBytes": 96131,
+      "sizeKB": 93.9,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt..pdf",
+      "sizeBytes": 145638,
+      "sizeKB": 142.2,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(9).pdf",
+      "sizeBytes": 94496,
+      "sizeKB": 92.3,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(6).pdf",
+      "sizeBytes": 94008,
+      "sizeKB": 91.8,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(3) (1).pdf",
+      "sizeBytes": 101023,
+      "sizeKB": 98.7,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(2).pdf",
+      "sizeBytes": 95216,
+      "sizeKB": 93,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.01.2025 - 31.03.2025) netto + USt.(4).pdf",
+      "sizeBytes": 97868,
+      "sizeKB": 95.6,
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "date": "2025-04-03T15:36:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(7).pdf",
+      "sizeBytes": 96593,
+      "sizeKB": 94.3,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(1).pdf",
+      "sizeBytes": 94904,
+      "sizeKB": 92.7,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt..pdf",
+      "sizeBytes": 132491,
+      "sizeKB": 129.4,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(8).pdf",
+      "sizeBytes": 93148,
+      "sizeKB": 91,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(6).pdf",
+      "sizeBytes": 93081,
+      "sizeKB": 90.9,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(3).pdf",
+      "sizeBytes": 96060,
+      "sizeKB": 93.8,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(2).pdf",
+      "sizeBytes": 94768,
+      "sizeKB": 92.5,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.01.2025 - 28.02.2025) netto + USt.(4).pdf",
+      "sizeBytes": 92408,
+      "sizeKB": 90.2,
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "date": "2025-03-11T08:30:25Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Rückstandsliste.pdf",
+      "sizeBytes": 30349,
+      "sizeKB": 29.6,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Rückstandsliste.pdf",
+      "sizeBytes": 30679,
+      "sizeKB": 30,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Rückstandsliste.pdf",
+      "sizeBytes": 28596,
+      "sizeKB": 27.9,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Rückstandsliste.pdf",
+      "sizeBytes": 29450,
+      "sizeKB": 28.8,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Rückstandsliste (Fehlerhaft Kontoauszuge fehlen).pdf",
+      "sizeBytes": 37662,
+      "sizeKB": 36.8,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Rückstandsliste Dahlhoff Angeblich durch Holger die Mieterhöhung erlassen.pdf",
+      "sizeBytes": 30739,
+      "sizeKB": 30,
+      "email": "AW: NKHK-Abrechnungen",
+      "date": "2025-02-21T15:06:35Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "241227 RBS30-40 RE Chemelli.pdf",
+      "sizeBytes": 609667,
+      "sizeKB": 595.4,
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "date": "2024-12-30T11:30:01Z",
+      "from": "info@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WHW500 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(16).pdf",
+      "sizeBytes": 103665,
+      "sizeKB": 101.2,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "STS25 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(10).pdf",
+      "sizeBytes": 97939,
+      "sizeKB": 95.6,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "MS18 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(9).pdf",
+      "sizeBytes": 102521,
+      "sizeKB": 100.1,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "VSA31 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(11).pdf",
+      "sizeBytes": 109103,
+      "sizeKB": 106.5,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "WEB1 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) netto + USt.(1).pdf",
+      "sizeBytes": 114575,
+      "sizeKB": 111.9,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "HAU26 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(12).pdf",
+      "sizeBytes": 99180,
+      "sizeKB": 96.9,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "RBS30-40 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(13).pdf",
+      "sizeBytes": 195094,
+      "sizeKB": 190.5,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "GDS19 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(14).pdf",
+      "sizeBytes": 111264,
+      "sizeKB": 108.7,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "SDS7 Abrechnung Mietobjekt (01.01.2023 - 31.12.2023) brutto(15).pdf",
+      "sizeBytes": 100942,
+      "sizeKB": 98.6,
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "date": "2024-12-17T10:40:28Z",
+      "from": "a.bach@immobilienverwaltung-bach.de"
+    },
+    {
+      "filename": "(T-19166)-Leckortung_Standard-Protokoll-Büdost.pdf",
+      "sizeBytes": 867100,
+      "sizeKB": 846.8,
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "date": "2024-08-07T10:13:33Z",
+      "from": "info@immobilienverwaltung-bach.de"
+    }
+  ],
+  "skippedFiles": [
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.12.-31.12.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.11.-30.11.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.11.-30.11.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.11.-30.11.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.11.-30.11.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.11.-30.11.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 2 Neumann: Abrechnung Mietobjekte 01.10.-31.10.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "TEIL 2 Neumann: Abrechnung Mietobjekte 01.10.-31.10.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 2 Neumann: Abrechnung Mietobjekte 01.10.-31.10.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 2 Neumann: Abrechnung Mietobjekte 01.10.-31.10.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 2 Neumann: Abrechnung Mietobjekte 01.10.-31.10.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "fehlende Rechnungen für die Betriebskostenabrechnung 2024",
+      "file": "Outlook-3sfyi0rt",
+      "type": "image/jpg"
+    },
+    {
+      "email": "fehlende Rechnungen für die Betriebskostenabrechnung 2024",
+      "file": "Outlook-3xjxi0w2.png",
+      "type": "image/png"
+    },
+    {
+      "email": "fehlende Rechnungen für die Betriebskostenabrechnung 2024",
+      "file": "Outlook-yopxyab3.png",
+      "type": "image/png"
+    },
+    {
+      "email": "fehlende Rechnungen für die Betriebskostenabrechnung 2024",
+      "file": "Outlook-oq5dqpmx.png",
+      "type": "image/png"
+    },
+    {
+      "email": "fehlende Rechnungen für die Betriebskostenabrechnung 2024",
+      "file": "Outlook-vx0nbmpe.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "TEIL 1 : Neurealis: Abrechnung Mietobjekt 01.10.-31.10.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekt 01.09.-30.09.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung 01.08.-31.08.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung 01.07.-31.07.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnungen Neumann Juli 2025 Teil 1",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neurealis: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Neumann: Abrechnung Mietobjekte 01.06.-30.06.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neurealis: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Neumann: Abrechnung Mietobjekte 01.05.-31.05.2025",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte RBS30-40 MS18 WEB1 VSA31 WHW500 HAU26 STS25 GDS19 SDS7",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "file": "image007.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "file": "image008.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "file": "image009.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "file": "image010.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Abrechnung Mietobjekte Übersicht Einnahmen Ausgaben inklusive Rückstandsliste mit Saldo zum 28.02.2025",
+      "file": "image011.png",
+      "type": "image/png"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "AW: NKHK-Abrechnungen",
+      "file": "image006.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "file": "Outlook-5chxbl5i",
+      "type": "image/jpg"
+    },
+    {
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "file": "Outlook-2ojoqpd4.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "file": "Outlook-drgphjtn.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "file": "Outlook-e3sa01jr.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Lohnabrechnung/Auslagen Herr Chemelli Robertstraße 30-40",
+      "file": "Outlook-n4skm4ne.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Mietabrechnung - 2023 - Vorschlag zur Pauschalabrechnung der Buchungsaufwände",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image006.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image007.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image008.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image009.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image010.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image006.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image007.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image008.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image009.png",
+      "type": "image/png"
+    },
+    {
+      "email": "WG: Stein Straße 25 in Essen // Kautionsabrechnung // Frau Dentsa",
+      "file": "image010.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "image001.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "image002.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "image003.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "image004.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "image005.png",
+      "type": "image/png"
+    },
+    {
+      "email": "Graudenzer Straße 19 //  Betriebs und Heizkostenabrechnungen",
+      "file": "20240405_164313.jpg",
+      "type": "image/jpeg"
+    }
+  ]
+}

@@ -26,10 +26,19 @@ export function createSupabaseServerClient(cookies: Cookies) {
 }
 
 /**
- * Erstellt einen Supabase Client für den Browser
+ * Erstellt einen Supabase Client für den Browser (Singleton via globalThis)
  */
+const GLOBAL_KEY = '__SUPABASE_CLIENT__';
+
 export function createSupabaseBrowserClient() {
-	return createBrowserClient(supabaseUrl, supabaseAnonKey);
+	if (typeof globalThis !== 'undefined' && (globalThis as Record<string, unknown>)[GLOBAL_KEY]) {
+		return (globalThis as Record<string, unknown>)[GLOBAL_KEY] as ReturnType<typeof createBrowserClient>;
+	}
+	const client = createBrowserClient(supabaseUrl, supabaseAnonKey);
+	if (typeof globalThis !== 'undefined') {
+		(globalThis as Record<string, unknown>)[GLOBAL_KEY] = client;
+	}
+	return client;
 }
 
 export { isBrowser };

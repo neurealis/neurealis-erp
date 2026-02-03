@@ -147,6 +147,7 @@
 	let includeBedarfspositionen = $state(true);
 	let includeAngebotsannahme = $state(true);
 	let includeNUAVertragswerk = $state(false);
+	let includeLangtexte = $state(true); // NEU: Langtexte/Beschreibungen unter Positionen anzeigen
 	let isNUA = $derived(false); // TODO: Detect NUA type
 	let isSaving = $state(false);
 	let angebotsVorschau = $state('');
@@ -732,16 +733,24 @@
 		isSaving = true;
 
 		try {
-			// Angebot in DB speichern
+			// ATBS-Nummer aus Projektname extrahieren (z.B. "ATBS-462 | Adresse")
+			const projektNr = selectedProjekt?.projektname || 'ATBS-000';
+
+			// Angebotsnummer generieren: ATBS-XXX-ANG01, ATBS-XXX-ANG02, etc.
 			const { data: angebotsNr, error: seqError } = await supabase
-				.rpc('get_next_dokument_nr', { prefix: 'ANG' });
+				.rpc('get_next_angebots_nr', { p_projekt_nr: projektNr });
 
 			if (seqError) throw seqError;
+
+			// ATBS-Nummer für DB extrahieren
+			const atbsMatch = projektNr.match(/ATBS-\d+/i);
+			const atbsNummer = atbsMatch ? atbsMatch[0].toUpperCase() : '';
 
 			const { data: angebot, error: saveError } = await supabase
 				.from('angebote')
 				.insert({
 					angebotsnummer: angebotsNr,
+					atbs_nummer: atbsNummer,
 					projekt_id: selectedProjektId || null,
 					projektname: selectedProjekt?.projektname || null,
 					auftraggeber: selectedProjekt?.projektname_komplett?.split('|')[0]?.trim() || null,
@@ -789,9 +798,437 @@
 		}
 	}
 
-	// PDF generieren (Platzhalter)
-	function generatePDF() {
-		alert('PDF-Generierung wird in der nächsten Version implementiert');
+	// PDF generieren mit jsPDF
+	async function generatePDF() {
+		try {
+			// Dynamischer Import für Client-side only
+			const { default: jsPDF } = await import('jspdf');
+			const { default: autoTable } = await import('jspdf-autotable');
+
+			const doc = new jsPDF({
+				orientation: 'portrait',
+				unit: 'mm',
+				format: 'a4'
+			});
+
+			// Seitenabmessungen
+			const pageWidth = doc.internal.pageSize.width;
+			const pageHeight = doc.internal.pageSize.height;
+			const marginLeft = 20;
+			const marginRight = 20;
+			const contentWidth = pageWidth - marginLeft - marginRight;
+
+			// Farben (wie in Hero-Vorlage)
+			const grauDunkel = [128, 128, 128] as [number, number, number];
+			const grauHell = [200, 200, 200] as [number, number, number];
+			const schwarz = [0, 0, 0] as [number, number, number];
+
+			// Deutsche Formatierung
+			const formatDE = (value: number): string => {
+				return value.toLocaleString('de-DE', {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2
+				}) + ' €';
+			};
+
+			// Datum formatieren
+			const heute = new Date();
+			const datumStr = heute.toLocaleDateString('de-DE', {
+				day: '2-digit',
+				month: '2-digit',
+				year: 'numeric'
+			});
+
+			// Angebotsnummer generieren (vorläufig)
+			const angebotsNr = `ANG-${heute.getFullYear()}-ENTWURF`;
+
+			// Projekt und Kunde extrahieren
+			const projektName = selectedProjekt?.projektname || 'Kein Projekt ausgewählt';
+			const auftraggeber = selectedProjekt?.projektname_komplett?.split('|')[0]?.trim() || '-';
+			// BV-Bezeichnung aus Projektname extrahieren
+			const bvBezeichnung = `BV: ${auftraggeber} - ${projektName}`;
+
+			// Seitenzähler
+			let totalPages = 1;
+			let currentPage = 1;
+
+			// === HILFSFUNKTIONEN ===
+
+			// Footer auf jeder Seite zeichnen
+			function drawPageFooter(pageNum: number) {
+				// Dokumentkennung links unten
+				doc.setFontSize(8);
+				doc.setTextColor(...grauDunkel);
+				doc.setFont('helvetica', 'normal');
+				doc.text(`Angebot - ${auftraggeber} ${angebotsNr}`, marginLeft, pageHeight - 20);
+
+				// Firmendaten zentriert
+				const footerText1 = 'neurealis GmbH | Kleyer Weg 40 | 44149 Dortmund | Geschäftsführer: Holger Neumann';
+				const footerText2 = 'Dortmund HRB34499 | Steuernummer: 315/5761/2453 | USt-IdNr.: DE356758279';
+				const footerText3 = 'NATIONAL-BANK AG | IBAN: DE95 3602 0030 0000 1805 94 | BIC: NBAGDE3EXXX';
+
+				doc.text(footerText1, pageWidth / 2, pageHeight - 15, { align: 'center' });
+				doc.text(footerText2, pageWidth / 2, pageHeight - 11, { align: 'center' });
+				doc.text(footerText3, pageWidth / 2, pageHeight - 7, { align: 'center' });
+
+				// Seitenzahl rechts
+				doc.text(`Seite ${pageNum}/${totalPages}`, pageWidth - marginRight, pageHeight - 20, { align: 'right' });
+			}
+
+			// Header-Bereich auf Seite 1 zeichnen
+			function drawFirstPageHeader() {
+				// Logo-Bereich rechts (Text-Logo wie in Vorlage)
+				doc.setFontSize(36);
+				doc.setTextColor(...grauDunkel);
+				doc.setFont('helvetica', 'bold');
+				// "neurealis" mit grauem "n" und Rest
+				doc.text('neurealis', pageWidth - marginRight - 55, 25);
+
+				// Grauer vertikaler Balken vor dem "n" (wie im Logo)
+				doc.setFillColor(...grauDunkel);
+				doc.rect(pageWidth - marginRight - 58, 8, 4, 25, 'F');
+
+				// Absenderzeile klein oben links
+				doc.setFontSize(8);
+				doc.setTextColor(...grauDunkel);
+				doc.setFont('helvetica', 'normal');
+				doc.text('neurealis GmbH, Kleyer Weg 40, 44149 Dortmund', marginLeft, 45);
+
+				// Empfängeradresse links
+				doc.setFontSize(11);
+				doc.setTextColor(...schwarz);
+				doc.text(auftraggeber, marginLeft, 58);
+				// Platzhalter für weitere Adresszeilen
+				doc.text('z.Hd. Ansprechpartner', marginLeft, 64);
+				doc.text('Straße Nr.', marginLeft, 70);
+				doc.text('PLZ Ort', marginLeft, 76);
+				doc.text('Deutschland', marginLeft, 82);
+
+				// Metadaten-Block rechts
+				const metaX = 120;
+				const metaValueX = pageWidth - marginRight;
+				let metaY = 58;
+
+				doc.setFontSize(10);
+				doc.setTextColor(...schwarz);
+
+				// Labels links, Werte rechts
+				doc.text('Angebotsnummer', metaX, metaY);
+				doc.text(angebotsNr, metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('Kundennummer', metaX, metaY);
+				doc.text('-', metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('Projektnummer', metaX, metaY);
+				doc.text(selectedProjektId || '-', metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('Datum', metaX, metaY);
+				doc.text(datumStr, metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('Ansprechpartner', metaX, metaY);
+				doc.text('Holger Neumann', metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('Mobil', metaX, metaY);
+				doc.text('0173 5174921', metaValueX, metaY, { align: 'right' });
+
+				metaY += 6;
+				doc.text('E-Mail', metaX, metaY);
+				doc.text('holger.neumann@neurealis.de', metaValueX, metaY, { align: 'right' });
+
+				// BV-Zeile (Bauvorhaben) - fett
+				doc.setFontSize(12);
+				doc.setFont('helvetica', 'bold');
+				doc.text(bvBezeichnung, marginLeft, 105);
+
+				// Angebot Nr. Zeile
+				doc.setFontSize(11);
+				doc.text(`Angebot Nr. ${angebotsNr}`, marginLeft, 115);
+
+				// Anrede und Einleitungstext
+				doc.setFontSize(10);
+				doc.setFont('helvetica', 'normal');
+				doc.text('Sehr geehrte Damen und Herren,', marginLeft, 130);
+
+				const einleitungsText = 'Wir hoffen, dass Ihnen unser Angebot zusagt und freuen uns über die Erteilung Ihres Auftrages.';
+				doc.text(einleitungsText, marginLeft, 138);
+				doc.text('Für Rückfragen stehen wir Ihnen gerne zur Verfügung.', marginLeft, 144);
+
+				doc.text('Mit freundlichen Grüßen', marginLeft, 156);
+				doc.text('Ihr Team von', marginLeft, 164);
+				doc.setFont('helvetica', 'bold');
+				doc.text('neurealis Komplettsanierung', marginLeft, 170);
+
+				return 180; // Y-Position nach Header
+			}
+
+			// Header auf Folgeseiten (nur Logo)
+			function drawFollowingPageHeader() {
+				// Logo rechts oben
+				doc.setFontSize(36);
+				doc.setTextColor(...grauDunkel);
+				doc.setFont('helvetica', 'bold');
+				doc.text('neurealis', pageWidth - marginRight - 55, 25);
+
+				// Grauer vertikaler Balken
+				doc.setFillColor(...grauDunkel);
+				doc.rect(pageWidth - marginRight - 58, 8, 4, 25, 'F');
+
+				// Trennlinie unter Header
+				doc.setDrawColor(...grauDunkel);
+				doc.setLineWidth(0.5);
+				doc.line(marginLeft, 40, pageWidth - marginRight, 40);
+
+				return 50; // Y-Position nach Header
+			}
+
+			// === ERSTE SEITE: DECKBLATT ===
+			const startY = drawFirstPageHeader();
+			drawPageFooter(1);
+
+			// === ZWEITE SEITE: POSITIONSTABELLE ===
+			doc.addPage();
+			currentPage = 2;
+
+			// Positionstabelle vorbereiten
+			interface TableRow {
+				content: string;
+				colSpan?: number;
+				styles?: Record<string, unknown>;
+			}
+			const tableBody: (string | TableRow)[][] = [];
+			let gewerkNr = 1;
+
+			// Summen pro Gewerk für Zusammenfassung sammeln
+			const gewerkSummen: Array<{ nr: number; name: string; summe: number; bedarfssumme: number }> = [];
+
+			positionGroups.forEach((group, groupIdx) => {
+				let posInGroup = 1;
+				let gewerkSumme = 0;
+				let bedarfsSumme = 0;
+
+				// Gewerk-Header als Zeile
+				tableBody.push([
+					{ content: `Pos. ${gewerkNr}`, styles: { fontStyle: 'bold' } } as TableRow,
+					{ content: group.name, colSpan: 4, styles: { fontStyle: 'bold' } } as TableRow
+				]);
+
+				// Positionen der Gruppe
+				group.positionen.forEach((pos) => {
+					const gp = pos.menge * pos.einzelpreis;
+					const posNummer = `${gewerkNr}.${String(posInGroup).padStart(3, '0')}`;
+
+					// Einheit formatieren
+					let einheitText = `${pos.menge} ${pos.einheit}`;
+					if (pos.einheit === 'pauschal' || pos.einheit === 'psch') {
+						einheitText = `${pos.menge} pauschal`;
+					}
+
+					// Position-Zeile
+					tableBody.push([
+						posNummer,
+						einheitText,
+						pos.bezeichnung,
+						formatDE(pos.einzelpreis),
+						formatDE(gp)
+					]);
+
+					// Artikelnummer-Zeile (klein, grau) - wenn vorhanden
+					if (pos.artikelnummer) {
+						tableBody.push([
+							'',
+							'',
+							{ content: `Artikelnummer: ${pos.artikelnummer}`, styles: { textColor: grauDunkel, fontSize: 8 } } as TableRow,
+							'',
+							''
+						]);
+					}
+
+					// Langtext/Beschreibung - wenn aktiviert und vorhanden
+					if (includeLangtexte && pos.beschreibung && pos.beschreibung.trim()) {
+						tableBody.push([
+							'',
+							'',
+							{ content: pos.beschreibung, colSpan: 3, styles: { textColor: grauDunkel, fontSize: 8, cellPadding: { top: 1, bottom: 3 } } } as TableRow,
+							'',
+							''
+						]);
+					}
+
+					gewerkSumme += gp;
+					posInGroup++;
+				});
+
+				// Gewerk-Summenzeile
+				tableBody.push([
+					'',
+					{ content: `Summe ${gewerkNr} ${group.name}`, colSpan: 3, styles: { fontStyle: 'bold' } } as TableRow,
+					'',
+					{ content: formatDE(gewerkSumme), styles: { fontStyle: 'bold' } } as TableRow
+				]);
+
+				// Leere Zeile zwischen Gewerken
+				if (groupIdx < positionGroups.length - 1) {
+					tableBody.push(['', '', '', '', '']);
+				}
+
+				gewerkSummen.push({ nr: gewerkNr, name: group.name, summe: gewerkSumme, bedarfssumme: bedarfsSumme });
+				gewerkNr++;
+			});
+
+			// AutoTable für Positionsliste
+			autoTable(doc, {
+				startY: drawFollowingPageHeader(),
+				head: [['Pos', 'Menge', 'Bezeichnung', 'Einheitspreis', 'Gesamt']],
+				body: tableBody,
+				theme: 'plain',
+				headStyles: {
+					fillColor: [255, 255, 255],
+					textColor: schwarz,
+					fontStyle: 'bold',
+					fontSize: 10,
+					cellPadding: { top: 3, bottom: 3 }
+				},
+				bodyStyles: {
+					fontSize: 9,
+					cellPadding: { top: 2, bottom: 2 }
+				},
+				columnStyles: {
+					0: { cellWidth: 18 },
+					1: { cellWidth: 25 },
+					2: { cellWidth: 75 },
+					3: { cellWidth: 28, halign: 'right' },
+					4: { cellWidth: 28, halign: 'right' }
+				},
+				margin: { left: marginLeft, right: marginRight, top: 50, bottom: 30 },
+				tableLineColor: grauHell,
+				tableLineWidth: 0.1,
+				didDrawPage: (data) => {
+					// Header und Footer auf jeder Seite
+					if (data.pageNumber > 1) {
+						drawFollowingPageHeader();
+					}
+					// Trennlinie unter Tabellen-Header
+					doc.setDrawColor(...grauDunkel);
+					doc.setLineWidth(0.5);
+					doc.line(marginLeft, 48, pageWidth - marginRight, 48);
+				},
+				willDrawCell: (data) => {
+					// Trennlinie unter Spaltenüberschriften
+					if (data.section === 'head') {
+						doc.setDrawColor(...grauDunkel);
+						doc.setLineWidth(0.3);
+					}
+				}
+			});
+
+			// Aktuelle Y-Position nach Tabelle
+			let finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY || 200;
+
+			// === ZUSAMMENFASSUNG ===
+			// Prüfen ob noch Platz auf der Seite (mind. 100mm für Zusammenfassung)
+			if (finalY > pageHeight - 100) {
+				doc.addPage();
+				currentPage++;
+				finalY = drawFollowingPageHeader();
+			}
+
+			finalY += 10;
+
+			// Zusammenfassung-Header
+			doc.setFontSize(11);
+			doc.setFont('helvetica', 'bold');
+			doc.setTextColor(...schwarz);
+			doc.text('Zusammenfassung', marginLeft, finalY);
+
+			finalY += 8;
+
+			// Zusammenfassung-Tabelle
+			const summaryBody: (string | TableRow)[][] = [];
+			let gesamtNetto2 = 0;
+			let gesamtBedarf = 0;
+
+			gewerkSummen.forEach(gs => {
+				summaryBody.push([
+					`Pos. ${gs.nr}`,
+					gs.name,
+					{ content: formatDE(gs.summe), styles: { halign: 'right' } } as TableRow
+				]);
+				gesamtNetto2 += gs.summe;
+				gesamtBedarf += gs.bedarfssumme;
+			});
+
+			// Bedarfspositionen-Zeile (falls vorhanden)
+			if (gesamtBedarf > 0) {
+				summaryBody.push([
+					'',
+					'Bedarfspositionen',
+					{ content: `(${formatDE(gesamtBedarf)})`, styles: { halign: 'right' } } as TableRow
+				]);
+			}
+
+			// Leerzeile
+			summaryBody.push(['', '', '']);
+
+			// Nettobetrag
+			summaryBody.push([
+				'',
+				{ content: 'Nettobetrag', styles: { fontStyle: 'bold' } } as TableRow,
+				{ content: formatDE(nettoSumme), styles: { halign: 'right', fontStyle: 'bold' } } as TableRow
+			]);
+
+			// MwSt
+			summaryBody.push([
+				'',
+				'zzgl. 19% MwSt.',
+				{ content: formatDE(mwst), styles: { halign: 'right' } } as TableRow
+			]);
+
+			// Gesamtsumme
+			summaryBody.push([
+				'',
+				{ content: 'Gesamtsumme', styles: { fontStyle: 'bold', fontSize: 11 } } as TableRow,
+				{ content: formatDE(bruttoSumme), styles: { halign: 'right', fontStyle: 'bold', fontSize: 11 } } as TableRow
+			]);
+
+			autoTable(doc, {
+				startY: finalY,
+				body: summaryBody,
+				theme: 'plain',
+				bodyStyles: {
+					fontSize: 10,
+					cellPadding: { top: 2, bottom: 2 }
+				},
+				columnStyles: {
+					0: { cellWidth: 20 },
+					1: { cellWidth: 100 },
+					2: { cellWidth: 50, halign: 'right' }
+				},
+				margin: { left: marginLeft, right: marginRight },
+				tableLineColor: grauHell,
+				tableLineWidth: 0
+			});
+
+			// Seitenzählung aktualisieren und Footer auf allen Seiten zeichnen
+			totalPages = doc.internal.pages.length - 1; // pages[0] ist leer
+			for (let i = 1; i <= totalPages; i++) {
+				doc.setPage(i);
+				drawPageFooter(i);
+			}
+
+			// === PDF SPEICHERN ===
+			const safeProjektName = projektName.replace(/[^a-zA-Z0-9äöüÄÖÜß\-_]/g, '_');
+			const filename = `Angebot_${safeProjektName}_${datumStr.replace(/\./g, '-')}.pdf`;
+			doc.save(filename);
+
+		} catch (err) {
+			console.error('PDF-Generierung fehlgeschlagen:', err);
+			alert('Fehler bei der PDF-Generierung: ' + getErrorMessage(err));
+		}
 	}
 
 	// Navigation
@@ -1632,6 +2069,11 @@ Tipp: Wohnungsgröße erwähnen für korrekte VBW-Staffelpreise (z.B. 'Wohnung c
 						<label class="checkbox-option">
 							<input type="checkbox" bind:checked={includeBedarfspositionen} />
 							<span>Bedarfspositionen anhängen (Regiearbeiten, etc.)</span>
+						</label>
+
+						<label class="checkbox-option">
+							<input type="checkbox" bind:checked={includeLangtexte} />
+							<span>Langtexte anzeigen (Detailbeschreibungen unter Positionen)</span>
 						</label>
 
 						<label class="checkbox-option">

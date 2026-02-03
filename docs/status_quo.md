@@ -1,10 +1,33 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-04 (aktualisiert nach LOG-095)
+**Stand:** 2026-02-04 (aktualisiert nach LOG-096)
 
 ---
 
 ## Aktueller Projektstatus
+
+### CPQ-Wizard v2: DB-Schema + PDF-Export (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**Session-Ergebnis:**
+| Fix | Details |
+|-----|---------|
+| Svelte 5 Bindings | globalThis Singleton, ownership_invalid_binding |
+| LV-Preise | neurealis `listenpreis` war NULL → gefixt |
+| DB-Schema | `angebote` + `angebots_positionen` Tabellen |
+| projekt_id | UUID → TEXT (Monday IDs sind Strings) |
+| PDF-Export | jsPDF mit professionellem Layout nach Hero-Vorlage |
+| Langtexte | Checkbox in Step 8 für optionale Beschreibungen |
+| Angebotsnummern | Format: ATBS-XXX-ANG01, ATBS-XXX-ANG02 |
+
+**Neue RPC Functions:**
+- `get_next_dokument_nr(prefix)` - Generische Dokumentnummern
+- `get_next_angebots_nr(p_projekt_nr)` - Projektbezogene Angebotsnummern
+
+**Neue Learnings:** L209-L211
+
+---
 
 ### CPQ-Wizard Fixes (✅ FERTIG)
 

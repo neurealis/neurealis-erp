@@ -108,6 +108,64 @@
 | LOG-093 | 2026-02-04 | transcription-parse v7: LV-Matching + Staffel-Relevanz Fix | Abgeschlossen |
 | LOG-094 | 2026-02-04 | Monday-Sync Kunden-Mapping Fix: text57/text573 sind Kunde, nicht NU | Abgeschlossen |
 | LOG-095 | 2026-02-04 | CPQ-Wizard Fixes: Preis-Bug, Mülleimer, Einklappbar, Step 4 Fallback | Abgeschlossen |
+| LOG-096 | 2026-02-04 | CPQ-Wizard v2: DB-Schema, PDF-Export, Angebotsnummern | Abgeschlossen |
+
+---
+
+## LOG-096 - CPQ-Wizard v2: DB-Schema, PDF-Export, Angebotsnummern
+**Datum:** 2026-02-04
+
+### Anforderung
+CPQ-Wizard Debugging und Erweiterungen:
+1. Svelte 5 Binding-Warnungen beheben
+2. Supabase Multiple GoTrueClient Warnung fixen
+3. DB-Schema für Angebote erstellen
+4. PDF-Generierung implementieren
+5. Angebotsnummern-Format: ATBS-XXX-ANG01
+
+### Durchgeführte Arbeiten
+
+**1. Svelte 5 Fixes**
+- `supabase.ts`: Singleton via globalThis gegen HMR-Probleme
+- `supabase-server.ts`: Gleicher globalThis-Key für Browser-Client
+- `PositionGroup.svelte`: `bind:items` → `items` (ownership_invalid_binding)
+- `app.html`: Favicon + lang="de"
+
+**2. LV-Preise Fix**
+- **Problem:** neurealis LV hatte `listenpreis` = NULL (83 von 84 Positionen)
+- **Lösung:** Migration kopiert `preis` → `listenpreis` für neurealis, Privat, Artikel
+
+**3. DB-Migrationen**
+- `angebote` Tabelle: Spalten hinzugefügt (angebotsnummer, projektname, auftraggeber, etc.)
+- `projekt_id`: UUID → TEXT (Monday IDs sind Strings wie "1890229948")
+- RLS Policies für `angebots_positionen`
+- `get_next_dokument_nr(prefix)`: Neue RPC Function
+- `get_next_angebots_nr(p_projekt_nr)`: Format ATBS-XXX-ANG01
+
+**4. PDF-Generierung**
+- jsPDF + jspdf-autotable (bereits installiert)
+- Professionelles Layout nach Hero-Software Vorlage
+- Deckblatt mit Logo, Absender, Empfänger
+- Positionstabelle mit Gewerk-Gruppierung
+- NEU: Checkbox "Langtexte anzeigen" in Step 8
+- Footer mit Firmendaten, IBAN, Seitenzahlen
+
+**5. Angebotsnummern**
+- Format: `ATBS-462-ANG01`, `ATBS-462-ANG02`, etc.
+- Pro Projekt fortlaufend nummeriert
+- ATBS-Nummer aus Projektname extrahiert
+
+### Betroffene Dateien
+- `ui/src/lib/supabase.ts` - Singleton
+- `ui/src/lib/supabase-server.ts` - Singleton
+- `ui/src/lib/components/cpq/PositionGroup.svelte` - bind:items Fix
+- `ui/src/routes/angebote/neu/+page.svelte` - PDF + Angebotsnummern
+- `ui/src/app.html` - Favicon + lang
+
+### Learnings
+- L209: globalThis Singleton überlebt HMR (let variable nicht)
+- L210: Monday IDs sind Strings, nicht UUIDs
+- L211: LV-Tabelle: preis=EK, listenpreis=VK (bei neurealis identisch)
 
 ---
 

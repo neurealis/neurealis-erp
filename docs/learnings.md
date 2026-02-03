@@ -6,6 +6,23 @@
 
 ## Telegram Bot
 
+### L209 - globalThis Singleton überlebt HMR
+**Datum:** 2026-02-04
+**Kategorie:** SvelteKit/Supabase
+**Ref:** LOG-096
+
+### L210 - Monday IDs sind Strings, nicht UUIDs
+**Datum:** 2026-02-04
+**Kategorie:** Supabase/DB
+**Ref:** LOG-096
+
+### L211 - LV-Tabelle: preis=EK, listenpreis=VK
+**Datum:** 2026-02-04
+**Kategorie:** Supabase/DB
+**Ref:** LOG-096
+
+---
+
 ### L202 - Edge Functions: POST+GET Support für Subagenten-Aufrufe
 **Datum:** 2026-02-04
 **Kategorie:** Supabase/Edge Functions
