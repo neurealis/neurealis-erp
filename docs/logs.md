@@ -109,6 +109,48 @@
 | LOG-094 | 2026-02-04 | Monday-Sync Kunden-Mapping Fix: text57/text573 sind Kunde, nicht NU | Abgeschlossen |
 | LOG-095 | 2026-02-04 | CPQ-Wizard Fixes: Preis-Bug, Mülleimer, Einklappbar, Step 4 Fallback | Abgeschlossen |
 | LOG-096 | 2026-02-04 | CPQ-Wizard v2: DB-Schema, PDF-Export, Angebotsnummern | Abgeschlossen |
+| LOG-097 | 2026-02-04 | CPQ-Wizard v3: Professionelles PDF + Anhänge | Abgeschlossen |
+
+---
+
+## LOG-097 - CPQ-Wizard v3: Professionelles PDF + Anhänge
+**Datum:** 2026-02-04
+
+### Anforderung
+PDF-Export des CPQ-Wizards war unprofessionell, fehlte Logo, Bedarfspositionen und Angebotsannahme.
+
+### Durchgeführte Arbeiten
+
+**1. DB-Fix**
+- `created_at` → `erstellt_am` umbenannt (UI erwartete deutschen Namen)
+
+**2. PDF-Layout komplett überarbeitet**
+- Logo aus `/logo-neurealis.png` als Base64 geladen
+- Abschnittsüberschriften mit hellgrauem Hintergrund (#f5f5f5)
+- Preisspalten sauber rechtsbündig (nicht über Rand)
+- Einheitliches Farbschema (schwarz, grauDunkel, grauMittel, akzentFarbe)
+- Header/Footer auf jeder Seite
+
+**3. PDF-Struktur**
+- Seite 1: Deckblatt (Logo, Empfänger, Betreff, Summenvorschau)
+- Seite 2+: Positionstabelle mit Gewerk-Gruppierung
+- Summenblock: Netto, MwSt, Brutto
+- Anhang A: Bedarfspositionen (optional, aus `angebots_bausteine`)
+- Anhang B: Auftragserteilung (optional, mit Template-Variablen)
+
+**4. Bedarfspositionen + Angebotsannahme**
+- Neue State-Variablen: `bedarfspositionen`, `angebotsannahmeFormulare`
+- `loadAngebotsBausteine()` lädt aus DB
+- 8 Bedarfspositionen (Baustelleneinrichtung, Baustrom, Container, etc.)
+- Angebotsannahme mit Platzhaltern: `{{angebotsnummer}}`, `{{netto}}`, etc.
+
+### Betroffene Dateien
+- `ui/src/routes/angebote/neu/+page.svelte` - generatePDF() komplett neu
+- Migration: `created_at` → `erstellt_am`
+
+### Learnings
+- L212: jsPDF Logo als Base64 für Offline-Fähigkeit
+- L213: PDF Abschnitts-Header mit fillColor vor Text
 
 ---
 

@@ -152,6 +152,23 @@
 	let isSaving = $state(false);
 	let angebotsVorschau = $state('');
 
+	// Angebots-Bausteine (aus DB geladen)
+	interface AngebotsBaustein {
+		id: number;
+		typ: string;
+		name: string;
+		beschreibung: string | null;
+		inhalt: string | null;
+		artikelnummer: string | null;
+		einheit: string | null;
+		preis: number | null;
+		mwst_satz: number;
+		sortierung: number;
+		aktiv: boolean;
+	}
+	let bedarfspositionen = $state<AngebotsBaustein[]>([]);
+	let angebotsannahmeFormulare = $state<AngebotsBaustein[]>([]);
+
 	// Auftraggeber -> LV-Typ Mapping
 	function mapAuftraggeberToLvTyp(projektname_komplett: string): string {
 		if (!projektname_komplett) return 'neurealis';
@@ -798,12 +815,32 @@
 		}
 	}
 
-	// PDF generieren mit jsPDF
+	// Logo als Base64 laden
+	async function loadLogoAsBase64(): Promise<string | null> {
+		try {
+			const response = await fetch('/logo-neurealis.png');
+			const blob = await response.blob();
+			return new Promise((resolve) => {
+				const reader = new FileReader();
+				reader.onloadend = () => resolve(reader.result as string);
+				reader.onerror = () => resolve(null);
+				reader.readAsDataURL(blob);
+			});
+		} catch {
+			console.warn('Logo konnte nicht geladen werden');
+			return null;
+		}
+	}
+
+	// PDF generieren mit jsPDF - Professionelles Layout
 	async function generatePDF() {
 		try {
 			// Dynamischer Import für Client-side only
 			const { default: jsPDF } = await import('jspdf');
 			const { default: autoTable } = await import('jspdf-autotable');
+
+			// Logo laden
+			const logoBase64 = await loadLogoAsBase64();
 
 			const doc = new jsPDF({
 				orientation: 'portrait',
@@ -818,20 +855,23 @@
 			const marginRight = 20;
 			const contentWidth = pageWidth - marginLeft - marginRight;
 
-			// Farben (wie in Hero-Vorlage)
-			const grauDunkel = [128, 128, 128] as [number, number, number];
-			const grauHell = [200, 200, 200] as [number, number, number];
+			// Farben - Professionelle Palette
 			const schwarz = [0, 0, 0] as [number, number, number];
+			const grauDunkel = [80, 80, 80] as [number, number, number];
+			const grauMittel = [120, 120, 120] as [number, number, number];
+			const grauHell = [200, 200, 200] as [number, number, number];
+			const sektionBg = [245, 245, 245] as [number, number, number]; // Hellgrauer Hintergrund
+			const akzentFarbe = [180, 50, 50] as [number, number, number]; // Dezentes Rot
 
-			// Deutsche Formatierung
-			const formatDE = (value: number): string => {
+			// Deutsche Preisformatierung (Komma als Dezimaltrenner)
+			const formatPreis = (value: number): string => {
 				return value.toLocaleString('de-DE', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2
 				}) + ' €';
 			};
 
-			// Datum formatieren
+			// Datum deutsch formatieren
 			const heute = new Date();
 			const datumStr = heute.toLocaleDateString('de-DE', {
 				day: '2-digit',
@@ -839,162 +879,236 @@
 				year: 'numeric'
 			});
 
-			// Angebotsnummer generieren (vorläufig)
+			// Gültigkeitsdatum (30 Tage)
+			const gueltigBis = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
+
+			// Angebotsnummer
 			const angebotsNr = `ANG-${heute.getFullYear()}-ENTWURF`;
 
-			// Projekt und Kunde extrahieren
+			// Projekt und Kunde
 			const projektName = selectedProjekt?.projektname || 'Kein Projekt ausgewählt';
 			const auftraggeber = selectedProjekt?.projektname_komplett?.split('|')[0]?.trim() || '-';
-			// BV-Bezeichnung aus Projektname extrahieren
-			const bvBezeichnung = `BV: ${auftraggeber} - ${projektName}`;
 
 			// Seitenzähler
 			let totalPages = 1;
-			let currentPage = 1;
 
 			// === HILFSFUNKTIONEN ===
 
-			// Footer auf jeder Seite zeichnen
+			// Logo zeichnen (oben rechts)
+			function drawLogo(y: number = 12) {
+				if (logoBase64) {
+					try {
+						doc.addImage(logoBase64, 'PNG', pageWidth - marginRight - 50, y, 50, 18);
+					} catch {
+						drawTextLogo(y);
+					}
+				} else {
+					drawTextLogo(y);
+				}
+			}
+
+			// Text-Logo als Fallback
+			function drawTextLogo(y: number) {
+				doc.setFontSize(22);
+				doc.setTextColor(...grauDunkel);
+				doc.setFont('helvetica', 'bold');
+				doc.text('neurealis', pageWidth - marginRight - 45, y + 12);
+				doc.setFillColor(...akzentFarbe);
+				doc.rect(pageWidth - marginRight - 48, y + 2, 2, 14, 'F');
+			}
+
+			// Abschnittsüberschrift mit hellgrauem Hintergrund
+			function drawSectionHeader(text: string, y: number): number {
+				doc.setFillColor(...sektionBg);
+				doc.rect(marginLeft, y - 5, contentWidth, 9, 'F');
+				doc.setFontSize(11);
+				doc.setFont('helvetica', 'bold');
+				doc.setTextColor(...schwarz);
+				doc.text(text, marginLeft + 3, y + 1);
+				return y + 10;
+			}
+
+			// Footer auf jeder Seite
 			function drawPageFooter(pageNum: number) {
-				// Dokumentkennung links unten
+				const footerY = pageHeight - 15;
+
+				// Trennlinie
+				doc.setDrawColor(...grauHell);
+				doc.setLineWidth(0.3);
+				doc.line(marginLeft, footerY - 5, pageWidth - marginRight, footerY - 5);
+
+				doc.setFontSize(7);
+				doc.setTextColor(...grauMittel);
+				doc.setFont('helvetica', 'normal');
+
+				// Links: Firma
+				doc.text('neurealis GmbH | Kleyer Weg 40 | 44149 Dortmund | HRB 34499 | USt-IdNr.: DE356758279', marginLeft, footerY);
+				doc.text('NATIONAL-BANK AG | IBAN: DE95 3602 0030 0000 1805 94 | BIC: NBAGDE3EXXX', marginLeft, footerY + 4);
+
+				// Rechts: Seite
+				doc.text(`Seite ${pageNum} von ${totalPages}`, pageWidth - marginRight, footerY, { align: 'right' });
+				doc.text(`Angebot ${angebotsNr}`, pageWidth - marginRight, footerY + 4, { align: 'right' });
+			}
+
+			// Header auf Folgeseiten
+			function drawFollowingPageHeader(): number {
+				drawLogo(8);
+
+				// Dokument-Info
 				doc.setFontSize(8);
-				doc.setTextColor(...grauDunkel);
+				doc.setTextColor(...grauMittel);
 				doc.setFont('helvetica', 'normal');
-				doc.text(`Angebot - ${auftraggeber} ${angebotsNr}`, marginLeft, pageHeight - 20);
+				doc.text(`${angebotsNr} | ${auftraggeber} | ${projektName}`, marginLeft, 18);
 
-				// Firmendaten zentriert
-				const footerText1 = 'neurealis GmbH | Kleyer Weg 40 | 44149 Dortmund | Geschäftsführer: Holger Neumann';
-				const footerText2 = 'Dortmund HRB34499 | Steuernummer: 315/5761/2453 | USt-IdNr.: DE356758279';
-				const footerText3 = 'NATIONAL-BANK AG | IBAN: DE95 3602 0030 0000 1805 94 | BIC: NBAGDE3EXXX';
+				// Trennlinie
+				doc.setDrawColor(...grauHell);
+				doc.setLineWidth(0.4);
+				doc.line(marginLeft, 24, pageWidth - marginRight, 24);
 
-				doc.text(footerText1, pageWidth / 2, pageHeight - 15, { align: 'center' });
-				doc.text(footerText2, pageWidth / 2, pageHeight - 11, { align: 'center' });
-				doc.text(footerText3, pageWidth / 2, pageHeight - 7, { align: 'center' });
-
-				// Seitenzahl rechts
-				doc.text(`Seite ${pageNum}/${totalPages}`, pageWidth - marginRight, pageHeight - 20, { align: 'right' });
+				return 32;
 			}
 
-			// Header-Bereich auf Seite 1 zeichnen
-			function drawFirstPageHeader() {
-				// Logo-Bereich rechts (Text-Logo wie in Vorlage)
-				doc.setFontSize(36);
-				doc.setTextColor(...grauDunkel);
-				doc.setFont('helvetica', 'bold');
-				// "neurealis" mit grauem "n" und Rest
-				doc.text('neurealis', pageWidth - marginRight - 55, 25);
+			// === SEITE 1: DECKBLATT ===
 
-				// Grauer vertikaler Balken vor dem "n" (wie im Logo)
-				doc.setFillColor(...grauDunkel);
-				doc.rect(pageWidth - marginRight - 58, 8, 4, 25, 'F');
+			// Logo
+			drawLogo(12);
 
-				// Absenderzeile klein oben links
-				doc.setFontSize(8);
+			// Absenderzeile (klein, unterstrichen)
+			doc.setFontSize(8);
+			doc.setTextColor(...grauMittel);
+			doc.setFont('helvetica', 'normal');
+			doc.text('neurealis GmbH | Kleyer Weg 40 | 44149 Dortmund', marginLeft, 48);
+			doc.setDrawColor(...grauHell);
+			doc.setLineWidth(0.2);
+			doc.line(marginLeft, 50, marginLeft + 75, 50);
+
+			// Empfängeradresse
+			let empfY = 58;
+			doc.setFontSize(11);
+			doc.setTextColor(...schwarz);
+			doc.setFont('helvetica', 'bold');
+			doc.text(auftraggeber, marginLeft, empfY);
+			empfY += 6;
+			doc.setFont('helvetica', 'normal');
+			doc.setFontSize(10);
+			doc.setTextColor(...grauDunkel);
+			doc.text('z. Hd. Ansprechpartner', marginLeft, empfY);
+			empfY += 5;
+			doc.text('Straße Hausnummer', marginLeft, empfY);
+			empfY += 5;
+			doc.text('PLZ Ort', marginLeft, empfY);
+
+			// Metadaten rechts (sauber ausgerichtet)
+			const metaLabelX = 125;
+			const metaValueX = pageWidth - marginRight;
+			let metaY = 58;
+
+			doc.setFontSize(9);
+
+			const metaData = [
+				['Angebotsnummer:', angebotsNr],
+				['Datum:', datumStr],
+				['Gültig bis:', gueltigBis],
+				['Projekt:', selectedProjektId || '-'],
+				['Bearbeiter:', 'Holger Neumann'],
+				['Telefon:', '0173 5174921'],
+				['E-Mail:', 'holger.neumann@neurealis.de']
+			];
+
+			metaData.forEach(([label, value]) => {
 				doc.setTextColor(...grauDunkel);
 				doc.setFont('helvetica', 'normal');
-				doc.text('neurealis GmbH, Kleyer Weg 40, 44149 Dortmund', marginLeft, 45);
-
-				// Empfängeradresse links
-				doc.setFontSize(11);
+				doc.text(label, metaLabelX, metaY);
 				doc.setTextColor(...schwarz);
-				doc.text(auftraggeber, marginLeft, 58);
-				// Platzhalter für weitere Adresszeilen
-				doc.text('z.Hd. Ansprechpartner', marginLeft, 64);
-				doc.text('Straße Nr.', marginLeft, 70);
-				doc.text('PLZ Ort', marginLeft, 76);
-				doc.text('Deutschland', marginLeft, 82);
-
-				// Metadaten-Block rechts
-				const metaX = 120;
-				const metaValueX = pageWidth - marginRight;
-				let metaY = 58;
-
-				doc.setFontSize(10);
-				doc.setTextColor(...schwarz);
-
-				// Labels links, Werte rechts
-				doc.text('Angebotsnummer', metaX, metaY);
-				doc.text(angebotsNr, metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('Kundennummer', metaX, metaY);
-				doc.text('-', metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('Projektnummer', metaX, metaY);
-				doc.text(selectedProjektId || '-', metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('Datum', metaX, metaY);
-				doc.text(datumStr, metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('Ansprechpartner', metaX, metaY);
-				doc.text('Holger Neumann', metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('Mobil', metaX, metaY);
-				doc.text('0173 5174921', metaValueX, metaY, { align: 'right' });
-
-				metaY += 6;
-				doc.text('E-Mail', metaX, metaY);
-				doc.text('holger.neumann@neurealis.de', metaValueX, metaY, { align: 'right' });
-
-				// BV-Zeile (Bauvorhaben) - fett
-				doc.setFontSize(12);
 				doc.setFont('helvetica', 'bold');
-				doc.text(bvBezeichnung, marginLeft, 105);
+				doc.text(value, metaValueX, metaY, { align: 'right' });
+				metaY += 5;
+			});
 
-				// Angebot Nr. Zeile
-				doc.setFontSize(11);
-				doc.text(`Angebot Nr. ${angebotsNr}`, marginLeft, 115);
+			// Betreff-Zeile
+			let betreffY = 105;
+			doc.setFontSize(14);
+			doc.setFont('helvetica', 'bold');
+			doc.setTextColor(...schwarz);
+			doc.text(`Angebot Nr. ${angebotsNr}`, marginLeft, betreffY);
 
-				// Anrede und Einleitungstext
-				doc.setFontSize(10);
-				doc.setFont('helvetica', 'normal');
-				doc.text('Sehr geehrte Damen und Herren,', marginLeft, 130);
+			betreffY += 8;
+			doc.setFontSize(11);
+			doc.setFont('helvetica', 'normal');
+			doc.text(`Bauvorhaben: ${projektName}`, marginLeft, betreffY);
 
-				const einleitungsText = 'Wir hoffen, dass Ihnen unser Angebot zusagt und freuen uns über die Erteilung Ihres Auftrages.';
-				doc.text(einleitungsText, marginLeft, 138);
-				doc.text('Für Rückfragen stehen wir Ihnen gerne zur Verfügung.', marginLeft, 144);
+			// Einleitungstext
+			let textY = 130;
+			doc.setFontSize(10);
+			doc.setTextColor(...schwarz);
+			doc.setFont('helvetica', 'normal');
 
-				doc.text('Mit freundlichen Grüßen', marginLeft, 156);
-				doc.text('Ihr Team von', marginLeft, 164);
-				doc.setFont('helvetica', 'bold');
-				doc.text('neurealis Komplettsanierung', marginLeft, 170);
+			doc.text('Sehr geehrte Damen und Herren,', marginLeft, textY);
+			textY += 10;
 
-				return 180; // Y-Position nach Header
-			}
+			const einleitung = doc.splitTextToSize(
+				'vielen Dank für Ihr Interesse an unseren Leistungen. Gerne unterbreiten wir Ihnen ' +
+				'nachfolgendes Angebot für die Sanierungsarbeiten am oben genannten Objekt. ' +
+				'Die Positionen basieren auf unserer gemeinsamen Begehung und Bedarfsermittlung.',
+				contentWidth
+			);
+			einleitung.forEach((line: string) => {
+				doc.text(line, marginLeft, textY);
+				textY += 5;
+			});
 
-			// Header auf Folgeseiten (nur Logo)
-			function drawFollowingPageHeader() {
-				// Logo rechts oben
-				doc.setFontSize(36);
-				doc.setTextColor(...grauDunkel);
-				doc.setFont('helvetica', 'bold');
-				doc.text('neurealis', pageWidth - marginRight - 55, 25);
+			// Summenvorschau (Highlight-Box)
+			textY += 10;
+			doc.setFillColor(...sektionBg);
+			doc.roundedRect(marginLeft, textY - 5, contentWidth, 35, 2, 2, 'F');
 
-				// Grauer vertikaler Balken
-				doc.setFillColor(...grauDunkel);
-				doc.rect(pageWidth - marginRight - 58, 8, 4, 25, 'F');
+			doc.setFontSize(10);
+			doc.setTextColor(...grauDunkel);
+			doc.setFont('helvetica', 'normal');
+			doc.text('Angebotssumme', marginLeft + 5, textY + 5);
 
-				// Trennlinie unter Header
-				doc.setDrawColor(...grauDunkel);
-				doc.setLineWidth(0.5);
-				doc.line(marginLeft, 40, pageWidth - marginRight, 40);
+			// Netto
+			doc.setFontSize(11);
+			doc.setFont('helvetica', 'normal');
+			doc.text('Nettobetrag:', marginLeft + 80, textY + 5);
+			doc.setFont('helvetica', 'bold');
+			doc.setTextColor(...schwarz);
+			doc.text(formatPreis(nettoSumme), pageWidth - marginRight - 5, textY + 5, { align: 'right' });
 
-				return 50; // Y-Position nach Header
-			}
+			// MwSt
+			doc.setFontSize(9);
+			doc.setFont('helvetica', 'normal');
+			doc.setTextColor(...grauDunkel);
+			doc.text('zzgl. 19% MwSt.:', marginLeft + 80, textY + 12);
+			doc.text(formatPreis(mwst), pageWidth - marginRight - 5, textY + 12, { align: 'right' });
 
-			// === ERSTE SEITE: DECKBLATT ===
-			const startY = drawFirstPageHeader();
-			drawPageFooter(1);
+			// Brutto (prominent)
+			doc.setFontSize(13);
+			doc.setFont('helvetica', 'bold');
+			doc.setTextColor(...schwarz);
+			doc.text('Gesamtbetrag:', marginLeft + 80, textY + 24);
+			doc.text(formatPreis(bruttoSumme), pageWidth - marginRight - 5, textY + 24, { align: 'right' });
 
-			// === ZWEITE SEITE: POSITIONSTABELLE ===
+			// Grußformel
+			textY += 50;
+			doc.setFontSize(10);
+			doc.setFont('helvetica', 'normal');
+			doc.setTextColor(...schwarz);
+			doc.text('Wir freuen uns auf Ihren Auftrag und stehen für Rückfragen gerne zur Verfügung.', marginLeft, textY);
+			textY += 10;
+			doc.text('Mit freundlichen Grüßen', marginLeft, textY);
+			textY += 12;
+			doc.setFont('helvetica', 'bold');
+			doc.text('Holger Neumann', marginLeft, textY);
+			doc.setFont('helvetica', 'normal');
+			textY += 5;
+			doc.setTextColor(...grauDunkel);
+			doc.text('Geschäftsführer', marginLeft, textY);
+
+			// === SEITE 2+: POSITIONSTABELLE ===
 			doc.addPage();
-			currentPage = 2;
 
-			// Positionstabelle vorbereiten
+			// Tabellendaten vorbereiten
 			interface TableRow {
 				content: string;
 				colSpan?: number;
@@ -1003,59 +1117,65 @@
 			const tableBody: (string | TableRow)[][] = [];
 			let gewerkNr = 1;
 
-			// Summen pro Gewerk für Zusammenfassung sammeln
-			const gewerkSummen: Array<{ nr: number; name: string; summe: number; bedarfssumme: number }> = [];
+			// Summen pro Gewerk
+			const gewerkSummen: Array<{ nr: number; name: string; summe: number }> = [];
 
 			positionGroups.forEach((group, groupIdx) => {
 				let posInGroup = 1;
 				let gewerkSumme = 0;
-				let bedarfsSumme = 0;
 
-				// Gewerk-Header als Zeile
+				// Gewerk-Header mit hellgrauem Hintergrund
 				tableBody.push([
-					{ content: `Pos. ${gewerkNr}`, styles: { fontStyle: 'bold' } } as TableRow,
-					{ content: group.name, colSpan: 4, styles: { fontStyle: 'bold' } } as TableRow
+					{
+						content: `${gewerkNr}. ${group.name}`,
+						colSpan: 5,
+						styles: {
+							fontStyle: 'bold',
+							fillColor: sektionBg,
+							fontSize: 10,
+							cellPadding: { top: 4, bottom: 4, left: 3, right: 3 }
+						}
+					} as TableRow
 				]);
 
-				// Positionen der Gruppe
+				// Positionen
 				group.positionen.forEach((pos) => {
 					const gp = pos.menge * pos.einzelpreis;
-					const posNummer = `${gewerkNr}.${String(posInGroup).padStart(3, '0')}`;
+					const posNummer = `${gewerkNr}.${String(posInGroup).padStart(2, '0')}`;
 
-					// Einheit formatieren
-					let einheitText = `${pos.menge} ${pos.einheit}`;
+					// Menge + Einheit
+					let mengeText = pos.menge.toLocaleString('de-DE');
 					if (pos.einheit === 'pauschal' || pos.einheit === 'psch') {
-						einheitText = `${pos.menge} pauschal`;
+						mengeText = 'psch';
+					} else {
+						mengeText = `${mengeText} ${pos.einheit}`;
 					}
 
-					// Position-Zeile
+					// Hauptzeile
 					tableBody.push([
 						posNummer,
-						einheitText,
 						pos.bezeichnung,
-						formatDE(pos.einzelpreis),
-						formatDE(gp)
+						{ content: mengeText, styles: { halign: 'right' } } as TableRow,
+						{ content: formatPreis(pos.einzelpreis), styles: { halign: 'right' } } as TableRow,
+						{ content: formatPreis(gp), styles: { halign: 'right' } } as TableRow
 					]);
 
-					// Artikelnummer-Zeile (klein, grau) - wenn vorhanden
-					if (pos.artikelnummer) {
+					// Artikelnummer + Beschreibung (optional)
+					if (pos.artikelnummer || (includeLangtexte && pos.beschreibung?.trim())) {
+						let detailText = '';
+						if (pos.artikelnummer) {
+							detailText = `Art.-Nr.: ${pos.artikelnummer}`;
+						}
+						if (includeLangtexte && pos.beschreibung?.trim()) {
+							detailText += (detailText ? '\n' : '') + pos.beschreibung;
+						}
 						tableBody.push([
 							'',
-							'',
-							{ content: `Artikelnummer: ${pos.artikelnummer}`, styles: { textColor: grauDunkel, fontSize: 8 } } as TableRow,
-							'',
-							''
-						]);
-					}
-
-					// Langtext/Beschreibung - wenn aktiviert und vorhanden
-					if (includeLangtexte && pos.beschreibung && pos.beschreibung.trim()) {
-						tableBody.push([
-							'',
-							'',
-							{ content: pos.beschreibung, colSpan: 3, styles: { textColor: grauDunkel, fontSize: 8, cellPadding: { top: 1, bottom: 3 } } } as TableRow,
-							'',
-							''
+							{
+								content: detailText,
+								colSpan: 4,
+								styles: { textColor: grauMittel, fontSize: 8, cellPadding: { top: 0, bottom: 3 } }
+							} as TableRow
 						]);
 					}
 
@@ -1063,158 +1183,226 @@
 					posInGroup++;
 				});
 
-				// Gewerk-Summenzeile
+				// Gewerk-Zwischensumme
 				tableBody.push([
 					'',
-					{ content: `Summe ${gewerkNr} ${group.name}`, colSpan: 3, styles: { fontStyle: 'bold' } } as TableRow,
-					'',
-					{ content: formatDE(gewerkSumme), styles: { fontStyle: 'bold' } } as TableRow
+					{
+						content: `Zwischensumme ${group.name}`,
+						colSpan: 3,
+						styles: { fontStyle: 'bold', halign: 'right' }
+					} as TableRow,
+					{
+						content: formatPreis(gewerkSumme),
+						styles: { fontStyle: 'bold', halign: 'right' }
+					} as TableRow
 				]);
 
-				// Leere Zeile zwischen Gewerken
+				// Leerzeile zwischen Gewerken
 				if (groupIdx < positionGroups.length - 1) {
-					tableBody.push(['', '', '', '', '']);
+					tableBody.push([{ content: '', colSpan: 5, styles: { cellPadding: { top: 4, bottom: 4 } } } as TableRow]);
 				}
 
-				gewerkSummen.push({ nr: gewerkNr, name: group.name, summe: gewerkSumme, bedarfssumme: bedarfsSumme });
+				gewerkSummen.push({ nr: gewerkNr, name: group.name, summe: gewerkSumme });
 				gewerkNr++;
 			});
 
 			// AutoTable für Positionsliste
 			autoTable(doc, {
 				startY: drawFollowingPageHeader(),
-				head: [['Pos', 'Menge', 'Bezeichnung', 'Einheitspreis', 'Gesamt']],
+				head: [['Pos.', 'Beschreibung', 'Menge', 'EP (netto)', 'GP (netto)']],
 				body: tableBody,
 				theme: 'plain',
+				styles: {
+					fontSize: 9,
+					cellPadding: { top: 2, bottom: 2, left: 2, right: 2 },
+					overflow: 'linebreak',
+					lineColor: grauHell,
+					lineWidth: 0.1
+				},
 				headStyles: {
-					fillColor: [255, 255, 255],
+					fillColor: sektionBg,
 					textColor: schwarz,
 					fontStyle: 'bold',
-					fontSize: 10,
-					cellPadding: { top: 3, bottom: 3 }
-				},
-				bodyStyles: {
 					fontSize: 9,
-					cellPadding: { top: 2, bottom: 2 }
+					cellPadding: { top: 4, bottom: 4 }
 				},
 				columnStyles: {
-					0: { cellWidth: 18 },
-					1: { cellWidth: 25 },
-					2: { cellWidth: 75 },
-					3: { cellWidth: 28, halign: 'right' },
-					4: { cellWidth: 28, halign: 'right' }
+					0: { cellWidth: 15, halign: 'left' },
+					1: { cellWidth: 82 },
+					2: { cellWidth: 22, halign: 'right' },
+					3: { cellWidth: 26, halign: 'right' },
+					4: { cellWidth: 26, halign: 'right' }
 				},
-				margin: { left: marginLeft, right: marginRight, top: 50, bottom: 30 },
-				tableLineColor: grauHell,
-				tableLineWidth: 0.1,
+				margin: { left: marginLeft, right: marginRight, top: 32, bottom: 22 },
 				didDrawPage: (data) => {
-					// Header und Footer auf jeder Seite
 					if (data.pageNumber > 1) {
 						drawFollowingPageHeader();
-					}
-					// Trennlinie unter Tabellen-Header
-					doc.setDrawColor(...grauDunkel);
-					doc.setLineWidth(0.5);
-					doc.line(marginLeft, 48, pageWidth - marginRight, 48);
-				},
-				willDrawCell: (data) => {
-					// Trennlinie unter Spaltenüberschriften
-					if (data.section === 'head') {
-						doc.setDrawColor(...grauDunkel);
-						doc.setLineWidth(0.3);
 					}
 				}
 			});
 
-			// Aktuelle Y-Position nach Tabelle
+			// Y-Position nach Tabelle
 			let finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY || 200;
 
-			// === ZUSAMMENFASSUNG ===
-			// Prüfen ob noch Platz auf der Seite (mind. 100mm für Zusammenfassung)
-			if (finalY > pageHeight - 100) {
+			// === SUMMENBLOCK ===
+			if (finalY > pageHeight - 75) {
 				doc.addPage();
-				currentPage++;
 				finalY = drawFollowingPageHeader();
 			}
 
-			finalY += 10;
-
-			// Zusammenfassung-Header
-			doc.setFontSize(11);
-			doc.setFont('helvetica', 'bold');
-			doc.setTextColor(...schwarz);
-			doc.text('Zusammenfassung', marginLeft, finalY);
-
 			finalY += 8;
+			finalY = drawSectionHeader('Zusammenfassung', finalY);
+			finalY += 2;
 
-			// Zusammenfassung-Tabelle
-			const summaryBody: (string | TableRow)[][] = [];
-			let gesamtNetto2 = 0;
-			let gesamtBedarf = 0;
+			// Summentabelle
+			const summaryData: (string | TableRow)[][] = [];
 
 			gewerkSummen.forEach(gs => {
-				summaryBody.push([
-					`Pos. ${gs.nr}`,
+				summaryData.push([
+					`${gs.nr}.`,
 					gs.name,
-					{ content: formatDE(gs.summe), styles: { halign: 'right' } } as TableRow
+					{ content: formatPreis(gs.summe), styles: { halign: 'right' } } as TableRow
 				]);
-				gesamtNetto2 += gs.summe;
-				gesamtBedarf += gs.bedarfssumme;
 			});
 
-			// Bedarfspositionen-Zeile (falls vorhanden)
-			if (gesamtBedarf > 0) {
-				summaryBody.push([
-					'',
-					'Bedarfspositionen',
-					{ content: `(${formatDE(gesamtBedarf)})`, styles: { halign: 'right' } } as TableRow
-				]);
-			}
+			summaryData.push([{ content: '', colSpan: 3, styles: { cellPadding: { top: 3 } } } as TableRow]);
 
-			// Leerzeile
-			summaryBody.push(['', '', '']);
-
-			// Nettobetrag
-			summaryBody.push([
+			summaryData.push([
 				'',
 				{ content: 'Nettobetrag', styles: { fontStyle: 'bold' } } as TableRow,
-				{ content: formatDE(nettoSumme), styles: { halign: 'right', fontStyle: 'bold' } } as TableRow
+				{ content: formatPreis(nettoSumme), styles: { halign: 'right', fontStyle: 'bold' } } as TableRow
 			]);
 
-			// MwSt
-			summaryBody.push([
+			summaryData.push([
 				'',
 				'zzgl. 19% MwSt.',
-				{ content: formatDE(mwst), styles: { halign: 'right' } } as TableRow
+				{ content: formatPreis(mwst), styles: { halign: 'right' } } as TableRow
 			]);
 
-			// Gesamtsumme
-			summaryBody.push([
+			summaryData.push([
 				'',
-				{ content: 'Gesamtsumme', styles: { fontStyle: 'bold', fontSize: 11 } } as TableRow,
-				{ content: formatDE(bruttoSumme), styles: { halign: 'right', fontStyle: 'bold', fontSize: 11 } } as TableRow
+				{ content: 'Gesamtbetrag (brutto)', styles: { fontStyle: 'bold', fontSize: 11 } } as TableRow,
+				{ content: formatPreis(bruttoSumme), styles: { halign: 'right', fontStyle: 'bold', fontSize: 11 } } as TableRow
 			]);
 
 			autoTable(doc, {
 				startY: finalY,
-				body: summaryBody,
+				body: summaryData,
 				theme: 'plain',
-				bodyStyles: {
-					fontSize: 10,
-					cellPadding: { top: 2, bottom: 2 }
-				},
+				styles: { fontSize: 10, cellPadding: { top: 2, bottom: 2 } },
 				columnStyles: {
-					0: { cellWidth: 20 },
-					1: { cellWidth: 100 },
-					2: { cellWidth: 50, halign: 'right' }
+					0: { cellWidth: 15 },
+					1: { cellWidth: 110 },
+					2: { cellWidth: 45, halign: 'right' }
 				},
-				margin: { left: marginLeft, right: marginRight },
-				tableLineColor: grauHell,
-				tableLineWidth: 0
+				margin: { left: marginLeft, right: marginRight }
 			});
 
-			// Seitenzählung aktualisieren und Footer auf allen Seiten zeichnen
-			totalPages = doc.internal.pages.length - 1; // pages[0] ist leer
+			finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY || finalY + 40;
+
+			// === BEDARFSPOSITIONEN ===
+			if (includeBedarfspositionen && bedarfspositionen.length > 0) {
+				if (finalY > pageHeight - 60) {
+					doc.addPage();
+					finalY = drawFollowingPageHeader();
+				}
+
+				finalY += 10;
+				finalY = drawSectionHeader('Bedarfspositionen (optional)', finalY);
+
+				doc.setFontSize(8);
+				doc.setTextColor(...grauDunkel);
+				doc.text('Folgende Positionen werden nur bei Bedarf ausgeführt und gesondert berechnet.', marginLeft, finalY + 2);
+				finalY += 8;
+
+				const bedarfsBody: (string | TableRow)[][] = bedarfspositionen.map((bp, idx) => [
+					`B${String(idx + 1).padStart(2, '0')}`,
+					bp.name + (bp.beschreibung ? `\n${bp.beschreibung}` : ''),
+					bp.einheit || 'Stk',
+					{ content: formatPreis(bp.preis || 0), styles: { halign: 'right' } } as TableRow
+				]);
+
+				autoTable(doc, {
+					startY: finalY,
+					head: [['Pos.', 'Beschreibung', 'Einheit', 'EP (netto)']],
+					body: bedarfsBody,
+					theme: 'plain',
+					styles: { fontSize: 9 },
+					headStyles: { fillColor: sektionBg, textColor: schwarz, fontStyle: 'bold' },
+					columnStyles: {
+						0: { cellWidth: 15 },
+						1: { cellWidth: 105 },
+						2: { cellWidth: 20, halign: 'center' },
+						3: { cellWidth: 30, halign: 'right' }
+					},
+					margin: { left: marginLeft, right: marginRight }
+				});
+
+				finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY || finalY + 30;
+			}
+
+			// === ANGEBOTSANNAHME ===
+			if (includeAngebotsannahme) {
+				doc.addPage();
+				let annahmeY = drawFollowingPageHeader();
+
+				annahmeY = drawSectionHeader('Auftragserteilung', annahmeY);
+				annahmeY += 5;
+
+				doc.setFontSize(10);
+				doc.setTextColor(...schwarz);
+				doc.setFont('helvetica', 'normal');
+
+				const annahmeText = doc.splitTextToSize(
+					`Hiermit erteile ich/erteilen wir der neurealis GmbH den Auftrag zur Durchführung ` +
+					`der im Angebot ${angebotsNr} vom ${datumStr} beschriebenen Leistungen ` +
+					`zum Gesamtbetrag von ${formatPreis(bruttoSumme)} (brutto).`,
+					contentWidth
+				);
+				annahmeText.forEach((line: string) => {
+					doc.text(line, marginLeft, annahmeY);
+					annahmeY += 5;
+				});
+
+				annahmeY += 5;
+				doc.text('Es gelten die Allgemeinen Geschäftsbedingungen der neurealis GmbH.', marginLeft, annahmeY);
+				annahmeY += 10;
+
+				// Zahlungsbedingungen Box
+				doc.setFillColor(...sektionBg);
+				doc.rect(marginLeft, annahmeY - 3, contentWidth, 18, 'F');
+				doc.setFontSize(9);
+				doc.setFont('helvetica', 'bold');
+				doc.text('Zahlungsbedingungen:', marginLeft + 3, annahmeY + 3);
+				doc.setFont('helvetica', 'normal');
+				doc.text('50% Anzahlung bei Auftragserteilung, 50% bei Fertigstellung.', marginLeft + 3, annahmeY + 9);
+				doc.text('Zahlbar innerhalb von 14 Tagen nach Rechnungsstellung ohne Abzug.', marginLeft + 3, annahmeY + 14);
+
+				// Unterschriftsfelder
+				annahmeY += 40;
+				doc.setDrawColor(...grauMittel);
+				doc.setLineWidth(0.3);
+
+				// Links: Auftraggeber
+				doc.line(marginLeft, annahmeY, marginLeft + 70, annahmeY);
+				doc.setFontSize(8);
+				doc.setTextColor(...grauMittel);
+				doc.text('Ort, Datum', marginLeft, annahmeY + 5);
+
+				doc.line(marginLeft, annahmeY + 25, marginLeft + 70, annahmeY + 25);
+				doc.text('Unterschrift Auftraggeber', marginLeft, annahmeY + 30);
+
+				// Rechts: Auftragnehmer
+				const rightX = pageWidth - marginRight - 70;
+				doc.line(rightX, annahmeY, pageWidth - marginRight, annahmeY);
+				doc.text('Ort, Datum', rightX, annahmeY + 5);
+
+				doc.line(rightX, annahmeY + 25, pageWidth - marginRight, annahmeY + 25);
+				doc.text('neurealis GmbH', rightX, annahmeY + 30);
+			}
+
+			// Seitenzählung und Footer auf allen Seiten
+			totalPages = doc.internal.pages.length - 1;
 			for (let i = 1; i <= totalPages; i++) {
 				doc.setPage(i);
 				drawPageFooter(i);
@@ -1326,9 +1514,41 @@
 		}
 	}
 
+	// Angebots-Bausteine laden (Bedarfspositionen + Angebotsannahme)
+	async function loadAngebotsBausteine() {
+		try {
+			// Bedarfspositionen laden
+			const { data: bedarfData, error: bedarfError } = await supabase
+				.from('angebots_bausteine')
+				.select('*')
+				.eq('typ', 'bedarfsposition')
+				.eq('aktiv', true)
+				.order('sortierung');
+
+			if (bedarfError) throw bedarfError;
+			bedarfspositionen = bedarfData || [];
+
+			// Angebotsannahme-Formulare laden
+			const { data: annahmeData, error: annahmeError } = await supabase
+				.from('angebots_bausteine')
+				.select('*')
+				.eq('typ', 'angebotsannahme')
+				.eq('aktiv', true)
+				.order('sortierung');
+
+			if (annahmeError) throw annahmeError;
+			angebotsannahmeFormulare = annahmeData || [];
+
+			console.log(`[CPQ] Bausteine geladen: ${bedarfspositionen.length} Bedarfspositionen, ${angebotsannahmeFormulare.length} Angebotsannahme-Formulare`);
+		} catch (err) {
+			console.error('Angebots-Bausteine laden fehlgeschlagen:', err);
+		}
+	}
+
 	onMount(() => {
 		loadProjekte();
 		loadPricingProfiles();
+		loadAngebotsBausteine();
 	});
 
 	// Position manuell hinzufügen (Step 4)

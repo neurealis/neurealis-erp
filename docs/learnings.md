@@ -21,6 +21,16 @@
 **Kategorie:** Supabase/DB
 **Ref:** LOG-096
 
+### L212 - jsPDF Logo als Base64 für Offline
+**Datum:** 2026-02-04
+**Kategorie:** PDF/jsPDF
+**Ref:** LOG-097
+
+### L213 - PDF Abschnitts-Header: fillColor vor Text
+**Datum:** 2026-02-04
+**Kategorie:** PDF/jsPDF
+**Ref:** LOG-097
+
 ---
 
 ### L202 - Edge Functions: POST+GET Support für Subagenten-Aufrufe
