@@ -1,0 +1,3512 @@
+[
+  {
+    "artikelnummer": "GWS.LV23-12.02.3",
+    "bezeichnung": "Dusch/ Wannenbad Gr. bis 4,5 m² Grundfl., Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.21",
+    "bezeichnung": "Anschlussfuge elastisch verfugen",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.8",
+    "bezeichnung": "Gips-Leichtputz Laibungen verputzen, Q2 - geglättet",
+    "hero_ek": 10.9583,
+    "hero_vk": 14.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.2",
+    "bezeichnung": "Abklebearbeiten",
+    "hero_ek": 1.4583,
+    "hero_vk": 1.96
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.12",
+    "bezeichnung": "Vorhandenes Schließblech erneuern",
+    "hero_ek": 37.5,
+    "hero_vk": 51
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.10",
+    "bezeichnung": "Zulage Duschtasse Superplan 1000 mm x 1400 mm",
+    "hero_ek": 56.25,
+    "hero_vk": 80
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.13",
+    "bezeichnung": "Zulage Duschtasse Superplan 800 mm x 1400 mm",
+    "hero_ek": 370.8333,
+    "hero_vk": 445
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.16",
+    "bezeichnung": "Zulage Duschtasse Duschplan 1000 mm x 1400 mm",
+    "hero_ek": 75,
+    "hero_vk": 90
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.3",
+    "bezeichnung": "Dachboden-Dämmplatte 100 mm mit Verbundplatte 19mm",
+    "hero_ek": 58.3333,
+    "hero_vk": 73
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.4",
+    "bezeichnung": "Dachboden-Dämmplatte 120 mm mit Verbundplatte 19mm",
+    "hero_ek": 61.25,
+    "hero_vk": 77.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.7",
+    "bezeichnung": "Revisionsklappe, Stahlblech, weiß 40/40",
+    "hero_ek": 42.5,
+    "hero_vk": 53.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.8",
+    "bezeichnung": "Revisionsklappe, GK Einlage,  20/20",
+    "hero_ek": 35.4167,
+    "hero_vk": 47
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.1",
+    "bezeichnung": "Ausgleichsschüttung",
+    "hero_ek": 12.9167,
+    "hero_vk": 15.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.3",
+    "bezeichnung": "Mehr/- Minder Estrichstärken",
+    "hero_ek": 2.0833,
+    "hero_vk": 2.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.4",
+    "bezeichnung": "Zulage Abbindebeschleuniger",
+    "hero_ek": 2.5,
+    "hero_vk": 3.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.22",
+    "bezeichnung": "Bewegungsfugenprofil , PVC Einlage",
+    "hero_ek": 17.0833,
+    "hero_vk": 22.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.01.3",
+    "bezeichnung": "Dusch/ Wannenbad Gr. bis 3,5 m² Grundfl., Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.06.2",
+    "bezeichnung": "Gäste-WC, Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.9",
+    "bezeichnung": "Wellenlager (Fertigkastenlager) erneuern",
+    "hero_ek": 83.3333,
+    "hero_vk": 112
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.10",
+    "bezeichnung": "Rollladenwelle erneuern",
+    "hero_ek": 66.6667,
+    "hero_vk": 89
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.16",
+    "bezeichnung": "Zylinder für WE-Tür liefern, einbauen",
+    "hero_ek": 40.2439,
+    "hero_vk": 49.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.3",
+    "bezeichnung": "Beschlagsteile erneuern, klein",
+    "hero_ek": 59.5833,
+    "hero_vk": 76.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.4",
+    "bezeichnung": "Beschlagsteile erneuern, groß",
+    "hero_ek": 66.6667,
+    "hero_vk": 89
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.5",
+    "bezeichnung": "Balkontürheber erneuern",
+    "hero_ek": 72.9167,
+    "hero_vk": 95
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.9",
+    "bezeichnung": "Drehkippbeschlag erneuern, komplett",
+    "hero_ek": 83.3333,
+    "hero_vk": 112
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.11",
+    "bezeichnung": "Fensterband erneuern",
+    "hero_ek": 37.5,
+    "hero_vk": 48
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.1",
+    "bezeichnung": "Türblatt  verlängern.",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.2",
+    "bezeichnung": "Türsockelbrett erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.3",
+    "bezeichnung": "Trittblech erneuern (Sockelblech)",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.4",
+    "bezeichnung": "Trittblech richten (Sockelblech)",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.6",
+    "bezeichnung": "Türbekleidung reparieren, Massivholz",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.7",
+    "bezeichnung": "Zulage Türbekleidung profiliert",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.8",
+    "bezeichnung": "Zulage Türbekleidungssockelstück",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.9",
+    "bezeichnung": "Zulage Türfutter richten",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.10",
+    "bezeichnung": "Zulage Türfutter erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.11",
+    "bezeichnung": "Türfüllung erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.12",
+    "bezeichnung": "Türblatt Rahmenstück ausbessern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.13",
+    "bezeichnung": "Blendrahmen Tür erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.14",
+    "bezeichnung": "Schlossbereich erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.15",
+    "bezeichnung": "Verleistung erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.16",
+    "bezeichnung": "Zulage Verleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.17",
+    "bezeichnung": "Abdichtleiste erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.19",
+    "bezeichnung": "Dichtung erneuern, Fenster",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.1",
+    "bezeichnung": "Handlauf erneuern, nach Originalmuster",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.2",
+    "bezeichnung": "Innenwand  D=17,5cm",
+    "hero_ek": 59.5833,
+    "hero_vk": 73.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.19",
+    "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1400 mm",
+    "hero_ek": 225,
+    "hero_vk": 270
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.14",
+    "bezeichnung": "Schall-EX-Element erneuern",
+    "hero_ek": 83.3333,
+    "hero_vk": 112
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.3",
+    "bezeichnung": "Fenster- /Balkontürbauteile gang- und schließbar machen",
+    "hero_ek": 22.9167,
+    "hero_vk": 29.72
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.4",
+    "bezeichnung": "Zulage Hartholzstäbe",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.5",
+    "bezeichnung": "Losen Treppengeländerstab, Treppenpfosten,",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.6",
+    "bezeichnung": "Trittkante reparieren",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.7",
+    "bezeichnung": "Treppenstufe erneuern",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.8",
+    "bezeichnung": "Zulage für Setzstufe an auzutauschender Treppenstufe",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.5",
+    "bezeichnung": "Containerstellung 3 m³",
+    "hero_ek": 370.8333,
+    "hero_vk": 460
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.6",
+    "bezeichnung": "Containerstellung 7 m³",
+    "hero_ek": 458.3333,
+    "hero_vk": 580
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.16",
+    "bezeichnung": "Rückbau Bodenfliesen, Werkstein",
+    "hero_ek": 25,
+    "hero_vk": 32.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.19",
+    "bezeichnung": "Abbruch Estrich d= bis 7cm",
+    "hero_ek": 17.9167,
+    "hero_vk": 23
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.27",
+    "bezeichnung": "Ausbau Fenster, < 2,5 m²",
+    "hero_ek": 62.5,
+    "hero_vk": 84
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.28",
+    "bezeichnung": "Ausbau Fenster, > 2,5 m²",
+    "hero_ek": 97.9167,
+    "hero_vk": 137
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.29",
+    "bezeichnung": "Ausbau Rollladenkasten",
+    "hero_ek": 56.25,
+    "hero_vk": 81
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.3",
+    "bezeichnung": "Innenwand  D=24cm",
+    "hero_ek": 76.25,
+    "hero_vk": 92.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.4",
+    "bezeichnung": "Wohnungstrennwand D=20cm",
+    "hero_ek": 64.5833,
+    "hero_vk": 85
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.9",
+    "bezeichnung": "Flachsturz, 11,5",
+    "hero_ek": 50,
+    "hero_vk": 66
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.11",
+    "bezeichnung": "Flachsturz, 24",
+    "hero_ek": 81.25,
+    "hero_vk": 102
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.5",
+    "bezeichnung": "Putzhaftbrücke auf Beton - Betokontakt",
+    "hero_ek": 2.9167,
+    "hero_vk": 4.1
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.6",
+    "bezeichnung": "Aufbrennsperre",
+    "hero_ek": 2.1667,
+    "hero_vk": 2.96
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.14",
+    "bezeichnung": "Zulage für Mehrputzstärke",
+    "hero_ek": 2.3333,
+    "hero_vk": 3.28
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.12",
+    "bezeichnung": "freies Wandende, d = bis 150 mm",
+    "hero_ek": 21.4583,
+    "hero_vk": 28
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.13",
+    "bezeichnung": "freies Wandende, d = bis 300 mm",
+    "hero_ek": 29.1667,
+    "hero_vk": 38.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.17",
+    "bezeichnung": "Ausschn., rund, < d= 50 mm",
+    "hero_ek": 3.9167,
+    "hero_vk": 5.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.18",
+    "bezeichnung": "Ausschn., rund, bis d= > 50mm  bis 100 mm",
+    "hero_ek": 4.1667,
+    "hero_vk": 5.3
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.19",
+    "bezeichnung": "Aussparungen., rechteck, < 25cm²",
+    "hero_ek": 3.3125,
+    "hero_vk": 4.71
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.20",
+    "bezeichnung": "Aussparungen., rechteck, > 25cm² bis 100 cm²",
+    "hero_ek": 4.75,
+    "hero_vk": 6.42
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.22",
+    "bezeichnung": "Traverse zur Wandverstärkung, Stahlblech",
+    "hero_ek": 35.4167,
+    "hero_vk": 47.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.23",
+    "bezeichnung": "Revisionsklappe, Stahlblech, weiß 20/20",
+    "hero_ek": 32.9167,
+    "hero_vk": 41
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.24",
+    "bezeichnung": "Revisionsklappe, Stahlblech, weiß 40/40",
+    "hero_ek": 39.5833,
+    "hero_vk": 52
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.27",
+    "bezeichnung": "Revisionsklappe, GK Einlage,F30  20/20",
+    "hero_ek": 69.1667,
+    "hero_vk": 90.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.29",
+    "bezeichnung": "Revisionsklappe, GK Einlage,F90  20/20",
+    "hero_ek": 77.5,
+    "hero_vk": 103.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.30",
+    "bezeichnung": "Revisionsklappe, GK Einlage,F90  40/40",
+    "hero_ek": 81.25,
+    "hero_vk": 111
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.2",
+    "bezeichnung": "Dachboden-Dämmplatte 80 mm mit Verbundplatte 19mm (www.ais-online.de/f\nirma/brillux/produkt/variante/dachboden-daemmplatte-3819-eps-032-deo-100mm-inkl-spanpl/42731253/?p=1&pid=42667944)",
+    "hero_ek": 52.5,
+    "hero_vk": 65.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.2",
+    "bezeichnung": "1 Zi Wohnung mit Küche, Diele bis 45m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.4",
+    "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 50m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.7",
+    "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 75m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.8",
+    "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 50m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.9",
+    "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 55m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.10",
+    "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 65m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.11",
+    "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 75m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.12",
+    "bezeichnung": "3 Zi Wohnung mit Küche, Diele bis 85m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.13",
+    "bezeichnung": "4 Zi Wohnung mit Küche, Diele bis 75m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.14",
+    "bezeichnung": "4 Zi Wohnung mit Küche, Diele bis 100m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.15",
+    "bezeichnung": "4 Zi Wohnung mit Küche, Diele > 100m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.16",
+    "bezeichnung": "5 Zi Wohnung mit Küche, Diele bis 100m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.17",
+    "bezeichnung": "5 Zi Wohnung mit Küche, Diele >100m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.18",
+    "bezeichnung": "Einzelflächen bis 5 m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.19",
+    "bezeichnung": "Einzelflächen bis 10 m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.20",
+    "bezeichnung": "Einzelflächen bis 15 m²",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.1",
+    "bezeichnung": "Bad/ Wc bis 3,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.2",
+    "bezeichnung": "Bad/ Wc bis 4,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.3",
+    "bezeichnung": "Bad/ Wc bis 6 m² -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.4",
+    "bezeichnung": "Bad/ Wc bis 7,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.5",
+    "bezeichnung": "Bad/ Wc > 7,5 m² -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.02.6",
+    "bezeichnung": "Gäste WC -Spachtelmassen u asbesthaltigen Kleber",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.03.2",
+    "bezeichnung": "Ausbau schadstoffhaltiger Fensterbänke",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.04.3",
+    "bezeichnung": "Dusch/ Wannenbad Gr. bis 7,5 m² Grundfl., Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.05.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.05.3",
+    "bezeichnung": "Dusch/ Wannenbad Gr. bis >7,5m² - ca. 9 m² Grundfl., Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.03.3",
+    "bezeichnung": "Dusch/ Wannenbad Gr. bis 6 m² Grundfl., Mehr/ -Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.6",
+    "bezeichnung": "Hebetürbeschlag erneuern",
+    "hero_ek": 106.25,
+    "hero_vk": 138
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.23",
+    "bezeichnung": "Holzboden ausbessern",
+    "hero_ek": 44.5833,
+    "hero_vk": 54.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.26",
+    "bezeichnung": "Revisionsklappe, GK Einlage,  40/40",
+    "hero_ek": 44.5833,
+    "hero_vk": 57.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.5",
+    "bezeichnung": "Wohnungstrennwand D=24cm",
+    "hero_ek": 72.0833,
+    "hero_vk": 93.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.25",
+    "bezeichnung": "Ausbau Stahl-/Alu-Glas-Rahmentür, 1 flg.",
+    "hero_ek": 57.9167,
+    "hero_vk": 75.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.11",
+    "bezeichnung": "Trockenestrich",
+    "hero_ek": 34.2406,
+    "hero_vk": 52.6779
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.02.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 36.9262,
+    "hero_vk": 56.8095
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.02.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.8554,
+    "hero_vk": 41.316
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.6",
+    "bezeichnung": "Renovierungsanstrich, Holzfensterbänke",
+    "hero_ek": 30.5163,
+    "hero_vk": 46.9481
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.07.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.8866,
+    "hero_vk": 41.364
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.1",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 35m², 1 Zi",
+    "hero_ek": 129.3427,
+    "hero_vk": 198.9888
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.3",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 45m², 2 Zi",
+    "hero_ek": 150.8998,
+    "hero_vk": 232.1536
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.4",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 50m², 2 Zi",
+    "hero_ek": 144.1632,
+    "hero_vk": 221.7896
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.06.1",
+    "bezeichnung": "Gäste WC",
+    "hero_ek": 3220.0948,
+    "hero_vk": 4953.992
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.6",
+    "bezeichnung": "Asbestsanierung: 2 Zi Wohnung mit Küche, Diele bis 65m²",
+    "hero_ek": 1972,
+    "hero_vk": 2320
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.26",
+    "bezeichnung": "Grundierung /Schlussanstrich Massivholzboden",
+    "hero_ek": 22.0206,
+    "hero_vk": 15.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.10",
+    "bezeichnung": "Laibungsspachtel, Q2",
+    "hero_ek": 5.2917,
+    "hero_vk": 6.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.15",
+    "bezeichnung": "Rückbau Bodenfliesen",
+    "hero_ek": 25,
+    "hero_vk": 32.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.11",
+    "bezeichnung": "Untergrundvorbehandlung",
+    "hero_ek": 5,
+    "hero_vk": 6
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.10",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 65m², 3 Zi",
+    "hero_ek": 168.75,
+    "hero_vk": 237
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.7",
+    "bezeichnung": "FI/ LS Schalter Waschmaschine",
+    "hero_ek": 62.5,
+    "hero_vk": 84
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.9",
+    "bezeichnung": "Schimmelpilz Flächen reinigen und desinfizieren",
+    "hero_ek": 10,
+    "hero_vk": 13.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.1",
+    "bezeichnung": "Beschlagsteile verstezen, klein",
+    "hero_ek": 53.3333,
+    "hero_vk": 38.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.1",
+    "bezeichnung": "Risse in Balkonbrüstung schließen,< 5 m",
+    "hero_ek": 40.2439,
+    "hero_vk": 51.19
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.30",
+    "bezeichnung": "Brausebatterie",
+    "hero_ek": 133.3333,
+    "hero_vk": 160
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.11",
+    "bezeichnung": "Leibungsspachtel, Q3",
+    "hero_ek": 7.0833,
+    "hero_vk": 8.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.21",
+    "bezeichnung": "Verlegung Kombitherme innerhalb WE",
+    "hero_ek": 645.8333,
+    "hero_vk": 850
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.2",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 45m², 1 Zi",
+    "hero_ek": 137.5,
+    "hero_vk": 204
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.03.1",
+    "bezeichnung": "Ausführung Brennwertgerät mit Speicher",
+    "hero_ek": 3650,
+    "hero_vk": 4897.85
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.8",
+    "bezeichnung": "Abdichten von Rand-, Anschluss- u, Bewegungsfugen",
+    "hero_ek": 5.3016,
+    "hero_vk": 8.1563
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.3",
+    "bezeichnung": "Spachtel zuvor grundierter Flächen.",
+    "hero_ek": 9.4312,
+    "hero_vk": 14.5096
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.6",
+    "bezeichnung": "Bauspanplatten liefern und verlegen, bis 22 mm",
+    "hero_ek": 17.6165,
+    "hero_vk": 27.1022
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.13",
+    "bezeichnung": "Sockelleiste HZ, Holz",
+    "hero_ek": 14.0131,
+    "hero_vk": 21.5586
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.27",
+    "bezeichnung": "Handwaschbecken",
+    "hero_ek": 254.3011,
+    "hero_vk": 391.2324
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.13",
+    "bezeichnung": "KZP Laibungen verputzen, Q2 - gefilzt",
+    "hero_ek": 12.5401,
+    "hero_vk": 19.2924
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.6",
+    "bezeichnung": "Öffnungen für Türen und Fenster < 2,5m²",
+    "hero_ek": 120.8333,
+    "hero_vk": 148
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.22",
+    "bezeichnung": "Verlegung Kombitherme in Keller",
+    "hero_ek": 1166.6667,
+    "hero_vk": 1520
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.1",
+    "bezeichnung": "Fenster/ Balkontüren herrichten",
+    "hero_ek": 17.5,
+    "hero_vk": 23.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.2",
+    "bezeichnung": "Dispersionsanstrich, matt, NAB 2",
+    "hero_ek": 3.7641,
+    "hero_vk": 5.791
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.2",
+    "bezeichnung": "Zementestrich",
+    "hero_ek": 32.0833,
+    "hero_vk": 40
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.7",
+    "bezeichnung": "Nivellierausgleich",
+    "hero_ek": 7.9167,
+    "hero_vk": 11
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.8",
+    "bezeichnung": "Fenstergriff abschließbar - RC 2 (WK2) liefern, einbauen",
+    "hero_ek": 36.25,
+    "hero_vk": 47.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.2",
+    "bezeichnung": "Zimmer-, Wohnungs-, Haus- oder Hoftür herrichten",
+    "hero_ek": 19.3156,
+    "hero_vk": 29.7163
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.02.3",
+    "bezeichnung": "Minderleistung",
+    "hero_ek": 0,
+    "hero_vk": 0
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.2",
+    "bezeichnung": "Zulage Ornamentglasscheibe",
+    "hero_ek": 20.8835,
+    "hero_vk": 32.1284
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.13",
+    "bezeichnung": "Öffnungen schließen, > 400cm² bis 1 m²",
+    "hero_ek": 70.8333,
+    "hero_vk": 94
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.4",
+    "bezeichnung": "Dampfbremse, PE Folie. D 0,2 mm",
+    "hero_ek": 2.5224,
+    "hero_vk": 3.8805
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.15",
+    "bezeichnung": "Sockelleiste Hohlkehlleiste, Kiefer",
+    "hero_ek": 8.75,
+    "hero_vk": 11.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.1",
+    "bezeichnung": "Vorsatzschale, direkt befestigt, CD 60/27, GKBI 2x12,5 mm",
+    "hero_ek": 37.1054,
+    "hero_vk": 57.0852
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.15",
+    "bezeichnung": "Waschtischarmatur",
+    "hero_ek": 132.0833,
+    "hero_vk": 183.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.14",
+    "bezeichnung": "Zulage Türöffnung anpassen (Türsturz Küche)",
+    "hero_ek": 91.6667,
+    "hero_vk": 125.01
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.03.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 60,
+    "hero_vk": 70
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.11",
+    "bezeichnung": "Türöffnung anlegen, 1 flg, > 1010mm",
+    "hero_ek": 41.6667,
+    "hero_vk": 53
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.14",
+    "bezeichnung": "Duschtasse Duschplan, h 65 mm",
+    "hero_ek": 572.3893,
+    "hero_vk": 880.5989
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.24",
+    "bezeichnung": "Brausevorhangstange",
+    "hero_ek": 131.9358,
+    "hero_vk": 202.9781
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.04.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 34.1803,
+    "hero_vk": 52.585
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.12",
+    "bezeichnung": "Tür Gong",
+    "hero_ek": 26.0433,
+    "hero_vk": 40.0666
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.27",
+    "bezeichnung": "Niederdruckspeicher",
+    "hero_ek": 157.9219,
+    "hero_vk": 242.9568
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.5",
+    "bezeichnung": "Asbestsanierung: 3 Zi Wohnung mit Küche, Diele bis 75m²",
+    "hero_ek": 2465,
+    "hero_vk": 2958
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.34",
+    "bezeichnung": "Wand-WC( incl. Sitz mit Deckel)",
+    "hero_ek": 218.7536,
+    "hero_vk": 336.544
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.18",
+    "bezeichnung": "Handbrause-Set Dusche",
+    "hero_ek": 127.0833,
+    "hero_vk": 181
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.38",
+    "bezeichnung": "Austausch von Wandfliesen",
+    "hero_ek": 49.5833,
+    "hero_vk": 65.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.8",
+    "bezeichnung": "Zulage Lichtausschnitt (Wohnzimmer)",
+    "hero_ek": 87.5,
+    "hero_vk": 119.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.20",
+    "bezeichnung": "Kunststoffpanzerrohr M 40",
+    "hero_ek": 6.6667,
+    "hero_vk": 9.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.38",
+    "bezeichnung": "Thermostatkopf erneuern",
+    "hero_ek": 31.1688,
+    "hero_vk": 47.952
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.4",
+    "bezeichnung": "Ventilheizkörper Typ 22, neu",
+    "hero_ek": 231.41,
+    "hero_vk": 356.0154
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.26",
+    "bezeichnung": "Dämmung an Rohrleitungen reparieren",
+    "hero_ek": 23.9626,
+    "hero_vk": 36.8655
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.04.1",
+    "bezeichnung": "Zi 1-Wohneinheit bis 45 m², Rohrlängen 45",
+    "hero_ek": 937.963,
+    "hero_vk": 1443.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.05.1",
+    "bezeichnung": "Zi 2-Wohneinheit bis 45 m², Rohrlängen 45",
+    "hero_ek": 1061.19,
+    "hero_vk": 1632.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.06.1",
+    "bezeichnung": "Zi 2-Wohneinheit bis 50 m², Rohrlängen 50",
+    "hero_ek": 1157.039,
+    "hero_vk": 1780.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.07.1",
+    "bezeichnung": "Zi 2-Wohneinheit bis 55 m², Rohrlängen 55",
+    "hero_ek": 1191.281,
+    "hero_vk": 1832.74
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.08.1",
+    "bezeichnung": "Zi 2-Wohneinheit bis 65 m², Rohrlängen 65",
+    "hero_ek": 1218.6395,
+    "hero_vk": 1874.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.09.1",
+    "bezeichnung": "Rohrlängen75",
+    "hero_ek": 1218.6395,
+    "hero_vk": 1874.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.11.1",
+    "bezeichnung": "Zi 3-Wohneinheit bis 50 m², Rohrlängen 50",
+    "hero_ek": 1191.281,
+    "hero_vk": 1832.74
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.12.1",
+    "bezeichnung": "Zi 3-Wohneinheit bis 55 m², Rohrlängen 55",
+    "hero_ek": 1150.175,
+    "hero_vk": 1769.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.13.1",
+    "bezeichnung": "Zi 3-Wohneinheit bis 65 m², Rohrlängen 65",
+    "hero_ek": 1266.5835,
+    "hero_vk": 1948.59
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.14.1",
+    "bezeichnung": "Zi 3-Wohneinheit bis 75 m², Rohrlängen 75",
+    "hero_ek": 1218.6395,
+    "hero_vk": 1874.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.15.1",
+    "bezeichnung": "Zi 3-Wohneinheit bis 85 m², Rohrlängen 85",
+    "hero_ek": 1280.2725,
+    "hero_vk": 1969.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.16.1",
+    "bezeichnung": "Zi 4-Wohneinheit bis 75 m², Rohrlängen 75",
+    "hero_ek": 1246.037,
+    "hero_vk": 1916.98
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.17.1",
+    "bezeichnung": "Zi 4-Wohneinheit bis 100 m², Rohrlängen 100",
+    "hero_ek": 1085.253,
+    "hero_vk": 1669.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.18.1",
+    "bezeichnung": "Zi 4-Wohneinheit > 100 m², Rohrlängen 100",
+    "hero_ek": 1636.3035,
+    "hero_vk": 2517.39
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.19.1",
+    "bezeichnung": "Zi 5-Wohneinheit bis 100 m², Rohrlängen 100",
+    "hero_ek": 1410.3635,
+    "hero_vk": 2169.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.20.1",
+    "bezeichnung": "Zi 5-Wohneinheit > 100 m², Rohrlängen 100",
+    "hero_ek": 1670.5195,
+    "hero_vk": 2570.03
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.5",
+    "bezeichnung": "Lackierung Rohrrahmentür",
+    "hero_ek": 69.1667,
+    "hero_vk": 87.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.4",
+    "bezeichnung": "Haftgrund, nicht saugende Untergründe",
+    "hero_ek": 2.8333,
+    "hero_vk": 3.94
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.30",
+    "bezeichnung": "Demontage und Entsorgung NSP-Ofen 5 -6KW",
+    "hero_ek": 282.5971,
+    "hero_vk": 434.7648
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.6",
+    "bezeichnung": "Aufputz-Wanne für Unterverteiler",
+    "hero_ek": 58.8744,
+    "hero_vk": 90.576
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.12",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 85m², 3 Zi",
+    "hero_ek": 200,
+    "hero_vk": 276
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.2",
+    "bezeichnung": "Zulage, Breite ab 2 m",
+    "hero_ek": 17.8008,
+    "hero_vk": 27.3858
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.1",
+    "bezeichnung": "Reinigen des Untergrunds von grober Verschmutzung",
+    "hero_ek": 1.69,
+    "hero_vk": 2.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.14",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 100m², 4 Zi",
+    "hero_ek": 233.3333,
+    "hero_vk": 310
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.04.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 51.2704,
+    "hero_vk": 78.8775
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.8",
+    "bezeichnung": "Lackierung Plattenheizkörper",
+    "hero_ek": 29.8441,
+    "hero_vk": 45.914
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.7",
+    "bezeichnung": "Lackierung HK Anbindung",
+    "hero_ek": 12.099,
+    "hero_vk": 18.6138
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.35",
+    "bezeichnung": "WC-Sitz",
+    "hero_ek": 55.372,
+    "hero_vk": 85.1877
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.10",
+    "bezeichnung": "Lackierung Plattenheizkörper, Zulage, Breite bis 2 m",
+    "hero_ek": 15.4167,
+    "hero_vk": 22.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.8",
+    "bezeichnung": "Rolladenkästen lackieren",
+    "hero_ek": 35.4167,
+    "hero_vk": 50
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.14",
+    "bezeichnung": "Leimfarbe, entfernen",
+    "hero_ek": 5.7941,
+    "hero_vk": 8.9139
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.6",
+    "bezeichnung": "Rechteck-Badewanne mit Duschzone 170/80/38",
+    "hero_ek": 525,
+    "hero_vk": 702
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.19",
+    "bezeichnung": "Wand-WC",
+    "hero_ek": 191.6667,
+    "hero_vk": 230
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.5",
+    "bezeichnung": "Abhangdecke, GKB 1x 12,5 mm, o.BS, Tragprofil CD60/27",
+    "hero_ek": 32.7719,
+    "hero_vk": 50.4183
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.12",
+    "bezeichnung": "Lackierung Rippenheizkörper, Zulage, Breite bis 1,5 m",
+    "hero_ek": 5,
+    "hero_vk": 6.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.4",
+    "bezeichnung": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =150 mm, F30",
+    "hero_ek": 52.4079,
+    "hero_vk": 80.6276
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.11",
+    "bezeichnung": "Wohnungstür RC 2 inkl. Zarge liefern, einbauen",
+    "hero_ek": 792.6829,
+    "hero_vk": 975
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.8",
+    "bezeichnung": "Elektroinstallation Waschmaschinenanschluss",
+    "hero_ek": 82.1471,
+    "hero_vk": 126.3802
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.1",
+    "bezeichnung": "Elektrozähler Alt/ Neu",
+    "hero_ek": 300,
+    "hero_vk": 131
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.8",
+    "bezeichnung": "Rückbau von Wänden, GK, d=< 20cm",
+    "hero_ek": 11.2083,
+    "hero_vk": 13.9
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.3",
+    "bezeichnung": "Metallständerwand = 5,00 m, GKB 2x 12,5 mm, d =125 mm, F30",
+    "hero_ek": 46.5848,
+    "hero_vk": 71.669
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.21",
+    "bezeichnung": "Ausbau Innentüren , 1 flg.",
+    "hero_ek": 33.9525,
+    "hero_vk": 52.2346
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.2",
+    "bezeichnung": "Grundierung",
+    "hero_ek": 3.9583,
+    "hero_vk": 5.26
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.4",
+    "bezeichnung": "Beiputzarbeiten",
+    "hero_ek": 15.8333,
+    "hero_vk": 20.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.4",
+    "bezeichnung": "Rückbau Altbelag, fest verbaut, WE 30- 90m² o. Bad, Kalkulation: i-M-\n 60 m²",
+    "hero_ek": 367.8184,
+    "hero_vk": 565.8744
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.31",
+    "bezeichnung": "Rückbau Fensterbank, innen >1,5m bis 2,5m",
+    "hero_ek": 22.75,
+    "hero_vk": 28.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.14",
+    "bezeichnung": "Sockelleiste HZ, Kunststoff",
+    "hero_ek": 10.8333,
+    "hero_vk": 14.2
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.39",
+    "bezeichnung": "Austausch von Bodenfliesen",
+    "hero_ek": 49.9134,
+    "hero_vk": 76.7898
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.17",
+    "bezeichnung": "Bauschluss/- Feinreinigung > 100m², 5 Zi",
+    "hero_ek": 254.1667,
+    "hero_vk": 332
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.7",
+    "bezeichnung": "Balkon Grundierauftrag Aussenflächen",
+    "hero_ek": 8.6,
+    "hero_vk": 10.67
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.1",
+    "bezeichnung": "Verunreinigungen entfernen",
+    "hero_ek": 1.3333,
+    "hero_vk": 1.72
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.6",
+    "bezeichnung": "Kompaktheizkörper, neu",
+    "hero_ek": 264,
+    "hero_vk": 380.24
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.3",
+    "bezeichnung": "Heizkörper demontieren/ Entsorgung",
+    "hero_ek": 47.9167,
+    "hero_vk": 71.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.2",
+    "bezeichnung": "Demontage Sockelleisten, WE 30- 90m² o. Bad,Kalkulation: i-M- 60 m²",
+    "hero_ek": 119,
+    "hero_vk": 151.31
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.9",
+    "bezeichnung": "Zulage Lüftungsgitter (Bad, Abstellraum)",
+    "hero_ek": 30,
+    "hero_vk": 36.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.9",
+    "bezeichnung": "Nachputzarbeiten, WE 30- 90m² o. Bad, Kalkulation: i-M- 60 m²",
+    "hero_ek": 383.3333,
+    "hero_vk": 497.552
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.6",
+    "bezeichnung": "Wandspachtel, Q3",
+    "hero_ek": 8.75,
+    "hero_vk": 11.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.25",
+    "bezeichnung": "Duschabtrennung",
+    "hero_ek": 462.5,
+    "hero_vk": 660
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.14",
+    "bezeichnung": "Rückbau Wandfliesen",
+    "hero_ek": 19.5833,
+    "hero_vk": 25
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.10",
+    "bezeichnung": "Gips-Leichtputz als Deckenputz, Q2",
+    "hero_ek": 17.0833,
+    "hero_vk": 22
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.5",
+    "bezeichnung": "Metallständerwand = 4,00 m, GKBI 2x 12,5 mm, d = 100 mm, MW 40 mm, F30",
+    "hero_ek": 54.5833,
+    "hero_vk": 69.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.3",
+    "bezeichnung": "Haftgrund aufbringen",
+    "hero_ek": 2.4167,
+    "hero_vk": 3.68
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.7",
+    "bezeichnung": "Deckenspachtel, Q2",
+    "hero_ek": 7,
+    "hero_vk": 9.36
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.18",
+    "bezeichnung": "Dichtung erneuern, Zargen",
+    "hero_ek": 5,
+    "hero_vk": 7.01
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.20",
+    "bezeichnung": "Übergangsschienen",
+    "hero_ek": 14.1667,
+    "hero_vk": 17.45
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.1",
+    "bezeichnung": "Zimmertür inkl Holzzarge  liefern, einbauen(Badezimmer nach außen öffnend)",
+    "hero_ek": 308.3333,
+    "hero_vk": 327.9
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.4",
+    "bezeichnung": "Elektroneuinstallation Balkon / Terrasse",
+    "hero_ek": 125,
+    "hero_vk": 150
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.11",
+    "bezeichnung": "Wechselsprechanlage Ritto/ STR",
+    "hero_ek": 63.7229,
+    "hero_vk": 98.0352
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.01.1",
+    "bezeichnung": "Duschbad Gr. bis 3,5 m² Grundfl.",
+    "hero_ek": 5833.3333,
+    "hero_vk": 7720
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.21",
+    "bezeichnung": "Wasseranschluss Küche versetzen",
+    "hero_ek": 225,
+    "hero_vk": 288
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.10",
+    "bezeichnung": "Kompaktheizkörper, Zulage, Breite bis 2 m",
+    "hero_ek": 78.8711,
+    "hero_vk": 121.3402
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.8",
+    "bezeichnung": "Kompaktheizkörper, Zulage, Breite bis 1 m",
+    "hero_ek": 34.2323,
+    "hero_vk": 52.665
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.9",
+    "bezeichnung": "Kompaktheizkörper, Zulage, Breite bis 1,5 m",
+    "hero_ek": 61.6181,
+    "hero_vk": 94.797
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.02.1",
+    "bezeichnung": "Duschbad Gr. bis 4,5 m² Grundfl.",
+    "hero_ek": 6208.3333,
+    "hero_vk": 8187.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.3",
+    "bezeichnung": "Zuleitungsverbindung  5*16 mm² (vom Zähler im Keller bis zur UV im EG)",
+    "hero_ek": 41.5584,
+    "hero_vk": 63.936
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.1",
+    "bezeichnung": "Elektroneuinstallation (ohne Unterverteilung, Mieterkeller, Balkon, Bäder, Nachputzarbeiten)",
+    "hero_ek": 2500,
+    "hero_vk": 3409.92
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.2",
+    "bezeichnung": "Lackierung Umfassungszarge",
+    "hero_ek": 40,
+    "hero_vk": 43.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.5",
+    "bezeichnung": "Türschwelle aufdoppeln / erneuern (mit und ohne Falz",
+    "hero_ek": 60,
+    "hero_vk": 90
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.03.1",
+    "bezeichnung": "Floor Flex -Analyse",
+    "hero_ek": 150,
+    "hero_vk": 180
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.3",
+    "bezeichnung": "2 Zi Wohnung mit Küche, Diele bis 45m²",
+    "hero_ek": 1433.3333,
+    "hero_vk": 1720
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.20",
+    "bezeichnung": "Nische/Heizkörpernische schließen, 1,5m² bis 2,5 m² (inkl. Putz)",
+    "hero_ek": 134.2964,
+    "hero_vk": 206.6099
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.19",
+    "bezeichnung": "Nische/Heizkörpernische schließen, bis 1,5m² (inkl. Putz)",
+    "hero_ek": 94.2198,
+    "hero_vk": 144.9536
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.01.2",
+    "bezeichnung": "Reinigung jede weitere Etage (je Woche)",
+    "hero_ek": 17.6499,
+    "hero_vk": 27.1537
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.4",
+    "bezeichnung": "Zuleitungsverbindung  5*16 mm² je weitere Etage (je Meter, inkl. Kernbohrungen & Verschluss mit Brandschutzmörtel, ohne Brandschutzkanal, ab dem EG)",
+    "hero_ek": 50.8333,
+    "hero_vk": 77.15
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.18",
+    "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1200 mm",
+    "hero_ek": 155.17,
+    "hero_vk": 339
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.1",
+    "bezeichnung": "Demontage Gardinenleisten u. Kleinteile, WE 30- 90m2 o. Bad, Kalkulation: i-M- 60 m2",
+    "hero_ek": 45.8089,
+    "hero_vk": 73.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.12",
+    "bezeichnung": "Demontage Wandbekleidung Blechpaneel",
+    "hero_ek": 7.0061,
+    "hero_vk": 11.17
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.11",
+    "bezeichnung": "Demontage Decken/- Wandbekleidungen",
+    "hero_ek": 9.0417,
+    "hero_vk": 14.32
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.18",
+    "bezeichnung": "Abbruch Innenwandputz",
+    "hero_ek": 10,
+    "hero_vk": 14.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.24",
+    "bezeichnung": "Rückbau Einbauschrank, 120 x 250",
+    "hero_ek": 115.8695,
+    "hero_vk": 184.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.7",
+    "bezeichnung": "Containerstellung 10 m³",
+    "hero_ek": 617.0726,
+    "hero_vk": 983.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.02.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.9464,
+    "hero_vk": 42.95
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.10",
+    "bezeichnung": "Flachsturz, 17,5",
+    "hero_ek": 53.7451,
+    "hero_vk": 84.03
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.12",
+    "bezeichnung": "Öffnungen schließen, < 400cm²",
+    "hero_ek": 45.8333,
+    "hero_vk": 63.28
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.14",
+    "bezeichnung": "Öffnungen schließen, < 1 m²",
+    "hero_ek": 65.6885,
+    "hero_vk": 102.71
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.15",
+    "bezeichnung": "Wanddurchbruch herstellen< 400cm²",
+    "hero_ek": 43.75,
+    "hero_vk": 62.25
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.7",
+    "bezeichnung": "Öffnungen für Türen und Fenster > 2,5m²-5m²",
+    "hero_ek": 133.3333,
+    "hero_vk": 172.21
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.11",
+    "bezeichnung": "Zulage für Mehrputzstärke",
+    "hero_ek": 2.1864,
+    "hero_vk": 3.46
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.03.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 36.4936,
+    "hero_vk": 57.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.10",
+    "bezeichnung": "Türöffnung anlegen, 1 flg, < 1010mm",
+    "hero_ek": 40.4167,
+    "hero_vk": 56.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.14",
+    "bezeichnung": "Wandübergänge zum Bestand",
+    "hero_ek": 6.6667,
+    "hero_vk": 10.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.15",
+    "bezeichnung": "Fensteröffnung anlegen",
+    "hero_ek": 46.6667,
+    "hero_vk": 66.42
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.16",
+    "bezeichnung": "Außenecken",
+    "hero_ek": 4.0833,
+    "hero_vk": 5.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.25",
+    "bezeichnung": "Revisionsklappe, GK Einlage,  20/20",
+    "hero_ek": 40.8333,
+    "hero_vk": 58.85
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.9",
+    "bezeichnung": "Türöffnung anlegen, 1 flg, <  885mm",
+    "hero_ek": 45.8333,
+    "hero_vk": 59.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.03.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 37.2408,
+    "hero_vk": 59.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.03.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 27.0842,
+    "hero_vk": 43.27
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.10",
+    "bezeichnung": "Schwind-/Scheinfugen kraftschlüssig schließen",
+    "hero_ek": 9.375,
+    "hero_vk": 12.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.12",
+    "bezeichnung": "Randdämmstreifen, mineral, A1",
+    "hero_ek": 1.5833,
+    "hero_vk": 2.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.6",
+    "bezeichnung": "Mehr/- Minder Estrichstärken",
+    "hero_ek": 2.625,
+    "hero_vk": 3.72
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.8",
+    "bezeichnung": "Bewegungsfugen",
+    "hero_ek": 10,
+    "hero_vk": 14.51
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.9",
+    "bezeichnung": "Schwind-/Scheinfugen",
+    "hero_ek": 4.125,
+    "hero_vk": 5.81
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.10",
+    "bezeichnung": "Abdichten von Rohrdurchführungen, DN32",
+    "hero_ek": 6,
+    "hero_vk": 7.68
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.11",
+    "bezeichnung": "Abdichten von Rohrdurchführungen, DN 100",
+    "hero_ek": 7.2083,
+    "hero_vk": 9.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.12",
+    "bezeichnung": "Abdichten Bodenablauf",
+    "hero_ek": 25,
+    "hero_vk": 32.01
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.14",
+    "bezeichnung": "Entkopplungsmatte",
+    "hero_ek": 55,
+    "hero_vk": 72.98
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.18",
+    "bezeichnung": "Sockelfliesen",
+    "hero_ek": 4.2917,
+    "hero_vk": 5.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.19",
+    "bezeichnung": "Fliesen, Löcher herstellen",
+    "hero_ek": 15.8333,
+    "hero_vk": 22.19
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.2",
+    "bezeichnung": "Messung, Estrichfeuchte",
+    "hero_ek": 50,
+    "hero_vk": 64.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.20",
+    "bezeichnung": "Abschlussprofile V2A",
+    "hero_ek": 10,
+    "hero_vk": 14.72
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.24",
+    "bezeichnung": "Aufmauerung/ Einmauern Badewanne, 2 seitig",
+    "hero_ek": 45,
+    "hero_vk": 59.75
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.25",
+    "bezeichnung": "Aufmauerung/ Einmauern Badewanne, 3 seitig",
+    "hero_ek": 80,
+    "hero_vk": 102.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.26",
+    "bezeichnung": "Aufmauerung/ Einmauern Duschwanne, 2 seitig",
+    "hero_ek": 30,
+    "hero_vk": 38.41
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.27",
+    "bezeichnung": "Aufmauerung/ Einmauern Duschwanne, 3 seitig",
+    "hero_ek": 29.2683,
+    "hero_vk": 38.41
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.28",
+    "bezeichnung": "Kristallspiegel",
+    "hero_ek": 62.9268,
+    "hero_vk": 82.58
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.30",
+    "bezeichnung": "Marmorfensterbank bis 100cm",
+    "hero_ek": 50,
+    "hero_vk": 64.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.33",
+    "bezeichnung": "Verschluss v Rohrdurchführungen",
+    "hero_ek": 65,
+    "hero_vk": 94.75
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.34",
+    "bezeichnung": "Risse im Estrich schließen",
+    "hero_ek": 11.125,
+    "hero_vk": 15.94
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.35",
+    "bezeichnung": "Untergrundvorbereitung, Fräsen",
+    "hero_ek": 14.5833,
+    "hero_vk": 18.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.5",
+    "bezeichnung": "Bodenabdichtung, W2-I",
+    "hero_ek": 20,
+    "hero_vk": 25.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.7",
+    "bezeichnung": "Schnittschutzband für Verbundabdichtungen",
+    "hero_ek": 4.7917,
+    "hero_vk": 6.94
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.6",
+    "bezeichnung": "Wandabdichtung, W1-I",
+    "hero_ek": 13.6585,
+    "hero_vk": 17.92
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.9",
+    "bezeichnung": "Abdichten von Außenecken u. Innenecken",
+    "hero_ek": 5.7917,
+    "hero_vk": 8.73
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.1",
+    "bezeichnung": "Untergrund prüfen, ausbessern, säubern",
+    "hero_ek": 6.0417,
+    "hero_vk": 9.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.02.4",
+    "bezeichnung": "Grundierung als Sperrgrund",
+    "hero_ek": 2.625,
+    "hero_vk": 3.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.1",
+    "bezeichnung": "Wandbefliesung, Vitra",
+    "hero_ek": 53.3333,
+    "hero_vk": 71.49
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.2",
+    "bezeichnung": "Wandbefliesung, Meißen Keramik",
+    "hero_ek": 53.75,
+    "hero_vk": 72.34
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.3",
+    "bezeichnung": "Bodenbefliesung, Vitra",
+    "hero_ek": 55,
+    "hero_vk": 76.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.4",
+    "bezeichnung": "Bodenbefliesung, Meißen Keramik",
+    "hero_ek": 55,
+    "hero_vk": 76.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.5",
+    "bezeichnung": "Bodenbefliesung, Holzoptik, Meißen Keramik",
+    "hero_ek": 55,
+    "hero_vk": 76.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.6",
+    "bezeichnung": "Mosaikbefliesung Wand/ Boden, Vitra",
+    "hero_ek": 61.25,
+    "hero_vk": 85.78
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.03.7",
+    "bezeichnung": "Mosaikbefliesung Wand/ Boden, Meißen Keramik",
+    "hero_ek": 63.3333,
+    "hero_vk": 90.05
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.04.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 20,
+    "hero_vk": 42.68
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.1",
+    "bezeichnung": "Abfräsen/ Abtragen von Beschichtungen / Kleber",
+    "hero_ek": 6.625,
+    "hero_vk": 9.03
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.12",
+    "bezeichnung": "Sockelleiste Hart-PVC",
+    "hero_ek": 5.1381,
+    "hero_vk": 8.1
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.18",
+    "bezeichnung": "Revisionsdeckel belegen",
+    "hero_ek": 9.2887,
+    "hero_vk": 14.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.19",
+    "bezeichnung": "Bodentank belegen",
+    "hero_ek": 11.3439,
+    "hero_vk": 17.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.21",
+    "bezeichnung": "Abschlussschienen",
+    "hero_ek": 15.0808,
+    "hero_vk": 23.78
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.5",
+    "bezeichnung": "faserverstärkter Bodenspachtel",
+    "hero_ek": 10,
+    "hero_vk": 12
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.7",
+    "bezeichnung": "Bauspanplatten liefern und verlegen, 2-lagig",
+    "hero_ek": 36.25,
+    "hero_vk": 47.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.02.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 36.701,
+    "hero_vk": 57.88
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.02.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.6916,
+    "hero_vk": 42.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.12",
+    "bezeichnung": "Multiband 3d Band",
+    "hero_ek": 12.5,
+    "hero_vk": 15.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.13",
+    "bezeichnung": "Kantengetriebe erneuern",
+    "hero_ek": 62.5,
+    "hero_vk": 86.32
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.14",
+    "bezeichnung": "Oberlichtöffner erneuern",
+    "hero_ek": 62.5,
+    "hero_vk": 89.52
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.15",
+    "bezeichnung": "Oberlichtöffnerbauteil erneuern",
+    "hero_ek": 55.8333,
+    "hero_vk": 86.11
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.16",
+    "bezeichnung": "Türband erneuern",
+    "hero_ek": 62.5,
+    "hero_vk": 83.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.17",
+    "bezeichnung": "Obentürschließer erneuern",
+    "hero_ek": 141.6667,
+    "hero_vk": 200.35
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.18",
+    "bezeichnung": "Türstopper",
+    "hero_ek": 12.9167,
+    "hero_vk": 18.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.2",
+    "bezeichnung": "Beschlagsteile verstezen, groß",
+    "hero_ek": 41.7669,
+    "hero_vk": 66.07
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.2",
+    "bezeichnung": "Zimmertür  inkl. Stahlumffasungszarge, 1 teilig",
+    "hero_ek": 337.3984,
+    "hero_vk": 442.26
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.3",
+    "bezeichnung": "Zimmertür  inkl. Stahlumffasungszarge, 2 teilig",
+    "hero_ek": 369.9187,
+    "hero_vk": 484.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.4",
+    "bezeichnung": "Ausführungvariante Blockrahmen",
+    "hero_ek": 116.6667,
+    "hero_vk": 161.98
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.5",
+    "bezeichnung": "Ausführungvariante Blendrahmen",
+    "hero_ek": 208.3333,
+    "hero_vk": 298.39
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.6",
+    "bezeichnung": "Ausführungvariante Eckzarge",
+    "hero_ek": 270.8333,
+    "hero_vk": 394.3
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.7",
+    "bezeichnung": "Ausführungvariante Durchgangszarge",
+    "hero_ek": 216.6667,
+    "hero_vk": 302.66
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.1",
+    "bezeichnung": "Floatglasscheibe bis 0,5m² erneuern",
+    "hero_ek": 35.4167,
+    "hero_vk": 50.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.3",
+    "bezeichnung": "Floatglasscheibe bis 1,0 m² erneuern",
+    "hero_ek": 70.8333,
+    "hero_vk": 100.17
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.4",
+    "bezeichnung": "Sicherheitsscheibenglas, ESG, erneuern",
+    "hero_ek": 75,
+    "hero_vk": 105.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.5",
+    "bezeichnung": "Sicherheitsscheibenglas, VSG, erneuern",
+    "hero_ek": 89.5833,
+    "hero_vk": 122.55
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.6",
+    "bezeichnung": "Isolierscheibenglas erneuern",
+    "hero_ek": 83.3333,
+    "hero_vk": 116.16
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.11",
+    "bezeichnung": "Reinigung Druckwasserstrahlen",
+    "hero_ek": 5.4167,
+    "hero_vk": 7.3
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.12",
+    "bezeichnung": "Reinigung, Trockenstrahlen",
+    "hero_ek": 10.4167,
+    "hero_vk": 15.04
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.13",
+    "bezeichnung": "Oberflächen entlacken/ abbeizen",
+    "hero_ek": 10.4167,
+    "hero_vk": 15.04
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.2",
+    "bezeichnung": "Bodenschutz, Flies + Hartfaserplatten auslegen",
+    "hero_ek": 8,
+    "hero_vk": 10.31
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.3",
+    "bezeichnung": "Schutzmaßnahmen an Einrichtungsgegenständen",
+    "hero_ek": 37.5,
+    "hero_vk": 48.33
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.5",
+    "bezeichnung": "Tapeten ablösen, Wandfl., 4 lagig",
+    "hero_ek": 3.5,
+    "hero_vk": 4.7
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.7",
+    "bezeichnung": "Tapeten ablösen, Deckenfl., 4 lagig",
+    "hero_ek": 3.7917,
+    "hero_vk": 5.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.8",
+    "bezeichnung": "Verunreinigungen, Trennschichten mech. entf.",
+    "hero_ek": 3.0833,
+    "hero_vk": 4.49
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.4",
+    "bezeichnung": "Putzschlitze schließen, < 5 m",
+    "hero_ek": 80.0813,
+    "hero_vk": 105.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.5",
+    "bezeichnung": "Putzschlitze schließen, > 5 m < 10m",
+    "hero_ek": 128.4553,
+    "hero_vk": 169.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.6",
+    "bezeichnung": "Putzschlitze schließen, > 10m - 20m",
+    "hero_ek": 158.5366,
+    "hero_vk": 209.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.7",
+    "bezeichnung": "Putzausbrüche schließen, < 0,5 m²",
+    "hero_ek": 39.4309,
+    "hero_vk": 52.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.8",
+    "bezeichnung": "Putzausbrüche schließen, > 0,5 m²  < 1 m²",
+    "hero_ek": 72.3577,
+    "hero_vk": 95.59
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.9",
+    "bezeichnung": "Putzausbrüche schließen, > 1 m² < 1,5 m²",
+    "hero_ek": 81.3008,
+    "hero_vk": 107.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.12",
+    "bezeichnung": "Stützenspachtelung, Q2",
+    "hero_ek": 7.0833,
+    "hero_vk": 10.1
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.13",
+    "bezeichnung": "Stützenspachtelung, Q3",
+    "hero_ek": 8.3333,
+    "hero_vk": 11.38
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.2",
+    "bezeichnung": "Sperr/ Isoliergrund aufbringen",
+    "hero_ek": 4.3333,
+    "hero_vk": 5.58
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.9",
+    "bezeichnung": "Zulage Mehrstärken Spachtelarbeiten",
+    "hero_ek": 3.1667,
+    "hero_vk": 4.85
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.12",
+    "bezeichnung": "Isolieranstrich",
+    "hero_ek": 6.25,
+    "hero_vk": 9.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.4",
+    "bezeichnung": "Dispersionsanstrich, Stützen, NAB 2",
+    "hero_ek": 3.7083,
+    "hero_vk": 5.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.5",
+    "bezeichnung": "Zulage, Hellbezugswert",
+    "hero_ek": 2,
+    "hero_vk": 2.84
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.6",
+    "bezeichnung": "Nikotinsperranstrich weiß, stumpfmatt",
+    "hero_ek": 8.3333,
+    "hero_vk": 12.03
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.3",
+    "bezeichnung": "Zulage, Lackierung Oberlicht",
+    "hero_ek": 24.5833,
+    "hero_vk": 35.23
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.4",
+    "bezeichnung": "Zulage, Lackierung Seitenelement",
+    "hero_ek": 28.3333,
+    "hero_vk": 40.38
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.2",
+    "bezeichnung": "Renovierungsanstrich, beidseitig,  Holzfenstern, 1flg <1,25m²",
+    "hero_ek": 50.4167,
+    "hero_vk": 67.88
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.1",
+    "bezeichnung": "Renovierungsanstrich, Holzrahmentür, 1flg",
+    "hero_ek": 64.5833,
+    "hero_vk": 91.29
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.5",
+    "bezeichnung": "Renovierungsanstrich Gardienenblenden/ Stuckblenden",
+    "hero_ek": 4.1667,
+    "hero_vk": 6.01
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.11",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 75m², 3 Zi",
+    "hero_ek": 191.6667,
+    "hero_vk": 288.86
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.16",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 100m², 5 Zi",
+    "hero_ek": 220.8333,
+    "hero_vk": 307.11
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.5",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 55m², 2 Zi",
+    "hero_ek": 156.25,
+    "hero_vk": 241.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.6",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 65m², 2 Zi",
+    "hero_ek": 172.9167,
+    "hero_vk": 263.08
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.7",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 75m², 2 Zi",
+    "hero_ek": 185.4167,
+    "hero_vk": 275.97
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.8",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 50m², 3 Zi",
+    "hero_ek": 137.5,
+    "hero_vk": 212.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.13",
+    "bezeichnung": "Hauptleitung NYY-J  4*25 mm²",
+    "hero_ek": 21.6667,
+    "hero_vk": 32.52
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.14",
+    "bezeichnung": "Hauptleitung NYY-J  4*35 mm²",
+    "hero_ek": 27.5,
+    "hero_vk": 40.36
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.15",
+    "bezeichnung": "Hauptleitung NYY-J  5*35 mm²",
+    "hero_ek": 36.6667,
+    "hero_vk": 52.7
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.16",
+    "bezeichnung": "Hauptleitung NYM-J 1*16 mm²",
+    "hero_ek": 5.4167,
+    "hero_vk": 8.3
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.17",
+    "bezeichnung": "Hauptleitung NYM-J 5*16 mm²",
+    "hero_ek": 17.0833,
+    "hero_vk": 25.34
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.18",
+    "bezeichnung": "SFTP-Datenkabel",
+    "hero_ek": 2.3333,
+    "hero_vk": 3.27
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.19",
+    "bezeichnung": "Kunststoffpanzerrohr M 20",
+    "hero_ek": 3.25,
+    "hero_vk": 4.37
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.2",
+    "bezeichnung": "Zuleitungsverlängerung",
+    "hero_ek": 164.5833,
+    "hero_vk": 236.58
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.21",
+    "bezeichnung": "Installationskanal 60x110mm",
+    "hero_ek": 15.8333,
+    "hero_vk": 21.98
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.23",
+    "bezeichnung": "Wanddurchbruch",
+    "hero_ek": 24.1667,
+    "hero_vk": 36.55
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.24",
+    "bezeichnung": "Drehstromkreis",
+    "hero_ek": 97.9167,
+    "hero_vk": 146.88
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.28",
+    "bezeichnung": "Durchlauferhitzer demontieren / remontieren",
+    "hero_ek": 51.6667,
+    "hero_vk": 74.23
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.29",
+    "bezeichnung": "Demontage und Entsorgung NSP-Ofen 2-4 KW",
+    "hero_ek": 266.6667,
+    "hero_vk": 412.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.31",
+    "bezeichnung": ".Anschlusskabel Wärmespeicherheizung",
+    "hero_ek": 42.9167,
+    "hero_vk": 68.84
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.32",
+    "bezeichnung": "NSP-Ofen 2 KW",
+    "hero_ek": 1125,
+    "hero_vk": 1547.29
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.33",
+    "bezeichnung": "NSP-Ofen  3 KW",
+    "hero_ek": 1250,
+    "hero_vk": 1749.11
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.34",
+    "bezeichnung": "NSP-Ofen  4 KW",
+    "hero_ek": 1416.6667,
+    "hero_vk": 1973.35
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.35",
+    "bezeichnung": "NSP-Ofen  5 KW",
+    "hero_ek": 1583.3333,
+    "hero_vk": 2197.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.36",
+    "bezeichnung": "NSP-Ofen  6 KW",
+    "hero_ek": 1750,
+    "hero_vk": 2421.84
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.3",
+    "bezeichnung": "Elektroneuinstallation Wohn,- Kind,- Arbeitszimmer",
+    "hero_ek": 316.6667,
+    "hero_vk": 452.97
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.5",
+    "bezeichnung": "Elektroneuinstallation zus. WC",
+    "hero_ek": 125,
+    "hero_vk": 168.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.6",
+    "bezeichnung": "Elektroneuinstallation zus. Abstellr.",
+    "hero_ek": 125,
+    "hero_vk": 168.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.12",
+    "bezeichnung": "Badheizkörper, neu liefern",
+    "hero_ek": 327.0833,
+    "hero_vk": 447.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.13",
+    "bezeichnung": "Badheizkörper, neu, Alternativhersteller",
+    "hero_ek": 408.3333,
+    "hero_vk": 559.53
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.14",
+    "bezeichnung": "Zulage bis 450 x 1800 mm",
+    "hero_ek": 23.3333,
+    "hero_vk": 35.47
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.17",
+    "bezeichnung": "Zulage bis 750 x 1200 mm",
+    "hero_ek": 36.6667,
+    "hero_vk": 53.75
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.18",
+    "bezeichnung": "Zulage bis 750 x 1800 mm",
+    "hero_ek": 40,
+    "hero_vk": 57.49
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.19",
+    "bezeichnung": "Zulage Heizkörper Korrosionsschutz",
+    "hero_ek": 52.0833,
+    "hero_vk": 80.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.25",
+    "bezeichnung": "Lieferung und Montage thermische Abgasklappe",
+    "hero_ek": 112.5,
+    "hero_vk": 171.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.28",
+    "bezeichnung": "Brandschutzschale einbauen",
+    "hero_ek": 47.9167,
+    "hero_vk": 71.59
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.29",
+    "bezeichnung": "Zulage Material/ Nennweite",
+    "hero_ek": 50,
+    "hero_vk": 72.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.32",
+    "bezeichnung": "Gewinderohr verlegen, Keller",
+    "hero_ek": 35.8333,
+    "hero_vk": 51.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.34",
+    "bezeichnung": "Edelstahlrohr verlegen, Keller",
+    "hero_ek": 42.5,
+    "hero_vk": 62.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.36",
+    "bezeichnung": "Mehrschichtverbundrohr verlegen, Keller",
+    "hero_ek": 35.4167,
+    "hero_vk": 51.77
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.5",
+    "bezeichnung": "Ventilheizkörper, neu, Alternativhersteller",
+    "hero_ek": 202.0833,
+    "hero_vk": 318.31
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.7",
+    "bezeichnung": "Kompaktheizkörper, neu, Alternativhersteller",
+    "hero_ek": 252.0833,
+    "hero_vk": 397.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.02.1",
+    "bezeichnung": "Brennwertgerät",
+    "hero_ek": 3041.6667,
+    "hero_vk": 4119.37
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.02.2",
+    "bezeichnung": "Heizwertgerät",
+    "hero_ek": 2875,
+    "hero_vk": 3899.08
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.03.2",
+    "bezeichnung": "Ausführung Heizwertgerät",
+    "hero_ek": 3000,
+    "hero_vk": 4207.48
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.03.3",
+    "bezeichnung": "Zulage Speicher 200l",
+    "hero_ek": 612.5,
+    "hero_vk": 865.73
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.1",
+    "bezeichnung": "Waschmaschinenanschluss im Bad",
+    "hero_ek": 104.1667,
+    "hero_vk": 154.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.11",
+    "bezeichnung": "Zulage Duschtasse Superplan 800 mm x 1000 mm",
+    "hero_ek": 75,
+    "hero_vk": 105.64
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.12",
+    "bezeichnung": "Zulage Duschtasse Superplan 800 mm x 1200 mm",
+    "hero_ek": 104.1667,
+    "hero_vk": 44.02
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.17",
+    "bezeichnung": "Zulage Duschtasse Duschplan 800 mm x 1000 mm",
+    "hero_ek": 104.1667,
+    "hero_vk": 154.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.2",
+    "bezeichnung": "Vorwandinstallation Waschtisch",
+    "hero_ek": 315,
+    "hero_vk": 415.95
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.28",
+    "bezeichnung": "Einhandmischer",
+    "hero_ek": 143.3333,
+    "hero_vk": 189.27
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.29",
+    "bezeichnung": "Wannenbatterie",
+    "hero_ek": 150,
+    "hero_vk": 198.07
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.3",
+    "bezeichnung": "Spülkasten geringe Bauhöhe",
+    "hero_ek": 208.3333,
+    "hero_vk": 308.11
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.4",
+    "bezeichnung": "Sondermaße Einbauwanne",
+    "hero_ek": 458.3333,
+    "hero_vk": 638.23
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.5",
+    "bezeichnung": "Rechteck-Badewanne mit Duschzone 170/75/38",
+    "hero_ek": 487.5,
+    "hero_vk": 719.66
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.7",
+    "bezeichnung": "Rechteck-Badewanne mit Duschzone 180/80/38",
+    "hero_ek": 587.5,
+    "hero_vk": 871.51
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.9",
+    "bezeichnung": "Zulage Duschtasse Superplan 1000 mm x 1200 mm",
+    "hero_ek": 43.75,
+    "hero_vk": 50.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.1",
+    "bezeichnung": "Quadrat-Duschtasse, 800/800  h 30 mm",
+    "hero_ek": 579.1667,
+    "hero_vk": 893.52
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.10",
+    "bezeichnung": "Rechteck-Badewanne",
+    "hero_ek": 500,
+    "hero_vk": 726.26
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.11",
+    "bezeichnung": "Waschtischanlage, 500x440x180 mm",
+    "hero_ek": 135.4167,
+    "hero_vk": 210.18
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.12",
+    "bezeichnung": "Waschtischanlage, 550x440x180 mm",
+    "hero_ek": 144.5833,
+    "hero_vk": 228.22
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.14",
+    "bezeichnung": "Handwaschbecken, 450x380x160 mm",
+    "hero_ek": 134.1667,
+    "hero_vk": 209.51
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.2",
+    "bezeichnung": "Quadrat-Duschtasse, 900/900  h 30 mm",
+    "hero_ek": 608.3333,
+    "hero_vk": 922.13
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.16",
+    "bezeichnung": "Badearmatur",
+    "hero_ek": 145.8333,
+    "hero_vk": 195.87
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.21",
+    "bezeichnung": "WC-Sitz, Softclosing",
+    "hero_ek": 70,
+    "hero_vk": 96.39
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.22",
+    "bezeichnung": "WC-Sitz, Sandwich",
+    "hero_ek": 63.75,
+    "hero_vk": 89.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.25",
+    "bezeichnung": "Brausethermostat, Wanne",
+    "hero_ek": 187.5,
+    "hero_vk": 257.49
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.3",
+    "bezeichnung": "Quadrat-Duschtasse, 1000/1000  h 30 mm",
+    "hero_ek": 650,
+    "hero_vk": 1003.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.5",
+    "bezeichnung": "Rechteck-Duschtasse, 1200/800  h 30 mm",
+    "hero_ek": 695.8333,
+    "hero_vk": 1093.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.4",
+    "bezeichnung": "Quadrat-Duschtasse, 1200/1200  h 30 mm",
+    "hero_ek": 706.25,
+    "hero_vk": 1086.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.6",
+    "bezeichnung": "Rechteck-Duschtasse, 1200/1000  h 30 mm",
+    "hero_ek": 750,
+    "hero_vk": 1122.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.7",
+    "bezeichnung": "Rechteck-Duschtasse, 1400/800  h 30 mm",
+    "hero_ek": 895.8333,
+    "hero_vk": 1232.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.9",
+    "bezeichnung": "Rechteck-Duschtasse, 1600/1000  h 30 mm",
+    "hero_ek": 1083.3333,
+    "hero_vk": 1496.54
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.8",
+    "bezeichnung": "Rechteck-Duschtasse, 1600/800  h 30 mm",
+    "hero_ek": 1000,
+    "hero_vk": 1386.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.1",
+    "bezeichnung": "Kermi LIGA Walk-In Wall",
+    "hero_ek": 604.1667,
+    "hero_vk": 847.3
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.3",
+    "bezeichnung": "Kermi LIGA Pendeltür 1-flg mit Festfeld,b1400",
+    "hero_ek": 770.8333,
+    "hero_vk": 1034.37
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.4",
+    "bezeichnung": "Kermi LIGA Pendeltür 1-flg mit Festfeld,b1600",
+    "hero_ek": 783.3333,
+    "hero_vk": 1060.78
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.5",
+    "bezeichnung": "Kermi LIGA Gleittür 2-teilig mit Festfeld, b1400",
+    "hero_ek": 791.6667,
+    "hero_vk": 1078.39
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.7",
+    "bezeichnung": "Kermi LIGA Pendeltür mit Festfeld, Ecke",
+    "hero_ek": 854.1667,
+    "hero_vk": 1177.42
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.6",
+    "bezeichnung": "Kermi LIGA Gleittür 2-teilig mit Festfeld, b 1600",
+    "hero_ek": 833.3333,
+    "hero_vk": 1133.41
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.8",
+    "bezeichnung": "Kermi LIGA U-Form-Kabine Pendeltüren mit  Festfeld, Seitenw.",
+    "hero_ek": 916.6667,
+    "hero_vk": 1243.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.9",
+    "bezeichnung": "Kermi LIGA U-Form-Kabine Gleittüren mit  Eckeinstieg, Seitenw.",
+    "hero_ek": 958.3333,
+    "hero_vk": 1298.46
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.10",
+    "bezeichnung": "Rückbau von Wänden, MW, d=< 7-24 cm",
+    "hero_ek": 13.8774,
+    "hero_vk": 22.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.12",
+    "bezeichnung": "KZP als Wandputz + Deckenputz, Q2 - gefilzt/ abgezogen",
+    "hero_ek": 19.5833,
+    "hero_vk": 27.86
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.2",
+    "bezeichnung": "Metallständerwand = 4,00 m, GKB 2x 12,5 mm, d =100 mm, F30",
+    "hero_ek": 45.0952,
+    "hero_vk": 72.05
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.6",
+    "bezeichnung": "Metallständerwand = 5,00 m, GKBI 2x 12,5 mm, d = 125 mm, MW 60 mm, F30",
+    "hero_ek": 48.887,
+    "hero_vk": 78.11
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.7",
+    "bezeichnung": "Metallständerwand = 5,00 m, GKBI 2x 12,5 mm, d = 150 mm, MW 80mm, F30",
+    "hero_ek": 50.3766,
+    "hero_vk": 80.49
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.8",
+    "bezeichnung": "Metallständerwand = 4,85 m, GKF/ Diamant 12,5 mm, d = 255,  MW 2x 80mm , F90",
+    "hero_ek": 67.0334,
+    "hero_vk": 107.1
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.3",
+    "bezeichnung": "Tiefengrundierung, auf Trockenestrich",
+    "hero_ek": 3.1667,
+    "hero_vk": 4.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.17",
+    "bezeichnung": "Fensterleibungen/ Fensterbänke",
+    "hero_ek": 16.625,
+    "hero_vk": 24.52
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.32",
+    "bezeichnung": "Verschluss v Bodenentwässerung",
+    "hero_ek": 76.25,
+    "hero_vk": 100.51
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.2",
+    "bezeichnung": "Schwind-/Scheinfugen schließen",
+    "hero_ek": 8.3333,
+    "hero_vk": 11.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.05.7",
+    "bezeichnung": "Isolierscheibenglas erneuern",
+    "hero_ek": 106.25,
+    "hero_vk": 150.26
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.1",
+    "bezeichnung": "Bodenschutz, Flies auslegen",
+    "hero_ek": 1.6667,
+    "hero_vk": 2.21
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.10",
+    "bezeichnung": "Algen u. Ä. entfernen, Flächen fungizid behandeln",
+    "hero_ek": 6.0417,
+    "hero_vk": 9.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.2",
+    "bezeichnung": "Risse in Ptuzfl. schließen,> 5 m < 10m",
+    "hero_ek": 69.5122,
+    "hero_vk": 91.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.02.3",
+    "bezeichnung": "Risse in Ptuzfl. schließen,> 10m - 20m",
+    "hero_ek": 128.4553,
+    "hero_vk": 169.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.01.2",
+    "bezeichnung": "Wannenbad Gr. bis 3,5 m² Grundfl.",
+    "hero_ek": 6208.3333,
+    "hero_vk": 8289.84
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.02.2",
+    "bezeichnung": "Wannenbad Gr. bis 4,5 m² Grundfl. ",
+    "hero_ek": 6583.3333,
+    "hero_vk": 8483.13
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.03.2",
+    "bezeichnung": "Wannenbad Gr. bis 6 m² Grundfl.",
+    "hero_ek": 6750,
+    "hero_vk": 8783.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.04.2",
+    "bezeichnung": "Wannenbad Gr. bis 7,5 m² Grundfl.",
+    "hero_ek": 6916.6667,
+    "hero_vk": 8998.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.05.1",
+    "bezeichnung": "Duschbad Gr. bis >7,5m² - ca. 9 m² Grundfl.",
+    "hero_ek": 6958.3333,
+    "hero_vk": 9513.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.05.2",
+    "bezeichnung": "Wannenbad Gr. bis >7,5m² - ca. 9 m² Grundfl.",
+    "hero_ek": 7354.1667,
+    "hero_vk": 9879.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.1",
+    "bezeichnung": "Heizkörper demontieren / Wiedermontage(Badezimmer)",
+    "hero_ek": 43.75,
+    "hero_vk": 66.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.03.4",
+    "bezeichnung": "Zulage Speicherverrrohrung",
+    "hero_ek": 241.6667,
+    "hero_vk": 352.46
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.16",
+    "bezeichnung": "Dauerelastische Verfugung",
+    "hero_ek": 4.0417,
+    "hero_vk": 8.32
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.36",
+    "bezeichnung": "Nivellierausgleich",
+    "hero_ek": 9.3958,
+    "hero_vk": 11.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.15",
+    "bezeichnung": "Bauschluss/- Feinreinigung > 100m², 4 Zi",
+    "hero_ek": 252.0833,
+    "hero_vk": 332.88
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.33",
+    "bezeichnung": "Wand-WC",
+    "hero_ek": 230,
+    "hero_vk": 253.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.20",
+    "bezeichnung": "WC-Sitz",
+    "hero_ek": 54.7967,
+    "hero_vk": 89.13
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.04.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 25,
+    "hero_vk": 82.53
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.3",
+    "bezeichnung": "Renovierungsanstrich, beidseitig, Holzfenstern, 2flg <2,5m2",
+    "hero_ek": 72.9167,
+    "hero_vk": 95
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.16",
+    "bezeichnung": "Bodenbefliesung inkl. Flexmörtel",
+    "hero_ek": 30,
+    "hero_vk": 38.41
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.25",
+    "bezeichnung": "Massivholzboden schleifen",
+    "hero_ek": 25,
+    "hero_vk": 26.94
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.02.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 37.05,
+    "hero_vk": 59.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.9",
+    "bezeichnung": "Revisionsklappe, GK Einlage,  40/40",
+    "hero_ek": 41.67,
+    "hero_vk": 57.34
+  },
+  {
+    "artikelnummer": "GWS.LV23-05.01.5",
+    "bezeichnung": "Schnellzementestrich,Belegreife 2-5 T",
+    "hero_ek": 33.75,
+    "hero_vk": 45.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.24",
+    "bezeichnung": "Einzelene Holzdielen ausbessern",
+    "hero_ek": 35.42,
+    "hero_vk": 52.62
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.24",
+    "bezeichnung": "Brausekombination, Wanne",
+    "hero_ek": 214.58,
+    "hero_vk": 294.91
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.10",
+    "bezeichnung": "Drehkippbeschlag erneuern, Einzelteil",
+    "hero_ek": 54.17,
+    "hero_vk": 78.86
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.13",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 75m², 4 Zi",
+    "hero_ek": 197.92,
+    "hero_vk": 301.74
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.16",
+    "bezeichnung": "Wanddurchbruch herstellen > 400cm² bis 1 m²",
+    "hero_ek": 67.5,
+    "hero_vk": 90.88
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.22",
+    "bezeichnung": "Kernbohrung Decke",
+    "hero_ek": 40,
+    "hero_vk": 57.86
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.23",
+    "bezeichnung": "WC-Sitz, Sandwich Softclosing",
+    "hero_ek": 80.42,
+    "hero_vk": 111.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.21",
+    "bezeichnung": "Traverse zur Wandverstärkung, MSH",
+    "hero_ek": 32.92,
+    "hero_vk": 45.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.32",
+    "bezeichnung": "Spülkasten AP",
+    "hero_ek": 72.92,
+    "hero_vk": 111.14
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.13",
+    "bezeichnung": "Waschtischanlage,  600x480x180 mm",
+    "hero_ek": 152.08,
+    "hero_vk": 238.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.1",
+    "bezeichnung": "Dachboden-Dämmplatte 60 mm mit Verbundplatte 19mm",
+    "hero_ek": 49.58,
+    "hero_vk": 69.24
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.15",
+    "bezeichnung": "Zulage bis 600 x 1200 mm",
+    "hero_ek": 33,
+    "hero_vk": 53.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.18",
+    "bezeichnung": "Kernbohrungen d=110",
+    "hero_ek": 75,
+    "hero_vk": 105.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.07.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.64,
+    "hero_vk": 42.63
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.16",
+    "bezeichnung": "Zulage bis 600 x 1800 mm",
+    "hero_ek": 39.16,
+    "hero_vk": 63
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.20",
+    "bezeichnung": "De-/Remontage Therme",
+    "hero_ek": 177.08,
+    "hero_vk": 252.23
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.23",
+    "bezeichnung": "Gasleitung abstopfen",
+    "hero_ek": 39.16,
+    "hero_vk": 63
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.37",
+    "bezeichnung": "Stahlrohr verlegen, Keller",
+    "hero_ek": 41.76,
+    "hero_vk": 67.19
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.30",
+    "bezeichnung": "Rückbau Fensterbank, innen <1,5m",
+    "hero_ek": 18,
+    "hero_vk": 24.16
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.05.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 0,
+    "hero_vk": 60.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.30",
+    "bezeichnung": "Kupferrohr verlegen, Keller",
+    "hero_ek": 37.79,
+    "hero_vk": 60.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.8",
+    "bezeichnung": "Duschtasse Superplan, h 25 mm",
+    "hero_ek": 572.39,
+    "hero_vk": 921.37
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.04.03.1",
+    "bezeichnung": "Zi 1-Wohneinheit bis 35 m², Rohrlängen 35",
+    "hero_ek": 876.34,
+    "hero_vk": 1409.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.03.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 34.63,
+    "hero_vk": 56.06
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.5",
+    "bezeichnung": "Wandspachtel, Q2",
+    "hero_ek": 6.71,
+    "hero_vk": 9.64
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.23",
+    "bezeichnung": "Strangerneuerung (Abwasser Bad)",
+    "hero_ek": 566.67,
+    "hero_vk": 827.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.3",
+    "bezeichnung": "Rückbau Altbelag, lose verbaut, WE 30- 90m² o. Bad, Kalkulation: i-M- 60 m² (PVC lose verlegt)",
+    "hero_ek": 250,
+    "hero_vk": 354.36
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.03.2",
+    "bezeichnung": "Stundenlohnarbeiten Helfer",
+    "hero_ek": 26.54,
+    "hero_vk": 41.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.22",
+    "bezeichnung": "Ausbau Innentüren , 2 flg.",
+    "hero_ek": 48.33,
+    "hero_vk": 66.79
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.9",
+    "bezeichnung": "Gips-Leichtputz Pfeiler, Stützen, Q2 - geglättet",
+    "hero_ek": 17.08,
+    "hero_vk": 23.4
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.03.1",
+    "bezeichnung": "Duschbad Gr. bis 6 m² Grundfl.",
+    "hero_ek": 6416.67,
+    "hero_vk": 8783.8
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.20",
+    "bezeichnung": "Abbruch Estrich d= bis 14cm",
+    "hero_ek": 21.67,
+    "hero_vk": 30.5
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.15",
+    "bezeichnung": "Zulage Duschtasse Duschplan 1000 mm x 1200 mm",
+    "hero_ek": 56.25,
+    "hero_vk": 491.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.26",
+    "bezeichnung": "Waschtischanlage (inkl. Armatur Christina)",
+    "hero_ek": 308.33,
+    "hero_vk": 407.15
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.17",
+    "bezeichnung": "Kernbohrungen d=70",
+    "hero_ek": 62.5,
+    "hero_vk": 84.03
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.10",
+    "bezeichnung": "Bodenbelag, Vinyl,  Bahnen",
+    "hero_ek": 28.33,
+    "hero_vk": 37.04
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.26",
+    "bezeichnung": "Ausbau Stahl-/Alu-Glas-Rahmentür, 2 flg.",
+    "hero_ek": 75,
+    "hero_vk": 103.09
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.02.2",
+    "bezeichnung": "Elektroneuinstallation Mieterkeller",
+    "hero_ek": 143.75,
+    "hero_vk": 211.91
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.25",
+    "bezeichnung": "Durchlauferhitzer",
+    "hero_ek": 450,
+    "hero_vk": 679.46
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.37",
+    "bezeichnung": "Gefällespachtel bis 2%",
+    "hero_ek": 16.25,
+    "hero_vk": 22.41
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.4",
+    "bezeichnung": "Tapeten ablösen, Wandfl., 2 lagig",
+    "hero_ek": 2.42,
+    "hero_vk": 3.87
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.26",
+    "bezeichnung": "Durchlauferhitzer , elektrisch geregelt",
+    "hero_ek": 464.58,
+    "hero_vk": 720.95
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.10",
+    "bezeichnung": "Zulage Drückergarnitur (Zimmertür)",
+    "hero_ek": 35,
+    "hero_vk": 44.76
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.6",
+    "bezeichnung": "Lackierung Geländer+ Handlauf",
+    "hero_ek": 70,
+    "hero_vk": 90.22
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.01.6",
+    "bezeichnung": "Tapeten ablösen, Deckenfl., 2 lagig",
+    "hero_ek": 3,
+    "hero_vk": 4.12
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.22",
+    "bezeichnung": "Verfugung Bodenfliesenbelag",
+    "hero_ek": 4.08,
+    "hero_vk": 5.93
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.8",
+    "bezeichnung": "Unterbodensystem für Designböden",
+    "hero_ek": 32,
+    "hero_vk": 39.15
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.03.8",
+    "bezeichnung": "Deckenspachtel, Q3",
+    "hero_ek": 8.67,
+    "hero_vk": 11.75
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.9",
+    "bezeichnung": "Lackierung Plattenheizkörper, Zulage, Breite bis 1,5 m",
+    "hero_ek": 11.67,
+    "hero_vk": 17.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.37",
+    "bezeichnung": "E- Check nach VDE",
+    "hero_ek": 332.47,
+    "hero_vk": 538.19
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.01.1",
+    "bezeichnung": "Grundreinigung TRH EG (je Woche)",
+    "hero_ek": 31.25,
+    "hero_vk": 48.32
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.15",
+    "bezeichnung": "Rollladengurt Mini",
+    "hero_ek": 48.78,
+    "hero_vk": 63.94
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.02.7",
+    "bezeichnung": "Fenster- oder Balkontürgriff ausbauen/ erneuern",
+    "hero_ek": 29.17,
+    "hero_vk": 43.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.3",
+    "bezeichnung": "Dispersionsanstrich, Leibungen, NAB 2",
+    "hero_ek": 2.43,
+    "hero_vk": 3.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.8",
+    "bezeichnung": "Rollladen/ Rollladenkasten reparieren",
+    "hero_ek": 72.92,
+    "hero_vk": 101.24
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.20",
+    "bezeichnung": "Barrierefreie/ Bodengleiche Dusche inkl Bodenfliesen",
+    "hero_ek": 1041.67,
+    "hero_vk": 1540.55
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.8",
+    "bezeichnung": "Öffnungs  Normmaß",
+    "hero_ek": 166.67,
+    "hero_vk": 238.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.21",
+    "bezeichnung": "Verfugung Wandfliesenbelag",
+    "hero_ek": 10,
+    "hero_vk": 14.72
+  },
+  {
+    "artikelnummer": "GWS.LV23-20.01.5",
+    "bezeichnung": "Unterverteilung (ohne Aufputz-Wanne)",
+    "hero_ek": 458.53,
+    "hero_vk": 742.25
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.3",
+    "bezeichnung": "Nivellierausgleich",
+    "hero_ek": 10,
+    "hero_vk": 11.83
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.11",
+    "bezeichnung": "Lackierung Rippenheizkörper",
+    "hero_ek": 41.67,
+    "hero_vk": 66.59
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.01.4",
+    "bezeichnung": "Türbauteil gang- und schließbar machen",
+    "hero_ek": 21.67,
+    "hero_vk": 30.27
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.15",
+    "bezeichnung": "Zulage Sicherheitsdrückergarnitur (WE-Tür)",
+    "hero_ek": 83.33,
+    "hero_vk": 119.36
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.4",
+    "bezeichnung": "Renovierungsanstrich, beidseitig,  Holzfenstern, 2flg >2,5m²",
+    "hero_ek": 83.33,
+    "hero_vk": 120.29
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.01.1",
+    "bezeichnung": "Innenwand  D=11,5cm(Wandschrank zumauern)",
+    "hero_ek": 53.33,
+    "hero_vk": 68.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.31",
+    "bezeichnung": "Marmorfensterbank bis 120cm",
+    "hero_ek": 55,
+    "hero_vk": 70.42
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.22",
+    "bezeichnung": "Abwasserleitungen Küche erneuern",
+    "hero_ek": 232.43,
+    "hero_vk": 374.13
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.02.17",
+    "bezeichnung": "Handbrause-Set Wanne",
+    "hero_ek": 61.67,
+    "hero_vk": 88.69
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.07.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter",
+    "hero_ek": 36.63,
+    "hero_vk": 58.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-11.02.9",
+    "bezeichnung": "Bauschluss/- Feinreinigung bis 55m², 3 Zi",
+    "hero_ek": 147.92,
+    "hero_vk": 224.43
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.29",
+    "bezeichnung": "Schutzabdeckung, Wand/ Boden",
+    "hero_ek": 2.71,
+    "hero_vk": 3.95
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.01.31",
+    "bezeichnung": "Handbrause u Schlauch",
+    "hero_ek": 52.08,
+    "hero_vk": 73.73
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.11",
+    "bezeichnung": "Sockelleiste , Viertelstab, Kiefer",
+    "hero_ek": 3.58,
+    "hero_vk": 4.97
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.06.7",
+    "bezeichnung": "Renovierungsanstrich Holzsockelleisten (Lackierung)",
+    "hero_ek": 2.79,
+    "hero_vk": 3.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-12.04.1",
+    "bezeichnung": "Duschbad Gr. bis 7,5m² Grundfl.",
+    "hero_ek": 6583.33,
+    "hero_vk": 8998.56
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.23",
+    "bezeichnung": "Dauerelastische Verfugung",
+    "hero_ek": 5.26,
+    "hero_vk": 8.32
+  },
+  {
+    "artikelnummer": "GWS.LV23-02.02.3",
+    "bezeichnung": "Gips-Unterputz ausbessern",
+    "hero_ek": 16.67,
+    "hero_vk": 23.82
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.04.12",
+    "bezeichnung": "Minderpreis Stahlumfassungszarge",
+    "hero_ek": -47.16,
+    "hero_vk": -74.6
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.02.6",
+    "bezeichnung": "Revisionsklappe, Stahlblech, weiß 20/20",
+    "hero_ek": 31.25,
+    "hero_vk": 45.44
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.27",
+    "bezeichnung": "Ummantelung erneuern",
+    "hero_ek": 23.96,
+    "hero_vk": 38.55
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.13",
+    "bezeichnung": "Rückbau Fliesenspiegel (Fliesenspiegel Küche)",
+    "hero_ek": 16.59,
+    "hero_vk": 21.48
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.07.1",
+    "bezeichnung": "Stundenlohnarbeiten Facharbeiter nach Aufwand (Rückbau Schalter-Steckdosen, Reinigung, Einbau Schalter-Steckdosen)",
+    "hero_ek": 36.97,
+    "hero_vk": 59.07
+  },
+  {
+    "artikelnummer": "GWS.LV23-07.01.9",
+    "bezeichnung": "Bodenbelag, Vinyl,  Planken (Gerflor Creation 30, Dekor: white lime 0584)",
+    "hero_ek": 30,
+    "hero_vk": 37.04
+  },
+  {
+    "artikelnummer": "GWS.LV23-01.01.9",
+    "bezeichnung": "Rückbau von Wänden, KvH, d=< 12cm",
+    "hero_ek": 11.21,
+    "hero_vk": 14.93
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.02.03.2",
+    "bezeichnung": "Kermi LIGA Pendel-Falttür",
+    "hero_ek": 729.17,
+    "hero_vk": 1012.36
+  },
+  {
+    "artikelnummer": "GWS.LV23-21.01.01.24",
+    "bezeichnung": "Erstellung/Erneuerung Leitungen Therme",
+    "hero_ek": 910.58,
+    "hero_vk": 1464.91
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.20",
+    "bezeichnung": "Anschlussfuge verputzen",
+    "hero_ek": 0,
+    "hero_vk": 9.61
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.03.22",
+    "bezeichnung": "Anschlussfuge ausschäumen",
+    "hero_ek": 0,
+    "hero_vk": 13.65
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.2",
+    "bezeichnung": "Vorhandenen Handlauf erneuern",
+    "hero_ek": 0,
+    "hero_vk": 122.25
+  },
+  {
+    "artikelnummer": "GWS.LV23-08.06.3",
+    "bezeichnung": "Geländerstab erneuern",
+    "hero_ek": 0,
+    "hero_vk": 41.99
+  },
+  {
+    "artikelnummer": "GWS.LV23-06.01.15",
+    "bezeichnung": "Wandbefliesung inkl. Flexmörtel",
+    "hero_ek": 66.25,
+    "hero_vk": 88.34
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.05.13",
+    "bezeichnung": "Lackierung Rippenheizkörper, Zulage, Breite bis 2 m",
+    "hero_ek": 10,
+    "hero_vk": 12.89
+  },
+  {
+    "artikelnummer": "GWS.LV23-10.01.1",
+    "bezeichnung": "Asbestsanierung: 1 Zi Wohnung mit Küche, Diele bis 35m²",
+    "hero_ek": 1147.5,
+    "hero_vk": 1815.38
+  },
+  {
+    "artikelnummer": "GWS.LV23-04.01.28",
+    "bezeichnung": "Revisionsklappe, GK Einlage,F30  40/40",
+    "hero_ek": 72.08,
+    "hero_vk": 102.34
+  },
+  {
+    "artikelnummer": "GWS.LV23-09.04.9",
+    "bezeichnung": "Balkon Bodenbeschichtung",
+    "hero_ek": 13.04,
+    "hero_vk": 20.84
+  }
+]

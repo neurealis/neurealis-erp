@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-02-02T09:23:45.330Z",
+  "statistik": {
+    "hero_gws_aktiv": 584,
+    "supabase_gws": 705,
+    "preisabweichungen": 0,
+    "vk_kleiner_ek": 4,
+    "negative_preise": 1,
+    "null_preise": 55,
+    "ek_null_vk_vorhanden": 5
+  },
+  "datenqualitaet": {
+    "vk_kleiner_ek": [
+      {
+        "nr": "GWS.LV23-07.01.26",
+        "ek": 22.0206,
+        "vk": 15.4,
+        "diff": 6.620600000000001,
+        "name": "Grundierung /Schlussanstrich Massivholzboden"
+      },
+      {
+        "nr": "GWS.LV23-08.02.1",
+        "ek": 53.3333,
+        "vk": 38.5,
+        "diff": 14.833300000000001,
+        "name": "Beschlagsteile verstezen, klein"
+      },
+      {
+        "nr": "GWS.LV23-20.01.1",
+        "ek": 300,
+        "vk": 131,
+        "diff": 169,
+        "name": "Elektrozähler Alt/ Neu"
+      },
+      {
+        "nr": "GWS.LV23-21.02.01.12",
+        "ek": 104.1667,
+        "vk": 44.02,
+        "diff": 60.1467,
+        "name": "Zulage Duschtasse Superplan 800 mm x 1200 mm"
+      }
+    ],
+    "negative_preise": [
+      {
+        "nr": "GWS.LV23-08.04.12",
+        "ek": -47.16,
+        "vk": -74.6,
+        "name": "Minderpreis Stahlumfassungszarge"
+      }
+    ]
+  }
+}

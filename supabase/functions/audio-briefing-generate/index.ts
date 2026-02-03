@@ -2,9 +2,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 /**
- * audio-briefing-generate v2.0 - Umfassendes Audio-Briefing für Bauleiter
+ * audio-briefing-generate v3.0 - Umfassendes Audio-Briefing für Bauleiter
  *
- * NEU in v2.0:
+ * v3.0 FIXES:
+ * - verify_jwt: false (kann von telegram-webhook aufgerufen werden)
+ * - bauleiter_email → bl_email (Spalten-Umbenennung L144)
+ *
+ * Features:
  * - Gruppierung nach Auftraggeber (VBW, GWS, Privat, etc.)
  * - Pro Baustelle: Status, Mängel, Nachträge
  * - Mängel mit NU-Nachweis (BL muss bestätigen)
@@ -52,7 +56,7 @@ interface Mangel {
   projekt_nr: string;
   art_des_mangels: string;
   beschreibung_mangel: string;
-  nachunternehmer: string; // In maengel_fertigstellung noch nicht umbenannt
+  nachunternehmer: string;
   status_mangel: string;
   datum_frist: string;
   fotos_nachweis_nu: string | null;
@@ -132,7 +136,6 @@ function getWeekBoundaries(): { start: string; end: string } {
 }
 
 function extractAuftraggeber(name: string): string {
-  // Format: "VBW | Adresse" oder "GWS | Adresse" etc.
   if (!name) return "Sonstige";
   const parts = name.split("|");
   if (parts.length > 0) {
@@ -181,6 +184,7 @@ async function getBauleiter(email: string): Promise<Bauleiter | null> {
 }
 
 async function getAktiveProjekte(bauleiterEmail: string): Promise<Projekt[]> {
+  // FIX v3: bl_email statt bauleiter_email (L144)
   const { data, error } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer, name, auftraggeber, adresse, baustart, bauende, status_projekt, status_nua, budget, nu_firma")
@@ -196,7 +200,7 @@ async function getAktiveProjekte(bauleiterEmail: string): Promise<Projekt[]> {
 }
 
 async function getAlleMaengel(bauleiterEmail: string): Promise<Mangel[]> {
-  // Erst Projekte des Bauleiters holen
+  // FIX v3: bl_email statt bauleiter_email (L144)
   const { data: projekte } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer")
@@ -229,10 +233,11 @@ async function getAlleMaengel(bauleiterEmail: string): Promise<Mangel[]> {
 }
 
 async function getOffeneNachtraege(bauleiterEmail: string): Promise<Nachtrag[]> {
+  // FIX v3: bl_email statt bauleiter_email (L144)
   const { data: projekte } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer")
-    .eq("bauleiter_email", bauleiterEmail);
+    .eq("bl_email", bauleiterEmail);
 
   if (!projekte || projekte.length === 0) return [];
 
@@ -259,11 +264,12 @@ async function getTermine(bauleiterEmail: string, isWeekly: boolean): Promise<Te
 
   const termine: Termin[] = [];
 
+  // FIX v3: bl_email statt bauleiter_email (L144)
   // Baustart
   const { data: baustart } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer, name, auftraggeber, baustart")
-    .eq("bauleiter_email", bauleiterEmail)
+    .eq("bl_email", bauleiterEmail)
     .gte("baustart", dateStart)
     .lte("baustart", dateEnd);
 
@@ -277,7 +283,7 @@ async function getTermine(bauleiterEmail: string, isWeekly: boolean): Promise<Te
   const { data: bauende } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer, name, auftraggeber, bauende")
-    .eq("bauleiter_email", bauleiterEmail)
+    .eq("bl_email", bauleiterEmail)
     .gte("bauende", dateStart)
     .lte("bauende", dateEnd);
 
@@ -291,7 +297,7 @@ async function getTermine(bauleiterEmail: string, isWeekly: boolean): Promise<Te
   const { data: kundenabnahme } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer, name, auftraggeber, datum_kundenabnahme")
-    .eq("bauleiter_email", bauleiterEmail)
+    .eq("bl_email", bauleiterEmail)
     .gte("datum_kundenabnahme", dateStart)
     .lte("datum_kundenabnahme", dateEnd);
 
@@ -325,11 +331,11 @@ async function getErinnerungen(bauleiterEmail: string): Promise<Erinnerung[]> {
 }
 
 async function getFehlendNachweise(bauleiterEmail: string): Promise<{ projekt: string; nachweisTyp: string }[]> {
-  // Projekte in Phase 4 ohne bestimmte Nachweise
+  // FIX v3: bl_email statt bauleiter_email (L144)
   const { data: projekte } = await supabase
     .from("monday_bauprozess")
     .select("atbs_nummer, name, ausfuehrung_elektrik, ausfuehrung_bad")
-    .eq("bauleiter_email", bauleiterEmail)
+    .eq("bl_email", bauleiterEmail)
     .eq("status_projekt", "(4) Umsetzung");
 
   if (!projekte || projekte.length === 0) return [];
@@ -370,7 +376,7 @@ async function getFehlendNachweise(bauleiterEmail: string): Promise<{ projekt: s
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-// SKRIPT GENERATION - UMFASSEND
+// SKRIPT GENERATION
 // ════════════════════════════════════════════════════════════════════════════
 
 function generateUmfassendesBriefing(
@@ -389,7 +395,7 @@ function generateUmfassendesBriefing(
 
   let skript = "";
 
-  // ═══ BEGRÜSSUNG ═══
+  // BEGRÜSSUNG
   if (isMonday) {
     skript += `Guten Morgen ${bauleiterName}! Hier ist dein Wochen-Briefing für ${datumText}. `;
     skript += `Lass uns einen Überblick über deine Baustellen und anstehenden Aufgaben verschaffen.\n\n`;
@@ -397,7 +403,7 @@ function generateUmfassendesBriefing(
     skript += `Guten Morgen ${bauleiterName}! Hier ist dein Tages-Briefing für ${wochentag}, den ${datumText}.\n\n`;
   }
 
-  // ═══ TERMINE ═══
+  // TERMINE
   if (termine.length > 0) {
     skript += isMonday ? `Zuerst zu deinen Terminen diese Woche:\n` : `Deine Termine heute:\n`;
     termine.forEach((t) => {
@@ -406,15 +412,12 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ BAUSTELLEN NACH AUFTRAGGEBER ═══
+  // BAUSTELLEN NACH AUFTRAGGEBER
   const aktiveProjekte = projekte.filter((p) =>
     p.status_projekt?.includes("(3)") || p.status_projekt?.includes("(4)")
   );
 
-  // Gruppieren nach Auftraggeber
   const projektNachAG = groupBy(aktiveProjekte, (p) => extractAuftraggeber(p.name));
-
-  // Sortierung: VBW, GWS, Covivio, Vonovia, Privat, Sonstige
   const agReihenfolge = ["VBW", "GWS", "Covivio", "Vonovia", "Privat", "Sonstige"];
 
   skript += `Nun zu deinen ${aktiveProjekte.length} aktiven Baustellen:\n\n`;
@@ -426,25 +429,20 @@ function generateUmfassendesBriefing(
     skript += `Bauvorhaben ${ag}:\n`;
 
     for (const p of agProjekte) {
-      // Mängel für dieses Projekt
       const projektMaengel = maengel.filter((m) => m.projekt_nr === p.atbs_nummer);
       const offeneMaengel = projektMaengel.length;
       const ueberfaelligeMaengel = projektMaengel.filter((m) => m.tage_ueberfaellig > 0).length;
-
-      // Nachträge für dieses Projekt
       const projektNachtraege = nachtraege.filter((n) => n.atbs_nummer === p.atbs_nummer);
       const offeneNachtraege = projektNachtraege.length;
 
       skript += `${p.atbs_nummer}: `;
 
-      // Status
       if (p.status_projekt?.includes("(4)")) {
         skript += "In Umsetzung. ";
       } else if (p.status_projekt?.includes("(3)")) {
         skript += "In Vorbereitung. ";
       }
 
-      // Bauende diese Woche?
       if (p.bauende) {
         const bauendeDate = new Date(p.bauende);
         const { end } = getWeekBoundaries();
@@ -453,7 +451,6 @@ function generateUmfassendesBriefing(
         }
       }
 
-      // Mängel
       if (offeneMaengel > 0) {
         skript += `${offeneMaengel} offene Mängel`;
         if (ueberfaelligeMaengel > 0) {
@@ -462,7 +459,6 @@ function generateUmfassendesBriefing(
         skript += ". ";
       }
 
-      // Nachträge (ohne Beträge)
       if (offeneNachtraege > 0) {
         skript += `${offeneNachtraege} offene Nachträge. `;
       }
@@ -472,7 +468,7 @@ function generateUmfassendesBriefing(
     skript += "\n";
   }
 
-  // ═══ MÄNGEL MIT NU-NACHWEIS (BL MUSS BESTÄTIGEN) ═══
+  // MÄNGEL MIT NU-NACHWEIS (BL MUSS BESTÄTIGEN)
   const maengelMitNachweis = maengel.filter((m) => m.fotos_nachweis_nu && m.fotos_nachweis_nu.length > 0);
   if (maengelMitNachweis.length > 0) {
     skript += `Achtung: ${maengelMitNachweis.length} Mängel warten auf deine Bestätigung. Der Nachunternehmer hat bereits Nachweise hochgeladen:\n`;
@@ -482,7 +478,7 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ ÜBERFÄLLIGE MÄNGEL OHNE NU-REAKTION ═══
+  // ÜBERFÄLLIGE MÄNGEL OHNE NU-REAKTION
   const maengelOhneNachweis = maengel.filter((m) => m.tage_ueberfaellig > 0 && (!m.fotos_nachweis_nu || m.fotos_nachweis_nu.length === 0));
   if (maengelOhneNachweis.length > 0) {
     skript += `${maengelOhneNachweis.length} überfällige Mängel ohne Reaktion vom Nachunternehmer:\n`;
@@ -492,7 +488,7 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ FEHLENDE NACHWEISE ═══
+  // FEHLENDE NACHWEISE
   if (fehlendNachweise.length > 0) {
     skript += `Bei ${fehlendNachweise.length} Projekten fehlen noch Nachweise:\n`;
     const gruppiert = groupBy(fehlendNachweise, (f) => f.projekt);
@@ -503,12 +499,12 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ OFFENE NACHTRÄGE GESAMT (ohne Beträge) ═══
+  // OFFENE NACHTRÄGE GESAMT
   if (nachtraege.length > 0) {
     skript += `Insgesamt hast du ${nachtraege.length} offene Nachträge.\n\n`;
   }
 
-  // ═══ PROJEKTE IN PHASE 2 OHNE NUA ═══
+  // PROJEKTE IN PHASE 2 OHNE NUA
   const ohneNUA = projekte.filter((p) =>
     p.status_projekt?.includes("(2)") && (!p.status_nua || p.status_nua === "" || p.status_nua === "Offen")
   );
@@ -521,7 +517,7 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ ERINNERUNGEN ═══
+  // ERINNERUNGEN
   if (erinnerungen.length > 0) {
     skript += `Du hast ${erinnerungen.length} persönliche Erinnerungen:\n`;
     erinnerungen.slice(0, 3).forEach((e) => {
@@ -530,7 +526,7 @@ function generateUmfassendesBriefing(
     skript += "\n\n";
   }
 
-  // ═══ ABSCHLUSS ═══
+  // ABSCHLUSS
   if (isMonday) {
     skript += `Das war dein Wochen-Briefing. Einen produktiven Start in die Woche!`;
   } else {
@@ -666,20 +662,19 @@ Deno.serve(async (req) => {
     const force: boolean = body.force === true;
     const forceMonday: boolean = body.force_monday === true;
 
-    console.log(`audio-briefing-generate v2: bauleiter=${bauleiterEmail}, sendTo=${sendToEmail}, force=${force}, forceMonday=${forceMonday}`);
+    console.log(`audio-briefing-generate v3: bauleiter=${bauleiterEmail}, sendTo=${sendToEmail}, force=${force}, forceMonday=${forceMonday}`);
 
     const dateStr = getTodayStr();
     const isMonday = forceMonday || new Date().getDay() === 1;
 
-    // Bauleiter-Daten laden (für den das Briefing erstellt wird)
+    // Bauleiter-Daten laden
     const bauleiter = await getBauleiter(bauleiterEmail);
     if (!bauleiter) {
-      // Fallback: Nutze den Namen aus der Email
       console.log(`Bauleiter ${bauleiterEmail} nicht in kontakte, nutze Fallback`);
     }
     const bauleiterName = bauleiter?.vorname || bauleiterEmail.split("@")[0].split(".")[0];
 
-    // Empfänger ermitteln (kann anders sein als Bauleiter)
+    // Empfänger ermitteln
     const sendTo = await getBauleiter(sendToEmail);
     if (!sendTo) {
       return new Response(
@@ -688,7 +683,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Alle Daten laden
+    // Alle Daten parallel laden
     const [projekte, maengel, nachtraege, termine, erinnerungen, fehlendNachweise] = await Promise.all([
       getAktiveProjekte(bauleiterEmail),
       getAlleMaengel(bauleiterEmail),
