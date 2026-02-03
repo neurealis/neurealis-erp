@@ -38,6 +38,17 @@
 	let isAnalyzing = $state(false);
 	let analyzeError = $state<string | null>(null);
 
+	// NEU: Kundenkontext (Wohnungsgröße etc.)
+	interface KundenKontext {
+		wohnungsgroesse_m2?: number;
+		wohnungsgroesse_staffel?: string;
+		raumanzahl?: number;
+		stockwerk?: number;
+		baujahr?: number;
+	}
+	let kundenKontext = $state<KundenKontext>({});
+	let manuelleWohnungsgroesse = $state<string>(''); // Für manuelle Eingabe
+
 	// Step 3: Positionen prüfen
 	interface LvPositionRef {
 		id: string;
@@ -90,6 +101,8 @@
 		position_id: string;
 		position_name: string;
 		preis: number;
+		grund?: string;
+		optional: boolean;
 		accepted: boolean;
 	}
 	let dependencies = $state<Dependency[]>([]);
@@ -160,13 +173,24 @@
 		analyzeError = null;
 
 		try {
-			const { data, error } = await supabase.functions.invoke('transcription-parse', {
-				body: {
-					transcription: transkriptionText,
-					lv_typ: lvTyp,
-					projekt_nr: selectedProjektId || undefined,
-					prioritize_lv_typ: lvTyp  // Priorisiert den gewählten LV-Typ bei der Suche
+			// Request-Body mit optionaler manueller Wohnungsgröße
+			const requestBody: Record<string, unknown> = {
+				transcription: transkriptionText,
+				lv_typ: lvTyp,
+				projekt_nr: selectedProjektId || undefined,
+				prioritize_lv_typ: lvTyp  // Priorisiert den gewählten LV-Typ bei der Suche
+			};
+
+			// Manuelle Wohnungsgröße hinzufügen wenn angegeben
+			if (manuelleWohnungsgroesse) {
+				const parsed = parseFloat(manuelleWohnungsgroesse);
+				if (!isNaN(parsed) && parsed > 0) {
+					requestBody.wohnungsgroesse_m2 = parsed;
 				}
+			}
+
+			const { data, error } = await supabase.functions.invoke('transcription-parse', {
+				body: requestBody
 			});
 
 			if (error) {
@@ -178,6 +202,18 @@
 			if (data && data.success === false) {
 				const errorMsg = data.error || data.message || 'Unbekannter Fehler in der Antwort';
 				throw new Error(errorMsg);
+			}
+
+			// Kontext aus der Response speichern (Wohnungsgröße etc.)
+			if (data?.kontext) {
+				kundenKontext = {
+					wohnungsgroesse_m2: data.kontext.wohnungsgroesse_m2,
+					wohnungsgroesse_staffel: data.kontext.wohnungsgroesse_staffel,
+					raumanzahl: data.kontext.raumanzahl,
+					stockwerk: data.kontext.stockwerk,
+					baujahr: data.kontext.baujahr
+				};
+				console.log('[CPQ] Kontext erkannt:', kundenKontext);
 			}
 
 			// Initialisiere neue Felder für jede Position
@@ -514,27 +550,33 @@
 		if (positionIds.length === 0) return;
 
 		try {
+			// Nutze die echten FK-Spalten (source_lv_position_id, target_lv_position_id)
+			// ausloeser_id und benoetigt_id sind generierte Alias-Spalten
 			const { data, error } = await supabase
 				.from('position_dependencies')
 				.select(`
 					id,
-					ausloeser_id,
-					ausloeser:lv_positionen!ausloeser_id(bezeichnung),
-					benoetigt_id,
-					benoetigt:lv_positionen!benoetigt_id(bezeichnung, listenpreis)
+					source_lv_position_id,
+					ausloeser:lv_positionen!source_lv_position_id_fkey(bezeichnung),
+					target_lv_position_id,
+					benoetigt:lv_positionen!target_lv_position_id_fkey(bezeichnung, listenpreis),
+					grund,
+					optional
 				`)
-				.in('ausloeser_id', positionIds);
+				.in('source_lv_position_id', positionIds);
 
 			if (error) throw error;
 
 			dependencies = (data || []).map(d => ({
 				id: d.id,
-				ausloeser_id: d.ausloeser_id,
+				ausloeser_id: d.source_lv_position_id,
 				ausloeser_name: (d.ausloeser as any)?.bezeichnung || 'Unbekannt',
-				position_id: d.benoetigt_id,
+				position_id: d.target_lv_position_id,
 				position_name: (d.benoetigt as any)?.bezeichnung || 'Unbekannt',
 				preis: (d.benoetigt as any)?.listenpreis || 0,
-				accepted: true
+				grund: d.grund,
+				optional: d.optional ?? false,
+				accepted: !(d.optional ?? false) // Pflicht-Abhängigkeiten standardmäßig akzeptiert
 			}));
 		} catch (err) {
 			console.error('Abhängigkeiten laden fehlgeschlagen:', err);
@@ -948,6 +990,35 @@
 				{/snippet}
 
 				<div class="input-step">
+					<!-- NEU: Optionale Wohnungsgröße für VBW-Staffelpreise -->
+					{#if lvTyp === 'VBW'}
+						<div class="wohnungsgroesse-input">
+							<label for="wohnungsgroesse">
+								Wohnungsgröße (optional, für Staffelpreise)
+							</label>
+							<div class="wohnungsgroesse-row">
+								<input
+									type="number"
+									id="wohnungsgroesse"
+									bind:value={manuelleWohnungsgroesse}
+									placeholder="z.B. 65"
+									min="10"
+									max="300"
+									step="1"
+								/>
+								<span class="unit">m²</span>
+								{#if manuelleWohnungsgroesse}
+									{@const parsed = parseFloat(manuelleWohnungsgroesse)}
+									{@const staffel = parsed <= 45 ? 'bis 45 m²' : parsed <= 75 ? '45-75 m²' : parsed <= 110 ? '75-110 m²' : 'über 110 m²'}
+									<Badge variant="info" size="sm">{staffel}</Badge>
+								{/if}
+							</div>
+							<p class="hint">
+								VBW hat Staffelpreise: bis 45 m², 45-75 m², 75-110 m². Die KI erkennt die Größe auch automatisch aus dem Text.
+							</p>
+						</div>
+					{/if}
+
 					<textarea
 						class="transkription-input"
 						bind:value={transkriptionText}
@@ -958,6 +1029,8 @@ Beispiel:
 - Neue Dusche installieren mit Glasabtrennung
 - Elektrik: 5 neue Steckdosen, 3 Lichtauslässe
 - Malerarbeiten Wohnzimmer 45 qm
+
+Tipp: Wohnungsgröße erwähnen für korrekte VBW-Staffelpreise (z.B. 'Wohnung ca. 60 m²')
 ..."
 					></textarea>
 
@@ -1001,9 +1074,58 @@ Beispiel:
 				{#snippet header()}
 					<div class="step-header">
 						<h2>Erkannte Positionen prüfen</h2>
-						<Badge variant="info">{parsedPositions.length} Positionen</Badge>
+						<div class="header-badges">
+							<Badge variant="info">{parsedPositions.length} Positionen</Badge>
+							{#if kundenKontext.wohnungsgroesse_staffel}
+								<Badge variant="success">🏠 {kundenKontext.wohnungsgroesse_staffel}</Badge>
+							{/if}
+						</div>
 					</div>
 				{/snippet}
+
+				<!-- NEU: Kontext-Info-Box -->
+				{#if kundenKontext.wohnungsgroesse_m2 || kundenKontext.raumanzahl || kundenKontext.baujahr}
+					<div class="kontext-info-box">
+						<div class="kontext-header">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+								<polyline points="9 22 9 12 15 12 15 22"/>
+							</svg>
+							<span>Erkannte Wohnungsinformationen</span>
+						</div>
+						<div class="kontext-details">
+							{#if kundenKontext.wohnungsgroesse_m2}
+								<div class="kontext-item">
+									<span class="label">Wohnungsgröße:</span>
+									<span class="value">{kundenKontext.wohnungsgroesse_m2} m² ({kundenKontext.wohnungsgroesse_staffel})</span>
+								</div>
+							{/if}
+							{#if kundenKontext.raumanzahl}
+								<div class="kontext-item">
+									<span class="label">Räume:</span>
+									<span class="value">{kundenKontext.raumanzahl}</span>
+								</div>
+							{/if}
+							{#if kundenKontext.stockwerk !== undefined}
+								<div class="kontext-item">
+									<span class="label">Stockwerk:</span>
+									<span class="value">{kundenKontext.stockwerk === 0 ? 'Erdgeschoss' : kundenKontext.stockwerk < 0 ? 'Keller' : `${kundenKontext.stockwerk}. OG`}</span>
+								</div>
+							{/if}
+							{#if kundenKontext.baujahr}
+								<div class="kontext-item">
+									<span class="label">Baujahr:</span>
+									<span class="value">{kundenKontext.baujahr}</span>
+								</div>
+							{/if}
+						</div>
+						{#if lvTyp === 'VBW' && kundenKontext.wohnungsgroesse_staffel}
+							<p class="kontext-hint">
+								VBW-Staffelpositionen werden automatisch für "{kundenKontext.wohnungsgroesse_staffel}" priorisiert.
+							</p>
+						{/if}
+					</div>
+				{/if}
 
 				<div class="position-check-list">
 					{#each parsedPositions as pos, index}
@@ -2456,6 +2578,90 @@ Beispiel:
 		justify-content: space-between;
 	}
 
+	/* NEU: Wohnungsgröße-Eingabe (Step 2) */
+	.wohnungsgroesse-input {
+		margin-bottom: 1rem;
+		padding: 1rem;
+		background: var(--color-info-light, #e8f4fd);
+		border: 1px solid var(--color-info, #3b82f6);
+	}
+
+	.wohnungsgroesse-input label {
+		display: block;
+		font-weight: 500;
+		margin-bottom: 0.5rem;
+	}
+
+	.wohnungsgroesse-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.wohnungsgroesse-row input {
+		width: 100px;
+		padding: 0.5rem;
+		border: 1px solid var(--color-gray-300);
+		font-size: 1rem;
+	}
+
+	.wohnungsgroesse-row .unit {
+		font-weight: 500;
+		color: var(--color-gray-600);
+	}
+
+	/* NEU: Header-Badges (mehrere Badges nebeneinander) */
+	.header-badges {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	/* NEU: Kontext-Info-Box (Step 3) */
+	.kontext-info-box {
+		background: var(--color-success-light, #f0fff4);
+		border: 1px solid var(--color-success, #10b981);
+		padding: 1rem;
+		margin: 0 1rem 1rem 1rem;
+	}
+
+	.kontext-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 600;
+		color: var(--color-success-dark, #047857);
+		margin-bottom: 0.75rem;
+	}
+
+	.kontext-details {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 0.5rem;
+	}
+
+	.kontext-item {
+		display: flex;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+	}
+
+	.kontext-item .label {
+		font-weight: 500;
+		color: var(--color-gray-600);
+	}
+
+	.kontext-item .value {
+		color: var(--color-gray-800);
+	}
+
+	.kontext-hint {
+		margin: 0.75rem 0 0 0;
+		font-size: 0.85rem;
+		font-style: italic;
+		color: var(--color-success-dark, #047857);
+	}
+
 	/* Mobile */
 	@media (max-width: 768px) {
 		.step-name {
@@ -2472,6 +2678,14 @@ Beispiel:
 
 		.export-actions {
 			flex-direction: column;
+		}
+
+		.kontext-details {
+			grid-template-columns: 1fr;
+		}
+
+		.header-badges {
+			flex-wrap: wrap;
 		}
 	}
 </style>
