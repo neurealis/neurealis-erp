@@ -14,6 +14,42 @@ export interface Session {
   aktuelles_bv_id?: string | null;
   pending_fotos?: PendingFoto[];
   last_activity?: string;
+
+  // Kontext für Folge-Eingaben ("noch einer", "nein, im Bad")
+  letzte_aktion?: LetzteAktion;
+
+  // Projekt-Memory (letzte 5, neueste zuerst)
+  projekt_historie?: ProjektHistorieEintrag[];
+
+  // Erkannte Sprache für Multi-Language
+  user_sprache?: UserSprache;
+
+  // Pending Foto (wenn Foto ohne Text gesendet)
+  pending_foto?: PendingFotoEinfach;
+}
+
+// Letzte Aktion für Kontext-Awareness
+export interface LetzteAktion {
+  typ: 'mangel' | 'nachtrag' | 'nachweis' | 'status';
+  id?: string;           // z.B. "ATBS-456-M12"
+  projekt_nr?: string;   // ATBS-456
+  timestamp: string;     // ISO Date
+}
+
+// Eintrag in der Projekt-Historie
+export interface ProjektHistorieEintrag {
+  atbs: string;
+  name?: string;
+  timestamp: string;
+}
+
+// Unterstützte Sprachen
+export type UserSprache = 'DE' | 'RU' | 'HU' | 'RO' | 'PL';
+
+// Pending Foto (einfach, ohne Media-Group)
+export interface PendingFotoEinfach {
+  file_id: string;
+  timestamp: string;
 }
 
 // Modus-spezifische Daten
@@ -148,6 +184,7 @@ export interface PendingFoto {
 export interface CreatedMangel {
   id: string;
   mangel_id?: string;
+  mangel_nr?: string;
   beschreibung?: string;
   gewerk?: string;
 }
@@ -187,6 +224,7 @@ export interface TelegramMessage {
   };
   from?: TelegramUser;
   text?: string;
+  caption?: string; // Beschriftung für Fotos/Videos/Dokumente
   photo?: TelegramPhoto[];
   voice?: TelegramVoice;
   document?: TelegramDocument;

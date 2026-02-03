@@ -1,10 +1,56 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-02-03
+**Stand:** 2026-02-04
+
+---
+
+## Telegram Bot
+
+### L200 - Intent-Detection: Quick-Check vor GPT spart Tokens
+**Datum:** 2026-02-04
+**Kategorie:** Telegram/KI
+**Problem:** Jede Eingabe durch GPT schicken ist teuer und langsam
+**Loesung:** 2-stufige Analyse:
+1. `quickIntentCheck()` mit Regex fuer eindeutige Patterns (kein GPT)
+2. `analyzeIntent()` mit GPT-5.2 nur fuer komplexe Faelle
+**Quick-Patterns:** `/maengel`, `/nachtraege`, `/status`, `abbrechen`, `nein`, `oeffne...`
+**Merkregel:** Deterministische Patterns IMMER zuerst pruefen, GPT nur als Fallback
+
+### L201 - Telegram Bot: Intent-Routing VOR Modus-Routing
+**Datum:** 2026-02-04
+**Kategorie:** Telegram/Architektur
+**Problem:** Nutzer muss erst Projekt oeffnen, dann Modus waehlen → zu viele Schritte
+**Loesung:** Intent-Erkennung VOR dem bestehenden Modus-Routing
+**Bedingung:** Nur wenn KEIN aktiver Workflow (modus null oder 'baustelle')
+**Flow:**
+```
+Text → quickIntentCheck() → Intent erkannt? → Action ausfuehren
+                         → Nein → analyzeIntent(GPT)
+                                → Confidence >= 0.5? → Action
+                                → Nein → Fallback auf Modus-Routing
+```
+**Wichtig:** Laufende Workflows (mangel_erfassen, nachtrag_erfassen, etc.) NICHT unterbrechen
 
 ---
 
 ## Supabase / Cron / Sync
+
+### L199 - Graph API $search KQL: Phrasen in EINFACHEN Anführungszeichen
+**Datum:** 2026-02-03
+**Kategorie:** Microsoft/Graph API
+**Problem:** `subject:Abrechnung Mietobjekte` fand 0 E-Mails, `subject:Abrechnung` fand 29
+**Ursache:** KQL interpretiert Leerzeichen als AND-Operator zwischen separaten Begriffen
+**Falsch:** `$search="subject:Abrechnung Mietobjekte"` = "Abrechnung" im Subject UND "Mietobjekte" irgendwo
+**Richtig:** `$search="subject:'Abrechnung Mietobjekte'"` = Phrase als Ganzes im Subject
+**Code:**
+```typescript
+// Mehrteilige Werte in EINFACHE Anführungszeichen setzen
+if (value.includes(' ')) {
+  return `${field}:'${value}'`;
+}
+```
+**Merkregel:** Graph KQL: Äußere `$search="..."` mit DOPPELTEN, Phrasen mit EINFACHEN Anführungszeichen
+**Fix:** `email-search` v3 mit `formatKqlQuery()` Funktion
 
 ### L198 - Graph API /messages durchsucht ALLE Ordner (inkl. Archive)
 **Datum:** 2026-02-03

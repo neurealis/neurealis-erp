@@ -1,10 +1,54 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-04 00:30 (aktualisiert)
+**Stand:** 2026-02-04 01:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Telegram Universal Voice v90 (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-04
+
+**Intent-Detection System implementiert:**
+- 11 Intents (Mangel, Nachtrag, Nachweis, Projekt, Status, Listen, etc.)
+- Mehrsprachig: DE, RU, HU, RO, PL
+- Quick-Check ohne GPT + GPT-5.2 fuer komplexe Faelle
+
+**One-Shot Commands:**
+- "456 Steckdose locker Bad" → Mangel direkt erstellen fuer ATBS-456
+- "Nachtrag 3 Steckdosen Kueche" → Nachtrag mit LV-Matching
+- "Oeffne Bollwerkstrasse" → Fuzzy-Projekt-Suche
+
+**Neue Dateien:**
+- `utils/intent_detection.ts` (497 Zeilen)
+- `utils/responses.ts` (462 Zeilen mit Multi-Language Templates)
+
+**Session-Erweiterung:**
+- `letzte_aktion`, `projekt_historie`, `user_sprache`, `pending_foto`
+
+**Deployment:** telegram-webhook v90-intent-routing deployed
+
+**Learning:** (noch einzufuegen)
+
+---
+
+### email-search KQL Phrase-Bug Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Problem:** `subject:Abrechnung Mietobjekte` fand 0 E-Mails, `subject:Abrechnung` fand 29
+**Ursache:** KQL interpretiert Leerzeichen als AND, nicht als Phrase
+**Fix:** Mehrteilige Begriffe in einfache Anführungszeichen setzen
+
+**email-search v3:**
+- Neue `formatKqlQuery()` Funktion
+- `subject:Abrechnung Mietobjekte` → `subject:'Abrechnung Mietobjekte'`
+- Test: 10 E-Mails gefunden (statt 0)
+
+**Learning:** L199 - Graph API KQL Phrasen-Syntax
+
+---
 
 ### Graph API Archive-Suche (✅ FERTIG)
 
@@ -13,7 +57,7 @@
 - Neue `email-search` Edge Function für Volltextsuche über alle Ordner
 - Neue Shared Library `_shared/graph-mail.ts` mit zentralen E-Mail-Funktionen
 - Bestehende E-Mail-Functions durchsuchen bereits alle Ordner (Archive inkl.)
-- 5 Edge Functions deployed (email-fetch v11, email-list v10, email-invoice-scan v9, email-invoice-import v12, email-search v1)
+- 6 Edge Functions deployed (email-fetch v11, email-list v10, email-invoice-scan v9, email-invoice-import v12, email-search v3, email-attachments v6)
 
 **Learning:** L198 - Graph API `/messages` durchsucht alle Ordner
 

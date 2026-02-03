@@ -4,10 +4,14 @@
  */
 
 import { sendMessage, downloadTelegramFile } from '../utils/telegram.ts';
-import { updateSession } from '../utils/session.ts';
+import { updateSession, updateLetzteAktion, addProjektToHistorie } from '../utils/session.ts';
 import { supabase, OPENAI_API_KEY } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
 import { getProjektStammdaten } from '../utils/helpers.ts';
+import { getGemeldetVon, generateMangelNummer as generateMangelNr } from '../utils/auth.ts';
+import { t, getGewerkEmoji, BUTTONS, createInlineKeyboard } from '../utils/responses.ts';
+import { extractDescriptionFromText } from '../utils/intent_detection.ts';
+import type { IntentAnalysis } from '../utils/intent_detection.ts';
 
 // ============================================
 // OpenAI GPT für Mangel-Splitting + Übersetzung
@@ -156,6 +160,16 @@ export async function handleMangelText(chatId: number, session: any, text: strin
     // Generiere Mangel-Nummer im Format ATBS-XXX-M1
     const mangelNummer = await generateMangelNummer(projektNr);
 
+    // Logging VOR dem Insert
+    console.log('[Mangel] handleMangelText Insert-Daten:', JSON.stringify({
+      projekt_nr: projektNr,
+      mangel_nr: mangelNummer,
+      beschreibung: m.beschreibung_de?.substring(0, 50),
+      gewerk: m.gewerk || 'Sonstiges',
+      status: 'Offen',
+      hat_stammdaten: !!stammdaten
+    }, null, 2));
+
     const { data: newMangel, error } = await supabase
       .from('maengel_fertigstellung')
       .insert({
@@ -180,8 +194,14 @@ export async function handleMangelText(chatId: number, session: any, text: strin
       .select('id, mangel_nr')
       .single();
 
+    // Detailliertes Error-Logging
     if (error) {
-      console.error('Mangel insert error:', JSON.stringify(error));
+      console.error('[Mangel] handleMangelText DB-Fehler:', JSON.stringify({
+        error_message: error?.message,
+        error_code: error?.code,
+        error_details: error?.details,
+        error_hint: error?.hint
+      }, null, 2));
     }
 
     if (!error && newMangel) {
@@ -190,7 +210,7 @@ export async function handleMangelText(chatId: number, session: any, text: strin
   }
 
   if (createdMaengel.length === 0) {
-    await sendMessage(chatId, 'Fehler beim Speichern der Mängel. Bitte versuche es erneut.');
+    await sendMessage(chatId, '❌ Fehler beim Speichern der Mängel. Bitte versuche es erneut oder wende dich an den Support.');
     return;
   }
 
@@ -288,4 +308,145 @@ export async function handleMangelFoto(chatId: number, session: any, photos: any
       [{ text: "✅ Fertig", callback_data: "bau:menu" }]
     ] } }
   );
+}
+
+// ============================================
+// createMangelFromIntent - One-Shot Command
+// Erstellt Mangel direkt aus Intent (ohne Projekt-Vorauswahl)
+// ============================================
+
+/**
+ * Erstellt Mangel direkt aus Intent (One-Shot Command)
+ * Wird aufgerufen wenn Intent MANGEL_MELDEN und Projekt erkannt
+ */
+export async function createMangelFromIntent(
+  chatId: number,
+  session: any,
+  intent: IntentAnalysis
+): Promise<void> {
+  // Projekt-Nummer aus Intent oder Session
+  const projektNr = intent.projekt?.atbs || session?.modus_daten?.projekt_nr;
+
+  if (!projektNr) {
+    await sendMessage(chatId, t('PROJEKT_BENOETIGT', 'DE'));
+    return;
+  }
+
+  // Entity extrahieren (erstes Element) und Beschreibung bereinigen
+  const entity = intent.entities[0] || { beschreibung: 'Kein Detail' };
+  const cleanBeschreibung = extractDescriptionFromText(entity.beschreibung);
+
+  // Mangel-Nummer generieren
+  const mangelNr = await generateMangelNr(projektNr);
+
+  // Gemeldet-Von ermitteln
+  const { gemeldet_von, melder_name } = await getGemeldetVon(chatId, session);
+
+  // Projekt-Stammdaten laden
+  const stammdaten = await getProjektStammdaten(projektNr);
+
+  // Frist: +3 Tage
+  const frist = new Date();
+  frist.setDate(frist.getDate() + 3);
+
+  // Logging VOR dem Insert
+  console.log('[Mangel] One-Shot Insert-Daten:', JSON.stringify({
+    atbs_nummer: projektNr,
+    mangel_nr: mangelNr,
+    beschreibung: cleanBeschreibung?.substring(0, 50),
+    gewerk: entity.gewerk,
+    raum: entity.raum,
+    status: 'Offen',
+    gemeldet_von,
+    melder_name,
+    hat_stammdaten: !!stammdaten
+  }, null, 2));
+
+  // In DB speichern (maengel_fertigstellung wie handleMangelText)
+  const { data: newMangel, error } = await supabase
+    .from('maengel_fertigstellung')
+    .insert({
+      projekt_nr: projektNr,
+      mangel_nr: mangelNr,
+      beschreibung_mangel: cleanBeschreibung,
+      art_des_mangels: entity.gewerk || 'Sonstiges',
+      status_mangel: 'Offen',
+      datum_meldung: new Date().toISOString(),
+      datum_frist: frist.toISOString(),
+      erinnerung_status: 'Aktiv',
+      // Stammdaten aus monday_bauprozess
+      projektname_komplett: stammdaten?.projektname_komplett || null,
+      nua_nr: stammdaten?.nua_nr || null,
+      bauleiter: stammdaten?.bl_name || null,
+      nachunternehmer: stammdaten?.nu_firma || null,
+      nu_email: stammdaten?.nu_email || null,
+      kunde_name: stammdaten?.ag_name || null,
+      kunde_email: stammdaten?.ag_email || null,
+      kunde_telefon: stammdaten?.ag_telefon || null
+    })
+    .select('id, mangel_nr')
+    .single();
+
+  // Detailliertes Error-Handling
+  if (error || !newMangel) {
+    console.error('[Mangel] One-Shot DB-Fehler:', JSON.stringify({
+      error_message: error?.message,
+      error_code: error?.code,
+      error_details: error?.details,
+      error_hint: error?.hint
+    }, null, 2));
+
+    // Besseres User-Feedback basierend auf Fehlercode
+    let userMsg = '❌ Fehler beim Speichern des Mangels.';
+    if (error?.code === '23502') {
+      userMsg += ' Ein Pflichtfeld fehlt.';
+    } else if (error?.code === '23514') {
+      userMsg += ' Ungültiger Wert für ein Feld.';
+    } else if (error?.code === '23505') {
+      userMsg += ' Dieser Mangel existiert bereits.';
+    }
+    await sendMessage(chatId, userMsg);
+    return;
+  }
+
+  // Session aktualisieren für Kontext-Awareness
+  await updateLetzteAktion(chatId, {
+    typ: 'mangel',
+    id: newMangel.mangel_nr,
+    projekt_nr: projektNr
+  });
+
+  await addProjektToHistorie(chatId, {
+    atbs: projektNr,
+    name: stammdaten?.projektname_komplett || undefined
+  });
+
+  // Session für Foto-Modus vorbereiten
+  await updateSession(chatId, {
+    aktueller_modus: 'mangel_foto',
+    modus_daten: {
+      projekt_nr: projektNr,
+      projekt_name: stammdaten?.projektname_komplett || '',
+      created_maengel: [{
+        id: newMangel.id,
+        mangel_nr: newMangel.mangel_nr,
+        beschreibung: cleanBeschreibung,
+        gewerk: entity.gewerk || 'Sonstiges'
+      }]
+    }
+  });
+
+  // Erfolgs-Nachricht
+  const gewerkEmoji = getGewerkEmoji(entity.gewerk || 'Sonstiges');
+  const msg = t('MANGEL_ERFASST', 'DE', {
+    nr: newMangel.mangel_nr,
+    raum: entity.raum || '-',
+    gewerk_emoji: gewerkEmoji,
+    gewerk: entity.gewerk || 'Sonstiges',
+    beschreibung: cleanBeschreibung.substring(0, 50)
+  });
+
+  await sendMessage(chatId, msg, createInlineKeyboard(BUTTONS.MANGEL_FOLLOWUP));
+
+  console.log(`[Mangel] One-Shot erstellt: ${newMangel.mangel_nr} für ${projektNr}`);
 }

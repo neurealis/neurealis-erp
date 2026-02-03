@@ -433,6 +433,62 @@ export async function listActiveProjekte(chatId: number, page: number = 0) {
 }
 
 // ============================================
+// findProjektFuzzy - Fuzzy-Suche für One-Shot Commands
+// ============================================
+
+/**
+ * Sucht Projekt nach ATBS, Name oder Adresse (Fuzzy)
+ * Gibt gefundenes Projekt oder mehrere Treffer zurück
+ */
+export async function findProjektFuzzy(searchTerm: string): Promise<{
+  found: boolean;
+  projekt?: any;
+  multiple?: any[];
+}> {
+  // 1. Exakte ATBS-Suche (448, ATBS-448, ATBS 448)
+  const atbsMatch = searchTerm.match(/(?:ATBS[- ]?)?(\d{3,4})/i);
+  if (atbsMatch) {
+    const atbs = `ATBS-${atbsMatch[1]}`;
+    const { data } = await supabase
+      .from('monday_bauprozess')
+      .select('*')
+      .eq('atbs_nummer', atbs)
+      .single();
+
+    if (data) {
+      console.log(`[findProjektFuzzy] Exakter ATBS-Match: ${atbs}`);
+      return { found: true, projekt: data };
+    }
+  }
+
+  // 2. Fuzzy-Suche in Name und Adresse
+  const cleanSearch = searchTerm.replace(/[^\wäöüßÄÖÜ\s-]/gi, '').trim();
+  if (!cleanSearch || cleanSearch.length < 2) {
+    return { found: false };
+  }
+
+  const { data: results } = await supabase
+    .from('monday_bauprozess')
+    .select('*')
+    .or(`name.ilike.%${cleanSearch}%,adresse.ilike.%${cleanSearch}%,projektname_komplett.ilike.%${cleanSearch}%`)
+    .limit(5);
+
+  if (!results || results.length === 0) {
+    console.log(`[findProjektFuzzy] Keine Treffer für: ${cleanSearch}`);
+    return { found: false };
+  }
+
+  if (results.length === 1) {
+    console.log(`[findProjektFuzzy] Einzeltreffer: ${results[0].atbs_nummer}`);
+    return { found: true, projekt: results[0] };
+  }
+
+  // Mehrere Treffer - User muss wählen
+  console.log(`[findProjektFuzzy] Mehrere Treffer (${results.length}) für: ${cleanSearch}`);
+  return { found: false, multiple: results };
+}
+
+// ============================================
 // searchAndOpenProjekt - Projekt suchen und öffnen
 // ============================================
 

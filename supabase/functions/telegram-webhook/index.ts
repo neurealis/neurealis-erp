@@ -14,8 +14,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 // Constants & Utils
 import { supabase, SUPABASE_URL, SUPABASE_KEY, NACHWEIS_TYP_LABELS, ABNAHME_TYP_LABELS } from './constants.ts';
 import { sendMessage, answerCallbackQuery, downloadTelegramFile } from './utils/telegram.ts';
-import { getOrCreateSession, updateSession } from './utils/session.ts';
+import { getOrCreateSession, updateSession, resetSession, updateLetzteAktion, addProjektToHistorie, getExtendedSession, setPendingFoto } from './utils/session.ts';
 import { transcribeVoice } from './utils/openai.ts';
+import { t, createInlineKeyboard } from './utils/responses.ts';
+import { analyzeIntent, quickIntentCheck, type IntentAnalysis } from './utils/intent_detection.ts';
 
 // Start & Navigation Handlers
 import {
@@ -32,7 +34,8 @@ import {
   startAtbsDirectInput,
   searchAndOpenProjekt,
   openProjekt,
-  closeProjekt
+  closeProjekt,
+  findProjektFuzzy
 } from './handlers/start.ts';
 
 // Aufmaß Handlers
@@ -65,7 +68,8 @@ import {
 import {
   startMangelMeldung,
   handleMangelText,
-  handleMangelFoto
+  handleMangelFoto,
+  createMangelFromIntent
 } from './handlers/mangel.ts';
 
 // Nachtrag Handlers
@@ -73,7 +77,8 @@ import {
   startNachtragErfassung,
   handleNachtragText,
   handleNachtragFoto,
-  saveNachtrag
+  saveNachtrag,
+  createNachtragFromIntent
 } from './handlers/nachtrag.ts';
 
 // Nachweis Handlers
@@ -131,6 +136,311 @@ import {
 
 // Type imports
 import type { Session, TelegramUpdate } from './types.ts';
+
+// ============================================
+// Intent-Based Routing (One-Shot Commands)
+// ============================================
+
+/**
+ * Intent-basierte Verarbeitung (One-Shot Commands)
+ * Wird VOR dem Modus-Routing aufgerufen
+ * @returns true wenn Intent verarbeitet wurde, false für Fallback auf Modus-Routing
+ */
+async function handleIntentBasedRouting(
+  chatId: number,
+  session: Session,
+  text: string
+): Promise<boolean> {
+  // 1. Quick-Check für eindeutige Patterns (kein GPT)
+  const quickIntent = quickIntentCheck(text);
+
+  if (quickIntent === 'ABBRECHEN') {
+    await resetSession(chatId);
+    await sendMessage(chatId, t('AKTION_ABGEBROCHEN', 'DE'));
+    await showBaustellenMenu(chatId, session);
+    return true;
+  }
+
+  if (quickIntent === 'LISTE_MAENGEL') {
+    await listMaengelCommand(chatId, session);
+    return true;
+  }
+
+  if (quickIntent === 'LISTE_NACHTRAEGE') {
+    await listNachtraegeCommand(chatId, session);
+    return true;
+  }
+
+  if (quickIntent === 'STATUS_ABFRAGEN') {
+    await showProjektStatus(chatId, session);
+    return true;
+  }
+
+  // 2. Full Intent-Detection für komplexere Eingaben
+  // Nur wenn Text "interessant" genug ist (nicht nur einzelne Wörter)
+  if (text.length < 5 || /^\//.test(text)) {
+    return false; // Zu kurz oder Command → Modus-Routing
+  }
+
+  // Wenn bereits in einem Modus (außer baustelle), kein Intent-Routing
+  // um laufende Workflows nicht zu unterbrechen
+  const modus = session?.aktueller_modus;
+  if (modus && !['baustelle', 'baustelle_auswahl', null].includes(modus)) {
+    console.log(`[Router] Modus aktiv (${modus}), kein Intent-Routing`);
+    return false;
+  }
+
+  try {
+    console.log(`[Router] Intent-Detection für: "${text.substring(0, 50)}..."`);
+
+    const intent = await analyzeIntent(text, {
+      aktuelles_bv_id: session?.aktuelles_bv_id || undefined,
+      letzte_aktion: session?.letzte_aktion || undefined
+    });
+
+    console.log(`[Router] Intent: ${intent.intent} (confidence: ${intent.confidence})`);
+
+    // Nur verarbeiten wenn Confidence hoch genug
+    if (intent.confidence < 0.5) {
+      console.log('[Router] Confidence zu niedrig, Fallback auf Modus-Routing');
+      return false;
+    }
+
+    // Followup-Logging
+    if (intent.is_followup) {
+      console.log(`[Router] Followup-Eingabe erkannt für ${intent.intent}`);
+    }
+
+    // Intent-basierte Aktionen
+    switch (intent.intent) {
+      case 'MANGEL_MELDEN': {
+        // Projekt prüfen - NEU: Bei Followup aus Session
+        let projektNr = intent.projekt?.atbs;
+
+        if (!projektNr && intent.is_followup) {
+          // Followup: Projekt aus letzter Aktion oder Historie
+          projektNr = session?.letzte_aktion?.projekt_nr || session?.projekt_historie?.[0]?.atbs;
+          if (projektNr) {
+            console.log(`[Router] Followup erkannt, nutze Projekt ${projektNr} aus Session`);
+            if (!intent.projekt) intent.projekt = {};
+            intent.projekt.atbs = projektNr;
+          }
+        }
+
+        if (!projektNr) {
+          projektNr = session?.modus_daten?.projekt_nr;
+        }
+
+        if (!projektNr && intent.projekt?.search_term) {
+          // Projekt aus Text suchen falls search_term vorhanden
+          const result = await findProjektFuzzy(intent.projekt.search_term);
+          if (result.found && result.projekt) {
+            projektNr = result.projekt.atbs_nummer;
+            // Intent mit gefundenem Projekt updaten
+            if (!intent.projekt) intent.projekt = {};
+            intent.projekt.atbs = projektNr;
+          } else if (result.multiple) {
+            // Mehrere Projekte - User fragen
+            const buttons = result.multiple.slice(0, 3).map(p => ([{
+              text: `${p.atbs_nummer} ${p.name?.substring(0, 20) || ''}`,
+              callback_data: `bau:open:${p.id}`
+            }]));
+            await sendMessage(chatId, t('PROJEKT_MEHRDEUTIG', 'DE'), createInlineKeyboard(buttons));
+            return true;
+          }
+        }
+
+        if (!projektNr) {
+          await sendMessage(chatId, t('PROJEKT_BENOETIGT', 'DE'));
+          return true;
+        }
+
+        await createMangelFromIntent(chatId, session, intent);
+        return true;
+      }
+
+      case 'NACHTRAG_ERFASSEN': {
+        // Projekt prüfen - NEU: Bei Followup aus Session
+        let projektNr = intent.projekt?.atbs;
+
+        if (!projektNr && intent.is_followup) {
+          // Followup: Projekt aus letzter Aktion oder Historie
+          projektNr = session?.letzte_aktion?.projekt_nr || session?.projekt_historie?.[0]?.atbs;
+          if (projektNr) {
+            console.log(`[Router] Followup erkannt, nutze Projekt ${projektNr} aus Session`);
+            if (!intent.projekt) intent.projekt = {};
+            intent.projekt.atbs = projektNr;
+          }
+        }
+
+        if (!projektNr) {
+          projektNr = session?.modus_daten?.projekt_nr;
+        }
+
+        if (!projektNr && intent.projekt?.search_term) {
+          const result = await findProjektFuzzy(intent.projekt.search_term);
+          if (result.found && result.projekt) {
+            projektNr = result.projekt.atbs_nummer;
+            if (!intent.projekt) intent.projekt = {};
+            intent.projekt.atbs = projektNr;
+          } else if (result.multiple) {
+            const buttons = result.multiple.slice(0, 3).map(p => ([{
+              text: `${p.atbs_nummer} ${p.name?.substring(0, 20) || ''}`,
+              callback_data: `bau:open:${p.id}`
+            }]));
+            await sendMessage(chatId, t('PROJEKT_MEHRDEUTIG', 'DE'), createInlineKeyboard(buttons));
+            return true;
+          }
+        }
+
+        if (!projektNr) {
+          await sendMessage(chatId, t('PROJEKT_BENOETIGT', 'DE'));
+          return true;
+        }
+
+        await createNachtragFromIntent(chatId, session, intent);
+        return true;
+      }
+
+      case 'PROJEKT_OEFFNEN': {
+        const searchTerm = intent.projekt?.atbs || intent.projekt?.search_term;
+        if (searchTerm) {
+          const result = await findProjektFuzzy(searchTerm);
+          if (result.found && result.projekt) {
+            // Projekt öffnen (bestehende Logik nutzen)
+            await openProjekt(chatId, result.projekt);
+            return true;
+          } else if (result.multiple) {
+            const buttons = result.multiple.slice(0, 5).map(p => ([{
+              text: `${p.atbs_nummer} ${p.name?.substring(0, 20) || ''}`,
+              callback_data: `bau:open:${p.id}`
+            }]));
+            await sendMessage(chatId, t('PROJEKT_MEHRDEUTIG', 'DE'), createInlineKeyboard(buttons));
+            return true;
+          } else {
+            await sendMessage(chatId, t('PROJEKT_NICHT_GEFUNDEN', 'DE', { search: searchTerm }));
+            return true;
+          }
+        }
+        return false;
+      }
+
+      case 'STATUS_ABFRAGEN': {
+        // Status für aktuelles Projekt oder aus Intent
+        const projektNr = intent.projekt?.atbs || session?.modus_daten?.projekt_nr;
+        if (projektNr || session?.aktuelles_bv_id) {
+          await showProjektStatus(chatId, session);
+          return true;
+        }
+        // Kein Projekt - zeige Hauptmenü
+        await sendMessage(chatId, t('PROJEKT_KEIN_AKTIVES', 'DE'));
+        return true;
+      }
+
+      case 'LISTE_MAENGEL': {
+        await listMaengelCommand(chatId, session);
+        return true;
+      }
+
+      case 'LISTE_NACHTRAEGE': {
+        await listNachtraegeCommand(chatId, session);
+        return true;
+      }
+
+      case 'KORREKTUR': {
+        const letzteAktion = session?.letzte_aktion;
+
+        if (!letzteAktion || !intent.correction) {
+          await sendMessage(chatId, 'Keine vorherige Aktion zum Korrigieren gefunden.');
+          return true;
+        }
+
+        // Prüfe ob Aktion nicht zu alt (max 30 Min)
+        const aktionTime = new Date(letzteAktion.timestamp).getTime();
+        const now = Date.now();
+        if (now - aktionTime > 30 * 60 * 1000) {
+          await sendMessage(chatId, 'Die letzte Aktion ist zu lange her für eine Korrektur.');
+          return true;
+        }
+
+        const { field, new_value } = intent.correction;
+        console.log(`[Router] Korrektur: ${letzteAktion.typ} ${letzteAktion.id}, ${field} → ${new_value}`);
+
+        try {
+          // Je nach Typ unterschiedliche Tabelle
+          const table = letzteAktion.typ === 'mangel' ? 'maengel_unified' :
+                        letzteAktion.typ === 'nachtrag' ? 'nachtraege' : null;
+
+          if (!table) {
+            await sendMessage(chatId, `Korrektur für "${letzteAktion.typ}" nicht unterstützt.`);
+            return true;
+          }
+
+          // Feld-Mapping (was darf korrigiert werden)
+          const allowedFields: Record<string, string> = {
+            'raum': 'raum',
+            'zimmer': 'raum',
+            'gewerk': 'gewerk',
+            'beschreibung': 'beschreibung',
+            'text': 'beschreibung'
+          };
+
+          const dbField = allowedFields[field.toLowerCase()];
+          if (!dbField) {
+            await sendMessage(chatId, `Feld "${field}" kann nicht korrigiert werden. Erlaubt: Raum, Gewerk, Beschreibung`);
+            return true;
+          }
+
+          // Alten Wert für Anzeige holen
+          const idField = letzteAktion.typ === 'mangel' ? 'mangel_nr' : 'nachtrag_nr';
+          const { data: existingRecord } = await supabase
+            .from(table)
+            .select(dbField)
+            .eq(idField, letzteAktion.id)
+            .single();
+
+          const altWert = existingRecord?.[dbField] || '(unbekannt)';
+
+          // Update durchführen
+          const { error } = await supabase
+            .from(table)
+            .update({ [dbField]: new_value })
+            .eq(idField, letzteAktion.id);
+
+          if (error) {
+            console.error('[Router] Korrektur-Fehler:', error);
+            await sendMessage(chatId, t('KORREKTUR_FEHLGESCHLAGEN', 'DE', { grund: error.message }));
+            return true;
+          }
+
+          // Erfolg
+          await sendMessage(chatId, t('KORREKTUR_ERFOLGREICH', 'DE', {
+            nr: String(letzteAktion.id || ''),
+            feld: dbField,
+            alt: altWert,
+            neu: new_value
+          }));
+
+          console.log(`[Router] Korrektur erfolgreich: ${letzteAktion.id} ${dbField}=${new_value}`);
+          return true;
+
+        } catch (e) {
+          console.error('[Router] Korrektur Exception:', e);
+          await sendMessage(chatId, t('KORREKTUR_FEHLGESCHLAGEN', 'DE', { grund: 'Interner Fehler' }));
+          return true;
+        }
+      }
+
+      case 'UNBEKANNT':
+      default:
+        // Fallback auf Modus-Routing
+        return false;
+    }
+  } catch (error) {
+    console.error('[Router] Intent-Fehler:', error);
+    return false; // Fallback auf Modus-Routing
+  }
+}
 
 // ============================================
 // Callback Query Handler
@@ -394,6 +704,45 @@ async function handleCallbackQuery(update: TelegramUpdate): Promise<void> {
     return;
   }
 
+  // Foto zur letzten Aktion hinzufügen (Kontext-basiert)
+  if (data === 'foto:zu_letzter_aktion') {
+    const letzteAktion = session?.letzte_aktion;
+    const pendingFoto = session?.pending_foto;
+
+    if (!letzteAktion || !pendingFoto) {
+      await answerCallbackQuery(callbackId, 'Fehler');
+      await sendMessage(chatId, '❌ Keine Aktion oder Foto gefunden. Bitte erneut versuchen.');
+      return;
+    }
+
+    await answerCallbackQuery(callbackId, 'Foto wird hinzugefügt...');
+
+    try {
+      const fileId = pendingFoto.file_id;
+      const typ = letzteAktion.typ;
+      const id = letzteAktion.id;
+
+      if (typ === 'mangel' && id) {
+        // Foto zu Mangel hinzufügen
+        await addFotoToMangel(chatId, session, id, fileId);
+      } else if (typ === 'nachtrag' && id) {
+        // Foto zu Nachtrag hinzufügen
+        await addFotoToNachtrag(chatId, session, id, fileId);
+      } else {
+        await sendMessage(chatId, '❌ Unbekannter Aktionstyp.');
+      }
+
+      // Pending Foto löschen
+      await setPendingFoto(chatId, null);
+
+    } catch (error) {
+      console.error('[Callback] Fehler bei foto:zu_letzter_aktion:', error);
+      await sendMessage(chatId, '❌ Fehler beim Hinzufügen des Fotos.');
+      await setPendingFoto(chatId, null);
+    }
+    return;
+  }
+
   // Neuen Nachtrag mit Foto erstellen
   if (data === 'foto:new_nachtrag') {
     await answerCallbackQuery(callbackId);
@@ -563,7 +912,7 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({
       status: 'ok',
       bot: 'neurealis-bot',
-      version: 'v89-nachtrag-preisberechnung'
+      version: 'v91-phase2'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -630,35 +979,57 @@ Deno.serve(async (req) => {
       // Voice Messages
       else if (update.message.voice) {
         const modus = session?.aktueller_modus;
-        if (modus === 'mangel_erfassen' || modus === 'nachtrag_erfassen' || modus === 'bericht_erfassen' || modus === 'nu_nachricht_eigene') {
-          await sendMessage(chatId, '⏳ Sprachnachricht wird transkribiert...');
-          const fileData = await downloadTelegramFile(update.message.voice.file_id);
-          if (fileData) {
-            const transcript = await transcribeVoice(fileData.base64, 'audio/ogg');
-            if (transcript) {
-              if (modus === 'mangel_erfassen') {
-                await handleMangelText(chatId, session, transcript);
-              } else if (modus === 'nachtrag_erfassen') {
-                await handleNachtragText(chatId, session, transcript);
-              } else if (modus === 'bericht_erfassen') {
-                await handleBerichtText(chatId, session, transcript);
-              } else if (modus === 'nu_nachricht_eigene') {
-                await handleEigeneNachrichtNU(chatId, session, transcript);
-              }
-            } else {
-              await sendMessage(chatId, 'Fehler bei der Transkription. Bitte versuche es erneut.');
-            }
-          } else {
-            await sendMessage(chatId, 'Fehler beim Herunterladen der Sprachnachricht.');
-          }
+
+        // Transkription für alle Sprachnachrichten
+        await sendMessage(chatId, '⏳ Sprachnachricht wird transkribiert...');
+        const fileData = await downloadTelegramFile(update.message.voice.file_id);
+
+        if (!fileData) {
+          await sendMessage(chatId, 'Fehler beim Herunterladen der Sprachnachricht.');
         } else {
-          await sendMessage(chatId, 'Sprachnachrichten werden nur im Mangel-, Nachtrag-, Bericht- oder Nachricht-Modus unterstützt.');
+          const transcript = await transcribeVoice(fileData.base64, 'audio/ogg');
+
+          if (!transcript) {
+            await sendMessage(chatId, 'Fehler bei der Transkription. Bitte versuche es erneut.');
+          } else {
+            console.log(`[Voice] Transkription: "${transcript.substring(0, 100)}..."`);
+
+            // Modus-spezifische Verarbeitung
+            if (modus === 'mangel_erfassen') {
+              await handleMangelText(chatId, session, transcript);
+            } else if (modus === 'nachtrag_erfassen') {
+              await handleNachtragText(chatId, session, transcript);
+            } else if (modus === 'bericht_erfassen') {
+              await handleBerichtText(chatId, session, transcript);
+            } else if (modus === 'nu_nachricht_eigene') {
+              await handleEigeneNachrichtNU(chatId, session, transcript);
+            }
+            // NEU: Intent-Routing für Sprachnachrichten ohne aktiven Modus
+            else if (!modus || ['baustelle', 'baustelle_auswahl'].includes(modus)) {
+              const intentHandled = await handleIntentBasedRouting(chatId, session, transcript);
+              if (!intentHandled) {
+                // Fallback: Intent nicht erkannt
+                await sendMessage(chatId, t('INTENT_UNKLAR', 'DE') ||
+                  `Ich habe deine Sprachnachricht nicht verstanden.\n\n` +
+                  `/start - Hauptmenü\n/hilfe - Alle Befehle`);
+              }
+            }
+            else {
+              // Anderer Modus aktiv, der keine Sprachnachrichten unterstützt
+              await sendMessage(chatId,
+                'Sprachnachrichten werden im aktuellen Modus nicht unterstützt.\n\n' +
+                'Nutze /start für das Hauptmenü oder /abbrechen um den aktuellen Vorgang zu beenden.'
+              );
+            }
+          }
         }
       }
 
       // Photo Messages
       else if (update.message.photo) {
         const modus = session?.aktueller_modus;
+        const photos = update.message.photo;
+        const caption = update.message.caption;
 
         // Multi-Foto-Upload Check
         const mediaGroupId = update.message?.media_group_id;
@@ -675,31 +1046,69 @@ Deno.serve(async (req) => {
 
         // Single photo handling based on mode
         if (modus === 'mangel_foto') {
-          await handleMangelFoto(chatId, session, update.message.photo);
+          await handleMangelFoto(chatId, session, photos);
         }
         else if (modus === 'nachtrag_foto') {
-          await handleNachtragFoto(chatId, session, update.message.photo);
+          await handleNachtragFoto(chatId, session, photos);
         }
         else if (modus === 'nachweis_foto') {
-          await handleNachweisFoto(chatId, session, update.message.photo);
+          await handleNachweisFoto(chatId, session, photos);
         }
         else if (modus === 'abnahme_foto') {
-          await handleAbnahmeFoto(chatId, session, update.message.photo);
+          await handleAbnahmeFoto(chatId, session, photos);
         }
         else if (modus === 'bedarfsanalyse' || modus === 'bedarfsanalyse_fotos') {
-          await handleBedarfsanalysePhoto(chatId, session, update.message.photo);
+          await handleBedarfsanalysePhoto(chatId, session, photos);
         }
         // Foto-Warte-Modi für weiteres Foto zu bestehendem Nachtrag/Mangel
         else if (modus === 'foto_warte_nachtrag' || modus === 'foto_warte_mangel') {
-          await handleFotoInWarteModus(chatId, session, update.message.photo);
+          await handleFotoInWarteModus(chatId, session, photos);
+        }
+        // ============================================
+        // NEU: Foto ohne Text - Kontext-basierte Zuweisung
+        // ============================================
+        else if (!caption && session?.letzte_aktion) {
+          // Prüfe ob letzte Aktion nicht zu alt (max 10 Min)
+          const aktionTime = new Date(session.letzte_aktion.timestamp).getTime();
+          const now = Date.now();
+
+          if (now - aktionTime < 10 * 60 * 1000) {
+            // Letzte Aktion ist aktuell - Kontext-basierte Zuweisung anbieten
+            const typ = session.letzte_aktion.typ;
+            const id = session.letzte_aktion.id;
+
+            // Nur für Mängel und Nachträge relevant
+            if ((typ === 'mangel' || typ === 'nachtrag') && id) {
+              // Foto in Session speichern für spätere Zuweisung
+              await setPendingFoto(chatId, photos[photos.length - 1].file_id);
+
+              const typLabel = typ === 'mangel' ? 'Mangel' : 'Nachtrag';
+              const buttons = [
+                [{ text: `✅ Ja, zu ${id}`, callback_data: 'foto:zu_letzter_aktion' }],
+                [{ text: '❌ Nein, anderes Ziel', callback_data: 'foto:menu' }]
+              ];
+
+              await sendMessage(
+                chatId,
+                `📷 Foto zu ${typLabel} <b>${id}</b> hinzufügen?`,
+                { reply_markup: { inline_keyboard: buttons } }
+              );
+            } else {
+              // Letzte Aktion war kein Mangel/Nachtrag - Standard-Menu
+              await showFotoAuswahlMenu(chatId, session, photos);
+            }
+          } else {
+            // Letzte Aktion ist zu alt - Standard-Menu
+            await showFotoAuswahlMenu(chatId, session, photos);
+          }
         }
         // Default: Wenn Projekt geöffnet ist, zeige Auswahl-Menü
         else if (session?.aktuelles_bv_id) {
-          await showFotoAuswahlMenu(chatId, session, update.message.photo);
+          await showFotoAuswahlMenu(chatId, session, photos);
         }
         else {
           // Kein Projekt geöffnet: Trotzdem Auswahl-Menü zeigen (mit eingeschränkten Optionen)
-          await showFotoAuswahlMenu(chatId, session, update.message.photo);
+          await showFotoAuswahlMenu(chatId, session, photos);
         }
       }
 
@@ -717,6 +1126,21 @@ Deno.serve(async (req) => {
       else if (text && !text.startsWith('/')) {
         const modus = session?.aktueller_modus;
 
+        // ============================================
+        // INTENT-ROUTING VOR MODUS-ROUTING
+        // ============================================
+        // Versuche Intent-Detection für One-Shot Commands
+        // nur wenn kein aktiver Workflow läuft
+        if (!modus || ['baustelle', 'baustelle_auswahl'].includes(modus)) {
+          const intentHandled = await handleIntentBasedRouting(chatId, session, text);
+          if (intentHandled) {
+            return new Response('OK', { status: 200 });
+          }
+        }
+
+        // ============================================
+        // MODUS-BASIERTES ROUTING (Bestehend)
+        // ============================================
         if (modus === 'baustelle_suche' || modus === 'atbs_direkt') {
           await searchAndOpenProjekt(chatId, text);
         }
@@ -745,7 +1169,8 @@ Deno.serve(async (req) => {
           }
         }
         else {
-          await sendMessage(chatId,
+          // Fallback: Intent nicht erkannt, kein Modus aktiv
+          await sendMessage(chatId, t('INTENT_UNKLAR', 'DE') ||
             `Ich habe deine Nachricht nicht verstanden.\n\n` +
             `/start - Hauptmenü\n/hilfe - Alle Befehle`);
         }

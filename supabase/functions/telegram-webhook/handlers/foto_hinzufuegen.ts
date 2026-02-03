@@ -186,9 +186,10 @@ export async function listOffeneMaengel(chatId: number, session: Session): Promi
 export async function addFotoToNachtrag(
   chatId: number,
   session: Session,
-  nachtragId: string
+  nachtragId: string,
+  fileId?: string // Optional: Explizite file_id (z.B. von pending_foto)
 ): Promise<void> {
-  const pendingFotoFileId = session?.modus_daten?.pending_foto_file_id;
+  const pendingFotoFileId = fileId || session?.modus_daten?.pending_foto_file_id;
   const projektNr = session?.modus_daten?.projekt_nr;
 
   if (!pendingFotoFileId) {
@@ -288,9 +289,10 @@ export async function addFotoToNachtrag(
 export async function addFotoToMangel(
   chatId: number,
   session: Session,
-  mangelId: string
+  mangelId: string,
+  fileId?: string // Optional: Explizite file_id (z.B. von pending_foto)
 ): Promise<void> {
-  const pendingFotoFileId = session?.modus_daten?.pending_foto_file_id;
+  const pendingFotoFileId = fileId || session?.modus_daten?.pending_foto_file_id;
   const projektNr = session?.modus_daten?.projekt_nr;
 
   if (!pendingFotoFileId) {

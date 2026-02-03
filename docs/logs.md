@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-03
+**Stand:** 2026-02-04
 
 ---
 
@@ -102,6 +102,138 @@
 | LOG-087 | 2026-02-03 | Graph API E-Mail-Attachments Edge Function | Erstellt |
 | LOG-088 | 2026-02-03 | Telegram Nachtrag CPQ-Verbesserungen: Cross-LV + Learning | Abgeschlossen |
 | LOG-089 | 2026-02-03 | Graph API Archive-Suche + email-search Function | Abgeschlossen |
+| LOG-090 | 2026-02-04 | Telegram Universal Voice: Intent-Detection + One-Shot Commands | Abgeschlossen |
+| LOG-091 | 2026-02-04 | Telegram v91-phase2: Bug-Fixes + Korrektur + Followup + Foto-Kontext | Abgeschlossen |
+
+---
+
+## LOG-091 - Telegram v91-phase2: Bug-Fixes + Korrektur + Followup + Foto-Kontext
+**Datum:** 2026-02-04
+
+### Anforderung
+Phase 2 des Intent-Detection-Systems mit Bug-Fixes und erweiterten Features.
+
+### Bug-Fixes
+
+**1. Beschreibungs-Extraktion (T4)**
+- Problem: Kompletter Sprachtext wurde als Beschreibung gespeichert inkl. Intent-Teil
+- Lösung: GPT-Prompt angepasst - `beschreibung` enthält NUR den Inhalt ohne Intent-Phrasen
+- Beispiel: "Ergänze Mangel zu ATBS 456. Heizkörper wackelt" → beschreibung: "Heizkörper wackelt"
+
+**2. Error-Handling (T5)**
+- Problem: DB-Insert-Fehler ohne detailliertes Logging
+- Lösung: Pflichtfeld-Validierung vor Insert, User-freundliche Fehlermeldungen
+
+### Neue Features
+
+**1. Korrektur-Handler (T1)**
+- Ermöglicht Korrektur der letzten Aktion per Sprache: "Nein, im Bad" / "Raum ist Küche"
+- Korrigierbare Felder: raum, gewerk, beschreibung
+- Timeout: 30 Minuten nach letzter Aktion
+- Alten/neuen Wert in Bestätigung anzeigen
+
+**2. Folge-Eingaben (T2)**
+- `is_followup` Detection in Intent-Analyse
+- Bei "noch einer" oder "weiterer Mangel": Projekt aus Session-Historie übernehmen
+- Nutzt `letzte_aktion.projekt_nr` oder `projekt_historie[0].atbs`
+
+**3. Foto ohne Text - Kontext-basiert (T3)**
+- Wenn Foto ohne Caption gesendet wird UND `letzte_aktion` < 10 Min existiert
+- Zeigt Buttons: [Ja, zu M/N-ID] [Nein, anderes]
+- `pending_foto` in Session zwischengespeichert
+- Callback `foto:zu_letzter_aktion` verarbeitet Zuweisung
+
+### Geänderte Dateien
+| Datei | Änderung |
+|-------|----------|
+| `index.ts` | KORREKTUR-Case, Foto-Kontext-Logik, Version v91-phase2 |
+| `handlers/mangel.ts` | Verbessertes Error-Handling |
+| `handlers/nachtrag.ts` | Verbessertes Error-Handling |
+| `utils/intent_detection.ts` | Saubere Beschreibungs-Extraktion |
+| `utils/session.ts` | `setPendingFoto()` Helper |
+
+### Deployment
+```
+npx supabase functions deploy telegram-webhook --no-verify-jwt
+```
+Status: ✅ Erfolgreich deployed
+
+### Koordination
+`docs/implementation/telegram_voice_phase2_koordination.md` - Alle 6 Tasks (T1-T6) auf Fertig gesetzt
+
+---
+
+## LOG-090 - Telegram Universal Voice: Intent-Detection + One-Shot Commands
+**Datum:** 2026-02-04
+
+### Anforderung
+Telegram-Bot soll natuerliche Spracheingaben verstehen und ohne Projekt-Vorauswahl Mangel/Nachtrag erstellen.
+
+### Implementierte Features
+
+**1. Intent-Detection System (`utils/intent_detection.ts`)**
+- 11 Intents: MANGEL_MELDEN, NACHTRAG_ERFASSEN, NACHWEIS_HOCHLADEN, PROJEKT_OEFFNEN, LISTE_MAENGEL, LISTE_NACHTRAEGE, STATUS_ABFRAGEN, FOTO_HINZUFUEGEN, KORREKTUR, ABBRECHEN, UNBEKANNT
+- Mehrsprachige Keywords (DE, RU, HU, RO, PL)
+- `quickIntentCheck()` fuer schnelle Erkennung ohne GPT
+- `analyzeIntent()` mit GPT-5.2 fuer komplexe Faelle
+- Gewerk-, Raum-, Nachweis-Typ-Extraktion
+
+**2. One-Shot Commands**
+- `createMangelFromIntent()` - Mangel ohne Projekt-Vorauswahl erstellen
+- `createNachtragFromIntent()` - Nachtrag mit automatischem LV-Matching
+- `findProjektFuzzy()` - Suche nach ATBS, Name oder Adresse
+
+**3. Session-Erweiterung (`types.ts`, `session.ts`)**
+- `letzte_aktion`: Typ, ID, Projekt fuer Kontext-Awareness
+- `projekt_historie`: Letzte 5 Projekte (FIFO)
+- `user_sprache`: Erkannte Eingabesprache
+- `pending_foto`: Foto ohne Text zwischenspeichern
+- Helper: `updateLetzteAktion()`, `addProjektToHistorie()`, `setUserSprache()`
+
+**4. Multi-Language Templates (`utils/responses.ts`)**
+- 40+ Response-Templates mit Variablen
+- `t(key, lang, vars)` Helper-Funktion
+- 25 Gewerk-Emojis Mapping
+- Inline-Keyboard Builder und vordefinierte Button-Sets
+
+**5. Router-Integration (`index.ts`)**
+- `handleIntentBasedRouting()` VOR Modus-Routing
+- Confidence-Threshold: 0.5
+- Fallback auf Button-Menue bei unklarem Intent
+- Version: v90-intent-routing
+
+### Neue Dateien
+| Datei | Zeilen | Zweck |
+|-------|--------|-------|
+| `utils/intent_detection.ts` | 497 | Intent-Analyse + GPT-Integration |
+| `utils/responses.ts` | 462 | Multi-Language Templates + Button-Helper |
+
+### Erweiterte Dateien
+| Datei | Aenderungen |
+|-------|-------------|
+| `types.ts` | LetzteAktion, ProjektHistorieEintrag, UserSprache Interfaces |
+| `session.ts` | 6 neue Helper-Funktionen |
+| `handlers/mangel.ts` | `createMangelFromIntent()` |
+| `handlers/nachtrag.ts` | `createNachtragFromIntent()` |
+| `handlers/start.ts` | `findProjektFuzzy()` |
+| `index.ts` | Intent-Routing integriert |
+
+### Beispiel-Eingaben
+```
+"456 Steckdose locker Bad" → MANGEL_MELDEN, ATBS-456, Elektrik, Bad
+"Nachtrag 3 Steckdosen Kueche" → NACHTRAG_ERFASSEN, Elektrik, Menge 3
+"Oeffne Bollwerkstrasse" → PROJEKT_OEFFNEN, Fuzzy-Suche
+"Zeige Maengel" → LISTE_MAENGEL
+```
+
+### Deployment
+```
+npx supabase functions deploy telegram-webhook --no-verify-jwt
+```
+Status: ✅ Erfolgreich deployed
+
+### Koordination
+`docs/implementation/telegram_voice_koordination.md` - Alle 6 Tasks (T1-T6) auf Fertig gesetzt
 
 ---
 

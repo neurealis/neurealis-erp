@@ -8,6 +8,8 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
  * - from: Absender-Filter (substring)
  * - subject: Betreff-Filter (substring)
  * - limit: Max. Anzahl E-Mails (default: 10)
+ * - messageId: Direkte Message-ID (überspringt Suche, holt nur Anhänge dieser E-Mail)
+ * - messageIds: Komma-separierte Liste von Message-IDs
  */
 
 // Microsoft Graph API
@@ -214,10 +216,88 @@ Deno.serve(async (req: Request) => {
 
     const searchAllFolders = url.searchParams.get('allFolders') === 'true';
 
-    console.log(`Parameter: mailbox=${mailbox}, from=${fromFilter}, subject=${subjectFilter}, limit=${limit}, allFolders=${searchAllFolders}`);
+    // Direkte Message-ID(s) für gezielten Abruf
+    const messageId = url.searchParams.get('messageId') || undefined;
+    const messageIds = url.searchParams.get('messageIds')?.split(',').filter(Boolean) || [];
+
+    console.log(`Parameter: mailbox=${mailbox}, from=${fromFilter}, subject=${subjectFilter}, limit=${limit}, allFolders=${searchAllFolders}, messageId=${messageId}, messageIds=${messageIds.length}`);
 
     // Access Token holen
     const accessToken = await getAccessToken();
+
+    // Wenn messageId(s) angegeben, direkt Anhänge holen ohne Suche
+    if (messageId || messageIds.length > 0) {
+      const idsToFetch = messageId ? [messageId] : messageIds;
+      const results: Array<{
+        messageId: string;
+        subject: string;
+        from: string;
+        received: string;
+        attachments: Array<{
+          name: string;
+          contentType: string;
+          size: number;
+          contentBytes: string;
+        }>;
+      }> = [];
+
+      for (const id of idsToFetch) {
+        try {
+          // E-Mail-Metadaten holen
+          const msgResponse = await fetch(
+            `${GRAPH_API_URL}/users/${mailbox}/messages/${id}?$select=id,subject,from,receivedDateTime`,
+            {
+              headers: { 'Authorization': `Bearer ${accessToken}` },
+            }
+          );
+
+          if (!msgResponse.ok) {
+            console.error(`Fehler bei Message ${id}: ${msgResponse.status}`);
+            continue;
+          }
+
+          const msg = await msgResponse.json();
+
+          // Anhänge holen
+          const attachments = await getAttachments(accessToken, mailbox, id);
+          const fileAttachments = attachments.filter(
+            (a: any) => a['@odata.type'] === '#microsoft.graph.fileAttachment' && a.contentBytes
+          );
+
+          if (fileAttachments.length > 0) {
+            results.push({
+              messageId: id,
+              subject: msg.subject || 'Kein Betreff',
+              from: msg.from?.emailAddress?.address || 'Unbekannt',
+              received: msg.receivedDateTime || '',
+              attachments: fileAttachments.map(a => ({
+                name: a.name,
+                contentType: a.contentType,
+                size: a.size,
+                contentBytes: a.contentBytes || '',
+              })),
+            });
+          }
+        } catch (err) {
+          console.error(`Fehler bei Message ${id}:`, err);
+        }
+      }
+
+      const totalAttachments = results.reduce((sum, r) => sum + r.attachments.length, 0);
+
+      return new Response(JSON.stringify({
+        success: true,
+        mailbox,
+        mode: 'direct_fetch',
+        requested_ids: idsToFetch.length,
+        emails_with_attachments: results.length,
+        total_attachments: totalAttachments,
+        results,
+        duration_ms: Date.now() - startTime,
+      }), {
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      });
+    }
 
     // E-Mails suchen
     const emails = await searchEmails(accessToken, mailbox, fromFilter, subjectFilter, limit, searchAllFolders);
