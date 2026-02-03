@@ -2,12 +2,15 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.0";
 
 /**
- * monday-sync v3 - Korrigiertes Kunden/NU-Mapping
+ * monday-sync v4 - NU-Spalten Mapping korrigiert
  *
- * Änderungen gegenüber v2:
- * - FIX: text57__1 ist KUNDE Nachname (nicht NU-Firma!)
- * - FIX: text573__1 ist KUNDE Vorname (nicht NU-Ansprechpartner!)
- * - NEU: kunde_typ, kunde_firma, kunde_vorname, kunde_nachname, kunde_adresse
+ * Änderungen gegenüber v3:
+ * - FIX: NU-Spalten korrekt gemappt:
+ *   - e_mail9__1 → nu_email
+ *   - telefon_mkn38x15 → nu_telefon
+ *   - text47__1 → nu_ansprechpartner
+ *   - subunternehmer_126 → nu_firma (Connect Boards, benötigt Lookup)
+ * - NEU: extractMirrorValue() für Connect Boards Spalten
  * - Typ-Konvertierung: dates, numbers, status-text
  * - sync_source = 'monday' für Loop-Vermeidung
  * - Logging in monday_sync_log
@@ -68,8 +71,11 @@ const COLUMN_MAPPING: Record<string, { target: string; type: 'text' | 'number' |
   'adresse___kunde__1': { target: 'kunde_adresse', type: 'location' },
 
   // === Personen - NU (Nachunternehmer) ===
-  // HINWEIS: Die echten NU-Spalten müssen noch identifiziert werden in Monday
-  // Aktuell keine Monday-Spalte für NU gefunden - nu_* Felder bleiben leer
+  // KORRIGIERT in v4: Korrekte Monday-Spalten-IDs
+  'subunternehmer_126': { target: 'nu_firma', type: 'text' }, // Connect Boards (mirrored) - Name wird aus verlinktem Item geholt
+  'e_mail9__1': { target: 'nu_email', type: 'email' },
+  'telefon_mkn38x15': { target: 'nu_telefon', type: 'phone' },
+  'text47__1': { target: 'nu_ansprechpartner', type: 'text' },
 
   // === Personen - BL (Bauleiter) ===
   'text_mkn8ggev': { target: 'bl_name', type: 'text' },
@@ -173,6 +179,27 @@ const COLUMN_MAPPING: Record<string, { target: string; type: 'text' | 'number' |
 // ============================================
 // Value Extraction Helpers
 // ============================================
+
+/**
+ * Extrahiert linkedPulseIds aus Connect Boards Spalten
+ * Format: {"linkedPulseIds": [{"linkedPulseId": 123456}]}
+ */
+function extractLinkedPulseIds(colValue: any): string[] {
+  if (!colValue) return [];
+
+  try {
+    if (typeof colValue === 'object' && colValue.value) {
+      const parsed = JSON.parse(colValue.value);
+      if (parsed.linkedPulseIds && Array.isArray(parsed.linkedPulseIds)) {
+        return parsed.linkedPulseIds.map((lp: any) => String(lp.linkedPulseId));
+      }
+    }
+  } catch {
+    // Ignorieren
+  }
+
+  return [];
+}
 
 /**
  * Extrahiert den Text-Wert aus einem Monday Column-Objekt
@@ -345,6 +372,51 @@ function extractLocationValue(colValue: any): string | null {
 // Monday API Functions
 // ============================================
 
+/**
+ * Holt Item-Namen für eine Liste von Item-IDs (für Connect Boards Lookup)
+ * Gibt ein Map von ID → Name zurück
+ */
+async function fetchLinkedItemNames(itemIds: string[]): Promise<Map<string, string>> {
+  const nameMap = new Map<string, string>();
+  if (itemIds.length === 0) return nameMap;
+
+  // Deduplizieren
+  const uniqueIds = [...new Set(itemIds)];
+
+  // Batches von max 100 IDs
+  const batchSize = 100;
+  for (let i = 0; i < uniqueIds.length; i += batchSize) {
+    const batch = uniqueIds.slice(i, i + batchSize);
+    const idsString = batch.join(',');
+
+    const query = `query { items(ids: [${idsString}]) { id name } }`;
+
+    try {
+      const response = await fetch(MONDAY_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': MONDAY_API_KEY,
+          'API-Version': '2024-10'
+        },
+        body: JSON.stringify({ query })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        const items = result.data?.items || [];
+        for (const item of items) {
+          nameMap.set(String(item.id), item.name);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching linked items:', err);
+    }
+  }
+
+  return nameMap;
+}
+
 async function fetchMondayItems(): Promise<MondayItem[]> {
   const allItems: MondayItem[] = [];
   let cursor: string | null = null;
@@ -402,13 +474,34 @@ async function syncItems(items: MondayItem[]) {
   let created = 0, updated = 0, errors = 0;
   const errorDetails: string[] = [];
 
+  // PHASE 1: Sammle alle verlinkten NU-IDs für Batch-Lookup
+  const allLinkedNuIds: string[] = [];
+  const itemColumnMaps: Map<string, Record<string, any>> = new Map();
+
+  for (const item of items) {
+    const columnValuesObj: Record<string, any> = {};
+    for (const col of item.column_values) {
+      columnValuesObj[col.id] = { text: col.text, value: col.value };
+    }
+    itemColumnMaps.set(item.id, columnValuesObj);
+
+    // Extrahiere NU-IDs aus subunternehmer_126 (Connect Boards)
+    const nuColValue = columnValuesObj['subunternehmer_126'];
+    if (nuColValue) {
+      const linkedIds = extractLinkedPulseIds(nuColValue);
+      allLinkedNuIds.push(...linkedIds);
+    }
+  }
+
+  // PHASE 2: Hole alle NU-Namen in einem Batch
+  console.log(`Fetching names for ${allLinkedNuIds.length} linked NU items...`);
+  const nuNameMap = await fetchLinkedItemNames(allLinkedNuIds);
+  console.log(`Got ${nuNameMap.size} NU names`);
+
+  // PHASE 3: Sync Items
   for (const item of items) {
     try {
-      // Konvertiere column_values Array zu Object
-      const columnValuesObj: Record<string, any> = {};
-      for (const col of item.column_values) {
-        columnValuesObj[col.id] = { text: col.text, value: col.value };
-      }
+      const columnValuesObj = itemColumnMaps.get(item.id)!;
 
       // Basis-Record mit column_values JSONB (für Abwärtskompatibilität)
       const record: Record<string, any> = {
@@ -434,32 +527,44 @@ async function syncItems(items: MondayItem[]) {
 
         let extractedValue: any = null;
 
-        switch (config.type) {
-          case 'text':
-          case 'status':
-            extractedValue = extractTextValue(colValue);
-            break;
-          case 'number':
-            extractedValue = extractNumberValue(colValue);
-            break;
-          case 'date':
-            extractedValue = extractDateValue(colValue);
-            break;
-          case 'email':
-            extractedValue = extractEmailValue(colValue);
-            break;
-          case 'link':
-            extractedValue = extractLinkValue(colValue);
-            break;
-          case 'file':
-            extractedValue = extractFileValue(colValue);
-            break;
-          case 'phone':
-            extractedValue = extractTextValue(colValue);
-            break;
-          case 'location':
-            extractedValue = extractLocationValue(colValue);
-            break;
+        // Spezialbehandlung für subunternehmer_126 (Connect Boards → NU-Firma)
+        if (mondayCol === 'subunternehmer_126') {
+          const linkedIds = extractLinkedPulseIds(colValue);
+          if (linkedIds.length > 0) {
+            // Hole den ersten verlinkten NU-Namen
+            const nuName = nuNameMap.get(linkedIds[0]);
+            if (nuName) {
+              extractedValue = nuName;
+            }
+          }
+        } else {
+          switch (config.type) {
+            case 'text':
+            case 'status':
+              extractedValue = extractTextValue(colValue);
+              break;
+            case 'number':
+              extractedValue = extractNumberValue(colValue);
+              break;
+            case 'date':
+              extractedValue = extractDateValue(colValue);
+              break;
+            case 'email':
+              extractedValue = extractEmailValue(colValue);
+              break;
+            case 'link':
+              extractedValue = extractLinkValue(colValue);
+              break;
+            case 'file':
+              extractedValue = extractFileValue(colValue);
+              break;
+            case 'phone':
+              extractedValue = extractTextValue(colValue);
+              break;
+            case 'location':
+              extractedValue = extractLocationValue(colValue);
+              break;
+          }
         }
 
         // Nur setzen wenn Wert existiert
@@ -519,7 +624,7 @@ Deno.serve(async (req: Request) => {
   try {
     const startTime = Date.now();
 
-    console.log('monday-sync v3 starting...');
+    console.log('monday-sync v4 starting...');
 
     const items = await fetchMondayItems();
     console.log(`Fetched ${items.length} items from Monday`);
@@ -547,7 +652,7 @@ Deno.serve(async (req: Request) => {
 
     return new Response(JSON.stringify({
       success: true,
-      version: 'v3',
+      version: 'v4',
       board_id: BOARD_ID,
       total_items: items.length,
       created,
@@ -562,10 +667,10 @@ Deno.serve(async (req: Request) => {
     });
 
   } catch (error) {
-    console.error('monday-sync v2 error:', error);
+    console.error('monday-sync v4 error:', error);
     return new Response(JSON.stringify({
       success: false,
-      version: 'v3',
+      version: 'v4',
       error: String(error)
     }), {
       status: 500,
