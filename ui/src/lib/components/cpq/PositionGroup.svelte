@@ -20,7 +20,7 @@
 	}
 
 	let {
-		group,
+		group = $bindable(),
 		expanded = $bindable(true),
 		onToggle,
 		onCopy,

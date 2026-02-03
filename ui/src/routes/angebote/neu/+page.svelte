@@ -109,14 +109,21 @@
 
 	// Step 6: Aufmaß
 	let allPositions = $derived.by(() => {
-		const positions: Array<Position & { groupId: string; laenge?: number; breite?: number }> = [];
+		const positions: Array<Position & { groupId: string; laenge?: number; breite?: number; _originalRef: Position }> = [];
 		positionGroups.forEach(group => {
 			group.positionen.forEach(pos => {
-				positions.push({ ...pos, groupId: group.id });
+				// Behalte Referenz zum Original für Updates
+				positions.push({ ...pos, groupId: group.id, _originalRef: pos });
 			});
 		});
 		return positions;
 	});
+
+	// Hilfsfunktion: Menge im Original aktualisieren
+	function updatePositionMenge(pos: typeof allPositions[0], newMenge: number) {
+		pos._originalRef.menge = newMenge;
+		positionGroups = [...positionGroups]; // Trigger Reaktivität
+	}
 
 	// Step 7: Preise
 	let pricingProfiles = $state<Array<{
@@ -1491,7 +1498,8 @@ Tipp: Wohnungsgröße erwähnen für korrekte VBW-Staffelpreise (z.B. 'Wohnung c
 										<input
 											type="number"
 											class="menge-input"
-											bind:value={pos.menge}
+											value={pos.menge}
+											oninput={(e) => updatePositionMenge(pos, parseFloat((e.target as HTMLInputElement).value) || 0)}
 											min="0"
 											step="0.01"
 										/>
@@ -1500,14 +1508,14 @@ Tipp: Wohnungsgröße erwähnen für korrekte VBW-Staffelpreise (z.B. 'Wohnung c
 									<td class="kalkulator">
 										{#if pos.einheit === 'm2' || pos.einheit === 'qm'}
 											<div class="calc-inputs">
-												<input type="number" placeholder="L" bind:value={pos.laenge} step="0.01" />
+												<input type="number" placeholder="L" value={pos.laenge || ''} oninput={(e) => { pos._originalRef.laenge = parseFloat((e.target as HTMLInputElement).value) || 0; }} step="0.01" />
 												<span>x</span>
-												<input type="number" placeholder="B" bind:value={pos.breite} step="0.01" />
+												<input type="number" placeholder="B" value={pos.breite || ''} oninput={(e) => { pos._originalRef.breite = parseFloat((e.target as HTMLInputElement).value) || 0; }} step="0.01" />
 												<button
 													class="calc-btn"
 													onclick={() => {
-														if (pos.laenge && pos.breite) {
-															pos.menge = pos.laenge * pos.breite;
+														if (pos._originalRef.laenge && pos._originalRef.breite) {
+															updatePositionMenge(pos, pos._originalRef.laenge * pos._originalRef.breite);
 														}
 													}}
 												>
