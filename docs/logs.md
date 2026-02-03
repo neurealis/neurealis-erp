@@ -94,6 +94,95 @@
 | LOG-079 | 2026-02-03 | CPQ LV-Filterung Fix: 6 Probleme behoben, Production Ready | Abgeschlossen |
 | LOG-080 | 2026-02-03 | Kontextschonendes /pre mit hierarchischem Learnings-System | Abgeschlossen |
 | LOG-081 | 2026-02-03 | Monday Sync Fix: Cron + Trigger-Bug + Bidirektionaler Sync | Abgeschlossen |
+| LOG-082 | 2026-02-03 | E-Mail-Sync Fix: Cron-Job + Token + Status-Reset | Abgeschlossen |
+| LOG-083 | 2026-02-03 | Telegram-Bot v88: LV-Matching + Foto-Commands + /maengel /nachtraege | Abgeschlossen |
+| LOG-084 | 2026-02-03 | /pre Skill Optimierung + Email-Sync Fix neurealis + LifeOps | Abgeschlossen |
+
+---
+
+## LOG-084 - /pre Skill Optimierung + Email-Sync Fix neurealis + LifeOps
+**Datum:** 2026-02-03
+
+**Erreicht:**
+
+### 1. /pre Skill Optimierung
+- Hierarchisches Learnings-System implementiert (3 Stufen)
+- `learnings_critical.md` (Top 15, immer laden)
+- `learnings/*.md` (6 thematische Dateien, bei Bedarf)
+- `learnings_archive.md` (alte/erledigte)
+- ~90% weniger Kontextverbrauch beim Preflight
+
+### 2. LifeOps Email-Sync Fix
+- `sync_folders` korrigiert (entfernt: INBOX.idealista, Entwürfe, [Gmail]/* Ordner)
+- Spaltennamen in sync.js gefixt (`is_active` → `sync_enabled`, `sync_status` → `last_sync_status`)
+- Sync läuft jetzt fehlerfrei
+
+### 3. neurealis Email-Sync Fix
+- **Problem:** Cron-Jobs nutzten NULL service_role_key
+- **Problem:** 3 Accounts steckten im Status "syncing"
+- **Fix:** Cron-Jobs ohne Auth-Header neu erstellt (verify_jwt: false)
+- **Fix:** Status zurückgesetzt auf "idle"
+- **Ergebnis:** ~172 E-Mails importiert, ~53 Anhänge
+
+**Neue Learnings:**
+- L191: LifeOps IMAP Spaltennamen (sync_status → last_sync_status, is_active → sync_enabled)
+- L192: Gmail IMAP [Gmail]/* Ordner haben oft Access Denied
+- L193: Cron-Jobs ohne Auth bei verify_jwt: false (app.settings.service_role_key kann NULL sein)
+
+---
+
+## LOG-082 - E-Mail-Sync Fix: Cron-Job + Token + Status-Reset
+**Datum:** 2026-02-03
+
+**Problem:** E-Mail-Sync lief seit 6 Tagen nicht (letzter Sync: 28.01.2026)
+- 3 Accounts steckten im Status "syncing"
+- Cron-Jobs schlugen mit JSON-Parse-Fehler fehl
+- MS365-Token abgelaufen (01.02.2026)
+
+**Root-Causes:**
+1. **Cron-Job Fehler:** `app.settings.service_role_key` gibt NULL zurück → ungültiger JSON-String
+2. **MS365-Token abgelaufen:** Token lief am 01.02.2026 ab (2 Tage)
+3. **Status "syncing" blockiert:** 3 Accounts (rechnungen@, holger.neumann@, bewerbungen@) blieben hängen
+
+**Fixes:**
+| Fix | Beschreibung |
+|-----|--------------|
+| Cron-Jobs neu | Ohne Authorization Header (verify_jwt: false macht Auth unnötig) |
+| Status reset | 3 Accounts von "syncing" auf "idle" |
+| Test-Sync | 125 E-Mails geholt, 50 erstellt, 15 Anhänge |
+
+**Cron-Jobs (NEU):**
+```sql
+-- email-fetch-job: alle 10 Min, 6-20 Uhr
+SELECT cron.schedule('email-fetch-job', '*/10 6-20 * * *',
+  $$SELECT net.http_post(
+    url := 'https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/email-fetch',
+    headers := '{"Content-Type": "application/json"}'::jsonb,
+    body := '{"limit": 50}'::jsonb
+  );$$);
+
+-- email-process-job: alle 15 Min
+SELECT cron.schedule('email-process-job', '7,22,37,52 * * * *',
+  $$SELECT net.http_post(
+    url := 'https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/email-process',
+    headers := '{"Content-Type": "application/json"}'::jsonb,
+    body := '{"batch_size": 20}'::jsonb
+  );$$);
+```
+
+**Test-Ergebnis:**
+- accounts_processed: 6
+- emails_fetched: 125
+- emails_created: 50
+- attachments_uploaded: 16
+- skipped_duplicates: 26
+- Kleinere Fehler bei E-Mails mit langen Betreffs (49 Fehler - Zeichenlimit)
+
+**Noch offen:**
+- MS365-Token wird automatisch erneuert (Client Credentials Flow)
+- E-Mail-Betreff Zeichenlimit prüfen/erhöhen
+
+**Neues Learning:** L187 (Cron ohne Auth wenn verify_jwt: false)
 
 ---
 

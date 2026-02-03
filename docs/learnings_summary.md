@@ -74,10 +74,13 @@ L013-L019, L068, L094, L102, L103, L112, L113, L117, L119, L121-L125, L136
 
 ---
 
-## Edge Functions / Telegram-Bot
+## Edge Functions / Telegram-Bot / Cron
 
 | # | Titel | Kurzfassung |
 |---|-------|-------------|
+| L193 | Cron-Jobs ohne Auth bei verify_jwt: false | app.settings.service_role_key kann NULL sein - kein Auth-Header nötig |
+| L192 | Gmail IMAP: [Gmail]/* Ordner haben Access Denied | Nur INBOX zuverlässig zugänglich mit App-Passwort |
+| L191 | LifeOps IMAP Spaltennamen | sync_status→last_sync_status, is_active→sync_enabled |
 | L177 | Telegram-Webhook: verify_jwt MUSS false sein | Externe Webhooks (Telegram, Stripe) → IMMER verify_jwt: false |
 | L178 | Edge Function Modularisierung mit Subagenten | 4 Agents: T1 Core → T2+T3 Handler parallel → T4 Router → T5 QA |
 | L179 | audio-briefing-generate: Spalten nach Umbenennung | bauleiter_email → bl_email (6 Stellen), verify_jwt: false |

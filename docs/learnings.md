@@ -6,6 +6,88 @@
 
 ## Supabase / Cron / Sync
 
+### L193 - Cron-Jobs ohne Auth bei verify_jwt: false
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Cron
+**Problem:** Cron-Jobs schlugen fehl weil `app.settings.service_role_key` NULL zurückgibt
+**Ursache:** Authorization Header mit NULL-Wert erzeugt ungültiges JSON
+**Falsch:**
+```sql
+headers := '{"Authorization": "Bearer ' || current_setting('app.settings.service_role_key') || '"}'::jsonb
+```
+**Richtig (wenn verify_jwt: false):**
+```sql
+headers := '{"Content-Type": "application/json"}'::jsonb
+-- KEIN Authorization Header nötig!
+```
+**Merkregel:** Edge Functions mit `verify_jwt: false` brauchen keinen Auth-Header von Cron/Trigger
+
+### L192 - Gmail IMAP: [Gmail]/* Ordner haben Access Denied
+**Datum:** 2026-02-03
+**Kategorie:** E-Mail/IMAP
+**Problem:** Sync scheiterte bei Gmail-Accounts mit "Access Denied" Fehlern
+**Ursache:** Gmail-spezielle Ordner wie [Gmail]/Gesendet, [Gmail]/Papierkorb sind oft gesperrt
+**Lösung:** In `sync_folders` nur INBOX und gewünschte Label-Ordner eintragen
+**Vermeiden:**
+- `[Gmail]/*` - Systemordner
+- `INBOX.idealista` - Custom Labels die nicht existieren
+- `Entwürfe` - Drafts haben oft Sonderbehandlung
+**Merkregel:** Bei Gmail mit App-Passwort nur INBOX zuverlässig zugänglich
+
+### L191 - LifeOps IMAP Spaltennamen
+**Datum:** 2026-02-03
+**Kategorie:** LifeOps/E-Mail
+**Problem:** sync.js nutzte falsche Spaltennamen für email_accounts Tabelle
+**Korrekte Namen:**
+- `sync_status` → `last_sync_status`
+- `sync_error` → `last_sync_error`
+- `is_active` → `sync_enabled`
+**Betroffen:** `email-sync/sync.js` im LifeOps-Projekt
+**Merkregel:** Immer Tabellen-Schema prüfen bevor SQL schreiben
+
+### L188 - Telegram: Klickbare Telefonnummern mit tel: Links
+**Datum:** 2026-02-03
+**Kategorie:** Telegram/UI
+**Problem:** Telefonnummern im Bot nicht klickbar, Format "494915120244442" unlesbar
+**Lösung:** `formatPhoneLink()` Utility-Funktion in helpers.ts
+**Code:**
+```typescript
+// Formatiert: 494915120244442 → +49 151 20244442
+// Doppelte 49 korrigiert: 4949... → 49...
+// Erstellt HTML: <a href="tel:+4915120244442">+49 151 20244442</a>
+export function formatPhoneLink(phone: string): string
+```
+**Anwendung:** Telegram HTML-Modus mit `parse_mode: 'HTML'`
+**Merkregel:** tel: Links brauchen Nummer OHNE Leerzeichen, Anzeige MIT Leerzeichen
+
+### L189 - Telegram: Commands /maengel /nachtraege mit Scoping
+**Datum:** 2026-02-03
+**Kategorie:** Telegram/Bot
+**Kontext:** User wollte Übersicht aller Mängel/Nachträge mit Foto-Upload
+**Lösung:** Neue Commands + Sprachbefehle
+- `/maengel` oder "zeige mängel", "offene mängel"
+- `/nachtraege` oder "zeige nachträge", "offene nachträge"
+**Scoping-Logik:**
+- Projekt geöffnet (`session.aktuelles_bv_id`) → Nur dieses Projekt
+- Kein Projekt → Alle offenen Mängel/Nachträge (alle Projekte)
+**Buttons:** Jeder Eintrag hat "📷 Foto hinzufügen" → `foto_warte_mangel/nachtrag` Modus
+
+### L190 - Telegram: Foto-Auswahl-Menü braucht offenes Projekt
+**Datum:** 2026-02-03
+**Kategorie:** Telegram/Bot
+**Problem:** "Bestehender Nachtrag/Mangel" Buttons wurden nicht angezeigt
+**Ursache:** In `showFotoAuswahlMenu()` werden diese nur angezeigt wenn `projektNr && bvId` truthy
+**Code:**
+```typescript
+if (projektNr && bvId) {
+  buttons.push(
+    [{ text: "📋 Bestehender Nachtrag...", callback_data: "foto:list_nachtraege" }],
+    [{ text: "📋 Bestehender Mangel...", callback_data: "foto:list_maengel" }]
+  );
+}
+```
+**Merkregel:** User muss erst `/projekt ATBS-XXX` ausführen, DANN Foto senden
+
 ### L184 - Cron-Job URLs MÜSSEN in Anführungszeichen
 **Datum:** 2026-02-03
 **Kategorie:** Supabase/Cron
@@ -52,6 +134,26 @@ NEW.sync_source = 'supabase';
 - Nur bei echten Änderungen (nicht periodisch)
 - Weniger API-Calls, weniger Kosten
 **Betroffene Spalten:** atbs_nummer, status_projekt, auftraggeber, bl_name, adresse, nu_firma, budget, baustart, bauende, hero_projekt_id, sharepoint_link, matterport_link
+
+### L187 - Cron-Jobs ohne Auth wenn verify_jwt: false
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Cron
+**Problem:** Cron-Jobs für email-fetch/email-process schlugen fehl mit JSON-Parse-Fehler
+**Ursache:** `current_setting('app.settings.service_role_key')` gibt NULL zurück → ungültiger JSON
+**Falsch:**
+```sql
+headers := '{"Authorization": "Bearer ' || current_setting('app.settings.service_role_key') || '"}'::jsonb
+-- Ergibt: {"Authorization": "Bearer "}  → ungültiges JSON wegen fehlender Anführungszeichen
+```
+**Richtig (wenn verify_jwt: false):**
+```sql
+headers := '{"Content-Type": "application/json"}'::jsonb
+-- KEIN Authorization Header nötig!
+```
+**Merkregel:** Wenn Edge Function mit `verify_jwt: false` deployed ist:
+- Cron/Trigger braucht KEINEN Authorization Header
+- Einfach nur Content-Type Header reicht
+- Service Role Key ist nur für User-Auth-geschützte Endpoints nötig
 
 ---
 

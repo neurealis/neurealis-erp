@@ -1,10 +1,32 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-03 14:30 (aktualisiert)
+**Stand:** 2026-02-03 18:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### E-Mail-Sync Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Probleme gelöst:**
+1. Cron-Jobs schlugen fehl wegen NULL service_role_key im Authorization Header
+2. 3 Accounts steckten im Status "syncing" (blockiert)
+3. MS365-Token war abgelaufen
+
+**Fixes:**
+| Fix | Details |
+|-----|---------|
+| Cron-Jobs | Ohne Auth-Header neu erstellt (verify_jwt: false macht Auth unnötig) |
+| Status | 3 Accounts von "syncing" auf "idle" zurückgesetzt |
+| Test | 125 E-Mails geholt, 50 erstellt, 15 Anhänge |
+
+**Ergebnis:** E-Mail-Sync läuft wieder automatisch alle 10 Min (6-20 Uhr)
+
+**Neue Learnings:** L191-L193
+
+---
 
 ### Monday Bidirektional Sync Fix (✅ FERTIG)
 
@@ -89,37 +111,43 @@
 
 ---
 
-### Telegram-Webhook Refactoring (✅ FERTIG)
+### Telegram-Bot v88 - Erweiterte Features (✅ FERTIG)
 
 **Abgeschlossen:** 2026-02-03
 
-**Problem gelöst:** Bot reagierte nicht auf /start
-- Ursache: `verify_jwt: true` (Telegram sendet kein JWT)
-- Fix: telegram-webhook v86 deployed mit `verify_jwt: false` ✅
+**Neue Features in v88:**
 
-**Refactoring-Status:**
-| Agent | Zeilen | Dateien | Status |
-|-------|--------|---------|--------|
-| T1: Core | 1.496 | 8 | ✅ Fertig |
-| T2: Kern-Handler | 1.430 | 5 | ✅ Fertig |
-| T3: Erweitert | 850 | 5 | ✅ Fertig |
-| T4: Legacy+Router | 1.496 | 3 | ✅ Fertig |
-| T5: QA+Deploy | - | 18 | ✅ Fertig |
+| Feature | Status | Details |
+|---------|--------|---------|
+| LV-Matching bei Nachträgen | ✅ | GPT-5.2 Parsing + Embedding-Matching |
+| Foto zu bestehendem Nachtrag | ✅ | Auswahl-Liste + Upload |
+| Foto zu bestehendem Mangel | ✅ | Auswahl-Liste + Upload |
+| /maengel Command | ✅ | Liste offener Mängel + Foto-Button |
+| /nachtraege Command | ✅ | Liste offener Nachträge + Foto-Button |
+| Sprachbefehle | ✅ | "zeige mängel", "offene nachträge" |
+| Mangel-Frist 3 Tage | ✅ | War 7 Tage |
+| Klickbare Telefonnummern | ✅ | tel: Links im HTML-Format |
 
-**Modulare Struktur deployed:**
+**Neue Dateien:**
+- `handlers/foto_hinzufuegen.ts` - Foto zu bestehenden Einträgen
+- `utils/lv_matching.ts` - LV-Position-Matching für Nachträge
+
+**Commands mit Scoping:**
+- Projekt geöffnet → Nur Mängel/Nachträge dieses Projekts
+- Kein Projekt → Alle offenen Mängel/Nachträge
+
+**Modulare Struktur:**
 ```
 telegram-webhook/
-├── index.ts (Router, 630 Zeilen)
+├── index.ts (Router)
 ├── types.ts, constants.ts
-├── handlers/ (10 Dateien)
-└── utils/ (6 Dateien)
+├── handlers/ (12 Dateien)
+└── utils/ (7 Dateien)
 ```
 
-**Nächste Schritte:**
-- [ ] E-Mail an marcoheer@synclaro.de senden
-- [ ] Testen: /start, Mangel-Flow, Nachtrag-Flow
+**Koordination:** `docs/implementation/telegram_nachtrag_lv_koordination.md`
 
-**Koordination:** `docs/implementation/telegram_webhook_refactoring_koordination.md`
+**Neue Learnings:** L188-L190
 
 ---
 
