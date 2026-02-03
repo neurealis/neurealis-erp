@@ -99,6 +99,7 @@
 | LOG-084 | 2026-02-03 | /pre Skill Optimierung + Email-Sync Fix neurealis + LifeOps | Abgeschlossen |
 | LOG-085 | 2026-02-03 | Telegram Mängel/Nachträge: Auto-Stammdaten aus Monday | Abgeschlossen |
 | LOG-086 | 2026-02-03 | E-Mail-Absender auf partner@neurealis.de umgestellt | Abgeschlossen |
+| LOG-087 | 2026-02-03 | Graph API E-Mail-Attachments Edge Function | Erstellt |
 
 ---
 
@@ -4799,4 +4800,66 @@ npx supabase secrets set SMTP_FROM=partner@neurealis.de --project-ref mfpuijttdg
 
 ---
 
-*Aktualisiert: 2026-02-03 23:45*
+## LOG-087 - Graph API E-Mail-Attachments Edge Function
+
+**Datum:** 2026-02-03
+**Status:** Erstellt (Test ausstehend)
+
+### Zusammenfassung
+
+Neue Edge Function `email-attachments` erstellt, die E-Mails via Microsoft Graph API durchsucht und Anhänge als Base64 zurückgibt. Plus lokales Download-Script.
+
+### Erstellte Dateien
+
+| Datei | Beschreibung |
+|-------|--------------|
+| `supabase/functions/email-attachments/index.ts` | Edge Function v4 |
+| `scripts/download-email-attachments.mjs` | Lokales Node.js Download-Script |
+
+### Edge Function Features
+
+- **Parameter:** `mailbox`, `from`, `subject`, `limit`, `allFolders`
+- **Auth:** Client Credentials Flow (Application Permissions)
+- **Ordner-Suche:** `allFolders=true` durchsucht alle Mail-Ordner
+- **Filter:** Lokale Filterung (Graph API OData Filter zu restriktiv)
+
+### Learnings während Entwicklung
+
+1. **Graph API OData Filter:** `contains(from/emailAddress/address, 'x')` gibt "InefficientFilter"
+2. **Graph API $search:** Komplexe Syntax, schwierig bei kombinierten Filtern
+3. **Lösung:** E-Mails abrufen, lokal filtern (zuverlässiger)
+
+### Verwendung
+
+```bash
+# Mit Script
+node scripts/download-email-attachments.mjs \
+  --from "aaron" \
+  --subject "Abrechnung" \
+  --limit 100 \
+  --allFolders true \
+  --output "C:/path/to/folder"
+
+# Direkt Edge Function
+curl "https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/email-attachments?from=aaron&subject=Abrechnung&allFolders=true" \
+  -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+```
+
+### Ergebnis Test
+
+**Gefunden:** 6 E-Mails von Aaron Bach (a.bach@immobilienverwaltung-bach.de)
+- Neueste: 2026-01-27 "AW: Fehlende Unterlagen für die Erstellung der Einkommenssteuer"
+- Älteste: 2025-12-08 "Zugesagt: Aaron/Holger - Sync"
+
+**Nicht gefunden:** E-Mail vom 21.08.2025 "Abrechnungen Neumann Juli 2025 Teil 1"
+- **Ursache:** E-Mail liegt im Microsoft 365 **Online-Archiv**
+- Online-Archiv ist über normale `mailFolders` API nicht erreichbar
+- Benötigt spezielle Archive-API oder manuelle Weiterleitung
+
+### Learning
+
+- L197: M365 Online-Archiv nicht über normale mailFolders API erreichbar
+
+---
+
+*Aktualisiert: 2026-02-03 20:00*

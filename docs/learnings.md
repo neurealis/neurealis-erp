@@ -6,6 +6,21 @@
 
 ## Supabase / Cron / Sync
 
+### L197 - M365 Online-Archiv nicht über mailFolders API
+**Datum:** 2026-02-03
+**Kategorie:** Microsoft/Graph API
+**Problem:** Ältere E-Mails (>6 Monate) im Online-Archiv nicht über normale API erreichbar
+**Ursache:** M365 verschiebt E-Mails automatisch ins Archive-Postfach
+**Lösung:** Archive-Mailbox separat ansprechen oder E-Mail manuell weiterleiten
+**Merkregel:** `/users/{id}/mailFolders` findet nur primäres Postfach, nicht Archive
+
+### L196 - Graph API E-Mail-Suche: Lokal filtern statt OData
+**Datum:** 2026-02-03
+**Kategorie:** Microsoft/Graph API
+**Problem:** OData Filter `contains(from/emailAddress/address, 'x')` gibt "InefficientFilter"
+**Lösung:** E-Mails mit `$top=N` abrufen, dann in Code filtern
+**Merkregel:** Graph API OData ist restriktiv - besser lokal filtern
+
 ### L195 - Supabase Secrets überschreiben Code-Fallbacks
 **Datum:** 2026-02-03
 **Kategorie:** Supabase/Secrets

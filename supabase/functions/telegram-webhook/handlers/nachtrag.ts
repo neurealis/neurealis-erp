@@ -88,6 +88,7 @@ export async function handleNachtragText(chatId: number, session: any, text: str
       melder_name: melder_name,
       positionen: positionen.length > 0 ? positionen : null,
       summe_netto: summeNetto > 0 ? summeNetto : null,
+      betrag_kunde_netto: summeNetto > 0 ? summeNetto : null,
       // Stammdaten aus monday_bauprozess
       projektname_komplett: stammdaten?.projektname_komplett || null,
       nua_nr: stammdaten?.nua_nr || null,
@@ -122,12 +123,16 @@ export async function handleNachtragText(chatId: number, session: any, text: str
     positionenText = `\n\n<b>📊 LV-Analyse (${lvTyp}):</b>\n`;
     positionenText += `Positionen: ${positionen.length} (${matchedCount} mit LV-Match)\n`;
 
-    // Positionen auflisten (max. 5)
+    // Positionen auflisten (max. 5) mit Artikelnummer und Einzelpreis
     const displayPositionen = positionen.slice(0, 5);
     for (const pos of displayPositionen) {
-      const preis = pos.gesamtpreis ? ` → ${pos.gesamtpreis.toFixed(2)}€` : '';
       const match = pos.lv_position_id ? '✅' : '⚠️';
-      positionenText += `${match} ${pos.menge} ${pos.einheit} ${pos.beschreibung.substring(0, 30)}${pos.beschreibung.length > 30 ? '...' : ''}${preis}\n`;
+      const artNr = pos.artikelnummer ? `Art: ${pos.artikelnummer}` : '';
+      const ep = pos.einzelpreis ? `EP: ${pos.einzelpreis.toFixed(2)}€` : '';
+      const details = [artNr, ep].filter(Boolean).join(', ');
+      const detailsStr = details ? ` (${details})` : '';
+      const gp = pos.gesamtpreis ? ` → ${pos.gesamtpreis.toFixed(2)}€` : '';
+      positionenText += `${match} ${pos.menge} ${pos.einheit} ${pos.beschreibung.substring(0, 25)}${pos.beschreibung.length > 25 ? '...' : ''}${detailsStr}${gp}\n`;
     }
 
     if (positionen.length > 5) {
@@ -270,6 +275,7 @@ export async function saveNachtrag(chatId: number, session: Session): Promise<vo
       gemeldet_von: gemeldetVon,
       positionen: positionen.length > 0 ? positionen : null,
       summe_netto: summeNetto > 0 ? summeNetto : null,
+      betrag_kunde_netto: summeNetto > 0 ? summeNetto : null,
       // Stammdaten aus monday_bauprozess
       projektname_komplett: stammdaten?.projektname_komplett || null,
       nua_nr: stammdaten?.nua_nr || null,

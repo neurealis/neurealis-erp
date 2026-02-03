@@ -563,7 +563,7 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({
       status: 'ok',
       bot: 'neurealis-bot',
-      version: 'v88-maengel-nachtraege-commands'
+      version: 'v89-nachtrag-preisberechnung'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
