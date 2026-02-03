@@ -4782,6 +4782,21 @@ Alle 6 Functions erfolgreich deployed.
 266fda8 refactor(email): Absender von kontakt@ auf partner@neurealis.de umgestellt
 ```
 
+### Nachtrag: SMTP_FROM Secret
+
+**Problem:** Nach Deployment zeigten E-Mails immer noch `kontakt@` als Absender.
+**Ursache:** Umgebungsvariable `SMTP_FROM` war auf `kontakt@neurealis.de` gesetzt und überschrieb den Code-Fallback.
+**Lösung:**
+```bash
+npx supabase secrets set SMTP_FROM=partner@neurealis.de --project-ref mfpuijttdgkllnvhvjlu
+```
+
+**Test erfolgreich:** E-Mail von `partner@neurealis.de` versendet und empfangen.
+
+### Learning
+
+- L195: Supabase Secrets überschreiben Code-Fallbacks - via CLI ändern
+
 ---
 
-*Aktualisiert: 2026-02-03 23:30*
+*Aktualisiert: 2026-02-03 23:45*

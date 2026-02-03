@@ -6,6 +6,14 @@
 
 ## Supabase / Cron / Sync
 
+### L195 - Supabase Secrets überschreiben Code-Fallbacks
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Secrets
+**Problem:** Code-Änderung (Fallback `partner@`) griff nicht, E-Mails gingen weiter von `kontakt@`
+**Ursache:** `SMTP_FROM` Secret war auf alten Wert gesetzt
+**Lösung:** `npx supabase secrets set SMTP_FROM=partner@neurealis.de --project-ref ...`
+**Merkregel:** Bei Umgebungsvariablen-Änderungen immer auch Secrets prüfen/updaten
+
 ### L194 - Monday column_values JSON parsen: cv.field?.text
 **Datum:** 2026-02-03
 **Kategorie:** Monday/Supabase
