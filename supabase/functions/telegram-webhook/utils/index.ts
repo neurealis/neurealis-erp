@@ -52,7 +52,9 @@ export {
   formatCurrency,
   base64ToUint8Array,
   generateFileId,
+  getProjektStammdaten,
 } from "./helpers.ts";
+export type { ProjektStammdaten } from "./helpers.ts";
 
 // OpenAI
 export {

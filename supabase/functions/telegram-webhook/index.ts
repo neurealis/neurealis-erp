@@ -122,7 +122,11 @@ import {
   addFotoToMangel,
   setFotoWarteModus,
   handleFotoInWarteModus,
-  reshowFotoMenu
+  reshowFotoMenu,
+  listMaengelCommand,
+  listNachtraegeCommand,
+  promptFotoForMangel,
+  promptFotoForNachtrag
 } from './handlers/foto_hinzufuegen.ts';
 
 // Type imports
@@ -349,6 +353,22 @@ async function handleCallbackQuery(update: TelegramUpdate): Promise<void> {
     return;
   }
 
+  // Mangel Foto hinzufügen (aus /maengel Liste)
+  if (data.startsWith('mangel:foto:')) {
+    const mangelId = data.replace('mangel:foto:', '');
+    await answerCallbackQuery(callbackId);
+    await promptFotoForMangel(chatId, session, mangelId);
+    return;
+  }
+
+  // Nachtrag Foto hinzufügen (aus /nachtraege Liste)
+  if (data.startsWith('nachtrag:foto:')) {
+    const nachtragId = data.replace('nachtrag:foto:', '');
+    await answerCallbackQuery(callbackId);
+    await promptFotoForNachtrag(chatId, session, nachtragId);
+    return;
+  }
+
   if (data === 'nachtrag:save') {
     await answerCallbackQuery(callbackId);
     await saveNachtrag(chatId, session);
@@ -543,7 +563,7 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({
       status: 'ok',
       bot: 'neurealis-bot',
-      version: 'v87-foto-hinzufuegen'
+      version: 'v88-maengel-nachtraege-commands'
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -591,6 +611,20 @@ Deno.serve(async (req) => {
       }
       else if (text.startsWith('/briefing')) {
         await handleBriefingCommand(chatId);
+      }
+      // /maengel Command + Sprachbefehle
+      else if (text === '/maengel' ||
+               text.toLowerCase().includes('zeige mängel') ||
+               text.toLowerCase().includes('offene mängel') ||
+               text.toLowerCase().includes('alle mängel')) {
+        await listMaengelCommand(chatId, session);
+      }
+      // /nachtraege Command + Sprachbefehle
+      else if (text === '/nachtraege' ||
+               text.toLowerCase().includes('zeige nachträge') ||
+               text.toLowerCase().includes('offene nachträge') ||
+               text.toLowerCase().includes('alle nachträge')) {
+        await listNachtraegeCommand(chatId, session);
       }
 
       // Voice Messages

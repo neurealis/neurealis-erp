@@ -6,6 +6,7 @@
 import { sendMessage, answerCallbackQuery } from '../utils/telegram.ts';
 import { getOrCreateSession, updateSession } from '../utils/session.ts';
 import { supabase, SUPABASE_URL, SUPABASE_KEY } from '../constants.ts';
+import { formatPhoneLink } from '../utils/helpers.ts';
 
 // Phase-Labels für die Anzeige
 const PHASE_LABELS: Record<number, string> = {
@@ -502,13 +503,14 @@ export async function openProjekt(chatId: number, projekt: any) {
   // Kunde-Anzeige: Geschäftskunde vs. Privatkunde
   let kundeDisplay = '';
   const isPrivat = auftraggeber === 'privat' || auftraggeber === 'neurealis';
+  const telefonKundeLink = formatPhoneLink(telefonKunde);
   if (isPrivat) {
     const namePart = projektName.split('|')[0]?.trim() || projektName;
-    kundeDisplay = telefonKunde ? `${namePart} (${telefonKunde})` : namePart;
+    kundeDisplay = telefonKundeLink ? `${namePart} ${telefonKundeLink}` : namePart;
   } else {
     const namePart = projektName.split('|')[0]?.trim() || '';
     const agDisplay = projekt.auftraggeber || auftraggeber;
-    kundeDisplay = telefonKunde ? `${agDisplay} ${namePart} (${telefonKunde})` : `${agDisplay} ${namePart}`;
+    kundeDisplay = telefonKundeLink ? `${agDisplay} ${namePart} ${telefonKundeLink}` : `${agDisplay} ${namePart}`;
   }
 
   // Zähle offene Mängel und Nachträge
@@ -546,7 +548,8 @@ export async function openProjekt(chatId: number, projekt: any) {
   // NU: Firma - Ansprechpartner (Telefon)
   let nuDisplay = nuFirma;
   if (nuAnsprechpartner) nuDisplay += ` - ${nuAnsprechpartner}`;
-  if (nuTelefon) nuDisplay += ` (${nuTelefon})`;
+  const nuTelefonLink = formatPhoneLink(nuTelefon);
+  if (nuTelefonLink) nuDisplay += ` ${nuTelefonLink}`;
   infoText += `🔧 NU: ${nuDisplay}\n\n`;
   infoText += `📅 Termine:\n`;
   infoText += `   BV Start: ${bvStart}\n`;

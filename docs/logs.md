@@ -93,6 +93,54 @@
 | LOG-078 | 2026-02-03 | Telegram-Webhook Refactoring T5: QA + Deploy | Abgeschlossen |
 | LOG-079 | 2026-02-03 | CPQ LV-Filterung Fix: 6 Probleme behoben, Production Ready | Abgeschlossen |
 | LOG-080 | 2026-02-03 | Kontextschonendes /pre mit hierarchischem Learnings-System | Abgeschlossen |
+| LOG-081 | 2026-02-03 | Monday Sync Fix: Cron + Trigger-Bug + Bidirektionaler Sync | Abgeschlossen |
+
+---
+
+## LOG-081 - Monday Sync Fix: Cron + Trigger-Bug + Bidirektionaler Sync
+**Datum:** 2026-02-03
+
+**Problem:** Monday Bauprozess war nicht in Sync mit Supabase
+- Letzter automatischer Sync: 30.01.2026 (4 Tage veraltet)
+- Projekte wie "Werner Hellweg 94+114" zeigten falschen Status
+
+**Root-Causes:**
+1. **Cron-Job Syntax-Fehler:** URL ohne Anführungszeichen → SQL-Fehler
+2. **Trigger-Bug:** `monday_bauprozess_change_trigger` setzte ALLE Updates auf `sync_source = 'supabase'`, blockierte Monday-Updates
+3. **Loop-Vermeidung fehlerhaft:** Erkannte Monday-Sync nicht korrekt
+
+**Fixes:**
+| Fix | Beschreibung |
+|-----|--------------|
+| Cron neu erstellt | `*/5 6-19 * * 1-5` (Mo-Fr, 6-19 Uhr, alle 5 Min) |
+| Trigger korrigiert | Erkennt Monday-Sync via `monday_synced_at` Änderung |
+| 201 Items resetted | `sync_source = 'monday'` für alle |
+| Vollständiger Sync | 201 Items von Monday aktualisiert |
+
+**Trigger-Logik (NEU):**
+```sql
+-- Monday-Sync erkennen: sync_source = 'monday' UND monday_synced_at wird aktualisiert
+IF NEW.sync_source = 'monday' AND NEW.monday_synced_at IS DISTINCT FROM OLD.monday_synced_at THEN
+  RETURN NEW;  -- Nichts ändern
+END IF;
+-- Sonst: Lokale Änderung markieren
+NEW.sync_source = 'supabase';
+```
+
+**Bidirektionaler Sync Architektur:**
+```
+Monday (Master) ←→ Supabase
+  │                    │
+  │ monday-sync        │ monday-push (Trigger)
+  │ (Cron 5 Min)       │ (sofort bei Änderung)
+  ↓                    ↓
+```
+
+**Cron-Konfiguration:**
+- `monday-sync-job`: `*/5 6-19 * * 1-5` (Mo-Fr, 6-19 Uhr) ✅
+- `monday-push-job`: Deaktiviert (Trigger übernimmt)
+
+**Neue Learnings:** L184-L186
 
 ---
 

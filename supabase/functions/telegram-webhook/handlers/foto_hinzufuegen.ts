@@ -492,3 +492,197 @@ export async function reshowFotoMenu(chatId: number, session: Session): Promise<
     { reply_markup: { inline_keyboard: buttons } }
   );
 }
+
+// ============================================
+// /maengel Command - Liste offene Mängel
+// Wenn Projekt offen: nur dieses Projekt
+// Sonst: alle Projekte
+// ============================================
+
+export async function listMaengelCommand(chatId: number, session: Session): Promise<void> {
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  let query = supabase
+    .from('maengel_fertigstellung')
+    .select('id, mangel_nr, beschreibung_mangel, projekt_nr, status_mangel, datum_frist')
+    .in('status_mangel', ['Offen', 'In Bearbeitung'])
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  if (projektNr) {
+    query = query.eq('projekt_nr', projektNr);
+  }
+
+  const { data: maengel, error } = await query;
+
+  if (error) {
+    console.error('Maengel load error:', error);
+    await sendMessage(chatId, '❌ Fehler beim Laden der Mängel.');
+    return;
+  }
+
+  if (!maengel || maengel.length === 0) {
+    const scope = projektNr ? `für ${projektNr}` : 'insgesamt';
+    await sendMessage(chatId, `✅ Keine offenen Mängel ${scope}.`);
+    return;
+  }
+
+  // Header
+  const scope = projektNr ? `${projektNr}` : 'Alle Projekte';
+  let text = `<b>⚠️ Offene Mängel (${scope})</b>\n\n`;
+
+  // Liste mit Buttons
+  const buttons: Array<Array<{ text: string; callback_data: string }>> = [];
+
+  for (const m of maengel) {
+    const kurz = m.beschreibung_mangel?.substring(0, 20) || '-';
+    const frist = m.datum_frist ? new Date(m.datum_frist).toLocaleDateString('de-DE') : '-';
+    const projektInfo = projektNr ? '' : ` [${m.projekt_nr}]`;
+
+    text += `• <b>${m.mangel_nr}</b>${projektInfo}: ${kurz}...\n`;
+    text += `  Frist: ${frist} | Status: ${m.status_mangel}\n\n`;
+
+    buttons.push([{
+      text: `📷 ${m.mangel_nr}: Foto hinzufügen`,
+      callback_data: `mangel:foto:${m.id}`
+    }]);
+  }
+
+  buttons.push([{ text: "🔙 Zurück", callback_data: "bau:menu" }]);
+
+  await sendMessage(chatId, text, {
+    reply_markup: { inline_keyboard: buttons }
+  });
+}
+
+// ============================================
+// /nachtraege Command - Liste offene Nachträge
+// Wenn Projekt offen: nur dieses Projekt
+// Sonst: alle Projekte
+// ============================================
+
+export async function listNachtraegeCommand(chatId: number, session: Session): Promise<void> {
+  const projektNr = session?.modus_daten?.projekt_nr;
+
+  let query = supabase
+    .from('nachtraege')
+    .select('id, nachtrag_nr, beschreibung, atbs_nummer, status, summe_netto')
+    .in('status', ['Gemeldet', 'In Prüfung', 'Genehmigt', '(0) Offen / Preis eingeben', '(1) Kunde informieren / freigeben'])
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  if (projektNr) {
+    query = query.eq('atbs_nummer', projektNr);
+  }
+
+  const { data: nachtraege, error } = await query;
+
+  if (error) {
+    console.error('Nachtraege load error:', error);
+    await sendMessage(chatId, '❌ Fehler beim Laden der Nachträge.');
+    return;
+  }
+
+  if (!nachtraege || nachtraege.length === 0) {
+    const scope = projektNr ? `für ${projektNr}` : 'insgesamt';
+    await sendMessage(chatId, `✅ Keine offenen Nachträge ${scope}.`);
+    return;
+  }
+
+  // Header
+  const scope = projektNr ? `${projektNr}` : 'Alle Projekte';
+  let text = `<b>📋 Offene Nachträge (${scope})</b>\n\n`;
+
+  // Liste mit Buttons
+  const buttons: Array<Array<{ text: string; callback_data: string }>> = [];
+
+  for (const n of nachtraege) {
+    const kurz = n.beschreibung?.substring(0, 20) || '-';
+    const summe = n.summe_netto ? `${n.summe_netto.toFixed(2)} €` : '-';
+    const projektInfo = projektNr ? '' : ` [${n.atbs_nummer}]`;
+
+    text += `• <b>${n.nachtrag_nr}</b>${projektInfo}: ${kurz}...\n`;
+    text += `  Summe: ${summe} | Status: ${n.status}\n\n`;
+
+    buttons.push([{
+      text: `📷 ${n.nachtrag_nr}: Foto hinzufügen`,
+      callback_data: `nachtrag:foto:${n.id}`
+    }]);
+  }
+
+  buttons.push([{ text: "🔙 Zurück", callback_data: "bau:menu" }]);
+
+  await sendMessage(chatId, text, {
+    reply_markup: { inline_keyboard: buttons }
+  });
+}
+
+// ============================================
+// Prompt-Funktionen für Foto zu Mangel/Nachtrag
+// ============================================
+
+/**
+ * Prompt für Foto-Upload zu einem Mangel (aus /maengel Liste)
+ */
+export async function promptFotoForMangel(chatId: number, session: Session, mangelId: string): Promise<void> {
+  // Mangel laden für Info
+  const { data: mangel } = await supabase
+    .from('maengel_fertigstellung')
+    .select('mangel_nr, beschreibung_mangel')
+    .eq('id', mangelId)
+    .single();
+
+  // Session setzen für Foto-Empfang
+  await updateSession(chatId, {
+    aktueller_modus: 'foto_warte_mangel',
+    modus_daten: {
+      ...session?.modus_daten,
+      pending_target_typ: 'mangel',
+      pending_target_id: mangelId
+    }
+  });
+
+  await sendMessage(chatId,
+    `<b>📷 Foto für Mangel ${mangel?.mangel_nr || mangelId}</b>\n\n` +
+    `${mangel?.beschreibung_mangel?.substring(0, 50) || '-'}...\n\n` +
+    `Sende jetzt das Foto:`,
+    {
+      reply_markup: {
+        inline_keyboard: [[{ text: "❌ Abbrechen", callback_data: "bau:menu" }]]
+      }
+    }
+  );
+}
+
+/**
+ * Prompt für Foto-Upload zu einem Nachtrag (aus /nachtraege Liste)
+ */
+export async function promptFotoForNachtrag(chatId: number, session: Session, nachtragId: string): Promise<void> {
+  // Nachtrag laden für Info
+  const { data: nachtrag } = await supabase
+    .from('nachtraege')
+    .select('nachtrag_nr, beschreibung')
+    .eq('id', nachtragId)
+    .single();
+
+  // Session setzen für Foto-Empfang
+  await updateSession(chatId, {
+    aktueller_modus: 'foto_warte_nachtrag',
+    modus_daten: {
+      ...session?.modus_daten,
+      pending_target_typ: 'nachtrag',
+      pending_target_id: nachtragId
+    }
+  });
+
+  await sendMessage(chatId,
+    `<b>📷 Foto für Nachtrag ${nachtrag?.nachtrag_nr || nachtragId}</b>\n\n` +
+    `${nachtrag?.beschreibung?.substring(0, 50) || '-'}...\n\n` +
+    `Sende jetzt das Foto:`,
+    {
+      reply_markup: {
+        inline_keyboard: [[{ text: "❌ Abbrechen", callback_data: "bau:menu" }]]
+      }
+    }
+  );
+}

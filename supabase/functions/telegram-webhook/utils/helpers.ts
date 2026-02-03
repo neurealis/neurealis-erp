@@ -2,6 +2,103 @@
  * Allgemeine Hilfsfunktionen
  */
 import type { AusfuehrungStatus } from "../types.ts";
+import { supabase } from "../constants.ts";
+
+// ============================================
+// Projekt-Stammdaten Lookup
+// ============================================
+
+/**
+ * Projekt-Stammdaten aus monday_bauprozess
+ */
+export interface ProjektStammdaten {
+  projektname_komplett: string | null;
+  bl_name: string | null;
+  bl_email: string | null;
+  nu_firma: string | null;
+  nu_email: string | null;
+  ag_name: string | null;
+  ag_email: string | null;
+  ag_telefon: string | null;
+  nua_nr: string | null;
+  marge_prozent: number | null;
+}
+
+/**
+ * Lädt Projekt-Stammdaten aus monday_bauprozess basierend auf ATBS-Nummer
+ * Inkl. NUA-Nr und Marge aus column_values
+ */
+export async function getProjektStammdaten(atbsNummer: string): Promise<ProjektStammdaten | null> {
+  try {
+    const { data, error } = await supabase
+      .from('monday_bauprozess')
+      .select(`
+        projektname_komplett,
+        bl_name,
+        bl_email,
+        nu_firma,
+        nu_email,
+        ag_name,
+        ag_email,
+        ag_telefon,
+        column_values
+      `)
+      .eq('atbs_nummer', atbsNummer)
+      .single();
+
+    if (error || !data) {
+      console.log(`[getProjektStammdaten] Kein Projekt gefunden für ${atbsNummer}`);
+      return null;
+    }
+
+    // NUA-Nr und Marge aus column_values extrahieren
+    let nua_nr: string | null = null;
+    let marge_prozent: number | null = null;
+
+    if (data.column_values) {
+      const cv = data.column_values as Record<string, unknown>;
+
+      // NUA-Nr aus text23__1
+      const nuaField = cv.text23__1;
+      if (nuaField && typeof nuaField === 'object') {
+        const nuaObj = nuaField as { text?: string };
+        if (nuaObj.text && nuaObj.text.trim()) {
+          nua_nr = nuaObj.text.trim();
+        }
+      }
+
+      // Marge aus zahlen0__1
+      const margeField = cv.zahlen0__1;
+      if (margeField && typeof margeField === 'object') {
+        const margeObj = margeField as { text?: string };
+        if (margeObj.text && margeObj.text.trim()) {
+          const parsed = parseFloat(margeObj.text.trim());
+          if (!isNaN(parsed)) {
+            marge_prozent = parsed;
+          }
+        }
+      }
+    }
+
+    console.log(`[getProjektStammdaten] ${atbsNummer}: BL=${data.bl_name}, NU=${data.nu_firma}, NUA=${nua_nr}, Marge=${marge_prozent}%`);
+
+    return {
+      projektname_komplett: data.projektname_komplett,
+      bl_name: data.bl_name,
+      bl_email: data.bl_email,
+      nu_firma: data.nu_firma,
+      nu_email: data.nu_email,
+      ag_name: data.ag_name,
+      ag_email: data.ag_email,
+      ag_telefon: data.ag_telefon,
+      nua_nr,
+      marge_prozent
+    };
+  } catch (e) {
+    console.error(`[getProjektStammdaten] Fehler für ${atbsNummer}:`, e);
+    return null;
+  }
+}
 
 /**
  * Formatiert ein Datum im deutschen Format (DD.MM.YYYY)
@@ -293,4 +390,63 @@ export function base64ToUint8Array(base64: string): Uint8Array {
  */
 export function generateFileId(prefix: string, projektNr: string): string {
   return `${projektNr}_${prefix}_${Date.now()}`;
+}
+
+/**
+ * Formatiert Telefonnummer für Anzeige
+ * "4915120244442" → "+49 151 20244442"
+ * "494915120244442" → "+49 151 20244442" (doppelte 49 korrigiert)
+ */
+export function formatPhoneNumber(phone: string | null | undefined): string {
+  if (!phone) return '';
+
+  // Nur Ziffern behalten
+  let digits = phone.replace(/\D/g, '');
+
+  // Doppelte 49 am Anfang korrigieren (z.B. 494915... → 4915...)
+  if (digits.startsWith('4949')) {
+    digits = digits.substring(2);
+  }
+
+  // Deutsche Nummer ohne + am Anfang
+  if (digits.startsWith('49')) {
+    const rest = digits.substring(2);
+    // Gruppierung: +49 XXX XXXXXXXX
+    if (rest.length >= 10) {
+      const vorwahl = rest.substring(0, 3);
+      const nummer = rest.substring(3);
+      return `+49 ${vorwahl} ${nummer}`;
+    }
+    return `+49 ${rest}`;
+  }
+
+  // Nummer beginnt mit 0 (lokale deutsche Nummer)
+  if (digits.startsWith('0')) {
+    const rest = digits.substring(1);
+    if (rest.length >= 10) {
+      const vorwahl = rest.substring(0, 3);
+      const nummer = rest.substring(3);
+      return `+49 ${vorwahl} ${nummer}`;
+    }
+    return `+49 ${rest}`;
+  }
+
+  // Unbekanntes Format - mit + zurückgeben
+  return `+${digits}`;
+}
+
+/**
+ * Erstellt klickbaren tel: Link für Telegram (HTML)
+ * "4915120244442" → '<a href="tel:+4915120244442">+49 151 20244442</a>'
+ */
+export function formatPhoneLink(phone: string | null | undefined): string {
+  if (!phone) return '';
+
+  const formatted = formatPhoneNumber(phone);
+  if (!formatted) return '';
+
+  // tel: Link braucht Nummer ohne Leerzeichen
+  const telNumber = formatted.replace(/\s/g, '');
+
+  return `<a href="tel:${telNumber}">${formatted}</a>`;
 }

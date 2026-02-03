@@ -111,9 +111,14 @@ CREATE TABLE lv_positionen (
 
 | Agent | Status | Ergebnis |
 |-------|--------|----------|
-| T1: DEV-NACHTRAG-LV | ⏳ Gestartet | - |
-| T2: DEV-FOTO-AUSWAHL | ⏳ Gestartet | - |
-| T3: DEV-MANGEL-FRIST | ⏳ Gestartet | - |
+| T1: DEV-NACHTRAG-LV | ✅ Fertig | utils/lv_matching.ts + nachtrag.ts erweitert |
+| T2: DEV-FOTO-AUSWAHL | ✅ Fertig | handlers/foto_hinzufuegen.ts + index.ts Callbacks |
+| T3: DEV-MANGEL-FRIST | ✅ Fertig | mangel.ts: 7→3 Tage |
+
+## Deployment
+
+**Version:** v87-foto-hinzufuegen
+**Status:** ⏳ Bereit für Deploy
 
 ---
 *Koordination erstellt: 2026-02-03*

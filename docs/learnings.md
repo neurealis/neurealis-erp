@@ -4,6 +4,57 @@
 
 ---
 
+## Supabase / Cron / Sync
+
+### L184 - Cron-Job URLs MÜSSEN in Anführungszeichen
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Cron
+**Problem:** `monday-sync-job` lief nicht, obwohl `active: true`
+**Ursache:** URL in `net.http_post()` ohne Anführungszeichen → SQL-Parsing-Fehler
+**Falsch:**
+```sql
+SELECT net.http_post(url := https://xxx.supabase.co/functions/v1/monday-sync, ...)
+```
+**Richtig:**
+```sql
+SELECT net.http_post(url := 'https://xxx.supabase.co/functions/v1/monday-sync', ...)
+```
+**Merkregel:** ALLE String-Parameter in pg_cron Befehlen mit einfachen Anführungszeichen!
+
+### L185 - Monday-Sync Loop-Vermeidung via monday_synced_at
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Monday
+**Problem:** Trigger setzte alle Updates auf `sync_source = 'supabase'`, blockierte Monday-Pull
+**Ursache:** Alte Logik unterschied nicht zwischen Monday-Sync und lokalem Update
+**Lösung:** Monday-Sync erkennen wenn BEIDE Bedingungen erfüllt:
+1. `NEW.sync_source = 'monday'`
+2. `NEW.monday_synced_at IS DISTINCT FROM OLD.monday_synced_at`
+**Code:**
+```sql
+IF NEW.sync_source = 'monday' AND NEW.monday_synced_at IS DISTINCT FROM OLD.monday_synced_at THEN
+  RETURN NEW;  -- Monday-Sync: nichts ändern
+END IF;
+-- Sonst: Lokale Änderung
+NEW.sync_source = 'supabase';
+```
+**Wichtig:** Der monday-sync Code MUSS `sync_source = 'monday'` UND `monday_synced_at = NOW()` setzen!
+
+### L186 - Bidirektionaler Sync: Trigger statt Cron für Push
+**Datum:** 2026-02-03
+**Kategorie:** Supabase/Monday
+**Kontext:** Wie synchronisiert man Supabase → Monday in Echtzeit?
+**Lösung:** DB-Trigger statt Cron-Job
+- `trg_monday_push`: Feuert bei UPDATE auf relevanten Spalten
+- WHEN-Bedingung: `sync_source IS DISTINCT FROM 'monday'`
+- Ruft Edge Function `monday-push` via `pg_net.http_post()`
+**Vorteile:**
+- Sofortige Synchronisation (nicht 5 Min warten)
+- Nur bei echten Änderungen (nicht periodisch)
+- Weniger API-Calls, weniger Kosten
+**Betroffene Spalten:** atbs_nummer, status_projekt, auftraggeber, bl_name, adresse, nu_firma, budget, baustart, bauende, hero_projekt_id, sharepoint_link, matterport_link
+
+---
+
 ## Meta / Prozess
 
 ### L180 - Subagenten für Kontext-intensive Operationen

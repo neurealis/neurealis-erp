@@ -1,10 +1,43 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-03 (aktualisiert)
+**Stand:** 2026-02-03 14:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Monday Bidirektional Sync Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Probleme gelöst:**
+1. Cron-Job `monday-sync-job` hatte Syntax-Fehler (URL ohne Anführungszeichen)
+2. Trigger `monday_bauprozess_change_trigger` setzte alle Updates auf `sync_source = 'supabase'`
+3. Monday-Updates wurden blockiert (Loop-Vermeidung fehlerhaft)
+
+**Fixes:**
+| Fix | Details |
+|-----|---------|
+| Cron neu | `*/5 6-19 * * 1-5` (Mo-Fr, 6-19 Uhr) |
+| Trigger | Erkennt Monday-Sync via `monday_synced_at` |
+| Reset | 201 Items auf `sync_source = 'monday'` |
+| Sync | 201 Items vollständig synchronisiert |
+
+**Aktive Cron-Jobs:**
+| Job | Schedule | Status |
+|-----|----------|--------|
+| `monday-sync-job` | `*/5 6-19 * * 1-5` | ✅ Aktiv |
+| `kontakte-sync-monday` | `0 4 * * *` | ✅ Aktiv |
+| `monday-push-job` | - | ❌ (Trigger übernimmt) |
+
+**Bidirektionaler Sync:**
+- Monday → Supabase: Cron alle 5 Min (Mo-Fr 6-19 Uhr)
+- Supabase → Monday: Trigger `trg_monday_push` (sofort)
+- Loop-Vermeidung: `sync_source` + `monday_synced_at`
+
+**Neue Learnings:** L184-L186
+
+---
 
 ### Kontextschonendes /pre Skill (✅ FERTIG)
 
