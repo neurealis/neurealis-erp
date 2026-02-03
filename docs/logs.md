@@ -110,6 +110,7 @@
 | LOG-095 | 2026-02-04 | CPQ-Wizard Fixes: Preis-Bug, Mülleimer, Einklappbar, Step 4 Fallback | Abgeschlossen |
 | LOG-096 | 2026-02-04 | CPQ-Wizard v2: DB-Schema, PDF-Export, Angebotsnummern | Abgeschlossen |
 | LOG-097 | 2026-02-04 | CPQ-Wizard v3: Professionelles PDF + Anhänge | Abgeschlossen |
+| LOG-098 | 2026-02-04 | Angebot-Detail-Route + Dokumente-Speicherung | Abgeschlossen |
 
 ---
 
@@ -151,6 +152,50 @@ PDF-Export des CPQ-Wizards war unprofessionell, fehlte Logo, Bedarfspositionen u
 ### Learnings
 - L212: jsPDF Logo als Base64 für Offline-Fähigkeit
 - L213: PDF Abschnitts-Header mit fillColor vor Text
+
+---
+
+## LOG-098 - Angebot-Detail-Route + Dokumente-Speicherung
+**Datum:** 2026-02-04
+
+### Anforderung
+1. Angebot in `dokumente` Tabelle schreiben mit allen Infos
+2. PDF ablegen, raw_text ausfüllen
+3. Empfänger aus `monday_bauprozess` holen
+4. 404-Fehler beim Klick auf Angebot fixen
+
+### Durchgeführte Arbeiten
+
+**1. Route `/angebote/[id]` erstellt**
+- Neue Datei: `ui/src/routes/angebote/[id]/+page.svelte`
+- Angebot-Details mit allen Positionen
+- Empfängerdaten aus `monday_bauprozess`
+- Summenblock mit Netto, MwSt, Brutto
+
+**2. PDF-Layout in HTML**
+- Professionelles Layout mit neurealis Branding
+- Gewerk-gruppierte Positionen
+- Bedingungen und Hinweise
+- Buttons: "HTML exportieren", "PDF generieren", "In Dokumente speichern"
+
+**3. Dokument in `dokumente` Tabelle**
+- Art: ANG (Angebot)
+- raw_text mit allen Positionen + Empfänger
+- Empfänger aus monday_bauprozess: `kunde_vorname`, `kunde_nachname`, `adresse`
+- Beträge: netto, brutto
+
+**4. Test-Angebot gespeichert**
+```
+ID: 5b4d1c7f-6734-4682-85a1-59225a3321c0
+Dokument-Nr: neurealis | Neumann | Kleyer Weg 40, Dortmund | 1.OG-ANG01
+Betrag: 25.404,60 € netto / 30.231,47 € brutto
+```
+
+### Betroffene Dateien
+- `ui/src/routes/angebote/[id]/+page.svelte` (NEU)
+
+### Hinweis
+Die Angebotsnummer nutzt den vollen Projektnamen, weil keine ATBS-Nummer im Angebot war. Das Format `ATBS-XXX-ANG01` funktioniert nur wenn ATBS im Projektnamen enthalten ist.
 
 ---
 

@@ -31,6 +31,11 @@
 **Kategorie:** PDF/jsPDF
 **Ref:** LOG-097
 
+### L214 - monday_bauprozess für Empfängerdaten nutzen
+**Datum:** 2026-02-04
+**Kategorie:** Supabase/DB
+**Ref:** LOG-098
+
 ---
 
 ### L202 - Edge Functions: POST+GET Support für Subagenten-Aufrufe
