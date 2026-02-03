@@ -9,6 +9,7 @@ import { supabase } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
 import { getGemeldetVon, generateNachtragNummer } from '../utils/auth.ts';
 import { processNachtragBeschreibung } from '../utils/lv_matching.ts';
+import { getProjektStammdaten } from '../utils/helpers.ts';
 import type { Session, NachtragPosition } from '../types.ts';
 
 // ============================================
@@ -72,6 +73,9 @@ export async function handleNachtragText(chatId: number, session: any, text: str
     // Bei Fehler: Nachtrag trotzdem speichern, aber ohne Positionen
   }
 
+  // Projekt-Stammdaten laden (BL, NU, NUA-Nr, Marge, etc.)
+  const stammdaten = await getProjektStammdaten(projektNr);
+
   // Nachtrag in DB speichern
   const { data: newNachtrag, error } = await supabase
     .from('nachtraege')
@@ -83,7 +87,15 @@ export async function handleNachtragText(chatId: number, session: any, text: str
       gemeldet_von: gemeldet_von,
       melder_name: melder_name,
       positionen: positionen.length > 0 ? positionen : null,
-      summe_netto: summeNetto > 0 ? summeNetto : null
+      summe_netto: summeNetto > 0 ? summeNetto : null,
+      // Stammdaten aus monday_bauprozess
+      projektname_komplett: stammdaten?.projektname_komplett || null,
+      nua_nr: stammdaten?.nua_nr || null,
+      marge_prozent: stammdaten?.marge_prozent || null,
+      nu_name: stammdaten?.nu_firma || null,
+      nu_email: stammdaten?.nu_email || null,
+      bauleiter_name: stammdaten?.bl_name || null,
+      bauleiter_email: stammdaten?.bl_email || null
     })
     .select('id, nachtrag_nr')
     .single();
@@ -245,6 +257,9 @@ export async function saveNachtrag(chatId: number, session: Session): Promise<vo
     console.error('[Nachtrag/saveNachtrag] LV-Matching Fehler:', e);
   }
 
+  // Projekt-Stammdaten laden (BL, NU, NUA-Nr, Marge, etc.)
+  const stammdaten = await getProjektStammdaten(projektNr);
+
   const { error } = await supabase
     .from('nachtraege')
     .insert({
@@ -254,7 +269,15 @@ export async function saveNachtrag(chatId: number, session: Session): Promise<vo
       status: 'Gemeldet',
       gemeldet_von: gemeldetVon,
       positionen: positionen.length > 0 ? positionen : null,
-      summe_netto: summeNetto > 0 ? summeNetto : null
+      summe_netto: summeNetto > 0 ? summeNetto : null,
+      // Stammdaten aus monday_bauprozess
+      projektname_komplett: stammdaten?.projektname_komplett || null,
+      nua_nr: stammdaten?.nua_nr || null,
+      marge_prozent: stammdaten?.marge_prozent || null,
+      nu_name: stammdaten?.nu_firma || null,
+      nu_email: stammdaten?.nu_email || null,
+      bauleiter_name: stammdaten?.bl_name || null,
+      bauleiter_email: stammdaten?.bl_email || null
     })
     .select('id')
     .single();

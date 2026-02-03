@@ -7,6 +7,7 @@ import { sendMessage, downloadTelegramFile } from '../utils/telegram.ts';
 import { updateSession } from '../utils/session.ts';
 import { supabase, OPENAI_API_KEY } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
+import { getProjektStammdaten } from '../utils/helpers.ts';
 
 // ============================================
 // OpenAI GPT für Mangel-Splitting + Übersetzung
@@ -147,6 +148,9 @@ export async function handleMangelText(chatId: number, session: any, text: strin
   const frist = new Date();
   frist.setDate(frist.getDate() + 3);
 
+  // Projekt-Stammdaten laden (BL, NU, Mieter-Daten, NUA-Nr)
+  const stammdaten = await getProjektStammdaten(projektNr);
+
   const createdMaengel = [];
   for (const m of maengel) {
     // Generiere Mangel-Nummer im Format ATBS-XXX-M1
@@ -162,7 +166,16 @@ export async function handleMangelText(chatId: number, session: any, text: strin
         status_mangel: 'Offen',
         datum_meldung: new Date().toISOString(),
         datum_frist: frist.toISOString(),
-        erinnerung_status: 'Aktiv'
+        erinnerung_status: 'Aktiv',
+        // Stammdaten aus monday_bauprozess
+        projektname_komplett: stammdaten?.projektname_komplett || null,
+        nua_nr: stammdaten?.nua_nr || null,
+        bauleiter: stammdaten?.bl_name || null,
+        nachunternehmer: stammdaten?.nu_firma || null,
+        nu_email: stammdaten?.nu_email || null,
+        kunde_name: stammdaten?.ag_name || null,
+        kunde_email: stammdaten?.ag_email || null,
+        kunde_telefon: stammdaten?.ag_telefon || null
       })
       .select('id, mangel_nr')
       .single();
