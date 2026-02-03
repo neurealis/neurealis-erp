@@ -1,10 +1,94 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-02 (aktualisiert)
+**Stand:** 2026-02-03 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Kontextschonendes /pre Skill (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Problem gelöst:** /pre las alle Dateien direkt ins Kontextfenster (~500 Zeilen)
+
+**Neues 3-Stufen Learnings-System:**
+| Stufe | Datei | Zweck |
+|-------|-------|-------|
+| 1 | `learnings_critical.md` | Top 15 kritischste (IMMER laden) |
+| 2 | `learnings/*.md` | 6 thematische Dateien (bei Bedarf) |
+| 3 | `learnings_archive.md` | Alte/erledigte (nie automatisch) |
+
+**Thematische Kategorien:** supabase, business, telegram, monday, hero, ui
+
+**Ergebnis:** ~90% weniger Kontextverbrauch beim Preflight
+
+**Neues Learning:** L180
+
+---
+
+### CPQ LV-Filterung Fix (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Problem gelöst:** CPQ zeigte Positionen aus falschen LV-Typen trotz Auswahl
+- Ursache 1: `prioritize_lv_typ` nicht an Backend übergeben → Default 'gws'
+- Ursache 2: Fallback-Suche mit `filter_lv_typ: null` → alle LVs
+- Ursache 3: Threshold 0.75 zu hoch → unnötige Fallbacks
+
+**Implementierte Fixes:**
+| # | Fix | Datei |
+|---|-----|-------|
+| 1 | `prioritize_lv_typ: lvTyp` hinzugefügt | +page.svelte:164 |
+| 2 | Fallback auf `filter_lv_typ: lv_typ` | transcription-parse:463 |
+| 3 | Threshold 0.75 → 0.65 | transcription-parse:303 |
+| 4 | `projektname_komplett` aus Monday | +page.svelte:708-724 |
+| 5 | DB-Migration: Finale Sortierung | search_lv_positions_hybrid |
+
+**Deployments:**
+- ✅ transcription-parse Edge Function deployed
+- ✅ UI via Netlify deployed
+- ✅ DB-Migration angewendet
+
+**Git:** Commit `e3c4793`
+
+**Neue Learnings:** L180-L183
+
+---
+
+### Telegram-Webhook Refactoring (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+**Problem gelöst:** Bot reagierte nicht auf /start
+- Ursache: `verify_jwt: true` (Telegram sendet kein JWT)
+- Fix: telegram-webhook v86 deployed mit `verify_jwt: false` ✅
+
+**Refactoring-Status:**
+| Agent | Zeilen | Dateien | Status |
+|-------|--------|---------|--------|
+| T1: Core | 1.496 | 8 | ✅ Fertig |
+| T2: Kern-Handler | 1.430 | 5 | ✅ Fertig |
+| T3: Erweitert | 850 | 5 | ✅ Fertig |
+| T4: Legacy+Router | 1.496 | 3 | ✅ Fertig |
+| T5: QA+Deploy | - | 18 | ✅ Fertig |
+
+**Modulare Struktur deployed:**
+```
+telegram-webhook/
+├── index.ts (Router, 630 Zeilen)
+├── types.ts, constants.ts
+├── handlers/ (10 Dateien)
+└── utils/ (6 Dateien)
+```
+
+**Nächste Schritte:**
+- [ ] E-Mail an marcoheer@synclaro.de senden
+- [ ] Testen: /start, Mangel-Flow, Nachtrag-Flow
+
+**Koordination:** `docs/implementation/telegram_webhook_refactoring_koordination.md`
+
+---
 
 ### Marketing-Integration Google Ads + Meta Ads (🔄 IN ARBEIT)
 

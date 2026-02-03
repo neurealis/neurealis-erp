@@ -1,9 +1,86 @@
 # Learnings Summary - neurealis ERP
 
-**Generiert:** 2026-02-02 (aktualisiert)
+**Generiert:** 2026-02-03 (hierarchische Struktur)
 **Volltext:** docs/learnings.md
 
-> Diese Datei ist ein kompakter Index. Bei Bedarf Volltext lesen.
+---
+
+## NEUE HIERARCHISCHE STRUKTUR
+
+```
+docs/
+├── learnings_critical.md    (Top 15 kritischste - IMMER laden)
+├── learnings/
+│   ├── supabase.md         (RPC, Migrations, Edge Functions, DB)
+│   ├── hero.md             (API, Sync, Dokumente, LV)
+│   ├── ui.md               (SvelteKit, Styling, Mobile, UX)
+│   ├── monday.md           (Sync, Webhooks, Board)
+│   ├── telegram.md         (Bot, Commands, Webhook)
+│   └── business.md         (Preise, Kunden, Prozesse, Kalkulation)
+├── learnings_archive.md    (Alte/erledigte Learnings)
+└── learnings.md            (Vollständiger Originaltext)
+```
+
+**Preflight-Strategie:**
+1. `learnings_critical.md` IMMER lesen (15 kritischste)
+2. Thematische Datei bei Bedarf laden (je nach Task)
+3. Volltext nur bei spezifischer Suche
+
+---
+
+## KRITISCHE LEARNINGS (Kurzreferenz)
+
+| Nr | Kurztitel | Warum kritisch |
+|----|-----------|----------------|
+| L045 | Backup vor DB-Änderungen | Datenverlust nicht reversibel |
+| L103 | preis vs. listenpreis | Falscher Preis = 41% Verlust |
+| L041 | Upsert überschreibt NULL | Datenverlust bei Sync |
+| L058 | Edge Functions LESEN | Funktionalität verloren |
+| L177 | verify_jwt für Webhooks | Bot funktioniert nicht |
+| L146 | verify_jwt für Cron | Edge Functions 401 Fehler |
+| L137 | max_completion_tokens | GPT-5.2 gibt 400 Fehler |
+| L006 | Umlaute korrekt | Unprofessionell, UTF-8 Pflicht |
+| L147 | Learnings Summary | Context-Window Überlauf |
+| L066 | Subagenten Overnight | Context-Window voll nach 7h |
+| L143 | Audio nur auf Edge | OpenAI Key nur in Supabase |
+| L144 | Präfix-Konvention | Verwechslungsgefahr bei Feldern |
+| L176 | Elementor Backup | Template-Verlust |
+| L060 | Edge Function Backup | Code nur in Supabase |
+| L072 | Batch API für KI-Tasks | Timeout nach 60s |
+
+---
+
+## THEMATISCHE KURZÜBERSICHT
+
+> Vollständige Tabellen siehe ursprüngliche Summary unten oder thematische Dateien
+
+### Supabase → docs/learnings/supabase.md
+L177, L179, L178, L146, L052, L033, L042, L043, L044, L045, L073-L075, L081, L065, L139, L150
+
+### Hero → docs/learnings/hero.md
+L169, L168, L167, L011, L012, L030, L039, L040, L105-L108, L087
+
+### UI/SvelteKit → docs/learnings/ui.md
+L175, L176, L009, L020, L126, L001-L003, L006, L021, L085, L111, L109, L155
+
+### Monday.com → docs/learnings/monday.md
+L031, L032, L128, L144, L146-L149, L152, L159
+
+### Telegram-Bot → docs/learnings/telegram.md
+L053, L054, L089-L092, L096, L098-L101, L143, L145, L153, L157
+
+### Business → docs/learnings/business.md
+L013-L019, L068, L094, L102, L103, L112, L113, L117, L119, L121-L125, L136
+
+---
+
+## Edge Functions / Telegram-Bot
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L177 | Telegram-Webhook: verify_jwt MUSS false sein | Externe Webhooks (Telegram, Stripe) → IMMER verify_jwt: false |
+| L178 | Edge Function Modularisierung mit Subagenten | 4 Agents: T1 Core → T2+T3 Handler parallel → T4 Router → T5 QA |
+| L179 | audio-briefing-generate: Spalten nach Umbenennung | bauleiter_email → bl_email (6 Stellen), verify_jwt: false |
 
 ---
 
@@ -462,6 +539,17 @@
 
 ---
 
-**Anzahl Learnings:** 176 (L001-L176, ohne Duplikate bei L053/L143/L144/L170-L172)
+## CPQ / Angebotserstellung
+
+| # | Titel | Kurzfassung |
+|---|-------|-------------|
+| L180 | CPQ: prioritize_lv_typ PFLICHT | Explizit im Request übergeben, nie auf Default verlassen |
+| L181 | CPQ: Fallback nur im gewählten LV | filter_lv_typ: lv_typ statt null |
+| L182 | CPQ: Embedding-Threshold 0.65 | Realistischer als 0.75, weniger Fallbacks |
+| L183 | 3-Agenten-Modell für CPQ-Analyse | T1 Backend + T2 Frontend + T3 DB parallel |
+
+---
+
+**Anzahl Learnings:** 183 (L001-L183)
 
 *Hinweis: L053 existiert zweimal (Telegram Webhook + Matching mit Typo-Toleranz), L143 existiert zweimal (Audio-Generierung + Telegram media_group_id), L144 existiert zweimal (Präfix-Konvention + Monday column_values), L170-L172 existiert zweimal (Meta Ads + Finanzen). Die zweiten Vorkommen sollten umnummeriert werden.*

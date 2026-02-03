@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-02
+**Stand:** 2026-02-03
 
 ---
 
@@ -89,6 +89,186 @@
 | LOG-074 | 2026-02-02 | Marketing-Integration: Google Ads + Meta Ads Konzept + DB-Schema | In Arbeit |
 | LOG-075 | 2026-02-02 | Eigenheim-Sanierung SEO-Content + WordPress Elementor-Restore | Offen |
 | LOG-076 | 2026-02-02 | WIP-Badge System + Rollen-Anpassung Sidebar | Abgeschlossen |
+| LOG-077 | 2026-02-02 | Telegram-Webhook: verify_jwt Fix + Refactoring gestartet | Abgeschlossen |
+| LOG-078 | 2026-02-03 | Telegram-Webhook Refactoring T5: QA + Deploy | Abgeschlossen |
+| LOG-079 | 2026-02-03 | CPQ LV-Filterung Fix: 6 Probleme behoben, Production Ready | Abgeschlossen |
+| LOG-080 | 2026-02-03 | Kontextschonendes /pre mit hierarchischem Learnings-System | Abgeschlossen |
+
+---
+
+## LOG-080 - Kontextschonendes /pre mit hierarchischem Learnings-System
+**Datum:** 2026-02-03
+**Status:** Abgeschlossen
+
+### Problem
+/pre Command las bisher alle Dateien direkt ins Kontextfenster (~500+ Zeilen), was das Kontextfenster früh füllte und weniger Platz für eigentliche Aufgaben ließ.
+
+### Lösung
+Neues 3-Stufen Learnings-System implementiert:
+
+| Stufe | Datei | Zweck | Laden |
+|-------|-------|-------|-------|
+| 1 | `learnings_critical.md` | Top 15 kritischste Learnings | IMMER |
+| 2 | `learnings/*.md` | 6 thematische Dateien | Bei Bedarf |
+| 3 | `learnings_archive.md` | Alte/erledigte Learnings | Nie automatisch |
+
+### Thematische Kategorien (docs/learnings/)
+- `supabase.md` - Edge Functions, RLS, Cron, DB
+- `business.md` - Preise, LV, Hero, Dokumente
+- `telegram.md` - Bot-spezifische Learnings
+- `monday.md` - Monday.com Sync, Spalten
+- `hero.md` - Hero Software API
+- `ui.md` - SvelteKit, Komponenten, Styling
+
+### /pre Skill Änderungen
+- Nutzt jetzt Subagenten für Datei-Lesen statt direktes Read
+- Nur kompakte Summary kommt zurück (~50 Zeilen statt ~500)
+- ~90% weniger Kontextverbrauch beim Preflight
+
+### Betroffene Dateien
+- `.claude/commands/pre.md` (projekt + global)
+- `docs/learnings_critical.md` (NEU)
+- `docs/learnings/*.md` (6 Dateien NEU)
+- `docs/learnings_archive.md` (NEU)
+
+### Neues Learning
+L180: Subagenten für Kontext-intensive Operationen
+
+---
+
+## LOG-079 - CPQ LV-Filterung Fix: 6 Probleme behoben, Production Ready
+**Datum:** 2026-02-03
+**Status:** Abgeschlossen
+
+**Problem:** CPQ-Angebotserstellung zeigte Positionen aus falschen LV-Typen trotz Auswahl.
+
+**Analyse mit 3-Agenten-Modell (T1-T3 parallel):**
+- T1: Backend-Analyse → `prioritize_lv_typ` fehlte, Fallback suchte alle LVs
+- T2: Frontend-Analyse → PositionGroupList Callback ok, projektname_komplett fehlte
+- T3: DB-Schema-Analyse → RPCs ok, finale Sortierung fehlte
+
+**Implementierte Fixes (T4):**
+| # | Problem | Fix | Datei |
+|---|---------|-----|-------|
+| 1 | prioritize_lv_typ fehlte | Parameter hinzugefügt | +page.svelte:164 |
+| 2 | Fallback suchte alle LVs | filter_lv_typ: lv_typ | transcription-parse:463 |
+| 3 | Threshold 0.75 zu hoch | Auf 0.65 gesenkt | transcription-parse:303 |
+| 4 | projektname_komplett | Auftraggeber extrahiert | +page.svelte:708-724 |
+| 5 | PositionGroupList | Callback war bereits ok | - |
+| 6 | Hybrid-Suche unsortiert | Migration angewendet | DB |
+
+**Deployments:**
+- transcription-parse Edge Function v8 deployed
+- UI Build erfolgreich, Netlify deployed
+- DB-Migration `fix_search_lv_positions_hybrid_sorting` angewendet
+
+**Git:** Commit `e3c4793` gepusht
+
+**Neue Learnings:** L180-L183
+
+---
+
+## LOG-077 - Telegram-Webhook: verify_jwt Fix + Refactoring gestartet
+**Datum:** 2026-02-02
+**Status:** Teilweise abgeschlossen
+
+### Problem
+- Telegram-Bot reagierte nicht auf /start
+- Ursache: `verify_jwt: true` in Edge Function, aber Telegram sendet kein JWT
+
+### Lösung
+1. **verify_jwt Fix:** telegram-webhook v79 deployed mit `verify_jwt: false` ✅
+2. **Refactoring gestartet:** Monolithische index.ts (~3.500 Zeilen) in modulare Struktur
+
+### Refactoring-Stand (T1-T4 fertig, T5 abgebrochen)
+
+| Agent | Zeilen | Dateien | Status |
+|-------|--------|---------|--------|
+| T1: Core | 1.496 | 8 | ✅ Fertig |
+| T2: Kern-Handler | 1.430 | 5 | ✅ Fertig |
+| T3: Erweitert | 850 | 5 | ✅ Fertig |
+| T4: Legacy+Router | 1.496 | 3 | ✅ Fertig |
+| T5: QA+Deploy | - | - | ❌ Abgebrochen |
+
+### Neue Dateistruktur (lokal erstellt, nicht deployed)
+```
+supabase/functions/telegram-webhook/
+├── index.ts.backup       # Original-Backup
+├── types.ts              # Interfaces
+├── constants.ts          # Konstanten
+├── router.ts             # Neuer Entry-Point (noch nicht index.ts)
+├── handlers/
+│   ├── start.ts, mangel.ts, nachtrag.ts, nachweis.ts
+│   ├── gewerke.ts, foto.ts, bericht.ts, abnahme.ts
+│   ├── aufmass.ts, bedarfsanalyse.ts
+│   └── index.ts (Re-exports)
+└── utils/
+    ├── telegram.ts, session.ts, auth.ts, helpers.ts, openai.ts
+    └── index.ts (Re-exports)
+```
+
+### Nächste Schritte
+- [ ] T5 fortsetzen: router.ts → index.ts, Deploy
+- [ ] E-Mail an marcoheer@synclaro.de senden
+- [ ] Testen: /start, Mangel-Flow, Nachtrag-Flow
+
+### Koordination
+`docs/implementation/telegram_webhook_refactoring_koordination.md`
+
+---
+
+## LOG-078 - Telegram-Webhook Refactoring T5: QA + Deploy
+**Datum:** 2026-02-03
+**Status:** Abgeschlossen ✅
+
+### Aufgabe
+T5 des Telegram-Webhook Refactorings durchführen: QA + Deploy
+
+### Durchgeführte Schritte
+
+**1. QA mit parallelen Subagenten:**
+- T5a: Review Core + Utils (8 Dateien) → ✅ OK
+- T5b: Review Handler + Router (12 Dateien) → ✅ OK (Code war bereits korrekt)
+
+**2. Lokale Prüfung:**
+- Alle Imports/Exports korrekt
+- monday_bauprozess Präfixe (nu_*, bl_*, ag_*) korrekt
+- saveNachtrag in nachtrag.ts vorhanden
+- showBaustellenMenu korrekt importiert (nicht forward declared)
+- gpt-5.2 mit Punkt überall
+
+**3. Deploy:**
+```bash
+npx supabase functions deploy telegram-webhook --no-verify-jwt --project-ref mfpuijttdgkllnvhvjlu
+```
+- 18 Dateien uploaded
+- Version: v86-projektNr-check
+- Health-Check: ✅ OK
+
+### Modulare Struktur (deployed)
+```
+telegram-webhook/
+├── index.ts        # Router (630 Zeilen)
+├── types.ts        # 25+ Interfaces
+├── constants.ts    # Env-Vars, Supabase Client
+├── handlers/       # 10 Handler-Dateien
+│   ├── start.ts, mangel.ts, nachtrag.ts
+│   ├── nachweis.ts, gewerke.ts, foto.ts
+│   ├── aufmass.ts, bedarfsanalyse.ts
+│   └── abnahme.ts, bericht.ts
+└── utils/          # 6 Utility-Dateien
+    ├── telegram.ts, session.ts, auth.ts
+    └── helpers.ts, openai.ts, index.ts
+```
+
+### Ergebnis
+- Monolithische 3.500-Zeilen-Datei → 18 modulare Dateien
+- Bessere Wartbarkeit und Testbarkeit
+- verify_jwt: false für Telegram-Webhook
+
+### Nächste Schritte
+- [ ] Manueller Test: /start im Telegram-Bot
+- [ ] E-Mail an marcoheer@synclaro.de senden
 
 ---
 

@@ -1,6 +1,68 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-02-02
+**Stand:** 2026-02-03
+
+---
+
+## Meta / Prozess
+
+### L180 - Subagenten für Kontext-intensive Operationen
+**Datum:** 2026-02-03
+**Kategorie:** Meta/Prozess
+**Problem:** /pre Command las alle Dateien direkt ins Hauptkontext (~500 Zeilen), füllte Kontextfenster früh
+**Lösung:**
+- Subagent liest Dateien, gibt nur kompakte Summary zurück (~50 Zeilen)
+- Neues 3-Stufen Learnings-System:
+  1. `learnings_critical.md` - Top 15 (IMMER laden)
+  2. `learnings/*.md` - 6 thematische Dateien (bei Bedarf)
+  3. `learnings_archive.md` - Alte Learnings (nie automatisch)
+**Anwendbar auf:** Alle Preflight/Recherche-Operationen die viele Dateien lesen
+**Vorteil:** ~90% weniger Kontextverbrauch, mehr Platz für eigentliche Aufgaben
+**Betroffene Dateien:** `.claude/commands/pre.md` (projekt + global)
+
+---
+
+## Edge Functions / Telegram-Bot
+
+### L177 - Telegram-Webhook: verify_jwt MUSS false sein
+**Datum:** 2026-02-02
+**Kontext:** Bot reagierte nicht auf /start, Logs zeigten 401 Unauthorized
+**Ursache:** `verify_jwt: true` in Edge Function, aber Telegram sendet kein JWT-Token
+**Lösung:** Deploy mit `verify_jwt: false`
+**Prüfung:** `mcp__supabase__list_edge_functions` zeigt verify_jwt Status
+**Merkregel:** Externe Webhooks (Telegram, Stripe, etc.) → IMMER `verify_jwt: false`
+
+### L179 - audio-briefing-generate: Spaltenreferenzen nach Umbenennung
+**Datum:** 2026-02-03
+**Kontext:** Audio-Briefings funktionierten nicht im Telegram-Bot
+**Problem:**
+1. `verify_jwt: true` blockierte Aufruf vom telegram-webhook
+2. `bauleiter_email` wurde verwendet, aber Spalte heißt jetzt `bl_email` (nach L144 Umbenennung)
+**Lösung:**
+- `audio-briefing-generate` v8 mit `verify_jwt: false` deployed
+- 6 Stellen korrigiert: `getAktiveProjekte`, `getAlleMaengel`, `getOffeneNachtraege`, `getTermine` (3x), `getFehlendNachweise`
+**Learning:** Nach DB-Spalten-Umbenennungen ALLE Edge Functions prüfen die diese Spalten verwenden!
+**Betroffene Dateien:** `supabase/functions/audio-briefing-generate/index.ts`
+
+---
+
+### L178 - Edge Function Modularisierung mit Subagenten
+**Datum:** 2026-02-02
+**Kontext:** telegram-webhook war ~3.500 Zeilen, schwer wartbar
+**Ansatz:** 4 parallele Subagenten für Refactoring:
+- T1: Core (types, constants, utils/) - Basis zuerst
+- T2+T3: Handler parallel (unabhängige Module)
+- T4: Router + Legacy (hängt von T1-T3 ab)
+- T5: QA + Deploy (nach allen anderen)
+**Struktur:**
+```
+handlers/  # Feature-spezifische Handler
+utils/     # Shared Utilities (telegram, session, auth, openai)
+types.ts   # Interfaces
+constants.ts # Env-Vars, Mappings
+index.ts   # Nur Router/Entry-Point
+```
+**Vorteil:** Einfachere Wartung, parallele Entwicklung, besseres Testing
 
 ---
 
@@ -2961,6 +3023,67 @@ SELECT z.* FROM zahlungen z LEFT JOIN er_nu_docs e ON z.atbs_nummer = e.atbs_num
 **Befehl:** `mcp__supabase__deploy_edge_function` erneut ausführen
 **Regel:** Bei Secret-Änderungen immer Redeploy!
 
+### L180 - CPQ: prioritize_lv_typ MUSS explizit übergeben werden
+**Datum:** 2026-02-03
+**Problem:** Trotz LV-Auswahl (z.B. VBW) wurden GWS-Positionen vorgeschlagen
+**Ursache:** `transcription-parse` hat `prioritize_lv_typ` Default auf 'gws'
+**Lösung:** UI muss `prioritize_lv_typ: lvTyp` explizit im Request senden
+**Code:**
+```typescript
+supabase.functions.invoke('transcription-parse', {
+  body: {
+    transcription: text,
+    lv_typ: lvTyp,
+    prioritize_lv_typ: lvTyp  // ← PFLICHT!
+  }
+});
+```
+**Regel:** Nie auf Backend-Defaults verlassen bei LV-spezifischer Suche
+
+### L181 - CPQ: Fallback-Suche NUR im gewählten LV
+**Datum:** 2026-02-03
+**Problem:** Fallback-Suche mit `filter_lv_typ: null` durchsuchte alle LVs
+**Auswirkung:** Positionen aus anderen LVs wurden vorgeschlagen
+**Lösung:** Fallback auf `filter_lv_typ: lv_typ` ändern
+**Code:**
+```typescript
+// FALSCH:
+filter_lv_typ: null  // → alle LVs
+
+// RICHTIG:
+filter_lv_typ: lv_typ  // → nur aktueller LV
+```
+**Regel:** Globale Fallbacks nur wenn explizit gewünscht
+
+### L182 - CPQ: Embedding-Threshold 0.65 statt 0.75
+**Datum:** 2026-02-03
+**Problem:** Priority-Threshold 0.75 war zu hoch, valide Treffer wurden abgelehnt
+**Auswirkung:** Unnötige Fallback-Suchen, schlechtere Trefferqualität
+**Lösung:** `PRIORITY_LV_THRESHOLD` von 0.75 auf 0.65 gesenkt
+**Erfahrungswert:**
+- 0.75+ = Sehr präzise Matches (selten)
+- 0.65+ = Gute Matches (realistisch)
+- 0.50+ = Relevante Matches (Fallback)
+**Regel:** Embedding-Thresholds konservativ beginnen, bei Bedarf erhöhen
+
+### L183 - 3-Agenten-Modell für CPQ-Analyse effektiv
+**Datum:** 2026-02-03
+**Anwendung:** Komplexe Feature-Bugs mit Backend + Frontend + DB Komponenten
+**Architektur:**
+```
+T1: Backend-Analyse (Edge Functions, APIs)
+T2: Frontend-Analyse (UI, State-Management)
+T3: DB-Schema-Analyse (Tabellen, RPCs, Migrations)
+    ↓ Parallel
+T4: Fix-Implementation (alle Fixes)
+T5: E2E-Test (Chrome MCP) - optional
+```
+**Vorteile:**
+- Parallelisierung spart Zeit
+- Spezialisierte Analyse pro Schicht
+- Vollständiges Bild vor Fix-Implementation
+**Ergebnis:** 6 Probleme in einer Session identifiziert und gefixt
+
 ---
 
-*Aktualisiert: 2026-02-02*
+*Aktualisiert: 2026-02-03*
