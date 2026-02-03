@@ -98,6 +98,7 @@
 | LOG-083 | 2026-02-03 | Telegram-Bot v88: LV-Matching + Foto-Commands + /maengel /nachtraege | Abgeschlossen |
 | LOG-084 | 2026-02-03 | /pre Skill Optimierung + Email-Sync Fix neurealis + LifeOps | Abgeschlossen |
 | LOG-085 | 2026-02-03 | Telegram Mängel/Nachträge: Auto-Stammdaten aus Monday | Abgeschlossen |
+| LOG-086 | 2026-02-03 | E-Mail-Absender auf partner@neurealis.de umgestellt | Abgeschlossen |
 
 ---
 
@@ -4738,4 +4739,49 @@ npx supabase functions deploy telegram-webhook --no-verify-jwt
 
 ---
 
-*Aktualisiert: 2026-02-03 22:00*
+## LOG-086 - E-Mail-Absender auf partner@neurealis.de umgestellt
+
+**Datum:** 2026-02-03
+**Status:** Abgeschlossen
+
+### Zusammenfassung
+
+Alle Portal-E-Mails (Mängel, Nachträge, Bestellungen) werden jetzt von `partner@neurealis.de` statt `kontakt@neurealis.de` versendet.
+
+### Geänderte Edge Functions (6 Stück)
+
+| Function | Zeile | Änderung |
+|----------|-------|----------|
+| `nachtrag-notify` | 605 | `kontakt@` → `partner@` |
+| `mangel-notify` | 25 | `kontakt@` → `partner@` |
+| `mangel-reminder` | 29 | `kontakt@` → `partner@` |
+| `mangel-rejection-notify` | 23 | `kontakt@` → `partner@` |
+| `bestellung-submit` | 41 | `kontakt@` → `partner@` |
+| `email-send` | 14 | `kontakt@` → `partner@` |
+
+### Nicht geändert (absichtlich)
+
+- `ui/src/routes/lv-export/+page.svelte` - PDF-Kontaktdaten für Impressum (bleibt kontakt@)
+- `email-process/index.ts` - Postfach-Klassifizierung für eingehende E-Mails
+- Dokumentation und WordPress-Seiten
+
+### Graph API Nutzung
+
+Alle Functions nutzen Microsoft Graph API:
+```typescript
+POST /v1.0/users/partner@neurealis.de/sendMail
+```
+
+### Deployment
+
+Alle 6 Functions erfolgreich deployed.
+
+### Git Commit
+
+```
+266fda8 refactor(email): Absender von kontakt@ auf partner@neurealis.de umgestellt
+```
+
+---
+
+*Aktualisiert: 2026-02-03 23:30*

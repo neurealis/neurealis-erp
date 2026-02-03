@@ -1,10 +1,20 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-03 22:00 (aktualisiert)
+**Stand:** 2026-02-03 23:30 (aktualisiert)
 
 ---
 
 ## Aktueller Projektstatus
+
+### E-Mail-Absender Umstellung (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-03
+
+Alle Portal-E-Mails nutzen jetzt `partner@neurealis.de` statt `kontakt@neurealis.de`:
+- 6 Edge Functions geändert (nachtrag-notify, mangel-notify, mangel-reminder, mangel-rejection-notify, bestellung-submit, email-send)
+- Deployed und committed
+
+---
 
 ### E-Mail-Sync Fix (✅ FERTIG)
 
