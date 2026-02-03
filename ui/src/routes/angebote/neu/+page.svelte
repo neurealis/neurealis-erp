@@ -162,7 +162,8 @@
 				body: {
 					transcription: transkriptionText,
 					lv_typ: lvTyp,
-					projekt_nr: selectedProjektId || undefined
+					projekt_nr: selectedProjektId || undefined,
+					prioritize_lv_typ: lvTyp  // Priorisiert den gewählten LV-Typ bei der Suche
 				}
 			});
 
@@ -713,10 +714,16 @@
 					const phaseMatch = phaseText.match(/\((\d+)\)/);
 					const phase = phaseMatch ? parseInt(phaseMatch[1]) : 0;
 
+					// Auftraggeber und Adresse aus column_values extrahieren
+					const auftraggeber = columnValues?.text_mkm11jca?.text || columnValues?.auftraggeber?.text || '';
+					const adresse = columnValues?.text51__1?.text || '';
+					// Vollständiger Name: "Auftraggeber | Projektname" für LV-Typ-Mapping
+					const vollstaendigerName = auftraggeber ? `${auftraggeber} | ${p.name}` : p.name;
+
 					return {
 						id: p.id,
 						projektname: p.name,
-						projektname_komplett: p.name, // name enthält bereits den vollständigen Projektnamen
+						projektname_komplett: vollstaendigerName,
 						phase: phase
 					};
 				})
