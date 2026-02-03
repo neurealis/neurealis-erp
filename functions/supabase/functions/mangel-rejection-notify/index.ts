@@ -20,7 +20,7 @@ const corsHeaders = {
 const MS_TENANT_ID = Deno.env.get('MS_GRAPH_TENANT_ID') || '';
 const MS_CLIENT_ID = Deno.env.get('MS_GRAPH_CLIENT_ID') || '';
 const MS_CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
-const SENDER_EMAIL = Deno.env.get('SMTP_FROM') || 'kontakt@neurealis.de';
+const SENDER_EMAIL = Deno.env.get('SMTP_FROM') || 'partner@neurealis.de';
 
 interface Mangel {
   id: string;

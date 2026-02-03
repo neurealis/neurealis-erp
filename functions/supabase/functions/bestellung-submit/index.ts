@@ -38,7 +38,7 @@ const CLIENT_SECRET = Deno.env.get('MS_GRAPH_CLIENT_SECRET') || '';
 // Standard-Empfänger für Bestellungen (Fallback)
 const DEFAULT_EMPFAENGER = 'holger.neumann@neurealis.de';
 const CC_BAULEITUNG = 'bauleitung@neurealis.de';
-const SENDER_EMAIL = 'kontakt@neurealis.de';
+const SENDER_EMAIL = 'partner@neurealis.de';
 
 // Corporate Design Farben (HTML)
 const GRAY_800 = '#1f2937';
