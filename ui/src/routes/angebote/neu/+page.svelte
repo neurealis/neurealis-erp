@@ -70,6 +70,8 @@
 		search_query: string;
 		search_results: LvPositionRef[];
 		is_searching: boolean;
+		// NEU: Einklappbar-Status für Vorschläge
+		alternatives_collapsed: boolean;
 	}
 	let parsedPositions = $state<ParsedPosition[]>([]);
 	let correctionsSaved = $state<Record<number, boolean>>({});
@@ -195,14 +197,31 @@
 						return b.listenpreis - a.listenpreis;
 					});
 
+				// FIX: Stelle sicher dass lv_position korrekten listenpreis hat
+				let initialPosition = pos.lv_position;
+				if (initialPosition) {
+					const preis = initialPosition.listenpreis || initialPosition.einzelpreis || 0;
+					initialPosition = {
+						...initialPosition,
+						listenpreis: preis,
+						einzelpreis: preis // Setze auch einzelpreis auf VK für konsistente Anzeige
+					};
+				}
+
+				// NEU: Auto-Collapse wenn hohe Konfidenz (similarity > 0.9)
+				const topSimilarity = sortedAlternativen[0]?.similarity || 0;
+				const autoCollapse = topSimilarity > 0.9 && initialPosition !== null;
+
 				return {
 					...pos,
 					alternativen: sortedAlternativen,
-					selected_positions: pos.lv_position ? [pos.lv_position] : [],
+					lv_position: initialPosition,
+					selected_positions: initialPosition ? [initialPosition] : [],
 					filter_lv_typ: lvTyp, // Initialer Filter = gewählter LV-Typ
 					search_query: '',
 					search_results: [],
-					is_searching: false
+					is_searching: false,
+					alternatives_collapsed: autoCollapse
 				};
 			});
 
@@ -267,54 +286,57 @@
 	}
 
 	// NEU: Position zur Mehrfachauswahl hinzufügen (Checkbox)
+	// FIX: Svelte 5 Reaktivität - Array komplett neu zuweisen
 	function togglePositionSelection(index: number, position: LvPositionRef, checked: boolean) {
-		if (checked) {
-			// Hinzufügen wenn nicht bereits vorhanden
-			if (!parsedPositions[index].selected_positions.some(p => p.id === position.id)) {
-				parsedPositions[index].selected_positions = [
-					...parsedPositions[index].selected_positions,
-					position
-				];
+		console.log('[CPQ] togglePositionSelection:', index, position.bezeichnung, checked);
+		// Svelte 5: parsedPositions komplett neu zuweisen für Reaktivität
+		parsedPositions = parsedPositions.map((pos, i) => {
+			if (i !== index) return pos;
+			let newSelected = [...pos.selected_positions];
+			if (checked && !newSelected.some(p => p.id === position.id)) {
+				newSelected = [...newSelected, position];
+			} else if (!checked) {
+				newSelected = newSelected.filter(p => p.id !== position.id);
 			}
-		} else {
-			// Entfernen
-			parsedPositions[index].selected_positions =
-				parsedPositions[index].selected_positions.filter(p => p.id !== position.id);
-		}
-		// Aktualisiere auch lv_position auf die erste ausgewählte Position
-		parsedPositions[index].lv_position = parsedPositions[index].selected_positions[0] || null;
+			return { ...pos, selected_positions: newSelected, lv_position: newSelected[0] || null };
+		});
+		console.log('[CPQ] Nach toggle:', parsedPositions[index].selected_positions.length);
 	}
 
 	// NEU: Position aus einer Alternative hinzufügen
-	function addPositionFromAlternative(index: number, alt: { id: string; artikelnummer: string; bezeichnung: string; einzelpreis: number; lv_typ?: string }) {
+	// FIX: Svelte 5 Reaktivität + listenpreis als VK
+	function addPositionFromAlternative(index: number, alt: { id: string; artikelnummer: string; bezeichnung: string; einzelpreis: number; listenpreis?: number; lv_typ?: string }) {
+		console.log('[CPQ] addPositionFromAlternative:', index, alt.bezeichnung);
+		const preis = alt.listenpreis || alt.einzelpreis;
 		const position: LvPositionRef = {
 			id: alt.id,
 			artikelnummer: alt.artikelnummer,
 			bezeichnung: alt.bezeichnung,
-			einzelpreis: alt.einzelpreis,
-			listenpreis: alt.einzelpreis,
+			einzelpreis: preis,
+			listenpreis: preis,
 			is_fallback: false,
 			lv_typ: alt.lv_typ
 		};
-
-		if (!parsedPositions[index].selected_positions.some(p => p.id === position.id)) {
-			parsedPositions[index].selected_positions = [
-				...parsedPositions[index].selected_positions,
-				position
-			];
-			// Setze lv_position auf erste Position falls leer
-			if (!parsedPositions[index].lv_position) {
-				parsedPositions[index].lv_position = position;
-			}
-		}
+		// Svelte 5: parsedPositions komplett neu zuweisen
+		parsedPositions = parsedPositions.map((pos, i) => {
+			if (i !== index || pos.selected_positions.some(p => p.id === position.id)) return pos;
+			const newSelected = [...pos.selected_positions, position];
+			return { ...pos, selected_positions: newSelected, lv_position: pos.lv_position || position };
+		});
+		console.log('[CPQ] Nach add:', parsedPositions[index].selected_positions.length);
 	}
 
 	// NEU: Ausgewählte Position entfernen
+	// FIX: Svelte 5 Reaktivität
 	function removeSelectedPosition(index: number, positionId: string) {
-		parsedPositions[index].selected_positions =
-			parsedPositions[index].selected_positions.filter(p => p.id !== positionId);
-		// Aktualisiere lv_position
-		parsedPositions[index].lv_position = parsedPositions[index].selected_positions[0] || null;
+		console.log('[CPQ] removeSelectedPosition:', index, positionId);
+		// Svelte 5: parsedPositions komplett neu zuweisen
+		parsedPositions = parsedPositions.map((pos, i) => {
+			if (i !== index) return pos;
+			const newSelected = pos.selected_positions.filter(p => p.id !== positionId);
+			return { ...pos, selected_positions: newSelected, lv_position: newSelected[0] || null };
+		});
+		console.log('[CPQ] Nach remove:', parsedPositions[index].selected_positions.length);
 	}
 
 	// NEU: Freitextsuche ausführen
@@ -370,22 +392,28 @@
 	}
 
 	// Alternative auswählen (Step 3) - LEGACY, ersetzt durch Mehrfachauswahl
+	// FIX: Verwende listenpreis (VK) statt einzelpreis (EK)
 	async function selectAlternative(index: number, positionId: string) {
 		if (!positionId) return;
 
 		const alt = parsedPositions[index].alternativen.find(a => a.id === positionId);
 		const originalPosition = parsedPositions[index].lv_position;
 		if (alt) {
+			// FIX: listenpreis ist VK-Preis, einzelpreis ist EK
+			const preis = alt.listenpreis || alt.einzelpreis;
 			const newPosition: LvPositionRef = {
 				id: alt.id,
 				artikelnummer: alt.artikelnummer,
 				bezeichnung: alt.bezeichnung,
-				einzelpreis: alt.einzelpreis,
-				listenpreis: alt.einzelpreis,
+				einzelpreis: preis,
+				listenpreis: preis,
 				is_fallback: false
 			};
-			parsedPositions[index].lv_position = newPosition;
-			parsedPositions[index].selected_positions = [newPosition];
+			// Svelte 5: Komplette Neuzuweisung für Reaktivität
+			parsedPositions = parsedPositions.map((pos, i) => {
+				if (i !== index) return pos;
+				return { ...pos, lv_position: newPosition, selected_positions: [newPosition] };
+			});
 
 			// Korrektur speichern mit der ursprünglichen (falschen) Position
 			await saveCorrection(index, originalPosition?.id);
@@ -416,16 +444,29 @@
 
 	// Positionen zu Gruppen konvertieren (Step 3 -> 4)
 	// NEU: Unterstützt Mehrfachauswahl (selected_positions Array)
+	// FIX: Debug-Logging + explizite Snapshot-Erstellung für Svelte 5
 	function convertToGroups() {
-		const groups: Record<string, PositionGroupData> = {};
+		console.log('[CPQ] convertToGroups gestartet');
+		console.log('[CPQ] parsedPositions:', parsedPositions.length);
 
-		parsedPositions.forEach(pos => {
+		const groups: Record<string, PositionGroupData> = {};
+		let totalPositionsAdded = 0;
+
+		// Expliziter Snapshot der aktuellen Werte (Svelte 5 Reaktivität)
+		const currentPositions = [...parsedPositions];
+
+		currentPositions.forEach((pos, idx) => {
+			console.log(`[CPQ] Position ${idx}: selected=${pos.selected_positions.length}, lv_pos=${pos.lv_position?.bezeichnung || 'null'}`);
+
 			// NEU: Alle ausgewählten Positionen verwenden, nicht nur lv_position
 			const positionsToAdd = pos.selected_positions.length > 0
-				? pos.selected_positions
+				? [...pos.selected_positions]  // Kopie erstellen
 				: (pos.lv_position ? [pos.lv_position] : []);
 
-			if (positionsToAdd.length === 0) return;
+			if (positionsToAdd.length === 0) {
+				console.log(`[CPQ] Position ${idx}: Keine Positionen zum Hinzufügen`);
+				return;
+			}
 
 			const gewerkName = pos.gewerk || 'Sonstige';
 
@@ -439,18 +480,25 @@
 
 			// Für jede ausgewählte Position einen Eintrag erstellen
 			positionsToAdd.forEach(lvPos => {
+				const preis = lvPos.listenpreis || lvPos.einzelpreis || 0;
+				console.log(`[CPQ] Füge hinzu: ${lvPos.bezeichnung} @ ${preis} EUR`);
 				groups[gewerkName].positionen.push({
 					id: crypto.randomUUID(),
 					artikelnummer: lvPos.artikelnummer,
 					bezeichnung: lvPos.bezeichnung,
 					menge: pos.menge,
 					einheit: pos.einheit,
-					einzelpreis: lvPos.listenpreis || lvPos.einzelpreis
+					einzelpreis: preis
 				});
+				totalPositionsAdded++;
 			});
 		});
 
-		positionGroups = Object.values(groups);
+		const newGroups = Object.values(groups);
+		console.log(`[CPQ] convertToGroups fertig: ${newGroups.length} Gruppen, ${totalPositionsAdded} Positionen`);
+
+		// Explizite Zuweisung für Svelte 5 Reaktivität
+		positionGroups = newGroups;
 	}
 
 	// Abhängigkeiten laden (Step 5)
@@ -985,11 +1033,13 @@ Beispiel:
 												<button
 													class="remove-btn"
 													onclick={() => removeSelectedPosition(index, selPos.id)}
-													title="Entfernen"
+													title="Position entfernen"
 												>
-													<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-														<line x1="18" y1="6" x2="6" y2="18"/>
-														<line x1="6" y1="6" x2="18" y2="18"/>
+													<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<polyline points="3 6 5 6 21 6"/>
+														<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+														<line x1="10" y1="11" x2="10" y2="17"/>
+														<line x1="14" y1="11" x2="14" y2="17"/>
 													</svg>
 												</button>
 											</div>
@@ -1003,27 +1053,55 @@ Beispiel:
 								{/if}
 							</div>
 
-							<!-- LV-Typ Filter + Alternativen -->
-							<div class="alternatives-section">
-								<div class="filter-row">
-									<label for="lv-filter-{index}">LV-Typ filtern:</label>
-									<select
-										id="lv-filter-{index}"
-										value={pos.filter_lv_typ}
-										onchange={(e) => onFilterLvTypChange(index, (e.target as HTMLSelectElement).value)}
+							<!-- LV-Typ Filter + Alternativen (einklappbar) -->
+							<div class="alternatives-section" class:collapsed={pos.alternatives_collapsed}>
+								<button
+									class="collapse-toggle"
+									onclick={() => {
+										parsedPositions = parsedPositions.map((p, i) =>
+											i === index ? { ...p, alternatives_collapsed: !p.alternatives_collapsed } : p
+										);
+									}}
+									title={pos.alternatives_collapsed ? 'Vorschläge anzeigen' : 'Vorschläge ausblenden'}
+								>
+									<svg
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										class="chevron"
+										class:rotated={!pos.alternatives_collapsed}
 									>
-										{#each lvTypOptions as typ}
-											<option value={typ}>{typ}</option>
-										{/each}
-									</select>
-									{#if pos.is_searching}
-										<span class="loading-indicator">Lädt...</span>
+										<polyline points="9 18 15 12 9 6"/>
+									</svg>
+									<span>Vorschläge ({pos.alternativen?.length || 0})</span>
+									{#if pos.alternatives_collapsed && pos.alternativen?.[0]?.similarity}
+										<Badge variant="success" size="sm">{Math.round((pos.alternativen[0].similarity || 0) * 100)}% Match</Badge>
 									{/if}
-								</div>
+								</button>
 
-								{#if pos.alternativen && pos.alternativen.length > 0}
-									<div class="alternatives-list">
-										<label>Vorschläge ({pos.filter_lv_typ}):</label>
+								{#if !pos.alternatives_collapsed}
+									<div class="filter-row">
+										<label for="lv-filter-{index}">LV-Typ filtern:</label>
+										<select
+											id="lv-filter-{index}"
+											value={pos.filter_lv_typ}
+											onchange={(e) => onFilterLvTypChange(index, (e.target as HTMLSelectElement).value)}
+										>
+											{#each lvTypOptions as typ}
+												<option value={typ}>{typ}</option>
+											{/each}
+										</select>
+										{#if pos.is_searching}
+											<span class="loading-indicator">Lädt...</span>
+										{/if}
+									</div>
+
+									{#if pos.alternativen && pos.alternativen.length > 0}
+										<div class="alternatives-list">
+											<label>Vorschläge ({pos.filter_lv_typ}):</label>
 										{#each pos.alternativen as alt}
 											{@const isSelected = pos.selected_positions.some(p => p.id === alt.id)}
 											<div class="alternative-item" class:selected={isSelected}>
@@ -1063,8 +1141,9 @@ Beispiel:
 											</div>
 										{/each}
 									</div>
-								{:else if !pos.is_searching}
-									<p class="no-alternatives">Keine Vorschläge für {pos.filter_lv_typ}</p>
+									{:else if !pos.is_searching}
+										<p class="no-alternatives">Keine Vorschläge für {pos.filter_lv_typ}</p>
+									{/if}
 								{/if}
 							</div>
 
@@ -1874,6 +1953,37 @@ Beispiel:
 	.alternatives-section {
 		border: 1px solid var(--color-gray-200);
 		padding: 1rem;
+	}
+
+	.alternatives-section.collapsed {
+		padding: 0.5rem 1rem;
+	}
+
+	.collapse-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: 100%;
+		padding: 0.5rem 0;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--color-gray-700);
+		text-align: left;
+	}
+
+	.collapse-toggle:hover {
+		color: var(--color-brand-medium);
+	}
+
+	.collapse-toggle .chevron {
+		transition: transform 0.2s ease;
+	}
+
+	.collapse-toggle .chevron.rotated {
+		transform: rotate(90deg);
 	}
 
 	.filter-row {
