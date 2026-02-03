@@ -183,7 +183,7 @@
 			{#snippet renderItem(group, index)}
 				<PositionGroup
 					{group}
-					bind:expanded={expandedStates[group.id]}
+					expanded={expandedStates[group.id] ?? true}
 					{readonly}
 					onToggle={() => toggleGroup(group.id)}
 					onCopy={() => copyGroup(group.id)}

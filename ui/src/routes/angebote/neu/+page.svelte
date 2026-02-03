@@ -563,37 +563,47 @@
 			return parsed?.lv_position?.id;
 		}).filter(Boolean);
 
-		if (positionIds.length === 0) return;
+		if (positionIds.length === 0) {
+			console.log('[CPQ] Keine Position-IDs für Abhängigkeiten');
+			return;
+		}
 
 		try {
-			// Nutze die echten FK-Spalten (source_lv_position_id, target_lv_position_id)
-			// ausloeser_id und benoetigt_id sind generierte Alias-Spalten
+			// Vereinfachter Query ohne FK-Joins (die scheitern oft)
 			const { data, error } = await supabase
 				.from('position_dependencies')
-				.select(`
-					id,
-					source_lv_position_id,
-					ausloeser:lv_positionen!source_lv_position_id_fkey(bezeichnung),
-					target_lv_position_id,
-					benoetigt:lv_positionen!target_lv_position_id_fkey(bezeichnung, listenpreis),
-					grund,
-					optional
-				`)
+				.select('*')
 				.in('source_lv_position_id', positionIds);
 
 			if (error) throw error;
 
-			dependencies = (data || []).map(d => ({
-				id: d.id,
-				ausloeser_id: d.source_lv_position_id,
-				ausloeser_name: (d.ausloeser as any)?.bezeichnung || 'Unbekannt',
-				position_id: d.target_lv_position_id,
-				position_name: (d.benoetigt as any)?.bezeichnung || 'Unbekannt',
-				preis: (d.benoetigt as any)?.listenpreis || 0,
-				grund: d.grund,
-				optional: d.optional ?? false,
-				accepted: !(d.optional ?? false) // Pflicht-Abhängigkeiten standardmäßig akzeptiert
-			}));
+			console.log('[CPQ] Abhängigkeiten geladen:', data?.length || 0);
+
+			// Wenn Abhängigkeiten gefunden, lade die Positions-Namen separat
+			if (data && data.length > 0) {
+				const targetIds = data.map(d => d.target_lv_position_id).filter(Boolean);
+				const sourceIds = data.map(d => d.source_lv_position_id).filter(Boolean);
+				const allIds = [...new Set([...targetIds, ...sourceIds])];
+
+				const { data: lvData } = await supabase
+					.from('lv_positionen')
+					.select('id, bezeichnung, listenpreis')
+					.in('id', allIds);
+
+				const lvMap = new Map((lvData || []).map(lv => [lv.id, lv]));
+
+					dependencies = data.map(d => ({
+					id: d.id,
+					ausloeser_id: d.source_lv_position_id,
+					ausloeser_name: lvMap.get(d.source_lv_position_id)?.bezeichnung || 'Unbekannt',
+					position_id: d.target_lv_position_id,
+					position_name: lvMap.get(d.target_lv_position_id)?.bezeichnung || 'Unbekannt',
+					preis: lvMap.get(d.target_lv_position_id)?.listenpreis || 0,
+					grund: d.grund,
+					optional: d.optional ?? false,
+					accepted: !(d.optional ?? false)
+				}));
+			}
 		} catch (err) {
 			console.error('Abhängigkeiten laden fehlgeschlagen:', err);
 		}
@@ -609,24 +619,37 @@
 	}
 
 	// Pricing Profiles laden
+	// FIX: Spalte heißt markup_percent, nicht aufschlag_prozent
 	async function loadPricingProfiles() {
 		try {
 			const { data, error } = await supabase
 				.from('pricing_profiles')
-				.select('id, name, aufschlag_prozent')
-				.eq('aktiv', true)
+				.select('id, name, markup_percent, is_default')
 				.order('name');
+
+			console.log('[CPQ] Pricing Profiles geladen:', data);
 
 			if (error) throw error;
 
-			pricingProfiles = (data || []).map(p => ({
+			if (!data || data.length === 0) {
+				console.warn('[CPQ] Keine Pricing Profiles gefunden!');
+				return;
+			}
+
+			pricingProfiles = data.map(p => ({
 				id: p.id,
 				name: p.name,
-				aufschlag: p.aufschlag_prozent
+				aufschlag: p.markup_percent || 0
 			}));
 
-			if (pricingProfiles.length > 0) {
+			// Default-Profil vorauswählen, sonst erstes
+			const defaultProfile = data.find(d => d.is_default);
+			if (defaultProfile) {
+				selectedProfileId = defaultProfile.id;
+				console.log('[CPQ] Default-Profil ausgewählt:', defaultProfile.name);
+			} else {
 				selectedProfileId = pricingProfiles[0].id;
+				console.log('[CPQ] Erstes Profil ausgewählt:', pricingProfiles[0].name);
 			}
 		} catch (err) {
 			console.error('Pricing Profiles laden fehlgeschlagen:', err);
@@ -767,7 +790,27 @@
 	// Navigation
 	function nextStep() {
 		if (currentStep === 3) {
+			// Debug: Zeige Status vor Konvertierung
+			console.log('[CPQ] nextStep: Step 3 → 4');
+			console.log('[CPQ] parsedPositions vor convertToGroups:', parsedPositions.length);
+			parsedPositions.forEach((pos, i) => {
+				console.log(`[CPQ]   Position ${i}: selected_positions=${pos.selected_positions.length}, lv_position=${pos.lv_position?.bezeichnung || 'NULL'}`);
+			});
+
 			convertToGroups();
+
+			// Debug: Zeige Status nach Konvertierung
+			console.log('[CPQ] positionGroups nach convertToGroups:', positionGroups.length);
+			positionGroups.forEach((g, i) => {
+				console.log(`[CPQ]   Gruppe ${i}: ${g.name} mit ${g.positionen.length} Positionen`);
+			});
+
+			// FIX: Wenn keine Gruppen erstellt wurden, zeige Warnung
+			if (positionGroups.length === 0) {
+				console.error('[CPQ] FEHLER: Keine Gruppen erstellt! Prüfe selected_positions.');
+				alert('Keine Positionen ausgewählt. Bitte wählen Sie mindestens eine Position aus den Vorschlägen aus.');
+				return; // Nicht weiter navigieren
+			}
 		}
 		if (currentStep === 4) {
 			loadDependencies();

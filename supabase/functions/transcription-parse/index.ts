@@ -1,9 +1,19 @@
 /**
  * transcription-parse - Transkriptions-Parser mit Hybrid-Prompt und Lern-System
- * v6 - Wohnungsgröße-Kontext für VBW-Staffelpreise
+ * v8 - FIX: Staffel-Priorisierung wenn ERGEBNISSE Staffel haben
  *
  * Parst Baubesprechungs-Transkripte und ordnet Leistungen LV-Positionen zu.
  * Nutzt GPT-5.2 für Textanalyse und Embedding-basierte LV-Suche.
+ *
+ * Neu in v8:
+ * - FIX: Staffel wird priorisiert wenn ERGEBNISSE Staffel enthalten (nicht Input!)
+ *   Beispiel: "Endreinigung" → Ergebnisse "Endreinigung 45-75 m²" werden korrekt gewählt
+ * - Vorher: Staffel nur wenn Input "m²" enthielt → "Endreinigung" bekam zufällige Staffel
+ *
+ * Fixes aus v7:
+ * - FIX Bug 1: Wähle IMMER die Position mit höchster Similarity als lv_position
+ * - FIX Bug 2: Staffel-Priorisierung NUR für Positionen mit m²-Bezug
+ * - Neue Hilfsfunktion: hatArtikelStaffelBezug() prüft ob Position staffel-relevant
  *
  * Neu in v6:
  * - Wohnungsgröße aus Text extrahieren (GPT)
@@ -435,35 +445,71 @@ Deno.serve(async (req: Request) => {
     // Schwellenwert für "guten Match" aus priorisiertem LV
     const PRIORITY_LV_THRESHOLD = 0.65;
 
-    // Hilfsfunktion: Bei VBW Staffelpositionen die richtige Größe priorisieren
-    function priorisierteStaffelPosition(results: LvMatch[], wohnungsgroesseM2: number | undefined): LvMatch[] {
-      if (!wohnungsgroesseM2 || lv_typ !== 'VBW' || !results || results.length === 0) {
+    // Hilfsfunktion: Prüft ob ein Artikelname selbst staffel-relevant ist
+    // (enthält Größenbereiche wie "45-75 m²", "bis 45 m²", etc.)
+    function hatArtikelStaffelBezug(bezeichnung: string | undefined): boolean {
+      if (!bezeichnung) return false;
+
+      // Patterns für Staffel-Bereiche im Artikelnamen
+      const staffelPatterns = [
+        /\d+[\s–-]+\d*\s*m[²2]/i,           // "45-75 m²", "45–75 m²"
+        /bis\s*\d+\s*m[²2]/i,                // "bis 45 m²"
+        /über\s*\d+\s*m[²2]/i,               // "über 110 m²"
+        /von\s*\d+[\s–-]*\d*\s*m[²2]/i,      // "von 45-75 m²"
+        /\d+\s*m[²2]/i                        // "45 m²" allgemein
+      ];
+
+      return staffelPatterns.some(pattern => pattern.test(bezeichnung));
+    }
+
+    // Hilfsfunktion: Sortiert LV-Ergebnisse nach korrekter Logik
+    // v8 FIX: Staffel-Priorisierung wenn ERGEBNISSE Staffel haben (nicht Input!)
+    // Beispiel: "Endreinigung" (kein m²) → aber Ergebnisse sind "Endreinigung 45-75 m²"
+    function sortiereUndWaehleBestePosition(
+      results: LvMatch[],
+      wohnungsgroesseM2: number | undefined,
+      inputBeschreibung: string
+    ): LvMatch[] {
+      if (!results || results.length === 0) {
         return results;
       }
 
+      // v8 FIX: Prüfe ob ERGEBNISSE Staffel haben (nicht mehr ob Input Staffel hat!)
+      const ergebnisseMitStaffel = results.filter(r => hatArtikelStaffelBezug(r.bezeichnung));
+
+      // Keine Wohnungsgröße bekannt ODER keine Ergebnisse mit Staffel → Pure Similarity
+      if (!wohnungsgroesseM2 || ergebnisseMitStaffel.length === 0) {
+        console.log(`[transcription-parse] Pure Similarity für: "${inputBeschreibung.substring(0, 40)}..." (${!wohnungsgroesseM2 ? 'keine Wohnungsgröße' : 'keine Staffel-Ergebnisse'})`);
+        return [...results].sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
+      }
+
+      // Wohnungsgröße bekannt UND Ergebnisse mit Staffel → Staffel-Priorisierung
       const staffel = getWohnungsgroesseStaffel(wohnungsgroesseM2);
-      console.log(`[transcription-parse] Priorisiere Staffel: ${staffel.bezeichnung}`);
+      console.log(`[transcription-parse] Staffel-Priorisierung für: "${inputBeschreibung.substring(0, 40)}..." → ${staffel.bezeichnung} (${wohnungsgroesseM2} m²)`);
 
-      // Prüfe ob es Staffelpositionen gibt (bezeichnung enthält "m²" oder "m2")
-      const hatStaffelPositionen = results.some(r =>
-        r.bezeichnung?.includes('m²') || r.bezeichnung?.includes('m2')
-      );
-
-      if (!hatStaffelPositionen) {
-        return results;
-      }
-
-      // Sortiere: Passende Staffel zuerst, dann nach Similarity
+      // Sortiere: Passende Staffel zuerst, aber INNERHALB nach Similarity
       return [...results].sort((a, b) => {
-        const aMatchesStaffel = staffel.pattern.test(a.bezeichnung || '');
-        const bMatchesStaffel = staffel.pattern.test(b.bezeichnung || '');
+        const aHatStaffel = hatArtikelStaffelBezug(a.bezeichnung);
+        const bHatStaffel = hatArtikelStaffelBezug(b.bezeichnung);
+        const aMatchesStaffel = aHatStaffel && staffel.pattern.test(a.bezeichnung || '');
+        const bMatchesStaffel = bHatStaffel && staffel.pattern.test(b.bezeichnung || '');
 
+        // Erst: Passende Staffel bevorzugen
         if (aMatchesStaffel && !bMatchesStaffel) return -1;
         if (!aMatchesStaffel && bMatchesStaffel) return 1;
 
-        // Bei gleicher Staffel: Nach Similarity sortieren
+        // WICHTIG: Bei gleicher Staffel-Relevanz → Similarity entscheidet
         return (b.similarity || 0) - (a.similarity || 0);
       });
+    }
+
+    // Hilfsfunktion: Wähle IMMER die Position mit höchster Similarity als Haupt-Match
+    // FIX für Bug 1: Alternativen können bessere Matches enthalten
+    function waehleBestePositionNachSimilarity(results: LvMatch[]): LvMatch[] {
+      if (!results || results.length === 0) return results;
+
+      // Sortiere nach Similarity DESC (höchste zuerst)
+      return [...results].sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
     }
 
     for (const pos of extractedPositions) {
@@ -584,19 +630,23 @@ Deno.serve(async (req: Request) => {
         if (prioritize_lv_typ) {
           const { data: priorityResults } = await supabase.rpc('search_lv_positions', {
             query_embedding: embedding,
-            match_count: include_alternatives ? 10 : 3, // Mehr holen für Staffel-Filterung
+            match_count: include_alternatives ? 10 : 3, // Mehr holen für Filterung
             filter_lv_typ: prioritize_lv_typ,
             filter_gewerk: null
           });
 
-          // Bei VBW: Staffelpositionen priorisieren basierend auf Wohnungsgröße
-          const prioResults = priorisierteStaffelPosition(priorityResults || [], kontext.wohnungsgroesse_m2);
+          // FIX v7: Korrekte Sortierung basierend auf Staffel-Relevanz des Inputs
+          const sortedResults = sortiereUndWaehleBestePosition(
+            priorityResults || [],
+            kontext.wohnungsgroesse_m2,
+            pos.beschreibung
+          );
 
           // Guter Match gefunden? (similarity > 0.65)
-          if (prioResults && prioResults.length > 0 && prioResults[0].similarity >= PRIORITY_LV_THRESHOLD) {
-            console.log(`[transcription-parse] Priorisierter LV-Match (${prioritize_lv_typ}): ${prioResults[0].bezeichnung?.substring(0, 40)}... (sim=${prioResults[0].similarity.toFixed(3)})`);
+          if (sortedResults && sortedResults.length > 0 && sortedResults[0].similarity >= PRIORITY_LV_THRESHOLD) {
+            console.log(`[transcription-parse] Priorisierter LV-Match (${prioritize_lv_typ}): ${sortedResults[0].bezeichnung?.substring(0, 40)}... (sim=${sortedResults[0].similarity.toFixed(3)})`);
             // Limitiere auf gewünschte Anzahl
-            const limitedResults = prioResults.slice(0, include_alternatives ? 5 : 1);
+            const limitedResults = sortedResults.slice(0, include_alternatives ? 5 : 1);
             lvResults = limitedResults.map((r: LvMatch) => ({
               ...r,
               from_priority_lv: true,
@@ -610,16 +660,20 @@ Deno.serve(async (req: Request) => {
         if (!lvResults && lv_typ !== prioritize_lv_typ) {
           const { data: requestedResults } = await supabase.rpc('search_lv_positions', {
             query_embedding: embedding,
-            match_count: include_alternatives ? 10 : 3, // Mehr holen für Staffel-Filterung
+            match_count: include_alternatives ? 10 : 3, // Mehr holen für Filterung
             filter_lv_typ: lv_typ,
             filter_gewerk: null
           });
 
-          // Bei VBW: Staffelpositionen priorisieren
-          const prioResults = priorisierteStaffelPosition(requestedResults || [], kontext.wohnungsgroesse_m2);
+          // FIX v7: Korrekte Sortierung basierend auf Staffel-Relevanz des Inputs
+          const sortedResults = sortiereUndWaehleBestePosition(
+            requestedResults || [],
+            kontext.wohnungsgroesse_m2,
+            pos.beschreibung
+          );
 
-          if (prioResults && prioResults.length > 0 && prioResults[0].similarity >= 0.7) {
-            const limitedResults = prioResults.slice(0, include_alternatives ? 5 : 1);
+          if (sortedResults && sortedResults.length > 0 && sortedResults[0].similarity >= 0.7) {
+            const limitedResults = sortedResults.slice(0, include_alternatives ? 5 : 1);
             lvResults = limitedResults.map((r: LvMatch) => ({
               ...r,
               from_priority_lv: false,
@@ -634,16 +688,20 @@ Deno.serve(async (req: Request) => {
 
           const { data: fallbackResults } = await supabase.rpc('search_lv_positions', {
             query_embedding: embedding,
-            match_count: include_alternatives ? 10 : 3, // Mehr holen für Staffel-Filterung
-            filter_lv_typ: lv_typ, // Nur im aktuellen LV suchen (FIX: war vorher null)
+            match_count: include_alternatives ? 10 : 3, // Mehr holen für Filterung
+            filter_lv_typ: lv_typ, // Nur im aktuellen LV suchen (FIX v6: war vorher null)
             filter_gewerk: null
           });
 
-          // Bei VBW: Staffelpositionen priorisieren
-          const prioResults = priorisierteStaffelPosition(fallbackResults || [], kontext.wohnungsgroesse_m2);
+          // FIX v7: Korrekte Sortierung basierend auf Staffel-Relevanz des Inputs
+          const sortedResults = sortiereUndWaehleBestePosition(
+            fallbackResults || [],
+            kontext.wohnungsgroesse_m2,
+            pos.beschreibung
+          );
 
-          if (prioResults && prioResults.length > 0) {
-            const limitedResults = prioResults.slice(0, include_alternatives ? 5 : 1);
+          if (sortedResults && sortedResults.length > 0) {
+            const limitedResults = sortedResults.slice(0, include_alternatives ? 5 : 1);
             // Prüfen ob Fallback-Ergebnis aus priorisiertem LV stammt
             lvResults = limitedResults.map((r: LvMatch) => ({
               ...r,
@@ -655,7 +713,13 @@ Deno.serve(async (req: Request) => {
         }
 
         if (lvResults && lvResults.length > 0) {
-          const best = lvResults[0];
+          // FIX v7 Bug 1: IMMER die Position mit höchster Similarity als Haupt-Match wählen
+          // Nicht blind die erste Position nehmen, sondern nach Similarity sortieren
+          const finalSortedResults = waehleBestePositionNachSimilarity(lvResults);
+          const best = finalSortedResults[0];
+
+          console.log(`[transcription-parse] Finale Auswahl: "${best.bezeichnung?.substring(0, 40)}..." (sim=${best.similarity?.toFixed(3)})`);
+
           parsedPos.lv_position = {
             id: best.id,
             artikelnummer: best.artikelnummer,
@@ -673,9 +737,9 @@ Deno.serve(async (req: Request) => {
             fromPriorityLv++;
           }
 
-          // Alternativen hinzufügen (wenn gewünscht)
-          if (include_alternatives && lvResults.length > 1) {
-            parsedPos.alternativen = lvResults.slice(1).map((r: LvMatch) => ({
+          // Alternativen hinzufügen (wenn gewünscht) - ebenfalls nach Similarity sortiert
+          if (include_alternatives && finalSortedResults.length > 1) {
+            parsedPos.alternativen = finalSortedResults.slice(1).map((r: LvMatch) => ({
               id: r.id,
               artikelnummer: r.artikelnummer,
               bezeichnung: r.bezeichnung,
