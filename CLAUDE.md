@@ -13,7 +13,7 @@
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
-**Letzte Aktualisierung:** 2026-02-01
+**Letzte Aktualisierung:** 2026-02-05
 **Projekt:** neurealis ERP - Wohnungssanierung
 **Portal:** https://neurealis.softr.app
 
@@ -60,6 +60,7 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Hero Document Sync** | **Fertig** | v1.0: Cron alle 15 Min, 639 Dokumente, Dokumenttyp-Logik |
 | **Hero LV Sync** | **Fertig** | v7: Kategorie, EK+Listenpreis, 2.028 Positionen |
 | **Bestellsystem** | **In Entwicklung** | SvelteKit UI, mehrsprachige KI-Eingabe |
+| **Rechnungserinnerung** | **Fertig** | Abschlag (Cron 7d) + Schlussrechnung (Trigger) |
 | Telegram Bot | Konfiguriert | Separater Bot (nicht @LifeOps2026Bot) |
 
 ---
@@ -76,6 +77,29 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 | **Hero Software** | GWS Preissync | Leistungsverzeichnis |
 | **Netlify** | neurealis-* Sites | UI Hosting |
 | **Telegram Bot** | Separater Bot | Baustellen-Kommunikation |
+
+### Marketing & Analytics
+
+| Service | ID | Details |
+|---------|-----|---------|
+| **Google Marketing Platform** | `WYNbqcgpQW-4aKG6Ev4R5w` | Organisation: neurealis GmbH |
+| **Google Ads** | `701-532-3684` | neurealis GmbH (aktiv) |
+| **Google Ads MCC** | `192-718-7833` | Verwaltungskonto (wird eingerichtet) |
+| **Google Tag Manager** | `GTM-MPNTT5L6` | Account: 6274929090, Container: 209549337 |
+| **Meta Business** | `107280884964000` | ⏳ Verifizierung ausstehend |
+| **GA4 Konto** | `256407471` | neurealis Marketing |
+| **GA4 Property** | `352559138` | neurealis Marketing (aktiv) |
+| **GA4 Property (alt)** | `312966090` | neurealis.de (inaktiv) |
+
+**Marketing-Account:** marketing@neurealis.de (GTM Veröffentlichen, GA4 Admin)
+**Marketing-Agentur:** Optimerch (optimerch.connect.100@gmail.com) - Lesezugriff
+
+**Links:**
+- Meta Security Center: https://business.facebook.com/latest/settings/security_center/?business_id=107280884964000
+- Google Analytics: https://analytics.google.com/analytics/web/#/a256407471p352559138
+- Google Tag Manager: https://tagmanager.google.com/#/container/accounts/256407471/containers/GTM-MPNTT5L6
+- Google Ads: https://ads.google.com/aw/overview?ocid=701-532-3684
+- Google Marketing Platform: https://marketingplatform.google.com/
 
 ### Team-Kontakte (WICHTIG)
 
@@ -241,6 +265,7 @@ node -e "const puppeteer = require('puppeteer'); ..."
 | `docs/NEUREALIS_MAENGELMANAGEMENT.md` | Mängel-System |
 | `docs/NEUREALIS_TRANSAKTIONEN_DOKUMENTE.md` | Zahlungsabgleich |
 | `docs/NEUREALIS_HERO_SYNC.md` | **Hero → Softr Document Sync** |
+| `docs/NEUREALIS_INVOICE_REMINDER.md` | **Rechnungserinnerungen** |
 
 ---
 

@@ -221,8 +221,16 @@
 				.contains('kontaktarten', ['mitarbeiter']);
 
 			if (mitarbeiterData && mitarbeiterData.length > 0) {
+				// Kontakte ohne echten Namen filtern (z.B. leere Vornamen mit "neurealis" als Nachname)
+				const mitNamen = mitarbeiterData.filter(m => {
+					const vorname = (m.vorname || '').trim();
+					const nachname = (m.nachname || '').trim().toLowerCase();
+					// Muss einen Vornamen haben ODER Nachname darf nicht nur "neurealis" sein
+					return vorname.length > 0 || (nachname.length > 0 && nachname !== 'neurealis');
+				});
+
 				// Sortieren: Handwerker > Bauleiter > Rest
-				const sortiert = [...mitarbeiterData].sort((a, b) => {
+				const sortiert = [...mitNamen].sort((a, b) => {
 					const getPrio = (k: typeof a) => {
 						const arten = k.kontaktarten || [];
 						if (arten.includes('handwerker')) return 1;
@@ -236,11 +244,13 @@
 				});
 
 				ansprechpartner = sortiert;
-				const currentUserMatch = sortiert.find(m => m.email === currentUser);
-				if (currentUserMatch) {
-					selectedAnsprechpartner = currentUserMatch.id;
-				} else {
-					selectedAnsprechpartner = sortiert[0].id;
+				if (sortiert.length > 0) {
+					const currentUserMatch = sortiert.find(m => m.email === currentUser);
+					if (currentUserMatch) {
+						selectedAnsprechpartner = currentUserMatch.id;
+					} else {
+						selectedAnsprechpartner = sortiert[0].id;
+					}
 				}
 			}
 		} catch (err) {
@@ -692,8 +702,8 @@
 			const { data: bestellung, error: bestellError } = await supabase
 				.from('bestellungen')
 				.insert({
-					grosshaendler_id: selectedHaendler,
-					atbs_nummer: selectedProjekt,
+					grosshaendler_id: selectedHaendler || null,
+					atbs_nummer: selectedProjekt || null,
 					projekt_name: selectedProjektDetails?.project_name || '',
 					bestellt_von_email: currentUser,
 					bestellt_von_name: currentUser?.split('@')[0] || 'Unbekannt',

@@ -1,6 +1,6 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-02-04
+**Stand:** 2026-02-06
 
 ---
 
@@ -35,6 +35,48 @@
 **Datum:** 2026-02-04
 **Kategorie:** Supabase/DB
 **Ref:** LOG-098
+
+### L215 - Hero-Push Trigger nur INSERT, nicht UPDATE
+**Datum:** 2026-02-06
+**Kategorie:** Supabase/Trigger
+**Ref:** LOG-099
+**Problem:** `trg_lv_hero_push` feuert nur bei INSERT, nicht bei UPDATE → Preisänderungen werden nie nach Hero gepusht
+**Lösung:** Preisänderungen müssen manuell via Script nach Hero gepusht werden (`scripts/hero_price_sync.js`)
+
+### L216 - Nur 99/2036 GWS-Positionen haben hero_product_id
+**Datum:** 2026-02-06
+**Kategorie:** Hero/Supabase
+**Ref:** LOG-099
+**Problem:** 95% der GWS-Positionen in Supabase haben keine `hero_product_id` → kein automatischer Hero-Sync möglich
+**Lösung:** Bei Neuanlage immer `hero_product_id` setzen; bestehende Positionen schrittweise verknüpfen
+
+### L217 - 427 EPA-Positionen INAKTIV in Supabase
+**Datum:** 2026-02-06
+**Kategorie:** LV/Import
+**Ref:** LOG-099
+**Problem:** 427 EPA-Positionen existieren in Supabase, sind aber als INAKTIV markiert (nicht fehlend)
+**Lösung:** Reaktivierung prüfen, 4 komplett fehlende Positionen neu anlegen
+
+### L218 - EK-Preise sind NICHT pauschal 65% vom VK
+**Datum:** 2026-02-06
+**Kategorie:** LV/Preise
+**Ref:** LOG-099
+**Problem:** Annahme "EK = 65% vom VK" ist falsch - reale Einkaufskonditionen variieren je Gewerk
+**Beispiel:** Fliesen-EK weicht deutlich ab, HLS-Zulagen haben andere Margen
+
+### L219 - Hero ZWEI is_deleted Flags (Version+base_data)
+**Datum:** 2026-02-06
+**Kategorie:** Hero/API
+**Ref:** LOG-099
+**Problem:** Hero hat zwei `is_deleted` Flags - eines auf Version-Level, eines auf `base_data`-Level. Beide müssen `true` sein, damit Position aus UI verschwindet.
+**Merkregel:** Immer beide Flags setzen bei Soft-Delete
+
+### L220 - Hero API nur Soft-Delete, keine harte Löschung
+**Datum:** 2026-02-06
+**Kategorie:** Hero/API
+**Ref:** LOG-099
+**Problem:** Hero GraphQL API bietet keine `delete`-Mutation, nur `update` mit `is_deleted: true`
+**Lösung:** Soft-Delete über `updateProduct` Mutation mit beiden `is_deleted` Flags
 
 ---
 
@@ -3442,6 +3484,14 @@ T5: E2E-Test (Chrome MCP) - optional
 - Vollständiges Bild vor Fix-Implementation
 **Ergebnis:** 6 Probleme in einer Session identifiziert und gefixt
 
+### L219 - Flächenberechnung Excel für HERO - S-Form Räume
+**Datum:** 2026-02-06
+**Kategorie:** Excel/HERO
+**Ref:** LOG-099
+- Excel-Vorlage: 3 Raumtypen (Rechteck C*D, L-Form C*D+E*F-2*G, S-Form 3 Rechtecke C*D+E*F+H*I mit Umfang-Korrektur -2*GW1-2*GW2)
+- Spalten H/I/J für 3. Rechteck+GW2. Summe ohne Bad für Fliesen. Q2-Anteil mit Faktor L15
+- Template: OneDrive\00 Vorlage\neurealis - Flächenberechnung für HERO v1.3.xlsx
+
 ---
 
-*Aktualisiert: 2026-02-03*
+*Aktualisiert: 2026-02-06*

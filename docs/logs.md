@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-04
+**Stand:** 2026-02-06
 
 ---
 
@@ -111,6 +111,58 @@
 | LOG-096 | 2026-02-04 | CPQ-Wizard v2: DB-Schema, PDF-Export, Angebotsnummern | Abgeschlossen |
 | LOG-097 | 2026-02-04 | CPQ-Wizard v3: Professionelles PDF + Anhänge | Abgeschlossen |
 | LOG-098 | 2026-02-04 | Angebot-Detail-Route + Dokumente-Speicherung | Abgeschlossen |
+| LOG-099 | 2026-02-06 | EPA-Preisimport Aug 25 - Hero Sync Fix + ALT/DUPLIKAT Bereinigung | Abgeschlossen |
+
+---
+
+## LOG-099 - EPA-Preisimport Aug 25 - Hero Sync Fix + ALT/DUPLIKAT Bereinigung
+**Datum:** 2026-02-06
+
+### Durchgeführte Arbeiten
+
+**1. Diagnose (3 parallele Agenten):**
+- Hero-Push Trigger (`trg_lv_hero_push`) feuert nur bei INSERT, nicht bei UPDATE → Preisänderungen wurden nie nach Hero gepusht
+- Nur 99 von 2.036 aktiven GWS-Positionen haben `hero_product_id`
+- 427 EPA-Positionen als INAKTIV in Supabase (nicht fehlend, nur deaktiviert)
+- Hero API hat vollen Lese+Schreibzugriff (Mutations getestet)
+
+**2. Backup:**
+- `docs/backups/2026-02-06_lv_positionen_gws_preise_backup.json` (223 Positionen)
+- `docs/backups/2026-02-06_hero_alt_duplikat_backup.json` (ALT/DUPLIKAT Backup)
+
+**3. Supabase-Update:**
+- 103 Positionen geprüft, nur 3 Preisänderungen nötig (HLS Kompaktheizkörper-Zulagen +4,57%)
+
+**4. Hero-Push:**
+- 47 von 99 Positionen in Hero aktualisiert (Schwerpunkt Gewerk 06 Fliesen - EK-Preise korrigiert)
+
+**5. Vollständige Verifikation:**
+- 99/99 Positionen geprüft → 100% Sync zwischen Supabase und Hero bestätigt
+- VK-Preise stimmen zu 100% mit EPA-Sollwerten überein
+- EK-Preise basieren auf realen Einkaufskonditionen, nicht pauschal 65%
+
+**6. ALT/DUPLIKAT Bereinigung:**
+- 626 Positionen (436 ALT + 190 DUPLIKAT) aus Hero entfernt via Soft-Delete
+- Hero hat ZWEI `is_deleted` Flags: Version-Level + `base_data`-Level → beide müssen `true` sein
+- Hero Bestand: 3.176 → 2.550 Positionen
+- Scripts: `scripts/hero_base_data_delete.js`, `scripts/hero_batch_query.py`
+- User bestätigt: alle ALT/DUPLIKAT aus Hero UI verschwunden
+
+**7. Fehlende Positionen identifiziert:**
+- 427 EPA-Positionen sind INAKTIV in Supabase (nicht fehlend, nur deaktiviert)
+- 4 Positionen komplett fehlend (06.01.13, 07.01.17, 09.03.4, 21.01.04.10.1)
+- ~50 Positionen ohne `hero_product_id`
+- 33 Ergänzungen (01.99.05) ohne Hero+Softr Verknüpfung
+
+**Scripts:**
+- `scripts/hero_price_sync.js` (Preissync, wiederverwendbar)
+- `scripts/hero_base_data_delete.js` (Soft-Delete ALT/DUPLIKAT)
+- `scripts/hero_batch_query.py` (Batch-Abfragen)
+- `scripts/hero_full_verify.py` (Vollverifikation 99/99)
+- `scripts/verify_hero_prices.py` (Stichproben-Prüfung)
+
+### Neue Learnings
+L215-L220
 
 ---
 

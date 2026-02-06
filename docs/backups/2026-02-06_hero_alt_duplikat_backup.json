@@ -1,0 +1,6247 @@
+{
+  "backup_date": "2026-02-06T09:46:12.938Z",
+  "total_product_versions": 3176,
+  "alt_duplikat_count": 623,
+  "positions": [
+    {
+      "product_id": "GRT7qxmfoAA",
+      "nr": "DUPLIKAT-231371008-GRT7",
+      "base_price": 45.2,
+      "list_price": 158.6,
+      "base_data": {
+        "name": "[DUPLIKAT] 231371008",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvnXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.6-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvWXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.1-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRcWXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-12.06.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-12.06.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GRUAi2g-wAA",
+      "nr": "DUPLIKAT-231370006-GRUA",
+      "base_price": 59.99,
+      "list_price": 161.7,
+      "base_data": {
+        "name": "[DUPLIKAT] 231370006",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvhXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.4-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQveXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRZxXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-12.01.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-12.01.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQvaXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwTXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.21-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.21",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQwDXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.16-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQv0XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.11-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.11",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQv7XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.13-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQv4XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.12-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwBXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.15-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvsXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.8-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvyXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.10-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvqXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.7-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQv-XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.14-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvvXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.9-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3PXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.2",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3SXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwGXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.17-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.17",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3VXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.4-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwQXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.20-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.20",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3cXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.6-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwLXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.19-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.19",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3KXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.1-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3YXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.5-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQwXXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.03.22-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.03.22",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRTCXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.16-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.16",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTaXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.1-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSRXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3fXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.7-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRStXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.12-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.12",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSjXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.8-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.8",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSXXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.4-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.4",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ3hXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-08.06.8-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-08.06.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRTMXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.18-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.18",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTVXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.20-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.20",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRS7XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.15-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.15",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTfXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSwXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.13-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.13",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRS1XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.14-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.14",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTGXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.17-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.17",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTRXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.19-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.19",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSlXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.9-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.9",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSoXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.10-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.10",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSqXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.11-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.11",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSgXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.01.7-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.01.7",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GHWm1clFIAA",
+      "nr": "DUPLIKAT-91016431-GHWm",
+      "base_price": 9.9,
+      "list_price": 9.9,
+      "base_data": {
+        "name": "[DUPLIKAT] 91016431",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRUCXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.05.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.05.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LLl7XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0020-Ge7L",
+      "base_price": 22.8475,
+      "list_price": 35.15,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0020",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRT-XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.05.1-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.05.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LRTwXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.6-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTsXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.5-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRTjXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRT3XgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.03.2-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.03.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRTmXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-10.02.4-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-10.02.4",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LOoMXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0270-Ge7L",
+      "base_price": 8.45,
+      "list_price": 13,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0270",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLnBXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0060-Ge7L",
+      "base_price": 37.6675,
+      "list_price": 57.95,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0060",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLmvXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0050-Ge7L",
+      "base_price": 31.4925,
+      "list_price": 48.45,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0050",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLnoXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0080-Ge7L",
+      "base_price": 20.3775,
+      "list_price": 31.35,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0080",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLonXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0110-Ge7L",
+      "base_price": 19.76,
+      "list_price": 30.4,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0110",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLo5XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0120-Ge7L",
+      "base_price": 19.76,
+      "list_price": 30.4,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0120",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLmMXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0030-Ge7L",
+      "base_price": 26.5525,
+      "list_price": 40.85,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0030",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLnVXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0070-Ge7L",
+      "base_price": 0.6825,
+      "list_price": 1.05,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0070",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LLmfXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0040-Ge7L",
+      "base_price": 29.64,
+      "list_price": 45.6,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0040",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLoNXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0100-Ge7L",
+      "base_price": 17.9075,
+      "list_price": 27.55,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0100",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLpLXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0130-Ge7L",
+      "base_price": 17.9075,
+      "list_price": 27.55,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0130",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLpwXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0150-Ge7L",
+      "base_price": 30.2575,
+      "list_price": 46.55,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0150",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLq8XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0190-Ge7L",
+      "base_price": 14.2025,
+      "list_price": 21.85,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0190",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLsTXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0230-Ge7L",
+      "base_price": 1.9175,
+      "list_price": 2.95,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0230",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LLrnXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0210-Ge7L",
+      "base_price": 3.0875,
+      "list_price": 4.75,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0210",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLspXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0010-Ge7L",
+      "base_price": 43.8425,
+      "list_price": 67.45,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0010",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLrRXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0200-Ge7L",
+      "base_price": 1.976,
+      "list_price": 3.04,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0200",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LLr-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0220-Ge7L",
+      "base_price": 6.669,
+      "list_price": 10.26,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0220",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLqBXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0160-Ge7L",
+      "base_price": 32.11,
+      "list_price": 49.4,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0160",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLpbXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0140-Ge7L",
+      "base_price": 27.7875,
+      "list_price": 42.75,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0140",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLqUXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.02.0170-Ge7L",
+      "base_price": 20.995,
+      "list_price": 32.3,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.02.0170",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLu-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0090-Ge7L",
+      "base_price": 16.6725,
+      "list_price": 25.65,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0090",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLtrXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0040-Ge7L",
+      "base_price": 28.405,
+      "list_price": 43.7,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0040",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLtGXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0020-Ge7L",
+      "base_price": 23.1595,
+      "list_price": 35.63,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0020",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLuuXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0080-Ge7L",
+      "base_price": 22.23,
+      "list_price": 34.2,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0080",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLuOXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0060-Ge7L",
+      "base_price": 82.745,
+      "list_price": 127.3,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0060",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLyNXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0200-Ge7L",
+      "base_price": 2.1645,
+      "list_price": 3.33,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0200",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLwQXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0130-Ge7L",
+      "base_price": 14.2025,
+      "list_price": 21.85,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0130",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLxIXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0160-Ge7L",
+      "base_price": 6.487,
+      "list_price": 9.98,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0160",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLzxXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0010-Ge7L",
+      "base_price": 315.25,
+      "list_price": 485,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LLvRXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0100-Ge7L",
+      "base_price": 2.47,
+      "list_price": 3.8,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0100",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLufXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0070-Ge7L",
+      "base_price": 26.247,
+      "list_price": 40.38,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0070",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLt9XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0050-Ge7L",
+      "base_price": 42.6075,
+      "list_price": 65.55,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0050",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLvrXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0110-Ge7L",
+      "base_price": 1.976,
+      "list_price": 3.04,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0110",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LLtbXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0030-Ge7L",
+      "base_price": 48.165,
+      "list_price": 74.1,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0030",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLv-XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0120-Ge7L",
+      "base_price": 1.729,
+      "list_price": 2.66,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0120",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLwnXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0140-Ge7L",
+      "base_price": 14.82,
+      "list_price": 22.8,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0140",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLw4XgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0150-Ge7L",
+      "base_price": 12.35,
+      "list_price": 19,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0150",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LLzgXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.01.0050-Ge7L",
+      "base_price": 42.25,
+      "list_price": 65,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.01.0050",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LLzCXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.01.0030-Ge7L",
+      "base_price": 68.25,
+      "list_price": 105,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.01.0030",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LLxaXgAA",
+      "nr": "DUPLIKAT-CV24.S39.01.03.0170-Ge7L",
+      "base_price": 7.1045,
+      "list_price": 10.93,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.S39.01.03.0170",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LL3hXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0030-Ge7L",
+      "base_price": 263.9,
+      "list_price": 406,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0030",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL0EXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0020-Ge7L",
+      "base_price": 273,
+      "list_price": 420,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0020",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL2BXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0090-Ge7L",
+      "base_price": 84.5,
+      "list_price": 130,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0090",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL1HXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0060-Ge7L",
+      "base_price": 110.5,
+      "list_price": 170,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0060",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL03XgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0050-Ge7L",
+      "base_price": 126.75,
+      "list_price": 195,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0050",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL0WXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0030-Ge7L",
+      "base_price": 260,
+      "list_price": 400,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0030",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL0mXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0040-Ge7L",
+      "base_price": 214.5,
+      "list_price": 330,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0040",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL2gXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0100-Ge7L",
+      "base_price": 63.375,
+      "list_price": 97.5,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0100",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LL1YXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.02.0070-Ge7L",
+      "base_price": 94.9,
+      "list_price": 146,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.02.0070",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL2yXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0010-Ge7L",
+      "base_price": 243.75,
+      "list_price": 375,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO-7XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0010-Ge7L",
+      "base_price": 1202.5,
+      "list_price": 1850,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO-GXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0085-Ge7L",
+      "base_price": 6.396,
+      "list_price": 9.84,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0085",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO8TXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0030-Ge7L",
+      "base_price": 94.0225,
+      "list_price": 144.65,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0030",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL4NXgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0050-Ge7L",
+      "base_price": 236.6,
+      "list_price": 364,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0050",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO9MXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0060-Ge7L",
+      "base_price": 116.5905,
+      "list_price": 179.37,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0060",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LL34XgAA",
+      "nr": "DUPLIKAT-CV24.LS44.11.03.0040-Ge7L",
+      "base_price": 201.5,
+      "list_price": 310,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.LS44.11.03.0040",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO9zXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0080-Ge7L",
+      "base_price": 17.6735,
+      "list_price": 27.19,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0080",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO_cXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0030-Ge7L",
+      "base_price": 1280.5,
+      "list_price": 1970,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0030",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO9gXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0070-Ge7L",
+      "base_price": 131.6315,
+      "list_price": 202.51,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0070",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO8oXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0040-Ge7L",
+      "base_price": 94.0225,
+      "list_price": 144.65,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0040",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPCjXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0140-Ge7L",
+      "base_price": 611,
+      "list_price": 940,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0140",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPBYXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0100-Ge7L",
+      "base_price": 390,
+      "list_price": 600,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0100",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPBEXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0090-Ge7L",
+      "base_price": 344.5,
+      "list_price": 530,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0090",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPAUXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0060-Ge7L",
+      "base_price": 1514.5,
+      "list_price": 2330,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0060",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LO_tXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0040-Ge7L",
+      "base_price": 1371.5,
+      "list_price": 2110,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0040",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPC0XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0145-Ge7L",
+      "base_price": 191.75,
+      "list_price": 295,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0145",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPAkXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0070-Ge7L",
+      "base_price": 1605.5,
+      "list_price": 2470,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0070",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPA1XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0080-Ge7L",
+      "base_price": 1703,
+      "list_price": 2620,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0080",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOsTXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0460-Ge7L",
+      "base_price": 26,
+      "list_price": 40,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0460",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOr9XgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0450-Ge7L",
+      "base_price": 24.7,
+      "list_price": 38,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0450",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPCAXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0120-Ge7L",
+      "base_price": 500.5,
+      "list_price": 770,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0120",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPDJXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0147-Ge7L",
+      "base_price": 377,
+      "list_price": 580,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0147",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOsmXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0470-Ge7L",
+      "base_price": 26,
+      "list_price": 40,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0470",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPGLXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0220-Ge7L",
+      "base_price": 42.25,
+      "list_price": 65,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0220",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPEBXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0160-Ge7L",
+      "base_price": 273,
+      "list_price": 420,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0160",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPEkXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0170-Ge7L",
+      "base_price": 318.5,
+      "list_price": 490,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0170",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPDZXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0150-Ge7L",
+      "base_price": 227.5,
+      "list_price": 350,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0150",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPF6XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0210-Ge7L",
+      "base_price": 12.025,
+      "list_price": 18.5,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0210",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPDvXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0155-Ge7L",
+      "base_price": 253.5,
+      "list_price": 390,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0155",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOrkXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0440-Ge7L",
+      "base_price": 30.55,
+      "list_price": 47,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0440",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOxXXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0130-Ge7L",
+      "base_price": 0.8255,
+      "list_price": 1.27,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0130",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOy9XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.02.0010-Ge7L",
+      "base_price": 63.934,
+      "list_price": 98.36,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.02.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOxDXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0120-Ge7L",
+      "base_price": 1.2415,
+      "list_price": 1.91,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0120",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOyBXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0140-Ge7L",
+      "base_price": 16.549,
+      "list_price": 25.46,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0140",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOxqXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0135-Ge7L",
+      "base_price": 0.2665,
+      "list_price": 0.41,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0135",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LOv4XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0080-Ge7L",
+      "base_price": 0.715,
+      "list_price": 1.1,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0080",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOwcXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0100-Ge7L",
+      "base_price": 0.1755,
+      "list_price": 0.27,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0100",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LOwJXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0090-Ge7L",
+      "base_price": 1.9175,
+      "list_price": 2.95,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0090",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOvZXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0060-Ge7L",
+      "base_price": 1.3195,
+      "list_price": 2.03,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0060",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOtLXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0490-Ge7L",
+      "base_price": 32.5,
+      "list_price": 50,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0490",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOtrXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0510-Ge7L",
+      "base_price": 8.2875,
+      "list_price": 12.75,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0510",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOuMXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0020-Ge7L",
+      "base_price": 0.6045,
+      "list_price": 0.93,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0020",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOvHXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0050-Ge7L",
+      "base_price": 1.3195,
+      "list_price": 2.03,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0050",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOs4XgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0480-Ge7L",
+      "base_price": 29.25,
+      "list_price": 45,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0480",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOtcXgAA",
+      "nr": "DUPLIKAT-CV24.GS3V.01.02.0500-Ge7L",
+      "base_price": 5.525,
+      "list_price": 8.5,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS3V.01.02.0500",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOulXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0030-Ge7L",
+      "base_price": 0.338,
+      "list_price": 0.52,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0030",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOu1XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0040-Ge7L",
+      "base_price": 1.6185,
+      "list_price": 2.49,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0040",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LOt8XgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0010-Ge7L",
+      "base_price": 12.038,
+      "list_price": 18.52,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOyTXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0150-Ge7L",
+      "base_price": 0.377,
+      "list_price": 0.58,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0150",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LOvoXgAA",
+      "nr": "DUPLIKAT-CV24.HS80.01.01.0070-Ge7L",
+      "base_price": 1.729,
+      "list_price": 2.66,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.HS80.01.01.0070",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPJyXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0350-Ge7L",
+      "base_price": 55.25,
+      "list_price": 85,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0350",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPGvXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0240-Ge7L",
+      "base_price": 16.25,
+      "list_price": 25,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0240",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPKpXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0370-Ge7L",
+      "base_price": 130,
+      "list_price": 200,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0370",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPLPXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0390-Ge7L",
+      "base_price": 78,
+      "list_price": 120,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0390",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPKRXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0367-Ge7L",
+      "base_price": 19.5,
+      "list_price": 30,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0367",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPJjXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0340-Ge7L",
+      "base_price": 71.5,
+      "list_price": 110,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0340",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPIfXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0300-Ge7L",
+      "base_price": 81.25,
+      "list_price": 125,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0300",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPJSXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0330-Ge7L",
+      "base_price": 52,
+      "list_price": 80,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0330",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPJBXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0320-Ge7L",
+      "base_price": 81.25,
+      "list_price": 125,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0320",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPK9XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.01.0380-Ge7L",
+      "base_price": 78,
+      "list_price": 120,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.01.0380",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScK_RIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.04.1-GGSc",
+      "base_price": 26.5203,
+      "list_price": 32.62,
+      "base_data": {
+        "name": "[ALT 26.5203 EUR] GWS.LV23-21.01.04.04.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScK_iIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.05.1-GGSc",
+      "base_price": 28.6423,
+      "list_price": 35.23,
+      "base_data": {
+        "name": "[ALT 28.6423 EUR] GWS.LV23-21.01.04.05.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScK_AIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.03.1-GGSc",
+      "base_price": 27.3821,
+      "list_price": 33.68,
+      "base_data": {
+        "name": "[ALT 27.3821 EUR] GWS.LV23-21.01.04.03.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPO5XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0010-Ge7L",
+      "base_price": 19.5,
+      "list_price": 30,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0010",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPMgXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0040-Ge7L",
+      "base_price": 61.75,
+      "list_price": 95,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0040",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPQHXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0050-Ge7L",
+      "base_price": 136.5,
+      "list_price": 210,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0050",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPL7XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0020-Ge7L",
+      "base_price": 33.15,
+      "list_price": 51,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0020",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPNnXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0080-Ge7L",
+      "base_price": 21.45,
+      "list_price": 33,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0080",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPOmXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0120-Ge7L",
+      "base_price": 78,
+      "list_price": 120,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0120",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPMxXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0050-Ge7L",
+      "base_price": 19.5,
+      "list_price": 30,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0050",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPOHXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0100-Ge7L",
+      "base_price": 36.4,
+      "list_price": 56,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0100",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIilXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0140-Ge7L",
+      "base_price": 84.5,
+      "list_price": 130,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0140",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIjFXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0160-Ge7L",
+      "base_price": 32.5,
+      "list_price": 50,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0160",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIi1XgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0150-Ge7L",
+      "base_price": 32.5,
+      "list_price": 50,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0150",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIkNXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0200-Ge7L",
+      "base_price": 45.5,
+      "list_price": 70,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0200",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIjUXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0170-Ge7L",
+      "base_price": 84.5,
+      "list_price": 130,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0170",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPPMXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0020-Ge7L",
+      "base_price": 91,
+      "list_price": 140,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0020",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR7LXgAA",
+      "nr": "DUPLIKAT-GWS.LV23-21.01.02.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[DUPLIKAT] GWS.LV23-21.01.02.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LIj4XgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0190-Ge7L",
+      "base_price": 97.5,
+      "list_price": 150,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0190",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPRoXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0090-Ge7L",
+      "base_price": 45.5,
+      "list_price": 70,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0090",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LIjjXgAA",
+      "nr": "DUPLIKAT-CV24.FS12.01.05.0180-Ge7L",
+      "base_price": 39,
+      "list_price": 60,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.FS12.01.05.0180",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPQwXgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.03.0070-Ge7L",
+      "base_price": 143,
+      "list_price": 220,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.03.0070",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPN3XgAA",
+      "nr": "DUPLIKAT-CV24.GS53.01.02.0090-Ge7L",
+      "base_price": 29.9,
+      "list_price": 46,
+      "base_data": {
+        "name": "[DUPLIKAT] CV24.GS53.01.02.0090",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPlyXgAA",
+      "nr": "ALT-GWS.LV23-02.01.8-Ge7L",
+      "base_price": 152.6096,
+      "list_price": 238.61,
+      "base_data": {
+        "name": "[ALT 152.6096 EUR] GWS.LV23-02.01.8",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPj3XgAA",
+      "nr": "ALT-GWS.LV23-02.01.2-Ge7L",
+      "base_price": 48.8351,
+      "list_price": 76.35,
+      "base_data": {
+        "name": "[ALT 48.8351 EUR] GWS.LV23-02.01.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScLABIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.07.1-GGSc",
+      "base_price": 28.2927,
+      "list_price": 34.8,
+      "base_data": {
+        "name": "[ALT 28.2927 EUR] GWS.LV23-21.01.04.07.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPsPXgAA",
+      "nr": "ALT-GWS.LV23-02.02.8-Ge7L",
+      "base_price": 9.7145,
+      "list_price": 15.36,
+      "base_data": {
+        "name": "[ALT 9.7145 EUR] GWS.LV23-02.02.8",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScK_yIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.06.1-GGSc",
+      "base_price": 28.626,
+      "list_price": 35.21,
+      "base_data": {
+        "name": "[ALT 28.626 EUR] GWS.LV23-21.01.04.06.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLARIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.08.1-GGSc",
+      "base_price": 27.8293,
+      "list_price": 34.23,
+      "base_data": {
+        "name": "[ALT 27.8293 EUR] GWS.LV23-21.01.04.08.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPqSXgAA",
+      "nr": "ALT-GWS.LV23-02.02.2-Ge7L",
+      "base_price": 1.3186,
+      "list_price": 2.08,
+      "base_data": {
+        "name": "[ALT 1.3186 EUR] GWS.LV23-02.02.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQiOXgAA",
+      "nr": "ALT-GWS.LV23-08.01.12-Ge7L",
+      "base_price": 33.9688,
+      "list_price": 54.35,
+      "base_data": {
+        "name": "[ALT 33.9688 EUR] GWS.LV23-08.01.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LST_XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.5-Ge7L",
+      "base_price": 679.5034,
+      "list_price": 1045.3898,
+      "base_data": {
+        "name": "[ALT 679.5034 EUR] GWS.LV23-21.02.02.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLAwIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.11.1-GGSc",
+      "base_price": 28.2927,
+      "list_price": 34.8,
+      "base_data": {
+        "name": "[ALT 28.2927 EUR] GWS.LV23-21.01.04.11.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPxTXgAA",
+      "nr": "ALT-GWS.LV23-04.01.10-Ge7L",
+      "base_price": 35.4803,
+      "list_price": 54.5851,
+      "base_data": {
+        "name": "[ALT 35.4803 EUR] GWS.LV23-04.01.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLA_IsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.12.1-GGSc",
+      "base_price": 26.2683,
+      "list_price": 32.31,
+      "base_data": {
+        "name": "[ALT 26.2683 EUR] GWS.LV23-21.01.04.12.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLBTIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.13.1-GGSc",
+      "base_price": 27.8537,
+      "list_price": 34.26,
+      "base_data": {
+        "name": "[ALT 27.8537 EUR] GWS.LV23-21.01.04.13.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLBvIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.14.1-GGSc",
+      "base_price": 25.8455,
+      "list_price": 31.79,
+      "base_data": {
+        "name": "[ALT 25.8455 EUR] GWS.LV23-21.01.04.14.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLB-IsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.15.1-GGSc",
+      "base_price": 24.5203,
+      "list_price": 30.16,
+      "base_data": {
+        "name": "[ALT 24.5203 EUR] GWS.LV23-21.01.04.15.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLAhIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.09.1-GGSc",
+      "base_price": 25.8455,
+      "list_price": 31.79,
+      "base_data": {
+        "name": "[ALT 25.8455 EUR] GWS.LV23-21.01.04.09.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScLCOIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.16.1-GGSc",
+      "base_price": 25.5122,
+      "list_price": 31.38,
+      "base_data": {
+        "name": "[ALT 25.5122 EUR] GWS.LV23-21.01.04.16.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP4fXgAA",
+      "nr": "ALT-GWS.LV23-04.02.4-Ge7L",
+      "base_price": 52.4079,
+      "list_price": 83.73,
+      "base_data": {
+        "name": "[ALT 52.4079 EUR] GWS.LV23-04.02.4",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScLCwIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.18.1-GGSc",
+      "base_price": 24.2927,
+      "list_price": 29.88,
+      "base_data": {
+        "name": "[ALT 24.2927 EUR] GWS.LV23-21.01.04.18.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP4PXgAA",
+      "nr": "ALT-GWS.LV23-04.02.3-Ge7L",
+      "base_price": 49.4287,
+      "list_price": 78.97,
+      "base_data": {
+        "name": "[ALT 49.4287 EUR] GWS.LV23-04.02.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSMwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.10-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLDDIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.19.1-GGSc",
+      "base_price": 24.626,
+      "list_price": 30.29,
+      "base_data": {
+        "name": "[ALT 24.626 EUR] GWS.LV23-21.01.04.19.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSNbXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.13-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLDUIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.20.1-GGSc",
+      "base_price": 26.1057,
+      "list_price": 32.11,
+      "base_data": {
+        "name": "[ALT 26.1057 EUR] GWS.LV23-21.01.04.20.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP4-XgAA",
+      "nr": "ALT-GWS.LV23-04.02.6-Ge7L",
+      "base_price": 28.4384,
+      "list_price": 45.44,
+      "base_data": {
+        "name": "[ALT 28.4384 EUR] GWS.LV23-04.02.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLCdIsAA",
+      "nr": "ALT-GWS.LV23-21.01.04.17.1-GGSc",
+      "base_price": 23.7561,
+      "list_price": 29.22,
+      "base_data": {
+        "name": "[ALT 23.7561 EUR] GWS.LV23-21.01.04.17.1",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSN8XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.16-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP5nXgAA",
+      "nr": "ALT-GWS.LV23-04.02.8-Ge7L",
+      "base_price": 31.8239,
+      "list_price": 50.84,
+      "base_data": {
+        "name": "[ALT 31.8239 EUR] GWS.LV23-04.02.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP79XgAA",
+      "nr": "ALT-GWS.LV23-05.01.5-Ge7L",
+      "base_price": 29.0038,
+      "list_price": 45.43,
+      "base_data": {
+        "name": "[ALT 29.0038 EUR] GWS.LV23-05.01.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP61XgAA",
+      "nr": "ALT-GWS.LV23-05.01.1-Ge7L",
+      "base_price": 10.6079,
+      "list_price": 16.62,
+      "base_data": {
+        "name": "[ALT 10.6079 EUR] GWS.LV23-05.01.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScI7bIsAA",
+      "nr": "ALT-GWS.LV23-04.03.2-GGSc",
+      "base_price": 20,
+      "list_price": 40,
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-04.03.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "GGScJUEIsAA",
+      "nr": "ALT-GWS.LV23-07.01.18-GGSc",
+      "base_price": 8.5417,
+      "list_price": 13.92,
+      "base_data": {
+        "name": "[ALT 8.5417 EUR] GWS.LV23-07.01.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP7cXgAA",
+      "nr": "ALT-GWS.LV23-05.01.3-Ge7L",
+      "base_price": 1.8799,
+      "list_price": 2.94,
+      "base_data": {
+        "name": "[ALT 1.8799 EUR] GWS.LV23-05.01.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP58XgAA",
+      "nr": "ALT-GWS.LV23-04.02.9-Ge7L",
+      "base_price": 35.8866,
+      "list_price": 57.34,
+      "base_data": {
+        "name": "[ALT 35.8866 EUR] GWS.LV23-04.02.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP5SXgAA",
+      "nr": "ALT-GWS.LV23-04.02.7-Ge7L",
+      "base_price": 36.1574,
+      "list_price": 57.77,
+      "base_data": {
+        "name": "[ALT 36.1574 EUR] GWS.LV23-04.02.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP7tXgAA",
+      "nr": "ALT-GWS.LV23-05.01.4-Ge7L",
+      "base_price": 2.417,
+      "list_price": 3.79,
+      "base_data": {
+        "name": "[ALT 2.417 EUR] GWS.LV23-05.01.4",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScJUTIsAA",
+      "nr": "ALT-GWS.LV23-07.01.19-GGSc",
+      "base_price": 10.375,
+      "list_price": 17,
+      "base_data": {
+        "name": "[ALT 10.375 EUR] GWS.LV23-07.01.19",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQhpXgAA",
+      "nr": "ALT-GWS.LV23-08.01.9-Ge7L",
+      "base_price": 74.5982,
+      "list_price": 119.36,
+      "base_data": {
+        "name": "[ALT 74.5982 EUR] GWS.LV23-08.01.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJWlIsAA",
+      "nr": "ALT-GWS.LV23-07.02.1-GGSc",
+      "base_price": 25,
+      "list_price": 55,
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-07.02.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LPToXgAA",
+      "nr": "ALT-GWS.LV23-01.01.5-Ge7L",
+      "base_price": 309.8836,
+      "list_price": 493.95,
+      "base_data": {
+        "name": "[ALT 309.8836 EUR] GWS.LV23-01.01.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQkTXgAA",
+      "nr": "ALT-GWS.LV23-08.02.5-Ge7L",
+      "base_price": 63.9977,
+      "list_price": 101.24,
+      "base_data": {
+        "name": "[ALT 63.9977 EUR] GWS.LV23-08.02.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQl4XgAA",
+      "nr": "ALT-GWS.LV23-08.02.10-Ge7L",
+      "base_price": 49.8508,
+      "list_price": 78.86,
+      "base_data": {
+        "name": "[ALT 49.8508 EUR] GWS.LV23-08.02.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRPFXgAA",
+      "nr": "ALT-GWS.LV23-09.05.13-Ge7L",
+      "base_price": 8.066,
+      "list_price": 12.4092,
+      "base_data": {
+        "name": "[ALT 8.066 EUR] GWS.LV23-09.05.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQlkXgAA",
+      "nr": "ALT-GWS.LV23-08.02.9-Ge7L",
+      "base_price": 75.4499,
+      "list_price": 119.36,
+      "base_data": {
+        "name": "[ALT 75.4499 EUR] GWS.LV23-08.02.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQgkXgAA",
+      "nr": "ALT-GWS.LV23-08.01.3-Ge7L",
+      "base_price": 19.3156,
+      "list_price": 30.9,
+      "base_data": {
+        "name": "[ALT 19.3156 EUR] GWS.LV23-08.01.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSOlXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.19-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-21.02.01.19",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPV1XgAA",
+      "nr": "ALT-GWS.LV23-01.01.13-Ge7L",
+      "base_price": 13.4732,
+      "list_price": 21.48,
+      "base_data": {
+        "name": "[ALT 13.4732 EUR] GWS.LV23-01.01.13",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQmRXgAA",
+      "nr": "ALT-GWS.LV23-08.02.11-Ge7L",
+      "base_price": 32.3357,
+      "list_price": 51.15,
+      "base_data": {
+        "name": "[ALT 32.3357 EUR] GWS.LV23-08.02.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQkDXgAA",
+      "nr": "ALT-GWS.LV23-08.02.4-Ge7L",
+      "base_price": 59.9557,
+      "list_price": 94.85,
+      "base_data": {
+        "name": "[ALT 59.9557 EUR] GWS.LV23-08.02.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQehXgAA",
+      "nr": "ALT-GWS.LV23-07.01.24-Ge7L",
+      "base_price": 33.3645,
+      "list_price": 52.62,
+      "base_data": {
+        "name": "[ALT 33.3645 EUR] GWS.LV23-07.01.24",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQh5XgAA",
+      "nr": "ALT-GWS.LV23-08.01.10-Ge7L",
+      "base_price": 59.2789,
+      "list_price": 94.85,
+      "base_data": {
+        "name": "[ALT 59.2789 EUR] GWS.LV23-08.01.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJjMIsAA",
+      "nr": "ALT-GWS.LV23-08.02.2-GGSc",
+      "base_price": 41.6667,
+      "list_price": 62,
+      "base_data": {
+        "name": "[ALT 41.6667 EUR] GWS.LV23-08.02.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQieXgAA",
+      "nr": "ALT-GWS.LV23-08.01.14-Ge7L",
+      "base_price": 74.5982,
+      "list_price": 119.36,
+      "base_data": {
+        "name": "[ALT 74.5982 EUR] GWS.LV23-08.01.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQjzXgAA",
+      "nr": "ALT-GWS.LV23-08.02.3-Ge7L",
+      "base_price": 51.6024,
+      "list_price": 81.63,
+      "base_data": {
+        "name": "[ALT 51.6024 EUR] GWS.LV23-08.02.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQjEXgAA",
+      "nr": "ALT-GWS.LV23-08.01.16-Ge7L",
+      "base_price": 32.9697,
+      "list_price": 52.75,
+      "base_data": {
+        "name": "[ALT 32.9697 EUR] GWS.LV23-08.01.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQdOXgAA",
+      "nr": "ALT-GWS.LV23-07.01.22-Ge7L",
+      "base_price": 15.0808,
+      "list_price": 23.78,
+      "base_data": {
+        "name": "[ALT 15.0808 EUR] GWS.LV23-07.01.22",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQNaXgAA",
+      "nr": "ALT-GWS.LV23-06.01.18-Ge7L",
+      "base_price": 3.5749,
+      "list_price": 5.4998,
+      "base_data": {
+        "name": "[ALT 3.5749 EUR] GWS.LV23-06.01.18",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPh9XgAA",
+      "nr": "ALT-GWS.LV23-01.01.28-Ge7L",
+      "base_price": 92.2914,
+      "list_price": 147.11,
+      "base_data": {
+        "name": "[ALT 92.2914 EUR] GWS.LV23-01.01.28",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPZHXgAA",
+      "nr": "ALT-GWS.LV23-01.01.26-Ge7L",
+      "base_price": 64.6714,
+      "list_price": 103.09,
+      "base_data": {
+        "name": "[ALT 64.6714 EUR] GWS.LV23-01.01.26",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScIo7IsAA",
+      "nr": "ALT-GWS.LV23-02.02.11-GGSc",
+      "base_price": 1.7708,
+      "list_price": 3.25,
+      "base_data": {
+        "name": "[ALT 1.7708 EUR] GWS.LV23-02.02.11",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPoUXgAA",
+      "nr": "ALT-GWS.LV23-02.01.16-Ge7L",
+      "base_price": 58.1244,
+      "list_price": 90.88,
+      "base_data": {
+        "name": "[ALT 58.1244 EUR] GWS.LV23-02.01.16",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPrpXgAA",
+      "nr": "ALT-GWS.LV23-02.02.6-Ge7L",
+      "base_price": 1.9913,
+      "list_price": 3.15,
+      "base_data": {
+        "name": "[ALT 1.9913 EUR] GWS.LV23-02.02.6",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPuCXgAA",
+      "nr": "ALT-GWS.LV23-02.02.14-Ge7L",
+      "base_price": 2.2066,
+      "list_price": 4.15,
+      "base_data": {
+        "name": "[ALT 2.2066 EUR] GWS.LV23-02.02.14",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPm1XgAA",
+      "nr": "ALT-GWS.LV23-02.01.11-Ge7L",
+      "base_price": 67.679,
+      "list_price": 105.82,
+      "base_data": {
+        "name": "[ALT 67.679 EUR] GWS.LV23-02.01.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPsgXgAA",
+      "nr": "ALT-GWS.LV23-02.02.9-Ge7L",
+      "base_price": 14.8005,
+      "list_price": 23.4,
+      "base_data": {
+        "name": "[ALT 14.8005 EUR] GWS.LV23-02.02.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPqnXgAA",
+      "nr": "ALT-GWS.LV23-02.02.3-Ge7L",
+      "base_price": 15.0696,
+      "list_price": 23.82,
+      "base_data": {
+        "name": "[ALT 15.0696 EUR] GWS.LV23-02.02.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPrWXgAA",
+      "nr": "ALT-GWS.LV23-02.02.5-Ge7L",
+      "base_price": 2.7583,
+      "list_price": 4.36,
+      "base_data": {
+        "name": "[ALT 2.7583 EUR] GWS.LV23-02.02.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPmJXgAA",
+      "nr": "ALT-GWS.LV23-02.01.9-Ge7L",
+      "base_price": 43.7923,
+      "list_price": 68.47,
+      "base_data": {
+        "name": "[ALT 43.7923 EUR] GWS.LV23-02.01.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScIqRIsAA",
+      "nr": "ALT-GWS.LV23-02.03.2-GGSc",
+      "base_price": 20,
+      "list_price": 40,
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-02.03.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LPhsXgAA",
+      "nr": "ALT-GWS.LV23-01.01.27-Ge7L",
+      "base_price": 56.5874,
+      "list_price": 90.2,
+      "base_data": {
+        "name": "[ALT 56.5874 EUR] GWS.LV23-01.01.27",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScIf8IsAA",
+      "nr": "ALT-GWS.LV23-01.02.1-GGSc",
+      "base_price": 25,
+      "list_price": 55,
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-01.02.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LPWqXgAA",
+      "nr": "ALT-GWS.LV23-01.01.16-Ge7L",
+      "base_price": 21.8266,
+      "list_price": 34.79,
+      "base_data": {
+        "name": "[ALT 21.8266 EUR] GWS.LV23-01.01.16",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPT7XgAA",
+      "nr": "ALT-GWS.LV23-01.01.6-Ge7L",
+      "base_price": 390.7228,
+      "list_price": 622.81,
+      "base_data": {
+        "name": "[ALT 390.7228 EUR] GWS.LV23-01.01.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPkeXgAA",
+      "nr": "ALT-GWS.LV23-02.01.4-Ge7L",
+      "base_price": 56.3992,
+      "list_price": 88.18,
+      "base_data": {
+        "name": "[ALT 56.3992 EUR] GWS.LV23-02.01.4",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPXOXgAA",
+      "nr": "ALT-GWS.LV23-01.01.19-Ge7L",
+      "base_price": 15.4942,
+      "list_price": 24.7,
+      "base_data": {
+        "name": "[ALT 15.4942 EUR] GWS.LV23-01.01.19",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPiQXgAA",
+      "nr": "ALT-GWS.LV23-01.01.29-Ge7L",
+      "base_price": 54.5665,
+      "list_price": 86.98,
+      "base_data": {
+        "name": "[ALT 54.5665 EUR] GWS.LV23-01.01.29",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPkKXgAA",
+      "nr": "ALT-GWS.LV23-02.01.3-Ge7L",
+      "base_price": 61.3092,
+      "list_price": 95.34,
+      "base_data": {
+        "name": "[ALT 61.3092 EUR] GWS.LV23-02.01.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP0pXgAA",
+      "nr": "ALT-GWS.LV23-04.01.21-Ge7L",
+      "base_price": 28.5738,
+      "list_price": 45.65,
+      "base_data": {
+        "name": "[ALT 28.5738 EUR] GWS.LV23-04.01.21",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPzjXgAA",
+      "nr": "ALT-GWS.LV23-04.01.17-Ge7L",
+      "base_price": 3.5074,
+      "list_price": 5.6,
+      "base_data": {
+        "name": "[ALT 3.5074 EUR] GWS.LV23-04.01.17",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP1QXgAA",
+      "nr": "ALT-GWS.LV23-04.01.23-Ge7L",
+      "base_price": 27.7613,
+      "list_price": 44.35,
+      "base_data": {
+        "name": "[ALT 27.7613 EUR] GWS.LV23-04.01.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP1jXgAA",
+      "nr": "ALT-GWS.LV23-04.01.24-Ge7L",
+      "base_price": 35.2095,
+      "list_price": 56.25,
+      "base_data": {
+        "name": "[ALT 35.2095 EUR] GWS.LV23-04.01.24",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP07XgAA",
+      "nr": "ALT-GWS.LV23-04.01.22-Ge7L",
+      "base_price": 32.2302,
+      "list_price": 51.49,
+      "base_data": {
+        "name": "[ALT 32.2302 EUR] GWS.LV23-04.01.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP0YXgAA",
+      "nr": "ALT-GWS.LV23-04.01.20-Ge7L",
+      "base_price": 4.347,
+      "list_price": 6.95,
+      "base_data": {
+        "name": "[ALT 4.347 EUR] GWS.LV23-04.01.20",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPx6XgAA",
+      "nr": "ALT-GWS.LV23-04.01.12-Ge7L",
+      "base_price": 18.9589,
+      "list_price": 30.29,
+      "base_data": {
+        "name": "[ALT 18.9589 EUR] GWS.LV23-04.01.12",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPz1XgAA",
+      "nr": "ALT-GWS.LV23-04.01.18-Ge7L",
+      "base_price": 3.5887,
+      "list_price": 5.73,
+      "base_data": {
+        "name": "[ALT 3.5887 EUR] GWS.LV23-04.01.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPyOXgAA",
+      "nr": "ALT-GWS.LV23-04.01.13-Ge7L",
+      "base_price": 26.1363,
+      "list_price": 41.76,
+      "base_data": {
+        "name": "[ALT 26.1363 EUR] GWS.LV23-04.01.13",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP3-XgAA",
+      "nr": "ALT-GWS.LV23-04.02.2-Ge7L",
+      "base_price": 44.2827,
+      "list_price": 70.75,
+      "base_data": {
+        "name": "[ALT 44.2827 EUR] GWS.LV23-04.02.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP3rXgAA",
+      "nr": "ALT-GWS.LV23-04.02.1-Ge7L",
+      "base_price": 43.3347,
+      "list_price": 69.24,
+      "base_data": {
+        "name": "[ALT 43.3347 EUR] GWS.LV23-04.02.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP2hXgAA",
+      "nr": "ALT-GWS.LV23-04.01.27-Ge7L",
+      "base_price": 61.0749,
+      "list_price": 97.58,
+      "base_data": {
+        "name": "[ALT 61.0749 EUR] GWS.LV23-04.01.27",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP2yXgAA",
+      "nr": "ALT-GWS.LV23-04.01.28-Ge7L",
+      "base_price": 64.0541,
+      "list_price": 102.34,
+      "base_data": {
+        "name": "[ALT 64.0541 EUR] GWS.LV23-04.01.28",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKMzIsAA",
+      "nr": "ALT-GWS.LV23-10.01.1-GGSc",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSaXgAA",
+      "nr": "ALT-GWS.LV23-10.01.5-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSOXgAA",
+      "nr": "ALT-GWS.LV23-10.01.1-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKNFIsAA",
+      "nr": "ALT-GWS.LV23-10.01.5-GGSc",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LP3XXgAA",
+      "nr": "ALT-GWS.LV23-04.01.30-Ge7L",
+      "base_price": 75.1587,
+      "list_price": 120.08,
+      "base_data": {
+        "name": "[ALT 75.1587 EUR] GWS.LV23-04.01.30",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP0HXgAA",
+      "nr": "ALT-GWS.LV23-04.01.19-Ge7L",
+      "base_price": 3.1892,
+      "list_price": 5.1,
+      "base_data": {
+        "name": "[ALT 3.1892 EUR] GWS.LV23-04.01.19",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP3FXgAA",
+      "nr": "ALT-GWS.LV23-04.01.29-Ge7L",
+      "base_price": 69.8772,
+      "list_price": 111.64,
+      "base_data": {
+        "name": "[ALT 69.8772 EUR] GWS.LV23-04.01.29",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPYzXgAA",
+      "nr": "ALT-GWS.LV23-01.01.25-Ge7L",
+      "base_price": 51.0634,
+      "list_price": 81.4,
+      "base_data": {
+        "name": "[ALT 51.0634 EUR] GWS.LV23-01.01.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQd9XgAA",
+      "nr": "ALT-GWS.LV23-07.01.23-Ge7L",
+      "base_price": 36.3006,
+      "list_price": 57.25,
+      "base_data": {
+        "name": "[ALT 36.3006 EUR] GWS.LV23-07.01.23",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKNJIsAA",
+      "nr": "ALT-GWS.LV23-10.01.6-GGSc",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKOXIsAA",
+      "nr": "ALT-GWS.LV23-10.03.1-GGSc",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.03.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQklXgAA",
+      "nr": "ALT-GWS.LV23-08.02.6-Ge7L",
+      "base_price": 92.9651,
+      "list_price": 147.06,
+      "base_data": {
+        "name": "[ALT 92.9651 EUR] GWS.LV23-08.02.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP9HXgAA",
+      "nr": "ALT-GWS.LV23-05.01.8-Ge7L",
+      "base_price": 9.2651,
+      "list_price": 14.254,
+      "base_data": {
+        "name": "[ALT 9.2651 EUR] GWS.LV23-05.01.8",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRSdXgAA",
+      "nr": "ALT-GWS.LV23-10.01.6-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LP8xXgAA",
+      "nr": "ALT-GWS.LV23-05.01.7-Ge7L",
+      "base_price": 7.3852,
+      "list_price": 11.3619,
+      "base_data": {
+        "name": "[ALT 7.3852 EUR] GWS.LV23-05.01.7",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPkwXgAA",
+      "nr": "ALT-GWS.LV23-02.01.5-Ge7L",
+      "base_price": 61.9728,
+      "list_price": 96.9,
+      "base_data": {
+        "name": "[ALT 61.9728 EUR] GWS.LV23-02.01.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP2PXgAA",
+      "nr": "ALT-GWS.LV23-04.01.26-Ge7L",
+      "base_price": 38.8658,
+      "list_price": 62.1,
+      "base_data": {
+        "name": "[ALT 38.8658 EUR] GWS.LV23-04.01.26",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRMCXgAA",
+      "nr": "ALT-GWS.LV23-09.05.2-Ge7L",
+      "base_price": 28.2309,
+      "list_price": 43.4322,
+      "base_data": {
+        "name": "[ALT 28.2309 EUR] GWS.LV23-09.05.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP9aXgAA",
+      "nr": "ALT-GWS.LV23-05.01.9-Ge7L",
+      "base_price": 3.706,
+      "list_price": 5.7016,
+      "base_data": {
+        "name": "[ALT 3.706 EUR] GWS.LV23-05.01.9",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP_dXgAA",
+      "nr": "ALT-GWS.LV23-06.01.2-Ge7L",
+      "base_price": 40.4703,
+      "list_price": 62.262,
+      "base_data": {
+        "name": "[ALT 40.4703 EUR] GWS.LV23-06.01.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRM6XgAA",
+      "nr": "ALT-GWS.LV23-09.05.5-Ge7L",
+      "base_price": 58.6128,
+      "list_price": 90.1735,
+      "base_data": {
+        "name": "[ALT 58.6128 EUR] GWS.LV23-09.05.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRMmXgAA",
+      "nr": "ALT-GWS.LV23-09.05.4-Ge7L",
+      "base_price": 25.2734,
+      "list_price": 38.8822,
+      "base_data": {
+        "name": "[ALT 25.2734 EUR] GWS.LV23-09.05.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRLdXgAA",
+      "nr": "ALT-GWS.LV23-09.04.12-Ge7L",
+      "base_price": 5.6462,
+      "list_price": 8.6864,
+      "base_data": {
+        "name": "[ALT 5.6462 EUR] GWS.LV23-09.04.12",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LP-VXgAA",
+      "nr": "ALT-GWS.LV23-05.01.12-Ge7L",
+      "base_price": 1.3562,
+      "list_price": 2.0865,
+      "base_data": {
+        "name": "[ALT 1.3562 EUR] GWS.LV23-05.01.12",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LP9vXgAA",
+      "nr": "ALT-GWS.LV23-05.01.10-Ge7L",
+      "base_price": 8.0566,
+      "list_price": 12.3948,
+      "base_data": {
+        "name": "[ALT 8.0566 EUR] GWS.LV23-05.01.10",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRLxXgAA",
+      "nr": "ALT-GWS.LV23-09.05.1-Ge7L",
+      "base_price": 50.5199,
+      "list_price": 77.723,
+      "base_data": {
+        "name": "[ALT 50.5199 EUR] GWS.LV23-09.05.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJBCIsAA",
+      "nr": "ALT-GWS.LV23-05.02.2-GGSc",
+      "base_price": 20,
+      "list_price": 42.07,
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-05.02.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LRRHXgAA",
+      "nr": "ALT-GWS.LV23-09.06.7-Ge7L",
+      "base_price": 2.3929,
+      "list_price": 3.6814,
+      "base_data": {
+        "name": "[ALT 2.3929 EUR] GWS.LV23-09.06.7",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRO3XgAA",
+      "nr": "ALT-GWS.LV23-09.05.12-Ge7L",
+      "base_price": 4.033,
+      "list_price": 6.2046,
+      "base_data": {
+        "name": "[ALT 4.033 EUR] GWS.LV23-09.05.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRNSXgAA",
+      "nr": "ALT-GWS.LV23-09.05.6-Ge7L",
+      "base_price": 56.4619,
+      "list_price": 86.8644,
+      "base_data": {
+        "name": "[ALT 56.4619 EUR] GWS.LV23-09.05.6",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRQgXgAA",
+      "nr": "ALT-GWS.LV23-09.06.5-Ge7L",
+      "base_price": 3.7641,
+      "list_price": 5.791,
+      "base_data": {
+        "name": "[ALT 3.7641 EUR] GWS.LV23-09.06.5",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LROVXgAA",
+      "nr": "ALT-GWS.LV23-09.05.10-Ge7L",
+      "base_price": 15.0565,
+      "list_price": 23.1638,
+      "base_data": {
+        "name": "[ALT 15.0565 EUR] GWS.LV23-09.05.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRP7XgAA",
+      "nr": "ALT-GWS.LV23-09.06.3-Ge7L",
+      "base_price": 63.8557,
+      "list_price": 98.2395,
+      "base_data": {
+        "name": "[ALT 63.8557 EUR] GWS.LV23-09.06.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LROEXgAA",
+      "nr": "ALT-GWS.LV23-09.05.9-Ge7L",
+      "base_price": 11.0235,
+      "list_price": 16.9592,
+      "base_data": {
+        "name": "[ALT 11.0235 EUR] GWS.LV23-09.05.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKLDIsAA",
+      "nr": "ALT-GWS.LV23-09.06.6-GGSc",
+      "base_price": 28.3333,
+      "list_price": 48.76,
+      "base_data": {
+        "name": "[ALT 28.3333 EUR] GWS.LV23-09.06.6",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRPmXgAA",
+      "nr": "ALT-GWS.LV23-09.06.2-Ge7L",
+      "base_price": 42.4808,
+      "list_price": 65.3551,
+      "base_data": {
+        "name": "[ALT 42.4808 EUR] GWS.LV23-09.06.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRPWXgAA",
+      "nr": "ALT-GWS.LV23-09.06.1-Ge7L",
+      "base_price": 57.134,
+      "list_price": 87.8985,
+      "base_data": {
+        "name": "[ALT 57.134 EUR] GWS.LV23-09.06.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRV6XgAA",
+      "nr": "ALT-GWS.LV23-11.02.6-Ge7L",
+      "base_price": 165.0467,
+      "list_price": 253.918,
+      "base_data": {
+        "name": "[ALT 165.0467 EUR] GWS.LV23-11.02.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKPQIsAA",
+      "nr": "ALT-GWS.LV23-11.02.1-GGSc",
+      "base_price": 125,
+      "list_price": 206.17,
+      "base_data": {
+        "name": "[ALT 125 EUR] GWS.LV23-11.02.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRWOXgAA",
+      "nr": "ALT-GWS.LV23-11.02.7-Ge7L",
+      "base_price": 173.1306,
+      "list_price": 266.3548,
+      "base_data": {
+        "name": "[ALT 173.1306 EUR] GWS.LV23-11.02.7",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKQOIsAA",
+      "nr": "ALT-GWS.LV23-11.02.3-GGSc",
+      "base_price": 147.9167,
+      "list_price": 224,
+      "base_data": {
+        "name": "[ALT 147.9167 EUR] GWS.LV23-11.02.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRSUXgAA",
+      "nr": "ALT-GWS.LV23-10.01.3-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-10.01.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRVnXgAA",
+      "nr": "ALT-GWS.LV23-11.02.5-Ge7L",
+      "base_price": 151.5735,
+      "list_price": 233.19,
+      "base_data": {
+        "name": "[ALT 151.5735 EUR] GWS.LV23-11.02.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRU3XgAA",
+      "nr": "ALT-GWS.LV23-11.02.2-Ge7L",
+      "base_price": 137.4266,
+      "list_price": 211.4256,
+      "base_data": {
+        "name": "[ALT 137.4266 EUR] GWS.LV23-11.02.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKMdIsAA",
+      "nr": "ALT-GWS.LV23-09.07.2-GGSc",
+      "base_price": 25,
+      "list_price": 42.96,
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-09.07.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LRWeXgAA",
+      "nr": "ALT-GWS.LV23-11.02.8-Ge7L",
+      "base_price": 133.3847,
+      "list_price": 205.2072,
+      "base_data": {
+        "name": "[ALT 133.3847 EUR] GWS.LV23-11.02.8",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRWvXgAA",
+      "nr": "ALT-GWS.LV23-11.02.9-Ge7L",
+      "base_price": 140.7949,
+      "list_price": 216.6076,
+      "base_data": {
+        "name": "[ALT 140.7949 EUR] GWS.LV23-11.02.9",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRX4XgAA",
+      "nr": "ALT-GWS.LV23-11.02.13-Ge7L",
+      "base_price": 189.2985,
+      "list_price": 291.2284,
+      "base_data": {
+        "name": "[ALT 189.2985 EUR] GWS.LV23-11.02.13",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRYqXgAA",
+      "nr": "ALT-GWS.LV23-11.02.16-Ge7L",
+      "base_price": 192.6668,
+      "list_price": 296.4104,
+      "base_data": {
+        "name": "[ALT 192.6668 EUR] GWS.LV23-11.02.16",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRZhXgAA",
+      "nr": "ALT-GWS.LV23-12.01.2-Ge7L",
+      "base_price": 5402.7532,
+      "list_price": 8311.928,
+      "base_data": {
+        "name": "[ALT 5402.7532 EUR] GWS.LV23-12.01.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRaEXgAA",
+      "nr": "ALT-GWS.LV23-12.02.2-Ge7L",
+      "base_price": 5564.4316,
+      "list_price": 8560.664,
+      "base_data": {
+        "name": "[ALT 5564.4316 EUR] GWS.LV23-12.02.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRZOXgAA",
+      "nr": "ALT-GWS.LV23-12.01.1-Ge7L",
+      "base_price": 5200.6552,
+      "list_price": 8001.008,
+      "base_data": {
+        "name": "[ALT 5200.6552 EUR] GWS.LV23-12.01.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRZ1XgAA",
+      "nr": "ALT-GWS.LV23-12.02.1-Ge7L",
+      "base_price": 5321.914,
+      "list_price": 8187.56,
+      "base_data": {
+        "name": "[ALT 5321.914 EUR] GWS.LV23-12.02.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRXlXgAA",
+      "nr": "ALT-GWS.LV23-11.02.12-Ge7L",
+      "base_price": 185.9302,
+      "list_price": 286.0464,
+      "base_data": {
+        "name": "[ALT 185.9302 EUR] GWS.LV23-11.02.12",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRYZXgAA",
+      "nr": "ALT-GWS.LV23-11.02.15-Ge7L",
+      "base_price": 220.9605,
+      "list_price": 339.9392,
+      "base_data": {
+        "name": "[ALT 220.9605 EUR] GWS.LV23-11.02.15",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRXSXgAA",
+      "nr": "ALT-GWS.LV23-11.02.11-Ge7L",
+      "base_price": 181.2145,
+      "list_price": 278.7916,
+      "base_data": {
+        "name": "[ALT 181.2145 EUR] GWS.LV23-11.02.11",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRY9XgAA",
+      "nr": "ALT-GWS.LV23-11.02.17-Ge7L",
+      "base_price": 223.6551,
+      "list_price": 344.0848,
+      "base_data": {
+        "name": "[ALT 223.6551 EUR] GWS.LV23-11.02.17",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScJWWIsAA",
+      "nr": "ALT-GWS.LV23-07.01.26-GGSc",
+      "base_price": 12,
+      "list_price": 15.4,
+      "base_data": {
+        "name": "[ALT 12 EUR] GWS.LV23-07.01.26",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ6VXgAA",
+      "nr": "ALT-GWS.LV23-09.01.9-Ge7L",
+      "base_price": 9.2759,
+      "list_price": 14.2706,
+      "base_data": {
+        "name": "[ALT 9.2759 EUR] GWS.LV23-09.01.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPxmXgAA",
+      "nr": "ALT-GWS.LV23-04.01.11-Ge7L",
+      "base_price": 35.8866,
+      "list_price": 57.34,
+      "base_data": {
+        "name": "[ALT 35.8866 EUR] GWS.LV23-04.01.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRweXgAA",
+      "nr": "ALT-GWS.LV23-20.03.1-Ge7L",
+      "base_price": 48.4848,
+      "list_price": 74.592,
+      "base_data": {
+        "name": "[ALT 48.4848 EUR] GWS.LV23-20.03.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LRLMXgAA",
+      "nr": "ALT-GWS.LV23-09.04.11-Ge7L",
+      "base_price": 4.033,
+      "list_price": 6.2046,
+      "base_data": {
+        "name": "[ALT 4.033 EUR] GWS.LV23-09.04.11",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRXAXgAA",
+      "nr": "ALT-GWS.LV23-11.02.10-Ge7L",
+      "base_price": 159.6574,
+      "list_price": 245.6268,
+      "base_data": {
+        "name": "[ALT 159.6574 EUR] GWS.LV23-11.02.10",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPWZXgAA",
+      "nr": "ALT-GWS.LV23-01.01.15-Ge7L",
+      "base_price": 21.8266,
+      "list_price": 33.5794,
+      "base_data": {
+        "name": "[ALT 21.8266 EUR] GWS.LV23-01.01.15",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRAtXgAA",
+      "nr": "ALT-GWS.LV23-09.03.10-Ge7L",
+      "base_price": 4.4094,
+      "list_price": 6.7837,
+      "base_data": {
+        "name": "[ALT 4.4094 EUR] GWS.LV23-09.03.10",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRlIXgAA",
+      "nr": "ALT-GWS.LV23-20.01.7-Ge7L",
+      "base_price": 58.1818,
+      "list_price": 89.5104,
+      "base_data": {
+        "name": "[ALT 58.1818 EUR] GWS.LV23-20.01.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKfZIsAA",
+      "nr": "ALT-GWS.LV23-12.06.1-GGSc",
+      "base_price": 2000,
+      "list_price": 4953.99,
+      "base_data": {
+        "name": "[ALT 2000 EUR] GWS.LV23-12.06.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRa_XgAA",
+      "nr": "ALT-GWS.LV23-12.04.1-Ge7L",
+      "base_price": 5645.2708,
+      "list_price": 8685.032,
+      "base_data": {
+        "name": "[ALT 5645.2708 EUR] GWS.LV23-12.04.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRbkXgAA",
+      "nr": "ALT-GWS.LV23-12.05.1-Ge7L",
+      "base_price": 5968.6276,
+      "list_price": 9182.504,
+      "base_data": {
+        "name": "[ALT 5968.6276 EUR] GWS.LV23-12.05.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRbRXgAA",
+      "nr": "ALT-GWS.LV23-12.04.2-Ge7L",
+      "base_price": 5833.8956,
+      "list_price": 8975.224,
+      "base_data": {
+        "name": "[ALT 5833.8956 EUR] GWS.LV23-12.04.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRdKXgAA",
+      "nr": "ALT-GWS.LV23-20.01.4-Ge7L",
+      "base_price": 50.1471,
+      "list_price": 77.1494,
+      "base_data": {
+        "name": "[ALT 50.1471 EUR] GWS.LV23-20.01.4",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRaqXgAA",
+      "nr": "ALT-GWS.LV23-12.03.2-Ge7L",
+      "base_price": 5699.1636,
+      "list_price": 8767.944,
+      "base_data": {
+        "name": "[ALT 5699.1636 EUR] GWS.LV23-12.03.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ-bXgAA",
+      "nr": "ALT-GWS.LV23-09.03.1-Ge7L",
+      "base_price": 1.8686,
+      "list_price": 2.8748,
+      "base_data": {
+        "name": "[ALT 1.8686 EUR] GWS.LV23-09.03.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSaaXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.2-Ge7L",
+      "base_price": 628.9166,
+      "list_price": 967.564,
+      "base_data": {
+        "name": "[ALT 628.9166 EUR] GWS.LV23-21.02.03.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQjWXgAA",
+      "nr": "ALT-GWS.LV23-08.02.1-Ge7L",
+      "base_price": 25.9359,
+      "list_price": 41.03,
+      "base_data": {
+        "name": "[ALT 25.9359 EUR] GWS.LV23-08.02.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR2LXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.21-Ge7L",
+      "base_price": 581.9483,
+      "list_price": 895.305,
+      "base_data": {
+        "name": "[ALT 581.9483 EUR] GWS.LV23-21.01.01.21",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQaWXgAA",
+      "nr": "ALT-GWS.LV23-07.01.11-Ge7L",
+      "base_price": 3.1496,
+      "list_price": 4.8456,
+      "base_data": {
+        "name": "[ALT 3.1496 EUR] GWS.LV23-07.01.11",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ8AXgAA",
+      "nr": "ALT-GWS.LV23-09.02.1-Ge7L",
+      "base_price": 33.2722,
+      "list_price": 51.188,
+      "base_data": {
+        "name": "[ALT 33.2722 EUR] GWS.LV23-09.02.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LSZkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.24-Ge7L",
+      "base_price": 183.2061,
+      "list_price": 281.8556,
+      "base_data": {
+        "name": "[ALT 183.2061 EUR] GWS.LV23-21.02.02.24",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJU4IsAA",
+      "nr": "ALT-GWS.LV23-07.01.21-GGSc",
+      "base_price": 12.9167,
+      "list_price": 22.6,
+      "base_data": {
+        "name": "[ALT 12.9167 EUR] GWS.LV23-07.01.21",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LR2eXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.22-Ge7L",
+      "base_price": 1040.6604,
+      "list_price": 1601.016,
+      "base_data": {
+        "name": "[ALT 1040.6604 EUR] GWS.LV23-21.01.01.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQzMXgAA",
+      "nr": "ALT-GWS.LV23-08.04.9-Ge7L",
+      "base_price": 24.2518,
+      "list_price": 37.3104,
+      "base_data": {
+        "name": "[ALT 24.2518 EUR] GWS.LV23-08.04.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQZeXgAA",
+      "nr": "ALT-GWS.LV23-07.01.8-Ge7L",
+      "base_price": 24.8232,
+      "list_price": 38.1895,
+      "base_data": {
+        "name": "[ALT 24.8232 EUR] GWS.LV23-07.01.8",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPlGXgAA",
+      "nr": "ALT-GWS.LV23-02.01.6-Ge7L",
+      "base_price": 98.201,
+      "list_price": 151.0784,
+      "base_data": {
+        "name": "[ALT 98.201 EUR] GWS.LV23-02.01.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPigXgAA",
+      "nr": "ALT-GWS.LV23-01.01.30-Ge7L",
+      "base_price": 15.1574,
+      "list_price": 23.319,
+      "base_data": {
+        "name": "[ALT 15.1574 EUR] GWS.LV23-01.01.30",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ1XXgAA",
+      "nr": "ALT-GWS.LV23-08.05.3-Ge7L",
+      "base_price": 63.324,
+      "list_price": 97.4216,
+      "base_data": {
+        "name": "[ALT 63.324 EUR] GWS.LV23-08.05.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRKSXgAA",
+      "nr": "ALT-GWS.LV23-09.04.7-Ge7L",
+      "base_price": 6.9367,
+      "list_price": 10.6719,
+      "base_data": {
+        "name": "[ALT 6.9367 EUR] GWS.LV23-09.04.7",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQk3XgAA",
+      "nr": "ALT-GWS.LV23-08.02.7-Ge7L",
+      "base_price": 27.6201,
+      "list_price": 42.4924,
+      "base_data": {
+        "name": "[ALT 27.6201 EUR] GWS.LV23-08.02.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSRTXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.30-Ge7L",
+      "base_price": 109.3768,
+      "list_price": 168.272,
+      "base_data": {
+        "name": "[ALT 109.3768 EUR] GWS.LV23-21.02.01.30",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRBvXgAA",
+      "nr": "ALT-GWS.LV23-09.04.1-Ge7L",
+      "base_price": 4.4363,
+      "list_price": 6.8251,
+      "base_data": {
+        "name": "[ALT 4.4363 EUR] GWS.LV23-09.04.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRA8XgAA",
+      "nr": "ALT-GWS.LV23-09.03.11-Ge7L",
+      "base_price": 5.9151,
+      "list_price": 9.1001,
+      "base_data": {
+        "name": "[ALT 5.9151 EUR] GWS.LV23-09.03.11",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQgGXgAA",
+      "nr": "ALT-GWS.LV23-08.01.1-Ge7L",
+      "base_price": 15.5857,
+      "list_price": 23.978,
+      "base_data": {
+        "name": "[ALT 15.5857 EUR] GWS.LV23-08.01.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRYJXgAA",
+      "nr": "ALT-GWS.LV23-11.02.14-Ge7L",
+      "base_price": 208.8346,
+      "list_price": 321.284,
+      "base_data": {
+        "name": "[ALT 208.8346 EUR] GWS.LV23-11.02.14",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRADXgAA",
+      "nr": "ALT-GWS.LV23-09.03.8-Ge7L",
+      "base_price": 7.3535,
+      "list_price": 11.3131,
+      "base_data": {
+        "name": "[ALT 7.3535 EUR] GWS.LV23-09.03.8",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQYJXgAA",
+      "nr": "ALT-GWS.LV23-07.01.3-Ge7L",
+      "base_price": 7.5003,
+      "list_price": 11.539,
+      "base_data": {
+        "name": "[ALT 7.5003 EUR] GWS.LV23-07.01.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQbMXgAA",
+      "nr": "ALT-GWS.LV23-07.01.14-Ge7L",
+      "base_price": 9.4755,
+      "list_price": 14.5777,
+      "base_data": {
+        "name": "[ALT 9.4755 EUR] GWS.LV23-07.01.14",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ2bXgAA",
+      "nr": "ALT-GWS.LV23-08.05.6-Ge7L",
+      "base_price": 73.4289,
+      "list_price": 112.9676,
+      "base_data": {
+        "name": "[ALT 73.4289 EUR] GWS.LV23-08.05.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP14XgAA",
+      "nr": "ALT-GWS.LV23-04.01.25-Ge7L",
+      "base_price": 36.8345,
+      "list_price": 56.6685,
+      "base_data": {
+        "name": "[ALT 36.8345 EUR] GWS.LV23-04.01.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQmkXgAA",
+      "nr": "ALT-GWS.LV23-08.02.12-Ge7L",
+      "base_price": 10.1049,
+      "list_price": 15.546,
+      "base_data": {
+        "name": "[ALT 10.1049 EUR] GWS.LV23-08.02.12",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPnGXgAA",
+      "nr": "ALT-GWS.LV23-02.01.12-Ge7L",
+      "base_price": 40.4747,
+      "list_price": 62.2688,
+      "base_data": {
+        "name": "[ALT 40.4747 EUR] GWS.LV23-02.01.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP8WXgAA",
+      "nr": "ALT-GWS.LV23-05.01.6-Ge7L",
+      "base_price": 2.3767,
+      "list_price": 3.6565,
+      "base_data": {
+        "name": "[ALT 2.3767 EUR] GWS.LV23-05.01.6",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQlPXgAA",
+      "nr": "ALT-GWS.LV23-08.02.8-Ge7L",
+      "base_price": 31.9315,
+      "list_price": 49.1254,
+      "base_data": {
+        "name": "[ALT 31.9315 EUR] GWS.LV23-08.02.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP7LXgAA",
+      "nr": "ALT-GWS.LV23-05.01.2-Ge7L",
+      "base_price": 26.8554,
+      "list_price": 41.316,
+      "base_data": {
+        "name": "[ALT 26.8554 EUR] GWS.LV23-05.01.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ0SXgAA",
+      "nr": "ALT-GWS.LV23-08.04.14-Ge7L",
+      "base_price": 82.1865,
+      "list_price": 126.4408,
+      "base_data": {
+        "name": "[ALT 82.1865 EUR] GWS.LV23-08.04.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LP_MXgAA",
+      "nr": "ALT-GWS.LV23-06.01.1-Ge7L",
+      "base_price": 1.376,
+      "list_price": 2.1169,
+      "base_data": {
+        "name": "[ALT 1.376 EUR] GWS.LV23-06.01.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPy8XgAA",
+      "nr": "ALT-GWS.LV23-04.01.15-Ge7L",
+      "base_price": 41.5742,
+      "list_price": 63.9604,
+      "base_data": {
+        "name": "[ALT 41.5742 EUR] GWS.LV23-04.01.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQSmXgAA",
+      "nr": "ALT-GWS.LV23-06.01.36-Ge7L",
+      "base_price": 9.1126,
+      "list_price": 14.0193,
+      "base_data": {
+        "name": "[ALT 9.1126 EUR] GWS.LV23-06.01.36",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPnaXgAA",
+      "nr": "ALT-GWS.LV23-02.01.13-Ge7L",
+      "base_price": 62.3709,
+      "list_price": 97.52,
+      "base_data": {
+        "name": "[ALT 62.3709 EUR] GWS.LV23-02.01.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQhYXgAA",
+      "nr": "ALT-GWS.LV23-08.01.8-Ge7L",
+      "base_price": 63.2752,
+      "list_price": 101.24,
+      "base_data": {
+        "name": "[ALT 63.2752 EUR] GWS.LV23-08.01.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJthIsAA",
+      "nr": "ALT-GWS.LV23-08.05.2-GGSc",
+      "base_price": 20.8333,
+      "list_price": 33.04,
+      "base_data": {
+        "name": "[ALT 20.8333 EUR] GWS.LV23-08.05.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQbeXgAA",
+      "nr": "ALT-GWS.LV23-07.01.15-Ge7L",
+      "base_price": 7.6071,
+      "list_price": 11.7032,
+      "base_data": {
+        "name": "[ALT 7.6071 EUR] GWS.LV23-07.01.15",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSOoXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.20-Ge7L",
+      "base_price": 957.047,
+      "list_price": 1472.38,
+      "base_data": {
+        "name": "[ALT 957.047 EUR] GWS.LV23-21.02.01.20",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPoAXgAA",
+      "nr": "ALT-GWS.LV23-02.01.15-Ge7L",
+      "base_price": 39.8112,
+      "list_price": 61.248,
+      "base_data": {
+        "name": "[ALT 39.8112 EUR] GWS.LV23-02.01.15",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKENIsAA",
+      "nr": "ALT-GWS.LV23-09.04.2-GGSc",
+      "base_price": 3,
+      "list_price": 5.79,
+      "base_data": {
+        "name": "[ALT 3 EUR] GWS.LV23-09.04.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPUeXgAA",
+      "nr": "ALT-GWS.LV23-01.01.8-Ge7L",
+      "base_price": 9.3639,
+      "list_price": 14.406,
+      "base_data": {
+        "name": "[ALT 9.3639 EUR] GWS.LV23-01.01.8",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQe1XgAA",
+      "nr": "ALT-GWS.LV23-07.01.25-Ge7L",
+      "base_price": 17.0826,
+      "list_price": 26.94,
+      "base_data": {
+        "name": "[ALT 17.0826 EUR] GWS.LV23-07.01.25",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSXqXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.17-Ge7L",
+      "base_price": 55.0986,
+      "list_price": 84.767,
+      "base_data": {
+        "name": "[ALT 55.0986 EUR] GWS.LV23-21.02.02.17",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRRYXgAA",
+      "nr": "ALT-GWS.LV23-09.06.8-Ge7L",
+      "base_price": 33.6083,
+      "list_price": 51.705,
+      "base_data": {
+        "name": "[ALT 33.6083 EUR] GWS.LV23-09.06.8",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSZSXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.23-Ge7L",
+      "base_price": 69.4543,
+      "list_price": 106.8527,
+      "base_data": {
+        "name": "[ALT 69.4543 EUR] GWS.LV23-21.02.02.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSRkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.31-Ge7L",
+      "base_price": 45.8015,
+      "list_price": 70.4639,
+      "base_data": {
+        "name": "[ALT 45.8015 EUR] GWS.LV23-21.02.01.31",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQQeXgAA",
+      "nr": "ALT-GWS.LV23-06.01.29-Ge7L",
+      "base_price": 2.4957,
+      "list_price": 3.8395,
+      "base_data": {
+        "name": "[ALT 2.4957 EUR] GWS.LV23-06.01.29",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScJIBIsAA",
+      "nr": "ALT-GWS.LV23-06.01.23-GGSc",
+      "base_price": 4.0833,
+      "list_price": 7.8,
+      "base_data": {
+        "name": "[ALT 4.0833 EUR] GWS.LV23-06.01.23",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQT-XgAA",
+      "nr": "ALT-GWS.LV23-06.02.2-Ge7L",
+      "base_price": 3.5435,
+      "list_price": 5.4515,
+      "base_data": {
+        "name": "[ALT 3.5435 EUR] GWS.LV23-06.02.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQTrXgAA",
+      "nr": "ALT-GWS.LV23-06.02.1-Ge7L",
+      "base_price": 5.9956,
+      "list_price": 9.224,
+      "base_data": {
+        "name": "[ALT 5.9956 EUR] GWS.LV23-06.02.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSW-XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.15-Ge7L",
+      "base_price": 125.3732,
+      "list_price": 192.8818,
+      "base_data": {
+        "name": "[ALT 125.3732 EUR] GWS.LV23-21.02.02.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQueXgAA",
+      "nr": "ALT-GWS.LV23-08.02.16-Ge7L",
+      "base_price": 52.5455,
+      "list_price": 80.8392,
+      "base_data": {
+        "name": "[ALT 52.5455 EUR] GWS.LV23-08.02.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSWUXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.13-Ge7L",
+      "base_price": 148.3423,
+      "list_price": 228.2189,
+      "base_data": {
+        "name": "[ALT 148.3423 EUR] GWS.LV23-21.02.02.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQt7XgAA",
+      "nr": "ALT-GWS.LV23-08.02.14-Ge7L",
+      "base_price": 56.5874,
+      "list_price": 87.0576,
+      "base_data": {
+        "name": "[ALT 56.5874 EUR] GWS.LV23-08.02.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQvDXgAA",
+      "nr": "ALT-GWS.LV23-08.02.18-Ge7L",
+      "base_price": 11.6543,
+      "list_price": 17.9297,
+      "base_data": {
+        "name": "[ALT 11.6543 EUR] GWS.LV23-08.02.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQuMXgAA",
+      "nr": "ALT-GWS.LV23-08.02.15-Ge7L",
+      "base_price": 54.4317,
+      "list_price": 83.7411,
+      "base_data": {
+        "name": "[ALT 54.4317 EUR] GWS.LV23-08.02.15",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQuyXgAA",
+      "nr": "ALT-GWS.LV23-08.02.17-Ge7L",
+      "base_price": 126.6481,
+      "list_price": 194.8432,
+      "base_data": {
+        "name": "[ALT 126.6481 EUR] GWS.LV23-08.02.17",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQtpXgAA",
+      "nr": "ALT-GWS.LV23-08.02.13-Ge7L",
+      "base_price": 54.5665,
+      "list_price": 83.9484,
+      "base_data": {
+        "name": "[ALT 54.5665 EUR] GWS.LV23-08.02.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPiwXgAA",
+      "nr": "ALT-GWS.LV23-01.01.31-Ge7L",
+      "base_price": 19.1993,
+      "list_price": 29.5374,
+      "base_data": {
+        "name": "[ALT 19.1993 EUR] GWS.LV23-01.01.31",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPlgXgAA",
+      "nr": "ALT-GWS.LV23-02.01.7-Ge7L",
+      "base_price": 110.1443,
+      "list_price": 169.4528,
+      "base_data": {
+        "name": "[ALT 110.1443 EUR] GWS.LV23-02.01.7",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ4IXgAA",
+      "nr": "ALT-GWS.LV23-09.01.1-Ge7L",
+      "base_price": 1.3847,
+      "list_price": 2.1302,
+      "base_data": {
+        "name": "[ALT 1.3847 EUR] GWS.LV23-09.01.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScJx6IsAA",
+      "nr": "ALT-GWS.LV23-08.07.1-GGSc",
+      "base_price": 25,
+      "list_price": 56.36,
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-08.07.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LQ4rXgAA",
+      "nr": "ALT-GWS.LV23-09.01.3-Ge7L",
+      "base_price": 30.2474,
+      "list_price": 46.5345,
+      "base_data": {
+        "name": "[ALT 30.2474 EUR] GWS.LV23-09.01.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ1nXgAA",
+      "nr": "ALT-GWS.LV23-08.05.4-Ge7L",
+      "base_price": 66.6923,
+      "list_price": 102.6036,
+      "base_data": {
+        "name": "[ALT 66.6923 EUR] GWS.LV23-08.05.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJyMIsAA",
+      "nr": "ALT-GWS.LV23-08.07.2-GGSc",
+      "base_price": 20,
+      "list_price": 42.99,
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-08.07.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LQ6GXgAA",
+      "nr": "ALT-GWS.LV23-09.01.8-Ge7L",
+      "base_price": 2.8096,
+      "list_price": 4.3225,
+      "base_data": {
+        "name": "[ALT 2.8096 EUR] GWS.LV23-09.01.8",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ14XgAA",
+      "nr": "ALT-GWS.LV23-08.05.5-Ge7L",
+      "base_price": 77.4709,
+      "list_price": 119.186,
+      "base_data": {
+        "name": "[ALT 77.4709 EUR] GWS.LV23-08.05.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ63XgAA",
+      "nr": "ALT-GWS.LV23-09.01.11-Ge7L",
+      "base_price": 4.5707,
+      "list_price": 7.0319,
+      "base_data": {
+        "name": "[ALT 4.5707 EUR] GWS.LV23-09.01.11",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ4ZXgAA",
+      "nr": "ALT-GWS.LV23-09.01.2-Ge7L",
+      "base_price": 6.4528,
+      "list_price": 9.9274,
+      "base_data": {
+        "name": "[ALT 6.4528 EUR] GWS.LV23-09.01.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQykXgAA",
+      "nr": "ALT-GWS.LV23-08.04.7-Ge7L",
+      "base_price": 191.3194,
+      "list_price": 294.3376,
+      "base_data": {
+        "name": "[ALT 191.3194 EUR] GWS.LV23-08.04.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQxXXgAA",
+      "nr": "ALT-GWS.LV23-08.04.3-Ge7L",
+      "base_price": 306.5153,
+      "list_price": 471.562,
+      "base_data": {
+        "name": "[ALT 306.5153 EUR] GWS.LV23-08.04.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQwJXgAA",
+      "nr": "ALT-GWS.LV23-08.03.18-Ge7L",
+      "base_price": 0,
+      "list_price": 0,
+      "base_data": {
+        "name": "[ALT 0 EUR] GWS.LV23-08.03.18",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQ0zXgAA",
+      "nr": "ALT-GWS.LV23-08.05.1-Ge7L",
+      "base_price": 31.662,
+      "list_price": 48.7108,
+      "base_data": {
+        "name": "[ALT 31.662 EUR] GWS.LV23-08.05.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQyBXgAA",
+      "nr": "ALT-GWS.LV23-08.04.5-Ge7L",
+      "base_price": 188.6248,
+      "list_price": 290.192,
+      "base_data": {
+        "name": "[ALT 188.6248 EUR] GWS.LV23-08.04.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQxDXgAA",
+      "nr": "ALT-GWS.LV23-08.04.2-Ge7L",
+      "base_price": 279.5689,
+      "list_price": 430.106,
+      "base_data": {
+        "name": "[ALT 279.5689 EUR] GWS.LV23-08.04.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQzxXgAA",
+      "nr": "ALT-GWS.LV23-08.04.11-Ge7L",
+      "base_price": 656.8185,
+      "list_price": 1010.49,
+      "base_data": {
+        "name": "[ALT 656.8185 EUR] GWS.LV23-08.04.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScJsUIsAA",
+      "nr": "ALT-GWS.LV23-08.04.12-GGSc",
+      "base_price": -56.9106,
+      "list_price": -74.6,
+      "base_data": {
+        "name": "[ALT -56.9106 EUR] GWS.LV23-08.04.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQxqXgAA",
+      "nr": "ALT-GWS.LV23-08.04.4-Ge7L",
+      "base_price": 102.3963,
+      "list_price": 157.5328,
+      "base_data": {
+        "name": "[ALT 102.3963 EUR] GWS.LV23-08.04.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQyUXgAA",
+      "nr": "ALT-GWS.LV23-08.04.6-Ge7L",
+      "base_price": 249.2542,
+      "list_price": 383.468,
+      "base_data": {
+        "name": "[ALT 249.2542 EUR] GWS.LV23-08.04.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSKvXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.3-Ge7L",
+      "base_price": 191.4094,
+      "list_price": 294.476,
+      "base_data": {
+        "name": "[ALT 191.4094 EUR] GWS.LV23-21.02.01.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRDLXgAA",
+      "nr": "ALT-GWS.LV23-09.04.6-Ge7L",
+      "base_price": 7.5282,
+      "list_price": 11.5819,
+      "base_data": {
+        "name": "[ALT 7.5282 EUR] GWS.LV23-09.04.6",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRAaXgAA",
+      "nr": "ALT-GWS.LV23-09.03.9-Ge7L",
+      "base_price": 3.0382,
+      "list_price": 4.6741,
+      "base_data": {
+        "name": "[ALT 3.0382 EUR] GWS.LV23-09.03.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ-tXgAA",
+      "nr": "ALT-GWS.LV23-09.03.2-Ge7L",
+      "base_price": 3.4953,
+      "list_price": 5.3773,
+      "base_data": {
+        "name": "[ALT 3.4953 EUR] GWS.LV23-09.03.2",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ22XgAA",
+      "nr": "ALT-GWS.LV23-08.05.7-Ge7L",
+      "base_price": 94.9861,
+      "list_price": 146.1324,
+      "base_data": {
+        "name": "[ALT 94.9861 EUR] GWS.LV23-08.05.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ8RXgAA",
+      "nr": "ALT-GWS.LV23-09.02.2-Ge7L",
+      "base_price": 57.4701,
+      "list_price": 88.4156,
+      "base_data": {
+        "name": "[ALT 57.4701 EUR] GWS.LV23-09.02.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ6mXgAA",
+      "nr": "ALT-GWS.LV23-09.01.10-Ge7L",
+      "base_price": 5.9823,
+      "list_price": 9.2035,
+      "base_data": {
+        "name": "[ALT 5.9823 EUR] GWS.LV23-09.01.10",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ9ZXgAA",
+      "nr": "ALT-GWS.LV23-09.02.6-Ge7L",
+      "base_price": 131.0722,
+      "list_price": 201.6495,
+      "base_data": {
+        "name": "[ALT 131.0722 EUR] GWS.LV23-09.02.6",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ9oXgAA",
+      "nr": "ALT-GWS.LV23-09.02.7-Ge7L",
+      "base_price": 32.6,
+      "list_price": 50.1539,
+      "base_data": {
+        "name": "[ALT 32.6 EUR] GWS.LV23-09.02.7",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ9GXgAA",
+      "nr": "ALT-GWS.LV23-09.02.5-Ge7L",
+      "base_price": 106.2021,
+      "list_price": 163.3878,
+      "base_data": {
+        "name": "[ALT 106.2021 EUR] GWS.LV23-09.02.5",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ8kXgAA",
+      "nr": "ALT-GWS.LV23-09.02.3-Ge7L",
+      "base_price": 106.2021,
+      "list_price": 163.3878,
+      "base_data": {
+        "name": "[ALT 106.2021 EUR] GWS.LV23-09.02.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ7cXgAA",
+      "nr": "ALT-GWS.LV23-09.01.13-Ge7L",
+      "base_price": 9.4103,
+      "list_price": 14.4774,
+      "base_data": {
+        "name": "[ALT 9.4103 EUR] GWS.LV23-09.01.13",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ81XgAA",
+      "nr": "ALT-GWS.LV23-09.02.4-Ge7L",
+      "base_price": 66.2083,
+      "list_price": 101.8589,
+      "base_data": {
+        "name": "[ALT 66.2083 EUR] GWS.LV23-09.02.4",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ7KXgAA",
+      "nr": "ALT-GWS.LV23-09.01.12-Ge7L",
+      "base_price": 9.4103,
+      "list_price": 14.4774,
+      "base_data": {
+        "name": "[ALT 9.4103 EUR] GWS.LV23-09.01.12",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ94XgAA",
+      "nr": "ALT-GWS.LV23-09.02.8-Ge7L",
+      "base_price": 59.8227,
+      "list_price": 92.0349,
+      "base_data": {
+        "name": "[ALT 59.8227 EUR] GWS.LV23-09.02.8",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LSLTXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.5-Ge7L",
+      "base_price": 447.0777,
+      "list_price": 687.8118,
+      "base_data": {
+        "name": "[ALT 447.0777 EUR] GWS.LV23-21.02.01.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRBdXgAA",
+      "nr": "ALT-GWS.LV23-09.03.13-Ge7L",
+      "base_price": 7.1249,
+      "list_price": 10.9615,
+      "base_data": {
+        "name": "[ALT 7.1249 EUR] GWS.LV23-09.03.13",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRC4XgAA",
+      "nr": "ALT-GWS.LV23-09.04.5-Ge7L",
+      "base_price": 1.7745,
+      "list_price": 2.73,
+      "base_data": {
+        "name": "[ALT 1.7745 EUR] GWS.LV23-09.04.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ-IXgAA",
+      "nr": "ALT-GWS.LV23-09.02.9-Ge7L",
+      "base_price": 67.2165,
+      "list_price": 103.41,
+      "base_data": {
+        "name": "[ALT 67.2165 EUR] GWS.LV23-09.02.9",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRBMXgAA",
+      "nr": "ALT-GWS.LV23-09.03.12-Ge7L",
+      "base_price": 6.3184,
+      "list_price": 9.7205,
+      "base_data": {
+        "name": "[ALT 6.3184 EUR] GWS.LV23-09.03.12",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRCmXgAA",
+      "nr": "ALT-GWS.LV23-09.04.4-Ge7L",
+      "base_price": 3.5356,
+      "list_price": 5.4394,
+      "base_data": {
+        "name": "[ALT 3.5356 EUR] GWS.LV23-09.04.4",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSLkXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.6-Ge7L",
+      "base_price": 479.8907,
+      "list_price": 738.2934,
+      "base_data": {
+        "name": "[ALT 479.8907 EUR] GWS.LV23-21.02.01.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSNFXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.12-Ge7L",
+      "base_price": 27.3442,
+      "list_price": 42.068,
+      "base_data": {
+        "name": "[ALT 27.3442 EUR] GWS.LV23-21.02.01.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLJnIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.24-GGSc",
+      "base_price": 127.0833,
+      "list_price": 212.38,
+      "base_data": {
+        "name": "[ALT 127.0833 EUR] GWS.LV23-21.02.01.24",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSMhXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.9-Ge7L",
+      "base_price": 31.4458,
+      "list_price": 48.3782,
+      "base_data": {
+        "name": "[ALT 31.4458 EUR] GWS.LV23-21.02.01.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLJCIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.22-GGSc",
+      "base_price": 208.3333,
+      "list_price": 340,
+      "base_data": {
+        "name": "[ALT 208.3333 EUR] GWS.LV23-21.02.01.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLHCIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.14-GGSc",
+      "base_price": 43.75,
+      "list_price": 921.37,
+      "base_data": {
+        "name": "[ALT 43.75 EUR] GWS.LV23-21.02.01.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScLFaIsAA",
+      "nr": "ALT-GWS.LV23-21.02.01.8-GGSc",
+      "base_price": 370.8333,
+      "list_price": 921.37,
+      "base_data": {
+        "name": "[ALT 370.8333 EUR] GWS.LV23-21.02.01.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSOVXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.18-Ge7L",
+      "base_price": 27.3442,
+      "list_price": 42.068,
+      "base_data": {
+        "name": "[ALT 27.3442 EUR] GWS.LV23-21.02.01.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSLCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.4-Ge7L",
+      "base_price": 396.4909,
+      "list_price": 609.986,
+      "base_data": {
+        "name": "[ALT 396.4909 EUR] GWS.LV23-21.02.01.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSL9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.7-Ge7L",
+      "base_price": 541.4152,
+      "list_price": 832.9464,
+      "base_data": {
+        "name": "[ALT 541.4152 EUR] GWS.LV23-21.02.01.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSUwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.8-Ge7L",
+      "base_price": 861.3423,
+      "list_price": 1325.142,
+      "base_data": {
+        "name": "[ALT 861.3423 EUR] GWS.LV23-21.02.02.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSQuXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.28-Ge7L",
+      "base_price": 117.5801,
+      "list_price": 180.8924,
+      "base_data": {
+        "name": "[ALT 117.5801 EUR] GWS.LV23-21.02.01.28",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSThXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.3-Ge7L",
+      "base_price": 623.4478,
+      "list_price": 959.1504,
+      "base_data": {
+        "name": "[ALT 623.4478 EUR] GWS.LV23-21.02.02.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSTwXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.4-Ge7L",
+      "base_price": 674.7181,
+      "list_price": 1038.0279,
+      "base_data": {
+        "name": "[ALT 674.7181 EUR] GWS.LV23-21.02.02.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSTNXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.2-Ge7L",
+      "base_price": 572.861,
+      "list_price": 881.3246,
+      "base_data": {
+        "name": "[ALT 572.861 EUR] GWS.LV23-21.02.02.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSUgXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.7-Ge7L",
+      "base_price": 765.6376,
+      "list_price": 1177.904,
+      "base_data": {
+        "name": "[ALT 765.6376 EUR] GWS.LV23-21.02.02.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSP8XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.25-Ge7L",
+      "base_price": 451.1793,
+      "list_price": 694.122,
+      "base_data": {
+        "name": "[ALT 451.1793 EUR] GWS.LV23-21.02.01.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSR1XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.32-Ge7L",
+      "base_price": 69.0441,
+      "list_price": 106.2217,
+      "base_data": {
+        "name": "[ALT 69.0441 EUR] GWS.LV23-21.02.01.32",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSUPXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.6-Ge7L",
+      "base_price": 697.2771,
+      "list_price": 1072.734,
+      "base_data": {
+        "name": "[ALT 697.2771 EUR] GWS.LV23-21.02.02.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSS9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.1-Ge7L",
+      "base_price": 555.0873,
+      "list_price": 853.9804,
+      "base_data": {
+        "name": "[ALT 555.0873 EUR] GWS.LV23-21.02.02.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSWlXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.14-Ge7L",
+      "base_price": 130.1584,
+      "list_price": 200.2437,
+      "base_data": {
+        "name": "[ALT 130.1584 EUR] GWS.LV23-21.02.02.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSYiXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.20-Ge7L",
+      "base_price": 46.075,
+      "list_price": 70.8846,
+      "base_data": {
+        "name": "[ALT 46.075 EUR] GWS.LV23-21.02.02.20",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSWBXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.12-Ge7L",
+      "base_price": 141.7797,
+      "list_price": 218.1226,
+      "base_data": {
+        "name": "[ALT 141.7797 EUR] GWS.LV23-21.02.02.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSVCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.9-Ge7L",
+      "base_price": 929.7028,
+      "list_price": 1430.312,
+      "base_data": {
+        "name": "[ALT 929.7028 EUR] GWS.LV23-21.02.02.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSYzXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.21-Ge7L",
+      "base_price": 59.8838,
+      "list_price": 92.1289,
+      "base_data": {
+        "name": "[ALT 59.8838 EUR] GWS.LV23-21.02.02.21",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSX9XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.18-Ge7L",
+      "base_price": 123.7325,
+      "list_price": 190.3577,
+      "base_data": {
+        "name": "[ALT 123.7325 EUR] GWS.LV23-21.02.02.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSXXXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.16-Ge7L",
+      "base_price": 121.6817,
+      "list_price": 187.2026,
+      "base_data": {
+        "name": "[ALT 121.6817 EUR] GWS.LV23-21.02.02.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSYOXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.19-Ge7L",
+      "base_price": 157.2292,
+      "list_price": 241.891,
+      "base_data": {
+        "name": "[ALT 157.2292 EUR] GWS.LV23-21.02.02.19",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSVuXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.11-Ge7L",
+      "base_price": 130.5686,
+      "list_price": 200.8747,
+      "base_data": {
+        "name": "[ALT 130.5686 EUR] GWS.LV23-21.02.02.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSVWXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.10-Ge7L",
+      "base_price": 451.1793,
+      "list_price": 694.122,
+      "base_data": {
+        "name": "[ALT 451.1793 EUR] GWS.LV23-21.02.02.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSZ1XgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.25-Ge7L",
+      "base_price": 159.9636,
+      "list_price": 246.0978,
+      "base_data": {
+        "name": "[ALT 159.9636 EUR] GWS.LV23-21.02.02.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LScMXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.8-Ge7L",
+      "base_price": 772.4737,
+      "list_price": 1188.421,
+      "base_data": {
+        "name": "[ALT 772.4737 EUR] GWS.LV23-21.02.03.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSboXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.6-Ge7L",
+      "base_price": 704.1132,
+      "list_price": 1083.251,
+      "base_data": {
+        "name": "[ALT 704.1132 EUR] GWS.LV23-21.02.03.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSb7XgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.7-Ge7L",
+      "base_price": 731.4574,
+      "list_price": 1125.319,
+      "base_data": {
+        "name": "[ALT 731.4574 EUR] GWS.LV23-21.02.03.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSZBXgAA",
+      "nr": "ALT-GWS.LV23-21.02.02.22-Ge7L",
+      "base_price": 55.7822,
+      "list_price": 85.8187,
+      "base_data": {
+        "name": "[ALT 55.7822 EUR] GWS.LV23-21.02.02.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSbVXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.5-Ge7L",
+      "base_price": 669.9329,
+      "list_price": 1030.666,
+      "base_data": {
+        "name": "[ALT 669.9329 EUR] GWS.LV23-21.02.03.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LScfXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.9-Ge7L",
+      "base_price": 806.6539,
+      "list_price": 1241.006,
+      "base_data": {
+        "name": "[ALT 806.6539 EUR] GWS.LV23-21.02.03.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSa-XgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.4-Ge7L",
+      "base_price": 658.9952,
+      "list_price": 1013.8388,
+      "base_data": {
+        "name": "[ALT 658.9952 EUR] GWS.LV23-21.02.03.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSarXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.3-Ge7L",
+      "base_price": 642.5887,
+      "list_price": 988.598,
+      "base_data": {
+        "name": "[ALT 642.5887 EUR] GWS.LV23-21.02.03.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSaJXgAA",
+      "nr": "ALT-GWS.LV23-21.02.03.1-Ge7L",
+      "base_price": 526.3759,
+      "list_price": 809.809,
+      "base_data": {
+        "name": "[ALT 526.3759 EUR] GWS.LV23-21.02.03.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRnHXgAA",
+      "nr": "ALT-GWS.LV23-20.01.14-Ge7L",
+      "base_price": 24.935,
+      "list_price": 38.3616,
+      "base_data": {
+        "name": "[ALT 24.935 EUR] GWS.LV23-20.01.14",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSSYXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.34-Ge7L",
+      "base_price": 201.6635,
+      "list_price": 310.2515,
+      "base_data": {
+        "name": "[ALT 201.6635 EUR] GWS.LV23-21.02.01.34",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRnXXgAA",
+      "nr": "ALT-GWS.LV23-20.01.15-Ge7L",
+      "base_price": 32.5541,
+      "list_price": 50.0832,
+      "base_data": {
+        "name": "[ALT 32.5541 EUR] GWS.LV23-20.01.15",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSPZXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.23-Ge7L",
+      "base_price": 514.071,
+      "list_price": 790.8784,
+      "base_data": {
+        "name": "[ALT 514.071 EUR] GWS.LV23-21.02.01.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRm4XgAA",
+      "nr": "ALT-GWS.LV23-20.01.13-Ge7L",
+      "base_price": 20.0866,
+      "list_price": 30.9024,
+      "base_data": {
+        "name": "[ALT 20.0866 EUR] GWS.LV23-20.01.13",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQy6XgAA",
+      "nr": "ALT-GWS.LV23-08.04.8-Ge7L",
+      "base_price": 78.8182,
+      "list_price": 121.2588,
+      "base_data": {
+        "name": "[ALT 78.8182 EUR] GWS.LV23-08.04.8",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRbyXgAA",
+      "nr": "ALT-GWS.LV23-12.05.2-Ge7L",
+      "base_price": 6197.672,
+      "list_price": 9534.88,
+      "base_data": {
+        "name": "[ALT 6197.672 EUR] GWS.LV23-12.05.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQwcXgAA",
+      "nr": "ALT-GWS.LV23-08.04.1-Ge7L",
+      "base_price": 215.5712,
+      "list_price": 331.648,
+      "base_data": {
+        "name": "[ALT 215.5712 EUR] GWS.LV23-08.04.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRovXgAA",
+      "nr": "ALT-GWS.LV23-20.01.20-Ge7L",
+      "base_price": 6.3723,
+      "list_price": 9.8035,
+      "base_data": {
+        "name": "[ALT 6.3723 EUR] GWS.LV23-20.01.20",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRpcXgAA",
+      "nr": "ALT-GWS.LV23-20.01.22-Ge7L",
+      "base_price": 35.7402,
+      "list_price": 54.985,
+      "base_data": {
+        "name": "[ALT 35.7402 EUR] GWS.LV23-20.01.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRqsXgAA",
+      "nr": "ALT-GWS.LV23-20.01.26-Ge7L",
+      "base_price": 445.3675,
+      "list_price": 685.1808,
+      "base_data": {
+        "name": "[ALT 445.3675 EUR] GWS.LV23-20.01.26",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRsDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.31-Ge7L",
+      "base_price": 42.5281,
+      "list_price": 65.4278,
+      "base_data": {
+        "name": "[ALT 42.5281 EUR] GWS.LV23-20.01.31",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRn5XgAA",
+      "nr": "ALT-GWS.LV23-20.01.17-Ge7L",
+      "base_price": 15.6537,
+      "list_price": 24.0826,
+      "base_data": {
+        "name": "[ALT 15.6537 EUR] GWS.LV23-20.01.17",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRpDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.21-Ge7L",
+      "base_price": 13.5757,
+      "list_price": 20.8858,
+      "base_data": {
+        "name": "[ALT 13.5757 EUR] GWS.LV23-20.01.21",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQTLXgAA",
+      "nr": "ALT-GWS.LV23-06.01.38-Ge7L",
+      "base_price": 44.3824,
+      "list_price": 68.2807,
+      "base_data": {
+        "name": "[ALT 44.3824 EUR] GWS.LV23-06.01.38",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScKvUIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.4-GGSc",
+      "base_price": 229.1667,
+      "list_price": 372.29,
+      "base_data": {
+        "name": "[ALT 229.1667 EUR] GWS.LV23-21.01.01.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKxzIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.15-GGSc",
+      "base_price": 31.6667,
+      "list_price": 53.09,
+      "base_data": {
+        "name": "[ALT 31.6667 EUR] GWS.LV23-21.01.01.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRz6XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.13-Ge7L",
+      "base_price": 347.7997,
+      "list_price": 535.0764,
+      "base_data": {
+        "name": "[ALT 347.7997 EUR] GWS.LV23-21.01.01.13",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR1VXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.18-Ge7L",
+      "base_price": 35.7385,
+      "list_price": 54.9823,
+      "base_data": {
+        "name": "[ALT 35.7385 EUR] GWS.LV23-21.01.01.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR0_XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.17-Ge7L",
+      "base_price": 33.4107,
+      "list_price": 51.401,
+      "base_data": {
+        "name": "[ALT 33.4107 EUR] GWS.LV23-21.01.01.17",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKyBIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.16-GGSc",
+      "base_price": 37.9167,
+      "list_price": 63,
+      "base_data": {
+        "name": "[ALT 37.9167 EUR] GWS.LV23-21.01.01.16",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRyAXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.5-Ge7L",
+      "base_price": 197.8624,
+      "list_price": 304.4037,
+      "base_data": {
+        "name": "[ALT 197.8624 EUR] GWS.LV23-21.01.01.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRnmXgAA",
+      "nr": "ALT-GWS.LV23-20.01.16-Ge7L",
+      "base_price": 5.1255,
+      "list_price": 7.8854,
+      "base_data": {
+        "name": "[ALT 5.1255 EUR] GWS.LV23-20.01.16",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRpzXgAA",
+      "nr": "ALT-GWS.LV23-20.01.23-Ge7L",
+      "base_price": 22.5801,
+      "list_price": 34.7386,
+      "base_data": {
+        "name": "[ALT 22.5801 EUR] GWS.LV23-20.01.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRoIXgAA",
+      "nr": "ALT-GWS.LV23-20.01.18-Ge7L",
+      "base_price": 2.0225,
+      "list_price": 3.1116,
+      "base_data": {
+        "name": "[ALT 2.0225 EUR] GWS.LV23-20.01.18",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRocXgAA",
+      "nr": "ALT-GWS.LV23-20.01.19-Ge7L",
+      "base_price": 2.7013,
+      "list_price": 4.1558,
+      "base_data": {
+        "name": "[ALT 2.7013 EUR] GWS.LV23-20.01.19",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LRriXgAA",
+      "nr": "ALT-GWS.LV23-20.01.29-Ge7L",
+      "base_price": 254.8915,
+      "list_price": 392.1408,
+      "base_data": {
+        "name": "[ALT 254.8915 EUR] GWS.LV23-20.01.29",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRtJXgAA",
+      "nr": "ALT-GWS.LV23-20.01.34-Ge7L",
+      "base_price": 1219.0464,
+      "list_price": 1875.456,
+      "base_data": {
+        "name": "[ALT 1219.0464 EUR] GWS.LV23-20.01.34",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRwMXgAA",
+      "nr": "ALT-GWS.LV23-20.02.6-Ge7L",
+      "base_price": 101.049,
+      "list_price": 155.46,
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRtsXgAA",
+      "nr": "ALT-GWS.LV23-20.01.36-Ge7L",
+      "base_price": 1496.1024,
+      "list_price": 2301.696,
+      "base_data": {
+        "name": "[ALT 1496.1024 EUR] GWS.LV23-20.01.36",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRv4XgAA",
+      "nr": "ALT-GWS.LV23-20.02.5-Ge7L",
+      "base_price": 101.049,
+      "list_price": 155.46,
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRvAXgAA",
+      "nr": "ALT-GWS.LV23-20.02.2-Ge7L",
+      "base_price": 127.3217,
+      "list_price": 195.8796,
+      "base_data": {
+        "name": "[ALT 127.3217 EUR] GWS.LV23-20.02.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRsVXgAA",
+      "nr": "ALT-GWS.LV23-20.01.32-Ge7L",
+      "base_price": 955.8432,
+      "list_price": 1470.528,
+      "base_data": {
+        "name": "[ALT 955.8432 EUR] GWS.LV23-20.01.32",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRtbXgAA",
+      "nr": "ALT-GWS.LV23-20.01.35-Ge7L",
+      "base_price": 1357.5744,
+      "list_price": 2088.576,
+      "base_data": {
+        "name": "[ALT 1357.5744 EUR] GWS.LV23-20.01.35",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRvUXgAA",
+      "nr": "ALT-GWS.LV23-20.02.3-Ge7L",
+      "base_price": 272.1586,
+      "list_price": 418.7056,
+      "base_data": {
+        "name": "[ALT 272.1586 EUR] GWS.LV23-20.02.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRsrXgAA",
+      "nr": "ALT-GWS.LV23-20.01.33-Ge7L",
+      "base_price": 1080.5184,
+      "list_price": 1662.336,
+      "base_data": {
+        "name": "[ALT 1080.5184 EUR] GWS.LV23-20.01.33",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKsRIsAA",
+      "nr": "ALT-GWS.LV23-20.01.38-GGSc",
+      "base_price": 30,
+      "list_price": 47.95,
+      "base_data": {
+        "name": "[ALT 30 EUR] GWS.LV23-20.01.38",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRxhXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.3-Ge7L",
+      "base_price": 46.5559,
+      "list_price": 71.6244,
+      "base_data": {
+        "name": "[ALT 46.5559 EUR] GWS.LV23-21.01.01.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRyhXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.7-Ge7L",
+      "base_price": 247.1568,
+      "list_price": 380.2413,
+      "base_data": {
+        "name": "[ALT 247.1568 EUR] GWS.LV23-21.01.01.7",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR0LXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.14-Ge7L",
+      "base_price": 22.0456,
+      "list_price": 33.9163,
+      "base_data": {
+        "name": "[ALT 22.0456 EUR] GWS.LV23-21.01.01.14",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR4oXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.28-Ge7L",
+      "base_price": 44.5019,
+      "list_price": 68.4645,
+      "base_data": {
+        "name": "[ALT 44.5019 EUR] GWS.LV23-21.01.01.28",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR46XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.29-Ge7L",
+      "base_price": 45.1866,
+      "list_price": 69.5178,
+      "base_data": {
+        "name": "[ALT 45.1866 EUR] GWS.LV23-21.01.01.29",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKz3IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.23-GGSc",
+      "base_price": 37.9167,
+      "list_price": 60.25,
+      "base_data": {
+        "name": "[ALT 37.9167 EUR] GWS.LV23-21.01.01.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScK0GIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.24-GGSc",
+      "base_price": 895.8333,
+      "list_price": 1330,
+      "base_data": {
+        "name": "[ALT 895.8333 EUR] GWS.LV23-21.01.01.24",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LR16XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.20-Ge7L",
+      "base_price": 156.7837,
+      "list_price": 241.2057,
+      "base_data": {
+        "name": "[ALT 156.7837 EUR] GWS.LV23-21.01.01.20",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR1pXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.19-Ge7L",
+      "base_price": 49.9791,
+      "list_price": 76.8909,
+      "base_data": {
+        "name": "[ALT 49.9791 EUR] GWS.LV23-21.01.01.19",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR3hXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.25-Ge7L",
+      "base_price": 106.8046,
+      "list_price": 164.3148,
+      "base_data": {
+        "name": "[ALT 106.8046 EUR] GWS.LV23-21.01.01.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScK0pIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.26-GGSc",
+      "base_price": 22.9167,
+      "list_price": 38.55,
+      "base_data": {
+        "name": "[ALT 22.9167 EUR] GWS.LV23-21.01.01.26",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScK16IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.30-GGSc",
+      "base_price": 33.75,
+      "list_price": 60.8,
+      "base_data": {
+        "name": "[ALT 33.75 EUR] GWS.LV23-21.01.01.30",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "GGScK09IsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.27-GGSc",
+      "base_price": 22.9167,
+      "list_price": 38.55,
+      "base_data": {
+        "name": "[ALT 22.9167 EUR] GWS.LV23-21.01.01.27",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSBZXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.2-Ge7L",
+      "base_price": 258.4027,
+      "list_price": 397.5426,
+      "base_data": {
+        "name": "[ALT 258.4027 EUR] GWS.LV23-21.02.01.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LR5xXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.34-Ge7L",
+      "base_price": 38.614,
+      "list_price": 59.4061,
+      "base_data": {
+        "name": "[ALT 38.614 EUR] GWS.LV23-21.01.01.34",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LR6mXgAA",
+      "nr": "ALT-GWS.LV23-21.01.02.1-Ge7L",
+      "base_price": 2560.5723,
+      "list_price": 3939.342,
+      "base_data": {
+        "name": "[ALT 2560.5723 EUR] GWS.LV23-21.01.02.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScK3IIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.37-GGSc",
+      "base_price": 35.4167,
+      "list_price": 67.19,
+      "base_data": {
+        "name": "[ALT 35.4167 EUR] GWS.LV23-21.01.01.37",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LR6FXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.36-Ge7L",
+      "base_price": 32.1783,
+      "list_price": 49.5051,
+      "base_data": {
+        "name": "[ALT 32.1783 EUR] GWS.LV23-21.01.01.36",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LR5eXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.32-Ge7L",
+      "base_price": 32.3152,
+      "list_price": 49.7158,
+      "base_data": {
+        "name": "[ALT 32.3152 EUR] GWS.LV23-21.01.01.32",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LR7fXgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.2-Ge7L",
+      "base_price": 2615.3439,
+      "list_price": 4023.606,
+      "base_data": {
+        "name": "[ALT 2615.3439 EUR] GWS.LV23-21.01.03.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR64XgAA",
+      "nr": "ALT-GWS.LV23-21.01.02.2-Ge7L",
+      "base_price": 2423.6433,
+      "list_price": 3728.682,
+      "base_data": {
+        "name": "[ALT 2423.6433 EUR] GWS.LV23-21.01.02.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LR78XgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.4-Ge7L",
+      "base_price": 219.0864,
+      "list_price": 337.056,
+      "base_data": {
+        "name": "[ALT 219.0864 EUR] GWS.LV23-21.01.03.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LR7uXgAA",
+      "nr": "ALT-GWS.LV23-21.01.03.3-Ge7L",
+      "base_price": 538.131,
+      "list_price": 827.8938,
+      "base_data": {
+        "name": "[ALT 538.131 EUR] GWS.LV23-21.01.03.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRrQXgAA",
+      "nr": "ALT-GWS.LV23-20.01.28-Ge7L",
+      "base_price": 45.8528,
+      "list_price": 70.5427,
+      "base_data": {
+        "name": "[ALT 45.8528 EUR] GWS.LV23-20.01.28",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPUuXgAA",
+      "nr": "ALT-GWS.LV23-01.01.9-Ge7L",
+      "base_price": 9.3639,
+      "list_price": 14.93,
+      "base_data": {
+        "name": "[ALT 9.3639 EUR] GWS.LV23-01.01.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ0iXgAA",
+      "nr": "ALT-GWS.LV23-08.04.15-Ge7L",
+      "base_price": 75.4499,
+      "list_price": 116.0768,
+      "base_data": {
+        "name": "[ALT 75.4499 EUR] GWS.LV23-08.04.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQJsXgAA",
+      "nr": "ALT-GWS.LV23-06.01.4-Ge7L",
+      "base_price": 2.6575,
+      "list_price": 4.0885,
+      "base_data": {
+        "name": "[ALT 2.6575 EUR] GWS.LV23-06.01.4",
+        "unit_type": "kg"
+      }
+    },
+    {
+      "product_id": "Ge7LPv4XgAA",
+      "nr": "ALT-GWS.LV23-04.01.5-Ge7L",
+      "base_price": 46.9911,
+      "list_price": 72.294,
+      "base_data": {
+        "name": "[ALT 46.9911 EUR] GWS.LV23-04.01.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQMrXgAA",
+      "nr": "ALT-GWS.LV23-06.01.15-Ge7L",
+      "base_price": 55.849,
+      "list_price": 85.9216,
+      "base_data": {
+        "name": "[ALT 55.849 EUR] GWS.LV23-06.01.15",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSRCXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.29-Ge7L",
+      "base_price": 123.0489,
+      "list_price": 189.306,
+      "base_data": {
+        "name": "[ALT 123.0489 EUR] GWS.LV23-21.02.01.29",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRmDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.10-Ge7L",
+      "base_price": 390.649,
+      "list_price": 600.9984,
+      "base_data": {
+        "name": "[ALT 390.649 EUR] GWS.LV23-20.01.10",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRzjXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.12-Ge7L",
+      "base_price": 277.9659,
+      "list_price": 427.6398,
+      "base_data": {
+        "name": "[ALT 277.9659 EUR] GWS.LV23-21.01.01.12",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPr6XgAA",
+      "nr": "ALT-GWS.LV23-02.02.7-Ge7L",
+      "base_price": 13.0514,
+      "list_price": 20.079,
+      "base_data": {
+        "name": "[ALT 13.0514 EUR] GWS.LV23-02.02.7",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRqYXgAA",
+      "nr": "ALT-GWS.LV23-20.01.25-Ge7L",
+      "base_price": 419.7398,
+      "list_price": 645.7536,
+      "base_data": {
+        "name": "[ALT 419.7398 EUR] GWS.LV23-20.01.25",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ5OXgAA",
+      "nr": "ALT-GWS.LV23-09.01.5-Ge7L",
+      "base_price": 2.9441,
+      "list_price": 4.5294,
+      "base_data": {
+        "name": "[ALT 2.9441 EUR] GWS.LV23-09.01.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScKuvIsAA",
+      "nr": "ALT-GWS.LV23-21.01.01.2-GGSc",
+      "base_price": 16.6667,
+      "list_price": 28.64,
+      "base_data": {
+        "name": "[ALT 16.6667 EUR] GWS.LV23-21.01.01.2",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSNtXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.15-Ge7L",
+      "base_price": 31.4458,
+      "list_price": 48.3782,
+      "base_data": {
+        "name": "[ALT 31.4458 EUR] GWS.LV23-21.02.01.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPXeXgAA",
+      "nr": "ALT-GWS.LV23-01.01.20-Ge7L",
+      "base_price": 19.1319,
+      "list_price": 29.4338,
+      "base_data": {
+        "name": "[ALT 19.1319 EUR] GWS.LV23-01.01.20",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ5zXgAA",
+      "nr": "ALT-GWS.LV23-09.01.7-Ge7L",
+      "base_price": 3.2398,
+      "list_price": 4.9844,
+      "base_data": {
+        "name": "[ALT 3.2398 EUR] GWS.LV23-09.01.7",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPVQXgAA",
+      "nr": "ALT-GWS.LV23-01.01.11-Ge7L",
+      "base_price": 8.9866,
+      "list_price": 13.8256,
+      "base_data": {
+        "name": "[ALT 8.9866 EUR] GWS.LV23-01.01.11",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRqDXgAA",
+      "nr": "ALT-GWS.LV23-20.01.24-Ge7L",
+      "base_price": 90.7358,
+      "list_price": 139.5936,
+      "base_data": {
+        "name": "[ALT 90.7358 EUR] GWS.LV23-20.01.24",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LSQNXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.26-Ge7L",
+      "base_price": 252.9339,
+      "list_price": 389.129,
+      "base_data": {
+        "name": "[ALT 252.9339 EUR] GWS.LV23-21.02.01.26",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ_RXgAA",
+      "nr": "ALT-GWS.LV23-09.03.5-Ge7L",
+      "base_price": 6.036,
+      "list_price": 9.2862,
+      "base_data": {
+        "name": "[ALT 6.036 EUR] GWS.LV23-09.03.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ--XgAA",
+      "nr": "ALT-GWS.LV23-09.03.3-Ge7L",
+      "base_price": 2.3929,
+      "list_price": 3.6814,
+      "base_data": {
+        "name": "[ALT 2.3929 EUR] GWS.LV23-09.03.3",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQ5hXgAA",
+      "nr": "ALT-GWS.LV23-09.01.6-Ge7L",
+      "base_price": 2.5811,
+      "list_price": 3.9709,
+      "base_data": {
+        "name": "[ALT 2.5811 EUR] GWS.LV23-09.01.6",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRcZXgAA",
+      "nr": "ALT-GWS.LV23-20.01.1-Ge7L",
+      "base_price": 90.7358,
+      "list_price": 139.5936,
+      "base_data": {
+        "name": "[ALT 90.7358 EUR] GWS.LV23-20.01.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "GGScKF_IsAA",
+      "nr": "ALT-GWS.LV23-09.04.9-GGSc",
+      "base_price": 12.9167,
+      "list_price": 19.4,
+      "base_data": {
+        "name": "[ALT 12.9167 EUR] GWS.LV23-09.04.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPjlXgAA",
+      "nr": "ALT-GWS.LV23-02.01.1-Ge7L",
+      "base_price": 44.0577,
+      "list_price": 68.89,
+      "base_data": {
+        "name": "[ALT 44.0577 EUR] GWS.LV23-02.01.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPSsXgAA",
+      "nr": "ALT-GWS.LV23-01.01.2-Ge7L",
+      "base_price": 98.3544,
+      "list_price": 151.3144,
+      "base_data": {
+        "name": "[ALT 98.3544 EUR] GWS.LV23-01.01.2",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQRGXgAA",
+      "nr": "ALT-GWS.LV23-06.01.31-Ge7L",
+      "base_price": 44.5173,
+      "list_price": 68.4882,
+      "base_data": {
+        "name": "[ALT 44.5173 EUR] GWS.LV23-06.01.31",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQzhXgAA",
+      "nr": "ALT-GWS.LV23-08.04.10-Ge7L",
+      "base_price": 28.2937,
+      "list_price": 43.5288,
+      "base_data": {
+        "name": "[ALT 28.2937 EUR] GWS.LV23-08.04.10",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRQMXgAA",
+      "nr": "ALT-GWS.LV23-09.06.4-Ge7L",
+      "base_price": 75.2825,
+      "list_price": 115.8192,
+      "base_data": {
+        "name": "[ALT 75.2825 EUR] GWS.LV23-09.06.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKEkIsAA",
+      "nr": "ALT-GWS.LV23-09.04.3-GGSc",
+      "base_price": 0.01,
+      "list_price": 3.74,
+      "base_data": {
+        "name": "[ALT 0.01 EUR] GWS.LV23-09.04.3",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPo6XgAA",
+      "nr": "ALT-GWS.LV23-02.01.18-Ge7L",
+      "base_price": 67.679,
+      "list_price": 105.82,
+      "base_data": {
+        "name": "[ALT 67.679 EUR] GWS.LV23-02.01.18",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPTDXgAA",
+      "nr": "ALT-GWS.LV23-01.01.3-Ge7L",
+      "base_price": 222.3078,
+      "list_price": 354.36,
+      "base_data": {
+        "name": "[ALT 222.3078 EUR] GWS.LV23-01.01.3",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LRlxXgAA",
+      "nr": "ALT-GWS.LV23-20.01.9-Ge7L",
+      "base_price": 335.2378,
+      "list_price": 515.7504,
+      "base_data": {
+        "name": "[ALT 335.2378 EUR] GWS.LV23-20.01.9",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LPonXgAA",
+      "nr": "ALT-GWS.LV23-02.01.17-Ge7L",
+      "base_price": 53.7451,
+      "list_price": 84.03,
+      "base_data": {
+        "name": "[ALT 53.7451 EUR] GWS.LV23-02.01.17",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LRvnXgAA",
+      "nr": "ALT-GWS.LV23-20.02.4-Ge7L",
+      "base_price": 101.049,
+      "list_price": 155.46,
+      "base_data": {
+        "name": "[ALT 101.049 EUR] GWS.LV23-20.02.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKr9IsAA",
+      "nr": "ALT-GWS.LV23-20.01.37-GGSc",
+      "base_price": 250,
+      "list_price": 511.49,
+      "base_data": {
+        "name": "[ALT 250 EUR] GWS.LV23-20.01.37",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LQ_wXgAA",
+      "nr": "ALT-GWS.LV23-09.03.7-Ge7L",
+      "base_price": 6.2915,
+      "list_price": 9.6792,
+      "base_data": {
+        "name": "[ALT 6.2915 EUR] GWS.LV23-09.03.7",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQiyXgAA",
+      "nr": "ALT-GWS.LV23-08.01.15-Ge7L",
+      "base_price": 39.9633,
+      "list_price": 61.482,
+      "base_data": {
+        "name": "[ALT 39.9633 EUR] GWS.LV23-08.01.15",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "GGScKMDIsAA",
+      "nr": "ALT-GWS.LV23-09.07.1-GGSc",
+      "base_price": 25,
+      "list_price": 59.07,
+      "base_data": {
+        "name": "[ALT 25 EUR] GWS.LV23-09.07.1",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "Ge7LPW-XgAA",
+      "nr": "ALT-GWS.LV23-01.01.18-Ge7L",
+      "base_price": 9.2965,
+      "list_price": 14.3023,
+      "base_data": {
+        "name": "[ALT 9.2965 EUR] GWS.LV23-01.01.18",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPtbXgAA",
+      "nr": "ALT-GWS.LV23-02.02.12-Ge7L",
+      "base_price": 17.6261,
+      "list_price": 27.117,
+      "base_data": {
+        "name": "[ALT 17.6261 EUR] GWS.LV23-02.02.12",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPxCXgAA",
+      "nr": "ALT-GWS.LV23-04.01.9-Ge7L",
+      "base_price": 37.2408,
+      "list_price": 57.2935,
+      "base_data": {
+        "name": "[ALT 37.2408 EUR] GWS.LV23-04.01.9",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPzRXgAA",
+      "nr": "ALT-GWS.LV23-04.01.16-Ge7L",
+      "base_price": 3.3991,
+      "list_price": 5.2293,
+      "base_data": {
+        "name": "[ALT 3.3991 EUR] GWS.LV23-04.01.16",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LSBJXgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.1-Ge7L",
+      "base_price": 95.7047,
+      "list_price": 147.238,
+      "base_data": {
+        "name": "[ALT 95.7047 EUR] GWS.LV23-21.02.01.1",
+        "unit_type": "pauschal"
+      }
+    },
+    {
+      "product_id": "Ge7LSM0XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.11-Ge7L",
+      "base_price": 65.6261,
+      "list_price": 100.9632,
+      "base_data": {
+        "name": "[ALT 65.6261 EUR] GWS.LV23-21.02.01.11",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQYpXgAA",
+      "nr": "ALT-GWS.LV23-07.01.5-Ge7L",
+      "base_price": 7.6071,
+      "list_price": 11.7032,
+      "base_data": {
+        "name": "[ALT 7.6071 EUR] GWS.LV23-07.01.5",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LPp4XgAA",
+      "nr": "ALT-GWS.LV23-02.02.1-Ge7L",
+      "base_price": 1.1168,
+      "list_price": 1.77,
+      "base_data": {
+        "name": "[ALT 1.1168 EUR] GWS.LV23-02.02.1",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LQg4XgAA",
+      "nr": "ALT-GWS.LV23-08.01.4-Ge7L",
+      "base_price": 18.916,
+      "list_price": 30.27,
+      "base_data": {
+        "name": "[ALT 18.916 EUR] GWS.LV23-08.01.4",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPYRXgAA",
+      "nr": "ALT-GWS.LV23-01.01.23-Ge7L",
+      "base_price": 64.6714,
+      "list_price": 103.09,
+      "base_data": {
+        "name": "[ALT 64.6714 EUR] GWS.LV23-01.01.23",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPX_XgAA",
+      "nr": "ALT-GWS.LV23-01.01.22-Ge7L",
+      "base_price": 41.9017,
+      "list_price": 68.79,
+      "base_data": {
+        "name": "[ALT 41.9017 EUR] GWS.LV23-01.01.22",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPymXgAA",
+      "nr": "ALT-GWS.LV23-04.01.14-Ge7L",
+      "base_price": 6.6356,
+      "list_price": 10.2087,
+      "base_data": {
+        "name": "[ALT 6.6356 EUR] GWS.LV23-04.01.14",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LPrCXgAA",
+      "nr": "ALT-GWS.LV23-02.02.4-Ge7L",
+      "base_price": 13.9932,
+      "list_price": 22.12,
+      "base_data": {
+        "name": "[ALT 13.9932 EUR] GWS.LV23-02.02.4",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LSO3XgAA",
+      "nr": "ALT-GWS.LV23-21.02.01.21-Ge7L",
+      "base_price": 196.8782,
+      "list_price": 302.8896,
+      "base_data": {
+        "name": "[ALT 196.8782 EUR] GWS.LV23-21.02.01.21",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQ_gXgAA",
+      "nr": "ALT-GWS.LV23-09.03.6-Ge7L",
+      "base_price": 7.6627,
+      "list_price": 11.7887,
+      "base_data": {
+        "name": "[ALT 7.6627 EUR] GWS.LV23-09.03.6",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRyRXgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.6-Ge7L",
+      "base_price": 247.1568,
+      "list_price": 380.2413,
+      "base_data": {
+        "name": "[ALT 247.1568 EUR] GWS.LV23-21.01.01.6",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPsxXgAA",
+      "nr": "ALT-GWS.LV23-02.02.10-Ge7L",
+      "base_price": 14.8005,
+      "list_price": 23.4,
+      "base_data": {
+        "name": "[ALT 14.8005 EUR] GWS.LV23-02.02.10",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRMWXgAA",
+      "nr": "ALT-GWS.LV23-09.05.3-Ge7L",
+      "base_price": 22.047,
+      "list_price": 33.9185,
+      "base_data": {
+        "name": "[ALT 22.047 EUR] GWS.LV23-09.05.3",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LPWJXgAA",
+      "nr": "ALT-GWS.LV23-01.01.14-Ge7L",
+      "base_price": 16.8415,
+      "list_price": 25.91,
+      "base_data": {
+        "name": "[ALT 16.8415 EUR] GWS.LV23-01.01.14",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScIa_IsAA",
+      "nr": "ALT-GWS.LV23-01.01.12-GGSc",
+      "base_price": 6.6667,
+      "list_price": 10.4,
+      "base_data": {
+        "name": "[ALT 6.6667 EUR] GWS.LV23-01.01.12",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "Ge7LRw-XgAA",
+      "nr": "ALT-GWS.LV23-21.01.01.1-Ge7L",
+      "base_price": 41.0787,
+      "list_price": 63.198,
+      "base_data": {
+        "name": "[ALT 41.0787 EUR] GWS.LV23-21.01.01.1",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQcnXgAA",
+      "nr": "ALT-GWS.LV23-07.01.20-Ge7L",
+      "base_price": 11.3439,
+      "list_price": 17.89,
+      "base_data": {
+        "name": "[ALT 11.3439 EUR] GWS.LV23-07.01.20",
+        "unit_type": "m"
+      }
+    },
+    {
+      "product_id": "Ge7LQZxXgAA",
+      "nr": "ALT-GWS.LV23-07.01.9-Ge7L",
+      "base_price": 23.4886,
+      "list_price": 37.04,
+      "base_data": {
+        "name": "[ALT 23.4886 EUR] GWS.LV23-07.01.9",
+        "unit_type": "m²"
+      }
+    },
+    {
+      "product_id": "GGScJeHIsAA",
+      "nr": "ALT-GWS.LV23-07.02.2-GGSc",
+      "base_price": 20,
+      "list_price": 55.02,
+      "base_data": {
+        "name": "[ALT 20 EUR] GWS.LV23-07.02.2",
+        "unit_type": "Std"
+      }
+    },
+    {
+      "product_id": "GGScJoGIsAA",
+      "nr": "ALT-GWS.LV23-08.03.5-GGSc",
+      "base_price": 40,
+      "list_price": 55,
+      "base_data": {
+        "name": "[ALT 40 EUR] GWS.LV23-08.03.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQhIXgAA",
+      "nr": "ALT-GWS.LV23-08.01.5-Ge7L",
+      "base_price": 22.2462,
+      "list_price": 34.22,
+      "base_data": {
+        "name": "[ALT 22.2462 EUR] GWS.LV23-08.01.5",
+        "unit_type": "Stk"
+      }
+    },
+    {
+      "product_id": "Ge7LQJbXgAA",
+      "nr": "ALT-GWS.LV23-06.01.3-Ge7L",
+      "base_price": 2.8059,
+      "list_price": 4.3168,
+      "base_data": {
+        "name": "[ALT 2.8059 EUR] GWS.LV23-06.01.3",
+        "unit_type": "m²"
+      }
+    }
+  ],
+  "verification": {
+    "verified_at": "2026-02-06T09:49:00.480Z",
+    "total_product_versions": 3176,
+    "total_is_deleted": 820,
+    "total_active": 2356,
+    "alt_duplikat_total": 626,
+    "alt_duplikat_already_deleted": 626,
+    "alt_duplikat_still_active": 0,
+    "conclusion": "Alle 626 ALT/DUPLIKAT-Positionen waren bereits als is_deleted=true markiert (vorherige Session 2026-01-31). Keine harte Delete-Mutation in Hero API verfügbar - nur Soft-Delete über is_deleted Feld."
+  }
+}

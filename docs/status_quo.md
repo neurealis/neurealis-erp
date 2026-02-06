@@ -1,10 +1,46 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-04 (aktualisiert nach LOG-096)
+**Stand:** 2026-02-06 (aktualisiert nach LOG-099)
 
 ---
 
 ## Aktueller Projektstatus
+
+### EPA-Preisimport Aug 25 + ALT/DUPLIKAT Bereinigung (✅ FERTIG)
+
+**Abgeschlossen:** 2026-02-06
+
+**Diagnose & Ergebnis:**
+| Metrik | Wert |
+|--------|------|
+| Supabase↔Hero Sync | 99/99 Positionen geprüft, 100% synchron ✅ |
+| Hero-Push | 47/99 Positionen aktualisiert |
+| Preisänderungen nötig | 3 (HLS Kompaktheizkörper +4,57%) |
+| ALT/DUPLIKAT entfernt | 626 (436 ALT + 190 DUPLIKAT) |
+| Hero Bestand | 3.176 → 2.550 Positionen |
+
+**Erkenntnisse:**
+- Trigger `trg_lv_hero_push` feuert nur bei INSERT, nicht bei UPDATE → Preisänderungen manuell pushen
+- Nur 99/2.036 GWS-Positionen haben `hero_product_id` (95% ohne Hero-Verknüpfung)
+- EK-Preise basieren auf realen Einkaufskonditionen, nicht pauschal 65% vom VK
+- Hero hat ZWEI `is_deleted` Flags (Version + base_data) → beide müssen `true` sein
+- Hero API bietet keine harte Löschung, nur Soft-Delete
+
+**Backups:**
+- `docs/backups/2026-02-06_lv_positionen_gws_preise_backup.json` (223 Positionen)
+- `docs/backups/2026-02-06_hero_alt_duplikat_backup.json`
+
+**Scripts:** `hero_price_sync.js`, `hero_base_data_delete.js`, `hero_batch_query.py`, `hero_full_verify.py`
+
+**Offene Punkte:**
+- 427 inaktive GWS-Positionen in Supabase reaktivieren
+- 4 komplett fehlende Positionen anlegen (06.01.13, 07.01.17, 09.03.4, 21.01.04.10.1)
+- ~50 Positionen ohne `hero_product_id` verknüpfen
+- 33 Ergänzungen (01.99.05) ohne Hero+Softr Verknüpfung
+
+**Neue Learnings:** L215-L220
+
+---
 
 ### CPQ-Wizard v2: DB-Schema + PDF-Export (✅ FERTIG)
 
@@ -761,9 +797,9 @@ ui/src/routes/
   - SharePoint Finanzen-Site synchronisieren
   - Oder: Tobias bittet NUs um erneute Zusendung
 
-→ **Hero-Preise manuell aktualisieren**
-  - 274 GWS-Positionen haben in Hero niedrigere/fehlende Preise
-  - Diskrepanzen in `docs/hero_gws_price_comparison.json`
+→ **264 fehlende GWS-Positionen in Supabase anlegen und mit Hero verknüpfen**
+  - EPA Index Aug 25: 264/367 Positionen nie in Supabase importiert
+  - Bestehende 103 Positionen sind synchron mit Hero (LOG-099)
 
 → **SharePoint Ingest Status-Seite erstellen** (User Request)
   - Neue Seite `/ingest` im neurealis ERP (wie LifeOps)
