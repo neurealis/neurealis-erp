@@ -298,7 +298,12 @@
 				telegram_enabled,
 				telegram_verified,
 				telegram_chat_id,
-				telegram_verified_at
+				telegram_verified_at,
+				bot_kann_maengel,
+				bot_kann_nachtraege,
+				bot_kann_bestellungen,
+				bot_kann_fotos,
+				bot_kann_status
 			`)
 			.eq('aktiv', true)
 			.order('nachname', { ascending: true });
@@ -364,7 +369,13 @@
 			plz: kontakt.plz || '',
 			ort: kontakt.ort || '',
 			notizen: kontakt.notizen || '',
-			telegram_enabled: kontakt.telegram_enabled || false
+			telegram_enabled: kontakt.telegram_enabled || false,
+			// Bot-Permissions - NULL = true (Default)
+			bot_kann_maengel: kontakt.bot_kann_maengel ?? true,
+			bot_kann_nachtraege: kontakt.bot_kann_nachtraege ?? true,
+			bot_kann_bestellungen: kontakt.bot_kann_bestellungen ?? true,
+			bot_kann_fotos: kontakt.bot_kann_fotos ?? true,
+			bot_kann_status: kontakt.bot_kann_status ?? true
 		};
 		formErrors = {};
 		showModal = true;
@@ -429,6 +440,12 @@
 			ort: formData.ort || null,
 			notizen: formData.notizen || null,
 			telegram_enabled: formData.telegram_enabled,
+			// Bot-Permissions
+			bot_kann_maengel: formData.bot_kann_maengel,
+			bot_kann_nachtraege: formData.bot_kann_nachtraege,
+			bot_kann_bestellungen: formData.bot_kann_bestellungen,
+			bot_kann_fotos: formData.bot_kann_fotos,
+			bot_kann_status: formData.bot_kann_status,
 			sync_source: 'manual',
 			updated_at: new Date().toISOString()
 		};
@@ -973,6 +990,76 @@
 									Chat-ID: <code>{editingKontakt.telegram_chat_id}</code>
 								</div>
 							{/if}
+						</div>
+					{/if}
+
+					<!-- Bot-Permissions (nur anzeigen wenn Telegram aktiviert) -->
+					{#if formData.telegram_enabled}
+						<div class="form-section bot-permissions">
+							<h3>Bot-Berechtigungen</h3>
+							<p class="section-hint">Welche Funktionen darf dieser Kontakt im Telegram-Bot nutzen?</p>
+
+							<div class="permissions-grid">
+								<label class="permission-checkbox" class:checked={formData.bot_kann_maengel}>
+									<input
+										type="checkbox"
+										bind:checked={formData.bot_kann_maengel}
+									>
+									<span class="checkmark"></span>
+									<span class="permission-label">
+										<span class="permission-icon">&#9888;</span>
+										Mängel melden
+									</span>
+								</label>
+
+								<label class="permission-checkbox" class:checked={formData.bot_kann_nachtraege}>
+									<input
+										type="checkbox"
+										bind:checked={formData.bot_kann_nachtraege}
+									>
+									<span class="checkmark"></span>
+									<span class="permission-label">
+										<span class="permission-icon">&#128221;</span>
+										Nachträge erfassen
+									</span>
+								</label>
+
+								<label class="permission-checkbox" class:checked={formData.bot_kann_bestellungen}>
+									<input
+										type="checkbox"
+										bind:checked={formData.bot_kann_bestellungen}
+									>
+									<span class="checkmark"></span>
+									<span class="permission-label">
+										<span class="permission-icon">&#128230;</span>
+										Bestellungen aufgeben
+									</span>
+								</label>
+
+								<label class="permission-checkbox" class:checked={formData.bot_kann_fotos}>
+									<input
+										type="checkbox"
+										bind:checked={formData.bot_kann_fotos}
+									>
+									<span class="checkmark"></span>
+									<span class="permission-label">
+										<span class="permission-icon">&#128247;</span>
+										Fotos hochladen
+									</span>
+								</label>
+
+								<label class="permission-checkbox" class:checked={formData.bot_kann_status}>
+									<input
+										type="checkbox"
+										bind:checked={formData.bot_kann_status}
+									>
+									<span class="checkmark"></span>
+									<span class="permission-label">
+										<span class="permission-icon">&#128202;</span>
+										Status abfragen
+									</span>
+								</label>
+							</div>
 						</div>
 					{/if}
 				</div>
@@ -1915,6 +2002,86 @@
 		background: var(--color-gray-200);
 		padding: 0.125rem 0.375rem;
 		border-radius: 3px;
+	}
+
+	/* Bot-Permissions Section */
+	.bot-permissions {
+		margin-top: 1.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-gray-200);
+	}
+
+	.section-hint {
+		font-size: 0.85rem;
+		color: var(--color-gray-500);
+		margin: 0 0 1rem 0;
+	}
+
+	.permissions-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		gap: 0.75rem;
+	}
+
+	.permission-checkbox {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		border: 1px solid var(--color-gray-200);
+		cursor: pointer;
+		transition: all 0.15s ease;
+		user-select: none;
+	}
+
+	.permission-checkbox:hover {
+		border-color: var(--color-gray-300);
+		background: var(--color-gray-50);
+	}
+
+	.permission-checkbox.checked {
+		border-color: var(--color-brand-medium);
+		background: var(--color-brand-bg);
+	}
+
+	.permission-checkbox input {
+		display: none;
+	}
+
+	.permission-checkbox .checkmark {
+		width: 18px;
+		height: 18px;
+		border: 2px solid var(--color-gray-400);
+		border-radius: 3px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		transition: all 0.15s ease;
+	}
+
+	.permission-checkbox.checked .checkmark {
+		background: var(--color-brand-medium);
+		border-color: var(--color-brand-medium);
+	}
+
+	.permission-checkbox.checked .checkmark::after {
+		content: '\2713';
+		color: white;
+		font-size: 0.75rem;
+		font-weight: bold;
+	}
+
+	.permission-label {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		font-size: 0.85rem;
+		color: var(--color-gray-700);
+	}
+
+	.permission-icon {
+		font-size: 1rem;
 	}
 
 	@media (max-width: 768px) {
