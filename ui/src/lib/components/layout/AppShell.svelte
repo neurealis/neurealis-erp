@@ -5,7 +5,7 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		user?: { email: string; name?: string; role?: string } | null;
+		user?: { email: string; name?: string; roles?: string[] } | null;
 		children: Snippet;
 	}
 
@@ -26,7 +26,7 @@
 		mobileMenuOpen = false;
 	}
 
-	let userRole = $derived(user?.role || 'mitarbeiter');
+	let userRoles = $derived(user?.roles || []);
 	let userName = $derived(user?.name);
 	let userEmail = $derived(user?.email);
 </script>
@@ -34,7 +34,7 @@
 <div class="app-shell" class:sidebar-collapsed={sidebarCollapsed}>
 	<!-- Sidebar (Desktop) -->
 	<Sidebar
-		{userRole}
+		{userRoles}
 		{userName}
 		{userEmail}
 		isCollapsed={sidebarCollapsed}
@@ -46,7 +46,7 @@
 		<button class="mobile-overlay" onclick={closeMobileMenu} aria-label="Menü schließen"></button>
 		<div class="mobile-sidebar">
 			<Sidebar
-				{userRole}
+				{userRoles}
 				{userName}
 				{userEmail}
 				isCollapsed={false}
@@ -68,7 +68,7 @@
 	</main>
 
 	<!-- Bottom Navigation (Mobile) -->
-	<BottomNav {userRole} />
+	<BottomNav {userRoles} />
 </div>
 
 <style>

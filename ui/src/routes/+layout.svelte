@@ -4,14 +4,31 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { AppShell } from '$lib/components/layout';
+	import { loadUserPermissions, getUserRoles, resetPermissions } from '$lib/stores/berechtigungen';
 
 	let { children, data } = $props();
 
+	let dbRoles = $state<string[]>([]);
+
 	// Auth-Änderungen überwachen
 	onMount(() => {
-		const { data: { subscription } } = data.supabase.auth.onAuthStateChange((event, session) => {
-			if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'TOKEN_REFRESHED') {
+		// Initial Permissions laden
+		if (data.user) {
+			loadUserPermissions().then(() => {
+				dbRoles = getUserRoles();
+			});
+		}
+
+		const { data: { subscription } } = data.supabase.auth.onAuthStateChange(async (event: string, _session: unknown) => {
+			if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
 				invalidate('supabase:auth');
+				await loadUserPermissions();
+				dbRoles = getUserRoles();
+			}
+			if (event === 'SIGNED_OUT') {
+				invalidate('supabase:auth');
+				resetPermissions();
+				dbRoles = [];
 			}
 		});
 
@@ -22,13 +39,13 @@
 	let isLoginPage = $derived(page.url.pathname === '/login');
 	let isAuthCallback = $derived(page.url.pathname.startsWith('/auth/'));
 
-	// User-Objekt mit Rolle (TODO: Rolle aus DB laden)
+	// User-Objekt mit Rollen aus DB
 	let userWithRole = $derived(
 		data.user
 			? {
 					email: data.user.email || '',
 					name: data.user.user_metadata?.name || data.user.user_metadata?.full_name,
-					role: data.user.user_metadata?.role || 'mitarbeiter'
+					roles: dbRoles
 			  }
 			: null
 	);

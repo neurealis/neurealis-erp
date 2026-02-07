@@ -1,45 +1,32 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { hasPermission } from '$lib/stores/berechtigungen';
 
 	interface Props {
-		userRole?: string;
+		userRoles?: string[];
 	}
 
-	let { userRole = 'mitarbeiter' }: Props = $props();
+	let { userRoles = [] }: Props = $props();
 
-	// Mobile Navigation Items (max 5)
-	const navConfigs: Record<string, { icon: string; label: string; href: string }[]> = {
-		mitarbeiter: [
-			{ icon: '🏠', label: 'Start', href: '/' },
-			{ icon: '🏗️', label: 'BVs', href: '/bauvorhaben' },
-			{ icon: '⚠️', label: 'Mängel', href: '/maengel' },
-			{ icon: '📝', label: 'Nachträge', href: '/nachtraege' },
-			{ icon: '💰', label: 'Finanzen', href: '/finanzen' },
-		],
-		admin: [
-			{ icon: '🏠', label: 'Start', href: '/' },
-			{ icon: '🏗️', label: 'BVs', href: '/bauvorhaben' },
-			{ icon: '⚠️', label: 'Mängel', href: '/maengel' },
-			{ icon: '📝', label: 'Nachträge', href: '/nachtraege' },
-			{ icon: '💰', label: 'Finanzen', href: '/finanzen' },
-		],
-		kunde: [
-			{ icon: '🏠', label: 'Start', href: '/' },
-			{ icon: '🏗️', label: 'BVs', href: '/bauvorhaben' },
-			{ icon: '✉️', label: 'Angebote', href: '/angebote' },
-			{ icon: '💰', label: 'Rechnungen', href: '/rechnungen' },
-			{ icon: '👤', label: 'Kontakt', href: '/ansprechpartner' },
-		],
-		nachunternehmer: [
-			{ icon: '🏠', label: 'Start', href: '/' },
-			{ icon: '➕', label: 'Aufträge', href: '/auftraege' },
-			{ icon: '⚠️', label: 'Mängel', href: '/maengel' },
-			{ icon: '💰', label: 'Rechnungen', href: '/rechnungen' },
-			{ icon: '📄', label: 'Nachweise', href: '/nachweise' },
-		],
-	};
+	// Alle möglichen Nav-Items mit Permission-Anforderung
+	const allNavItems: { icon: string; label: string; href: string; permission?: string }[] = [
+		{ icon: '🏠', label: 'Start', href: '/' },
+		{ icon: '🏗️', label: 'BVs', href: '/bauvorhaben', permission: 'bauvorhaben.read' },
+		{ icon: '⚠️', label: 'Mängel', href: '/maengel', permission: 'maengel.read' },
+		{ icon: '📝', label: 'Nachträge', href: '/nachtraege', permission: 'nachtraege.read' },
+		{ icon: '💰', label: 'Finanzen', href: '/finanzen', permission: 'finanzen.read' },
+		{ icon: '📋', label: 'Einkauf', href: '/bestellungen', permission: 'einkauf.read' },
+		{ icon: '📄', label: 'Angebote', href: '/angebote', permission: 'angebote.read' },
+	];
 
-	let items = $derived(navConfigs[userRole] || navConfigs.mitarbeiter);
+	function canSee(item: { permission?: string }): boolean {
+		if (!item.permission) return true;
+		const [resource, action] = item.permission.split('.');
+		return hasPermission(resource, action);
+	}
+
+	// Max 5 sichtbare Items
+	let items = $derived(allNavItems.filter(canSee).slice(0, 5));
 
 	function isActive(href: string): boolean {
 		if (href === '/') {

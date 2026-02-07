@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { hasPermission } from '$lib/stores/berechtigungen';
 
 	interface MenuItem {
 		icon: string;
 		label: string;
 		href: string;
-		roles: string[];
+		permission?: string;
 	}
 
 	interface MenuGroup {
 		icon: string;
 		label: string;
-		roles: string[];
+		permission?: string;
 		children: MenuItem[];
 	}
 
@@ -22,14 +23,14 @@
 	}
 
 	interface Props {
-		userRole?: string;
+		userRoles?: string[];
 		userName?: string;
 		userEmail?: string;
 		isCollapsed?: boolean;
 		onToggle?: () => void;
 	}
 
-	let { userRole = 'mitarbeiter', userName, userEmail, isCollapsed = false, onToggle }: Props = $props();
+	let { userRoles = [], userName, userEmail, isCollapsed = false, onToggle }: Props = $props();
 
 	// WIP-Badge System: Nur für Holger sichtbar
 	const isHolger = $derived(userEmail === 'holger.neumann@neurealis.de');
@@ -63,86 +64,76 @@
 		return openSubmenus.has(label);
 	}
 
-	// Menue-Items nach Rolle (mit Gruppen)
+	// Menü-Items mit Permission-basierter Filterung
 	const menuEntries: MenuEntry[] = [
-		// Alle Rollen
-		{ icon: 'home', label: 'Startseite', href: '/', roles: ['admin', 'mitarbeiter', 'kunde', 'nachunternehmer'] },
+		// Alle sehen die Startseite
+		{ icon: 'home', label: 'Startseite', href: '/' },
 
-		// Intern + Admin
-		{ icon: 'building', label: 'Bauvorhaben', href: '/bauvorhaben', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'calendar', label: 'Kalender', href: '/kalender', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'file-text', label: 'Angebote', href: '/angebote', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'alert', label: 'Maengel', href: '/maengel', roles: ['admin', 'mitarbeiter', 'nachunternehmer'] },
-		{ icon: 'file-plus', label: 'Nachtraege', href: '/nachtraege', roles: ['admin', 'mitarbeiter', 'nachunternehmer'] },
-		{ icon: 'euro', label: 'Finanzen', href: '/finanzen', roles: ['admin', 'mitarbeiter'] },
+		// Intern
+		{ icon: 'building', label: 'Bauvorhaben', href: '/bauvorhaben', permission: 'bauvorhaben.read' },
+		{ icon: 'calendar', label: 'Kalender', href: '/kalender', permission: 'bauvorhaben.read' },
+		{ icon: 'file-text', label: 'Angebote', href: '/angebote', permission: 'angebote.read' },
+		{ icon: 'alert', label: 'Mängel', href: '/maengel', permission: 'maengel.read' },
+		{ icon: 'file-plus', label: 'Nachträge', href: '/nachtraege', permission: 'nachtraege.read' },
+		{ icon: 'euro', label: 'Finanzen', href: '/finanzen', permission: 'finanzen.read' },
 
 		// Einkauf als Gruppe mit Untermenü
 		{
 			icon: 'package',
 			label: 'Einkauf',
-			roles: ['admin', 'mitarbeiter'],
+			permission: 'einkauf.read',
 			children: [
-				{ icon: 'list', label: 'Übersicht', href: '/einkauf', roles: ['admin', 'mitarbeiter'] },
-				{ icon: 'cart', label: 'Bestellung', href: '/bestellung', roles: ['admin', 'mitarbeiter'] },
-				{ icon: 'clipboard', label: 'Bestellungen', href: '/bestellungen', roles: ['admin', 'mitarbeiter'] },
-				{ icon: 'chart', label: 'LV-Export', href: '/lv-export', roles: ['admin', 'mitarbeiter'] },
-				{ icon: 'link', label: 'LV-Abhängigkeiten', href: '/lv-abhaengigkeiten', roles: ['admin', 'mitarbeiter'] },
+				{ icon: 'list', label: 'Übersicht', href: '/einkauf', permission: 'einkauf.read' },
+				{ icon: 'cart', label: 'Bestellung', href: '/bestellung', permission: 'einkauf.create' },
+				{ icon: 'clipboard', label: 'Bestellungen', href: '/bestellungen', permission: 'einkauf.read' },
+				{ icon: 'chart', label: 'LV-Export', href: '/lv-export', permission: 'einkauf.read' },
+				{ icon: 'link', label: 'LV-Abhängigkeiten', href: '/lv-abhaengigkeiten', permission: 'einkauf.read' },
 			]
 		},
 
-		{ icon: 'users', label: 'Kontakte', href: '/kontakte', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'target', label: 'Leads', href: '/leads', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'megaphone', label: 'Marketing', href: '/marketing', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'checklist', label: 'Aufgaben', href: '/aufgaben', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'wrench', label: 'Nachunternehmer', href: '/nachunternehmer', roles: ['admin', 'mitarbeiter'] },
-		{ icon: 'user-check', label: 'Bewerber', href: '/bewerber', roles: ['admin', 'mitarbeiter'] },
+		{ icon: 'users', label: 'Kontakte', href: '/kontakte', permission: 'kontakte.read' },
+		{ icon: 'target', label: 'Leads', href: '/leads', permission: 'kontakte.read' },
+		{ icon: 'megaphone', label: 'Marketing', href: '/marketing', permission: 'marketing.read' },
+		{ icon: 'checklist', label: 'Aufgaben', href: '/aufgaben', permission: 'bauvorhaben.read' },
+		{ icon: 'wrench', label: 'Nachunternehmer', href: '/nachunternehmer', permission: 'kontakte.read' },
+		{ icon: 'user-check', label: 'Bewerber', href: '/bewerber', permission: 'kontakte.read' },
 
-		// Kunden
-		{ icon: 'building', label: 'Bauvorhaben', href: '/bauvorhaben', roles: ['kunde'] },
-		{ icon: 'mail', label: 'Angebote', href: '/angebote', roles: ['kunde'] },
-		{ icon: 'euro', label: 'Rechnungen', href: '/rechnungen', roles: ['kunde'] },
-		{ icon: 'user', label: 'Ansprechpartner', href: '/ansprechpartner', roles: ['kunde'] },
-
-		// Nachunternehmer
-		{ icon: 'plus', label: 'Auftraege', href: '/auftraege', roles: ['nachunternehmer'] },
-		{ icon: 'euro', label: 'Rechnungen', href: '/rechnungen', roles: ['nachunternehmer'] },
-		{ icon: 'list', label: 'LVs', href: '/lvs', roles: ['nachunternehmer'] },
-		{ icon: 'file-check', label: 'Nachweise', href: '/nachweise', roles: ['nachunternehmer'] },
-
-		// Einstellungen (nur Admin)
+		// Einstellungen
 		{
 			icon: 'settings',
 			label: 'Einstellungen',
-			roles: ['admin'],
+			permission: 'einstellungen.read',
 			children: [
-				{ icon: 'shield', label: 'Rollen & Rechte', href: '/einstellungen/rollen', roles: ['admin'] },
+				{ icon: 'shield', label: 'Rollen & Rechte', href: '/einstellungen/rollen', permission: 'einstellungen.manage' },
 			]
 		},
 
-		// Hilfe (alle Rollen)
-		{ icon: 'help', label: 'Hilfe', href: '/hilfe', roles: ['admin', 'mitarbeiter', 'kunde', 'nachunternehmer'] },
+		// Hilfe für alle
+		{ icon: 'help', label: 'Hilfe', href: '/hilfe' },
 	];
 
-	// Gefilterte Entries für aktuelle Rolle
+	// Permission-basierte Sichtbarkeit
+	function canSeeItem(item: { permission?: string }): boolean {
+		if (!item.permission) return true;
+		const [resource, action] = item.permission.split('.');
+		return hasPermission(resource, action);
+	}
+
+	// Gefilterte Entries basierend auf Berechtigungen
 	let filteredEntries = $derived(
 		menuEntries
-			.filter(entry => entry.roles.includes(userRole))
+			.filter(entry => canSeeItem(entry))
 			.map(entry => {
 				if (isMenuGroup(entry)) {
 					return {
 						...entry,
-						children: entry.children.filter(child => child.roles.includes(userRole))
+						children: entry.children.filter(child => canSeeItem(child))
 					};
 				}
 				return entry;
 			})
-			.filter((entry, index, self) => {
-				// Duplikate entfernen (gleiche href bei Items)
-				if (!isMenuGroup(entry)) {
-					return self.findIndex(i => !isMenuGroup(i) && i.href === entry.href) === index;
-				}
-				return true;
-			})
+			// Gruppen ohne sichtbare Kinder entfernen
+			.filter(entry => !isMenuGroup(entry) || entry.children.length > 0)
 	);
 
 	// Prüfen ob eine Gruppe aktiv ist (eines der Kinder ist aktiv)
