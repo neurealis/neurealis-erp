@@ -1,10 +1,26 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-06 (aktualisiert nach LOG-100)
+**Stand:** 2026-02-06 (aktualisiert nach LOG-101)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Bestellformular-Bugfixes: Mitarbeiter + DB-Trigger + Kontakte (LOG-101)
+
+**Abgeschlossen:** 2026-02-06
+
+**Ergebnisse:**
+| Komponente | Status | Details |
+|------------|--------|---------|
+| Mitarbeiter Zoltan Barsony | ✅ Hinzugefügt | mitarbeiter-Tabelle, darf_bestellen=true |
+| DB-Trigger Bestellung | ✅ Repariert | 3 Functions, 5 Spaltennamen korrigiert |
+| Dropdown 3x "neurealis" | ✅ Behoben | Aktualisiert zu: Zoltan Barsony, David Mutombo, Imre Pentek |
+| MS365 Kontakte-Sync | ✅ Genutzt | Graph API zum Identifizieren der korrekten Namen |
+
+**Neue Learnings:** L221-L222
+
+---
 
 ### Flächenberechnung + LV-Abhängigkeiten + RBAC + Bestellformular-Bugs (LOG-100)
 

@@ -78,6 +78,20 @@
 **Problem:** Hero GraphQL API bietet keine `delete`-Mutation, nur `update` mit `is_deleted: true`
 **Lösung:** Soft-Delete über `updateProduct` Mutation mit beiden `is_deleted` Flags
 
+### L221 - DB-Trigger create_dokument_for_bestellung: Spaltennamen
+**Datum:** 2026-02-06
+**Kategorie:** Supabase/DB
+**Ref:** LOG-101
+**Problem:** Trigger verwendete veraltete Spaltennamen (dok_id, dok_typ, bezeichnung, beschreibung, erstellt_am)
+**Lösung:** Korrigiert zu: dokument_nr, art_des_dokuments, projektname, notizen, datum_erstellt
+
+### L222 - mitarbeiter_rolle_check: Erlaubte Werte
+**Datum:** 2026-02-06
+**Kategorie:** Supabase/DB
+**Ref:** LOG-101
+**Problem:** Constraint `mitarbeiter_rolle_check` erlaubt nur: admin, bauleiter, mitarbeiter, lager
+**Lösung:** Keine Custom-Rollen wie "besteller" verwenden - stattdessen "mitarbeiter" mit darf_bestellen Flag
+
 ### L221 - openpyxl insert_cols/delete_rows aktualisiert KEINE Formelreferenzen
 **Datum:** 2026-02-06
 **Kategorie:** Python/Excel

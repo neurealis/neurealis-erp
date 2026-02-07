@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-06 (LOG-100)
+**Stand:** 2026-02-07 (LOG-102)
 
 ---
 
@@ -113,6 +113,83 @@
 | LOG-098 | 2026-02-04 | Angebot-Detail-Route + Dokumente-Speicherung | Abgeschlossen |
 | LOG-099 | 2026-02-06 | EPA-Preisimport Aug 25 - Hero Sync Fix + ALT/DUPLIKAT Bereinigung | Abgeschlossen |
 | LOG-100 | 2026-02-06 | Flächenberechnung Excel + LV-Abhängigkeiten + RBAC-System + Bestellformular-Bugs | Abgeschlossen |
+| LOG-101 | 2026-02-06 | Bestellformular-Bugfixes: Mitarbeiter-Dropdown + DB-Trigger + Kontakte-Sync | Abgeschlossen |
+| LOG-102 | 2026-02-07 | Digitalbau 2026 Messe-Recherche: Trend-Briefing + Aussteller + CTO-Jobs | In Arbeit |
+
+---
+
+## LOG-102 - Digitalbau 2026 Messe-Recherche: Trend-Briefing + Aussteller + CTO-Jobs
+**Datum:** 2026-02-07
+
+### Durchgeführte Arbeiten
+
+**1. Messe-Eckdaten:**
+- Digitalbau 2026, Köln, 24.-26. März 2026
+- Ca. 300 Aussteller, Highlight: Deutscher Baupreis 2026
+
+**2. 3-Agenten-Modell aufgesetzt:**
+- Agent 1: Aussteller-Recherche (läuft noch)
+- Agent 2: Trend-Briefing (fertig)
+- Agent 3: CTO-Job-Recherche (noch ausstehend)
+
+**3. Trend-Briefing (fertig):**
+- 4 Leitthemen identifiziert:
+  1. Kreislaufwirtschaft / Nachhaltigkeit
+  2. Digitale Bauprozessoptimierung (BIM, Digital Twin)
+  3. KI als Gamechanger (Planung, Automatisierung)
+  4. Digitalisierung im Bestand (Sanierung, Energieeffizienz)
+- Highlight-Events: Deutscher Baupreis 2026, Startup-Forum
+
+**4. Nächste Schritte:**
+- Aussteller-Recherche abschließen → Katalog erstellen
+- CTO-Stellen auf Messe recherchieren
+- Professionelle HTML-Seite mit allen Ergebnissen
+
+### Neue Learnings
+L225
+
+---
+
+## LOG-101 - Bestellformular-Bugfixes: Mitarbeiter-Dropdown + DB-Trigger + Kontakte-Sync
+**Datum:** 2026-02-06
+
+### Durchgeführte Arbeiten
+
+**1. Mitarbeiter Zoltan Barsony hinzugefügt:**
+- E-Mail: zoltan.barsony@neurealis.de
+- Rolle: mitarbeiter (darf_bestellen=true, darf_freigeben=false)
+- In `mitarbeiter`-Tabelle eingefügt
+
+**2. Bestellformular Speichern-Bug (3 DB-Funktionen repariert):**
+- `get_next_dok_id()`: Spalte `dok_id` → `dokument_nr` korrigiert
+- `create_dokument_for_bestellung()`: Mehrere Spaltennamen korrigiert:
+  - `dok_id` → `dokument_nr`
+  - `dok_typ` → `art_des_dokuments`
+  - `bezeichnung` → `projektname`
+  - `beschreibung` → `notizen`
+  - `erstellt_am` → `datum_erstellt`
+- UI: Leere Strings → NULL für UUID-Felder
+
+**3. Mitarbeiter-Dropdown zeigt 3x "neurealis" statt echte Namen:**
+- Problem: 3 Kontakte mit leerem Vornamen und "neurealis" als Nachname
+- Lösung: Mit 3 parallelen Subagenten identifiziert und korrigiert:
+  - Kontakt 1 → **Zoltan Barsony** (zoltan.barsony@neurealis.de)
+  - Kontakt 2 → **David Mutombo** (david.mutombo1979@gmail.com)
+  - Kontakt 3 → **Imre Pentek** (029pentek@gmail.com)
+- MS365 Graph API Sync verwendet um korrekte Namen zu finden
+
+**4. UI-Filter für leere Namen:**
+- Filter in `+page.svelte` hinzugefügt der Kontakte ohne echten Namen filtert
+- Sortierung: Handwerker > Bauleiter > Rest
+
+### Betroffene Dateien
+| Datei | Änderung |
+|-------|----------|
+| `ui/src/routes/bestellung/+page.svelte` | UUID-Felder NULL statt '', Filter für leere Namen |
+| Supabase Function `get_next_dok_id()` | Spaltenname korrigiert |
+| Supabase Function `create_dokument_for_bestellung()` | 5 Spaltennamen korrigiert |
+| `kontakte` Tabelle | 3 Einträge mit korrekten Namen aktualisiert |
+| `mitarbeiter` Tabelle | Zoltan Barsony hinzugefügt |
 
 ---
 
