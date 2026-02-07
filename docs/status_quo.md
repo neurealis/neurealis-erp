@@ -1,10 +1,56 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-07 (aktualisiert nach LOG-103)
+**Stand:** 2026-02-07 (aktualisiert nach LOG-105)
 
 ---
 
 ## Aktueller Projektstatus
+
+### RBAC-System + Permission-Navigation (LOG-105)
+
+**Status:** Abgeschlossen (2026-02-07)
+
+**Ergebnisse:**
+| Komponente | Status | Details |
+|------------|--------|---------|
+| DB-Tabellen | ✅ Fertig | roles, permissions, role_permissions, user_roles + RLS |
+| Seed-Daten | ✅ Fertig | 10 Rollen, 50 Berechtigungen, 166 Zuweisungen |
+| Einstellungen-Hub | ✅ Fertig | /einstellungen Index + /einstellungen/rollen |
+| Berechtigungs-Store | ✅ Fertig | hasPermission(), hasRole(), loadUserPermissions() |
+| Permission-Navigation | ✅ Fertig | Sidebar + BottomNav filtern nach DB-Berechtigungen |
+| Netlify GitHub-Deploy | ✅ Fertig | Auto-Deploy bei Push auf main |
+
+**Rollen-Zuweisungen:**
+- holger.neumann@neurealis.de → Admin (alle 50 Berechtigungen)
+- dirk.jansen@neurealis.de → Bauleiter (36 Berechtigungen)
+- zoltan.barsony@neurealis.de → Monteur (eingeschränkt)
+
+---
+
+### Telegram Bot Permission-System (LOG-104)
+
+**Status:** Abgeschlossen (2026-02-07)
+
+**Ergebnisse:**
+| Komponente | Status | Details |
+|------------|--------|---------|
+| DB-Schema | ✅ Fertig | 5 bot_kann_* Boolean-Felder (alle DEFAULT true) |
+| Permission-Check | ✅ Fertig | getBotPermissions(), checkBotPermission() in auth.ts |
+| Handler-Integration | ✅ Fertig | 5 Handler mit Permission-Prüfung |
+| Fehlermeldungen | ✅ Fertig | 5 neue Response-Templates |
+| UI | ✅ Fertig | Checkboxen in Kontakte-Modal (nur wenn telegram_enabled) |
+| Deployment | ✅ Fertig | telegram-webhook v93-permissions |
+
+**5 Granulare Berechtigungen:**
+1. `bot_kann_maengel` - Mängel melden
+2. `bot_kann_nachtraege` - Nachträge erfassen
+3. `bot_kann_bestellungen` - Bestellungen aufgeben
+4. `bot_kann_fotos` - Fotos hochladen
+5. `bot_kann_status` - Status abfragen
+
+**Default:** Alle Permissions = true (Rückwärtskompatibilität)
+
+---
 
 ### Telegram Bot Access-Control (LOG-103)
 

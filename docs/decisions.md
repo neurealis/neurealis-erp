@@ -523,6 +523,18 @@ SELECT cron.schedule('hero-lv-sync-daily', '0 3 * * *',
 **Spalten:** H/I/J für 3. Rechteck, L15 für Q2-Anteil (konfigurierbar, Default 0.25)
 **Grund:** Standard 2-Rechteck-Formel reicht nicht für komplexe Grundrisse
 
+### D051 - Permission-basierte Navigation statt hardcoded Rollen
+**Datum:** 2026-02-07
+**Entscheidung:** Sidebar/BottomNav filtern nach `hasPermission(resource, action)` aus DB
+**Vorher:** Hardcoded `roles: ['admin', 'mitarbeiter']` → nur 4 Profile
+**Nachher:** Beliebige Rollen über `/einstellungen/rollen` konfigurierbar
+**Grund:** Monteur/Buchhalter sahen alle Menüs, keine granulare Steuerung möglich
+
+### D052 - Netlify Auto-Deploy via GitHub statt CLI
+**Datum:** 2026-02-07
+**Entscheidung:** Netlify mit GitHub-Repo verknüpft, Auto-Deploy bei Push auf main
+**Grund:** Professioneller, alles getrackt, keine manuellen CLI-Fehler
+
 ---
 
-*Aktualisiert: 2026-02-06*
+*Aktualisiert: 2026-02-07*

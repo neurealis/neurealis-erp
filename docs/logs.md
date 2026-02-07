@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-07 (LOG-103)
+**Stand:** 2026-02-07 (LOG-105)
 
 ---
 
@@ -116,6 +116,120 @@
 | LOG-101 | 2026-02-06 | Bestellformular-Bugfixes: Mitarbeiter-Dropdown + DB-Trigger + Kontakte-Sync | Abgeschlossen |
 | LOG-102 | 2026-02-07 | Digitalbau 2026 Messe-Recherche: Trend-Briefing + Aussteller + CTO-Jobs | In Arbeit |
 | LOG-103 | 2026-02-07 | Telegram Bot Access-Control: Telefonnummer-Verifizierung + Admin-Toggle | Abgeschlossen |
+| LOG-104 | 2026-02-07 | Telegram Bot Permission-System: Granulare Funktionsberechtigungen | Abgeschlossen |
+| LOG-105 | 2026-02-07 | RBAC-System: DB-Tabellen + Einstellungen-UI + Permission-Navigation | Abgeschlossen |
+
+---
+
+## LOG-105 - RBAC-System: DB-Tabellen + Einstellungen-UI + Permission-Navigation
+**Datum:** 2026-02-07
+**Status:** Abgeschlossen
+**Commits:** `df46c71`, `c72754d`, `fa43f2c`
+
+### Problem
+- `/einstellungen` Route war 404 (keine Index-Seite)
+- RBAC-Tabellen (roles, permissions, role_permissions, user_roles) fehlten in DB
+- Sidebar-Navigation war hardcoded mit 4 Rollen statt DB-basiert
+- Monteur/Buchhalter sahen alle Mitarbeiter-Menüs (Fallback auf 'mitarbeiter')
+- Netlify Deploy via `--dir` fehlerhaft (keine Edge Functions)
+
+### Lösung (3+ Agenten-Modell)
+
+**Phase 1: DB + UI (3 parallele Agenten)**
+- T1: Migration `create_rbac_tables` + `seed_rbac_data`
+  - 4 Tabellen: roles, permissions, role_permissions, user_roles
+  - 10 Rollen, 50 Berechtigungen, 166 Zuweisungen, RLS Policies
+  - RPC: `get_users_for_role_management()`, Helper: `is_admin()`
+- T2: `/einstellungen` Index-Seite (Hub mit 3 Kacheln)
+- T3: `berechtigungen.ts` Store (hasPermission, hasRole, loadUserPermissions)
+
+**Phase 2: RLS-Fix**
+- SELECT Policies von `TO authenticated` auf `TO public` geändert
+- Problem: Supabase Client sendete Queries als anon, nicht authenticated
+- Fix: Migration `fix_rbac_select_policies_public`
+
+**Phase 3: Permission-basierte Navigation (3 parallele Agenten)**
+- T1: Layout - `loadUserPermissions()` beim Login, `userRoles: string[]` statt `role: string`
+- T2: Sidebar - `permission: 'resource.action'` statt `roles: string[]`
+- T3: BottomNav - Gleiche Umstellung auf Permission-basiert
+
+**Phase 4: Netlify GitHub-Deploy**
+- Site mit GitHub-Repo verknüpft (base: ui/, branch: main)
+- Auto-Deploy bei Push auf main
+- CLAUDE.md aktualisiert: Kein manuelles CLI-Deploy mehr
+
+### Ergebnis
+- `/einstellungen` → Hub-Seite mit Kacheln
+- `/einstellungen/rollen` → RBAC-Admin (3 Tabs: Rollen, Berechtigungen, Benutzer)
+- Sidebar + BottomNav filtern nach DB-Berechtigungen
+- Monteur sieht nur zugewiesene Menüpunkte
+- Netlify deployed automatisch bei GitHub Push
+
+### Learnings
+- L226: Netlify GitHub-basiertes Deploy ist Standard
+- L227: Netlify Deploy IMMER `--build`, NIE nur `--dir`
+- L228: RLS `TO authenticated` blockiert Supabase-Client wenn Auth-State unklar
+
+---
+
+## LOG-104 - Telegram Bot Permission-System: Granulare Funktionsberechtigungen
+**Datum:** 2026-02-07
+
+### Durchgeführte Arbeiten
+
+**1. DB-Schema erweitert (Migration: `add_bot_permissions_to_kontakte`):**
+- 5 neue Boolean-Felder in `kontakte` Tabelle (alle DEFAULT true):
+  - `bot_kann_maengel` - Erlaubt Mängel zu melden
+  - `bot_kann_nachtraege` - Erlaubt Nachträge zu erfassen
+  - `bot_kann_bestellungen` - Erlaubt Bestellungen aufzugeben
+  - `bot_kann_fotos` - Erlaubt Fotos hochzuladen
+  - `bot_kann_status` - Erlaubt Status abzufragen
+
+**2. Telegram-Webhook Permission-System:**
+- Neue Types: `BotPermissions`, `BotPermissionKey`
+- Neue Funktionen in `utils/auth.ts`:
+  - `getBotPermissions(chatId)` - Lädt alle Permissions für einen User
+  - `checkBotPermission(chatId, permission)` - Prüft einzelne Permission
+  - `PERMISSION_ERROR_MESSAGES` - Mapping zu Fehlermeldungs-Templates
+- Permission-Checks in Handlern integriert:
+  - `startMangelMeldung` → `bot_kann_maengel`
+  - `startNachtragErfassung` → `bot_kann_nachtraege`
+  - `showNachweisTypen` → `bot_kann_fotos`
+  - `showFotoAuswahlMenu` → `bot_kann_fotos`
+  - `showProjektStatus` → `bot_kann_status`
+
+**3. Fehlermeldungen (responses.ts):**
+- `PERMISSION_KEINE_MAENGEL` - "Du hast keine Berechtigung, Mängel zu melden..."
+- `PERMISSION_KEINE_NACHTRAEGE` - "Du hast keine Berechtigung, Nachträge zu erfassen..."
+- `PERMISSION_KEINE_BESTELLUNGEN` - "Du hast keine Berechtigung, Bestellungen aufzugeben..."
+- `PERMISSION_KEINE_FOTOS` - "Du hast keine Berechtigung, Fotos hochzuladen..."
+- `PERMISSION_KEIN_STATUS` - "Du hast keine Berechtigung, den Status abzufragen..."
+
+**4. UI-Erweiterung (Kontakte):**
+- Neuer Abschnitt "Bot-Berechtigungen" im Kontakt-Modal
+- 5 Checkboxen für granulare Steuerung
+- Nur sichtbar wenn `telegram_enabled = true`
+- Speicherung direkt mit Kontakt-Update
+
+### Default-Verhalten
+- NULL-Werte werden als `true` interpretiert (Rückwärtskompatibilität)
+- Neue Kontakte erhalten alle Berechtigungen per Default
+- Bestehende Kontakte behalten alle Berechtigungen
+
+### Deployment
+- `telegram-webhook` Edge Function deployed (v93-permissions)
+- Migration: `add_bot_permissions_to_kontakte`
+
+### Betroffene Dateien
+- `supabase/functions/telegram-webhook/utils/auth.ts`
+- `supabase/functions/telegram-webhook/utils/responses.ts`
+- `supabase/functions/telegram-webhook/types.ts`
+- `supabase/functions/telegram-webhook/handlers/mangel.ts`
+- `supabase/functions/telegram-webhook/handlers/nachtrag.ts`
+- `supabase/functions/telegram-webhook/handlers/nachweis.ts`
+- `supabase/functions/telegram-webhook/handlers/gewerke.ts`
+- `supabase/functions/telegram-webhook/handlers/foto_hinzufuegen.ts`
+- `ui/src/routes/kontakte/+page.svelte`
 
 ---
 

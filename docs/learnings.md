@@ -6,10 +6,16 @@
 
 ## Workflow / Recherche
 
+### L228 - RLS `TO authenticated` blockiert wenn Auth-State unklar
+**Datum:** 2026-02-07
+**Kategorie:** Supabase/RLS
+**Ref:** LOG-105
+**Details:** Supabase-Client kann Queries als anon senden wenn Auth-State nicht gesetzt. Für nicht-sensible Daten (Rollen, Permissions) besser `TO public` verwenden.
+
 ### L227 - Netlify Deploy: IMMER `--build` verwenden, NIE nur `--dir`
 **Datum:** 2026-02-07
 **Kategorie:** Deploy/Netlify
-**Ref:** LOG-102
+**Ref:** LOG-105
 **Details:** `netlify deploy --dir build` deployed nur statische Dateien. Bei adapter-netlify mit edge/SSR müssen Edge Functions mit deployed werden. Lösung: `netlify deploy --prod --build` ODER besser: GitHub-basiertes Auto-Deploy (Push → Build → Deploy).
 
 ### L226 - Netlify: GitHub-basiertes Deploy ist Standard
