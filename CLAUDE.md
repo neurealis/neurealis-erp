@@ -162,7 +162,11 @@ neurealis ERP ist das Backend-System für die Wohnungssanierung der neurealis Gm
 cd ui && npm run dev    # Lokaler Dev-Server auf http://localhost:5173
 ```
 
-**Deployment:** Nur auf explizite Anweisung via `netlify deploy --prod`
+**Deployment:** GitHub-basiert (Auto-Deploy bei Push auf `main`)
+- Netlify ist mit GitHub verknüpft: `neurealis/neurealis-erp`, Base: `ui/`
+- **Standard-Workflow:** `git push origin main` → Netlify baut + deployed automatisch
+- **NIEMALS** `netlify deploy --dir build` verwenden (deployed keine Edge Functions!)
+- **Fallback** (nur wenn GitHub-Deploy fehlschlägt): `cd ui && npx netlify-cli deploy --prod --build`
 
 **Design-System:**
 - `ui/src/lib/styles/tokens.css` - Zentrale Design-Variablen

@@ -6,6 +6,18 @@
 
 ## Workflow / Recherche
 
+### L227 - Netlify Deploy: IMMER `--build` verwenden, NIE nur `--dir`
+**Datum:** 2026-02-07
+**Kategorie:** Deploy/Netlify
+**Ref:** LOG-102
+**Details:** `netlify deploy --dir build` deployed nur statische Dateien. Bei adapter-netlify mit edge/SSR müssen Edge Functions mit deployed werden. Lösung: `netlify deploy --prod --build` ODER besser: GitHub-basiertes Auto-Deploy (Push → Build → Deploy).
+
+### L226 - Netlify: GitHub-basiertes Deploy ist Standard
+**Datum:** 2026-02-07
+**Kategorie:** Deploy/Netlify
+**Ref:** LOG-102
+**Details:** Netlify Site mit GitHub-Repo verknüpfen (base: ui/, branch: main). Jeder Push triggert automatisch Build+Deploy. Kein manuelles CLI-Deploy nötig. Professioneller weil alles getrackt wird.
+
 ### L225 - 3-Agenten-Modell auch für Recherche nutzbar
 **Datum:** 2026-02-07
 **Kategorie:** Workflow/Agenten
