@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { supabase, parseArtikelText } from '$lib/supabase';
 
 	// Props vom Layout
@@ -127,6 +128,7 @@
 	// Submit State
 	let isSubmitting = $state(false);
 	let submitSuccess = $state(false);
+	let submitWarning = $state('');
 	let bestellnummer = $state('');
 
 	// E-Mail Empfänger
@@ -766,20 +768,26 @@
 
 			if (posError) throw posError;
 
-			// 3. Edge Function aufrufen für HTML/PDF/E-Mail
-			const { data: submitResult, error: submitError } = await supabase.functions.invoke('bestellung-submit', {
-				body: {
-					bestellung_id: bestellung.id,
-					empfaenger_email: effektiveEmail
-				}
-			});
+			// 4. Edge Function aufrufen für HTML/PDF/E-Mail
+			submitWarning = '';
+			try {
+				const { data: submitResult, error: submitError } = await supabase.functions.invoke('bestellung-submit', {
+					body: {
+						bestellung_id: bestellung.id,
+						empfaenger_email: effektiveEmail
+					}
+				});
 
-			if (submitError) {
-				console.warn('E-Mail-Versand fehlgeschlagen:', submitError);
-				// Trotzdem als Erfolg werten, da Bestellung gespeichert ist
+				if (submitError) {
+					console.warn('E-Mail-Versand fehlgeschlagen:', submitError);
+					submitWarning = 'Bestellung wurde gespeichert, aber der E-Mail-Versand ist fehlgeschlagen. Bitte manuell per E-Mail informieren.';
+				}
+			} catch (emailErr) {
+				console.warn('Edge Function Fehler:', emailErr);
+				submitWarning = 'Bestellung wurde gespeichert, aber der E-Mail-Versand ist fehlgeschlagen. Bitte manuell per E-Mail informieren.';
 			}
 
-			// Erfolg
+			// Erfolg - Bestellung ist in DB gespeichert
 			bestellnummer = bestellung.bestell_nr?.toString() || bestellung.id;
 			submitSuccess = true;
 
@@ -791,7 +799,8 @@
 
 		} catch (err) {
 			console.error('Bestellung fehlgeschlagen:', err);
-			errorMessage = 'Bestellung konnte nicht gespeichert werden. Bitte erneut versuchen.';
+			const errMsg = err instanceof Error ? err.message : (typeof err === 'object' && err !== null && 'message' in err) ? String((err as any).message) : String(err);
+			errorMessage = `Bestellung konnte nicht gespeichert werden: ${errMsg}. Bitte erneut versuchen.`;
 		} finally {
 			isSubmitting = false;
 		}
@@ -811,6 +820,7 @@
 		lieferdatum = '';
 		selectedZeitfenster = '';
 		submitSuccess = false;
+		submitWarning = '';
 		bestellnummer = '';
 		errorMessage = '';
 	}
@@ -820,11 +830,23 @@
 	<!-- Header -->
 	<header class="header">
 		<div class="header-content">
-			<a href="/" class="back-link" aria-label="Zurück zur Startseite">
+			<button
+				class="back-link"
+				aria-label="Zurück zur Startseite"
+				onclick={() => {
+					if (warenkorbAnzahl > 0) {
+						if (confirm('Bestellung wirklich abbrechen? Dein Warenkorb wird geleert.')) {
+							goto('/');
+						}
+					} else {
+						goto('/');
+					}
+				}}
+			>
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<path d="M19 12H5M12 19l-7-7 7-7"/>
 				</svg>
-			</a>
+			</button>
 			<h1>{bestelltyp === 'angebotsanfrage' ? 'Neue Angebotsanfrage' : 'Neue Bestellung'}</h1>
 			<!-- Warenkorb Toggle -->
 			<button
@@ -888,11 +910,22 @@
 				</ul>
 
 				<div class="drawer-footer">
-					<button class="btn btn-secondary btn-sm" onclick={warenkorbLeeren}>Leeren</button>
-					<div class="drawer-total">
-						<span>Gesamt</span>
-						<strong>{formatPreis(gesamtsumme)}</strong>
+					<div class="drawer-footer-top">
+						<button class="btn btn-secondary btn-sm" onclick={warenkorbLeeren}>Leeren</button>
+						<div class="drawer-total">
+							<span>Gesamt</span>
+							<strong>{formatPreis(gesamtsumme)}</strong>
+						</div>
 					</div>
+					{#if currentStep < totalSteps}
+						<button
+							class="btn btn-primary drawer-weiter"
+							onclick={() => { warenkorbOpen = false; nextStep(); }}
+							disabled={!canProceed(currentStep)}
+						>
+							{currentStep === 2 ? 'Weiter zur Lieferung' : currentStep === 3 ? 'Weiter zur Bestätigung' : 'Weiter'}
+						</button>
+					{/if}
 				</div>
 			{/if}
 		</aside>
@@ -951,7 +984,14 @@
 				</div>
 				<h2>{bestelltyp === 'angebotsanfrage' ? 'Angebotsanfrage' : 'Bestellung'} erfolgreich!</h2>
 				<p class="success-nr">{bestelltyp === 'angebotsanfrage' ? 'Anfrage-Nr.' : 'Bestellnummer'}: <strong>B-{bestellnummer}</strong></p>
-				<p>Die {bestelltyp === 'angebotsanfrage' ? 'Anfrage' : 'Bestellung'} wurde gespeichert und eine E-Mail gesendet (CC: bauleitung@neurealis.de).</p>
+				{#if submitWarning}
+					<div class="message warning" style="background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 12px 16px; border-radius: 4px; margin: 12px 0; font-size: 14px;">
+						<strong>Hinweis:</strong> {submitWarning}
+					</div>
+					<p>Die {bestelltyp === 'angebotsanfrage' ? 'Anfrage' : 'Bestellung'} wurde gespeichert.</p>
+				{:else}
+					<p>Die {bestelltyp === 'angebotsanfrage' ? 'Anfrage' : 'Bestellung'} wurde gespeichert und eine E-Mail gesendet (CC: bauleitung@neurealis.de).</p>
+				{/if}
 				<div class="success-actions">
 					<button class="btn btn-secondary" onclick={neueBestellung}>
 						Neue Bestellung
@@ -1279,7 +1319,7 @@
 						</div>
 					{/if}
 
-					<!-- Mini-Warenkorb -->
+					<!-- Mini-Warenkorb mit Weiter-Button -->
 					{#if warenkorbAnzahl > 0}
 						<div class="mini-cart">
 							<div class="mini-cart-header">
@@ -1287,6 +1327,13 @@
 								<span class="mini-cart-sum">{formatPreis(gesamtsumme)}</span>
 								<button class="btn-link" onclick={warenkorbLeeren}>Leeren</button>
 							</div>
+							<button
+								class="btn btn-primary mini-cart-weiter"
+								onclick={nextStep}
+								disabled={!canProceed(currentStep)}
+							>
+								Weiter zur Lieferung
+							</button>
 						</div>
 					{/if}
 				</div>
@@ -1560,6 +1607,12 @@
 		color: var(--color-gray-500);
 		padding: var(--spacing-2);
 		border-radius: var(--radius-md);
+		background: none;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.back-link:hover {
@@ -1780,9 +1833,22 @@
 		padding: var(--spacing-4);
 		border-top: 2px solid var(--color-gray-200);
 		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-3);
+		background: var(--color-gray-50);
+	}
+
+	.drawer-footer-top {
+		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background: var(--color-gray-50);
+	}
+
+	.drawer-weiter {
+		width: 100%;
+		min-height: 48px;
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-semibold);
 	}
 
 	.btn-sm {
@@ -2467,6 +2533,9 @@
 		background: var(--color-gray-800);
 		color: white;
 		padding: var(--spacing-3) var(--spacing-4);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-3);
 	}
 
 	.mini-cart-header {
@@ -2484,6 +2553,13 @@
 
 	.mini-cart .btn-link {
 		color: var(--color-gray-300);
+	}
+
+	.mini-cart-weiter {
+		width: 100%;
+		min-height: 48px;
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-semibold);
 	}
 
 	/* Step 3: Form */
@@ -2817,14 +2893,53 @@
 		background: var(--color-success-dark);
 	}
 
+	/* Tablet + Mobile: BottomNav-Kollision vermeiden */
+	@media (max-width: 1024px) {
+		.footer-actions {
+			/* BottomNav hat z-index: 50 und bottom: 0, height: 64px */
+			/* Footer muss DARÜBER sitzen */
+			bottom: var(--bottom-nav-height, 64px);
+			z-index: 51;
+		}
+
+		.main {
+			/* Platz für footer-actions + BottomNav */
+			padding-bottom: calc(var(--bottom-nav-height, 64px) + 100px);
+		}
+	}
+
 	/* Mobile */
 	@media (max-width: 767px) {
 		.header-content {
-			gap: var(--spacing-2);
+			gap: var(--spacing-3);
 		}
 
 		.header h1 {
-			font-size: var(--font-size-lg);
+			font-size: var(--font-size-base);
+		}
+
+		/* Warenkorb-Toggle: größerer Touch-Target (min 44px) */
+		.warenkorb-toggle {
+			padding: var(--spacing-3);
+			min-width: 44px;
+			min-height: 44px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* Back-Link: größerer Touch-Target */
+		.back-link {
+			min-width: 44px;
+			min-height: 44px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* Header-Badge auf Mobile ausblenden (Platz sparen) */
+		.header-badge {
+			display: none;
 		}
 
 		.progress-bar {
@@ -2842,7 +2957,8 @@
 
 		.main {
 			padding: var(--spacing-3);
-			padding-bottom: 120px;
+			/* Platz für footer-actions + BottomNav + Puffer */
+			padding-bottom: calc(var(--bottom-nav-height, 64px) + 120px);
 		}
 
 		.step-content {
@@ -2870,7 +2986,7 @@
 		}
 
 		.artikel-list {
-			max-height: 300px;
+			max-height: 50vh;
 		}
 
 		.review-list table {
@@ -2884,6 +3000,12 @@
 
 		.footer-actions {
 			padding: var(--spacing-3);
+		}
+
+		/* Buttons auf Mobile: große Touch-Targets */
+		.footer-actions .btn {
+			min-height: 48px;
+			flex: 1;
 		}
 
 		.btn {
@@ -2901,6 +3023,42 @@
 
 		.success-actions .btn {
 			width: 100%;
+		}
+
+		/* Menge-Controls auf Mobile größer für Touch */
+		.menge-controls button {
+			width: 40px;
+			height: 40px;
+			font-size: var(--font-size-xl);
+		}
+
+		.menge-controls input {
+			width: 48px;
+			height: 40px;
+		}
+
+		/* Freitext-Row auf Mobile stacken */
+		.freitext-row {
+			flex-wrap: wrap;
+		}
+
+		.freitext-bezeichnung {
+			min-width: 100%;
+			flex: 1 1 100%;
+		}
+
+		.freitext-menge {
+			flex: 1;
+		}
+
+		.freitext-einheit {
+			flex: 1;
+		}
+
+		/* Drawer auf Mobile: volle Breite */
+		.warenkorb-drawer {
+			width: 100vw;
+			max-width: 100vw;
 		}
 	}
 </style>

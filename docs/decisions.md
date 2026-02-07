@@ -507,6 +507,22 @@ SELECT cron.schedule('hero-lv-sync-daily', '0 3 * * *',
   $$SELECT net.http_post('https://mfpuijttdgkllnvhvjlu.supabase.co/functions/v1/hero-lv-sync')$$);
 ```
 
+### D049 - RBAC mit 5 Rollen + Berechtigungsmatrix
+**Datum:** 2026-02-06
+**Entscheidung:** Granulare Zugriffssteuerung mit 5 Rollen, 20 Berechtigungen, 57 Zuordnungen
+**Rollen:** Admin, Bauleiter, Buchhaltung, Monteur, Nur Lesen
+**DB:** 4 Tabellen (roles, permissions, role_permissions, user_roles)
+**RPC:** check_permission(), get_user_roles(), get_user_permissions()
+**UI:** /einstellungen/rollen (3 Tabs: Rollen, Matrix, Benutzer)
+**Grund:** Feingranulare Rechtesteuerung statt nur RLS-basierte Sicherheitsstufen
+
+### D050 - S-Form-Formel mit 3 Rechtecken in Excel
+**Datum:** 2026-02-06
+**Entscheidung:** Flexible Raumgeometrie mit 3 Rechtecken + gemeinsame Wände
+**Anwendung:** Flächenberechnung Bollwerkstraße 9, WE 104928 (Diele mit S-Form)
+**Spalten:** H/I/J für 3. Rechteck, L15 für Q2-Anteil (konfigurierbar, Default 0.25)
+**Grund:** Standard 2-Rechteck-Formel reicht nicht für komplexe Grundrisse
+
 ---
 
-*Aktualisiert: 2026-02-02*
+*Aktualisiert: 2026-02-06*

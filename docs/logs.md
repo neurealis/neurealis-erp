@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-06
+**Stand:** 2026-02-06 (LOG-100)
 
 ---
 
@@ -112,6 +112,7 @@
 | LOG-097 | 2026-02-04 | CPQ-Wizard v3: Professionelles PDF + Anhänge | Abgeschlossen |
 | LOG-098 | 2026-02-04 | Angebot-Detail-Route + Dokumente-Speicherung | Abgeschlossen |
 | LOG-099 | 2026-02-06 | EPA-Preisimport Aug 25 - Hero Sync Fix + ALT/DUPLIKAT Bereinigung | Abgeschlossen |
+| LOG-100 | 2026-02-06 | Flächenberechnung Excel + LV-Abhängigkeiten + RBAC-System + Bestellformular-Bugs | Abgeschlossen |
 
 ---
 
@@ -163,6 +164,61 @@
 
 ### Neue Learnings
 L215-L220
+
+---
+
+## LOG-100 - Flächenberechnung Excel + LV-Abhängigkeiten + RBAC-System + Bestellformular-Bugs
+**Datum:** 2026-02-06
+
+### Durchgeführte Arbeiten
+
+**1. Flächenberechnung Excel (Bollwerkstraße 9, WE 104928):**
+- Grundriss analysiert: 7 Räume (Küche 10.6m², Wohnzimmer 19.44m², Bad 6.5m², Schlafzimmer 15.3m², Kinderzimmer 12.1m², AR 2.0m², Diele 9.0m²)
+- S-Form-Formel für Diele entwickelt (3 Rechtecke + 2 gemeinsame Wände)
+- Spalten H/I/J für 3. Rechteck eingefügt
+- Summe ohne Bad + Q2-Anteil (konfigurierbarer Faktor L15=0.25)
+- Gespeichert: OneDrive\00 Vorlage\Bollwerkstraße 9 - 104928 - Flächenberechnung v3.xlsx
+
+**2. LV-Abhängigkeiten PDF erstellt:**
+- `docs/LV_Abhaengigkeiten.pdf` (14 Seiten, 140 Abhängigkeiten)
+- Gruppiert nach LV-Typ + Gewerk
+
+**3. LV-Abhängigkeiten HTML-Seite im UI:**
+- Neue Route `/lv-abhaengigkeiten` mit Live-Daten aus Supabase
+- Gruppierung nach LV-Typ + Gewerk
+- Filter/Suche, farbkodierte Badges
+- Sidebar-Link hinzugefügt
+
+**4. RBAC-System (Rollen/Rechte):**
+- DB: 4 Tabellen (roles, permissions, role_permissions, user_roles)
+- 5 Rollen: Admin, Bauleiter, Buchhaltung, Monteur, Nur Lesen
+- 20 Berechtigungen, 57 Zuordnungen
+- RPC: check_permission(), get_user_roles(), get_user_permissions()
+- RLS Policies auf allen 4 Tabellen
+- UI: /einstellungen/rollen (3 Tabs: Rollen, Berechtigungen-Matrix, Benutzer)
+
+**5. Bugs identifiziert:**
+- `generate-bestellung-pdf` Edge Function fehlt → 404 → Submit-Fehler im Bestellformular
+- Mobile UI: Kein "Weiter"-Button + Warenkorb-Reset
+
+**6. Bestellformular-Fix (T4):**
+- Edge Function `bestellung-submit` v9 deployed (Version 24, ACTIVE)
+- PDF-Generierung in try/catch gewrappt (graceful degradation)
+- E-Mail wird ohne PDF gesendet wenn `generate-bestellung-pdf` fehlt
+- UI: `submitWarning` State + gelbes Warning-Banner bei PDF-Fehler
+- Build OK
+
+**7. Mobile UI Fix (T5):**
+- Bug 1: "Weiter"-Button von BottomNav verdeckt (z-index 40 vs 50) → Fix: `bottom: 64px` + `z-index: 51` + extra Buttons in Mini-Cart/Drawer
+- Bug 2: Zurück-Button war `<a href="/">` → Touch-Overlap mit Warenkorb → State verloren → Fix: `<button>` mit `goto('/')` + confirm-Dialog
+- Touch-Targets auf 44px vergrößert
+- Drawer auf 100vw auf Mobile
+
+### Neue Learnings
+L221-L224
+
+### Neue Decisions
+D049 (RBAC), D050 (S-Form-Formel)
 
 ---
 

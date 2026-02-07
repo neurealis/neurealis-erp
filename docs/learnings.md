@@ -78,6 +78,26 @@
 **Problem:** Hero GraphQL API bietet keine `delete`-Mutation, nur `update` mit `is_deleted: true`
 **Lösung:** Soft-Delete über `updateProduct` Mutation mit beiden `is_deleted` Flags
 
+### L221 - openpyxl insert_cols/delete_rows aktualisiert KEINE Formelreferenzen
+**Datum:** 2026-02-06
+**Kategorie:** Python/Excel
+**Ref:** LOG-100
+
+### L222 - generate-bestellung-pdf Edge Function fehlt → Submit-Fehler
+**Datum:** 2026-02-06
+**Kategorie:** Supabase/Edge Functions
+**Ref:** LOG-100
+
+### L223 - Mobile BottomNav verdeckt fixed footer (z-index)
+**Datum:** 2026-02-07
+**Kategorie:** UI/Mobile
+**Ref:** LOG-100
+
+### L224 - `<a href>` statt `<button>` verursacht State-Verlust
+**Datum:** 2026-02-07
+**Kategorie:** SvelteKit/Navigation
+**Ref:** LOG-100
+
 ---
 
 ### L202 - Edge Functions: POST+GET Support für Subagenten-Aufrufe

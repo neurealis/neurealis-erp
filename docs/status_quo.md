@@ -1,10 +1,29 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-06 (aktualisiert nach LOG-099)
+**Stand:** 2026-02-06 (aktualisiert nach LOG-100)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Flächenberechnung + LV-Abhängigkeiten + RBAC + Bestellformular-Bugs (LOG-100)
+
+**Abgeschlossen:** 2026-02-06
+
+**Ergebnisse:**
+| Komponente | Status | Details |
+|------------|--------|---------|
+| Flächenberechnung Excel | ✅ Fertig | Bollwerkstraße 9, WE 104928, S-Form-Formel v3 |
+| LV-Abhängigkeiten PDF | ✅ Fertig | 14 Seiten, 140 Abhängigkeiten |
+| LV-Abhängigkeiten UI | ✅ Fertig | /lv-abhaengigkeiten, Live-Daten, Filter |
+| RBAC-System (DB+UI) | ✅ Fertig | 5 Rollen, 20 Berechtigungen, /einstellungen/rollen |
+| Bestellformular PDF-Bug | ✅ Fertig | bestellung-submit v9 deployed, graceful degradation |
+| Mobile UI Bugs | ✅ Fertig | z-index Fix, button statt a-href, Touch-Targets 44px |
+
+**Neue Learnings:** L221-L224
+**Neue Decisions:** D049 (RBAC), D050 (S-Form-Formel)
+
+---
 
 ### EPA-Preisimport Aug 25 + ALT/DUPLIKAT Bereinigung (✅ FERTIG)
 
@@ -764,7 +783,11 @@ ui/src/routes/
 ├── bestellungen/
 │   ├── +page.svelte
 │   └── [id]/+page.svelte
-└── lv-export/+page.svelte
+├── lv-export/+page.svelte
+├── lv-abhaengigkeiten/+page.svelte  # LV-Abhängigkeiten (NEU)
+├── einstellungen/
+│   └── rollen/+page.svelte          # RBAC Rollen/Rechte (NEU)
+└── hilfe/+page.svelte
 ```
 
 ---

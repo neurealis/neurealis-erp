@@ -11,14 +11,15 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
 }
 
 /**
- * bestellung-submit v8
+ * bestellung-submit v9
  *
  * Verarbeitet Bestellungen und Angebotsanfragen:
  * 1. Generiert HTML für E-Mail-Body (unterschiedlich je nach Typ)
- * 2. Ruft generate-bestellung-pdf auf für PDF-Generierung
- * 3. Holt PDF aus Storage und fügt als Anhang hinzu
- * 4. Sendet E-Mail mit PDF-Anhang via MS Graph (mit CC an Bauleitung)
+ * 2. Versucht PDF-Generierung via generate-bestellung-pdf (optional/graceful)
+ * 3. Holt PDF aus Storage und fügt als Anhang hinzu (falls verfügbar)
+ * 4. Sendet E-Mail via MS Graph (mit CC an Bauleitung, ohne PDF wenn Generierung fehlschlägt)
  * 5. Erstellt Eintrag in dokumente-Tabelle (Bestellung oder Sonstiges)
+ * 6. Markiert Bestellung als "gesendet"
  *
  * Dokumentennummer: ATBS-***-B* (Bestellung) oder ATBS-***-A* (Anfrage)
  * Parameter: { bestellung_id, empfaenger_email? }
@@ -444,57 +445,63 @@ Deno.serve(async (req: Request) => {
     // HTML generieren
     const htmlContent = generateHtml(bestellung as unknown as Bestellung, positionen || []);
 
-    // PDF generieren via separate Edge Function
-    console.log('Rufe generate-bestellung-pdf auf...');
-    const pdfResponse = await fetch(`${supabaseUrl}/functions/v1/generate-bestellung-pdf`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${supabaseKey}`
-      },
-      body: JSON.stringify({ bestellung_id })
-    });
-
-    if (!pdfResponse.ok) {
-      const pdfError = await pdfResponse.text();
-      console.error('PDF-Generierung fehlgeschlagen:', pdfError);
-    } else {
-      const pdfResult = await pdfResponse.json();
-      console.log('PDF generiert:', pdfResult);
-    }
-
-    // Bestellung neu laden um pdf_url zu bekommen
-    const { data: updatedBestellung } = await supabase
-      .from('bestellungen')
-      .select('pdf_url')
-      .eq('id', bestellung_id)
-      .single();
-
-    const pdfUrl = updatedBestellung?.pdf_url;
-
-    // PDF aus Storage laden für E-Mail-Anhang
+    // TODO: generate-bestellung-pdf Edge Function erstellen
+    // PDF-Generierung ist optional - Bestellung wird auch ohne PDF durchgeführt
+    let pdfUrl: string | null = null;
     let pdfBytes: Uint8Array | undefined;
     let pdfFileName: string | undefined;
 
-    if (pdfUrl) {
-      // Extrahiere Storage-Pfad aus URL
-      const storageMatch = pdfUrl.match(/\/storage\/v1\/object\/public\/bestellungen\/(.+)$/);
-      if (storageMatch) {
-        const storagePath = decodeURIComponent(storageMatch[1]);
-        pdfFileName = storagePath.split('/').pop() || `${bestellNr}.pdf`;
+    try {
+      console.log('Versuche PDF-Generierung via generate-bestellung-pdf...');
+      const pdfResponse = await fetch(`${supabaseUrl}/functions/v1/generate-bestellung-pdf`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({ bestellung_id })
+      });
 
-        console.log(`Lade PDF aus Storage: ${storagePath}`);
-        const { data: pdfData, error: downloadError } = await supabase.storage
+      if (!pdfResponse.ok) {
+        const pdfError = await pdfResponse.text();
+        console.warn(`PDF-Generierung fehlgeschlagen (${pdfResponse.status}): ${pdfError} - Bestellung wird ohne PDF fortgesetzt`);
+      } else {
+        const pdfResult = await pdfResponse.json();
+        console.log('PDF generiert:', pdfResult);
+
+        // Bestellung neu laden um pdf_url zu bekommen
+        const { data: updatedBestellung } = await supabase
           .from('bestellungen')
-          .download(storagePath);
+          .select('pdf_url')
+          .eq('id', bestellung_id)
+          .single();
 
-        if (downloadError) {
-          console.error('PDF Download fehlgeschlagen:', downloadError);
-        } else if (pdfData) {
-          pdfBytes = new Uint8Array(await pdfData.arrayBuffer());
-          console.log(`PDF geladen: ${pdfBytes.length} bytes`);
+        pdfUrl = updatedBestellung?.pdf_url || null;
+
+        // PDF aus Storage laden für E-Mail-Anhang
+        if (pdfUrl) {
+          const storageMatch = pdfUrl.match(/\/storage\/v1\/object\/public\/bestellungen\/(.+)$/);
+          if (storageMatch) {
+            const storagePath = decodeURIComponent(storageMatch[1]);
+            pdfFileName = storagePath.split('/').pop() || `${bestellNr}.pdf`;
+
+            console.log(`Lade PDF aus Storage: ${storagePath}`);
+            const { data: pdfData, error: downloadError } = await supabase.storage
+              .from('bestellungen')
+              .download(storagePath);
+
+            if (downloadError) {
+              console.warn('PDF Download fehlgeschlagen:', downloadError);
+            } else if (pdfData) {
+              pdfBytes = new Uint8Array(await pdfData.arrayBuffer());
+              console.log(`PDF geladen: ${pdfBytes.length} bytes`);
+            }
+          }
         }
       }
+    } catch (pdfErr) {
+      console.warn('PDF-Generierung nicht verfügbar:', pdfErr instanceof Error ? pdfErr.message : String(pdfErr));
+      console.warn('Bestellung wird ohne PDF-Anhang fortgesetzt');
     }
 
     // HTML in DB speichern
@@ -591,7 +598,7 @@ Deno.serve(async (req: Request) => {
       })
       .eq('id', bestellung_id);
 
-    console.log(`E-Mail mit PDF-Anhang gesendet an ${emailEmpfaenger} (CC: ${CC_BAULEITUNG})`);
+    console.log(`E-Mail ${pdfBytes ? 'mit PDF-Anhang ' : 'ohne PDF '}gesendet an ${emailEmpfaenger} (CC: ${CC_BAULEITUNG})`);
 
     return new Response(
       JSON.stringify({
