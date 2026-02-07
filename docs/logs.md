@@ -1,6 +1,6 @@
 # Session Logs - neurealis ERP
 
-**Stand:** 2026-02-07 (LOG-102)
+**Stand:** 2026-02-07 (LOG-103)
 
 ---
 
@@ -115,6 +115,55 @@
 | LOG-100 | 2026-02-06 | Flächenberechnung Excel + LV-Abhängigkeiten + RBAC-System + Bestellformular-Bugs | Abgeschlossen |
 | LOG-101 | 2026-02-06 | Bestellformular-Bugfixes: Mitarbeiter-Dropdown + DB-Trigger + Kontakte-Sync | Abgeschlossen |
 | LOG-102 | 2026-02-07 | Digitalbau 2026 Messe-Recherche: Trend-Briefing + Aussteller + CTO-Jobs | In Arbeit |
+| LOG-103 | 2026-02-07 | Telegram Bot Access-Control: Telefonnummer-Verifizierung + Admin-Toggle | Abgeschlossen |
+
+---
+
+## LOG-103 - Telegram Bot Access-Control: Telefonnummer-Verifizierung + Admin-Toggle
+**Datum:** 2026-02-07
+
+### Durchgeführte Arbeiten
+
+**1. DB-Schema erweitert:**
+- `telegram_enabled` Spalte in `kontakte` Tabelle (boolean, default false)
+- `normalize_phone()` PostgreSQL-Funktion für Telefonnummer-Vergleich (E.164 Format)
+- Index `idx_kontakte_telegram_access` für schnellen Lookup
+- Index `idx_kontakte_telefon_normalized` für Telefon-Matching
+- Bestehende verifizierte Kontakte automatisch auf `telegram_enabled = true` gesetzt
+
+**2. Telegram-Webhook Access-Control:**
+- Neue Funktionen in `utils/auth.ts`:
+  - `normalizePhone()` - Normalisiert Telefonnummern zu +49...
+  - `checkTelegramAccess()` - Prüft Berechtigung via chat_id oder Telefon
+  - `isVerified()` - Prüft Verifizierungsstatus
+  - `grantTelegramAccess()` / `revokeTelegramAccess()` - Admin-Funktionen
+- Access-Check bei allen Messages und Callbacks integriert
+- `/start` zeigt Verifizierungs-Info wenn User nicht berechtigt
+- Unbefugte erhalten Info-Nachricht mit Chat-ID
+
+**3. UI-Erweiterung (Kontakte):**
+- Telegram-Sektion im Kontakt-Bearbeitungs-Modal
+- Toggle-Switch für "Telegram Bot aktiviert"
+- Status-Anzeige: Verifiziert / Warte auf Verifizierung / Nicht aktiviert
+- Anzeige der Chat-ID wenn verbunden
+- Verifizierungs-Datum wenn vorhanden
+- Telegram-Badge (T) in Karten-Ansicht (orange = aktiviert, grün = verifiziert)
+
+**4. Access-Logik:**
+1. Kontakt mit `telegram_chat_id` gefunden → Prüfe `telegram_enabled`
+2. Kein Kontakt → Telefonnummer-Match versuchen (wenn Telegram-Phone bekannt)
+3. Bei Match: Kontakt automatisch verifizieren (`telegram_verified = true`)
+4. Keine Berechtigung → Freundliche Info-Nachricht
+
+### Deployment
+- `telegram-webhook` Edge Function deployed (v92)
+- Migration: `add_telegram_enabled_to_kontakte`
+
+### Betroffene Dateien
+- `supabase/functions/telegram-webhook/index.ts`
+- `supabase/functions/telegram-webhook/utils/auth.ts`
+- `supabase/functions/telegram-webhook/types.ts`
+- `ui/src/routes/kontakte/+page.svelte`
 
 ---
 

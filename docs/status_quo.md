@@ -1,10 +1,29 @@
 # Status Quo - neurealis ERP
 
-**Stand:** 2026-02-07 (aktualisiert nach LOG-102)
+**Stand:** 2026-02-07 (aktualisiert nach LOG-103)
 
 ---
 
 ## Aktueller Projektstatus
+
+### Telegram Bot Access-Control (LOG-103)
+
+**Status:** Abgeschlossen (2026-02-07)
+
+**Ergebnisse:**
+| Komponente | Status | Details |
+|------------|--------|---------|
+| DB-Schema | ✅ Fertig | `telegram_enabled`, `normalize_phone()` Funktion |
+| Access-Check | ✅ Fertig | checkTelegramAccess() in auth.ts |
+| UI Toggle | ✅ Fertig | Kontakte-Seite mit Telegram-Sektion |
+| Deployment | ✅ Fertig | telegram-webhook v92 |
+
+**Access-Logik:**
+1. `telegram_enabled = true` erforderlich (Admin aktiviert)
+2. Verifizierung via chat_id oder Telefonnummer-Match
+3. Automatische Verifizierung bei erstem Kontakt mit passender Nummer
+
+---
 
 ### Digitalbau 2026 Messe-Vorbereitung (LOG-102)
 

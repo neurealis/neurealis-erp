@@ -10,6 +10,8 @@
 import { sendMessage } from '../utils/telegram.ts';
 import { supabase, GEWERK_SPALTEN, GEWERK_KOMBINIERT, AUSFUEHRUNGSART_SPALTEN } from '../constants.ts';
 import { gewerkStatusEmoji, extractMondayText, getAusfuehrungStatus, extractATBS, extractFieldText } from '../utils/helpers.ts';
+import { checkBotPermission, PERMISSION_ERROR_MESSAGES } from '../utils/auth.ts';
+import { t } from '../utils/responses.ts';
 import type { Session } from '../types.ts';
 
 /**
@@ -118,6 +120,13 @@ export async function showAusfuehrungsarten(chatId: number, session: Session, pr
  * Zeigt den kombinierten Projekt-Status mit Gewerken, Mängeln, Nachträgen
  */
 export async function showProjektStatus(chatId: number, session: Session): Promise<void> {
+  // Permission-Check für Status-Abfrage
+  const hasPermission = await checkBotPermission(chatId, 'bot_kann_status');
+  if (!hasPermission) {
+    await sendMessage(chatId, t(PERMISSION_ERROR_MESSAGES.bot_kann_status, 'DE'));
+    return;
+  }
+
   const projektNr = session?.modus_daten?.projekt_nr;
   const bvId = session?.aktuelles_bv_id;
 

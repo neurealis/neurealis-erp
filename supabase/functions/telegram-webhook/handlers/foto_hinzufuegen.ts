@@ -11,6 +11,8 @@
 import { sendMessage, downloadTelegramFile } from '../utils/telegram.ts';
 import { updateSession } from '../utils/session.ts';
 import { supabase } from '../constants.ts';
+import { checkBotPermission, PERMISSION_ERROR_MESSAGES } from '../utils/auth.ts';
+import { t } from '../utils/responses.ts';
 import type { Session, TelegramPhoto, Nachtrag, Mangel } from '../types.ts';
 
 // ============================================
@@ -26,6 +28,13 @@ export async function showFotoAuswahlMenu(
   session: Session,
   photos: TelegramPhoto[]
 ): Promise<void> {
+  // Permission-Check für Fotos
+  const hasPermission = await checkBotPermission(chatId, 'bot_kann_fotos');
+  if (!hasPermission) {
+    await sendMessage(chatId, t(PERMISSION_ERROR_MESSAGES.bot_kann_fotos, 'DE'));
+    return;
+  }
+
   const projektNr = session?.modus_daten?.projekt_nr;
   const bvId = session?.aktuelles_bv_id;
 

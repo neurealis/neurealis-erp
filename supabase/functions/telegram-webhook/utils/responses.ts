@@ -173,6 +173,25 @@ export const RESPONSES: ResponseTemplates = {
   },
 
   // -------------------------------------------------------------------------
+  // Bot-Permissions
+  // -------------------------------------------------------------------------
+  PERMISSION_KEINE_MAENGEL: {
+    DE: '🔒 Du hast keine Berechtigung, Mängel zu melden.\n\nBitte wende dich an deinen Bauleiter.',
+  },
+  PERMISSION_KEINE_NACHTRAEGE: {
+    DE: '🔒 Du hast keine Berechtigung, Nachträge zu erfassen.\n\nBitte wende dich an deinen Bauleiter.',
+  },
+  PERMISSION_KEINE_BESTELLUNGEN: {
+    DE: '🔒 Du hast keine Berechtigung, Bestellungen aufzugeben.\n\nBitte wende dich an deinen Bauleiter.',
+  },
+  PERMISSION_KEINE_FOTOS: {
+    DE: '🔒 Du hast keine Berechtigung, Fotos hochzuladen.\n\nBitte wende dich an deinen Bauleiter.',
+  },
+  PERMISSION_KEIN_STATUS: {
+    DE: '🔒 Du hast keine Berechtigung, den Status abzufragen.\n\nBitte wende dich an deinen Bauleiter.',
+  },
+
+  // -------------------------------------------------------------------------
   // Listen
   // -------------------------------------------------------------------------
   LISTE_LEER: {

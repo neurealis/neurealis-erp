@@ -7,7 +7,7 @@ import { sendMessage, downloadTelegramFile } from '../utils/telegram.ts';
 import { updateSession, updateLetzteAktion, addProjektToHistorie } from '../utils/session.ts';
 import { supabase } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
-import { getGemeldetVon, generateNachtragNummer } from '../utils/auth.ts';
+import { getGemeldetVon, generateNachtragNummer, checkBotPermission, PERMISSION_ERROR_MESSAGES } from '../utils/auth.ts';
 import { processNachtragBeschreibung } from '../utils/lv_matching.ts';
 import { getProjektStammdaten } from '../utils/helpers.ts';
 import { t, getGewerkEmoji, BUTTONS, createInlineKeyboard } from '../utils/responses.ts';
@@ -20,6 +20,13 @@ import type { IntentAnalysis } from '../utils/intent_detection.ts';
 // ============================================
 
 export async function startNachtragErfassung(chatId: number, session: any) {
+  // Permission-Check
+  const hasPermission = await checkBotPermission(chatId, 'bot_kann_nachtraege');
+  if (!hasPermission) {
+    await sendMessage(chatId, t(PERMISSION_ERROR_MESSAGES.bot_kann_nachtraege, 'DE'));
+    return;
+  }
+
   if (!session?.aktuelles_bv_id) {
     await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
     await showBaustellenMenu(chatId, session);

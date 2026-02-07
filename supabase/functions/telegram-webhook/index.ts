@@ -137,6 +137,9 @@ import {
 // Type imports
 import type { Session, TelegramUpdate } from './types.ts';
 
+// Auth imports
+import { checkTelegramAccess, getKontaktByChatId } from './utils/auth.ts';
+
 // ============================================
 // Intent-Based Routing (One-Shot Commands)
 // ============================================
@@ -451,6 +454,15 @@ async function handleCallbackQuery(update: TelegramUpdate): Promise<void> {
   const data = update.callback_query!.data!;
   const callbackId = update.callback_query!.id;
   const session = await getOrCreateSession(chatId) as Session;
+
+  // ============================================
+  // ACCESS CONTROL für Callbacks
+  // ============================================
+  const accessResult = await checkTelegramAccess(chatId);
+  if (!accessResult.allowed) {
+    await answerCallbackQuery(callbackId, 'Zugriff nicht berechtigt');
+    return;
+  }
 
   // Main Menu
   if (data === 'main_menu') {
@@ -942,8 +954,58 @@ Deno.serve(async (req) => {
       const session = await getOrCreateSession(chatId, from) as Session;
       await updateSession(chatId, {});
 
+      // ============================================
+      // ACCESS CONTROL - Prüfe ob User berechtigt ist
+      // ============================================
+      // /start erlauben um Verifizierungs-Info anzuzeigen
+      if (!text.startsWith('/start')) {
+        const accessResult = await checkTelegramAccess(chatId);
+
+        if (!accessResult.allowed) {
+          // User nicht berechtigt - Grund-spezifische Nachricht
+          if (accessResult.reason === 'disabled') {
+            await sendMessage(chatId,
+              '🔒 <b>Zugriff deaktiviert</b>\n\n' +
+              'Dein Telegram-Zugang wurde vom Administrator deaktiviert.\n\n' +
+              'Bitte kontaktiere die neurealis GmbH falls du Zugriff benötigst.'
+            );
+          } else {
+            await sendMessage(chatId,
+              '🔒 <b>Zugriff nicht berechtigt</b>\n\n' +
+              'Du bist nicht für den neurealis Bot freigeschaltet.\n\n' +
+              'Bitte kontaktiere die neurealis GmbH um Zugriff zu erhalten.'
+            );
+          }
+          return new Response('OK', { status: 200 });
+        }
+      }
+
       // Text Commands
       if (text.startsWith('/start')) {
+        // Bei /start: Access prüfen und ggf. Verifizierungs-Info anzeigen
+        const accessResult = await checkTelegramAccess(chatId);
+
+        if (!accessResult.allowed) {
+          if (accessResult.reason === 'disabled') {
+            await sendMessage(chatId,
+              '🔒 <b>Zugriff deaktiviert</b>\n\n' +
+              'Dein Telegram-Zugang wurde vom Administrator deaktiviert.\n\n' +
+              'Bitte kontaktiere die neurealis GmbH falls du wieder Zugriff benötigst.'
+            );
+          } else {
+            await sendMessage(chatId,
+              '🔒 <b>neurealis Bot - Zugriff erforderlich</b>\n\n' +
+              'Um diesen Bot zu nutzen, musst du in der neurealis-Datenbank registriert sein.\n\n' +
+              '<b>So erhältst du Zugriff:</b>\n' +
+              '1. Kontaktiere die neurealis GmbH\n' +
+              '2. Teile deine Telegram-Telefonnummer mit\n' +
+              '3. Ein Administrator schaltet dich frei\n\n' +
+              '💡 <i>Deine Chat-ID: ' + chatId + '</i>'
+            );
+          }
+          return;
+        }
+
         await handleStart(chatId, session);
       }
       else if (text.startsWith('/hilfe') || text.startsWith('/help')) {

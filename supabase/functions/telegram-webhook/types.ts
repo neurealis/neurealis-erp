@@ -203,7 +203,35 @@ export interface Kontakt {
   rolle?: string;
   email?: string;
   firma?: string;
+  telefon_mobil?: string;
   telegram_chat_id?: number;
+  telegram_verified?: boolean;
+  telegram_enabled?: boolean;
+  // Bot-Permissions
+  bot_kann_maengel?: boolean;
+  bot_kann_nachtraege?: boolean;
+  bot_kann_bestellungen?: boolean;
+  bot_kann_fotos?: boolean;
+  bot_kann_status?: boolean;
+}
+
+// Bot-Permissions Interface
+export interface BotPermissions {
+  bot_kann_maengel: boolean;
+  bot_kann_nachtraege: boolean;
+  bot_kann_bestellungen: boolean;
+  bot_kann_fotos: boolean;
+  bot_kann_status: boolean;
+}
+
+// Bot-Permission-Keys als Type
+export type BotPermissionKey = keyof BotPermissions;
+
+// Telegram Access Check Result
+export interface TelegramAccessResult {
+  allowed: boolean;
+  kontakt?: Kontakt;
+  reason?: 'not_found' | 'disabled' | 'phone_mismatch' | 'ok';
 }
 
 // Telegram Update

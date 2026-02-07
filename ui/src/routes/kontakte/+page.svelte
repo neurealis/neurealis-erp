@@ -26,6 +26,17 @@
 		sync_source: string | null;
 		created_at: string | null;
 		updated_at: string | null;
+		// Telegram-Felder
+		telegram_enabled: boolean | null;
+		telegram_verified: boolean | null;
+		telegram_chat_id: number | null;
+		telegram_verified_at: string | null;
+		// Bot-Permissions
+		bot_kann_maengel: boolean | null;
+		bot_kann_nachtraege: boolean | null;
+		bot_kann_bestellungen: boolean | null;
+		bot_kann_fotos: boolean | null;
+		bot_kann_status: boolean | null;
 	}
 
 	interface KontaktFormData {
@@ -44,6 +55,14 @@
 		plz: string;
 		ort: string;
 		notizen: string;
+		// Telegram-Felder
+		telegram_enabled: boolean;
+		// Bot-Permissions
+		bot_kann_maengel: boolean;
+		bot_kann_nachtraege: boolean;
+		bot_kann_bestellungen: boolean;
+		bot_kann_fotos: boolean;
+		bot_kann_status: boolean;
 	}
 
 	// State
@@ -119,7 +138,14 @@
 			strasse: '',
 			plz: '',
 			ort: '',
-			notizen: ''
+			notizen: '',
+			telegram_enabled: false,
+			// Bot-Permissions - Default alle erlaubt
+			bot_kann_maengel: true,
+			bot_kann_nachtraege: true,
+			bot_kann_bestellungen: true,
+			bot_kann_fotos: true,
+			bot_kann_status: true
 		};
 	}
 
@@ -268,7 +294,11 @@
 				aktiv,
 				sync_source,
 				created_at,
-				updated_at
+				updated_at,
+				telegram_enabled,
+				telegram_verified,
+				telegram_chat_id,
+				telegram_verified_at
 			`)
 			.eq('aktiv', true)
 			.order('nachname', { ascending: true });
@@ -333,7 +363,8 @@
 			strasse: kontakt.strasse || '',
 			plz: kontakt.plz || '',
 			ort: kontakt.ort || '',
-			notizen: kontakt.notizen || ''
+			notizen: kontakt.notizen || '',
+			telegram_enabled: kontakt.telegram_enabled || false
 		};
 		formErrors = {};
 		showModal = true;
@@ -397,6 +428,7 @@
 			plz: formData.plz || null,
 			ort: formData.ort || null,
 			notizen: formData.notizen || null,
+			telegram_enabled: formData.telegram_enabled,
 			sync_source: 'manual',
 			updated_at: new Date().toISOString()
 		};
@@ -611,6 +643,15 @@
 							{#if kontakt.sync_source}
 								<span class="sync-badge" title="Quelle: {kontakt.sync_source}">
 									{getSyncIcon(kontakt.sync_source)}
+								</span>
+							{/if}
+							{#if kontakt.telegram_enabled}
+								<span
+									class="telegram-badge"
+									class:verified={kontakt.telegram_verified}
+									title={kontakt.telegram_verified ? 'Telegram verifiziert' : 'Telegram aktiviert (nicht verifiziert)'}
+								>
+									T
 								</span>
 							{/if}
 						</div>
@@ -884,6 +925,56 @@
 							rows="3"
 						></textarea>
 					</div>
+				</div>
+
+				<div class="form-section telegram-section">
+					<h3>Telegram Bot</h3>
+					<div class="telegram-toggle-row">
+						<label class="toggle-label">
+							<input
+								type="checkbox"
+								bind:checked={formData.telegram_enabled}
+								class="toggle-input"
+							>
+							<span class="toggle-switch"></span>
+							<span class="toggle-text">Telegram Bot aktiviert</span>
+						</label>
+						<span class="toggle-hint">
+							Erlaubt diesem Kontakt die Nutzung des Telegram-Bots
+						</span>
+					</div>
+
+					{#if modalMode === 'edit' && editingKontakt}
+						<div class="telegram-status">
+							{#if editingKontakt.telegram_verified}
+								<span class="status-badge verified">
+									Verifiziert
+								</span>
+								{#if editingKontakt.telegram_verified_at}
+									<span class="status-date">
+										seit {new Date(editingKontakt.telegram_verified_at).toLocaleDateString('de-DE')}
+									</span>
+								{/if}
+							{:else if editingKontakt.telegram_enabled}
+								<span class="status-badge pending">
+									Warte auf Verifizierung
+								</span>
+								<span class="status-hint">
+									Kontakt muss den Bot mit seiner Telefonnummer starten
+								</span>
+							{:else}
+								<span class="status-badge disabled">
+									Nicht aktiviert
+								</span>
+							{/if}
+
+							{#if editingKontakt.telegram_chat_id}
+								<div class="telegram-id">
+									Chat-ID: <code>{editingKontakt.telegram_chat_id}</code>
+								</div>
+							{/if}
+						</div>
+					{/if}
 				</div>
 
 				<div class="modal-footer">
@@ -1216,6 +1307,24 @@
 		background: var(--color-gray-200);
 		color: var(--color-gray-600);
 		border-radius: 3px;
+	}
+
+	.telegram-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		font-size: 0.65rem;
+		font-weight: 700;
+		background: var(--color-warning-bg, #fef3c7);
+		color: var(--color-warning-dark, #b45309);
+		border-radius: 3px;
+	}
+
+	.telegram-badge.verified {
+		background: var(--color-success-bg, #dcfce7);
+		color: var(--color-success-dark, #15803d);
 	}
 
 	.kontaktarten {
@@ -1679,6 +1788,133 @@
 		font-size: 0.85rem;
 		color: var(--color-gray-500);
 		margin-top: 0.5rem;
+	}
+
+	/* Telegram Section */
+	.telegram-section {
+		background: var(--color-gray-50);
+		padding: 1rem;
+		border: 1px solid var(--color-gray-200);
+		margin-top: 0.5rem;
+	}
+
+	.telegram-toggle-row {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.toggle-label {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.toggle-input {
+		display: none;
+	}
+
+	.toggle-switch {
+		position: relative;
+		width: 44px;
+		height: 24px;
+		background: var(--color-gray-300);
+		border-radius: 12px;
+		transition: background 0.2s ease;
+		flex-shrink: 0;
+	}
+
+	.toggle-switch::after {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 20px;
+		height: 20px;
+		background: white;
+		border-radius: 50%;
+		transition: transform 0.2s ease;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	}
+
+	.toggle-input:checked + .toggle-switch {
+		background: var(--color-success);
+	}
+
+	.toggle-input:checked + .toggle-switch::after {
+		transform: translateX(20px);
+	}
+
+	.toggle-text {
+		font-weight: 500;
+		color: var(--color-gray-800);
+	}
+
+	.toggle-hint {
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+		margin-left: 56px;
+	}
+
+	.telegram-status {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-gray-200);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.status-badge {
+		display: inline-block;
+		padding: 0.25rem 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		border-radius: 3px;
+	}
+
+	.status-badge.verified {
+		background: var(--color-success-bg, #dcfce7);
+		color: var(--color-success-dark, #15803d);
+	}
+
+	.status-badge.pending {
+		background: var(--color-warning-bg, #fef3c7);
+		color: var(--color-warning-dark, #b45309);
+	}
+
+	.status-badge.disabled {
+		background: var(--color-gray-100);
+		color: var(--color-gray-500);
+	}
+
+	.status-date {
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+	}
+
+	.status-hint {
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+		flex-basis: 100%;
+		margin-top: 0.25rem;
+	}
+
+	.telegram-id {
+		flex-basis: 100%;
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+		color: var(--color-gray-500);
+	}
+
+	.telegram-id code {
+		font-family: var(--font-family-mono);
+		background: var(--color-gray-200);
+		padding: 0.125rem 0.375rem;
+		border-radius: 3px;
 	}
 
 	@media (max-width: 768px) {

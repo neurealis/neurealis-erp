@@ -7,6 +7,8 @@ import { sendMessage, downloadTelegramFile } from '../utils/telegram.ts';
 import { updateSession } from '../utils/session.ts';
 import { supabase } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
+import { checkBotPermission, PERMISSION_ERROR_MESSAGES } from '../utils/auth.ts';
+import { t } from '../utils/responses.ts';
 
 // Nachweis-Typ Labels
 const NACHWEIS_TYP_LABELS: Record<string, string> = {
@@ -22,6 +24,13 @@ const NACHWEIS_TYP_LABELS: Record<string, string> = {
 // ============================================
 
 export async function showNachweisTypen(chatId: number, session: any) {
+  // Permission-Check für Fotos/Nachweise
+  const hasPermission = await checkBotPermission(chatId, 'bot_kann_fotos');
+  if (!hasPermission) {
+    await sendMessage(chatId, t(PERMISSION_ERROR_MESSAGES.bot_kann_fotos, 'DE'));
+    return;
+  }
+
   if (!session?.aktuelles_bv_id) {
     await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
     await showBaustellenMenu(chatId, session);

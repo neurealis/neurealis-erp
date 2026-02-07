@@ -8,7 +8,7 @@ import { updateSession, updateLetzteAktion, addProjektToHistorie } from '../util
 import { supabase, OPENAI_API_KEY } from '../constants.ts';
 import { showBaustellenMenu } from './start.ts';
 import { getProjektStammdaten } from '../utils/helpers.ts';
-import { getGemeldetVon, generateMangelNummer as generateMangelNr } from '../utils/auth.ts';
+import { getGemeldetVon, generateMangelNummer as generateMangelNr, checkBotPermission, PERMISSION_ERROR_MESSAGES } from '../utils/auth.ts';
 import { t, getGewerkEmoji, BUTTONS, createInlineKeyboard } from '../utils/responses.ts';
 import { extractDescriptionFromText } from '../utils/intent_detection.ts';
 import type { IntentAnalysis } from '../utils/intent_detection.ts';
@@ -101,6 +101,13 @@ async function generateMangelNummer(atbs: string): Promise<string> {
 // ============================================
 
 export async function startMangelMeldung(chatId: number, session: any) {
+  // Permission-Check
+  const hasPermission = await checkBotPermission(chatId, 'bot_kann_maengel');
+  if (!hasPermission) {
+    await sendMessage(chatId, t(PERMISSION_ERROR_MESSAGES.bot_kann_maengel, 'DE'));
+    return;
+  }
+
   if (!session?.aktuelles_bv_id) {
     await sendMessage(chatId, '⚠️ Bitte zuerst ein Projekt öffnen.');
     await showBaustellenMenu(chatId, session);
