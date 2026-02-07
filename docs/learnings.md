@@ -1,6 +1,15 @@
 # Learnings - neurealis ERP
 
-**Stand:** 2026-02-06
+**Stand:** 2026-02-07
+
+---
+
+## Workflow / Recherche
+
+### L225 - 3-Agenten-Modell auch für Recherche nutzbar
+**Datum:** 2026-02-07
+**Kategorie:** Workflow/Agenten
+**Ref:** LOG-102
 
 ---
 
